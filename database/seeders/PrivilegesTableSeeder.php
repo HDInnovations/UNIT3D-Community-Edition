@@ -23,6 +23,7 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'torrent_can_view', 'name' => 'torrent_can_view'],
             ['slug' => 'torrent_can_create', 'name' => 'torrent_can_create'],
             ['slug' => 'torrent_can_bypass_modq', 'name' => 'torrent_can_bypass_modq'],
+            ['slug' => 'torrent_can_moderate', 'name' => 'torrent_can_moderate'],
             ['slug' => 'torrent_can_update', 'name' => 'torrent_can_update'],
             ['slug' => 'torrent_can_update_title', 'name' => 'torrent_can_update_title'],
             ['slug' => 'torrent_can_update_description', 'name' => 'torrent_can_update_description'],
@@ -107,7 +108,8 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'users_view_security', 'name' => 'Users: View Users Security Information'],
             ['slug' => 'users_edit_security', 'name' => 'Users: Edit Users Security Information'],
             ['slug'=> 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences'],
-            ['slug' => 'user_special_freeleech', 'name'=> 'User: Special Freeleech']
+            ['slug' => 'user_special_freeleech', 'name'=> 'User: Special Freeleech'],
+            ['slug' => 'user_special_double_upload', 'name'=> 'User: Special Double Upload']
         ], ['slug'], ['name']);
         $this->call(RolePrivileges::class);
         Schema::enableForeignKeyConstraints();

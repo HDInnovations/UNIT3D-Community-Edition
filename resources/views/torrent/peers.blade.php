@@ -56,10 +56,10 @@
                                         <span class="badge-user text-orange text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                 aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
-                                        @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
+                                        @if (auth()->user()->id == $p->id || auth()->user()->hasPrivilegeTo('users_view_private'))
                                             <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                     class="badge-user text-bold"
-                                                    style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
+                                                    style="color:{{ $p->user->primaryRole->color }};">({{ $p->user->username }}
                                                 )</span></a>@endif</td>
                                 @else
                                     <td>
@@ -70,9 +70,9 @@
                                         @endif
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                 class="badge-user text-bold"
-                                                style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                                    class="{{ $p->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $p->user->group->name }}"></i>
+                                                style="color:{{ $p->user->primaryRole->color }}; background-image:{{ $p->user->primaryRole->effect }};"><i
+                                                    class="{{ $p->user->primaryRole->icon }}" data-toggle="tooltip"
+                                                    data-original-title="{{ $p->user->primaryRole->name }}"></i>
                                                 {{ $p->user->username }}</span></a>
                                     </td>
                                 @endif
@@ -109,7 +109,7 @@
                                         class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
                                 </td>
                                 <td><span class="badge-extra text-purple text-bold">{{ $p->agent }}</span></td>
-                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
+                                @if (auth()->user()->hasPrivilegeTo('users_view_personal') || auth()->user()->id == $p->user_id)
                                     <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
                                     <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
                                 @else

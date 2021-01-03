@@ -169,7 +169,7 @@ class TorrentController extends Controller
     public function cardLayout(Request $request)
     {
         $user = $request->user();
-        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->latest()->paginate(33);
+        $torrents = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])->latest()->paginate(33);
         $repository = $this->torrentFacetedRepository;
 
         foreach ($torrents as $torrent) {

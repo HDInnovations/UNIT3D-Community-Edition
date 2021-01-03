@@ -170,7 +170,7 @@
                     </div>
                     <br>
                     <br>
-                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    @if (auth()->user()->hasPrivilegeTo('torrent_can_internal'))
                         <label for="internal" class="control-label">Internal?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="internal" @if ($torrent->internal == 1) checked

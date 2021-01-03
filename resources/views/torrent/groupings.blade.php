@@ -414,7 +414,7 @@
                                                                                 @if ($current->anon == 1)
                                                                                     <span class="badge-extra text-bold">
                                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-                                                                                        @if ($user->id == $current->user->id || $user->group->is_modo)
+                                                                                        @if ($user->id == $current->user->id || $user->hasPrivilegeTo('user_view_private'))
                                                                                             <a href="{{ route('users.show', ['username' => $current->user->username]) }}">
                                                                         ({{ $current->user->username }})
                                                                     </a>
@@ -487,7 +487,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @if ($user->group->is_freeleech == 1)
+                                                                                @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-trophy text-purple' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.special-freeleech')'></i> @lang('torrent.special-freeleech')
@@ -508,7 +508,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @if ($user->group->is_double_upload == 1)
+                                                                                @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                                                                     <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('

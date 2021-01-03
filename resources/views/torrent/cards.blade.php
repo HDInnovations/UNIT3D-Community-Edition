@@ -401,7 +401,7 @@
                                             @if ($torrent->anon == 1)
                                                 <span
                                                         class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->hasPrivilegeTo('users_view_private'))
                                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                                             ({{ $torrent->user->username }})
                                                         </a>
@@ -410,9 +410,9 @@
                                             @else
                                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                                     <span class="badge-user text-bold"
-                                                          style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
-                                                        <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip" title=""
-                                                           data-original-title="{{ $torrent->user->group->name }}"></i>
+                                                          style="color:{{ $torrent->user->primaryRole->color }}; background-image:{{ $torrent->user->primaryRole->effect }};">
+                                                        <i class="{{ $torrent->user->primaryRole->icon }}" data-toggle="tooltip" title=""
+                                                           data-original-title="{{ $torrent->user->primaryRole->name }}"></i>
                                                         {{ $torrent->user->username }}
                                                     </span>
                                                 </a>

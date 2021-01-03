@@ -53,10 +53,10 @@
                                         <span class="badge-user text-orange text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                 aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
-                                        @if (auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
+                                        @if (auth()->user()->id == $hpeers->user->id || auth()->user()->hasPrivilegeTo('users_view_private'))
                                             <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
                                                     class="badge-user text-bold"
-                                                    style="color:{{ $hpeers->user->group->color }};">{{ $hpeers->user->username }}</span></a>
+                                                    style="color:{{ $hpeers->user->primaryRole->color }};">{{ $hpeers->user->username }}</span></a>
                                         @endif
                                     </td>
                                 @else
@@ -69,9 +69,9 @@
                                         @endif
                                         <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
                                                 class="badge-user text-bold"
-                                                style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i
-                                                    class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $hpeers->user->group->name }}"></i>
+                                                style="color:{{ $hpeers->user->primaryRole->color }}; background-image:{{ $hpeers->user->primaryRole->effect }};"><i
+                                                    class="{{ $hpeers->user->primaryRole->icon }}" data-toggle="tooltip"
+                                                    data-original-title="{{ $hpeers->user->primaryRole->name }}"></i>
                                                 {{ $hpeers->user->username }}</span></a>
                                     </td>
                                 @endif

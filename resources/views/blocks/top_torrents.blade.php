@@ -212,7 +212,7 @@
                                             </span>
                                         @endif
     
-                                        @if ($user->group->is_freeleech == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
@@ -236,7 +236,7 @@
                                             </span>
                                         @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('
@@ -475,7 +475,7 @@
                                             </span>
                                         @endif
     
-                                        @if ($user->group->is_freeleech == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
@@ -499,7 +499,7 @@
                                             </span>
                                         @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('
@@ -739,7 +739,7 @@
                                             </span>
                                         @endif
     
-                                        @if ($user->group->is_freeleech == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
@@ -763,7 +763,7 @@
                                             </span>
                                         @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('
@@ -1004,7 +1004,7 @@
                                             </span>
                                         @endif
     
-                                        @if ($user->group->is_freeleech == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
@@ -1028,7 +1028,7 @@
                                             </span>
                                         @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('
@@ -1268,7 +1268,7 @@
                                             </span>
                                         @endif
     
-                                        @if ($user->group->is_freeleech == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
@@ -1292,7 +1292,7 @@
                                             </span>
                                         @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('

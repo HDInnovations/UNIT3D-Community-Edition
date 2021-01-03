@@ -54,7 +54,7 @@ trait HasPrivilege
      */
     public function hasPrivilegeTo($privilege)
     {
-        $perm = Privilege::where('slug', '=', $privilege)->first();
+        $perm = Privilege::where('slug', '=', $privilege)->firstOrFail();
 
         return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);
     }
