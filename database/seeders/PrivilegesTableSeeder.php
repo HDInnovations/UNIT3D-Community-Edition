@@ -106,7 +106,8 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'users_edit_personal', 'name' => 'Users: Edit Users Personal Information'],
             ['slug' => 'users_view_security', 'name' => 'Users: View Users Security Information'],
             ['slug' => 'users_edit_security', 'name' => 'Users: Edit Users Security Information'],
-            ['slug'=> 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences']
+            ['slug'=> 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences'],
+            ['slug' => 'user_special_freeleech', 'name'=> 'User: Special Freeleech']
         ], ['slug'], ['name']);
         $this->call(RolePrivileges::class);
         Schema::enableForeignKeyConstraints();

@@ -32,7 +32,7 @@
             <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab" data-toggle="tab"
                     aria-expanded="true">@lang('common.account')</a></li>
             <li role="presentation" class=""><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab"
-                    aria-expanded="false">@lang('user.id-permissions')</a></li>
+                    aria-expanded="false">@lang('user.roles and privileges')</a></li>
             <li role="presentation" class=""><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"
                     aria-expanded="false">@lang('staff.user-notes')</a></li>
             <li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
@@ -112,7 +112,9 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="permissions">
-                <h3>@lang('user.id-permissions')</h3>
+                <h3>@lang('user.roles and privileges')</h3>
+                <hr>
+                <h4>@lang('user.privileges')</h4>
                 <hr>
                 <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf

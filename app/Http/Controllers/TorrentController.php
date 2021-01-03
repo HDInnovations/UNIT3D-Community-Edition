@@ -1287,7 +1287,7 @@ class TorrentController extends Controller
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        $torrent->internal = $$user->hasPrivilegeTo('torrent_can_internal') ? $request->input('internal') : 0;
+        $torrent->internal = $user->hasPrivilegeTo('torrent_can_internal') ? $request->input('internal') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->hasPrivilegeTo('torrent_can_freeleech') ? $request->input('free') : 0;
