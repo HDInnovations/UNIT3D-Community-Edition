@@ -1005,9 +1005,7 @@ class User extends Authenticatable
      */
     public function getCompletedSeeds()
     {
-        $satisfied = History::where('user_id', '=', $this->id)->where('seedtime', '>=', \config('hitrun.seedtime'))->count();
-
-        return $satisfied;
+        return History::where('user_id', '=', $this->id)->where('seedtime', '>=', \config('hitrun.seedtime'))->count();
     }
 
     /**
