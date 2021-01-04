@@ -74,7 +74,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', 'banned']], function () {
 
         // General
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -117,13 +117,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::patch('/{id}/update', 'RssController@update')->name('update');
                 Route::delete('/{id}/destroy', 'RssController@destroy')->name('destroy');
             });
-        });
-
-        // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
-            Route::get('/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
-            Route::post('/verify', 'Auth\TwoStepController@verify')->name('verify');
-            Route::post('/resend', 'Auth\TwoStepController@resend')->name('resend');
         });
 
         // Bonus System
@@ -243,7 +236,14 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/vote', 'RequestController@addBonus')->name('add_votes');
             Route::post('/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
             Route::get('/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
-            Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('modo');
+            Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('privilege:request_can_reset');
+        });
+
+        // Roles System
+        Route::group(['prefix' => 'roles'], function () {
+            Route::name('roles.')->group(function () {
+                Route::get('/', 'RoleController@index')->name('index');
+            });
         });
 
         // Torrents System
@@ -253,7 +253,6 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['prefix' => 'torrents'], function () {
-            Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
             Route::get('/', 'TorrentController@torrents')->name('torrents');
@@ -340,7 +339,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
             Route::post('/{username}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
             Route::post('/{username}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
-            Route::post('/{username}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
             Route::get('/{username}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
             Route::get('/{username}/settings/visible', 'UserController@makeVisible')->name('user_visible');
             Route::get('/{username}/settings/private', 'UserController@makePrivate')->name('user_private');
@@ -367,9 +365,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::delete('/{username}', 'FollowController@destroy')->name('destroy');
             });
         });
-
-        // Thank System
-        Route::get('/thanks/{id}', 'ThankController@store')->name('thanks.store');
 
         // Invite System
         Route::group(['prefix' => 'invites'], function () {
@@ -457,7 +452,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'MediaHub'], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'banned'], 'namespace' => 'MediaHub'], function () {
         // MediaHub Home
         Route::get('/', 'HomeController@index')->name('mediahub.index');
 
@@ -512,7 +507,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'banned'], 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('/chatrooms', 'ChatController@fetchChatrooms');
         Route::post('/change-chatroom', 'ChatController@changeChatroom');
@@ -525,7 +520,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'banned']], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', 'ForumController@index')->name('index');
@@ -578,7 +573,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function () {
+        Route::group(['prefix' => 'topics', 'middleware' => 'privilege:forum_can_edit_label'], function () {
             Route::name('topics.')->group(function () {
                 Route::get('/{id}/approve', 'TopicLabelController@approve')->name('approve');
                 Route::get('/{id}/deny', 'TopicLabelController@deny')->name('deny');
@@ -606,7 +601,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'banned', 'privilege:dashboard_can_view'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
@@ -762,17 +757,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Groups System
-        Route::group(['prefix' => 'groups'], function () {
-            Route::name('staff.groups.')->group(function () {
-                Route::get('/', 'GroupController@index')->name('index');
-                Route::get('/create', 'GroupController@create')->name('create');
-                Route::post('/store', 'GroupController@store')->name('store');
-                Route::get('/{id}/edit', 'GroupController@edit')->name('edit');
-                Route::post('/{id}/update', 'GroupController@update')->name('update');
-            });
-        });
-
         // Invites Log
         Route::group(['prefix' => 'invites'], function () {
             Route::name('staff.invites.')->group(function () {
@@ -860,6 +844,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', 'ResolutionController@edit')->name('edit');
                 Route::patch('/{id}/update', 'ResolutionController@update')->name('update');
                 Route::delete('/{id}/destroy', 'ResolutionController@destroy')->name('destroy');
+            });
+        });
+
+        // Roles System
+        Route::group(['prefix' => 'roles'], function () {
+            Route::name('staff.roles.')->group(function () {
+                Route::get('/', 'RoleController@index')->name('index');
+                Route::get('/create', 'RoleController@create')->name('create');
+                Route::post('/store', 'RoleController@store')->name('store');
+                Route::get('/{id}/edit', 'RoleController@edit')->name('edit');
+                Route::post('/{id}/update', 'RoleController@update')->name('update');
+                Route::delete('/{id}/destroy', 'RoleController@destroy')->name('destroy');
             });
         });
 

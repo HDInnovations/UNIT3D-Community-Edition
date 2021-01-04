@@ -76,9 +76,9 @@
                                                     )</a>@endif</span>
                             @else
                                 <a href="{{ route('users.show', ['username' => $t->user->username]) }}">
-                                <span class="badge-user text-bold" style="color:{{ $t->user->group->color }}; background-image:{{ $t->user->group->effect }};">
-                                    <i class="{{ $t->user->group->icon }}" data-toggle="tooltip" title=""
-                                       data-original-title="{{ $t->user->group->name }}"></i> {{ $t->user->username }}
+                                <span class="badge-user text-bold" style="color:{{ $t->user->primaryRole->color }}; background-image:{{ $t->user->primaryRole->effect }};">
+                                    <i class="{{ $t->user->primaryRole->icon }}" data-toggle="tooltip" title=""
+                                       data-original-title="{{ $t->user->primaryRole->name }}"></i> {{ $t->user->username }}
                                 </span>
                                 </a>
                             @endif

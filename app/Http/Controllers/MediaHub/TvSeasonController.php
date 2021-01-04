@@ -22,7 +22,7 @@ class TvSeasonController extends Controller
     /**
      * Display All TV Seasons.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return void
      */
     public function index()
     {
@@ -32,6 +32,8 @@ class TvSeasonController extends Controller
     /**
      * Show A TV Season.
      *
+     * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -39,7 +41,7 @@ class TvSeasonController extends Controller
         $season = Season::with(['episodes'])->findOrFail($id);
         $show = Tv::whereId($season->tv_id)->first();
 
-        return view('mediahub.tv.season.show', [
+        return \view('mediahub.tv.season.show', [
             'season' => $season,
             'show'   => $show,
         ]);

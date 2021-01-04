@@ -6,7 +6,6 @@
                     <div class="button-center">
                         <div class="text-left">
                 <a v-if="user.id !== 1" target="_blank"
-                   v-tooltip="`${user.username}'s profile`"
                    :href="`/users/${user.username}`">
                     <img class="chat-user-image"
                          :style="user && user.hasOwnProperty('chat_status') && user.chat_status.hasOwnProperty('color') ? `border: 3px solid ${user.chat_status.color};` : ``"
@@ -16,12 +15,10 @@
                 <h4 class="list-group-item-heading">
                     <span class="badge-user text-bold" :style="userStyles(user)">
 
-                        <i v-tooltip="user.group.name"
-                           :class="user.group.icon">
+                        <i :class="user.primary_role.icon">
                         </i>
 
-                        <a v-tooltip="$parent.auth.id !== user.id ? `Private Message` : user.username"
-                           :style="groupColor(user)"
+                        <a :style="groupColor(user)"
                            @click="pmUser(user)">
 					        {{ user.username }}
                         </a>
@@ -50,10 +47,10 @@
     ],
     methods: {
       userStyles (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};` : `cursor: pointer;`
+        return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `cursor: pointer; color: ${user.primary_role.color}; background-image: ${user.primary_role.effect};` : `cursor: pointer;`
       },
       groupColor (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
+        return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `color: ${user.primary_role.color};` : `cursor: pointer;`
       }
     }
   }

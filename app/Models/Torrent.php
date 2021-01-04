@@ -356,9 +356,7 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['description'] = $antiXss->xss_clean($value);
+        $this->attributes['description'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -393,9 +391,7 @@ class Torrent extends Model
      */
     public function getMediaInfo()
     {
-        $mediaInfo = new MediaInfo();
-
-        return $mediaInfo->parse($this->mediaInfo);
+        return (new MediaInfo())->parse($this->mediaInfo);
     }
 
     /**
@@ -462,7 +458,7 @@ class Torrent extends Model
      */
     public function isFreeleech($user = null)
     {
-        $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
+        $pfree = $user ? $user->hasPrivilegeTo('user_special_freeleech') || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
 
         return $this->free || \config('other.freeleech') || $pfree;
     }

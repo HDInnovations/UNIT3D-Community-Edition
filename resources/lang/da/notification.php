@@ -14,12 +14,13 @@
 return [
     'date'             => 'Dato',
     'delete'           => 'Slet',
-    'delete-all'       => 'Slet alle meddelelser',
+    'delete-all'       => 'Slet alt',
     'mark-all-read'    => 'Markér alle som læst',
     'mark-read'        => 'Marker som læst',
     'message'          => 'Besked',
     'no-notifications' => 'Der er ingen meddelelser fundet',
-    'notifications'    => 'underretninger',
+    'notifications'    => 'Notifikationer',
     'read'             => 'Læs',
     'title'            => 'Titel',
+
 ];

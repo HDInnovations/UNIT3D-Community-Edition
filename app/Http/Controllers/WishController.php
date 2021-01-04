@@ -24,18 +24,12 @@ use Illuminate\Http\Request;
 class WishController extends Controller
 {
     /**
-     * @var WishInterface
-     */
-    private $wish;
-
-    /**
      * WishController Constructor.
      *
-     * @param WishInterface $wish
+     * @param \App\Interfaces\WishInterface $wish
      */
-    public function __construct(WishInterface $wish)
+    public function __construct(private WishInterface $wish)
     {
-        $this->wish = $wish;
     }
 
     /**
@@ -66,6 +60,8 @@ class WishController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
+     * @throws \JsonException
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -85,8 +81,7 @@ class WishController extends Controller
                 ->withErrors('Wish already exists!');
         }
 
-        $client = new Movie($tmdb);
-        $meta = $client->index();
+        $meta = (new Movie($tmdb))->getData();
 
         if ($meta === null || $meta === false) {
             return \redirect()

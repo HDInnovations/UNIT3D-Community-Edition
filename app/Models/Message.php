@@ -113,9 +113,7 @@ class Message extends Model
      */
     public function setMessageAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['message'] = $antiXss->xss_clean($value);
+        $this->attributes['message'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -127,8 +125,6 @@ class Message extends Model
      */
     public static function getMessageHtml($message)
     {
-        $bbcode = new Bbcode();
-
-        return $bbcode->parse($message, true);
+        return (new Bbcode())->parse($message, true);
     }
 }

@@ -42,10 +42,10 @@ class MessageSent implements ShouldBroadcastNow
     {
         $message = Message::with([
             'bot',
-            'user.group',
+            'user.primaryRole',
             'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
+            'receiver.primaryRole',
+            'receiver.chatStatus'
         ])->find($message->id);
 
         $this->message = new ChatMessageResource($message);

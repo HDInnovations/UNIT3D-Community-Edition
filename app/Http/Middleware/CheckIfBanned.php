@@ -13,7 +13,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Group;
+use App\Models\Role;
 use Closure;
 
 class CheckIfBanned
@@ -32,9 +32,8 @@ class CheckIfBanned
     public function handle($request, Closure $next, $guard = null)
     {
         $user = $request->user();
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->group_id == $banned_group[0]) {
+        if ($user->hasRole(['banned'])) {
             \auth()->logout();
             $request->session()->flush();
 

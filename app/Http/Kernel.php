@@ -13,7 +13,36 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckRole;
+use Fruitcake\Cors\HandleCors;
+use App\Http\Middleware\CheckPrivilege;
+use App\Http\Middleware\TwoStepAuth;
+use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\TrimStrings;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\TrustProxies;
+use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\Http2ServerPush;
+use Illuminate\Auth\Middleware\Authorize;
+use App\Http\Middleware\UpdateLastAction;
+use Illuminate\Http\Middleware\SetCacheHeaders;
+use Illuminate\Session\Middleware\StartSession;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use Bepsvpt\SecureHeaders\SecureHeadersMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use App\Http\Middleware\PreventRequestsDuringMaintenance;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 
 class Kernel extends HttpKernel
 {
@@ -25,18 +54,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        // Default Laravel
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-
-        // Extra
-        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
-        \App\Http\Middleware\Http2ServerPush::class,
-        //\App\Http\Middleware\ProAjaxMiddleware::class,
+        PreventRequestsDuringMaintenance::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        TrustProxies::class,
+        HandleCors::class,
+        SecureHeadersMiddleware::class,
+        Http2ServerPush::class,
     ];
 
     /**
@@ -46,14 +71,14 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\UpdateLastAction::class,
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            AuthenticateSession::class,
+            ShareErrorsFromSession::class,
+            SubstituteBindings::class,
+            VerifyCsrfToken::class,
+            UpdateLastAction::class,
         ],
         'api' => [
             'throttle:60,1',
@@ -69,21 +94,20 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
-        'auth'          => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
-        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'language'      => \App\Http\Middleware\SetLanguage::class,
-        'modo'          => \App\Http\Middleware\CheckForModo::class,
-        'owner'         => \App\Http\Middleware\CheckForOwner::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
-        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'auth'          => Authenticate::class,
+        'auth.basic'    => AuthenticateWithBasicAuth::class,
+        'banned'        => CheckIfBanned::class,
+        'bindings'      => SubstituteBindings::class,
+        'cache.headers' => SetCacheHeaders::class,
+        'can'           => Authorize::class,
+        'csrf'          => VerifyCsrfToken::class,
+        'guest'         => RedirectIfAuthenticated::class,
+        'language'      => SetLanguage::class,
+        'throttle'      => ThrottleRequests::class,
+        'twostep'       => TwoStepAuth::class,
+        'signed'        => ValidateSignature::class,
+        'verified'      => EnsureEmailIsVerified::class,
+        'role'          => CheckRole::class,
+        'privilege'     => CheckPrivilege::class,
     ];
 }

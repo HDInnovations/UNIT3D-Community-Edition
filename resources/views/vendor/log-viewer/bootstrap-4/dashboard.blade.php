@@ -25,7 +25,7 @@
                                     {{ $item['count'] }} @lang('entries') - {!! $item['percent'] !!} %
                                 </span>
                                 <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar" style="width: {{ $item['percent'] }}%"></div>
+                                    <div class="progress-bar" style="width: {{ $item['percent'] }}%;"></div>
                                 </div>
                             </div>
                         </div>

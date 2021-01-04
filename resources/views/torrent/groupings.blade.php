@@ -301,19 +301,19 @@
                                                         {{ $t->meta->name ?? 'Unknown' }}
                                                     @endif
                                                         @if ($t->category->movie_meta)
-                                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date, 0, 4) ?? 'Unknown' }}</span>
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date ?? '', 0, 4) }}</span>
                                                         @endif
                                                         @if ($t->category->tv_meta)
-                                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date, 0, 4) ?? 'Unknown' }}</span>
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4) }}</span>
                                                         @endif
                                                 </h3>
-                                                @if ($t->meta->genres->isNotEmpty())
+                                                @if (isset($t->meta->genres))
                                                 @foreach ($t->meta->genres as $genre)
                                                     <span class="genre-label">{{ $genre->name }}</span>
                                                 @endforeach
                                                 @endif
                                                 <p class="description_plot" style="width: 100%;">
-                                                    {{ $t->meta->plot }}
+                                                    {{ $t->meta->plot ?? '' }}
                                                 </p>
                                                 <div class="card_holder" style="width: 100%;" ;>
                                                     <hr style="padding: 0 !important; margin: 5px 0 !important; width: 100%;">
@@ -338,7 +338,7 @@
                                                                     $hidden = "";
                                                                     $attr = "";
                                                                 @endphp
-                                                                @for($x = 0; $x<count($c); $x++)
+                                                                @for($x = 0,$xMax = count($c); $x<$xMax; $x++)
                                                                     @php
                                                                         if(array_key_exists('torrent'.$x,$c)) {
                                                                             $current = $c['torrent'.$x]['chunk'];
@@ -414,7 +414,7 @@
                                                                                 @if ($current->anon == 1)
                                                                                     <span class="badge-extra text-bold">
                                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-                                                                                        @if ($user->id == $current->user->id || $user->group->is_modo)
+                                                                                        @if ($user->id == $current->user->id || $user->hasPrivilegeTo('user_view_private'))
                                                                                             <a href="{{ route('users.show', ['username' => $current->user->username]) }}">
                                                                         ({{ $current->user->username }})
                                                                     </a>
@@ -487,7 +487,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @if ($user->group->is_freeleech == 1)
+                                                                                @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-trophy text-purple' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.special-freeleech')'></i> @lang('torrent.special-freeleech')
@@ -508,7 +508,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @if ($user->group->is_double_upload == 1)
+                                                                                @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                                                                     <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                                    data-toggle='tooltip' title='' data-original-title='@lang('

@@ -36,7 +36,7 @@
                 </a>
             </li>
 
-            @if (auth()->user()->group->is_modo)
+            @if (auth()->user()->hasPrivilegeTo('dashboard_can_view'))
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="{{ route('staff.moderation.index') }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>

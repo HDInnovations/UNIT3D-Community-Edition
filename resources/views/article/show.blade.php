@@ -39,7 +39,7 @@
             <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
         </p>
 
-        <p style="margin-top: 20px;">@emojione($article->getContentHtml())</p>
+        <p style="margin-top: 20px;">@joypixels($article->getContentHtml())</p>
     </div>
 
     <div class="box container">
@@ -91,7 +91,7 @@
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">
-                                                @emojione($comment->getContentHtml())
+                                                @joypixels($comment->getContentHtml())
                                             </div>
                                         </div>
                                     </li>

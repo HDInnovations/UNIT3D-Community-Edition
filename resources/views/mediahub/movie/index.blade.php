@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>TV Shows - {{ config('other.title') }}</title>
+    <title>Movies - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

@@ -88,12 +88,12 @@ class Http2ServerPush
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = \collect($excludeKeywords)->map(fn ($keyword) => \preg_quote($keyword));
-                if ($exclude_keywords->count() <= 0) {
+                $excludeKeywords = \collect($excludeKeywords)->map(fn ($keyword) => \preg_quote($keyword));
+                if ($excludeKeywords->count() <= 0) {
                     return true;
                 }
 
-                return ! \preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
+                return ! \preg_match('%('.$excludeKeywords->implode('|').')%i', $value);
             })
             ->take($limit);
 

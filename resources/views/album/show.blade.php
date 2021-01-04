@@ -34,8 +34,8 @@
                     <div class="media">
                         <h2 class="media-heading">@lang('common.album') @lang('common.description'):</h2>
                         <p class="text-bold">{{ $album->description }}</p>
-                        @if (auth()->user()->group->is_modo || auth()->user()->id == $album->user_id &&
-                            Carbon\Carbon::now()->lt($album->created_at->addDay()))
+                        @if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id &&
+                            Carbon\Carbon::now()->lt($album->created_at->addDay())))
                             <form action="{{ route('albums.destroy', ['id' => $album->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -93,11 +93,11 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $('.show-image').click(function(e) {
             e.preventDefault();
-    
-            var name = $(this).attr('data-name');
-            var image = $(this).attr('data-image');
-    
-            Swal.fire({
+
+          const name = $(this).attr('data-name')
+          const image = $(this).attr('data-image')
+
+          Swal.fire({
                 showConfirmButton: false,
                 showCloseButton: true,
                 background: '#232323',

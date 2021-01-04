@@ -39,7 +39,7 @@
                     @foreach($show->seasons as $season)
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card is-torrent" style=" height: auto; margin-top: 0px; margin-bottom: 20px;">
+                            <div class="card is-torrent" style=" height: auto; margin-top: 0; margin-bottom: 20px;">
                                 <div class="card_head">
                                 <span class="badge-user text-bold" style="float:right;">
                                     {{ $season->episodes->count() }} Episodes
@@ -51,7 +51,7 @@
                                 <div class="card_body" style="height: 190px;">
                                     <div class="body_poster">
                                         @if($season->poster)
-                                            <img src="{{ $season->poster }}" class="show-poster" style="height: 190px">
+                                            <img src="{{ $season->poster }}" class="show-poster" style="height: 190px;">
                                         @endif
                                     </div>
                                     <div class="body_description" style=" height: 190px;">
@@ -108,7 +108,7 @@
                     @endforeach
                     </div>
 
-                        <div class="info_column col-md-3" style=" background: rgba(0, 0, 0, 0.28); border-radius: 5px; margin-left: 3%">
+                        <div class="info_column col-md-3" style=" background: rgba(0, 0, 0, 0.28); border-radius: 5px; margin-left: 3%;">
                             <div>
                                 <h2 class="text-center"><em>Facts</em></h2>
                                 <hr>

@@ -51,35 +51,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('group')->latest()->paginate(25);
-        $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
-        $mods = User::with('group')->where('group_id', '=', 6)->latest()->paginate(25);
-        $admins = User::with('group')->where('group_id', '=', 4)->latest()->paginate(25);
-        $coders = User::with('group')->where('group_id', '=', 10)->latest()->paginate(25);
-
-        return \view('Staff.user.user_search', [
-            'users'     => $users,
-            'uploaders' => $uploaders,
-            'mods'      => $mods,
-            'admins'    => $admins,
-            'coders'    => $coders,
-        ]);
-    }
-
-    /**
-     * Search For A User.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function search(Request $request)
-    {
-        $users = User::where([['username', 'like', '%'.$request->input('search').'%']])
-            ->orWhere([['email', 'like', '%'.$request->input('search').'%']])
-            ->paginate(25);
-
-        return \view('Staff.user.user_results', ['users' => $users]);
+        return \view('Staff.user.index');
     }
 
     /**
@@ -95,7 +67,7 @@ class UserController extends Controller
         $groups = Group::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('Staff.user.user_edit', [
+        return \view('Staff.user.edit', [
             'user'   => $user,
             'groups' => $groups,
             'notes'  => $notes,
@@ -112,32 +84,14 @@ class UserController extends Controller
      */
     public function edit(Request $request, $username)
     {
-        $user = User::with('group')->where('username', '=', $username)->firstOrFail();
+        $user = User::with('primaryRole')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        $sendto = (int) $request->input('group_id');
-
-        $sender = -1;
-        $target = -1;
-        foreach (self::WEIGHTS as $pos => $weight) {
-            if ($user->group->$weight && $user->group->$weight == 1) {
-                $target = $pos;
-            }
-            if ($staff->group->$weight && $staff->group->$weight == 1) {
-                $sender = $pos;
-            }
-        }
-
-        if ($target == 1 && $user->group->id == 10) {
-            $target = 2;
-        }
-        if ($sender == 1 && $staff->group->id == 10) {
-            $sender = 2;
-        }
+        $sendto = (int) $request->input('role_id');
 
         // Hard coded until group change.
 
-        if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
+        if (!$staff->hasPrivilegeTo('users_edit_personal') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
@@ -148,7 +102,7 @@ class UserController extends Controller
         $user->downloaded = $request->input('downloaded');
         $user->title = $request->input('title');
         $user->about = $request->input('about');
-        $user->group_id = (int) $request->input('group_id');
+        $user->role_id = (int) $request->input('role_id');
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
@@ -167,6 +121,11 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
+
+        if (!$staff->hasPrivilegeTo('users_edit_privileges') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withErrors('You Are Not Authorized To Perform This Action!');
+        }
 
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
@@ -191,10 +150,16 @@ class UserController extends Controller
     protected function password(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = \auth()->user();
+        $staff = $request->user();
 
-        $new_password = $request->input('new_password');
-        $user->password = Hash::make($new_password);
+        if (!$staff->hasPrivilegeTo('users_edit_security') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withErrors('You Are Not Authorized To Perform This Action!');
+        }
+
+
+        $newPassword = $request->input('new_password');
+        $user->password = Hash::make($newPassword);
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
@@ -208,12 +173,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function destroy($username)
+    protected function destroy(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = \auth()->user();
+        $staff = $request->user();
 
-        \abort_if($user->group->is_modo || \auth()->user()->id == $user->id, 403);
+        \abort_if($user->primaryRole->position >=900 || $staff->id == $user->id, 403);
 
         // Removes UserID from Torrents if any and replaces with System UserID (1)
         foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
@@ -271,14 +236,14 @@ class UserController extends Controller
             $follow->delete();
         }
         // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-        foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
-            $sent_invite->user_id = 1;
-            $sent_invite->save();
+        foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
+            $sentInvite->user_id = 1;
+            $sentInvite->save();
         }
         // Removes UserID from Received Invite if any and replaces with System UserID (1)
-        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
-            $received_invite->accepted_by = 1;
-            $received_invite->save();
+        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
+            $receivedInvite->accepted_by = 1;
+            $receivedInvite->save();
         }
         // Removes all Peers for user
         foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {

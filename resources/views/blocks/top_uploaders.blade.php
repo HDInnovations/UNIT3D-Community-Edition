@@ -48,7 +48,7 @@
                                                     <i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                         aria-hidden="true"></i> {{ strtoupper(trans('common.hidden')) }}
                                                 </span>
-                                                @if ($user->id == $uploader->user->id || $user->group->is_modo == 1)
+                                                @if ($user->id == $uploader->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                     <a href="{{ route('users.show', ['username' => $uploader->user->username]) }}">
                                                         ({{ $uploader->user->username }})
                                                     </a>
@@ -57,9 +57,9 @@
                                         @else
                                             <a href="{{ route('users.show', ['username' => $uploader->user->username]) }}">
                                                 <span class="badge-user text-bold"
-                                                    style="color:{{ $uploader->user->group->color }}; background-image:{{ $uploader->user->group->effect }}; margin-bottom: 10px;">
-                                                    <i class="{{ $uploader->user->group->icon }}" data-toggle="tooltip"
-                                                        data-original-title="{{ $uploader->user->group->name }}"></i>
+                                                    style="color:{{ $uploader->user->primaryRole->color }}; background-image:{{ $uploader->user->primaryRole->effect }}; margin-bottom: 10px;">
+                                                    <i class="{{ $uploader->user->primaryRole->icon }}" data-toggle="tooltip"
+                                                        data-original-title="{{ $uploader->user->primaryRole->name }}"></i>
                                                     {{ $uploader->user->username }}
                                                 </span>
                                             </a>
@@ -108,7 +108,7 @@
                                                     <i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                         aria-hidden="true"></i> {{ strtoupper(trans('common.hidden')) }}
                                                 </span>
-                                                @if ($user->id == $past_uploader->user->id || $user->group->is_modo == 1)
+                                                @if ($user->id == $past_uploader->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                     <a
                                                         href="{{ route('users.show', ['username' => $past_uploader->user->username]) }}">
                                                         ({{ $past_uploader->user->username }})
@@ -118,9 +118,9 @@
                                         @else
                                             <a href="{{ route('users.show', ['username' => $past_uploader->user->username]) }}">
                                                 <span class="badge-user text-bold"
-                                                    style="color:{{ $past_uploader->user->group->color }}; background-image:{{ $past_uploader->user->group->effect }}; margin-bottom: 10px;">
-                                                    <i class="{{ $past_uploader->user->group->icon }}" data-toggle="tooltip"
-                                                        data-original-title="{{ $past_uploader->user->group->name }}"></i>
+                                                    style="color:{{ $past_uploader->user->primaryRole->color }}; background-image:{{ $past_uploader->user->primaryRole->effect }}; margin-bottom: 10px;">
+                                                    <i class="{{ $past_uploader->user->primaryRole->icon }}" data-toggle="tooltip"
+                                                        data-original-title="{{ $past_uploader->user->primaryRole->name }}"></i>
                                                     {{ $past_uploader->user->username }}
                                                 </span>
                                             </a>

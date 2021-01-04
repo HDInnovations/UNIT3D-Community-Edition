@@ -5,11 +5,6 @@
 
                 <a
                     target="_blank"
-                    v-tooltip="
-                        `${message.user.username}${
-                            message.user.title ? ' (' + message.user.title + ')' : '\'s Profile'
-                        }`
-                    "
                     :href="`/users/${message.user.username}`"
                 >
                     <img
@@ -25,44 +20,34 @@
 
                     <span class="badge-user text-bold" :style="userStyles(message.user)">
 
-                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" v-tooltip="message.user.group.name"
-                           :class="message.user.group.icon">
+                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" :class="message.user.primary_role.icon">
                         </i>
-                        <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" v-tooltip=""
-                           class="fas fa-bell">
+                        <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" class="fas fa-bell">
                         </i>
 
-                        <a v-if="message.user && message.user.id > 1" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
+                        <a v-if="message.user && message.user.id > 1"
                            @click="pmUser(message.user)"
                            :style="groupColor(message.user)">
 					        {{message.user.username}}
                         </a>
 
-                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot && message.bot.id > 0 ? message.bot.name : message.bot.name"
+                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
                            :style="groupColor(message.user)">
 					        {{message.bot.name}}
                         </a>
 
-                        <!--<i v-if="canMod(message)"-->
-                        <!--v-tooltip="`Edit Message`"-->
-                        <!--@click="editMessage(message)"-->
-                        <!--class="fa fa-edit text-blue">-->
-
-                        <!--</i>-->
-
                         <i v-if="message.user.id != 1 && canMod(message)"
-                           v-tooltip="`Delete Message`"
                            @click="deleteMessage(message.id)"
                            class="fa fa-times text-red">
 
                         </i>
 
 					</span>
-                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
+                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
                        @click.prevent="$parent.forceMessage(message.user.username)">
                         <i class="fas fa-envelope pointee"></i>
                     </a>
-                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Send Gift` : message.user.username"
+                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
                        @click.prevent="$parent.forceGift(message.user.username)">
                         <i class="fas fa-gift pointee"></i>
                     </a>
@@ -109,32 +94,23 @@
             if(e.target.hasAttribute('trigger') && e.target.getAttribute('trigger') == 'bot') {
                 e.preventDefault();
                 let target = e.target.hash;
-                var tmp = target.split('/');
-                $('#chat-message').bbcode('/'+tmp[1]+' '+tmp[2]+' ');
+              const tmp = target.split('/')
+              $('#chat-message').bbcode('/'+tmp[1]+' '+tmp[2]+' ');
                 $('#chat-message').htmlcode('/'+tmp[1]+' '+tmp[2]+' ');
             }
         },
         canMod (message) {
             /*
-                A user can Mod his own messages
-                A user in a is_modo group can Mod messages
-                A is_modo CAN NOT Mod another is_modo message
+                If Permission 'chat_can_moderate' is set true, user can moderate messages posted by any role with a lower position value
+                OR if they are in primary role root then they can always moderate
+                Users will also be able to moderate their own messages
             */
 
             return (
-                /* Owner can mod all */
-                this.$parent.auth.group.id === 10 ||
-
+                this.$parent.permissions.can_moderate && message.user.primary_role.position < this.$parent.user.primary_role.position ||
                 /* User can mod his own message */
                 message.user.id === this.$parent.auth.id ||
-
-                /* is_admin can mod messages except for Owner messages */
-                this.$parent.auth.group.is_admin &&
-                message.user.group.id !== 10 ||
-
-                /* Mods CAN NOT mod other mods messages */
-                this.$parent.auth.group.is_modo &&
-                !message.user.group.is_modo
+                this.$parent.user.primary_role.slug === 'root'
             )
         },
         editMessage (message) {
@@ -144,10 +120,10 @@
             axios.get(`/api/chat/message/${id}/delete`)
         },
         userStyles (user) {
-            return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+            return `cursor: pointer; color: ${user.primary_role.color}; background-image: ${user.primary_role.effect};`
         },
         groupColor (user) {
-            return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
+            return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `color: ${user.primary_role.color};` : `cursor: pointer;`
         }
     },
     created () {

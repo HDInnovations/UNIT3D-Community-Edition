@@ -92,8 +92,20 @@
                                     <div class="help-block">@lang('user.notification-from-account-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -157,8 +169,20 @@
                                     <div class="help-block">@lang('user.notification-from-following-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -240,8 +264,20 @@
                                     <div class="help-block">@lang('user.notification-from-subscription-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -306,8 +342,20 @@
                                     <div class="help-block">@lang('user.notification-from-forum-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -479,8 +527,20 @@
                                     <div class="help-block">@lang('user.notification-from-request-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -580,8 +640,20 @@
                                     <div class="help-block">@lang('user.notification-from-torrent-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -645,8 +717,20 @@
                                     <div class="help-block">@lang('user.notification-from-bon-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
@@ -767,8 +851,20 @@
                                     <div class="help-block">@lang('user.notification-from-mention-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
+                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        <label>
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                                   CHECKED DISABLED/>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">

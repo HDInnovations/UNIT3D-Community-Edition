@@ -51,7 +51,7 @@
                         <td><a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
-                                    ({{ $p->user->group->name }})</span></a></td>
+                                    ({{ $p->user->primaryRole->name }})</span></a></td>
                         <td><a href="{{ route('staff.moderation.approve', ['id' => $p->id]) }}" role='button'
                                class='btn btn-labeled btn-success'>
                                 <span class="btn-label">

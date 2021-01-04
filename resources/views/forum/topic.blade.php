@@ -116,17 +116,16 @@
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
                                     @endauth
-                                    @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id && $topic->state ==
-                                        'open')
+                                    @if (auth()->user()->group->is_modo || ($p->user_id == auth()->user()->id && $topic->state ==
+                                        'open'))
                                         <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
                                     @endauth
                                 </span>
                             </aside>
 
-                            <article class="col-md-9 post-content">
-                                @emojione($p->getContentHtml())
-
+                            <article class="col-md-9 post-content" data-bbcode="{{ $p->content }}">
+                                @joypixels($p->getContentHtml())
                             </article>
 
                             <div class="post-signature col-md-12 some-margin post-tips">
@@ -316,29 +315,18 @@
 @endsection
 
 @section('javascripts')
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        $(document).ready(function () {
+            $('#topic-response').wysibb();
+        })
+    </script>
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).ready(function() {
-            let wbbOpt = {
-                allButtons: {
-                    quote: {
-                        transform: {
-                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}<br /><br /></div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
-                        }
-                    }
-                }
-            };
-
-            let editor = $("#topic-response").wysibb(wbbOpt);
-
-            $('.profil').on('click', 'button#quote', function() {
-                let author = $(this).closest('.post-info').find('.badge-user').first().text().trim();
-                let text = $(this).closest('.profil').find('.post-content').first().html().replace('@here',
-                    '').trim();
-
-                editor.execCommand('quote', {
-                    author: '@' + author,
-                    seltext: text
-                });
+            $('.profil').on('click', 'button#quote', function () {
+                let author = $(this).closest('.profil').find('.post-info-username').first().text();
+                let text = $(this).closest('.profil').find('.post-content').data('bbcode');
+                $("#topic-response").wysibb().insertAtCursor('[quote=@'+author.trim()+']'+text.trim()+'[/quote]\r\n', true);
             });
         });
 

@@ -21,14 +21,9 @@ class TvSearch extends Component
 {
     use WithPagination;
 
-    protected $updatesQueryString = ['searchTerm'];
+    public $searchTerm = '';
 
-    public $searchTerm;
-
-    public function mount()
-    {
-        $this->searchTerm = request()->query('searchTerm', $this->searchTerm);
-    }
+    protected $queryString = ['searchTerm'];
 
     public function paginationView()
     {
@@ -42,10 +37,12 @@ class TvSearch extends Component
 
     public function render()
     {
-        $search_term = '%'.$this->searchTerm.'%';
-
-        return view('livewire.tv-search', [
-            'shows' => Tv::with('networks', 'genres', 'torrents')->withCount('torrents', 'seasons')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
+        return \view('livewire.tv-search', [
+            'shows' => Tv::with('networks', 'genres')
+                ->withCount('torrents', 'seasons')
+                ->where('name', 'LIKE', '%'.$this->searchTerm.'%')
+                ->orderBy('name', 'asc')
+                ->paginate(30),
         ]);
     }
 }

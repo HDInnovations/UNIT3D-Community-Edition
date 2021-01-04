@@ -221,11 +221,11 @@
 @section('scripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(function () {
-            var deleteLogModal = $('div#delete-log-modal'),
-                deleteLogForm  = $('form#delete-log-form'),
-                submitBtn      = deleteLogForm.find('button[type=submit]');
+          const deleteLogModal = $('div#delete-log-modal'),
+            deleteLogForm = $('form#delete-log-form'),
+            submitBtn = deleteLogForm.find('button[type=submit]')
 
-            deleteLogForm.on('submit', function(event) {
+          deleteLogForm.on('submit', function(event) {
                 event.preventDefault();
                 submitBtn.button('loading');
 
@@ -262,11 +262,11 @@
                 @endphp
 
                 $('.stack-content').each(function() {
-                    var $this = $(this);
-                    var html = $this.html().trim()
-                        .replace(/({!! $htmlHighlight !!})/gm, '<strong>$1</strong>');
+              const $this = $(this)
+              const html = $this.html().trim()
+                .replace(/({!! $htmlHighlight !!})/gm, '<strong>$1</strong>')
 
-                    $this.html(html);
+              $this.html(html);
                 });
             @endunless
         });

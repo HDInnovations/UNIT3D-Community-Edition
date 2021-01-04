@@ -89,9 +89,7 @@ class PrivateMessage extends Model
      */
     public function setMessageAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['message'] = $antiXss->xss_clean($value);
+        $this->attributes['message'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**

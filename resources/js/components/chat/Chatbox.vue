@@ -16,7 +16,7 @@
                         <a href="" view="list" v-if="target < 1 && bot < 1 && tab != 'userlist'" @click.prevent="changeTab('list','userlist')" class="btn btn-xs btn-primary">
                             <i class="fa fa-users"></i> Users In {{tab}}: {{users.length}}
                         </a>
-                        <a href="#" id="panel-fullscreen" role="button" :class="this.fullscreen == 1 ? `btn btn-xs btn-success` : `btn btn-xs btn-success`" title="Toggle Fullscreen" @click.prevent="changeFullscreen()"><i :class="this.fullscreen == 1 ? `glyphicon glyphicon-resize-small` : `glyphicon glyphicon-resize-full`"></i>
+                        <a href="#" id="panel-fullscreen" role="button" :class="`btn btn-xs btn-success`" title="Toggle Fullscreen" @click.prevent="changeFullscreen()"><i :class="this.fullscreen == 1 ? `glyphicon glyphicon-resize-small` : `glyphicon glyphicon-resize-full`"></i>
                         </a>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
             user: {
                 type: Object,
                 required: true,
-            },
+            }
         },
         components: {
             ChatroomsDropdown,
@@ -213,6 +213,7 @@
                 config: {},
                 receiver_id: null,
                 bot_id: null,
+                permissions: {}
             }
         },
         watch: {
@@ -328,13 +329,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'target') {
@@ -360,13 +361,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'bot') {
@@ -395,13 +396,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'list') {
@@ -417,13 +418,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.fetchConfiguration();
                 })
@@ -435,6 +436,12 @@
                     this.boot = 1;
                 })
             },
+          fetchPermissions() {
+            axios.get('/api/chat/permissions').then(response => {
+              this.permissions = response.data;
+              console.log(this.permissions);
+            })
+          },
             fetchBots() {
                 axios.get('/api/chat/bots').then(response => {
                     this.bots = response.data.data;
@@ -616,22 +623,22 @@
                 this.room = id;
                 this.bot_id = null;
                 this.receiver_id = null;
-                if (this.auth.chatroom.id !== id) {
-                    this.room = id;
-                    /* Update the users chatroom in the database */
-                    axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
-                        'room_id': id
-                    }).then(response => {
-                        // reassign the auth variable to the response data
-                        this.auth = response.data
-                        this.tab = this.auth.chatroom.name;
-                        this.activeRoom = this.auth.chatroom.name;
-                        this.fetchMessages()
-                    })
+                if (this.auth.chatroom.id === id) {
+                  this.tab = this.auth.chatroom.name;
+                  this.activeRoom = this.auth.chatroom.name;
+                  this.fetchMessages()
                 } else {
+                  this.room = id;
+                  /* Update the users chatroom in the database */
+                  axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
+                    'room_id': id
+                  }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
                     this.tab = this.auth.chatroom.name;
                     this.activeRoom = this.auth.chatroom.name;
                     this.fetchMessages()
+                  })
                 }
             },
             changeTarget(id) {
@@ -658,12 +665,12 @@
             },
             sortEchoes(obj) {
                 let output = obj.sort(function(a, b) {
-                    var nv1 = '';
-                    if(a.type == 'room') { nv1=a.name; }
+                  const nv1 = ''
+                  if(a.type == 'room') { nv1=a.name; }
                     if(a.type == 'target') { nv1=a.username; }
                     if(a.type == 'bot') { nv1=a.name; }
-                    var nv2 = '';
-                    if(b.type == 'room') { nv1=b.name; }
+                  const nv2 = ''
+                  if(b.type == 'room') { nv1=b.name; }
                     if(b.type == 'target') { nv1=b.username; }
                     if(b.type == 'bot') { nv1=b.name; }
                     return nv1 - nv2;
@@ -672,19 +679,19 @@
             },
             startBot() {
                 this.forced = false;
-                if (this.bot != 9999) {
-                    this.tab = '@' + this.helpName;
-                    this.bot = this.helpId;
-                    this.bot_id = this.helpId;
-                    this.receiver_id = 1;
-
-                    this.botId = this.helpId;
-                    this.botName = this.helpName;
-                    this.botCommand = this.helpCommand;
-
-                    this.fetchBotMessages(this.bot);
+                if (this.bot == 9999) {
+                  this.scrollToBottom(true);
                 } else {
-                    this.scrollToBottom(true);
+                  this.tab = '@' + this.helpName;
+                  this.bot = this.helpId;
+                  this.bot_id = this.helpId;
+                  this.receiver_id = 1;
+
+                  this.botId = this.helpId;
+                  this.botName = this.helpName;
+                  this.botCommand = this.helpCommand;
+
+                  this.fetchBotMessages(this.bot);
                 }
             },
             playSound() {
@@ -809,7 +816,7 @@
                 }
             },
             deletePing(type, id) {
-                for(var i = 0; i<this.pings.length; i++) {
+                for(let i = 0; i<this.pings.length; i++) {
                     if(this.pings[i].type == type && this.pings[i].id == id) {
                         this.pings.splice(i,1);
                     }
@@ -907,8 +914,8 @@
                         this.audibles = e.audibles;
                     } else if(e.type == 'new.message') {
                         if(this.activeTab.substring(0,3) != 'bot' && this.activeTab.substring(0,6) != 'target') return false;
-                        if(e.message.bot && e.message.bot != null && e.message.bot.id != this.bot) return false;
-                        if(e.message.target && e.message.target != null && e.message.target.id != this.target) return false;
+                        if(e.message.bot && e.message.bot.id != this.bot) return false;
+                        if(e.message.target && e.message.target.id != this.target) return false;
                         this.messages.push(e.message);
                         if(this.bot && this.bot > 0) {
                             this.handleMessage('bot', this.bot, e.message);
@@ -999,6 +1006,7 @@
             this.listenForChatter();
             this.attachAudible();
             this.scrollToBottom(true);
+            this.fetchPermissions();
         },
     }
 </script>

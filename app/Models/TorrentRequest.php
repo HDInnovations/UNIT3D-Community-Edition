@@ -218,9 +218,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['description'] = $antiXss->xss_clean($value);
+        $this->attributes['description'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**

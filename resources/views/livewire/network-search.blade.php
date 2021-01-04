@@ -5,7 +5,7 @@
 
 	<div class="blocks">
 		@foreach ($networks as $network)
-			<a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}" style="padding: 0 2px">
+			<a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}" style="padding: 0 2px;">
 				<div class="general media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
 					<h2 class="text-bold"><img src="{{ $network->logo ?? 'https://via.placeholder.com/150x100.png/000000?text=No+Image' }}" style="max-height: 100px; max-width: 300px; width: auto;" width="150px" alt="{{ $network->name }}"></h2>
 					<span></span>

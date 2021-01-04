@@ -14,7 +14,6 @@
 return [
     'about'                          => 'About',
     'about-me'                       => 'About Me (500 Characters Max!)',
-    'about-me'                       => 'About Me',
     'accepted-at'                    => 'Accepted at',
     'accepted-by'                    => 'Accepted by',
     'account-notification'           => 'Account Notification Settings',
@@ -231,6 +230,7 @@ return [
     'private-info'                         => 'Private Info',
     'private-forum-profile'                => 'Attention: This Member\'s Topic & Post History Has Been Set To PRIVATE!',
     'private-profile'                      => 'Attention: This Profile Has Been Set To PRIVATE!',
+    'privileges'                           => 'Privileges',
     'profile'                              => 'Profile',
     'profile-desc'                         => 'User :user profile registered on :title',
     'profile-privacy'                      => 'Profile Settings',
@@ -284,6 +284,7 @@ return [
     'reset-rss-help'                      => 'You will have to re-load all of your active RSS feeds, after resetting the RID',
     'resurrections'                       => 'Resurrections',
     'restore'                             => 'Restore',
+    'roles and privileges'                => 'Roles & Privileges',
     'satisfied-immune'		                  => 'Satisfied / Immune',
     'search'                              => 'Quick Search by Username/Email',
     'security'                            => 'Security',

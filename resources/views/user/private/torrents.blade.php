@@ -164,7 +164,7 @@
                                     </td>
                                     <td>
                                         <span
-                                            class="badge-extra text-purple">{{ $his->agent ? $his->agent : trans('common.unknown') }}</span>
+                                            class="badge-extra text-purple">{{ $his->agent ?: trans('common.unknown') }}</span>
                                     </td>
                                     @if ($his->active == 1)
                                     <td class="text-green">@lang('common.yes')</td> @else

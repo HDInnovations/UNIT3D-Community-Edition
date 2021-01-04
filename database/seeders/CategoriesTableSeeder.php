@@ -13,10 +13,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = $this->getCategories();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -24,10 +32,15 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('categories')->delete();
+        foreach ($this->categories as $category) {
+            Category::updateOrCreate($category);
+        }
+    }
 
-        \DB::table('categories')->insert([
-            0 => [
+    private function getCategories()
+    {
+        return [
+            [
                 'id'          => 1,
                 'name'        => 'Movies',
                 'slug'        => 'movies',
@@ -41,7 +54,7 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 0,
             ],
-            1 => [
+            [
                 'id'          => 2,
                 'name'        => 'TV',
                 'slug'        => 'tv',
@@ -55,7 +68,7 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 0,
             ],
-            2 => [
+            [
                 'id'          => 3,
                 'name'        => 'Music',
                 'slug'        => 'music',
@@ -69,7 +82,7 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 1,
                 'no_meta'     => 0,
             ],
-            3 => [
+            [
                 'id'          => 4,
                 'name'        => 'Game',
                 'slug'        => 'game',
@@ -83,7 +96,7 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 0,
             ],
-            4 => [
+            [
                 'id'          => 5,
                 'name'        => 'Application',
                 'slug'        => 'application',
@@ -97,6 +110,6 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 1,
             ],
-        ]);
+        ];
     }
 }

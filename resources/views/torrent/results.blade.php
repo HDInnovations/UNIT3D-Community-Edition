@@ -50,12 +50,12 @@
             @php $meta = null; @endphp
                 @if ($torrent->category->tv_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first(); @endphp
+                        @php $meta = App\Models\Tv::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->movie_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first(); @endphp
+                        @php $meta = App\Models\Movie::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->game_meta)
@@ -167,7 +167,7 @@
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                     data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-                                @if ($user->id == $torrent->user->id || $user->group->is_modo)
+                                @if ($user->id == $torrent->user->id || $user->hasPrivilegeTo('users_view_private'))
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         ({{ $torrent->user->username }})
                                     </a>
@@ -268,7 +268,7 @@
                                 </span>
                             @endif
 
-                            @if ($user->group->is_freeleech == 1)
+                            @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple' data-toggle='tooltip'
                                         title='' data-original-title='@lang('torrent.special-freeleech')'></i>
@@ -289,11 +289,10 @@
                                 </span>
                             @endif
 
-                                        @if ($user->group->is_double_upload == 1)
+                                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
-                                                   data-toggle='tooltip' title='' data-original-title='@lang('
-                                                    torrent.special-double_upload')'></i>
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('torrent.special-double_upload')'></i>
                                             </span>
                                         @endif
 
@@ -335,7 +334,7 @@
                         @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
                             <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold' data-toggle='tooltip'
-                                       title='' data-original-title='Recently Bumped!'></i>
+                                       title='' data-original-title='@lang('torrent.recent-bumped')'></i>
                                 </span>
                         @endif
 
@@ -365,7 +364,6 @@
                     </td>
 
                         <td>
-                            @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
                             @if (config('torrent.download_check_page') == 1)
                                 <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
@@ -381,7 +379,7 @@
                                     </button>
                                 </a>
                             @endif
-                            @else
+                            @if (config('torrent.magnet') == 1)
                                 <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             data-original-title="@lang('common.magnet')">

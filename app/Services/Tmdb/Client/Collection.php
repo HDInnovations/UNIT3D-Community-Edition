@@ -15,6 +15,10 @@ namespace App\Services\Tmdb\Client;
 
 class Collection
 {
+    /**
+     * @var \GuzzleHttp\Client|mixed
+     */
+    public $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
     public $data;
 
@@ -30,7 +34,8 @@ class Collection
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
                     'append_to_response' => 'videos,images,credits',
                 ],
             ]
@@ -38,22 +43,22 @@ class Collection
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/collection/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
     public function get_id()

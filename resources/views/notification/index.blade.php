@@ -201,107 +201,107 @@
     </script>
     
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        var xhr = new XMLHttpRequest();
-    
-        function faceted(page) {
-            var csrf = "{{ csrf_token() }}";
-            var bon_gifts = (function() {
-                if ($("#bon_gifts").is(":checked")) {
-                    return $("#bon_gifts").val();
-                }
-            })();
-            var comment = (function() {
-                if ($("#comment").is(":checked")) {
-                    return $("#comment").val();
-                }
-            })();
-            var comment_tags = (function() {
-                if ($("#comment_tags").is(":checked")) {
-                    return $("#comment_tags").val();
-                }
-            })();
-            var followers = (function() {
-                if ($("#followers").is(":checked")) {
-                    return $("#followers").val();
-                }
-            })();
-            var posts = (function() {
-                if ($("#posts").is(":checked")) {
-                    return $("#posts").val();
-                }
-            })();
-            var post_tags = (function() {
-                if ($("#post_tags").is(":checked")) {
-                    return $("#post_tags").val();
-                }
-            })();
-            var post_tips = (function() {
-                if ($("#post_tips").is(":checked")) {
-                    return $("#post_tips").val();
-                }
-            })();
-            var request_bounties = (function() {
-                if ($("#request_bounties").is(":checked")) {
-                    return $("#request_bounties").val();
-                }
-            })();
-            var request_claims = (function() {
-                if ($("#request_claims").is(":checked")) {
-                    return $("#request_claims").val();
-                }
-            })();
-            var request_fills = (function() {
-                if ($("#request_fills").is(":checked")) {
-                    return $("#request_fills").val();
-                }
-            })();
-            var request_approvals = (function() {
-                if ($("#request_approvals").is(":checked")) {
-                    return $("#request_approvals").val();
-                }
-            })();
-            var request_rejections = (function() {
-                if ($("#request_rejections").is(":checked")) {
-                    return $("#request_rejections").val();
-                }
-            })();
-            var request_unclaims = (function() {
-                if ($("#request_unclaims").is(":checked")) {
-                    return $("#request_unclaims").val();
-                }
-            })();
-            var reseed_requests = (function() {
-                if ($("#reseed_requests").is(":checked")) {
-                    return $("#reseed_requests").val();
-                }
-            })();
-            var thanks = (function() {
-                if ($("#thanks").is(":checked")) {
-                    return $("#thanks").val();
-                }
-            })();
-            var upload_tips = (function() {
-                if ($("#upload_tips").is(":checked")) {
-                    return $("#upload_tips").val();
-                }
-            })();
-            var topics = (function() {
-                if ($("#topics").is(":checked")) {
-                    return $("#topics").val();
-                }
-            })();
-            var unfollows = (function() {
-                if ($("#unfollows").is(":checked")) {
-                    return $("#unfollows").val();
-                }
-            })();
-            var uploads = (function() {
-                if ($("#uploads").is(":checked")) {
-                    return $("#uploads").val();
-                }
-            })();
-    
-            if (xhr !== 'undefined') {
+      let xhr = new XMLHttpRequest()
+
+      function faceted(page) {
+          const csrf = "{{ csrf_token() }}"
+          const bon_gifts = (function () {
+            if ($('#bon_gifts').is(':checked')) {
+              return $('#bon_gifts').val()
+            }
+          })()
+          const comment = (function () {
+            if ($('#comment').is(':checked')) {
+              return $('#comment').val()
+            }
+          })()
+          const comment_tags = (function () {
+            if ($('#comment_tags').is(':checked')) {
+              return $('#comment_tags').val()
+            }
+          })()
+          const followers = (function () {
+            if ($('#followers').is(':checked')) {
+              return $('#followers').val()
+            }
+          })()
+          const posts = (function () {
+            if ($('#posts').is(':checked')) {
+              return $('#posts').val()
+            }
+          })()
+          const post_tags = (function () {
+            if ($('#post_tags').is(':checked')) {
+              return $('#post_tags').val()
+            }
+          })()
+          const post_tips = (function () {
+            if ($('#post_tips').is(':checked')) {
+              return $('#post_tips').val()
+            }
+          })()
+          const request_bounties = (function () {
+            if ($('#request_bounties').is(':checked')) {
+              return $('#request_bounties').val()
+            }
+          })()
+          const request_claims = (function () {
+            if ($('#request_claims').is(':checked')) {
+              return $('#request_claims').val()
+            }
+          })()
+          const request_fills = (function () {
+            if ($('#request_fills').is(':checked')) {
+              return $('#request_fills').val()
+            }
+          })()
+          const request_approvals = (function () {
+            if ($('#request_approvals').is(':checked')) {
+              return $('#request_approvals').val()
+            }
+          })()
+          const request_rejections = (function () {
+            if ($('#request_rejections').is(':checked')) {
+              return $('#request_rejections').val()
+            }
+          })()
+          const request_unclaims = (function () {
+            if ($('#request_unclaims').is(':checked')) {
+              return $('#request_unclaims').val()
+            }
+          })()
+          const reseed_requests = (function () {
+            if ($('#reseed_requests').is(':checked')) {
+              return $('#reseed_requests').val()
+            }
+          })()
+          const thanks = (function () {
+            if ($('#thanks').is(':checked')) {
+              return $('#thanks').val()
+            }
+          })()
+          const upload_tips = (function () {
+            if ($('#upload_tips').is(':checked')) {
+              return $('#upload_tips').val()
+            }
+          })()
+          const topics = (function () {
+            if ($('#topics').is(':checked')) {
+              return $('#topics').val()
+            }
+          })()
+          const unfollows = (function () {
+            if ($('#unfollows').is(':checked')) {
+              return $('#unfollows').val()
+            }
+          })()
+          const uploads = (function () {
+            if ($('#uploads').is(':checked')) {
+              return $('#uploads').val()
+            }
+          })()
+
+          if (xhr !== 'undefined') {
                 xhr.abort();
             }
             xhr = $.ajax({
@@ -357,9 +357,9 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
-            var url = $(this).attr('href');
-            var page = url.split('page=')[1];
-            window.history.pushState("", "", url);
+          const url = $(this).attr('href')
+          const page = url.split('page=')[1]
+          window.history.pushState("", "", url);
             faceted(page);
         })
     

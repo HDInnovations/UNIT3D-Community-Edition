@@ -21,6 +21,8 @@ Route::namespace('API')->group(function () {
     Route::prefix('chat')->group(function () {
         Route::get('/config', 'ChatController@config');
 
+        Route::get('/permissions', 'ChatController@permissions');
+
         /* Statuses */
         Route::get('/statuses', 'ChatController@statuses');
 

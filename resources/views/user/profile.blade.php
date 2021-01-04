@@ -34,7 +34,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+                @if (auth()->user()->id == $user->id || auth()->user()->hasPrivilegeTo('users_edit_personal'))
                     @include('user.buttons.profile')
                 @else
                     @include('user.buttons.public')
@@ -71,7 +71,7 @@
                                            data-toggle="tooltip" title="" data-original-title="@lang('user.active-warning')">
                                         </i>
                                     @endif
-                                    @if ($user->notes->count() > 0 && auth()->user()->group->is_modo)
+                                    @if ($user->notes->count() > 0 && auth()->user()->hasPrivilegeTo('users_edit_personal'))
                                         <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                            class="edit">
                                         <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
@@ -80,19 +80,28 @@
                                         </a>
                                     @endif
                                 </h2>
-                                <h4>@lang('common.group'): <span class="badge-user text-bold"
-                                                                       style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i
-                                                class="{{ $user->group->icon }}" data-toggle="tooltip" title=""
-                                                data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span>
+                                <h4>@lang('common.primary role'): <span class="badge-user text-bold"
+                                                                       style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};"><i
+                                                class="{{ $user->primaryRole->icon}}" data-toggle="tooltip" title=""
+                                                data-original-title="{{ $user->primaryRole->name }}"></i> {{ $user->primaryRole->name }}</span>
+                                        @if($user->additionalRoles->count() > 0 )
+                                        @lang('common.additional roles'):
+                                            @foreach($user->additionalRoles as $role)
+                                                <span class="badge-user text-bold"
+                                                      style="color:{{ $role->color }}; background-image:{{ $role->effect }};"><i
+                                                            class="{{ $role->icon}}" data-toggle="tooltip" title=""
+                                                            data-original-title="{{ $role->name }}"></i> {{ $role->name }}
+                                            @endforeach
+                                        @endif
                                 </h4>
                                 <h4>@lang('user.registration-date') {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         @if (auth()->user()->id != $user->id)
                                 <span style="float:right;">
-        @if (auth()->user()->group->is_modo)
+        @if (auth()->user()->hasPrivilegeTo('users_edit_personal'))
                                         <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                 data-target="#modal_user_note"><span
                                                     class="{{ config('other.font-awesome') }} fa-sticky-note"></span> @lang('user.note') </button>
-                                        @if ($user->group->id == 5)
+                                        @if ($user->hasRole(['banned']))
                                             <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                     data-target="#modal_user_unban"><span
                                                         class="{{ config('other.font-awesome') }} fa-undo"></span> @lang('user.unban') </button>
@@ -165,7 +174,7 @@
                         <tr>
                             <td>@lang('user.about')</td>
                             <td>
-                                <span class="badge-extra">@emojione($user->getAboutHtml())</span>
+                                <span class="badge-extra">@joypixels($user->getAboutHtml())</span>
                             </td>
                         </tr>
                         @endif
@@ -397,7 +406,7 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:0%; border-bottom-color: #8c0408;">
+                             style="width:0; border-bottom-color: #8c0408;">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)
@@ -415,7 +424,7 @@
           <span class="badge-user"><strong>@lang('user.hit-n-runs-count'):</strong>
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
-                    @if (auth()->user()->group->is_modo)
+                    @if (auth()->user()->hasPrivilegeTo('users_view_private'))
                         <a href="{{ route('warnings.show', ['username' => $user->username]) }}"><span
                                     class="badge-user text-bold"><strong>@lang('user.warning-log')</strong></span></a>
                         <a href="{{ route('banlog', ['username' => $user->username]) }}"><span
@@ -431,7 +440,7 @@
 
                     @if(auth()->user()->id == $user->id)
                         @include('user.buttons.user')
-                    @elseif(auth()->user()->group && auth()->user()->group->is_modo == 1)
+                    @elseif(auth()->user()->hasPrivilegeTo('users_view_private'))
                         @include('user.buttons.staff')
                     @endif
 
@@ -517,7 +526,7 @@
                     </div>
                 </div>
             </div>
-    @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+    @if (auth()->user()->hasPrivilegeTo('users_view_private'))
         <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> @lang('user.private-info')</h3>
             <div style="word-wrap: break-word; display: table; width: 100%;">
@@ -538,8 +547,8 @@
                     <td>
                     @if ($invitedBy)
                         <a href="{{ route('users.show', ['username' => $invitedBy->sender->username]) }}">
-                            <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
-                                <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
+                            <span class="text-bold" style="color:{{ $invitedBy->sender->primaryRole->color }}; ">
+                                <i class="{{ $invitedBy->sender->primaryRole->icon }}"></i> {{ $invitedBy->sender->username }}
                             </span>
                         </a>
                     @else

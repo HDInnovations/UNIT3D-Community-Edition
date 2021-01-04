@@ -26,9 +26,9 @@ class MediaLanguageController extends Controller
      */
     public function index()
     {
-        $media_languages = MediaLanguage::all()->sortBy('name');
+        $mediaLanguages = MediaLanguage::all()->sortBy('name');
 
-        return \view('Staff.media_language.index', ['media_languages' => $media_languages]);
+        return \view('Staff.media_language.index', ['media_languages' => $mediaLanguages]);
     }
 
     /**
@@ -78,9 +78,9 @@ class MediaLanguageController extends Controller
      */
     public function edit($id)
     {
-        $media_language = MediaLanguage::findOrFail($id);
+        $mediaLanguage = MediaLanguage::findOrFail($id);
 
-        return \view('Staff.media_language.edit', ['media_language' => $media_language]);
+        return \view('Staff.media_language.edit', ['media_language' => $mediaLanguage]);
     }
 
     /**
@@ -93,11 +93,11 @@ class MediaLanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $media_language = MediaLanguage::findOrFail($id);
-        $media_language->name = $request->input('name');
-        $media_language->code = $request->input('code');
+        $mediaLanguage = MediaLanguage::findOrFail($id);
+        $mediaLanguage->name = $request->input('name');
+        $mediaLanguage->code = $request->input('code');
 
-        $v = \validator($media_language->toArray(), [
+        $v = \validator($mediaLanguage->toArray(), [
             'name' => 'required',
             'code' => 'required',
         ]);
@@ -106,7 +106,7 @@ class MediaLanguageController extends Controller
             return \redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
-        $media_language->save();
+        $mediaLanguage->save();
 
         return \redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');
@@ -123,8 +123,8 @@ class MediaLanguageController extends Controller
      */
     public function destroy($id)
     {
-        $media_language = MediaLanguage::findOrFail($id);
-        $media_language->delete();
+        $mediaLanguage = MediaLanguage::findOrFail($id);
+        $mediaLanguage->delete();
 
         return \redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');
