@@ -37,6 +37,7 @@ laravel-echo-server.lock
 /.vscode
 /nbproject
 .phpunit.result.cache
+.ftpconfig
 
 # Vim
 .*.swp
