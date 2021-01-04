@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
-    protected $table = "roles";
+    protected $table = 'roles';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -41,5 +42,4 @@ class Role extends Model
 
         return true;
     }
-
 }

@@ -91,7 +91,7 @@ class UserController extends Controller
 
         // Hard coded until group change.
 
-        if (!$staff->hasPrivilegeTo('users_edit_personal') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
+        if (! $staff->hasPrivilegeTo('users_edit_personal') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
@@ -122,7 +122,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        if (!$staff->hasPrivilegeTo('users_edit_privileges') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
+        if (! $staff->hasPrivilegeTo('users_edit_privileges') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
@@ -152,11 +152,10 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        if (!$staff->hasPrivilegeTo('users_edit_security') && !( $staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo')) ) {
+        if (! $staff->hasPrivilegeTo('users_edit_security') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
-
 
         $newPassword = $request->input('new_password');
         $user->password = Hash::make($newPassword);
@@ -178,7 +177,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        \abort_if($user->primaryRole->position >=900 || $staff->id == $user->id, 403);
+        \abort_if($user->primaryRole->position >= 900 || $staff->id == $user->id, 403);
 
         // Removes UserID from Torrents if any and replaces with System UserID (1)
         foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {

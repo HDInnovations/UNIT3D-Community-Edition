@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Permission;
-use Illuminate\Support\Str;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
@@ -207,8 +207,8 @@ class RoleController extends Controller
         }
 
         $role->delete();
+
         return \redirect()->route('staff.roles.index')
             ->withSuccess('Role Successfully Deleted!');
     }
-
 }

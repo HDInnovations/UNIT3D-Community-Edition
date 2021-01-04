@@ -529,10 +529,11 @@ class ChatController extends Controller
         return \response($user);
     }
 
-    public function permissions(Request $request) {
+    public function permissions(Request $request)
+    {
         return response()->json([
             'can_moderate' => $request->user()->hasPrivilegeTo('chat_can_moderate'),
-            'can_chat' => true
+            'can_chat'     => true,
         ]);
     }
 }

@@ -46,7 +46,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
-                'role_id'  => 1,
+                'role_id'   => 1,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),
@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => 'Bot',
                 'email'     => config('unit3d.default-owner-email'),
-                'role_id'  => 3,
+                'role_id'   => 3,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),
@@ -66,7 +66,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => config('unit3d.owner-username'),
                 'email'     => config('unit3d.default-owner-email'),
-                'role_id'  => 2,
+                'role_id'   => 2,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),

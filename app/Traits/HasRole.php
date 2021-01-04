@@ -6,10 +6,11 @@ use App\Models\Role;
 
 trait HasRole
 {
-     /**
+    /**
      * Check If A User Has One Or Many Roles.
      *
      * @param $roles
+     *
      * @return bool
      */
     public function hasRole($roles)
@@ -46,6 +47,7 @@ trait HasRole
         if ($this->primaryRole) {
             return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id)->where('id', '!=', $this->primaryRole->id);
         }
+
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id);
     }
 }

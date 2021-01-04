@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessMassPM;
-use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 

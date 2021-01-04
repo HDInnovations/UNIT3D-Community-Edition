@@ -62,21 +62,21 @@ class User extends Authenticatable
         'last_action',
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function privileges() {
+    public function privileges()
+    {
         return $this->belongsToMany(Role::class, 'user_privilege', 'user_id', 'privilege_id');
     }
-
 
     /**
      * Belongs To A Chatroom.
@@ -1022,5 +1022,4 @@ class User extends Authenticatable
 
         return Torrent::whereIn('info_hash', $seeding)->sum('size');
     }
-
 }

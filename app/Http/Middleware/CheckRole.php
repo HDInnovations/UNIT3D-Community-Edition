@@ -21,7 +21,7 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, $role)
     {
-        if (! $request->user()->hasRole(Role::where('slug','=', $role))) {
+        if (! $request->user()->hasRole(Role::where('slug', '=', $role))) {
             abort(403);
         }
 

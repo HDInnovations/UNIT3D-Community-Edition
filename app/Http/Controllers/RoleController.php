@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Role;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -36,7 +36,7 @@ class RoleController extends Controller
             'Disabled',
             'Guest',
             'Validating',
-            'Bot'
+            'Bot',
         ];
 
         $roles = Role::whereNotIn('name', $hidden)->orderBy('position', 'desc')->get();

@@ -90,7 +90,7 @@ trait HasPrivilege
      */
     protected function hasPrivilege($privilege)
     {
-        return (bool) $this->privileges->where('slug', '=' ,$privilege->slug)->count();
+        return (bool) $this->privileges->where('slug', '=', $privilege->slug)->count();
     }
 
     /**

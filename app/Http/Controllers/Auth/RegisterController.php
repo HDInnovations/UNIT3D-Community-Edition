@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
-use App\Models\Group;
 use App\Models\Invite;
 use App\Models\PrivateMessage;
 use App\Models\User;

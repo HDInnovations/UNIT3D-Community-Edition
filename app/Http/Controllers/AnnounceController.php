@@ -23,7 +23,6 @@ use App\Jobs\ProcessBasicAnnounceRequest;
 use App\Jobs\ProcessCompletedAnnounceRequest;
 use App\Jobs\ProcessStartedAnnounceRequest;
 use App\Jobs\ProcessStoppedAnnounceRequest;
-use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Role;
 use App\Models\Torrent;
@@ -303,7 +302,7 @@ class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if (!$user->hasPrivilegeTo('torrent_can_download') && $queries['left'] !== '0') {
+        if (! $user->hasPrivilegeTo('torrent_can_download') && $queries['left'] !== '0') {
             throw new TrackerException(142);
         }
 
