@@ -39,13 +39,16 @@ jobs:
                 coverage: none
 
             - name: Install Composer Dependencies
-              run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+              run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
             - name: Copy Environment File
               run: php -r "file_exists('.env') || copy('.env.github', '.env');"
 
-            - name: Generate Application Key
-              run: php artisan key:generate
+            - name: Generate Application Key And Clear Caches
+              run: |
+                php artisan key:generate
+                php artisan cache:clear
+                php artisan config:clear
 
             - name: Directory Permissions
               run: chmod -R 777 storage bootstrap/cache
@@ -53,7 +56,7 @@ jobs:
             - name: Execute Tests (Unit and Feature) via PHPUnit
               env:
                 DB_CONNECTION: mysql
-                MYSQL_DATABASE: UNIT3D
+                DB_DATABASE: UNIT3D
                 DB_USERNAME: UNIT3D
                 DB_PASSWORD: UNIT3D
                 DB_PORT: 33306
