@@ -16,6 +16,7 @@ namespace App\Listeners;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\Model;
 
 class FailedLoginListener
 {
@@ -34,7 +35,7 @@ class FailedLoginListener
             Request::getClientIp()
         );
 
-        if (property_exists($event, 'user') && $event->user !== null && \is_a($event->user, 'Illuminate\Database\Eloquent\Model')) {
+        if (property_exists($event, 'user') && $event->user !== null && $event->user instanceof \Illuminate\Database\Eloquent\Model) {
             $event->user->notify(new FailedLogin(
                 Request::getClientIp()
             ));
