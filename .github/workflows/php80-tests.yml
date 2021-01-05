@@ -50,8 +50,16 @@ jobs:
                 php artisan cache:clear
                 php artisan config:clear
 
+            - name: Clear Application Caches
+              run: |
+                php artisan cache:clear
+                php artisan config:clear
+
             - name: Directory Permissions
               run: chmod -R 777 storage bootstrap/cache
+
+            - name: Run Database Migrations
+              run: php artisan migrate
 
             - name: Execute Tests (Unit and Feature) via PHPUnit
               env:
@@ -60,6 +68,4 @@ jobs:
                 DB_USERNAME: UNIT3D
                 DB_PASSWORD: UNIT3D
                 DB_PORT: 33306
-              run: |
-                php artisan migrate
-                vendor/bin/phpunit
+              run: vendor/bin/phpunit --configuration phpunit.xml
