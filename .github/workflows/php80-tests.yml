@@ -63,5 +63,5 @@ jobs:
                 DB_PASSWORD: UNIT3D
                 DB_PORT: 33306
               run: |
-                php artisan migrate
-                vendor/bin/phpunit --configuration phpunit.xml
+                php artisan migrate --seed
+                vendor/bin/phpunit --configuration phpunit.xml --verbose --debug
