@@ -41,11 +41,8 @@ jobs:
             - name: Install Composer Dependencies
               run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-            - name: Copy Environment File
-              run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
-
             - name: Generate Application Key
-              run: php artisan key:generate
+              run: php artisan key:generate --env=testing
 
             - name: Clear Application Caches
               run: |
