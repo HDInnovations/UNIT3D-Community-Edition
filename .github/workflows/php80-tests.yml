@@ -42,7 +42,7 @@ jobs:
               run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
             - name: Copy Environment File
-              run: php -r "file_exists('.env') || copy('.env.github', '.env');"
+              run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
 
             - name: Generate Application Key
               run: php artisan key:generate
