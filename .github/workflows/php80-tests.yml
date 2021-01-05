@@ -16,49 +16,47 @@ jobs:
                     MYSQL_PASSWORD: UNIT3D
                     MYSQL_ROOT_PASSWORD: UNIT3D
                 ports:
-                    - 3306
+                    - 33306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
             - uses: actions/checkout@v2
               with:
-                  fetch-depth: 1
+                fetch-depth: 1
 
             - name: Verify MySQL Connection
               run: |
                 mysql --version
                 sudo apt-get install -y mysql-client
-                mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uUNIT3D -pUNIT3D -e "SHOW DATABASES"
+                mysql --host 127.0.0.1 --port 33306 -uUNIT3D -pUNIT3D -e "SHOW DATABASES"
 
             - name: Setup PHP 8.0
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.0'
-                  tools: phpunit
-                  extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
-                  coverage: none
+                php-version: '8.0'
+                tools: phpunit
+                extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
+                coverage: none
 
             - name: Install Composer Dependencies
-              run: composer install
+              run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-            - name: Copy UNIT3D CI Environment
-              run: cp .env.ci .env
+            - name: Copy Environment File
+              run: php -r "file_exists('.env') || copy('.env.github', '.env');"
 
-            - name: Generate UNIT3D Key
+            - name: Generate Application Key
               run: php artisan key:generate
 
-            - name: Run UNIT3D Migrations And Seed Them
-              run: php artisan migrate --seed
-              env:
-                  MYSQL_DATABASE: UNIT3D
-                  DB_USERNAME: UNIT3D
-                  DB_PASSWORD: UNIT3D
-                  DB_PORT: ${{ job.services.mysql.ports[3306] }}
+            - name: Directory Permissions
+              run: chmod -R 777 storage bootstrap/cache
 
             - name: Execute Tests (Unit and Feature) via PHPUnit
               env:
+                DB_CONNECTION: mysql
                 MYSQL_DATABASE: UNIT3D
                 DB_USERNAME: UNIT3D
                 DB_PASSWORD: UNIT3D
-                DB_PORT: ${{ job.services.mysql.ports[3306] }}
-              run: vendor/bin/phpunit
+                DB_PORT: 33306
+              run: |
+                php artisan migrate
+                vendor/bin/phpunit
