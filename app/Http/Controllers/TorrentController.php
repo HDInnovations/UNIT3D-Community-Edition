@@ -1602,29 +1602,25 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-	 * @param \App\Models\FeaturedTorrent torrent_id
+     * @param \App\Models\FeaturedTorrent torrent_id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-
-	 public function revokeFeatured(Request $request, $id)
+    public function revokeFeatured(Request $request, $id)
     {
         $user = $request->user();
 
         \abort_unless($user->group->is_modo, 403);
 
-		    $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
-
+        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-         if (isset($torrent)) {
+        if (isset($torrent)) {
             $torrent->free = '0';
             $torrent->doubleup = '0';
             $torrent->featured = '0';
             $torrent->save();
-
-
 
             $appurl = \config('app.url');
 
@@ -1633,8 +1629,7 @@ class TorrentController extends Controller
             );
         }
 
-
-		    $featured_torrent->delete();
+        $featured_torrent->delete();
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Revoked featured from Torrent!');
