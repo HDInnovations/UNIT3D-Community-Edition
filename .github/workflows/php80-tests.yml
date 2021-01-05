@@ -64,4 +64,4 @@ jobs:
                 DB_PORT: 33306
               run: |
                 php artisan migrate --seed
-                vendor/bin/phpunit --configuration phpunit.xml --verbose --debug
+                php artisan test
