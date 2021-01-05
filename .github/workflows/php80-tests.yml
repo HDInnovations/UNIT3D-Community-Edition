@@ -59,6 +59,4 @@ jobs:
                 DB_USERNAME: UNIT3D
                 DB_PASSWORD: UNIT3D
                 DB_PORT: 33306
-              run: |
-                php artisan migrate --seed
-                php artisan test
+              run: php artisan test
