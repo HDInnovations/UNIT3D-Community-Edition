@@ -12,15 +12,23 @@ jobs:
                 image: mysql:8.0
                 env:
                     MYSQL_DATABASE: UNIT3D
-                    MYSQL_PASSWORD: UNIT3D
                     MYSQL_USER: UNIT3D
+                    MYSQL_PASSWORD: UNIT3D
+                    MYSQL_ROOT_PASSWORD: UNIT3D
                 ports:
                     - 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
             - uses: actions/checkout@v2
               with:
                   fetch-depth: 1
+
+            - name: Verify MySQL Connection
+              run: |
+                mysql --version
+                sudo apt-get install -y mysql-client
+                mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uUNIT3D -pUNIT3D -e "SHOW DATABASES"
 
             - name: Setup PHP 8.0
               uses: shivammathur/setup-php@v2
@@ -34,7 +42,7 @@ jobs:
               run: composer install
 
             - name: Copy UNIT3D CI Environment
-              run: cp .env.testing .env
+              run: cp .env.ci .env
 
             - name: Generate UNIT3D Key
               run: php artisan key:generate
@@ -42,7 +50,15 @@ jobs:
             - name: Run UNIT3D Migrations And Seed Them
               run: php artisan migrate --seed
               env:
-                  DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+                  MYSQL_DATABASE: UNIT3D
+                  DB_USERNAME: UNIT3D
+                  DB_PASSWORD: UNIT3D
+                  DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
-            - name: Run Testsuite
-              run: ./vendor/bin/phpunit --env=testing
+            - name: Execute Tests (Unit and Feature) via PHPUnit
+              env:
+                MYSQL_DATABASE: UNIT3D
+                DB_USERNAME: UNIT3D
+                DB_PASSWORD: UNIT3D
+                DB_PORT: ${{ job.services.mysql.ports[3306] }}
+              run: vendor/bin/phpunit
