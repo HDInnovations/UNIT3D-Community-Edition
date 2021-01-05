@@ -1453,7 +1453,9 @@ class UserController extends Controller
                 'user'      => $user,
                 'downloads' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'downloads') {
+        }
+
+        if ($request->has('view') && $request->input('view') == 'downloads') {
             $history = History::selectRaw('distinct(history.info_hash), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
