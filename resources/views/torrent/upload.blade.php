@@ -291,5 +291,5 @@
 @endsection
 
 @section('javascripts')
-    <script src="{{ mix('js/imgbb.js') }}" integrity="{{ Sri::hash('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
 @endsection
