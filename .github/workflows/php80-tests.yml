@@ -1,4 +1,4 @@
-name: PHP 7.4 Tests
+name: PHP 8.0 Tests
 
 on: [ push, pull_request ]
 
@@ -9,7 +9,7 @@ jobs:
 
         services:
             mysql:
-                image: mysql:5.7
+                image: mysql:8.0
                 env:
                     MYSQL_ALLOW_EMPTY_PASSWORD: true
                     MYSQL_DATABASE: UNIT3D
@@ -24,10 +24,10 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Setup PHP 7.4
+            - name: Setup PHP 8.0
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '7.4'
+                  php-version: '8.0'
                   tools: phpunit
                   extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
                   coverage: none
@@ -58,6 +58,6 @@ jobs:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
             - name: Run Testsuite
-              run: ./vendor/bin/phpunit --configuration phpunit.xml
+              run: php ./vendor/bin/phpunit --configuration phpunit.xml
               env:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
