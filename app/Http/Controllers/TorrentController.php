@@ -1598,6 +1598,49 @@ class TorrentController extends Controller
     }
 
     /**
+     * UnFeature A Torrent.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
+	 * @param \App\Models\FeaturedTorrent torrent_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+	 public function revokeFeatured(Request $request, $id)
+    {
+        $user = $request->user();
+
+        \abort_unless($user->group->is_modo, 403);
+
+		    $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
+
+
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+
+         if (isset($torrent)) {
+            $torrent->free = '0';
+            $torrent->doubleup = '0';
+            $torrent->featured = '0';
+            $torrent->save();
+
+
+
+            $appurl = \config('app.url');
+
+            $this->chatRepository->systemMessage(
+                \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+            );
+        }
+
+
+		    $featured_torrent->delete();
+
+        return \redirect()->route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Revoked featured from Torrent!');
+    }
+
+    /**
      * Double Upload A Torrent.
      *
      * @param \Illuminate\Http\Request $request

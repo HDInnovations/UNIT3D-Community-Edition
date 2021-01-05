@@ -307,9 +307,9 @@
                                         <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                       class="btn btn-default btn-xs disabled" role="button">
-                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.featured')
+                                    <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
+                                       class="btn btn-danger btn-xs" role="button">
+                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
                                     </a>
                                 @endif
 
