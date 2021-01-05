@@ -36,7 +36,7 @@ class EmailBlacklistValidator
      */
     public function message($message, $attribute, $rule, $parameters)
     {
-        return sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
+        return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
     }
 
     /**
