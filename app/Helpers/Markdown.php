@@ -333,7 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-
         return $Block;
     }
 
@@ -431,7 +430,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-
         return $Block;
     }
 

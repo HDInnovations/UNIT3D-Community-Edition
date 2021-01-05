@@ -16,7 +16,6 @@ namespace App\Listeners;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Database\Eloquent\Model;
 
 class FailedLoginListener
 {
