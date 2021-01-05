@@ -125,11 +125,11 @@ Video Tutorial Can Be Seen Here:
 https://www.youtube.com/watch?v=tbIZpsz093o
 
 ### <a name="manual-install"></a> Manual Install
-If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
+If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/manual_install.html
 
 ## <a name="updating"></a> 📖 Documentation
-Repo - https://github.com/HDInnovations/UNIT3D-Docs
-Site - https://hdinnovations.github.io/UNIT3D-Docs/index.html
+Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
+Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
 ## <a name="docs"></a> 🖥️ Updating
 `php artisan git:update`
