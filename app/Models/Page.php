@@ -65,9 +65,9 @@ class Page extends Model
      */
     public function getContentHtml()
     {
-         $bbcode = new Bbcode();
-         $linkify = new Linkify();
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-         return $bbcode->parse($linkify->linky($this->content), true);
+        return $bbcode->parse($linkify->linky($this->content), true);
     }
 }
