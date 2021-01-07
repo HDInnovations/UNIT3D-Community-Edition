@@ -25,6 +25,8 @@ class UpdateWishesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('wishes', function (Blueprint $table) {
+            $table->renameColumn('tmdb', 'imdb');
+        });
     }
 }
