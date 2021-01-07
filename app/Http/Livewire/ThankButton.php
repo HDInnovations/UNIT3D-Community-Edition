@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Thank;
 use Livewire\Component;
+use App\Models\Torrent;
 
 class ThankButton extends Component
 {
@@ -24,7 +25,7 @@ class ThankButton extends Component
     public function mount($torrent)
     {
         $this->user = \auth()->user();
-        $this->torrent = $torrent;
+        $this->torrent = Torrent::whereId($torrent)->firstOrFail();
     }
 
     public function thank()
