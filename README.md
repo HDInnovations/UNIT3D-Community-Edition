@@ -10,7 +10,7 @@
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a href="https://discord.gg/Bf47vws"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
+<a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
@@ -31,7 +31,7 @@
 9. [Contributing](#contributing)
 10. [License](#license)
 11. [Demo](#demo)
-12. [Support/Chat](#chat)
+12. [Sponsor-Chat](#chat)
 13. [Sponsoring](#sponsor)
 14. [Collaborators](#collaborators)
 15. [Special Thanks](#thanks)
@@ -201,9 +201,9 @@ Password: UNIT3D
 
 Demo is reset every 48 hours!
 
-## <a name="chat"></a>  💬 Chat With Us
+## <a name="chat"></a>  💬 Sponsors Can Chat With Us
 
-URL: https://discord.gg/Bf47vws
+URL: https://discord.gg/J8dsx7F5yT
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
