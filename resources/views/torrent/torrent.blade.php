@@ -56,7 +56,7 @@
                             </a>
                         @endif
 
-                        @livewire('thank-button', ['torrent' => $torrent])
+                        @livewire('thank-button', ['torrent' => $torrent->id])
 
                         @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
