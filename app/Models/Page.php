@@ -13,7 +13,8 @@
 
 namespace App\Models;
 
-use App\Helpers\BBCodeConverter;
+use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Helpers\Markdown;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,12 +61,13 @@ class Page extends Model
     /**
      * Parse Content And Return Valid HTML.
      *
-     * @return string Convert BBCODE and Parse Markdown To HTML
+     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml()
     {
-        $content = (new BBCodeConverter($this->content))->toMarkdown();
+         $bbcode = new Bbcode();
+         $linkify = new Linkify();
 
-        return (new Markdown())->text($content);
+         return $bbcode->parse($linkify->linky($this->content), true);
     }
 }
