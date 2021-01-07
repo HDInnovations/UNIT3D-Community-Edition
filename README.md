@@ -211,7 +211,9 @@ You can support my work if you are enjoying UNIT3D and my other projects under H
 
 https://github.com/sponsors/HDVinnie
 
-Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+
+CashApp - $hdvinnie
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
