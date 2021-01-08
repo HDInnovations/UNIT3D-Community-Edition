@@ -136,7 +136,7 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25);
+            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = \sprintf('topics.%s', $request->input('sorting'));
@@ -145,10 +145,8 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25);
+            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
-
-        $results->setPath('?name='.$request->input('name'));
 
         // Total Forums Count
         $numForums = Forum::count();
