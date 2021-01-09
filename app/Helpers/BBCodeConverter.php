@@ -342,7 +342,7 @@ class BBCodeConverter
      */
     protected function replaceVideo()
     {
-        $this->text = \preg_replace_callback('#\[video=.*\]([\W\D\w\s]*?)\[/video\]#iu',
+        $this->text = \preg_replace_callback('#\[video=[^\]]*.([\W\D\w\s][^\[]*)\[/video]#iu',
 
             fn ($matches) => '<iframe src="https://www.youtube-nocookie.com/embed/'.\trim($matches[1], '').'?rel=0" width="640" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
 
