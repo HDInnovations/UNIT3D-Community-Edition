@@ -49,13 +49,13 @@ class RssController extends Controller
     {
         $user = $request->user();
 
-        $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
-        $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
+        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [
             'hash'        => $hash,
-            'public_rss'  => $public_rss,
-            'private_rss' => $private_rss,
+            'public_rss'  => $publicRss,
+            'private_rss' => $privateRss,
             'user'        => $user,
         ]);
     }
@@ -70,10 +70,10 @@ class RssController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $torrent_repository = $this->torrentFacetedRepository;
+        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.create', [
-            'torrent_repository' => $torrent_repository,
+            'torrent_repository' => $torrentRepository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
             'resolutions'        => Resolution::all()->sortBy('position'),
@@ -170,13 +170,13 @@ class RssController extends Controller
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
 
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-        if ($user->group->id == $banned_group[0]) {
+        if ($user->group->id == $bannedGroup[0]) {
             \abort(404);
         }
-        if ($user->group->id == $disabled_group[0]) {
+        if ($user->group->id == $disabledGroup[0]) {
             \abort(404);
         }
         if ($user->active == 0) {
@@ -336,10 +336,10 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        $torrent_repository = $this->torrentFacetedRepository;
+        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.edit', [
-            'torrent_repository' => $torrent_repository,
+            'torrent_repository' => $torrentRepository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
             'resolutions'        => Resolution::all()->sortBy('position'),

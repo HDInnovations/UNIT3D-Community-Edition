@@ -11,5 +11,5 @@ jobs:
       - name: Start NPM
         run: |
           npm install
-          npm run prod
+          npx mix -p
           cat public/mix-manifest.json # See asset versions in log

@@ -15,6 +15,10 @@ namespace App\Services\Tmdb\Client;
 
 class Movie
 {
+    /**
+     * @var \GuzzleHttp\Client|mixed
+     */
+    public $client;
     public const API_BASE_URI = 'https://api.themoviedb.org/3/';
     public $data;
 
@@ -39,10 +43,10 @@ class Movie
 
         $response = $this->client->request('get', 'https://api.themoviedb.org/3/movie/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }
@@ -68,7 +72,7 @@ class Movie
 
     public function get_budget()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['budget']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['budget']);
     }
 
     public function get_genres()
@@ -78,7 +82,7 @@ class Movie
 
     public function get_homepage()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
     }
 
     public function get_id()
@@ -88,17 +92,17 @@ class Movie
 
     public function get_imdb_id()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
     }
 
     public function get_original_title()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
     public function get_popularity()
@@ -147,12 +151,12 @@ class Movie
 
     public function get_tagline()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
     }
 
     public function get_title()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['title']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['title']);
     }
 
     public function get_vote_average()

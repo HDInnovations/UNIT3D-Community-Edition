@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "ext-zip": "*",
         "andkab/laravel-joypixels": "^1.0",
         "appstract/laravel-opcache": "^4.0",
@@ -17,7 +17,6 @@
         "bandwidth-throttle/token-bucket": "^2.0",
         "bepsvpt/secure-headers": "^7.0",
         "doctrine/dbal": "^2.10",
-        "elhebert/laravel-sri": "^3.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "gabrielelana/byte-units": "^0.5.0",

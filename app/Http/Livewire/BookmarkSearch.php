@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace App\Http\Livewire;
 
@@ -39,7 +50,7 @@ class BookmarkSearch extends Component
 
     public function mount()
     {
-        $this->user = auth()->user();
+        $this->user = \auth()->user();
     }
 
     public function render()
@@ -53,11 +64,11 @@ class BookmarkSearch extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
 
-        return view('livewire.bookmark-search', [
+        return \view('livewire.bookmark-search', [
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'bookmarks'          => $bookmarks,
         ]);
     }

@@ -20,8 +20,7 @@
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" integrity="{{ Sri::hash('css/app.css') }}"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
@@ -169,8 +168,7 @@
         </div>
         <br>
 
-        <script src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}"
-            crossorigin="anonymous"></script>
+        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
 
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
             let images = 2

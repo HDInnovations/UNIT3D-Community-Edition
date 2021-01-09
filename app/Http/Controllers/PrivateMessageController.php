@@ -116,16 +116,16 @@ class PrivateMessageController extends Controller
      * Create Message Form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string                   $receiver_id
+     * @param string                   $receiverId
      * @param string                   $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
+    public function makePrivateMessage(Request $request, $receiverId = '', $username = '')
     {
         $user = $request->user();
 
-        return \view('pm.send', ['user' => $user, 'receiver_id' => $receiver_id, 'username' => $username]);
+        return \view('pm.send', ['user' => $user, 'receiver_id' => $receiverId, 'username' => $username]);
     }
 
     /**
@@ -287,8 +287,7 @@ class PrivateMessageController extends Controller
     public function markAllAsRead(Request $request)
     {
         $user = $request->user();
-        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->get();
-        foreach ($pms as $pm) {
+        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $pm) {
             $pm->read = 1;
             $pm->save();
         }

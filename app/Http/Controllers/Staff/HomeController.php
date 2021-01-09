@@ -37,12 +37,12 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // User Info
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $users = DB::table('users')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when group_id = $banned_group[0] then 1 end) as banned")
-            ->selectRaw("count(case when group_id = $validating_group[0] then 1 end) as validating")
+            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
             ->first();
 
         // Torrent Info
@@ -86,7 +86,7 @@ class HomeController extends Controller
         $basic = $systemInformation->basic();
 
         // Directory Permissions
-        $file_permissions = $systemInformation->directoryPermissions();
+        $filePermissions = $systemInformation->directoryPermissions();
 
         return \view('Staff.dashboard.index', [
             'users'              => $users,
@@ -100,7 +100,7 @@ class HomeController extends Controller
             'disk'               => $disk,
             'avg'                => $avg,
             'basic'              => $basic,
-            'file_permissions'   => $file_permissions,
+            'file_permissions'   => $filePermissions,
         ]);
     }
 }

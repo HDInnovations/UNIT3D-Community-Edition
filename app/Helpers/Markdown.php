@@ -153,7 +153,7 @@ class Markdown
                 continue;
             }
 
-            if (\strpos($line, "\t") !== false) {
+            if (\str_contains($line, "\t")) {
                 $parts = \explode("\t", $line);
 
                 $line = $parts[0];
@@ -333,10 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
-
         return $Block;
     }
 
@@ -434,10 +430,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
-
         return $Block;
     }
 
@@ -750,7 +742,7 @@ class Markdown
             return;
         }
 
-        if (\strpos($Block['element']['text'], '|') !== false && \rtrim($Line['text'], ' -:|') === '') {
+        if (\str_contains($Block['element']['text'], '|') && \rtrim($Line['text'], ' -:|') === '') {
             $alignments = [];
 
             $divider = $Line['text'];
@@ -758,9 +750,7 @@ class Markdown
             $divider = \trim($divider);
             $divider = \trim($divider, '|');
 
-            $dividerCells = \explode('|', $divider);
-
-            foreach ($dividerCells as $dividerCell) {
+            foreach (\explode('|', $divider) as $dividerCell) {
                 $dividerCell = \trim($dividerCell);
 
                 if ($dividerCell === '') {
@@ -789,9 +779,7 @@ class Markdown
             $header = \trim($header);
             $header = \trim($header, '|');
 
-            $headerCells = \explode('|', $header);
-
-            foreach ($headerCells as $index => $headerCell) {
+            foreach (\explode('|', $header) as $index => $headerCell) {
                 $headerCell = \trim($headerCell);
 
                 $HeaderElement = [
@@ -971,8 +959,8 @@ class Markdown
 
                 // cause the new element to 'inherit' our non nestables
 
-                foreach ($nonNestables as $non_nestable) {
-                    $Inline['element']['nonNestables'][] = $non_nestable;
+                foreach ($nonNestables as $nonNestable) {
+                    $Inline['element']['nonNestables'][] = $nonNestable;
                 }
 
                 // the text that comes before the inline
@@ -1026,7 +1014,7 @@ class Markdown
 
     protected function inlineEmailTag($Excerpt)
     {
-        if (\strpos($Excerpt['text'], '>') !== false && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             if (! isset($matches[2])) {
@@ -1177,7 +1165,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || \strpos($Excerpt['text'], '>') === false) {
+        if ($this->markupEscaped || $this->safeMode || ! \str_contains($Excerpt['text'], '>')) {
             return;
         }
 
@@ -1263,7 +1251,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt)
     {
-        if (\strpos($Excerpt['text'], '>') !== false && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [
@@ -1353,7 +1341,7 @@ class Markdown
 
         $trimmedMarkup = \trim($markup);
 
-        if (! \in_array('', $lines, true) && \strpos($trimmedMarkup, '<p>') === 0) {
+        if (! \in_array('', $lines, true) && \str_starts_with($trimmedMarkup, '<p>')) {
             $markup = $trimmedMarkup;
             $markup = \substr($markup, 3);
 

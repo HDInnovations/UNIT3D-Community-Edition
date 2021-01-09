@@ -157,6 +157,7 @@ return [
     'resolutions'              => 'Resolutions',
     'resurrections'            => 'Resurrections',
     'revoke'                   => 'Revoke',
+    'revokefeatured'           => 'Revoke Featured',
     'rss'                      => 'RSS',
     'runtime'                  => 'Runtime',
     'satisfied_in'             => 'Satisfied in',

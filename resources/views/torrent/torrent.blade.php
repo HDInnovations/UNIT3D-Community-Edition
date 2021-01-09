@@ -56,7 +56,7 @@
                             </a>
                         @endif
 
-                        @livewire('thank-button', ['torrent' => $torrent])
+                        @livewire('thank-button', ['torrent' => $torrent->id])
 
                         @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
@@ -307,9 +307,9 @@
                                         <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                       class="btn btn-default btn-xs disabled" role="button">
-                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.featured')
+                                    <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
+                                       class="btn btn-danger btn-xs" role="button">
+                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
                                     </a>
                                 @endif
 

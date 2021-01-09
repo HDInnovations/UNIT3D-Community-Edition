@@ -29,6 +29,10 @@ use Illuminate\Support\Str;
 
 class TMDBScraper implements ShouldQueue
 {
+    /**
+     * @var mixed|mixed[]|string|null
+     */
+    public $id;
     use SerializesModels;
 
     public function __construct(Request $request = null)
@@ -44,28 +48,26 @@ class TMDBScraper implements ShouldQueue
             $id = $this->id;
         }
 
-        $helper = new TMDB();
-        $client = new Client\TV($id);
-
-        $tv = $client->index();
+        $tmdb = new TMDB();
+        $tv = (new Client\TV($id))->getData();
         if (isset($tv['id'])) {
             $array = [
-                'backdrop'           => $helper->image('backdrop', $tv),
-                'episode_run_time'   => $helper->ifHasItems('episode_run_time', $tv),
-                'first_air_date'     => $helper->ifExists('first_air_date', $tv),
+                'backdrop'           => $tmdb->image('backdrop', $tv),
+                'episode_run_time'   => $tmdb->ifHasItems('episode_run_time', $tv),
+                'first_air_date'     => $tmdb->ifExists('first_air_date', $tv),
                 'homepage'           => $tv['homepage'],
                 'in_production'      => $tv['in_production'],
-                'last_air_date'      => $helper->ifExists('last_air_date', $tv),
+                'last_air_date'      => $tmdb->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),
-                'name_sort'          => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
+                'name_sort'          => \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
                 'number_of_episodes' => $tv['number_of_episodes'],
                 'number_of_seasons'  => $tv['number_of_seasons'],
-                'origin_country'     => $helper->ifHasItems('origin_country', $tv),
+                'origin_country'     => $tmdb->ifHasItems('origin_country', $tv),
                 'original_language'  => $tv['original_language'],
                 'original_name'      => $tv['original_name'],
                 'overview'           => $tv['overview'],
                 'popularity'         => $tv['popularity'],
-                'poster'             => $helper->image('poster', $tv),
+                'poster'             => $tmdb->image('poster', $tv),
                 'status'             => $tv['status'],
                 'vote_average'       => $tv['vote_average'],
                 'vote_count'         => $tv['vote_count'],
@@ -85,22 +87,20 @@ class TMDBScraper implements ShouldQueue
             $id = $this->id;
         }
 
-        $helper = new TMDB();
-        $client = new Client\Movie($id);
+        $tmdb = new TMDB();
+        $movie = (new Client\Movie($id))->getData();
 
-        $movie = $client->index();
-
-        if (array_key_exists('title', $movie)) {
+        if (\array_key_exists('title', $movie)) {
             $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
-            preg_match($re, $movie['title'], $matches);
+            \preg_match($re, $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
-            $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''],
+            $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''],
                 Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)));
 
             $array = [
                 'adult'             => $movie['adult'] ?? 0,
-                'backdrop'          => $helper->image('backdrop', $movie),
+                'backdrop'          => $tmdb->image('backdrop', $movie),
                 'budget'            => $movie['budget'] ?? null,
                 'homepage'          => $movie['homepage'] ?? null,
                 'imdb_id'           => $movie['imdb_id'] ?? null,
@@ -108,8 +108,8 @@ class TMDBScraper implements ShouldQueue
                 'original_title'    => $movie['original_title'] ?? null,
                 'overview'          => $movie['overview'] ?? null,
                 'popularity'        => $movie['popularity'] ?? null,
-                'poster'            => $helper->image('poster', $movie),
-                'release_date'      => $helper->ifExists('release_date', $movie),
+                'poster'            => $tmdb->image('poster', $movie),
+                'release_date'      => $tmdb->ifExists('release_date', $movie),
                 'revenue'           => $movie['revenue'] ?? null,
                 'runtime'           => $movie['runtime'] ?? null,
                 'status'            => $movie['status'] ?? null,
@@ -134,16 +134,14 @@ class TMDBScraper implements ShouldQueue
             $id = $this->id;
         }
 
-        $helper = new TMDB();
-        $client = new Client\Collection($id);
-
-        $collection = $client->index();
+        $tmdb = new TMDB();
+        $collection = (new Client\Collection($id))->getData();
 
         $array = [
             'name'     => $collection['name'],
             'overview' => $collection['overview'],
-            'backdrop' => $helper->image('backdrop', $collection),
-            'poster'   => $helper->image('poster', $collection),
+            'backdrop' => $tmdb->image('backdrop', $collection),
+            'poster'   => $tmdb->image('poster', $collection),
         ];
         Collection::updateOrCreate(['id' => $collection['id']], $array);
 
@@ -158,16 +156,14 @@ class TMDBScraper implements ShouldQueue
             $id = $this->id;
         }
 
-        $helper = new TMDB();
-        $client = new Client\Company($id);
-
-        $company = $client->index();
+        $tmdb = new TMDB();
+        $company = (new Client\Company($id))->getData();
 
         $array = [
             'name'     => $company['name'],
             'overview' => $company['overview'],
-            'backdrop' => $helper->image('backdrop', $company),
-            'poster'   => $helper->image('poster', $company),
+            'backdrop' => $tmdb->image('backdrop', $company),
+            'poster'   => $tmdb->image('poster', $company),
         ];
         Company::updateOrCreate(['id' => $company['id']], $array);
 

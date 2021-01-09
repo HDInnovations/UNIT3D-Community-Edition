@@ -13,7 +13,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Spatie\Backup\Events\BackupZipWasCreated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,19 +27,19 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Illuminate\Auth\Events\Logout' => [
+        Logout::class => [
             \App\Listeners\LogoutListener::class,
         ],
-        'Illuminate\Auth\Events\Login' => [
+        Login::class => [
             \App\Listeners\LoginListener::class,
         ],
-        'Illuminate\Auth\Events\Failed' => [
+        Failed::class => [
             \App\Listeners\FailedLoginListener::class,
         ],
         'Assada\Achievements\Event\Unlocked' => [
             \App\Listeners\AchievementUnlocked::class,
         ],
-        'Spatie\Backup\Events\BackupZipWasCreated' => [
+        BackupZipWasCreated::class => [
             \App\Listeners\PasswordProtectBackup::class,
         ],
     ];

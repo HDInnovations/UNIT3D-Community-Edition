@@ -85,10 +85,10 @@ class PollController extends Controller
         $options = \collect($storePoll->input('options'))->map(fn ($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
-        $poll_url = \href_poll($poll);
+        $pollUrl = \href_poll($poll);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
+            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
         );
 
         return \redirect()->route('staff.polls.index')
@@ -132,9 +132,7 @@ class PollController extends Controller
 
         $existingOldOptionIds = \collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
-        $idsOfOptionToBeRemove = \array_diff($oldOptionIds, $existingOldOptionIds);
-
-        foreach ($idsOfOptionToBeRemove as $id) {
+        foreach (\array_diff($oldOptionIds, $existingOldOptionIds) as $id) {
             $option = Option::findOrFail($id);
             $option->delete();
         }
@@ -157,10 +155,10 @@ class PollController extends Controller
         $poll->options()->saveMany($newOptions);
 
         // Last work from store()
-        $poll_url = \href_poll($poll);
+        $pollUrl = \href_poll($poll);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
+            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
         );
 
         $poll->save();

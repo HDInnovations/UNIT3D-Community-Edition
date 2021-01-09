@@ -63,6 +63,6 @@ class EmailBlacklistUpdate extends Command
 
             return;
         }
-        $this->info("{$count} domains retrieved. Cache updated. You are good to go.");
+        $this->info(\sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
     }
 }

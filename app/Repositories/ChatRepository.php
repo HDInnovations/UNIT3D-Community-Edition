@@ -37,10 +37,10 @@ class ChatRepository
      * @param \App\Models\ChatStatus  $chatStatus
      * @param \App\Models\User        $user
      * @param \App\Models\Bot         $bot
-     * @param \App\Models\UserEcho    $echo
-     * @param \App\Models\UserAudible $audible
+     * @param \App\Models\UserEcho    $userEcho
+     * @param \App\Models\UserAudible $userAudible
      */
-    public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $echo, private UserAudible $audible)
+    public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $userEcho, private UserAudible $userAudible)
     {
     }
 
@@ -54,29 +54,29 @@ class ChatRepository
         return $this->bot->all();
     }
 
-    public function echoes($user_id)
+    public function echoes($userId)
     {
-        return $this->echo->with([
+        return $this->userEcho->with([
             'bot',
             'user',
             'target',
             'room',
-        ])->where(function ($query) use ($user_id) {
-            $query->where('user_id', '=', $user_id);
+        ])->where(function ($query) use ($userId) {
+            $query->where('user_id', '=', $userId);
         })
             ->orderBy('id', 'asc')
             ->get();
     }
 
-    public function audibles($user_id)
+    public function audibles($userId)
     {
-        return $this->audible->with([
+        return $this->userAudible->with([
             'bot',
             'user',
             'target',
             'room',
-        ])->where(function ($query) use ($user_id) {
-            $query->where('user_id', '=', $user_id);
+        ])->where(function ($query) use ($userId) {
+            $query->where('user_id', '=', $userId);
         })
             ->latest()
             ->get();
@@ -95,8 +95,7 @@ class ChatRepository
     public function ping($type, $id)
     {
         if ($type == 'room') {
-            $rooms = Chatroom::where('id', '>', 0)->get();
-            foreach ($rooms as $room) {
+            foreach (Chatroom::where('id', '>', 0)->get() as $room) {
                 \broadcast(new Ping($room->id, $id));
             }
         }
@@ -104,30 +103,30 @@ class ChatRepository
         return true;
     }
 
-    public function message($user_id, $room_id, $message, $receiver = null, $bot = null)
+    public function message($userId, $roomId, $message, $receiver = null, $bot = null)
     {
-        if ($this->user->find($user_id)->censor) {
+        if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
         }
 
         $message = $this->htmlifyMessage($message);
 
         $message = $this->message->create([
-            'user_id'     => $user_id,
-            'chatroom_id' => $room_id,
+            'user_id'     => $userId,
+            'chatroom_id' => $roomId,
             'message'     => $message,
             'receiver_id' => $receiver,
             'bot_id'      => $bot,
         ]);
 
-        $this->checkMessageLimits($room_id);
+        $this->checkMessageLimits($roomId);
 
         \broadcast(new MessageSent($message));
 
         return $message;
     }
 
-    public function botMessage($bot_id, $room_id, $message, $receiver = null)
+    public function botMessage($botId, $roomId, $message, $receiver = null)
     {
         $user = $this->user->find($receiver);
         if ($user->censor) {
@@ -135,7 +134,7 @@ class ChatRepository
         }
         $message = $this->htmlifyMessage($message);
         $save = $this->message->create([
-            'bot_id'      => $bot_id,
+            'bot_id'      => $botId,
             'user_id'     => 1,
             'chatroom_id' => 0,
             'message'     => $message,
@@ -151,19 +150,19 @@ class ChatRepository
         ])->find($save->id);
 
         \event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
-        \event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $bot_id]));
+        \event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $botId]));
         $message->delete();
     }
 
-    public function privateMessage($user_id, $room_id, $message, $receiver = null, $bot = null, $ignore = null)
+    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null)
     {
-        if ($this->user->find($user_id)->censor) {
+        if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
         }
         $message = $this->htmlifyMessage($message);
 
         $save = $this->message->create([
-            'user_id'     => $user_id,
+            'user_id'     => $userId,
             'chatroom_id' => 0,
             'message'     => $message,
             'receiver_id' => $receiver,
@@ -179,12 +178,12 @@ class ChatRepository
         ])->find($save->id);
 
         if ($ignore != null) {
-            \event(new Chatter('new.message', $user_id, new ChatMessageResource($message)));
+            \event(new Chatter('new.message', $userId, new ChatMessageResource($message)));
         }
         \event(new Chatter('new.message', $receiver, new ChatMessageResource($message)));
 
         if ($receiver != 1) {
-            \event(new Chatter('new.ping', $receiver, ['type' => 'target', 'id' => $user_id]));
+            \event(new Chatter('new.ping', $receiver, ['type' => 'target', 'id' => $userId]));
         }
 
         return $message;
@@ -201,7 +200,7 @@ class ChatRepository
         }
     }
 
-    public function messages($room_id)
+    public function messages($roomId)
     {
         return $this->message->with([
             'bot',
@@ -210,15 +209,15 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($room_id) {
-            $query->where('chatroom_id', '=', $room_id);
+        ])->where(function ($query) use ($roomId) {
+            $query->where('chatroom_id', '=', $roomId);
         })
             ->orderBy('id', 'desc')
             ->limit(\config('chat.message_limit'))
             ->get();
     }
 
-    public function botMessages($sender_id, $bot_id)
+    public function botMessages($senderId, $botId)
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
@@ -229,15 +228,15 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($sender_id, $systemUserId) {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $sender_id]);
-        })->where('bot_id', '=', $bot_id)
+        ])->where(function ($query) use ($senderId, $systemUserId) {
+            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
+        })->where('bot_id', '=', $botId)
             ->orderBy('id', 'desc')
             ->limit(\config('chat.message_limit'))
             ->get();
     }
 
-    public function privateMessages($sender_id, $target_id)
+    public function privateMessages($senderId, $targetId)
     {
         return $this->message->with([
             'bot',
@@ -246,17 +245,17 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($sender_id, $target_id) {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, $target_id])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$target_id, $sender_id]);
+        ])->where(function ($query) use ($senderId, $targetId) {
+            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
         })
             ->orderBy('id', 'desc')
             ->limit(\config('chat.message_limit'))
             ->get();
     }
 
-    public function checkMessageLimits($room_id)
+    public function checkMessageLimits($roomId)
     {
-        $messages = $this->messages($room_id)->toArray();
+        $messages = $this->messages($roomId)->toArray();
         $limit = \config('chat.message_limit');
         $count = \is_countable($messages) ? \count($messages) : 0;
 

@@ -127,12 +127,12 @@
     <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
         <div class="modal-dialog modal-lg modal-dark" role="document">
             <div class="modal-content ">
-                <div class="modal-header bg-info ">
+                <div class="modal-header">
                     <h4 class="modal-title" id="Modallabel3dsign">NFO</h4>
                 </div>
-                <div class="modal-body">
-                    <pre class="torrent-bottom-nfo">
-                    {{ $torrent->nfo }}
+                <div class="modal-body text-center">
+                    <pre id="torrent_nfo" style="font-size:10pt; font-family: 'Courier New', monospace;">
+                        {!! App\Helpers\Nfo::parseNfo($torrent->nfo) !!}
                     </pre>
                 </div>
                 <div class="modal-footer">

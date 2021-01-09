@@ -64,11 +64,8 @@ class Page extends Model
      */
     public function getContentHtml()
     {
-        $bbCodeConverter = new BBCodeConverter($this->content);
-        $content = $bbCodeConverter->toMarkdown();
+        $content = (new BBCodeConverter($this->content))->toMarkdown();
 
-        $markdown = new Markdown();
-
-        return $markdown->text($content);
+        return (new Markdown())->text($content);
     }
 }

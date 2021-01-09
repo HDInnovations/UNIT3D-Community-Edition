@@ -15,6 +15,10 @@ namespace App\Services\Tmdb\Client;
 
 class TV
 {
+    /**
+     * @var \GuzzleHttp\Client|mixed
+     */
+    public $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
     public $data;
 
@@ -39,10 +43,10 @@ class TV
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }
@@ -103,7 +107,7 @@ class TV
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
     public function get_next_episode_to_air()
@@ -133,12 +137,12 @@ class TV
 
     public function get_original_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
     public function get_poster()

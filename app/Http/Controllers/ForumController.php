@@ -53,14 +53,14 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
-        if (! \is_array($topic_neos)) {
-            $topic_neos = [];
+        $topicNeos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
+        if (! \is_array($topicNeos)) {
+            $topicNeos = [];
         }
 
-        $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
-        if (! \is_array($forum_neos)) {
-            $forum_neos = [];
+        $forumNeos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
+        if (! \is_array($forumNeos)) {
+            $forumNeos = [];
         }
 
         if ($request->has('body') && $request->input('body') != '') {
@@ -80,11 +80,11 @@ class ForumController extends Controller
             $result->where([['topics.name', 'like', '%'.$request->input('name').'%']]);
         }
         if ($request->has('subscribed') && $request->input('subscribed') == 1) {
-            $result->where(function ($query) use ($topic_neos, $forum_neos) {
-                $query->whereIn('topics.id', $topic_neos)->orWhereIn('topics.forum_id', $forum_neos);
+            $result->where(function ($query) use ($topicNeos, $forumNeos) {
+                $query->whereIn('topics.id', $topicNeos)->orWhereIn('topics.forum_id', $forumNeos);
             });
         } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
-            $result->whereNotIn('topics.id', $topic_neos)->whereNotIn('topics.forum_id', $forum_neos);
+            $result->whereNotIn('topics.id', $topicNeos)->whereNotIn('topics.forum_id', $forumNeos);
         }
 
         if ($request->has('implemented') && $request->input('implemented') == 1) {
@@ -136,7 +136,7 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25);
+            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = \sprintf('topics.%s', $request->input('sorting'));
@@ -145,17 +145,15 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25);
+            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
 
-        $results->setPath('?name='.$request->input('name'));
-
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         $params = $request->all();
 
@@ -165,9 +163,9 @@ class ForumController extends Controller
             'user'       => $user,
             'name'       => $request->input('name'),
             'body'       => $request->input('body'),
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
             'params'     => $params,
         ]);
     }
@@ -188,28 +186,28 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-        if (! \is_array($topic_neos)) {
-            $topic_neos = [];
+        $topicNeos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
+        if (! \is_array($topicNeos)) {
+            $topicNeos = [];
         }
 
-        $forum_neos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
-        if (! \is_array($forum_neos)) {
-            $forum_neos = [];
+        $forumNeos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
+        if (! \is_array($forumNeos)) {
+            $forumNeos = [];
         }
-        $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos, $forum_neos) {
-            $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
+        $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
+            $query->whereIn('topics.id', $topicNeos)->orWhereIn('forums.id', $forumNeos);
         })->groupBy('forums.id');
 
-        $results = $result->orderBy('topic_created_at', 'desc')->paginate(25);
+        $results = $builder->orderBy('topic_created_at', 'desc')->paginate(25);
         $results->setPath('?name='.$request->input('name'));
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         $params = $request->all();
 
@@ -218,12 +216,12 @@ class ForumController extends Controller
             'user'       => $user,
             'name'       => $request->input('name'),
             'body'       => $request->input('body'),
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
             'params'     => $params,
-            'forum_neos' => $forum_neos,
-            'topic_neos' => $topic_neos,
+            'forum_neos' => $forumNeos,
+            'topic_neos' => $topicNeos,
         ]);
     }
 
@@ -246,18 +244,18 @@ class ForumController extends Controller
         $results = Topic::with(['forum'])->whereNotIn('topics.forum_id', $pests)->latest()->paginate(25);
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         return \view('forum.latest_topics', [
             'results'    => $results,
             'user'       => $user,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
         ]);
     }
 
@@ -280,18 +278,18 @@ class ForumController extends Controller
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         return \view('forum.latest_posts', [
             'results'    => $results,
             'user'       => $user,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
         ]);
     }
 
@@ -305,17 +303,17 @@ class ForumController extends Controller
         $categories = Forum::all()->sortBy('position');
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         return \view('forum.index', [
             'categories' => $categories,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
         ]);
     }
 
@@ -332,11 +330,11 @@ class ForumController extends Controller
         $forum = Forum::findOrFail($id);
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
@@ -357,9 +355,9 @@ class ForumController extends Controller
             'forum'      => $forum,
             'topics'     => $topics,
             'category'   => $category,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
         ]);
     }
 }

@@ -106,8 +106,8 @@ class RequestController extends Controller
     {
         $user = $request->user();
         $search = $request->input('search');
-        $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
-        $imdb = \str_replace('tt', '', $imdb_id);
+        $imdbId = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = \str_replace('tt', '', $imdbId);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
@@ -233,24 +233,18 @@ class RequestController extends Controller
         $carbon = Carbon::now()->addDay();
 
         $meta = null;
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
-            }
+        if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
         }
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
-            }
+        if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
         }
-        if ($torrentRequest->category->game_meta) {
-            if ($torrentRequest->igdb || $torrentRequest->igdb != 0) {
-                $meta = Game::with([
-                    'cover'    => ['url', 'image_id'],
-                    'artworks' => ['url', 'image_id'],
-                    'genres'   => ['name'],
-                ])->find($torrentRequest->igdb);
-            }
+        if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
+            $meta = Game::with([
+                'cover'    => ['url', 'image_id'],
+                'artworks' => ['url', 'image_id'],
+                'genres'   => ['name'],
+            ])->find($torrentRequest->igdb);
         }
 
         return \view('requests.request', [
@@ -337,17 +331,13 @@ class RequestController extends Controller
         }
         $torrentRequest->save();
 
-        $client = new TMDBScraper();
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $client->tv($torrentRequest->tmdb);
-            }
+        $tmdbScraper = new TMDBScraper();
+        if ($torrentRequest->category->tv_meta !== 0 && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->tv($torrentRequest->tmdb);
         }
 
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $client->movie($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->movie_meta !== 0 && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
         $torrentRequestBounty = new TorrentRequestBounty();
@@ -367,16 +357,16 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bounty');
         $user->save();
-        $tr_url = \href_request($torrentRequest);
-        $profile_url = \href_profile($user);
+        $trUrl = \href_request($torrentRequest);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($torrentRequest->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $torrentRequest->name)
+                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $torrentRequest->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $torrentRequest->name)
+                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $trUrl, $torrentRequest->name)
             );
         }
 
@@ -464,17 +454,13 @@ class RequestController extends Controller
         }
         $torrentRequest->save();
 
-        $client = new TMDBScraper();
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $client->tv($torrentRequest->tmdb);
-            }
+        $tmdbScraper = new TMDBScraper();
+        if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->tv($torrentRequest->tmdb);
         }
 
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $client->movie($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
         return \redirect()->route('requests', ['id' => $torrentRequest->id])
@@ -523,16 +509,16 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bonus_value');
         $user->save();
-        $tr_url = \href_request($tr);
-        $profile_url = \href_profile($user);
+        $trUrl = \href_request($tr);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($torrentRequestBounty->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
+                \sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profileUrl, $user->username, $request->input('bonus_value'), $trUrl, $tr->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
+                \sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $trUrl, $tr->name)
             );
         }
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
@@ -616,49 +602,49 @@ class RequestController extends Controller
             $tr->save();
 
             //BON and torrent request hash code below
-            $fill_user = User::findOrFail($tr->filled_by);
-            $fill_amount = $tr->bounty;
+            $fillUser = User::findOrFail($tr->filled_by);
+            $fillAmount = $tr->bounty;
 
             $BonTransactions = new BonTransactions();
             $BonTransactions->itemID = 0;
             $BonTransactions->name = 'request';
-            $BonTransactions->cost = $fill_amount;
+            $BonTransactions->cost = $fillAmount;
             $BonTransactions->sender = 0;
-            $BonTransactions->receiver = $fill_user->id;
-            $BonTransactions->comment = \sprintf('%s has filled %s and has been awarded %s BONUS.', $fill_user->username, $tr->name, $fill_amount);
+            $BonTransactions->receiver = $fillUser->id;
+            $BonTransactions->comment = \sprintf('%s has filled %s and has been awarded %s BONUS.', $fillUser->username, $tr->name, $fillAmount);
             $BonTransactions->save();
 
-            $fill_user->seedbonus += $fill_amount;
-            $fill_user->save();
+            $fillUser->seedbonus += $fillAmount;
+            $fillUser->save();
 
             // Achievements
-            $fill_user->addProgress(new UserFilled25Requests(), 1);
-            $fill_user->addProgress(new UserFilled50Requests(), 1);
-            $fill_user->addProgress(new UserFilled75Requests(), 1);
-            $fill_user->addProgress(new UserFilled100Requests(), 1);
+            $fillUser->addProgress(new UserFilled25Requests(), 1);
+            $fillUser->addProgress(new UserFilled50Requests(), 1);
+            $fillUser->addProgress(new UserFilled75Requests(), 1);
+            $fillUser->addProgress(new UserFilled100Requests(), 1);
 
-            $tr_url = \href_request($tr);
-            $profile_url = \href_profile($fill_user);
+            $trUrl = \href_request($tr);
+            $profileUrl = \href_profile($fillUser);
 
             // Auto Shout
             if ($tr->filled_anon == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profile_url, $fill_user->username, $tr_url, $tr->name)
+                    \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profileUrl, $fillUser->username, $trUrl, $tr->name)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $tr_url, $tr->name)
+                    \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $trUrl, $tr->name)
                 );
             }
 
-            $requester = $fill_user;
+            $requester = $fillUser;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill_approve')) {
                 $requester->notify(new NewRequestFillApprove('torrent', $user->username, $tr));
             }
 
             if ($tr->filled_anon == 0) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
+                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fillUser->username));
             }
 
             return \redirect()->route('request', ['id' => $id])

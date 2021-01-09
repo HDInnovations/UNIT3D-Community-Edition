@@ -115,13 +115,13 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $torrent_id
+     * @param $torrentId
      *
      * @return bool
      */
-    public function isBookmarked($torrent_id)
+    public function isBookmarked($torrentId)
     {
-        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+        return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
     }
 
     /**
@@ -586,7 +586,7 @@ class User extends Authenticatable
      */
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         if ($sender->id === $target->id) {
             return false;
         }
@@ -599,9 +599,9 @@ class User extends Authenticatable
         if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
-        if ($target->notification && $target->notification->$target_group && \is_array($target->notification->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
-                return $target->notification->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
+                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
@@ -621,7 +621,7 @@ class User extends Authenticatable
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
@@ -635,9 +635,9 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
@@ -657,7 +657,7 @@ class User extends Authenticatable
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
@@ -671,9 +671,9 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
@@ -685,30 +685,30 @@ class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param $type
-     * @param $topic_id
+     * @param string $type
+     * @param        $topicId
      *
      * @return string
      */
-    public function isSubscribed(string $type, $topic_id)
+    public function isSubscribed(string $type, $topicId)
     {
         if ($type === 'topic') {
-            return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
+            return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
         }
 
-        return (bool) $this->subscriptions()->where('forum_id', '=', $topic_id)->first(['id']);
+        return (bool) $this->subscriptions()->where('forum_id', '=', $topicId)->first(['id']);
     }
 
     /**
      * Get All Followers Of A User.
      *
-     * @param $target_id
+     * @param $targetId
      *
      * @return string
      */
-    public function isFollowing($target_id)
+    public function isFollowing($targetId)
     {
-        return (bool) $this->follows()->where('target_id', '=', $target_id)->first(['id']);
+        return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
 
     /**
@@ -843,9 +843,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['signature'] = $antiXss->xss_clean($value);
+        $this->attributes['signature'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -870,9 +868,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['about'] = $antiXss->xss_clean($value);
+        $this->attributes['about'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -1004,5 +1000,32 @@ class User extends Authenticatable
         $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
         return Torrent::whereIn('id', $peers)->sum('size');
+    }
+
+    /**
+     * @method getCompletedSeeds
+     *
+     * Gets the users satisfied torrent count.
+     *
+     * @return int
+     */
+    public function getCompletedSeeds()
+    {
+        return History::where('user_id', '=', $this->id)->where('seedtime', '>=', \config('hitrun.seedtime'))->count();
+    }
+
+    /**
+     * @method getSpecialSeedingSize
+     *
+     * Gets the seeding size of torrents with at least 15 days seedtime in the past 30 days.
+     *
+     * @return int
+     */
+    public function getSpecialSeedingSize()
+    {
+        $current = Carbon::now();
+        $seeding = History::where('user_id', '=', $this->id)->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())->where('active', '=', 1)->where('seeder', '=', 1)->where('seedtime', '>=', 1296000)->pluck('info_hash');
+
+        return Torrent::whereIn('info_hash', $seeding)->sum('size');
     }
 }

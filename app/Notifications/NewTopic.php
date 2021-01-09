@@ -27,10 +27,10 @@ class NewTopic extends Notification implements ShouldQueue
      * NewTopic Constructor.
      *
      * @param string            $type
-     * @param \App\Models\User  $poster
+     * @param \App\Models\User  $user
      * @param \App\Models\Topic $topic
      */
-    public function __construct(public string $type, public User $poster, public Topic $topic)
+    public function __construct(public string $type, public User $user, public Topic $topic)
     {
     }
 
@@ -59,15 +59,15 @@ class NewTopic extends Notification implements ShouldQueue
 
         if ($this->type == 'staff') {
             return [
-                'title' => $this->poster->username.' Has Posted In A Staff Forum',
-                'body'  => $this->poster->username.' has started a new staff topic in '.$this->topic->forum->name,
+                'title' => $this->user->username.' Has Posted In A Staff Forum',
+                'body'  => $this->user->username.' has started a new staff topic in '.$this->topic->forum->name,
                 'url'   => \route('forum_topic', ['id' => $this->topic->id]),
             ];
         }
 
         return [
-            'title' => $this->poster->username.' Has Posted In A Subscribed Forum',
-            'body'  => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
+            'title' => $this->user->username.' Has Posted In A Subscribed Forum',
+            'body'  => $this->user->username.' has started a new topic in '.$this->topic->forum->name,
             'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }

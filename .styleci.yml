@@ -17,6 +17,7 @@ finder:
     - .github
     - resources/js
     - resources/sass
+    - resources/views
   not-name:
     - index.php
     - server.php

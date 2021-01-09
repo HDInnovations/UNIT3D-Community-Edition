@@ -57,16 +57,16 @@ class SubtitleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param \App\Models\Torrent $torrent_id
+     * @param \App\Models\Torrent $torrentId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($torrent_id)
+    public function create($torrentId)
     {
-        $torrent = Torrent::findOrFail($torrent_id);
-        $media_languages = MediaLanguage::all()->sortBy('name');
+        $torrent = Torrent::findOrFail($torrentId);
+        $mediaLanguages = MediaLanguage::all()->sortBy('name');
 
-        return \view('subtitle.create', ['torrent' => $torrent, 'media_languages' => $media_languages]);
+        return \view('subtitle.create', ['torrent' => $torrent, 'media_languages' => $mediaLanguages]);
     }
 
     /**
@@ -79,14 +79,14 @@ class SubtitleController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        $subtitle_file = $request->file('subtitle_file');
-        $filename = \uniqid('', true).'.'.$subtitle_file->getClientOriginalExtension();
+        $subtitleFile = $request->file('subtitle_file');
+        $filename = \uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
         $subtitle = new Subtitle();
         $subtitle->title = $request->input('torrent_name');
         $subtitle->file_name = $filename;
-        $subtitle->file_size = $subtitle_file->getSize();
-        $subtitle->extension = '.'.$subtitle_file->getClientOriginalExtension();
+        $subtitle->file_size = $subtitleFile->getSize();
+        $subtitle->extension = '.'.$subtitleFile->getClientOriginalExtension();
         $subtitle->language_id = $request->input('language_id');
         $subtitle->note = $request->input('note');
         $subtitle->downloads = 0;
@@ -114,19 +114,19 @@ class SubtitleController extends Controller
         }
 
         // Save Subtitle
-        Storage::disk('subtitles')->put($filename, \file_get_contents($subtitle_file));
+        Storage::disk('subtitles')->put($filename, \file_get_contents($subtitleFile));
         $subtitle->save();
 
         // Announce To Shoutbox
-        $torrent_url = \href_torrent($subtitle->torrent);
-        $profile_url = \href_profile($user);
+        $torrentUrl = \href_torrent($subtitle->torrent);
+        $profileUrl = \href_profile($user);
         if ($subtitle->anon == false) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
+                \sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profileUrl, $user->username, $subtitle->language->name, $torrentUrl, $subtitle->torrent->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]', $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
+                \sprintf('An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]', $subtitle->language->name, $torrentUrl, $subtitle->torrent->name)
             );
         }
 
@@ -228,13 +228,13 @@ class SubtitleController extends Controller
         }
 
         // Define the filename for the download
-        $temp_filename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension;
+        $tempFilename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension;
 
         // Increment downloads count
         $subtitle->increment('downloads');
 
         $headers = ['Content-Type: '.Storage::disk('subtitles')->mimeType($subtitle->file_name)];
 
-        return Storage::disk('subtitles')->download($subtitle->file_name, $temp_filename, $headers);
+        return Storage::disk('subtitles')->download($subtitle->file_name, $tempFilename, $headers);
     }
 }

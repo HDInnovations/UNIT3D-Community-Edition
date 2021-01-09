@@ -19,8 +19,7 @@
     @show
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" integrity="{{ Sri::hash('css/main/login.css') }}"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
@@ -98,8 +97,7 @@
         </div>
     </div>
 
-    <script src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}"
-        crossorigin="anonymous"></script>
+    <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
     @foreach (['warning', 'success', 'info'] as $key)
         @if (Session::has($key))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">

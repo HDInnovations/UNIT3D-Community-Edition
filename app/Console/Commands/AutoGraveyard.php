@@ -57,9 +57,7 @@ class AutoGraveyard extends Command
      */
     public function handle()
     {
-        $rewardable = Graveyard::where('rewarded', '!=', 1)->oldest()->get();
-
-        foreach ($rewardable as $reward) {
+        foreach (Graveyard::where('rewarded', '!=', 1)->oldest()->get() as $reward) {
             $user = User::where('id', '=', $reward->user_id)->first();
 
             $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();

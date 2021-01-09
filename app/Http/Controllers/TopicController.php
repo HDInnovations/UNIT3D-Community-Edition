@@ -263,9 +263,9 @@ class TopicController extends Controller
 
         \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $name = $request->input('name');
-        $forum_id = $request->input('forum_id');
+        $forumId = $request->input('forum_id');
         $topic->name = $name;
-        $topic->forum_id = $forum_id;
+        $topic->forum_id = $forumId;
         $topic->save();
 
         return \redirect()->route('forum_topic', ['id' => $topic->id])

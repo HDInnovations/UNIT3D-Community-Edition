@@ -307,13 +307,13 @@
                                                             <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4) }}</span>
                                                         @endif
                                                 </h3>
-                                                @if ($t->meta->genres->isNotEmpty())
+                                                @if (isset($t->meta->genres))
                                                 @foreach ($t->meta->genres as $genre)
                                                     <span class="genre-label">{{ $genre->name }}</span>
                                                 @endforeach
                                                 @endif
                                                 <p class="description_plot" style="width: 100%;">
-                                                    {{ $t->meta->plot }}
+                                                    {{ $t->meta->plot ?? '' }}
                                                 </p>
                                                 <div class="card_holder" style="width: 100%;" ;>
                                                     <hr style="padding: 0 !important; margin: 5px 0 !important; width: 100%;">

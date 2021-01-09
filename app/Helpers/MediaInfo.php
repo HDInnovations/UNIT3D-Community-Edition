@@ -63,12 +63,12 @@ class MediaInfo
     {
         $output = [];
         foreach ($sections as $key => $section) {
-            $key_section = \strtolower(\explode(' ', $key)[0]);
+            $keySection = \strtolower(\explode(' ', $key)[0]);
             if (! empty($section)) {
-                if ($key_section === 'general') {
-                    $output[$key_section] = $this->parseProperty($section, $key_section);
+                if ($keySection === 'general') {
+                    $output[$keySection] = $this->parseProperty($section, $keySection);
                 } else {
-                    $output[$key_section][] = $this->parseProperty($section, $key_section);
+                    $output[$keySection][] = $this->parseProperty($section, $keySection);
                 }
             }
         }
@@ -299,9 +299,9 @@ class MediaInfo
     public static function stripPath($string)
     {
         $string = \str_replace('\\', '/', $string);
-        $path_parts = \pathinfo($string);
+        $pathParts = \pathinfo($string);
 
-        return $path_parts['basename'];
+        return $pathParts['basename'];
     }
 
     private function parseFileSize($string)
@@ -333,10 +333,10 @@ class MediaInfo
     private function formatOutput($data)
     {
         $output = [];
-        $output['general'] = ! empty($data['general']) ? $data['general'] : null;
-        $output['video'] = ! empty($data['video']) ? $data['video'] : null;
-        $output['audio'] = ! empty($data['audio']) ? $data['audio'] : null;
-        $output['text'] = ! empty($data['text']) ? $data['text'] : null;
+        $output['general'] = empty($data['general']) ? null : $data['general'];
+        $output['video'] = empty($data['video']) ? null : $data['video'];
+        $output['audio'] = empty($data['audio']) ? null : $data['audio'];
+        $output['text'] = empty($data['text']) ? null : $data['text'];
 
         return $output;
     }
@@ -345,7 +345,7 @@ class MediaInfo
     {
         $output = ['general'=>[], 'video'=>[], 'audio'=>[]];
 
-        $general_crumbs = ['format'=>'ucfirst', 'duration'=>null];
+        $generalCrumbs = ['format'=>'ucfirst', 'duration'=>null];
 
         if ($data['general'] === null) {
             $output['general'] = null;
@@ -361,70 +361,70 @@ class MediaInfo
         if ($data['video'] === null) {
             $output['video'] = null;
         } else {
-            $temp_output = [];
-            foreach ($data['video'] as $video_element) {
-                $temp_video_output = [];
-                if (isset($video_element['format'])) {
-                    $temp_video_output[] = \strtoupper($video_element['format']);
+            $tempOutput = [];
+            foreach ($data['video'] as $videoElement) {
+                $tempVideoOutput = [];
+                if (isset($videoElement['format'])) {
+                    $tempVideoOutput[] = \strtoupper($videoElement['format']);
                 }
-                if (isset($video_element['width'], $video_element['height'])) {
-                    $temp_video_output[] = $video_element['width'].' x '.$video_element['height'];
+                if (isset($videoElement['width'], $videoElement['height'])) {
+                    $tempVideoOutput[] = $videoElement['width'].' x '.$videoElement['height'];
                 }
                 foreach (['aspect_ratio', 'frame_rate', 'bit_depth', 'bit_rate', 'format_profile', 'scan_type', 'title', 'color primaries'] as $property) {
-                    if (isset($video_element[$property])) {
-                        $temp_video_output[] = $video_element[$property];
+                    if (isset($videoElement[$property])) {
+                        $tempVideoOutput[] = $videoElement[$property];
                     }
                 }
 
-                if (! empty($temp_video_output)) {
-                    $temp_output[] = $temp_video_output;
+                if (! empty($tempVideoOutput)) {
+                    $tempOutput[] = $tempVideoOutput;
                 }
             }
 
-            $output['video'] = ! empty($temp_output) ? $temp_output : null;
+            $output['video'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         if ($data['audio'] === null) {
             $output['audio'] = null;
         } else {
-            $temp_output = [];
-            foreach ($data['audio'] as $audio_element) {
-                $temp_audio_output = [];
+            $tempOutput = [];
+            foreach ($data['audio'] as $audioElement) {
+                $tempAudioOutput = [];
                 foreach (['language', 'format', 'channels', 'bit_rate', 'title'] as $property) {
-                    if (isset($audio_element[$property])) {
-                        $temp_audio_output[] = $audio_element[$property];
+                    if (isset($audioElement[$property])) {
+                        $tempAudioOutput[] = $audioElement[$property];
                     }
                 }
 
-                if (! empty($temp_audio_output)) {
-                    $temp_output[] = $temp_audio_output;
+                if (! empty($tempAudioOutput)) {
+                    $tempOutput[] = $tempAudioOutput;
                 }
             }
 
-            $output['audio'] = ! empty($temp_output) ? $temp_output : null;
+            $output['audio'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         if ($data['text'] === null) {
             $output['text'] = null;
         } else {
-            $temp_output = [];
-            foreach ($data['text'] as $text_element) {
-                $temp_text_output = [];
+            $tempOutput = [];
+            foreach ($data['text'] as $textElement) {
+                $tempTextOutput = [];
                 foreach (['language', 'format', 'title'] as $property) {
-                    if (isset($text_element[$property])) {
-                        $temp_text_output[] = $text_element[$property];
+                    if (isset($textElement[$property])) {
+                        $tempTextOutput[] = $textElement[$property];
                     }
                 }
-                if (isset($text_element['forced']) && \strtolower($text_element['forced']) === 'yes') {
-                    $temp_text_output[] = 'Forced';
+                if (isset($textElement['forced']) && \strtolower($textElement['forced']) === 'yes') {
+                    $tempTextOutput[] = 'Forced';
                 }
 
-                if (! empty($temp_text_output)) {
-                    $temp_output[] = $temp_text_output;
+                if (! empty($tempTextOutput)) {
+                    $tempOutput[] = $tempTextOutput;
                 }
             }
 
-            $output['text'] = ! empty($temp_output) ? $temp_output : null;
+            $output['text'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         return $output;

@@ -133,15 +133,11 @@ class PlaylistController extends Controller
         $meta = null;
 
         if (isset($random, $torrent)) {
-            if ($torrent->category->tv_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
-                }
+            if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
             }
-            if ($torrent->category->movie_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
-                }
+            if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
             }
         }
 
@@ -278,15 +274,15 @@ class PlaylistController extends Controller
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $playlist_torrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
+        $playlistTorrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
 
         if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             $failCSV = '"Name","URL","ID"';
             $failCount = 0;
 
-            foreach ($playlist_torrents as $playlist_torrent) {
+            foreach ($playlistTorrents as $playlistTorrent) {
                 // Get Torrent
-                $torrent = Torrent::withAnyStatus()->find($playlist_torrent->torrent_id);
+                $torrent = Torrent::withAnyStatus()->find($playlistTorrent->torrent_id);
 
                 // Define The Torrent Filename
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
@@ -326,10 +322,10 @@ class PlaylistController extends Controller
             // Close ZipArchive
             $zipArchive->close();
 
-            $zip_file = $path.'/'.$zipFileName;
+            $zipFile = $path.'/'.$zipFileName;
 
-            if (\file_exists($zip_file)) {
-                return \response()->download($zip_file)->deleteFileAfterSend(true);
+            if (\file_exists($zipFile)) {
+                return \response()->download($zipFile)->deleteFileAfterSend(true);
             }
         }
 
