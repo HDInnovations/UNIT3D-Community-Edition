@@ -12,7 +12,7 @@
  */
 
 return [
-    'chatbox'                 => 'Chat Boks',
+    'chatbox'                 => 'Chatboks',
     'click'                   => 'Klik',
     'to-enable-editor'        => 'for at aktivere editoren',
     'featured-by'             => 'Udvalgt af',
