@@ -13,9 +13,9 @@
 
 return [
     'about'           => 'Her finder du brugerkompilerede afspilningslister, der indeholder titler efter deres smag!',
-    'add-torrent'     => 'TilfÃ¸j Torrent',
+    'add-torrent'     => 'Tilføj Torrent',
     'added-by'        => 'Af:',
-    'cover'           => 'VÃ¦lg et coverbillede',
+    'cover'           => 'Vælg et coverbillede',
     'create'          => 'Opret afspilningsliste',
     'delete-playlist' => 'Slet afspildningsliste',
     'desc'            => 'Beskrivelse',
