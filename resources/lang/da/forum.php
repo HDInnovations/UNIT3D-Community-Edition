@@ -62,6 +62,7 @@ return [
     'subscribed'                => 'Abonneret',
     'subscription-quick-search' => 'Hurtigsøgning efter abonnementer',
     'suggestion'                => 'Forslag',
+    'tip-post-total'            => 'Dette indlæg er blevet belønnet med ialt',
     'tip-this-post'             => 'Beløn indlæg',
     'topic'                     => 'Emne',
     'topic-closed'              => 'Dette emne er lukket',
