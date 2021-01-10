@@ -175,7 +175,7 @@ return [
     'no-soft-warning'                       => 'Der er ingen slettede advarsler i databasen for denne bruger!',
     'no-warning'                            => 'Der er ingen advarsler i databasen for denne bruger!',
     'not-authorized'                        => 'Du er ikke autoriseret til at se denne side. Dette medlem foretrækker at være skjult som en ninja!',
-    'not-satisfied-not-immune'	             => 'Ikke tilfredstillet / Ikke immun',
+    'not-satisfied-not-immune'	            => 'Ikke tilfredstillet/Ikke immun',
     'note'                                  => 'Note',
     'notification'                          => 'Notifikation',
     'notification-settings'                 => 'Notifikationsindstillinger',
@@ -352,5 +352,4 @@ return [
     'warnings'                              => 'Advarsler',
     'warning-log'                           => 'Advarsels Log',
     'wishlist'                              => 'Ønskeliste',
-
 ];
