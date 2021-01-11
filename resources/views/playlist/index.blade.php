@@ -13,15 +13,15 @@
         <div class="block">
             <div class="header gradient yellow">
                 <div class="inner_content">
-                    <h1>Playlists</h1>
+                    <h1>@lang('playlist.playlists')</h1>
                 </div>
             </div>
         </div>
         <div class="block">
             <div class="container box text-center">
-                <h2>Playlists</h2>
-                <h4>Here you will find user compiled playlists that contain titles to their liking!</h4>
-                <a href="{{ route('playlists.create') }}" class="btn btn-md btn-success">Create New Playlist</a>
+                <h2>('playlist.playlists')</h2>
+                <h4>@lang('playlist.about')</h4>
+                <a href="{{ route('playlists.create') }}" class="btn btn-md btn-success">@lang('playlist.create')</a>
             </div>
     
             <div class="row">
@@ -47,10 +47,10 @@
                                 <h3 class="text-bold" style=" margin: 0;">{{ $playlist->name }}</h3>
                                 <h5>
                                     <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
-                                        By: {{ $playlist->user->username }}
+                                        @lang('playlist.added-by') {{ $playlist->user->username }}
                                     </a>
                                 </h5>
-                                <h6>{{ $playlist->torrents_count }} Titles</h6>
+                                <h6>{{ $playlist->torrents_count }} @lang('playlist.titles')</h6>
                             </div>
                         </div>
                     </div>

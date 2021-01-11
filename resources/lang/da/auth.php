@@ -69,5 +69,45 @@ return [
     'veteran'                => 'Erfaren med private trackere',
     'welcome'                => 'Velkommen tilbage!',
     'welcome-restore'        => 'Velkommen tilbage! Din konto er ikke længere deaktiveret!',
+    
+     /*
+    |--------------------------------------------------------------------------
+    | Two Step Authentication Language Lines
+    |--------------------------------------------------------------------------
+    */
+    'subtitle'                      => 'Verifikation Krævet',
+    'title'                         => '2-trins Verifikation',
+    'titleFailed'                   => 'Verifikation Fejlet',
+    'titlePassed'                   => 'Gode nyheder alle sammen!',
+
+    'inputAlt1'                     => 'Kode Indtastning 1',
+    'inputAlt2'                     => 'Kode Indtastning 2',
+    'inputAlt3'                     => 'Kode Indtastning 3',
+    'inputAlt4'                     => 'Kode Indtastning 4',
+
+    'attemptsRemaining'             => 'Resterende forsøg',
+    'missingCode'                   => 'Modtog du ikke bekræftelseskode?',
+    'verifyButton'                  => 'Verificér',
+
+    'exceededTitle'                 => 'Bekræftelsesforsøg overskredet',
+    'lockedUntil'                   => 'Konto låst indtil:',
+    'returnButton'                  => 'Tilbage til start',
+    'tryAgainIn'                    => 'Prøv igen om',
+
+    'verificationEmailButton'       => 'Verificer nu',
+    'verificationEmailGreeting'     => 'Hej :username',
+    'verificationEmailMessage'      => 'Din kontos 2-trins bekræftelseskode er:',
+    'verificationEmailSubject'      => 'Verifikation Krævet',
+
+    'verificationEmailSentMsg'      => 'Bekræftelses-e-mail sendt!',
+    'verificationEmailSuccess'      => 'Success!',
+
+    'verificationWarningMessage'    => 'Dette er dit sidste forsøg, før din konto låses i :hours timer.',
+    'verificationWarningTitle'      => 'Advarsel!',
+
+    'verificationLockedMessage'     => 'Konto Låst!',
+    'verificationLockedTitle'       => 'Doh!',
+
+    'verificationModalConfBtn'      => 'Ok',
 
 ];
