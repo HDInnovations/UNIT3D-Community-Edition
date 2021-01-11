@@ -76,7 +76,7 @@ return [
     'view-unfilled'       => 'Vis ikke opfyldte',
     'vote'                => 'Stem',
     'vote-that'           => 'Stem på denne',
-    'voters'              => 'bruger(re) har stemt på dette request!',
+    'voters'              => 'Bruger(re) har stemt på dette request!',
     'votes'               => 'Stemmer',
     'yes'                 => 'Ja',
 
