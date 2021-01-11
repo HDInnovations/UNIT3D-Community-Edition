@@ -69,8 +69,8 @@ return [
     'veteran'                => 'Erfaren med private trackere',
     'welcome'                => 'Velkommen tilbage!',
     'welcome-restore'        => 'Velkommen tilbage! Din konto er ikke længere deaktiveret!',
-    
-     /*
+
+    /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines
     |--------------------------------------------------------------------------
