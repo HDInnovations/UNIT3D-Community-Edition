@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') Search - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -32,7 +32,7 @@
             <div class="header gradient silver">
                 <div class="inner_content">
                     <div class="page-title">
-                        <h1 style="margin: 0;">Users</h1>
+                        <h1 style="margin: 0;">@lang('common.users')</h1>
                     </div>
                 </div>
             </div>

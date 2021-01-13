@@ -296,7 +296,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">Add Torrent To Playlist</h4>
+							<h4 class="modal-title" id="myModalLabel">@lang('playlist.add-to-playlist')</h4>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
@@ -308,11 +308,11 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Save">
+								<input class="btn btn-primary" type="submit" value="@lang('common.save')">
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
 						</div>
 					</form>
 				</div>

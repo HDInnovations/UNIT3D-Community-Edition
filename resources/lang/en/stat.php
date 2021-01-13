@@ -12,10 +12,15 @@
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
     'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'By Count',
     'by-data'                 => 'By Data',
     'by-volume'               => 'By Volume',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Group',
     'groups'                  => 'Groups',
     'last30days'              => 'Last 30 Days',
@@ -23,6 +28,8 @@ return [
     'nerd-stats-desc'         => 'We all love stats. Here are a few that we find important',
     'languages'               => 'Languages',
     'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Registration Date',
     'request-fulfilled'       => 'Request Fulfilled',
     'request-not-fulfilled'   => 'Request not Fulfilled',
@@ -50,6 +57,8 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Total Traffic',
     'total-upload'            => 'Total Upload',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Users In Group',
     'users-per-group'         => 'Users Per Group',
+    
 ];

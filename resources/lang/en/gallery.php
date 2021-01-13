@@ -24,4 +24,5 @@ return [
     'select-cover'                => 'Select A Cover Image',
     'select-image'                => 'Select An Image',
     'add-an-image-to'             => 'Add an Image to',
+    'add-sleeve-disc-desc'        => 'Sleeves / Disc Art',
 ];
