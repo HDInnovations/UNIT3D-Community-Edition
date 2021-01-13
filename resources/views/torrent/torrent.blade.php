@@ -82,7 +82,7 @@
 
                         @if ($playlists->count() > 0)
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
-                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> Add To Playlist
+                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> @lang('torrent.add-to-playlist')
                         </button>
                         @endif
 
