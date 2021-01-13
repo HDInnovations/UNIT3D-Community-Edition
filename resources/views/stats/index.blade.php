@@ -116,17 +116,17 @@
     
                             <div class="stat">
                                 <p>{{ \App\Helpers\StringHelper::formatBytes($credited_upload, 2) }}</p>
-                                <span class="badge-extra">Credited @lang('stat.total-upload')</span>
+                                <span class="badge-extra">@lang('stat.credited') @lang('stat.total-upload')</span>
                             </div>
     
                             <div class="stat">
                                 <p>{{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}</p>
-                                <span class="badge-extra">Credited @lang('stat.total-download')</span>
+                                <span class="badge-extra">@lang('stat.credited') @lang('stat.total-download')</span>
                             </div>
     
                             <div class="stat">
                                 <p>{{ \App\Helpers\StringHelper::formatBytes($credited_up_down, 2) }}</p>
-                                <span class="badge-extra">Credited @lang('stat.total-traffic')</span>
+                                <span class="badge-extra">@lang('stat.credited') @lang('stat.total-traffic')</span>
                             </div>
     
                         </div>
