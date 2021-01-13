@@ -24,7 +24,7 @@ return [
     'list-by'         => 'Μια λίστα από:',
     'list-about'      => 'Μια λίστα σχετικά με:',
     'is-private'      => 'Ιδιωτική Λίστα?',
-	'playlist'        => 'Λίστα',
+    'playlist'        => 'Λίστα',
     'playlists'       => 'Λίστες',
     'title'           => 'Τίτλος',
     'titles'          => 'Τίτλοι',

@@ -12,7 +12,7 @@
  */
 
 return [
-	'current-seedtime'   => 'Current Seedtime',
+    'current-seedtime'   => 'Current Seedtime',
     'dead'               => 'Νεκρά',
     'graveyard'          => 'Νεκροταφείο',
     'guidelines'         => 'Κατευθυντήριες γραμμές',
@@ -21,11 +21,11 @@ return [
     'howto-desc1'        => 'Πρέπει να seed- άρετε το <span class="text-green"><em>:name</em></span> για <span class="text-red text-bold">τουλάχιστον 15 ημέρες</span> για μια επιτυχημένη ανάσταση του Torrent. Σε κάθε περίπτωση, όταν ο σημερινός σας χρόνος διαμοιρασμού',
     'howto-desc2'        => 'Θα ανταμειφθείτε',
     'howto-hits'         => 'Hits',
-	'not-rewarded'       => 'Οχι Rewarded',
+    'not-rewarded'       => 'Οχι Rewarded',
     'pending'            => 'εκκρεμής',
     'resurrect'          => 'Ανάστησε',
-	'resurrect-date'     => 'Ημερομηνία ανάστασης',
+    'resurrect-date'     => 'Ημερομηνία ανάστασης',
     'reward'             => 'Ετικέτες Freeleech',
-	'rewarded'           => 'Ναι Rewarded',
+    'rewarded'           => 'Ναι Rewarded',
     'seedtime-goal'      => 'Στόχος χρόνου διαμοιρασμού',
 ];
