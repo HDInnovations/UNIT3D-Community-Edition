@@ -13,6 +13,7 @@
 
 return [
     'about'           => 'Here you will find user compiled playlists that contain titles to their liking!',
+    'add-to-playlist' => 'Add Torrent To Playlist',
     'add-torrent'     => 'Add Torrent',
     'added-by'        => 'By:',
     'cover'           => 'Select A Cover Image',
