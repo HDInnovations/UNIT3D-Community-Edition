@@ -25,10 +25,10 @@ class ThankButton extends Component
     public function mount($torrent)
     {
         $this->user = \auth()->user();
-        $this->torrent = Torrent::withAnyStatus()->whereId($torrent)->firstOrFail();
+        $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
     }
 
-    public function thank()
+    public function store()
     {
         if ($this->user->id === $this->torrent->user_id) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Thank Your Own Content!']);
