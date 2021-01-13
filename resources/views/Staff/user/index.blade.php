@@ -32,7 +32,7 @@
             <div class="header gradient silver">
                 <div class="inner_content">
                     <div class="page-title">
-                        <h1 style="margin: 0;">Users</h1>
+                        <h1 style="margin: 0;">@lang('common.users')</h1>
                     </div>
                 </div>
             </div>
