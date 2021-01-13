@@ -13,6 +13,7 @@
 
 return [
     'activity'                 => 'Activity',
+    'add-to-playlist'          => 'Add To Playlist',
     'age'                      => 'Age',
     'agent'                    => 'Agent',
     'alive'                    => 'Alive',
