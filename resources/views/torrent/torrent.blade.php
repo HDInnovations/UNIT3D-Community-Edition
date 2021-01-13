@@ -82,7 +82,7 @@
 
                         @if ($playlists->count() > 0)
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
-                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> Add To Playlist
+                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> @lang('torrent.add-to-playlist')
                         </button>
                         @endif
 
@@ -400,7 +400,7 @@
 
                     @if ($torrent->keywords->isNotEmpty())
                         <tr>
-                            <td class="col-sm-2"><strong>Keywords</strong></td>
+                            <td class="col-sm-2"><strong>@lang('torrent.keywords')</strong></td>
                             <td>
                                 @foreach($torrent->keywords as $keyword)
                                     <span class="badge-user text-bold">{{ $keyword->name }}</span>
@@ -417,7 +417,7 @@
                     </tr>
 
                     <tr>
-                        <td class="col-sm-2"><strong>Info Hash</strong></td>
+                        <td class="col-sm-2"><strong>@lang('torrent.info-hash')</strong></td>
                         <td>{{ $torrent->info_hash }}</td>
                     </tr>
 
