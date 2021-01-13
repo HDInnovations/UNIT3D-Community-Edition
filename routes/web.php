@@ -137,14 +137,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/gift', 'BonusController@sendGift')->name('bonus_send_gift');
         });
 
-        // Bookmarks System
-        Route::group(['prefix' => 'bookmarks'], function () {
-            Route::name('bookmarks.')->group(function () {
-                Route::post('/{id}/store', 'BookmarkController@store')->name('store');
-                Route::delete('/{id}/destroy', 'BookmarkController@destroy')->name('destroy');
-            });
-        });
-
         // Reports System
         Route::group(['prefix' => 'reports'], function () {
             Route::post('/torrent/{id}', 'ReportController@torrent')->name('report_torrent');
