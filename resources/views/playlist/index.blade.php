@@ -19,11 +19,11 @@
         </div>
         <div class="block">
             <div class="container box text-center">
-                <h2>('playlist.playlists')</h2>
+                <h2>@lang('playlist.playlists')</h2>
                 <h4>@lang('playlist.about')</h4>
                 <a href="{{ route('playlists.create') }}" class="btn btn-md btn-success">@lang('playlist.create')</a>
             </div>
-    
+
             <div class="row">
                 @foreach($playlists as $playlist)
                     <div class="col-md-2">

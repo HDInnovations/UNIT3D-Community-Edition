@@ -173,7 +173,7 @@
 
                     @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
-                            <label for="name">MAL ID (@lang('request.required') For Anime)</label>
+                            <label for="name">MAL ID (@lang('torrent.required-anime'))</label>
                             <label>
                                 <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
                             </label>
@@ -184,7 +184,7 @@
 
                     @if ($data->game_meta)
                         <div class="form-group">
-                            <label for="name">IGDB ID <b>(@lang('request.required') For Games)</b></label>
+                            <label for="name">IGDB ID <b>(@lang('torrent.required-games'))</b></label>
                             <label>
                                 <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
                             </label>
@@ -194,7 +194,7 @@
                     @endif
 
                     <div class="form-group">
-                        <label for="name">Keywords (<i>Example: superhero, dc comics, marvel</i>)</label>
+                        <label for="name">@lang('torrent.keywords') (<i>@lang('torrent.keywords-example')</i>)</label>
                         <label>
                             <input type="text" name="keywords" id="autokeywords" class="form-control">
                         </label>
@@ -262,7 +262,7 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
-                    
+
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>
                         <div class="radio-inline">
