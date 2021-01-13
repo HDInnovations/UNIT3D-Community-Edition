@@ -94,6 +94,7 @@ return [
     'free'                 => 'Gratis',
     'freeleech_activated'  => 'Global Freeleech Aktiveret',
     'gallery'              => 'Galleri',
+    'given'                => 'Givet',
     'global'               => 'Global',
     'group'                => 'Gruppe',
     'groups'               => 'Grupper',
