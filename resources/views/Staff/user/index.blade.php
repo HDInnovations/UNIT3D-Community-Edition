@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') Search - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
