@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Playlists</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('playlist.playlists')</span>
         </a>
     </li>
 @endsection
