@@ -178,7 +178,7 @@ return [
     'rss-system'           => 'RSS System',
     'rules'                => 'Regler',
     'save'                 => 'Gem',
-    'search'               => 'Søg',
+    'search'               => 'Søgning',
     'search-results'       => 'Søgeresultater',
     'search-results-desc'  => 'Se dine resultater nedenfor',
     'second'               => 'Sekund',
