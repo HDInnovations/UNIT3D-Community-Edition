@@ -94,6 +94,7 @@ return [
     'hit-and-runs'             => 'Hitn Run antal',
     'immune'                   => 'Immun?',
     'info'                     => 'Info',
+    'info-hash'                => 'Info Hash',
     'internal'                 => 'Intern',
     'internal-release'         => 'Intern udgivelse',
     'keywords'                 => 'Nøgleord',
