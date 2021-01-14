@@ -12,18 +12,17 @@
  */
 
 return [
-    'title'                 => 'MedieHub',
-    'shows'                 => 'TV Shows',
-    'show'                  => 'TV Show',
-    'movies'                => 'Film',
     'collections'           => 'Samlinger',
-    'persons'               => 'Personer',
+    'companies'             => 'Firmaer',
+    'disclaimer'            => 'Dette produkt bruger TMDb API, men er ikke godkendt eller certificeret af TMDb.',
+    'episodes'              => 'Episoder',
     'genres'                => 'Genre',
     'networks'              => 'Netværk',
-    'companies'             => 'Firmaer',
-    'terms'                 => 'Dette produkt bruger TMDb API, men er ikke godkendt eller certificeret af TMDb.',
-    'select-hub'            => 'Vælg venligst en Hub',
-    'episodes'              => 'Episoder',
+    'movies'                => 'Film',
+    'persons'               => 'Personer',
     'seasons'               => 'Sæsoner',
-
+    'select-hub'            => 'Vælg venligst en Hub',
+    'show'                  => 'TV Show',
+    'shows'                 => 'TV Shows',
+    'title'                 => 'MedieHub',
 ];
