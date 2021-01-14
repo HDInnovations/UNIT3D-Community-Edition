@@ -19,6 +19,7 @@ return [
     'episodes'              => 'Episodes',
     'first-seen'            => 'First Appeared:',
     'genres'                => 'Genres',
+    'includes:'             => 'Includes:',
     'latest-project'        => 'Latest Project:',
     'networks'              => 'Netvorks',
     'no-data'               => 'No Data Found!', 
@@ -33,5 +34,6 @@ return [
     'shows'                 => 'TV Shows',
     'title'                 => 'MediaHub',
     'tv-credits'            => 'TV Credits:',
+    'view-collection'       => 'View The Collection',
     'wiki-read'             => 'Read Full Bio On Wikipedia:',
 ];
