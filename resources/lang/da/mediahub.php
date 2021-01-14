@@ -19,6 +19,7 @@ return [
     'episodes'              => 'Episoder',
     'first-seen'            => 'Først set på:',
     'genres'                => 'Genre',
+    'includes:'             => 'Inkluderer:',
     'latest-project'        => 'Seneste projekt:',
     'networks'              => 'Netværk',
     'no-data'               => 'Ingen data fundet!',   
@@ -33,5 +34,6 @@ return [
     'shows'                 => 'TV Shows',
     'title'                 => 'MedieHub',
     'tv-credits'            => 'TV-kredits:',
+    'view-collection'       => 'Vis samlingen',
     'wiki-read'             => 'Læs hele bio på Wikipedia:',
 ];
