@@ -190,6 +190,7 @@ return [
     'sticky'                   => 'Gør Sticky',
     'stream-optimized'         => 'Stream optimeret',
     'subtitle'                 => 'Undertekst',
+    'subtitle-included'        => 'Denne torrent indeholder allerede følgende undertekster muxed med:',
     'team-player'              => 'Holdspiller',
     'thank'                    => 'Takke',
     'thanked'                  => 'takket',
