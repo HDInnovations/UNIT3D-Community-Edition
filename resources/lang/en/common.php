@@ -92,7 +92,7 @@ return [
     'free'                 => 'Free',
     'freeleech_activated'  => 'Global Freeleech Mode Activated',
     'gallery'              => 'Gallery',
-    'given'                => 'Given',    
+    'given'                => 'Given',
     'global'               => 'Global',
     'group'                => 'Group',
     'groups'               => 'Groups',

@@ -15,9 +15,8 @@ require('./bootstrap');
 import Vue from 'vue';
 import version from './components/Version';
 import chatbox from './components/chat/Chatbox';
-import bookmark from './components/BookmarkButton';
 
 new Vue({
     el: '#vue',
-    components: { version: version, chatbox: chatbox, bookmark: bookmark }
+    components: { version: version, chatbox: chatbox }
 });
