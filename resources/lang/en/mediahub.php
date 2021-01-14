@@ -22,7 +22,7 @@ return [
     'includes:'             => 'Includes:',
     'latest-project'        => 'Latest Project:',
     'networks'              => 'Netvorks',
-    'no-data'               => 'No Data Found!', 
+    'no-data'               => 'No Data Found!',
     'movies'                => 'Movies',
     'movie-credits'         => 'Movie Credits:',
     'persons'               => 'Persons',

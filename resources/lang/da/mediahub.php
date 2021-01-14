@@ -22,7 +22,7 @@ return [
     'includes:'             => 'Inkluderer:',
     'latest-project'        => 'Seneste projekt:',
     'networks'              => 'Netværk',
-    'no-data'               => 'Ingen data fundet!',   
+    'no-data'               => 'Ingen data fundet!',
     'movies'                => 'Film',
     'movie-credits'         => 'Film-kredits:',
     'persons'               => 'Personer',
