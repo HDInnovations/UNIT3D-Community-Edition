@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="text" wire:model="searchTerm" class="form-control" style="width: 275px;" placeholder="Search By Torrent Name"/>
+			<input type="text" wire:model="searchTerm" class="form-control" style="width: 275px;" placeholder="@lang('torrent.search-by-name')"/>
 		</div>
 	</div>
 	<div class="box-body no-padding">
