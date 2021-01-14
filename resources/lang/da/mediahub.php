@@ -14,6 +14,7 @@
 return [
     'title'                 => 'MedieHub',
     'shows'                 => 'TV Shows',
+    'show'                  => 'TV Show',
     'movies'                => 'Film',
     'collections'           => 'Samlinger',
     'persons'               => 'Personer',
@@ -22,4 +23,7 @@ return [
     'companies'             => 'Firmaer',
     'terms'                 => 'Dette produkt bruger TMDb API, men er ikke godkendt eller certificeret af TMDb.',
     'select-hub'            => 'Vælg venligst en Hub',
+    'episodes'              => 'Episoder',
+    'seasons'               => 'Sæsoner',
+
 ];
