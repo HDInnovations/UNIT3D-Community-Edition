@@ -3,6 +3,14 @@
     min-height: 300px;
     max-height: 590px;
 }
+
+#frameFooter{
+    
+    .wysibb .wysibb-body img {
+        max-width: 400px !important;
+        max-height: 400px !important;
+    }
+}
 #frame {
     height: 100%;
     background: #E6EAEA;
