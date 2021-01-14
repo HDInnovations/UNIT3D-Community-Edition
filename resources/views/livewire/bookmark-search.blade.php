@@ -269,11 +269,11 @@
 							<ul class="dropdown-menu">
 								<li role="presentation">
 									<a role="menuitem" tabindex="-1" target="_blank"
-									   href="{{ route('torrent', ['id' => $bookmark->id]) }}">View Torrent</a>
+									   href="{{ route('torrent', ['id' => $bookmark->id]) }}">@lang('common.view') @lang('torrent.torrent')</a>
 								</li>
 								<li role="presentation">
 									<a role="menuitem" tabindex="-1"
-									   href="{{ route('download', ['id' => $bookmark->id]) }}">Download Torrent</a>
+									   href="{{ route('download', ['id' => $bookmark->id]) }}">@lang('common.download') @lang('torrent.torrent')</a>
 								</li>
 								<li role="presentation">
 									<form role="menuitem" tabindex="-1"action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}" method="POST"
