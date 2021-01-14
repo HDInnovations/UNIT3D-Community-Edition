@@ -64,7 +64,7 @@
         </table>
     </div>
     <div class="panel-footer text-center">
-        <p>This torrent already includes the following subtitles muxed in:</p>
+        <p>@lang('torrent.subtitle-included')</p>
         @if ($text_crumbs !== null)
             @foreach ($text_crumbs as $key => $s)
                 <span class="text-bold badge-extra">

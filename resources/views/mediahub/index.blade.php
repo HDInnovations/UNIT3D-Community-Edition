@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>MediaHub - {{ config('other.title') }}</title>
+    <title>@lang('mediahub.title') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

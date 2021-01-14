@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.collections.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Collections</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.collections')</span>
         </a>
     </li>
     <li class="active">
@@ -32,7 +32,7 @@
     <div class="movie-wrapper">
         <div class="movie-backdrop" style="background-image: url({{ $collection->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
             <div class="tags">
-                Collection
+                @lang('mediahub.collections')
             </div>
         </div>
         <div class="movie-overlay"></div>
@@ -78,8 +78,8 @@
                                             <img class="backdrop" src="{{ $movie->poster }}">
                                         </div>
                                         <div style=" margin-top: 8px;">
-                                            <span class="badge-extra"><i class="fas fa-calendar text-purple"></i> Year: {{ substr($movie->release_date, 0, 4) }}</span>
-                                            <span class="badge-extra"><i class="fas fa-star text-gold"></i> Rating: {{ $movie->vote_average }}</span>
+                                            <span class="badge-extra"><i class="fas fa-calendar text-purple"></i> @lang('common.year'): {{ substr($movie->release_date, 0, 4) }}</span>
+                                            <span class="badge-extra"><i class="fas fa-star text-gold"></i> @lang('torrent.rating'): {{ $movie->vote_average }}</span>
                                         </div>
                                     </a>
                                 </div>
