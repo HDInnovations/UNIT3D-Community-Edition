@@ -31,9 +31,7 @@
                         <td colspan="5" class="no-space">
                             <div class="header gradient teal some-padding">
                                 <div class="inner_content">
-                                    <h1 class="no-space">Forum
-                                        {{ isset($params) && is_array($params) && array_key_exists('name', $params) ? 'Topic Search' : 'Search' }}
-                                    </h1>
+                                    <h1 class="no-space">@lang('forum.forum') @lang('forum.forums-topic-search')</h1>
                                 </div>
                             </div>
                         </td>
