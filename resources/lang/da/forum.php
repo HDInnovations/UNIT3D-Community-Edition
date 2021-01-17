@@ -32,6 +32,8 @@ return [
     'edit-topic'                => 'Rediger emne',
     'forum'                     => 'Forum',
     'forums'                    => 'Fora',
+    'forums-post-search'        => 'Indlægssøgning',
+    'forums-topic-search'       => 'Emnesøgning',
     'implemented'               => 'Implementeret',
     'in'                        => 'i',
     'invalid'                   => 'Afvist',
