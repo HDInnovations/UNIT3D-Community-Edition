@@ -36,11 +36,11 @@
             @if(auth()->user()->isSubscribed('topic', $topic->id))
                 <a href="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
                     class="label label-sm label-danger">
-                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
             @else
                 <a href="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
                     class="label label-sm label-success">
-                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
             @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
