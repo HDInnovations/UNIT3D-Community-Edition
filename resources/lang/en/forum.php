@@ -32,6 +32,8 @@ return [
     'edit-topic'                => 'Edit Topic',
     'forum'                     => 'Forum',
     'forums'                    => 'Forums',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Implemented',
     'in'                        => 'In',
     'invalid'                   => 'Invalid',
