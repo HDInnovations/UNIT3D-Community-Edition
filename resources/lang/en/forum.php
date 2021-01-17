@@ -60,6 +60,7 @@ return [
     'solved'                    => 'Solved',
     'state'                     => 'State',
     'stats'                     => 'Stats',
+    'select-all-forum'          => 'All Categories/Forums',
     'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Subscribed',
     'subscription-quick-search' => 'Topic Name Quick Search (within subscriptions)',
