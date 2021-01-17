@@ -59,6 +59,7 @@ return [
     'solved'                    => 'Løst',
     'state'                     => 'Tilstand',
     'stats'                     => 'Antal',
+    'subscribe'                 => 'Abonnér',  
     'subscribed'                => 'Abonneret',
     'subscription-quick-search' => 'Hurtigsøgning efter abonnementer',
     'suggestion'                => 'Forslag',
@@ -71,6 +72,7 @@ return [
     'topic-title'               => 'Titel på dette emne',
     'topics'                    => 'Emner',
     'unpin'                     => 'Frigør',
+    'unsubscribe'               => 'Afmeld',
     'view-all'                  => 'Se alle emner',
     'views'                     => 'Visninger',
 ];
