@@ -59,6 +59,7 @@ return [
     'solved'                    => 'Solved',
     'state'                     => 'State',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Subscribed',
     'subscription-quick-search' => 'Topic Name Quick Search (within subscriptions)',
     'suggestion'                => 'Suggestion',
@@ -71,6 +72,7 @@ return [
     'topic-title'               => 'Title of This Topic',
     'topics'                    => 'Topics',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
     'view-all'                  => 'View All Topics',
     'views'                     => 'Views',
 ];
