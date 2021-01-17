@@ -46,7 +46,7 @@
                         <td colspan="6" class="no-space">
                             <div class="header gradient teal some-padding">
                                 <div class="inner_content">
-                                    <h1 class="no-space">Forum & Topic Subscriptions</h1>
+                                    <h1 class="no-space">@lang('common.subscriptions')</h1>
                                 </div>
                             </div>
                         </td>
