@@ -46,7 +46,7 @@
                         <td colspan="6" class="no-space">
                             <div class="header gradient teal some-padding">
                                 <div class="inner_content">
-                                    <h1 class="no-space">Forum & Topic Subscriptions</h1>
+                                    <h1 class="no-space">@lang('common.subscriptions')</h1>
                                 </div>
                             </div>
                         </td>
@@ -87,11 +87,11 @@
                                 @if (auth()->user()->isSubscribed('forum',$r->id))
                                     <a href="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
                                         class="label label-sm label-danger">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
                                 @else
                                     <a href="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
                                         class="label label-sm label-success">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
                                 @endif
                             </td>
                         </tr>
@@ -145,11 +145,11 @@
                                     @if (auth()->user()->isSubscribed('topic',$t->id))
                                         <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
                                             class="label label-sm label-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
                                     @else
                                         <a href="{{ route('subscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
                                             class="label label-sm label-success">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
                                     @endif
                                 </td>
                             </tr>

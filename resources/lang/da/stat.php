@@ -25,7 +25,7 @@ return [
     'groups'                  => 'Grupper',
     'last30days'              => 'Seneste 30 dage',
     'nerd-stats'              => 'Nerd stats',
-    'nerd-stats-desc'         => 'Vi alle elsker statistik. Her er nogle af dem',
+    'nerd-stats-desc'         => 'Vi elsker statistik. Her er nogle af dem',
     'languages'               => 'Sprog',
     'place'                   => 'Sted',
     'pruned'                  => 'Forældede',
