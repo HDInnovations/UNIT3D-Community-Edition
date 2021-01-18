@@ -38,16 +38,6 @@ class AutoFlushPeers extends Command
     protected $description = 'Flushes Ghost Peers';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \Exception
