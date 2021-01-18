@@ -30,13 +30,12 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
+        //\App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
 
         // Extra
         \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
         \App\Http\Middleware\Http2ServerPush::class,
-        //\App\Http\Middleware\ProAjaxMiddleware::class,
     ];
 
     /**
