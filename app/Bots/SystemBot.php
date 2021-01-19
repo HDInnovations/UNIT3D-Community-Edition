@@ -130,7 +130,7 @@ class SystemBot
             $profileUrl = \href_profile($this->target);
             $recipientUrl = \href_profile($recipient);
 
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
             );
 
@@ -247,8 +247,8 @@ class SystemBot
             }
             if ($txt != '') {
                 $roomId = 0;
-                $message = $this->chat->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
-                $message = $this->chat->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
+                $message = $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+                $message = $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
             }
 
             return \response('success');
@@ -256,7 +256,7 @@ class SystemBot
         if ($type == 'echo') {
             if ($txt != '') {
                 $roomId = 0;
-                $message = $this->chat->botMessage($this->bot->id, $roomId, $txt, $target->id);
+                $message = $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
             }
 
             return \response('success');
@@ -264,8 +264,8 @@ class SystemBot
 
         if ($type == 'public') {
             if ($txt != '') {
-                $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
-                $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
+                $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+                $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
             return \response('success');
