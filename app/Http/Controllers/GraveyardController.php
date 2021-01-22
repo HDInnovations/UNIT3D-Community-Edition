@@ -86,7 +86,7 @@ class GraveyardController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrent = $torrent->with('category', 'type')->where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
+        $torrent = $torrent->with('category', 'type')->where('seeders', '=', 0)->where('torrents.created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
@@ -115,6 +115,15 @@ class GraveyardController extends Controller
         if ($request->has('types') && $request->input('types') != null) {
             $torrent->whereIn('type_id', $types);
         }
+        
+        if ($request->has('myressurrects') && $request->input('myressurrects') != null) {
+            $torrent = $torrent->with('category', 'type')
+                ->join('graveyard', 'torrents.id', '=', 'graveyard.torrent_id')
+                ->select('torrents.id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'category_id', 'type_id', 'torrents.created_at', 'graveyard.created_at', 'seedtime')
+                ->where('seeders', '=', 0)
+                ->where('torrents.created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
+            $torrent->where('graveyard.user_id', '=', $myressurrects);
+        }
 
         if ($request->has('sorting') && $request->input('sorting') != null) {
             $sorting = $request->input('sorting');
@@ -130,8 +139,9 @@ class GraveyardController extends Controller
         }
 
         return \view('graveyard.results', [
-            'user'     => $user,
-            'torrents' => $torrents,
+            'user'          => $user,
+            'torrents'      => $torrents,
+            'myressurrects' => $myressurrects,
         ])->render();
     }
 
