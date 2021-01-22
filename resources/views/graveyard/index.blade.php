@@ -69,6 +69,17 @@
                     @endforeach
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label for="type" class="col-sm-1 label label-default">Extra</label>
+                <div class="col-sm-10">
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="myressurrects" value="{{ $user->id }}"> My Resurrections
+                        </label>
+                    </span>
+                </div>
+            </div>
         </form>
     
         <hr>
@@ -130,6 +141,11 @@
           const mal = $('#mal').val()
           const categories = []
           const types = []
+          const myressurrects = (function () {
+            if ($('#myressurrects').is(':checked')) {
+              return $('#myressurrects').val()
+            }
+          })()
           const sorting = $('#sorting').val()
           const direction = $('#direction').val()
           const qty = $('#qty').val()
@@ -154,6 +170,7 @@
                     mal: mal,
                     categories: categories,
                     types: types,
+                    myressurrects: myressurrects,
                     sorting: sorting,
                     direction: direction,
                     page: page,
@@ -209,6 +226,12 @@
             faceted();
         });
     
+    </script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        $("#myressurrects").on("click", function() {
+            faceted();
+        });
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $("#sorting,#direction,#qty").on('change', function() {
