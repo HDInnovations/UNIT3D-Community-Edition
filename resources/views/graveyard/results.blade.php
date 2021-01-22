@@ -4,12 +4,19 @@
             <tr>
                 <th class="torrents-icon"></th>
                 <th class="torrents-filename">@lang('torrent.name')</th>
-                <th>@lang('torrent.age')</th>
+                @if(isset($myressurrects))
+                    <th>@lang('torrent.age')</th>
+                @else
+                    <th>@lang('torrent.uploaded')</th>
+                @endif
                 <th>@lang('torrent.size')</th>
                 <th>@lang('torrent.short-seeds')</th>
                 <th>@lang('torrent.short-leechs')</th>
                 <th>@lang('torrent.short-completed')</th>
                 <th>@lang('graveyard.resurrect')</th>
+                @if(isset($myressurrects))
+                    <th>@lang('torrent.seedtime') @lang('torrent.remaining')</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -35,7 +42,11 @@
                     </td>
                     <td>
                         <span data-toggle="tooltip" data-original-title="">
-                            {{ $torrent->created_at->diffForHumans() }}
+                            @if(isset($myressurrects))
+                                {{ $torrent->created_at->diffForHumans() }}
+                            @else
+                                {{ $torrent->created_at->diffForHumans() }}
+                            @endif
                         </span>
                     </td>
                     <td>
@@ -143,6 +154,11 @@
                             </button>
                         @endif
                     </td>
+                    @if(isset($torrent->seedtime))
+                        <td>
+                            {{ $torrent->seedtime }} seconds
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
