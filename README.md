@@ -23,7 +23,6 @@
 3. [Requirements](#requirements)
 4. [Installation](#installation)
 4.1 [Automated-Installer](#auto-install)
-4.2 [Manual Install](#manual-install)
 5. [Updating](#updating)
 6. [Packages](#packages)
 7. [Version Support Information](#versions)
@@ -121,21 +120,12 @@ sudo ./install.sh
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
-Video Tutorial Can Be Seen Here:
-https://www.youtube.com/watch?v=tbIZpsz093o
-
-### <a name="manual-install"></a> Manual Install
-If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/manual_install.html
-
-## <a name="updating"></a> 📖 Documentation
+## <a name="docs"></a> 📖 Documentation (Out Of Date!)
 Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
 Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
-## <a name="docs"></a> 🖥️ Updating
+## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
-
-Video Tutorial Can Be Seen Here:
-https://www.youtube.com/watch?v=tlNUjS1dYMs
  
 ## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
@@ -222,8 +212,6 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
-
-Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
