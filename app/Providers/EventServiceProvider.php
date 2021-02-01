@@ -13,9 +13,13 @@
 
 namespace App\Providers;
 
+use App\Listeners\LoginListener;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Auth\Events\Logout;
+use App\Listeners\AchievementUnlocked;
+use App\Listeners\FailedLoginListener;
+use Assada\Achievements\Event\Unlocked;
+use App\Listeners\PasswordProtectBackup;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
@@ -27,20 +31,22 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Logout::class => [
-            \App\Listeners\LogoutListener::class,
-        ],
+        // Auth System
         Login::class => [
-            \App\Listeners\LoginListener::class,
+            LoginListener::class,
         ],
         Failed::class => [
-            \App\Listeners\FailedLoginListener::class,
+            FailedLoginListener::class,
         ],
-        'Assada\Achievements\Event\Unlocked' => [
-            \App\Listeners\AchievementUnlocked::class,
+
+        // Achievements System
+        Unlocked::class => [
+            AchievementUnlocked::class,
         ],
+
+        // Backups System
         BackupZipWasCreated::class => [
-            \App\Listeners\PasswordProtectBackup::class,
+            PasswordProtectBackup::class,
         ],
     ];
 
@@ -51,7 +57,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         //
     }
 }
