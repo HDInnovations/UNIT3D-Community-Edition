@@ -13,13 +13,13 @@
 
 namespace App\Providers;
 
-use App\Listeners\LoginListener;
-use Illuminate\Auth\Events\Failed;
-use Illuminate\Auth\Events\Login;
 use App\Listeners\AchievementUnlocked;
 use App\Listeners\FailedLoginListener;
-use Assada\Achievements\Event\Unlocked;
+use App\Listeners\LoginListener;
 use App\Listeners\PasswordProtectBackup;
+use Assada\Achievements\Event\Unlocked;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Spatie\Backup\Events\BackupZipWasCreated;
 

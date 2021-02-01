@@ -13,8 +13,8 @@
 
 namespace App\Listeners;
 
-use App\Models\Group;
 use App\Models\FailedLoginAttempt;
+use App\Models\Group;
 use App\Notifications\FailedLogin;
 
 class FailedLoginListener
@@ -24,16 +24,16 @@ class FailedLoginListener
      *
      * @param auth.failed $event
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function handle($event)
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         if (\property_exists($event, 'user') && $event->user !== null && $event->user instanceof \Illuminate\Database\Eloquent\Model
             && $event->user->group_id !== $bannedGroup[0]) {
-
             FailedLoginAttempt::record(
                 $event->user,
                 \request()->input('username'),
