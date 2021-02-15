@@ -34,6 +34,7 @@ class TrackerException extends \Exception
         125 => 'Your client is too old. please update it after :start .',
         126 => 'Client :ua is not acceptable! Please check our Whitelist.',
         127 => 'Client :ua banned due to: :comment .',
+        128 => 'Client :ua is not acceptable! Please check our Blacklist.',
 
         // Error message about Requests ( Part.2 request params )
         130 => 'key: :attribute is Missing !',

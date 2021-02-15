@@ -38,20 +38,6 @@
                     </div>
                 @endforeach
             </div>
-            <br>
-            <hr>
-            <div class="row black-list">
-                <h2>@lang('page.blacklist-browsers')</h2>
-                @foreach ($browsers as $browser)
-                    <div class="col-xs-6 col-sm-4 col-md-3">
-                        <div class="text-center black-item">
-                            <h4>{{ $browser }}</h4>
-                            <span>@lang('page.blacklist-webbrowser')</span>
-                            <i class="fal fa-ban text-red black-icon"></i>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
 @endsection
