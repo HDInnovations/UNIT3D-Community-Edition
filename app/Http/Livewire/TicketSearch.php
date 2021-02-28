@@ -77,7 +77,7 @@ class TicketSearch extends Component
     public function render()
     {
         return \view('livewire.ticket-search', [
-            'tickets' => $this->tickets
+            'tickets' => $this->tickets,
         ]);
     }
 }

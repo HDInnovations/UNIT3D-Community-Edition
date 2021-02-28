@@ -10,12 +10,12 @@ class TicketAttachment extends Model
     use HasFactory;
 
     protected $appends = [
-        'full_disk_path'
+        'full_disk_path',
     ];
 
     public function getFullDiskPathAttribute()
     {
-        return $this->disk_path . '' .  $this->file_name;
+        return $this->disk_path.''.$this->file_name;
     }
 
     /**

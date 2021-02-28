@@ -15,9 +15,8 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class UserTicketClosed extends Notification
 {
@@ -27,7 +26,9 @@ class UserTicketClosed extends Notification
 
     /**
      * Create a new notification instance.
+     *
      * @param Ticket $ticket
+     *
      * @return mixed
      */
     public function __construct(Ticket $ticket)
@@ -38,7 +39,8 @@ class UserTicketClosed extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -49,12 +51,13 @@ class UserTicketClosed extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->subject('Your ticket was closed (User)')
                     ->line('Your ticket was closed')
                     ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
@@ -63,7 +66,8 @@ class UserTicketClosed extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)

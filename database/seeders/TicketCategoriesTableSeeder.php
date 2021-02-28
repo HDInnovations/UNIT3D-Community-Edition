@@ -44,48 +44,48 @@ class TicketCategoriesTableSeeder extends Seeder
     {
         return [
             [
-                'name' => 'Accounts',
-                'position' => 0
+                'name'     => 'Accounts',
+                'position' => 0,
             ],
             [
-                'name' => 'Appeals',
-                'position' => 1
+                'name'     => 'Appeals',
+                'position' => 1,
             ],
             [
-                'name' => 'Forums',
-                'position' => 2
+                'name'     => 'Forums',
+                'position' => 2,
             ],
             [
-                'name' => 'Requests',
-                'position' => 3
+                'name'     => 'Requests',
+                'position' => 3,
             ],
             [
-                'name' => 'Subtitles',
-                'position' => 4
+                'name'     => 'Subtitles',
+                'position' => 4,
             ],
             [
-                'name' => 'Torrents',
-                'position' => 5
+                'name'     => 'Torrents',
+                'position' => 5,
             ],
             [
-                'name' => 'MediaHub',
-                'position' => 6
+                'name'     => 'MediaHub',
+                'position' => 6,
             ],
             [
-                'name' => 'Technical',
-                'position' => 7
+                'name'     => 'Technical',
+                'position' => 7,
             ],
             [
-                'name' => 'Playlists',
-                'position' => 8
+                'name'     => 'Playlists',
+                'position' => 8,
             ],
             [
-                'name' => 'Bugs',
-                'position' => 9
+                'name'     => 'Bugs',
+                'position' => 9,
             ],
             [
-                'name' => 'Other',
-                'position' => 10
+                'name'     => 'Other',
+                'position' => 10,
             ],
         ];
     }

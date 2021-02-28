@@ -14,8 +14,6 @@
 namespace App\Listeners;
 
 use App\Providers\TicketAssigned;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class NotifyUserTicketWasAssigned
 {
@@ -32,7 +30,8 @@ class NotifyUserTicketWasAssigned
     /**
      * Handle the event.
      *
-     * @param  TicketAssigned  $event
+     * @param TicketAssigned $event
+     *
      * @return void
      */
     public function handle(TicketAssigned $event)

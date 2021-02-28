@@ -16,16 +16,11 @@ class Ticket extends Model
 
     public function scopeStatus($query, $status)
     {
-        if($status === 'all')
-        {
+        if ($status === 'all') {
             return $query;
-        }
-        else if($status === 'closed')
-        {
+        } elseif ($status === 'closed') {
             return $query->whereNotNull('closed_at');
-        }
-        else if($status === 'open')
-        {
+        } elseif ($status === 'open') {
             return $query->whereNull('closed_at');
         }
     }
@@ -33,9 +28,7 @@ class Ticket extends Model
     public function scopeStale($query)
     {
         return $query->with(['comments' => function ($query) {
-
             $query->orderBy('id', 'desc');
-
         }, 'comments.user'])
             ->has('comments')
             ->where('reminded_at', '<', strtotime('+ 3 days'))
@@ -48,8 +41,7 @@ class Ticket extends Model
             ->whereNotNull('staff_id')
             ->get();
 
-        foreach($open_tickets as $open_ticket)
-        {
+        foreach ($open_tickets as $open_ticket) {
             Comment::checkForStale($open_ticket);
         }
     }

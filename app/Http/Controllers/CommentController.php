@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -30,6 +29,7 @@ use App\Models\Article;
 use App\Models\Collection;
 use App\Models\Comment;
 use App\Models\Playlist;
+use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;

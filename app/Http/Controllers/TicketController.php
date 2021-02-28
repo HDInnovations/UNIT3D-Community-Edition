@@ -14,14 +14,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Events\TicketAssigned;
-use App\Events\TicketClosed;
-use App\Events\TicketCreated;
 use App\Models\Ticket;
+use App\Models\TicketAttachment;
 use App\Models\TicketCategory;
 use App\Models\TicketPriority;
 use Illuminate\Http\Request;
-use App\Models\TicketAttachment;
 
 class TicketController extends Controller
 {
@@ -32,7 +29,7 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    final public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('ticket.index');
     }
@@ -42,14 +39,14 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
 
         return view('ticket.create', [
             'categories' => $categories,
-            'priorities' => $priorities
+            'priorities' => $priorities,
         ]);
     }
 
@@ -99,7 +96,7 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
@@ -113,7 +110,7 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -125,8 +122,8 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -152,12 +152,10 @@ class Comment extends Model
      */
     public static function checkForStale(Ticket $ticket)
     {
-        if (empty($ticket->reminded_at) || strtotime($ticket->reminded_at) < strtotime('+ 3 days'))
-        {
+        if (empty($ticket->reminded_at) || strtotime($ticket->reminded_at) < strtotime('+ 3 days')) {
             $last_comment = $ticket->comments()->orderBy('id', 'desc')->first();
 
-            if (isset($last_comment->id) && ! $last_comment->user->is_modo && strtotime($last_comment->created_at) < strtotime('- 3 days'))
-            {
+            if (isset($last_comment->id) && ! $last_comment->user->is_modo && strtotime($last_comment->created_at) < strtotime('- 3 days')) {
                 event(new TicketWentStale($last_comment->ticket));
             }
         }

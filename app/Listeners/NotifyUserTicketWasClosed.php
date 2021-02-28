@@ -14,8 +14,6 @@
 namespace App\Listeners;
 
 use App\Providers\TicketClosed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class NotifyUserTicketWasClosed
 {
@@ -32,7 +30,8 @@ class NotifyUserTicketWasClosed
     /**
      * Handle the event.
      *
-     * @param  TicketClosed  $event
+     * @param TicketClosed $event
+     *
      * @return void
      */
     public function handle(TicketClosed $event)

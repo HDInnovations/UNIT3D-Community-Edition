@@ -15,9 +15,8 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class StaffTicketCreated extends Notification
 {
@@ -29,6 +28,7 @@ class StaffTicketCreated extends Notification
      * Create a new notification instance.
      *
      * @param Ticket $ticket
+     *
      * @return mixed
      */
     public function __construct(Ticket $ticket)
@@ -39,7 +39,8 @@ class StaffTicketCreated extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -50,13 +51,14 @@ class StaffTicketCreated extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('A ticket was created (Ticket # ' . $this->ticket->id . ')')
+        return (new MailMessage())
+            ->subject('A ticket was created (Ticket # '.$this->ticket->id.')')
             ->line('A ticket was created.')
             ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
     }
@@ -64,7 +66,8 @@ class StaffTicketCreated extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)

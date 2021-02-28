@@ -13,9 +13,9 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\WithFileUploads;
 use App\Models\TicketAttachment;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class AttachmentUpload extends Component
 {

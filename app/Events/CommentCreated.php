@@ -13,19 +13,18 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use App\Models\Comment;
-use Illuminate\Broadcasting\Channel;
+use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class CommentCreated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $comment;
     public $user;
@@ -34,7 +33,8 @@ class CommentCreated
      * Create a new event instance.
      *
      * @param Comment $comment
-     * @param User $user
+     * @param User    $user
+     *
      * @return mixed
      */
     public function __construct(Comment $comment, User $user)

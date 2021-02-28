@@ -15,8 +15,6 @@ namespace App\Listeners;
 
 use App\Events\TicketWentStale;
 use App\Notifications\UserTicketStale;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class NotifyUserTicketIsStale
 {
@@ -33,7 +31,8 @@ class NotifyUserTicketIsStale
     /**
      * Handle the event.
      *
-     * @param  TicketWentStale  $event
+     * @param TicketWentStale $event
+     *
      * @return void
      */
     public function handle(TicketWentStale $event)

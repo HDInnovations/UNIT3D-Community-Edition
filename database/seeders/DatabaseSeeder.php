@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             MediaLanguagesSeeder::class,
             ResolutionsTableSeeder::class,
             TicketCategoriesTableSeeder::class,
-            TicketPrioritiesTableSeeder::class
+            TicketPrioritiesTableSeeder::class,
         ]);
     }
 }

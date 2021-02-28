@@ -13,31 +13,31 @@
 
 namespace App\Providers;
 
+use App\Events\CommentCreated;
+use App\Events\TicketAssigned;
+use App\Events\TicketClosed;
+use App\Events\TicketCreated;
+use App\Events\TicketWentStale;
+use App\Listeners\AchievementUnlocked;
+use App\Listeners\FailedLoginListener;
 use App\Listeners\LoginListener;
 use App\Listeners\LogoutListener;
+use App\Listeners\NotifyStaffCommentWasCreated;
+use App\Listeners\NotifyStaffTicketWasAssigned;
+use App\Listeners\NotifyStaffTicketWasClosed;
+use App\Listeners\NotifyStaffTicketWasCreated;
+use App\Listeners\NotifyUserCommentWasCreated;
+use App\Listeners\NotifyUserTicketIsStale;
+use App\Listeners\NotifyUserTicketWasAssigned;
+use App\Listeners\NotifyUserTicketWasClosed;
+use App\Listeners\NotifyUserTicketWasCreated;
+use App\Listeners\PasswordProtectBackup;
+use Assada\Achievements\Event\Unlocked;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
-use App\Listeners\AchievementUnlocked;
-use App\Listeners\FailedLoginListener;
-use Assada\Achievements\Event\Unlocked;
-use App\Listeners\PasswordProtectBackup;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Spatie\Backup\Events\BackupZipWasCreated;
-use App\Events\TicketCreated;
-use App\Events\CommentCreated;
-use App\Listeners\NotifyUserTicketWasCreated;
-use App\Listeners\NotifyStaffTicketWasCreated;
-use App\Listeners\NotifyUserCommentWasCreated;
-use App\Listeners\NotifyStaffCommentWasCreated;
-use App\Events\TicketClosed;
-use App\Listeners\NotifyUserTicketWasClosed;
-use App\Listeners\NotifyStaffTicketWasClosed;
-use App\Events\TicketAssigned;
-use App\Listeners\NotifyUserTicketWasAssigned;
-use App\Listeners\NotifyStaffTicketWasAssigned;
-use App\Events\TicketWentStale;
-use App\Listeners\NotifyUserTicketIsStale;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -86,8 +86,8 @@ class EventServiceProvider extends ServiceProvider
             NotifyStaffTicketWasAssigned::class,
         ],
         TicketWentStale::class => [
-            NotifyUserTicketIsStale::class
-        ]
+            NotifyUserTicketIsStale::class,
+        ],
     ];
 
     /**

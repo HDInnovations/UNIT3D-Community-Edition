@@ -13,11 +13,9 @@
 
 namespace App\Listeners;
 
-use App\Models\User;
 use App\Events\TicketClosed;
+use App\Models\User;
 use App\Notifications\StaffTicketClosed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 
 class NotifyStaffTicketWasClosed
@@ -35,7 +33,7 @@ class NotifyStaffTicketWasClosed
     /**
      * Handle the event.
      *
-     * @param  TicketClosed  $event
+     * @param TicketClosed $event
      *
      * @return void
      */
