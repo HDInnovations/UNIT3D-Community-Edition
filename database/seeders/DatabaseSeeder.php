@@ -40,6 +40,8 @@ class DatabaseSeeder extends Seeder
             BotsTableSeeder::class,
             MediaLanguagesSeeder::class,
             ResolutionsTableSeeder::class,
+            TicketCategoriesTableSeeder::class,
+            TicketPrioritiesTableSeeder::class
         ]);
     }
 }

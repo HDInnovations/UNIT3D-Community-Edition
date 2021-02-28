@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -60,7 +61,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function collection(Request $request, $id)
     {
@@ -69,7 +70,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
-                ->withErros('Your Comment Rights Have Been Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
@@ -518,6 +519,42 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
+            ->withSuccess('Your Comment Has Been Added!');
+    }
+
+    /**
+     * Store A New Comment To A Request.
+     *
+     * @param \Illuminate\Http\Request   $request
+     * @param \App\Models\TorrentRequest $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function ticket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $user = $request->user();
+
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->anon = 0;
+        $comment->user_id = $user->id;
+        $comment->ticket_id = $ticket->id;
+
+        $v = \validator($comment->toArray(), [
+            'content'   => 'required',
+            'user_id'   => 'required',
+            'ticket_id' => 'required',
+            'anon'      => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return \redirect()->route('request', ['id' => $tr->id])
+                ->withErrors($v->errors());
+        }
+        $comment->save();
+
+        return \redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Your Comment Has Been Added!');
     }
 

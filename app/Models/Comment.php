@@ -14,7 +14,6 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,6 +59,19 @@ class Comment extends Model
     use Auditable;
 
     /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
+
+    /**
      * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -100,16 +112,13 @@ class Comment extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Belongs To A Ticket.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function ticket()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(Ticket::class);
     }
 
     /**
@@ -132,8 +141,25 @@ class Comment extends Model
     public function getContentHtml()
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->content), true);
+        return $bbcode->parse($this->content, true);
+    }
+
+    /**
+     * Nootify Staff There Is Stale Tickets.
+     *
+     * @param \App\Models\Ticket $ticket
+     */
+    public static function checkForStale(Ticket $ticket)
+    {
+        if (empty($ticket->reminded_at) || strtotime($ticket->reminded_at) < strtotime('+ 3 days'))
+        {
+            $last_comment = $ticket->comments()->orderBy('id', 'desc')->first();
+
+            if (isset($last_comment->id) && ! $last_comment->user->is_modo && strtotime($last_comment->created_at) < strtotime('- 3 days'))
+            {
+                event(new TicketWentStale($last_comment->ticket));
+            }
+        }
     }
 }
