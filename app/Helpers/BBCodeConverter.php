@@ -370,7 +370,7 @@ class BBCodeConverter
     {
         $this->text = \preg_replace_callback('#\[alert\]([\W\D\w\s]*?)\[/alert\]#iu',
 
-            fn ($matches) => '<div class="decoda-alert">'.\trim($matches[1], '').'</div>',
+            fn ($matches) => '<div class="bbcode-alert">'.\trim($matches[1], '').'</div>',
 
             $this->text
         );
@@ -383,7 +383,7 @@ class BBCodeConverter
     {
         $this->text = \preg_replace_callback('#\[note\]([\W\D\w\s]*?)\[/note\]#iu',
 
-            fn ($matches) => '<div class="decoda-note">'.\trim($matches[1], '').'</div>',
+            fn ($matches) => '<div class="bbcode-note">'.\trim($matches[1], '').'</div>',
 
             $this->text
         );
