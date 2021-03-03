@@ -580,10 +580,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Like - Dislike System
-        Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
-        Route::any('/dislike/post/{postId}', 'LikeController@destroy')->name('dislike');
-
         // Subscription System
         Route::get('/subscribe/topic/{route}.{topic}', 'SubscriptionController@subscribeTopic')->name('subscribe_topic');
         Route::get('/unsubscribe/topic/{route}.{topic}', 'SubscriptionController@unsubscribeTopic')->name('unsubscribe_topic');
