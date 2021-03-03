@@ -104,8 +104,8 @@ class SystemInformation
     public function basic()
     {
         return [
-            'os'       => \php_uname('s'),
-            'php'      => \phpversion(),
+            'os'       => PHP_OS,
+            'php'      => PHP_VERSION,
             'database' => $this->getDatabase(),
             'laravel'  => \app()->version(),
         ];

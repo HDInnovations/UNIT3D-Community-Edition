@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -37,44 +36,5 @@ class BookmarkController extends Controller
         \abort_unless(($request->user()->id == $user->id), 403);
 
         return \view('bookmark.index', ['user' => $user]);
-    }
-
-    /**
-     * Store A New Bookmark.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-
-        if ($request->user()->isBookmarked($torrent->id)) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Torrent has already been bookmarked.');
-        }
-        $request->user()->bookmarks()->attach($torrent->id);
-
-        return \redirect()->route('torrent', ['id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Bookmarked Successfully!');
-    }
-
-    /**
-     * Delete A Bookmark.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $request->user()->bookmarks()->detach($torrent->id);
-
-        return \redirect()->route('bookmarks.index', ['username' => $request->user()->username])
-            ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 }

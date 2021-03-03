@@ -33,16 +33,6 @@ class EmailBlacklistUpdate extends Command
     protected $description = 'Update cache for email domains blacklist.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \JsonException
@@ -63,6 +53,6 @@ class EmailBlacklistUpdate extends Command
 
             return;
         }
-        $this->info(sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
+        $this->info(\sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
     }
 }

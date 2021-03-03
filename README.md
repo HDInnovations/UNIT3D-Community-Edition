@@ -10,7 +10,7 @@
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a href="https://discord.gg/Bf47vws"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
+<a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
@@ -23,7 +23,6 @@
 3. [Requirements](#requirements)
 4. [Installation](#installation)
 4.1 [Automated-Installer](#auto-install)
-4.2 [Manual Install](#manual-install)
 5. [Updating](#updating)
 6. [Packages](#packages)
 7. [Version Support Information](#versions)
@@ -31,7 +30,7 @@
 9. [Contributing](#contributing)
 10. [License](#license)
 11. [Demo](#demo)
-12. [Support/Chat](#chat)
+12. [Sponsor-Chat](#chat)
 13. [Sponsoring](#sponsor)
 14. [Collaborators](#collaborators)
 15. [Special Thanks](#thanks)
@@ -40,7 +39,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based on the lovely Laravel Framework -- currently Laravel Framework 8, MySQL Strict Mode Compliant, and PHP 7.4 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based on the lovely Laravel Framework -- currently Laravel Framework 8, MySQL Strict Mode Compliant, and PHP 8.0 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -121,21 +120,12 @@ sudo ./install.sh
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
-Video Tutorial Can Be Seen Here:
-https://www.youtube.com/watch?v=tbIZpsz093o
+## <a name="docs"></a> 📖 Documentation (Out Of Date!)
+Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
+Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
-### <a name="manual-install"></a> Manual Install
-If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
-
-## <a name="updating"></a> 📖 Documentation
-Repo - https://github.com/HDInnovations/UNIT3D-Docs
-Site - https://hdinnovations.github.io/UNIT3D-Docs/index.html
-
-## <a name="docs"></a> 🖥️ Updating
+## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
-
-Video Tutorial Can Be Seen Here:
-https://www.youtube.com/watch?v=tlNUjS1dYMs
  
 ## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
@@ -201,9 +191,9 @@ Password: UNIT3D
 
 Demo is reset every 48 hours!
 
-## <a name="chat"></a>  💬 Chat With Us
+## <a name="chat"></a>  💬 Sponsors Can Chat With Us
 
-URL: https://discord.gg/Bf47vws
+URL: https://discord.gg/J8dsx7F5yT
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
@@ -211,7 +201,9 @@ You can support my work if you are enjoying UNIT3D and my other projects under H
 
 https://github.com/sponsors/HDVinnie
 
-Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+
+CashApp - $hdvinnie
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
@@ -220,8 +212,6 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
-
-Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>

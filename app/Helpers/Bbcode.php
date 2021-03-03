@@ -118,7 +118,7 @@ class Bbcode
         'quote' => [
             'pattern' => '/\[quote\](.*?)\[\/quote\]/s',
             'replace' => '<ul class="media-list comments-list">
-                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: rgb(1, 188, 140);">
+                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;">
                           <div class="media-body">    
                           <div class="pt-5">$1</div>
                           </div>
@@ -130,7 +130,7 @@ class Bbcode
         'namedquote' => [
             'pattern' => '/\[quote\=(.*?)\](.*)\[\/quote\]/s',
             'replace' => '<ul class="media-list comments-list">
-                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: rgb(1, 188, 140);">
+                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;">
                           <div class="media-body"> 
                           <strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong>    
                           <div class="pt-5">$2</div>

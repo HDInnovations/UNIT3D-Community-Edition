@@ -420,11 +420,7 @@
                                         </div>
                                         <span class="badge-user text-bold" style="float: right;">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                            @if ($user->ratings == 1)
-                                                {{ $torrent->meta->imdbRating ?? '0' }}/10 ({{ $torrent->meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
-                                            @else
-                                                {{ $torrent->meta->tmdbRating ?? '0' }}/10 ({{ $torrent->meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
-                                            @endif
+                                            {{ $torrent->meta->vote_average ?? 0 }}/10 ({{ $torrent->meta->vote_count ?? 0 }} @lang('torrent.votes'))
                                         </span>
                                     </div>
                                 </div>

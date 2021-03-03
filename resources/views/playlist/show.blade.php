@@ -3,7 +3,7 @@
 @section('breadcrumb')
 	<li>
 		<a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-			<span itemprop="title" class="l-breadcrumb-item-link-title">Playlists</span>
+			<span itemprop="title" class="l-breadcrumb-item-link-title">@lang('playlist.playlists')</span>
 		</a>
 	</li>
 	<li>
@@ -30,26 +30,26 @@
 										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px;">
 									@endif
 								</a>
-								<p>A list by<br><a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a></p>
+								<p>@lang('playlist.list-by')<br><a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a></p>
 							</li>
 						</ul>
 
-						<h3 class="text-bold">About this list</h3>
+						<h3 class="text-bold">@lang('playlist.list-about')</h3>
 						<div class="description">
 							<p>{{ $playlist->description }}</p>
 							<br>
 							@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
 								<button data-toggle="modal" data-target="#modal_playlist_torrent" class="btn btn-md btn-success">
-									<i class="{{ config('other.font-awesome') }} fa-search-plus"></i> Add Torrent
+									<i class="{{ config('other.font-awesome') }} fa-search-plus"></i> @lang('playlist.add-torrent')
 								</button>
 								<form action="{{ route('playlists.destroy', ['id' => $playlist->id]) }}" method="POST" style="display: inline;">
 									@csrf
 									@method('DELETE')
 									<a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="btn btn-warning">
-										<i class="{{ config('other.font-awesome') }} fa-edit"></i> @lang('common.edit') Playlist
+										<i class="{{ config('other.font-awesome') }} fa-edit"></i> @lang('playlist.edit-playlist')
 									</a>
 									<button type="submit" class="btn btn-danger pull-right">
-										<i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete') Playlist
+										<i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('playlist.delete-playlist')
 									</button>
 								</form>
 							@endif
@@ -65,7 +65,7 @@
 					<a href="{{ route('playlists.download', ['id' => $playlist->id]) }}" role="button"
 					   class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
-                        <i class='{{ config('other.font-awesome') }} fa-download'></i> Download All Playlist Torrents
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i> @lang('playlist.download-all')
                     </span>
 					</a>
 				</div>
@@ -296,7 +296,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">Add Torrent To Playlist</h4>
+							<h4 class="modal-title" id="myModalLabel">@lang('playlist.add-to-playlist')</h4>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
@@ -308,11 +308,11 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Save">
+								<input class="btn btn-primary" type="submit" value="@lang('common.save')">
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
 						</div>
 					</form>
 				</div>

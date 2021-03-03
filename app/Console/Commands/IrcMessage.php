@@ -34,16 +34,6 @@ class IrcMessage extends Command
     protected $description = 'Messages an IRC Channel';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

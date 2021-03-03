@@ -54,14 +54,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        PreventRequestsDuringMaintenance::class,
-        ValidatePostSize::class,
-        TrimStrings::class,
-        ConvertEmptyStringsToNull::class,
-        TrustProxies::class,
-        HandleCors::class,
-        SecureHeadersMiddleware::class,
-        Http2ServerPush::class,
+        // Default Laravel
+        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        //\App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
+
+        // Extra
+        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
+        \App\Http\Middleware\Http2ServerPush::class,
     ];
 
     /**

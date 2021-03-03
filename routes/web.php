@@ -130,14 +130,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/gift', 'BonusController@sendGift')->name('bonus_send_gift');
         });
 
-        // Bookmarks System
-        Route::group(['prefix' => 'bookmarks'], function () {
-            Route::name('bookmarks.')->group(function () {
-                Route::post('/{id}/store', 'BookmarkController@store')->name('store');
-                Route::delete('/{id}/destroy', 'BookmarkController@destroy')->name('destroy');
-            });
-        });
-
         // Reports System
         Route::group(['prefix' => 'reports'], function () {
             Route::post('/torrent/{id}', 'ReportController@torrent')->name('report_torrent');
@@ -271,6 +263,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
             Route::get('/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
             Route::get('/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
+            Route::get('/{id}/torrent_revokefeature', 'TorrentController@revokeFeatured')->name('torrent_revokefeature');
             Route::get('/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
             Route::post('/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
             Route::get('/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');

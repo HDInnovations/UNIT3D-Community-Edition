@@ -220,11 +220,11 @@ class TorrentController extends BaseController
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             }
 
@@ -251,7 +251,7 @@ class TorrentController extends BaseController
             }
 
             TorrentHelper::approveHelper($torrent->id);
-            \info('New API Upload', [sprintf('User %s has uploaded %s', $user->username, $torrent->name)]);
+            \info('New API Upload', [\sprintf('User %s has uploaded %s', $user->username, $torrent->name)]);
         }
 
         return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');

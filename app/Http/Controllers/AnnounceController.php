@@ -155,14 +155,19 @@ class AnnounceController extends Controller
 
         $userAgent = $request->header('User-Agent');
 
-        // Should also Block those too long User-Agent. ( For Database reason
+        // Should also block User-Agent strings that are to long. (For Database reasons)
         if (\strlen($userAgent) > 64) {
             throw new TrackerException(123);
         }
 
-        // Block Browser by check it's User-Agent
+        // Block Browser by checking it's User-Agent
         if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $userAgent)) {
             throw new TrackerException(121);
+        }
+
+        // Block Blacklisted Clients
+        if (in_array($request->header('User-Agent'), config('client-blacklist.clients'))) {
+            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
         }
     }
 
@@ -440,7 +445,7 @@ class AnnounceController extends Controller
             // Get Torrents Peers
             $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
 
-            $repDict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
+            $repDict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id']);
             $repDict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
         }
 

@@ -1,4 +1,4 @@
-name: Rector Checkstyle
+name: Checkstyle
 
 on: [ push, pull_request ]
 
@@ -8,10 +8,10 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
 
-            -   name: Setup PHP 7.4
+            -   name: Setup PHP 8.0
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 7.4
+                    php-version: 8.0
                     coverage: none
                     tools: cs2pr
 
@@ -30,4 +30,4 @@ jobs:
                 run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
             -   name: Run Rector
-                run: vendor/bin/rector process --ansi --dry-run --output-format=checkstyle | cs2pr
+                run: vendor/bin/rector process app --ansi --dry-run --output-format=checkstyle | cs2pr

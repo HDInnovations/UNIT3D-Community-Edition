@@ -12,8 +12,8 @@
  */
 
 return [
-    'articles'      => 'Artikler',
-    'meta-articles' => 'Artikler og nyheder om tracker og samfundet',
-    'published-at'  => 'Udgivet på',
+    'articles'      => 'Nyheder',
+    'meta-articles' => 'Nyheder og artikler om tracker samt community',
+    'published-at'  => 'Udgivet den',
     'read-more'     => 'Læs mere',
 ];

@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.movies.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">TV Shows</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.shows')</span>
         </a>
     </li>
     <li class="active">
@@ -33,7 +33,7 @@
                 <div class="movie-backdrop"
                      style="background-image: url('https://images.weserv.nl/?url={{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }}&w=1270&h=600');">
                     <div class="tags">
-                        Movie
+                        @lang('mediahub.movies')
                     </div>
                 </div>
                 <div class="movie-overlay"></div>

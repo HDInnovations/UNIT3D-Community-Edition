@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<div class="mb-10">
-			<input type="text" wire:model="searchTerm" class="form-control" placeholder="Search By Name"/>
+			<input type="text" wire:model="searchTerm" class="form-control" placeholder="@lang('torrent.search-by-name')"/>
 		</div>
 
 		@foreach($movies as $movie)
@@ -9,7 +9,7 @@
 				<div class="card is-torrent" style=" height: 265px;">
 					<div class="card_head">
 						<span class="badge-user text-bold" style="float:right;">
-							{{ $movie->torrents_count }} Torrents Matched
+							{{ $movie->torrents_count }} @lang('torrent.torrents-matched')
 						</span>
 						@if ($movie->companies)
 							@foreach ($movie->companies as $company)

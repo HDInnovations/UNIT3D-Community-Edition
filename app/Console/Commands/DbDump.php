@@ -21,16 +21,6 @@ class DbDump extends Command
     protected $description = 'Dumps the contents of the database to disk in a format suitable for import with db:load';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

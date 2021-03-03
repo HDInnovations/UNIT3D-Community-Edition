@@ -120,7 +120,6 @@ return [
         'cy',
         'da',
         'de',
-        'da',
         'el',
         'en',
         'es',

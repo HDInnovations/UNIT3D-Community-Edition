@@ -5,7 +5,7 @@
 				<div class="header gradient silver">
 					<div class="inner_content">
 						<div class="page-title">
-							<h1 style="margin: 0;">Subtitles</h1>
+							<h1 style="margin: 0;">@lang('common.subtitles')</h1>
 						</div>
 					</div>
 				</div>

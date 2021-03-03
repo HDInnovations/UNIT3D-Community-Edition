@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $company->name }} Company - {{ config('other.title') }}</title>
+    <title>{{ $company->name }} @lang('mediahub.companies') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $company->name }} Network">
+    <meta name="description" content="{{ $company->name }} @lang('mediahub.networks')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.networks.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Companies</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.companies')</span>
         </a>
     </li>
     <li class="active">
@@ -34,7 +34,7 @@
                     <h1 class="text-center" style=" height: 100px; font-family: Shrikhand, cursive; font-size: 4em; font-weight: 400; margin: 0;">
                         {{ $company->name }}
                     </h1>
-                    <h2 class="text-center" style="margin: 0;">{{ $company->tv->count() }} Shows</h2>
+                    <h2 class="text-center" style="margin: 0;">{{ $company->tv->count() }} @lang('mediahub.shows')</h2>
                     @foreach($company->tv as $show)
                         <div class="col-md-12">
                             <div class="card is-torrent">

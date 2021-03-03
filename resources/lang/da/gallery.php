@@ -24,4 +24,6 @@ return [
     'select-cover'                => 'Vælg et coverbillede',
     'select-image'                => 'Vælg et billede',
     'add-an-image-to'             => 'Tilføj et billede til',
+    'add-sleeve-disc-desc'        => 'Beskriv dit Sleeve-, Album- eller Skive-design her',
+
 ];

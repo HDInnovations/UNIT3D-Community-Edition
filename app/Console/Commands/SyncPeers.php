@@ -36,16 +36,6 @@ class SyncPeers extends Command
     protected $description = 'Corrects Torrent Seeders/Leechers (Peers) Count Due To Not Receiving A STOPPED Event From Client.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

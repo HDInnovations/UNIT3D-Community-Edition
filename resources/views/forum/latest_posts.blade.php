@@ -47,7 +47,7 @@
                         <td colspan="5" class="no-space">
                             <div class="header gradient teal some-padding">
                                 <div class="inner_content">
-                                    <h1 class="no-space">Latest Posts</h1>
+                                    <h1 class="no-space">@lang('common.latest-posts')</h1>
                                 </div>
                             </div>
                         </td>

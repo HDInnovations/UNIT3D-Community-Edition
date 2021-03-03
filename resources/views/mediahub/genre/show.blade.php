@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $genre->name }} Network - {{ config('other.title') }}</title>
+    <title>{{ $genre->name }} @lang('mediahub.networks') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $genre->name }} Network">
+    <meta name="description" content="{{ $genre->name }} @lang('mediahub.networks')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.genres.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Genres</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.genres')</span>
         </a>
     </li>
     <li class="active">
@@ -35,7 +35,7 @@
                         {{ $genre->name }}
                     </h1>
                     <hr>
-                    <h2 class="text-center">{{ $genre->tv->count() }} TV Shows | {{ $genre->movie->count() }} Movies</h2>
+                    <h2 class="text-center">{{ $genre->tv->count() }} TV Shows | {{ $genre->movie->count() }} @lang('mediahub.movies')</h2>
                     @foreach($movies as $movie)
                         <div class="col-md-12">
                             <div class="card is-torrent">

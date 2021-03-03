@@ -1,6 +1,27 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v5.1.0] - 2021-01-06
+
+- [#1532] (Add) Allow user to see their own peer connection, Thanks to [@Obi-Wana]
+- [#1564] build(deps-dev): bump axios from 0.21.0 to 0.21.1, Thanks to [@dependabot][bot]
+- [#1563] (Update) Torrent Featuring, Thanks to [@JamesPSS]
+- [#1554] (Refactor) Code Quality, Thanks to [@HDVinnie]
+- [#1547] (Refactor) Naming Style, Thanks to [@HDVinnie]
+- [#1541] (Update) Backup Manager, Thanks to [@HDVinnie]
+- [#1540] (Refactor) General Cleanup, Thanks to [@HDVinnie]
+- [#1539] (Update) Laravel Mix, Thanks to [@HDVinnie]
+- [#1528] update: Danish Translations, Thanks to [@Globbered]
+- [#1572] (Fix) Torrent NFO System, Thanks to [@HDVinnie]
+- [#1570] (Fix) Italian Language File, Thanks to [@Gideon75]
+- [#1553] Fix: unique tables, Thanks to [@JamesPSS]
+- [#1552] fix: formatting of multiple nested quotes, Thanks to [@Spidi]
+- [#1551] (Fix) Mass PM Attributes, Thanks to [@Spidi]
+- [#1548] (Fix) Backup Manager, Thanks to [@HDVinnie]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
 ## [v5.0.0] - 2020-12-18
 
 - [#1520] v5.0.0, Thanks to [@HDVinnie]
@@ -1576,6 +1597,7 @@
 [v3.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.7.0...v3.0.0
 [v4.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v3.0.0...v4.0.0
 [v5.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v4.0.0...v5.0.0
+[v5.1.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.0.0...v5.1.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1634,3 +1656,22 @@
 [#1469]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1469
 [@iamuser00110001]: https://github.com/iamuser00110001
 [@balderi]: https://github.com/balderi
+[#1572]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1572
+[#1570]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1570
+[#1564]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1564
+[#1563]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1563
+[#1554]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1554
+[#1553]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1553
+[#1552]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1552
+[#1551]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1551
+[#1548]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1548
+[#1547]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1547
+[#1541]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1541
+[#1540]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1540
+[#1539]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1539
+[#1532]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1532
+[#1528]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1528
+[@Spidi]: https://github.com/Spidi
+[@Obi-Wana]: https://github.com/Obi-Wana
+[@JamesPSS]: https://github.com/JamesPSS
+[@Globbered]: https://github.com/Globbered

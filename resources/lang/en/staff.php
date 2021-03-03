@@ -19,6 +19,7 @@ return [
     'application-type'        => 'Type',
     'application-image-proofs'=> 'Image Proofs',
     'application-referrer'    => 'Referrer',
+    'article-content'         => 'Content',
     'bans-log'                => 'Bans Log',
     'blocks'                  => 'Blocks',
     'bot'                     => 'Bot',

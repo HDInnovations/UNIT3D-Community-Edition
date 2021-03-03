@@ -107,7 +107,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
 
-        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->orderBy('sticky', 'desc')
             ->orderBy('bumped_at', 'desc')
@@ -140,7 +140,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->where('category_id', '=', $categoryId)
             ->where('tmdb', '=', $tmdb)
@@ -255,7 +255,7 @@ class TorrentController extends Controller
         }
         $totals = [];
         $counts = [];
-        $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
+        $launcher = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
         foreach ($launcher->cursor() as $lazyCollection) {
             if ($lazyCollection->imdb) {
                 $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
@@ -564,7 +564,7 @@ class TorrentController extends Controller
             if (! $history || ! \is_array($history)) {
                 $history = [];
             }
-            $torrent = $torrent->with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
+            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
         } elseif ($history == 1) {
             $torrent = History::where('history.user_id', '=', $user->id);
             $torrent->where(function ($query) use ($seedling, $downloaded, $leeching, $idling) {
@@ -593,7 +593,7 @@ class TorrentController extends Controller
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {
-            $torrent = $torrent->with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
+            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
         }
         if ($collection != 1) {
             if ($request->has('search') && $request->input('search') != null) {
@@ -729,7 +729,7 @@ class TorrentController extends Controller
             }
             $totals = [];
             $counts = [];
-            $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+            $launcher = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $lazyCollection) {
                 if ($lazyCollection->imdb) {
                     $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
@@ -786,7 +786,7 @@ class TorrentController extends Controller
             if (\is_array($hungry) && \array_key_exists($page - 1, $hungry)) {
                 $fed = $hungry[$page - 1];
             }
-            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
+            $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
         } else {
             $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
         }
@@ -1366,11 +1366,11 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             }
 
@@ -1595,6 +1595,44 @@ class TorrentController extends Controller
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('Torrent Is Already Featured!');
+    }
+
+    /**
+     * UnFeature A Torrent.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
+     * @param \App\Models\FeaturedTorrent torrent_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function revokeFeatured(Request $request, $id)
+    {
+        $user = $request->user();
+
+        \abort_unless($user->group->is_modo, 403);
+
+        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
+
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+
+        if (isset($torrent)) {
+            $torrent->free = '0';
+            $torrent->doubleup = '0';
+            $torrent->featured = '0';
+            $torrent->save();
+
+            $appurl = \config('app.url');
+
+            $this->chatRepository->systemMessage(
+                \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+            );
+        }
+
+        $featured_torrent->delete();
+
+        return \redirect()->route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Revoked featured from Torrent!');
     }
 
     /**

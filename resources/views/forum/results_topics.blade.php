@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Search - @lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>@lang('common.search') - @lang('forum.forums') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -31,9 +31,7 @@
                         <td colspan="5" class="no-space">
                             <div class="header gradient teal some-padding">
                                 <div class="inner_content">
-                                    <h1 class="no-space">Forum
-                                        {{ isset($params) && is_array($params) && array_key_exists('name', $params) ? 'Topic Search' : 'Search' }}
-                                    </h1>
+                                    <h1 class="no-space">@lang('forum.forum') @lang('forum.forums-topic-search')</h1>
                                 </div>
                             </div>
                         </td>
@@ -77,7 +75,7 @@
                                                 <div class="col-sm-9 fatten-me">
                                                     <label for="category"></label><select id="category" name="category"
                                                         class="form-control">
-                                                        <option value="0">All Categories/Forums</option>
+                                                        <option value="0">@lang('forum.select-all-forum')</option>
                                                         @foreach ($categories as $category)
                                                             @if ($category->getPermission() != null &&
                                                                 $category->getPermission()->show_forum == true &&
@@ -292,10 +290,10 @@
                                                         class="form-control">
                                                         <option value="updated_at"
                                                             {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '' }}>
-                                                            Updated At</option>
+                                                            @lang('forum.updated-at')</option>
                                                         <option value="created_at"
                                                             {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '' }}>
-                                                            Created At</option>
+                                                            @lang('forum.created-at')</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -316,7 +314,7 @@
                                             </div>
                                             <div class="button-holder" style="margin-top: 20px !important;">
                                                 <div class="button-center">
-                                                    <button type="submit" class="btn btn-primary">Update Results</button>
+                                                    <button type="submit" class="btn btn-primary">@lang('common.search')</button>
                                                 </div>
                                             </div>
                                         </form>

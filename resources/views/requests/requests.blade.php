@@ -146,19 +146,22 @@
                         <span class="badge-user">
                             <label class="inline">
                                 <input type="checkbox" id="myclaims" value="1">
-                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My claims
+                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span>
+                                @lang('request.my-claims')
                             </label>
                         </span>
                         <span class="badge-user">
                             <label class="inline">
                                 <input type="checkbox" id="myvoted" value="1">
-                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My voted
+                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span>
+                                @lang('request.my-voted')
                             </label>
                         </span>
                         <span class="badge-user">
                             <label class="inline">
                                 <input type="checkbox" id="myfiled" value="1">
-                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My filled
+                                <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span>
+                                @lang('request.my-filled')
                             </label>
                         </span>
                     </div>

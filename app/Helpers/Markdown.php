@@ -333,8 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-        $Block['element']['text']['text'] = $Block['element']['text']['text'];
-
         return $Block;
     }
 
@@ -432,8 +430,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-        $Block['element']['text']['text'] = $Block['element']['text']['text'];
-
         return $Block;
     }
 
