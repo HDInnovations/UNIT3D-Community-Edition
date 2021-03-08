@@ -907,5 +907,14 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', 'WarningController@index')->name('index');
             });
         });
+
+        // Watchlist
+        Route::group(['prefix' => 'watchlist'], function () {
+            Route::name('staff.watchlist.')->group(function () {
+                Route::get('/', 'WatchlistController@index')->name('index');
+                Route::post('/{id}/store', 'WatchlistController@store')->name('store');
+                Route::delete('/{id}/destroy', 'WatchlistController@destroy')->name('destroy');
+            });
+        });
     });
 });
