@@ -13,8 +13,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Watchlist;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class WatchlistSearch extends Component
@@ -66,7 +66,7 @@ class WatchlistSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.watchlist-search', [
-            'watchedUsers' => $this->users
+            'watchedUsers' => $this->users,
         ]);
     }
 }

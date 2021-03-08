@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Watchlist;
 use App\Http\Controllers\Controller;
+use App\Models\Watchlist;
 use Illuminate\Http\Request;
 
 /**
@@ -27,7 +27,7 @@ class WatchlistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    final public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.watchlist.index');
     }
