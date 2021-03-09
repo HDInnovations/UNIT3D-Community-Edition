@@ -22,9 +22,9 @@ return [
     'top-torrents'            => 'Top Torrents',
     'latest-posts'            => 'Neueste Beiträge',
     'latest-topics'           => 'Neueste Themen',
-    'active-in-last'          => 'Aktiv im letzten',
+    'active-in-last'          => 'Zuletzt aktiv',
     'users-online'            => 'Benutzer online',
-    'check-news'              => 'Nachrichten (täglich prüfen)',
+    'check-news'              => 'Neuste Nachrichten',
     'new-news'                => 'Neue Nachrichten',
     'new-torrents'            => 'Neue Torrents',
 ];

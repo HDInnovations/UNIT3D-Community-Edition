@@ -13,14 +13,14 @@
 
 return [
     'bug-report'             => 'Fehlerbericht',
-    'bug-report-description' => 'Einen Fehler in der Site melden',
+    'bug-report-description' => 'Einen Fehler der Webseite melden',
     'enter-description'      => 'Beschreibe das Problem so gut wie möglich',
     'enter-email'            => 'Bitte gebe deine E-Mail-Adresse ein',
     'enter-title'            => 'Bitte wähle einen passenden Titel',
-    'enter-username'         => 'Bitte gebe deinen Benutzernamen ein',
+    'enter-username'         => 'Bitte gebe deinen Nutzernamen ein',
     'high'                   => 'Hoch',
     'low'                    => 'Niedrig',
     'priority'               => 'Priorität',
-    'priority-description'   => 'Wähle nur Sehr hoch, wenn der Fehler wirklich ein Problem die Benutzung der Webseite beinflusst.',
-    'very-high'              => 'Sehr hoch',
+    'priority-description'   => 'Wähle nur Sehr Hoch, wenn der Fehler wirklich ein Problem für die Benutzung der Webseite ist.',
+    'very-high'              => 'Sehr Hoch',
 ];
