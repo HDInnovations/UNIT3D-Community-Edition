@@ -14,13 +14,13 @@
 return [
     'bug-report'             => 'Fehlerbericht',
     'bug-report-description' => 'Einen Fehler in der Site melden',
-    'enter-description'      => 'Beschreiben Sie das Problem so gut wie möglich',
-    'enter-email'            => 'Bitte geben Sie ihre E-Mail-Adresse ein',
-    'enter-title'            => 'Bitte wählen Sie einen passenden Titel',
-    'enter-username'         => 'Bitte geben Sie Ihren Benutzernamen ein',
+    'enter-description'      => 'Beschreibe das Problem so gut wie möglich',
+    'enter-email'            => 'Bitte gebe deine E-Mail-Adresse ein',
+    'enter-title'            => 'Bitte wähle einen passenden Titel',
+    'enter-username'         => 'Bitte gebe deinen Benutzernamen ein',
     'high'                   => 'Hoch',
     'low'                    => 'Niedrig',
     'priority'               => 'Priorität',
-    'priority-description'   => 'Wählen Sie nur sehr hoch, wenn der Fehler wirklich ein Problem bei der Verwendung der Site ist.',
+    'priority-description'   => 'Wähle nur Sehr hoch, wenn der Fehler wirklich ein Problem die Benutzung der Webseite beinflusst.',
     'very-high'              => 'Sehr hoch',
 ];

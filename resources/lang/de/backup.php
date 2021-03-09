@@ -12,32 +12,42 @@
  */
 
 return [
-    'actions'                        => 'Aktionen',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
     'backup'                         => 'Backup',
-    'backup_doesnt_exist'            => 'Die Sicherungsdatei existiert nicht.',
-    'create_a_new_backup'            => 'Erstellen Sie eine vollständige Sicherung',
-    'create_a_new_files_backup'      => 'Dateisicherung erstellen',
-    'create_a_new_db_backup'         => 'Erstellen Sie eine Datenbanksicherung',
-    'create_confirmation_message'    => 'Die Seite wird in 3 Sekunden neu geladen.',
-    'create_confirmation_title'      => 'Sicherung abgeschlossen',
-    'create_error_message'           => 'Die Sicherungsdatei konnte NICHT erstellt werden.',
-    'create_error_title'             => 'Backup-Fehler',
-    'create_warning_message'         => 'Ihre Sicherung wurde möglicherweise NICHT erstellt. Bitte überprüfen Sie die Protokolldateien auf Details.',
-    'create_warning_title'           => 'Unbekannter Fehler',
+    'backup_process_started'         => 'Neuer Backup Prozess gestartet',
+    'create_a_new_backup'            => 'Komplettes Backup erstellen',
+    'create_a_new_files_backup'      => 'Datei Backup erstellen',
+    'create_a_new_db_backup'         => 'Datenbank Backup erstellen',
+    'existing_backups'               => 'Vorhandene Backups',
     'date'                           => 'Datum',
+    'file_size'                      => 'Datei Größe',
+    'download'                       => 'Download',
     'delete'                         => 'Löschen',
-    'delete_cancel_message'          => 'Die Sicherungsdatei wurde NICHT gelöscht.',
-    'delete_cancel_title'            => 'Es ist in Ordnung',
-    'delete_confirm'                 => 'Möchten Sie diese Sicherungsdatei wirklich löschen?',
-    'delete_confirmation_message'    => 'Die Sicherungsdatei wurde gelöscht.',
-    'delete_confirmation_title'      => 'Erledigt',
-    'delete_error_message'           => 'Die Sicherungsdatei wurde NICHT gelöscht.',
-    'delete_error_title'             => 'Error',
-    'download'                       => 'Herunterladen',
-    'existing_backups'               => 'Bestehende Sicherungen',
-    'file_size'                      => 'Dateigröße',
+    'delete_confirm'                 => 'Möchtest du diese Backup-Datei wirklich löschen?',
+    'delete_confirmation_title'      => 'Fertig',
+    'delete_confirmation_message'    => 'Die Backup-Datei wurde gelöscht.',
+    'delete_error_title'             => 'Fehler',
+    'delete_error_message'           => 'Die Backup-Datei wurde NICHT gelöscht.',
+    'delete_cancel_title'            => "Es ist in Ordnung",
+    'delete_cancel_message'          => 'Die Backup-Datei wurde NICHT gelöscht.',
+    'create_confirmation_title'      => 'Backup Prozess gestartet',
+    'create_confirmation_message'    => 'Bitte warte ein paar Minuten, bis der Vorgang abgeschlossen ist, anschließend lade dann die Seite neu.',
+    'create_error_title'             => 'Backup Fehler',
+    'create_error_message'           => 'Die Backup-Datei konnte NICHT erstellt werden.',
+    'create_warning_title'           => 'Unbekannter Fehler',
+    'create_warning_message'         => 'Das Backup wurde möglichweise NICHT erstellt. Bitte prüfe die Log-Dateien',
     'location'                       => 'Ort',
-    'manager'                        => 'Manager',
-    'no_disks_configured'            => 'Keine Sicherungsdisketten in config / backup.php konfiguriert',
-    'only_local_downloads_supported' => 'Es werden nur Downloads vom lokalen Dateisystem unterstützt.',
+    'no_disks_configured'            => 'Keine Backuplaufwerke in config/backup.php konfiguriert',
+    'backup_doesnt_exist'            => "Die Backup-Datei existiert nicht.",
+    'only_local_downloads_supported' => 'Es werden nur Downloads aus dem lokalen Dateisystem unterstützt.',
 ];
