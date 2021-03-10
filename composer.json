@@ -9,6 +9,7 @@
     "type": "project",
     "require": {
         "php": ">=8.0",
+        "ext-json": "*",
         "ext-zip": "*",
         "andkab/laravel-joypixels": "^1.0",
         "appstract/laravel-opcache": "^4.0",
@@ -26,10 +27,12 @@
         "joypixels/assets": "^6.0",
         "kyslik/column-sortable": "^6.0",
         "laravel/framework": "^8.0",
+        "laravel/scout": "^8.6",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.1.0",
         "livewire/livewire": "^2.0",
         "marcreichel/igdb-laravel": "^2.1.0",
+        "meilisearch/meilisearch-laravel-scout": "^0.12.4",
         "mews/purifier": "^3.2",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
@@ -39,8 +42,7 @@
         "spatie/ssl-certificate": "^1.12",
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0",
-        "voku/anti-xss": "^4.1",
-      "ext-json": "*"
+        "voku/anti-xss": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -50,8 +52,10 @@
         "nunomaduro/collision": "^5.0",
         "phpro/grumphp": "^1.2.0",
         "phpunit/phpunit": "^9.3",
+        "psalm/plugin-laravel": "^1.4",
         "rector/rector": "dev-master",
-        "symplify/changelog-linker": "^9.0"
+        "symplify/changelog-linker": "^9.2",
+        "vimeo/psalm": "^4.6"
     },
     "config": {
         "preferred-install": "dist",
