@@ -85,13 +85,7 @@
                         </div>
                         <span class="badge-user text-bold" style="float: right;">
                         <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                        @if($t->meta && ($t->meta->imdbRating || $t->meta->tmdbVotes))
-                                @if ($user->ratings == 1)
-                                    {{ $t->meta->imdbRating }}/10 ({{ $t->meta->imdbVotes }} @lang('torrent.votes'))
-                                @else
-                                    {{ $t->meta->tmdbRating }}/10 ({{ $t->meta->tmdbVotes }} @lang('torrent.votes'))
-                                @endif
-                            @endif
+                        {{ $t->meta->vote_average ?? 0 }}/10 ({{ $t->meta->vote_count ?? 0 }} @lang('torrent.votes'))
                     </span>
                     </div>
                 </div>

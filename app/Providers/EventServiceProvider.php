@@ -35,7 +35,6 @@ use App\Listeners\PasswordProtectBackup;
 use Assada\Achievements\Event\Unlocked;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Auth\Events\Logout;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
@@ -48,9 +47,6 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         // Auth System
-        Logout::class => [
-            LogoutListener::class,
-        ],
         Login::class => [
             LoginListener::class,
         ],

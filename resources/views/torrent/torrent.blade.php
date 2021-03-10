@@ -338,7 +338,7 @@
 
                             @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
                                 @if (auth()->user()->isFollowing($uploader->id))
-                                    <form class="form-inline" role="form"action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
+                                    <form class="form-inline" role="form" action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
                                           style="display: inline-block;" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -711,8 +711,7 @@
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
-                                                    <img src="{{ url('img/profile.png') }}"
-                                                         alt="{{ $comment->user->username }}" class="img-avatar-48">
+                                                    <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        style="color:{{ $comment->user->group->color }};">(<span><i

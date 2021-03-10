@@ -596,10 +596,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Like - Dislike System
-        Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
-        Route::any('/dislike/post/{postId}', 'LikeController@destroy')->name('dislike');
-
         // Subscription System
         Route::get('/subscribe/topic/{route}.{topic}', 'SubscriptionController@subscribeTopic')->name('subscribe_topic');
         Route::get('/unsubscribe/topic/{route}.{topic}', 'SubscriptionController@unsubscribeTopic')->name('unsubscribe_topic');
@@ -924,6 +920,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'warnings'], function () {
             Route::name('staff.warnings.')->group(function () {
                 Route::get('/', 'WarningController@index')->name('index');
+            });
+        });
+
+        // Watchlist
+        Route::group(['prefix' => 'watchlist'], function () {
+            Route::name('staff.watchlist.')->group(function () {
+                Route::get('/', 'WatchlistController@index')->name('index');
+                Route::post('/{id}/store', 'WatchlistController@store')->name('store');
+                Route::delete('/{id}/destroy', 'WatchlistController@destroy')->name('destroy');
             });
         });
     });

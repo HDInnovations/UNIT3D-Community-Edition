@@ -82,7 +82,17 @@ class Post extends Model
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class)->where('like', '=', 1);
+    }
+
+    /**
+     * A Post Has Many Dislikes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class)->where('dislike', '=', 1);
     }
 
     /**

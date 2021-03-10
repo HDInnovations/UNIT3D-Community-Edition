@@ -36,18 +36,4 @@ return [
     'clients' => [
         'Transmission/2.93', 'Transmission/2.04',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Blacklist Browsers
-    |--------------------------------------------------------------------------
-    | An array of browsers to be blacklisted which will reject them from announcing
-    | to the sites tracker.
-    |
-    |
-    */
-    'browsers' => [
-        'Mozilla', 'AppleWebKit', 'Safari', 'Chrome', 'Lynx', 'Opera',
-    ],
-
 ];
