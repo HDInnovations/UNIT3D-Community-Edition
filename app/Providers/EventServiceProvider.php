@@ -21,7 +21,6 @@ use App\Events\TicketWentStale;
 use App\Listeners\AchievementUnlocked;
 use App\Listeners\FailedLoginListener;
 use App\Listeners\LoginListener;
-use App\Listeners\LogoutListener;
 use App\Listeners\NotifyStaffCommentWasCreated;
 use App\Listeners\NotifyStaffTicketWasAssigned;
 use App\Listeners\NotifyStaffTicketWasClosed;
