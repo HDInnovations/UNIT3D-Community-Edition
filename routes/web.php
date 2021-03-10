@@ -178,6 +178,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/request/{id}', 'CommentController@request')->name('comment_request');
             Route::post('/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
             Route::post('/collection/{id}', 'CommentController@collection')->name('comment_collection');
+            Route::post('/ticket/{id}', 'CommentController@ticket')->name('comment_ticket');
             Route::post('/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
             Route::get('/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
         });
@@ -245,7 +246,6 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['prefix' => 'torrents'], function () {
-            Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
             Route::get('/', 'TorrentController@torrents')->name('torrents');
@@ -437,7 +437,23 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/update', 'SubtitleController@update')->name('update');
                 Route::delete('/{id}/delete', 'SubtitleController@destroy')->name('destroy');
                 Route::get('/{id}/download', 'SubtitleController@download')->name('download');
-                Route::get('/filter', 'SubtitleController@faceted');
+            });
+        });
+
+        // Tickets System
+        Route::group(['prefix' => 'tickets'], function () {
+            Route::name('tickets.')->group(function () {
+                Route::get('/', 'TicketController@index')->name('index');
+                Route::get('/create', 'TicketController@create')->name('create');
+                Route::post('/store', 'TicketController@store')->name('store');
+                Route::get('/{id}', 'TicketController@show')->where('id', '[0-9]+')->name('show');
+                Route::get('/{id}/edit', 'TicketController@edit')->name('edit');
+                Route::patch('/{id}/update', 'TicketController@update')->name('update');
+                Route::delete('/{id}/destroy', 'TicketController@destroy')->name('destroy');
+                Route::post('/{id}/assign', 'TicketController@assign')->name('assign');
+                Route::post('/{id}/unassign', 'TicketController@unassign')->name('unassign');
+                Route::post('/{id}/close', 'TicketController@close')->name('close');
+                Route::post('/attachments/{attachment}/download', 'TicketAttachmentController@download')->name('attachment.download');
             });
         });
     });
@@ -893,7 +909,6 @@ Route::group(['middleware' => 'language'], function () {
         // User Tools TODO: Leaving since we will be refactoring users and roles
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UserController@index')->name('user_search');
-            Route::get('/search', 'UserController@search')->name('user_results');
             Route::post('/{username}/edit', 'UserController@edit')->name('user_edit');
             Route::get('/{username}/settings', 'UserController@settings')->name('user_setting');
             Route::post('/{username}/permissions', 'UserController@permissions')->name('user_permissions');
