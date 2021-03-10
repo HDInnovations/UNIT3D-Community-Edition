@@ -26,13 +26,6 @@ return [
     'post-tags'          => 'Post Tags',
     'post-tips'          => 'Post Tips',
     'read'               => 'Read',
-    'request-approvals'  => 'Request Approvals',
-    'request-bounties'   => 'Request Bounties',
-    'request-claims'     => 'Request Claim',
-    'request-fills'      => 'Request Fills',
-    'request-rejections' => 'Request Rejections',
-    'request-unclaims'   => 'Request Unclaims',
-    'reseed-requests'    => 'Reseed Request',
     'title'              => 'Title',
     'unfollows'          => 'Unfollows',
 ];
