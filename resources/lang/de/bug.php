@@ -21,6 +21,6 @@ return [
     'high'                   => 'Hoch',
     'low'                    => 'Niedrig',
     'priority'               => 'Priorität',
-    'priority-description'   => 'Wähle nur Sehr Hoch, wenn der Fehler wirklich ein Problem für die Benutzung der Webseite ist.',
+    'priority-description'   => 'Wähle nur "Sehr Hoch", wenn der Fehler wirklich ein Problem für die Benutzung der Webseite ist.',
     'very-high'              => 'Sehr Hoch',
 ];

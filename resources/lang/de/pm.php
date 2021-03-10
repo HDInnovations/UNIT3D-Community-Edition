@@ -12,17 +12,17 @@
  */
 
 return [
-    'create'        => 'Erstellen',
+    'create'        => 'Schreiben',
     'delete'        => 'Löschen',
     'enter-subject' => 'Betreff eingeben',
     'from'          => 'Von',
     'inbox'         => 'Posteingang',
     'mark-all-read' => 'Alle Nachrichten als gelesen markieren',
-    'message'       => 'Botschaft',
+    'message'       => 'Nachricht',
     'messages'      => 'Mitteilungen',
     'new'           => 'Neue Nachricht',
     'outbox'        => 'Postausgang',
-    'private'       => 'Privatgelände',
+    'private'       => 'Private',
     'read'          => 'Lesen',
     'received-at'   => 'Erhalten um',
     'refresh'       => 'Aktualisierung',

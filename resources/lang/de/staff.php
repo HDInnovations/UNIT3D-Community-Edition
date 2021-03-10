@@ -45,6 +45,7 @@ return [
     'torrent-moderation'      => 'Torrent-Moderation',
     'torrent-tools'           => 'Torrent-Werkzeuge',
     'torrent-types'           => 'Torrent-Typen',
+    'torrent-resolutions'     => 'Torrent-Auflösungen',
     'torrents'                => 'Torrents',
     'user-gifting'            => 'User Gifting',
     'user-notes'              => 'Benutzer Notes-Protokoll',
