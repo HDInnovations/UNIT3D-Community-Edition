@@ -70,17 +70,17 @@
 			@foreach ($tickets as $ticket)
 				<tr>
 					<td>
-						<span class="badge-user text-bold">
+						<span class="badge-user">
                             {{ $ticket->id }}
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
+						<span>
 							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
+						<span class="badge-user">
 							@if($ticket->priority->name === 'Low')
 								<i class="fas fa-circle text-yellow"></i>
 							@elseif ($ticket->priority->name === 'Medium')
@@ -92,12 +92,14 @@
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
-                            {{ $ticket->user->username }}
+						<span class="badge-user">
+							<a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
+                                {{ $ticket->user->username }}
+							</a>
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
+						<span class="badge-user">
                             @if($ticket->closed_at)
 								<i class="fas fa-circle text-danger"></i> Closed
 							@else
@@ -106,12 +108,14 @@
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
-                            {{ $ticket->staff->username ?? 'Unassigned' }}
+						<span class="badge-user">
+							<a href="{{ route('users.show', ['username' => $ticket->staff->username ?? 'System']) }}">
+                                {{ $ticket->staff->username ?? 'Unassigned' }}
+							</a>
                         </span>
 					</td>
 					<td>
-						<span class="badge-user text-bold">
+						<span class="badge-user">
                             {{ $ticket->created_at->diffForHumans() }}
                         </span>
 					</td>

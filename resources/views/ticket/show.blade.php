@@ -40,7 +40,10 @@
                         <div class="panel-heading">Ticket <i class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
                         <div class="panel-body">
                         <span class="float-right small text-right">
-                            <i class="far fa-user"></i> Opened By: {{ $ticket->user->username }}
+                            <i class="far fa-user"></i> Opened By:
+                            <a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
+                                {{ $ticket->user->username }}
+                            </a>
                             <i class="far fa-clock"></i>  {{ $ticket->created_at->format('m/d/Y') }}
                             <div class="form-inline">
                                 <div class="form-group">
@@ -90,7 +93,10 @@
                                 @if(isset($ticket->staff_id))
                                     <div class="col-md-3">
                                         <label for=""><b>Assigned Staff</b></label><br>
-                                        <i class="far fa-user"></i> {{ $ticket->staff->username }}
+                                        <i class="far fa-user"></i>
+                                        <a href="{{ route('users.show', ['username' => $ticket->staff->username]) }}">
+                                            {{ $ticket->staff->username }}
+                                        </a>
                                     </div>
                                 @endif
                                 <div class="col-md-4">
