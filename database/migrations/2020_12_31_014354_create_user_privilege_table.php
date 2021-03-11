@@ -28,6 +28,7 @@ class CreateUserPrivilegeTable extends Migration
         Schema::enableForeignKeyConstraints();
     }
 
+    
     /**
      * Reverse the migrations.
      *
