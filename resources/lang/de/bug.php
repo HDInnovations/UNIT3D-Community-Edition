@@ -12,8 +12,8 @@
  */
 
 return [
-    'bug-report'             => 'Fehlerbericht',
-    'bug-report-description' => 'Einen Fehler der Webseite melden',
+    'bug-report'             => 'Bug Report',
+    'bug-report-description' => 'Einen Webseiten Bug melden',
     'enter-description'      => 'Beschreibe das Problem so gut wie möglich',
     'enter-email'            => 'Bitte gebe deine E-Mail-Adresse ein',
     'enter-title'            => 'Bitte wähle einen passenden Titel',

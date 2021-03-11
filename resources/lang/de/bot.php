@@ -20,7 +20,7 @@ return [
     'edit-bot'   => 'Bot bearbeiten',
     'emoji-code' => 'Emoji-Code',
     'help'       => 'Hilfe',
-    'icon'       => 'Symbol',
+    'icon'       => 'Icon',
     'info'       => 'Info',
     'name'       => 'Name',
 ];

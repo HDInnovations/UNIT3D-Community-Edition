@@ -24,7 +24,7 @@ return [
     */
 
     'accepted'             => ':attribute muss akzeptiert werden.',
-    'active_url'           => ':attribute ist keine gültige Internet-Adresse.',
+    'active_url'           => ':attribute ist keine gültige URL.',
     'after'                => ':attribute muss ein Datum nach dem :date sein.',
     'after_or_equal'       => ':attribute muss ein Datum nach dem :date oder gleich dem :date sein.',
     'alpha'                => ':attribute darf nur aus Buchstaben bestehen.',
@@ -136,6 +136,9 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+
+    'email_list' => 'Es tut uns leid, diese E-Mail-Provider darf auf dieser Website nicht verwendet werden. Bitte sehe dir die E-Mail-Whitelist der Webseite an.',
+    'recaptcha'  => 'Bitte absolvieren den ReCaptcha.',
 
     'custom' => [
         'attribute-name' => [
