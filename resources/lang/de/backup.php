@@ -39,7 +39,7 @@ return [
     'delete_confirmation_message'    => 'Die Backup-Datei wurde gelöscht.',
     'delete_error_title'             => 'Fehler',
     'delete_error_message'           => 'Die Backup-Datei wurde NICHT gelöscht.',
-    'delete_cancel_title'            => "Alles ok",
+    'delete_cancel_title'            => 'Alles ok',
     'delete_cancel_message'          => 'Die Backup-Datei wurde NICHT gelöscht.',
     'create_confirmation_title'      => 'Backup Prozess gestartet',
     'create_confirmation_message'    => 'Bitte warte ein paar Minuten bis der Vorgang abgeschlossen ist, anschließend lade die Seite neu.',
@@ -49,6 +49,6 @@ return [
     'create_warning_message'         => 'Das Backup wurde möglichweise NICHT erstellt. Bitte prüfe die Log-Dateien für weitere Details.',
     'location'                       => 'Ort',
     'no_disks_configured'            => 'Keine Backuplaufwerke in config/backup.php konfiguriert',
-    'backup_doesnt_exist'            => "Die Backup-Datei existiert nicht.",
+    'backup_doesnt_exist'            => 'Die Backup-Datei existiert nicht.',
     'only_local_downloads_supported' => 'Es werden nur Downloads aus dem lokalen Dateisystem unterstützt.',
 ];

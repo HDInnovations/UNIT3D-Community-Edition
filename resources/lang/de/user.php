@@ -330,7 +330,7 @@ return [
     'visible-to-request-help'              => 'Deine Anforderungsinformationen sind nur für Teammitglieder und die folgenden Gruppen sichtbar. Diese Einstellungen werden überschrieben, wenn du <strong>privat gehst</strong>',
     'visible-to-torrent'                   => 'Torrent-Informationen sichtbar für',
     'visible-to-torrent-help'              => 'Deine Torrent-Informationen sind nur für Teammitglieder und die folgenden Gruppen sichtbar. Diese Einstellungen werden überschrieben, wenn du <strong>privat gehst</strong> oder <strong>verborgen</strong> bist.',
-    'warned-by'                 	    => 'Verwarnt von',
+    'warned-by'                            => 'Verwarnt von',
     'warned-on'                            => 'Verwarnt am',
     'warning'                              => 'Verwarnung',
     'warning-log'                          => 'Verwarnungs Log',

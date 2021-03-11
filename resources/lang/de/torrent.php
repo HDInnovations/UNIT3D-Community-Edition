@@ -188,7 +188,7 @@ return [
     'special-double_upload'    => 'Spezieller Doppel Upload',
     'special-freeleech'        => 'Spezieller Freeleech',
     'staff-tools'              => 'Team Tools',
-    'start-year'	           => 'Start Jahr',
+    'start-year'               => 'Start Jahr',
     'started'                  => 'Gestartet',
     'status'                   => 'Status',
     'statistics'               => 'Statistiken',
