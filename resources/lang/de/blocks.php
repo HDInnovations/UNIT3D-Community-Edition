@@ -18,7 +18,7 @@ return [
     'to-enable-editor'        => 'Editor aktivieren',
 
     // Featured Torrents
-    'featured-by'             => 'Vorgestellt durch',
+    'featured-by'             => 'Vorgestellt von',
     'featured-torrents'       => 'Vorgestellte Torrents',
     'featured-torrents-intro' => 'Holen Sie sie, solange Sie können!',
     'featured-until'          => 'Vorgestellt bis',

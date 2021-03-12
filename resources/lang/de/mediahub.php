@@ -13,7 +13,7 @@
 
 return [
     'born'                  => 'Geboren:',
-    'collections'           => 'Kollektionen',
+    'collections'           => 'Sammlungen',
     'companies'             => 'Unternehmen',
     'disclaimer'            => 'Dies benutzt die TMDb API, jedoch ist es nicht zertifiziert/gern gesehen von TMDb.',
     'episodes'              => 'Episoden',
@@ -30,6 +30,6 @@ return [
     'release-date'          => 'Release Datum:',
     'seasons'               => 'Staffeln',
     'select-hub'            => 'Bitte wähle einen Hub',
-    'view-collection'       => 'Die Kollektion ansehen',
+    'view-collection'       => 'Die Sammlung ansehen',
     'wiki-read'             => 'Vollständige Bio auf Wikipedia lesen:',
 ];

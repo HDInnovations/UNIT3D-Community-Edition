@@ -137,8 +137,8 @@ return [
     |
     */
 
-    'email_list' => 'Es tut uns leid, diese E-Mail-Provider darf auf dieser Website nicht verwendet werden. Bitte sehe dir die E-Mail-Whitelist der Webseite an.',
-    'recaptcha'  => 'Bitte absolvieren den ReCaptcha.',
+    'email_list' => 'Es tut uns leid, dieser E-Mail-Provider darf auf dieser Website nicht verwendet werden. Bitte sehe dir die E-Mail-Whitelist der Webseite an.',
+    'recaptcha'  => 'Bitte absolviere das ReCaptcha.',
 
     'custom' => [
         'attribute-name' => [
