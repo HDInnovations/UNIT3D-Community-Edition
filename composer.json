@@ -50,10 +50,8 @@
         "nunomaduro/collision": "^5.0",
         "phpro/grumphp": "^1.2.0",
         "phpunit/phpunit": "^9.3",
-        "psalm/plugin-laravel": "^1.4",
         "rector/rector": "dev-master",
-        "symplify/changelog-linker": "^9.2",
-        "vimeo/psalm": "^4.6"
+        "symplify/changelog-linker": "^9.2"
     },
     "config": {
         "preferred-install": "dist",
