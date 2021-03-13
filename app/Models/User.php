@@ -565,6 +565,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Tickets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'user_id');
+    }
+
+    /**
      * Get the Users username as slug.
      *
      * @return string

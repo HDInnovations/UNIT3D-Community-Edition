@@ -80,6 +80,11 @@ return [
             'root'   => public_path('files/subtitles'),
         ],
 
+        'attachments' => [
+            'driver' => 'local',
+            'root'   => public_path('files/attachments'),
+        ],
+
     ],
 
     /*

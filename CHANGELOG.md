@@ -1,6 +1,29 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v5.2.0] - 2021-03-10
+
+- [#1657] (Add) Beta Helpdesk Ticket System, Thanks to [@HDVinnie]
+- [#1649] [ImgBot] Optimize images, Thanks to [@imgbot][bot]
+- [#1654] Bump elliptic from 6.5.3 to 6.5.4, Thanks to [@dependabot][bot]
+- [#1628] Bump laravel/framework from 8.22.1 to 8.24.0, Thanks to [@dependabot][bot]
+- [#1618] Bump socket.io from 2.3.0 to 2.4.0, Thanks to [@dependabot][bot]
+- [#1613] (Update) laravel/framework from 8.21.0 to 8.22.1, Thanks to [@dependabot][bot]
+- [#1608] (Update) Danish Translations, Thanks to [@Globbered]
+- [#1606] (Update) Danish Language, Thanks to [@Globbered]
+- [#1602] (Refactor) Torrent Bookmarking, Thanks to [@HDVinnie]
+- [#1601] (Update) GR Language, Thanks to [@nikosuk]
+- [#1600] (Update) Danish Translation, Thanks to [@Globbered]
+- [#1598] (Update) Danish Translation, Thanks to [@Globbered]
+- [#1595] (Update) EN Lang, Thanks to [@JamesPSS]
+- [#1593] (Update) Danish Translations, Thanks to [@Globbered]
+- [#1590] (Update) EN Lang, Thanks to [@JamesPSS]
+- [#1585] Update: Danish translations, Thanks to [@Globbered]
+- [#1582] (Fix) Allow multiple videos on a page, Thanks to [@Spidi]
+- [#1581] (Fix) Keep Forum Search Params on Pagination, Thanks to [@Spidi]
+- [#1574] (Fix) Wishes Migration, Thanks to [@JamesPSS]
+
+<!-- dumped content start -->
 ## [v5.1.0] - 2021-01-06
 
 - [#1532] (Add) Allow user to see their own peer connection, Thanks to [@Obi-Wana]
@@ -1598,6 +1621,7 @@
 [v4.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v3.0.0...v4.0.0
 [v5.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v4.0.0...v5.0.0
 [v5.1.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.0.0...v5.1.0
+[v5.2.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.1.0...v5.2.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1675,3 +1699,22 @@
 [@Obi-Wana]: https://github.com/Obi-Wana
 [@JamesPSS]: https://github.com/JamesPSS
 [@Globbered]: https://github.com/Globbered
+[#1657]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1657
+[#1654]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1654
+[#1649]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1649
+[#1628]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1628
+[#1618]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1618
+[#1613]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1613
+[#1608]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1608
+[#1606]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1606
+[#1602]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1602
+[#1601]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1601
+[#1600]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1600
+[#1598]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1598
+[#1595]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1595
+[#1593]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1593
+[#1590]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1590
+[#1585]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1585
+[#1582]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1582
+[#1581]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1581
+[#1574]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1574
