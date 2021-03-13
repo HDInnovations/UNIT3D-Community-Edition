@@ -275,16 +275,6 @@
 									<a role="menuitem" tabindex="-1"
 									   href="{{ route('download', ['id' => $bookmark->id]) }}">@lang('common.download') @lang('torrent.torrent')</a>
 								</li>
-								<li role="presentation">
-									<form role="menuitem" tabindex="-1"action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}" method="POST"
-									      style="display: inline;">
-										@csrf
-										@method('DELETE')
-										<button type="submit" class="btn btn-xxs btn-danger">
-											@lang('torrent.delete-bookmark')
-										</button>
-									</form>
-								</li>
 							</ul>
 						</div>
 					</td>

@@ -225,3 +225,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal_user_watch" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header mx-auto">
+                <div class="text-center">
+                    <p style="font-size: 27px;">Watch User: {{ $user->username }}</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="py-3">
+                    <form role="form" method="POST"
+                          action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="report_reason">Reason</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="message"></label>
+                            <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-danger" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

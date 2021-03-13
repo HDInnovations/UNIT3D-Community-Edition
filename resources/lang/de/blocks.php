@@ -12,19 +12,34 @@
  */
 
 return [
+    // Chat
     'chatbox'                 => 'Chat Box',
-    'click'                   => 'Klicken',
+    'click'                   => 'Klick',
     'to-enable-editor'        => 'Editor aktivieren',
-    'featured-by'             => 'Gekennzeichnet durch',
-    'featured-torrents'       => 'Ausgewählte Torrents',
+
+    // Featured Torrents
+    'featured-by'             => 'Vorgestellt durch',
+    'featured-torrents'       => 'Vorgestellte Torrents',
     'featured-torrents-intro' => 'Holen Sie sie, solange Sie können!',
-    'featured-until'          => 'Dies wird bis Torrent gekennzeichnet',
+    'featured-until'          => 'Vorgestellt bis',
+
+    // Latest Torrents
     'top-torrents'            => 'Top Torrents',
+
+    // Latest Posts
     'latest-posts'            => 'Neueste Beiträge',
+
+    // Latest Topics
     'latest-topics'           => 'Neueste Themen',
-    'active-in-last'          => 'Aktiv im letzten',
-    'users-online'            => 'Benutzer online',
-    'check-news'              => 'Nachrichten (täglich prüfen)',
+
+    // Users Online
+    'active-in-last'          => 'Zuletzt aktiv',
+    'users-online'            => 'Nutzer online',
+
+    // News/Articles
+    'check-news'              => 'Neuste News',
     'new-news'                => 'Neue Nachrichten',
+
+    // Top Torrents
     'new-torrents'            => 'Neue Torrents',
 ];

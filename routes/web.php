@@ -171,6 +171,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/request/{id}', 'CommentController@request')->name('comment_request');
             Route::post('/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
             Route::post('/collection/{id}', 'CommentController@collection')->name('comment_collection');
+            Route::post('/ticket/{id}', 'CommentController@ticket')->name('comment_ticket');
             Route::post('/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
             Route::get('/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
         });
@@ -435,7 +436,23 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/update', 'SubtitleController@update')->name('update');
                 Route::delete('/{id}/delete', 'SubtitleController@destroy')->name('destroy');
                 Route::get('/{id}/download', 'SubtitleController@download')->name('download');
-                Route::get('/filter', 'SubtitleController@faceted');
+            });
+        });
+
+        // Tickets System
+        Route::group(['prefix' => 'tickets'], function () {
+            Route::name('tickets.')->group(function () {
+                Route::get('/', 'TicketController@index')->name('index');
+                Route::get('/create', 'TicketController@create')->name('create');
+                Route::post('/store', 'TicketController@store')->name('store');
+                Route::get('/{id}', 'TicketController@show')->where('id', '[0-9]+')->name('show');
+                Route::get('/{id}/edit', 'TicketController@edit')->name('edit');
+                Route::patch('/{id}/update', 'TicketController@update')->name('update');
+                Route::delete('/{id}/destroy', 'TicketController@destroy')->name('destroy');
+                Route::post('/{id}/assign', 'TicketController@assign')->name('assign');
+                Route::post('/{id}/unassign', 'TicketController@unassign')->name('unassign');
+                Route::post('/{id}/close', 'TicketController@close')->name('close');
+                Route::post('/attachments/{attachment}/download', 'TicketAttachmentController@download')->name('attachment.download');
             });
         });
     });
@@ -577,10 +594,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/implement', 'TopicLabelController@implement')->name('implement');
             });
         });
-
-        // Like - Dislike System
-        Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
-        Route::any('/dislike/post/{postId}', 'LikeController@destroy')->name('dislike');
 
         // Subscription System
         Route::get('/subscribe/topic/{route}.{topic}', 'SubscriptionController@subscribeTopic')->name('subscribe_topic');
@@ -896,7 +909,6 @@ Route::group(['middleware' => 'language'], function () {
         // User Tools TODO: Leaving since we will be refactoring users and roles
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UserController@index')->name('user_search');
-            Route::get('/search', 'UserController@search')->name('user_results');
             Route::post('/{username}/edit', 'UserController@edit')->name('user_edit');
             Route::get('/{username}/settings', 'UserController@settings')->name('user_setting');
             Route::post('/{username}/permissions', 'UserController@permissions')->name('user_permissions');
@@ -908,6 +920,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'warnings'], function () {
             Route::name('staff.warnings.')->group(function () {
                 Route::get('/', 'WarningController@index')->name('index');
+            });
+        });
+
+        // Watchlist
+        Route::group(['prefix' => 'watchlist'], function () {
+            Route::name('staff.watchlist.')->group(function () {
+                Route::get('/', 'WatchlistController@index')->name('index');
+                Route::post('/{id}/store', 'WatchlistController@store')->name('store');
+                Route::delete('/{id}/destroy', 'WatchlistController@destroy')->name('destroy');
             });
         });
     });

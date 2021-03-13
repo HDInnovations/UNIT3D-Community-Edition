@@ -137,6 +137,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('staff.watchlist.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-eye"></i> Watchlist
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('staff.gifts.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-gift"></i> @lang('staff.user-gifting')
                 </a>
