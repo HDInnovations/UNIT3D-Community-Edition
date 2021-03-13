@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </span>
-                            @if($user->group->is_modo)
+                            @if($user->hasPrivilegeTo('helpdesk_can_handle'))
                                 <div class="btn-group" role="group">
                                     <div class="mb-10 form-inline pull-right">
                                         <div class="form-group">
@@ -72,7 +72,8 @@
                                                 <form role="form" method="POST" action="{{ route('tickets.assign', ['id' => $ticket->id]) }}">
                                                     @csrf
                                                     <select name="user_id" class="form-control">
-                                                        @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', [10, 6, 4])->get() as $user)
+
+                                                        @foreach(App\Models\Privilege::usersWith('helpdesk_can_handle') as $user)
                                                             <option value="{{ $user->id }}">{{ $user->username }}</option>
                                                         @endforeach
                                                     </select>
@@ -178,7 +179,7 @@
                                         </div>
                                         @else
                                         @foreach ($ticket->comments as $comment)
-                                            <li class="media" style="border-left: 5px solid rgb(1,188,140);">
+                                            <li class="media" style="Priborder-left: 5px solid rgb(1,188,140);">
                                                 <div class="media-body">
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        class="pull-left" style="padding-right: 10px;">
@@ -191,8 +192,8 @@
                                                         @endif
                                                     <strong>
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                           style="color:{{ $comment->user->group->color }};">
-                                                            <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
+                                                           style="color:{{ $comment->user->primaryRole->color }};">
+                                                            <span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>
                                                         </a>
                                                     </strong>
                                                     <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>

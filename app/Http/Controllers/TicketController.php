@@ -131,7 +131,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('helpdesk_can_edit') || $user->id == $ticket->user_id, 403);
 
         $ticket->category_id = $request->input('category');
         $ticket->priority_id = $request->input('priority');
@@ -170,7 +170,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('helpdesk_can_delete') || $user->id == $ticket->user_id, 403);
 
         Comment::where('ticket_id', '=', $id)->delete();
         TicketAttachment::where('ticket_id', '=', $id)->delete();
@@ -190,7 +190,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasPrivilegeTo('helpdesk_can_handle'), 403);
 
         $ticket->staff_id = $request->input('user_id');
 
@@ -219,7 +219,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasPrivilegeTo('helpdesk_can_edit'), 403);
 
         $ticket->staff_id = null;
         $ticket->save();

@@ -38,7 +38,7 @@
             <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                 <a href="{{ route('tickets.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
-                    @if (auth()->user()->group->is_modo)
+                    @if (auth()->user()->hasPrivilegeTo('helpdesk_can_handle'))
                         @php $tickets = DB::table('tickets')->whereNull('staff_id')->whereNull('closed_at')->count(); @endphp
                         @if ($tickets > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>

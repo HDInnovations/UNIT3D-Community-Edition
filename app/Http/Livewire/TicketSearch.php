@@ -44,7 +44,7 @@ class TicketSearch extends Component
 
     public function getTicketsProperty()
     {
-        if ($this->user->group->is_modo) {
+        if ($this->user->hasPrivilegeTo('helpdesk_can_handle')) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
                 ->when($this->searchTerm, function ($query) {
