@@ -552,7 +552,7 @@ class CommentController extends Controller
             return \redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         }
-        
+
         if ($user->id != $ticket->user_id) {
             $ticket->user_read = 0;
         }
@@ -561,7 +561,6 @@ class CommentController extends Controller
         }
         $comment->save();
         $ticket->save();
-
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Your Comment Has Been Added!');
