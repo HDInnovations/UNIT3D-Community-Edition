@@ -78,6 +78,24 @@
 						<span>
 							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
                         </span>
+						@if (auth()->user()->group->is_modo)
+						@php $ticket_unread = DB::table('tickets')
+							->where('id', '=', $ticket->id)
+							->where('staff_id', '=', auth()->user()->id)
+							->where('staff_read', '=', 0)
+							->count();
+						@endphp
+						@else
+							@php $ticket_unread = DB::table('tickets')
+								->where('id', '=', $ticket->id)
+	                            ->where('user_id', '=', auth()->user()->id)
+	                            ->where('user_read', '=', 0)
+	                            ->count();
+	                        @endphp
+						@endif
+                        @if ($ticket_unread > 0)
+                            <img style="height:16px; margin-top: -4px;" title="Unread" src="https://www.flaticon.com/svg/vstatic/svg/1827/1827370.svg?token=exp=1615675332~hmac=b74e07b90f67fd791fc7cc1506a4fa0a">
+						@endif
 					</td>
 					<td>
 						<span class="badge-user">
