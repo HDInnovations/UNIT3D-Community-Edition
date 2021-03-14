@@ -100,7 +100,7 @@ class TicketController extends Controller
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
-        
+
         if ($user->id == $ticket->user_id) {
             $ticket->user_read = 1;
             $ticket->save();
