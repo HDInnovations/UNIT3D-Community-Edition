@@ -29,18 +29,30 @@
                 </a>
             </li>
 
-            <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('articles.index') }}" class="icon-circle">
-                    <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
-                </a>
-            </li>
-
             <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                 <a href="{{ route('tickets.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
+                    <!-- Notifications for Mods -->
                     @if (auth()->user()->group->is_modo)
-                        @php $tickets = DB::table('tickets')->whereNull('staff_id')->whereNull('closed_at')->count(); @endphp
+                        @php $tickets = DB::table('tickets')
+                            ->whereNull('closed_at')->whereNull('staff_id')
+                            ->orwhere(function($query) {
+                                $query->where('staff_id', '=', auth()->user()->id)
+                                      ->Where('staff_read', '=', '0');
+                            })
+                            ->count();
+                        @endphp
                         @if ($tickets > 0)
+                            <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
+                        @endif
+                    <!-- Notification for Users -->
+                    @else
+                        @php $ticket_unread = DB::table('tickets')
+                            ->where('user_id', '=', auth()->user()->id)
+                            ->where('user_read', '=', '0')
+                            ->count();
+                        @endphp
+                        @if ($ticket_unread > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                         @endif
                     @endif
@@ -58,9 +70,16 @@
                     </a>
                 </li>
             @endif
+
+	    <!-- Donation Icon & Bar -->
+	    <?php include '/var/www/html/resources/views/partials/donation.php'; ?>
         </ul>
 
         <ul class="right-navbar">
+	    <!-- Affiliation Seedit4Me -->
+            <?php include '/var/www/html/resources/views/partials/affi_seedit4me.php'; ?>
+            <li class="dropdown hoe-rheader-submenu hoe-header-profile">
+
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>
