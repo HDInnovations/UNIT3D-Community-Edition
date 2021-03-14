@@ -94,7 +94,7 @@
 	                        @endphp
 						@endif
                         @if ($ticket_unread > 0)
-                            <img style="height:16px; margin-top: -4px;" title="Unread" src="https://www.flaticon.com/svg/vstatic/svg/1827/1827370.svg?token=exp=1615675332~hmac=b74e07b90f67fd791fc7cc1506a4fa0a">
+                            <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
 						@endif
 					</td>
 					<td>
