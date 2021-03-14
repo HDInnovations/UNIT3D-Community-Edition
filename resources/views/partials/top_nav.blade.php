@@ -28,6 +28,12 @@
                     @endif
                 </a>
             </li>
+	    
+	    <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
+                <a href="{{ route('articles.index') }}" class="icon-circle">
+                    <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
+                </a>
+            </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                 <a href="{{ route('tickets.index') }}" class="icon-circle">
