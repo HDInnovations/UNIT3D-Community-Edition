@@ -22,32 +22,32 @@ class ConvertForumPermissions extends Seeder
     public function run()
     {
         $forums = Forum::all();
-        foreach ($forums AS $forum) {
-            $perms  = $forum->permissions()->get();
-            $showForum = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_show_forum', 'name' =>'Forums: '.$forum->name.' - Show Forum' ]);
+        foreach ($forums as $forum) {
+            $perms = $forum->permissions()->get();
+            $showForum = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_show_forum', 'name' =>'Forums: '.$forum->name.' - Show Forum']);
             $readTopics = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_read_topic', 'name' =>'Forums: '.$forum->name.' - Read Topics']);
             $replyTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_reply_topic', 'name' =>'Forums: '.$forum->name.' - Reply To Topics']);
             $createTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_start_topic', 'name' =>'Forums: '.$forum->name.' - Create Topics']);
             foreach ($perms as $perm) {
                 $role = Role::where('slug', '=', $this->searchMap($perm->group_id))->first();
-                $this->command->getOutput()->writeln('Attaching ' . $forum->name . ' Privileges to ' . $role->name );
+                $this->command->getOutput()->writeln('Attaching '.$forum->name.' Privileges to '.$role->name);
                 $this->command->getOutput()->writeln($perm);
-                if ($perm->show_forum){
+                if ($perm->show_forum) {
                     $this->command->getOutput()->writeln('Attach Show Forum');
                     $this->command->getOutput()->writeln($showForum);
                     $role->privileges()->attach($showForum);
                 }
-                if ($perm->read_topic){
+                if ($perm->read_topic) {
                     $this->command->getOutput()->writeln('Attach Read Topics');
                     $this->command->getOutput()->writeln($readTopics);
                     $role->privileges()->attach($readTopics);
                 }
-                if ($perm->reply_topic){
+                if ($perm->reply_topic) {
                     $this->command->getOutput()->writeln('Attach Reply To Topics');
                     $this->command->getOutput()->writeln($replyTopic);
                     $role->privileges()->attach($replyTopic);
                 }
-                if ($perm->start_topic){
+                if ($perm->start_topic) {
                     $this->command->getOutput()->writeln('Attach Create Topics');
                     $this->command->getOutput()->writeln($createTopic);
                     $role->privileges()->attach($createTopic);
@@ -56,7 +56,8 @@ class ConvertForumPermissions extends Seeder
         }
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         //This is the mapping for depreciated Groups to the New Roles that will be used to generate the new Privileges structure for the UNIT3D Forums, and assigning them to User Roles.
         //Configure these mappings prior to migrating to RBAC. Forum Permissions will be handled by the RBAC Roles and Privileges system
         $this->GroupToRoleMap = [
@@ -80,16 +81,18 @@ class ConvertForumPermissions extends Seeder
             ['group'=> 18, 'role'=> 'group_8'], //Archivist
             ['group'=> 19, 'role'=> 'internal'], //Internal
             ['group'=> 20, 'role'=> 'disabled'], //Disabled
-            ['group'=> 21, 'role'=> 'pruned'] //Pruned
+            ['group'=> 21, 'role'=> 'pruned'], //Pruned
         ];
     }
 
-    private function searchMap ($gID) {
+    private function searchMap($gID)
+    {
         foreach ($this->GroupToRoleMap as $key => $val) {
             if ($val['group'] == $gID) {
                 return $val['role'];
             }
         }
+
         return null;
     }
 }
