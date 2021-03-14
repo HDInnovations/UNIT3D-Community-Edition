@@ -17,7 +17,7 @@ class RolePrivileges extends Seeder
             'user' => Privilege::whereIn('slug', ['torrent_can_view',
                 'torrent_can_create', 'torrent_can_download', 'request_can_view',
                 'request_can_create', 'comment_can_view', 'comment_can_create',
-                'forum_can_view', 'playlist_can_view', 'playlist_can_create'])
+                'forum_can_view', 'playlist_can_view', 'playlist_can_create', ]),
         ];
     }
 
