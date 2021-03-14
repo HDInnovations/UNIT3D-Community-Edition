@@ -48,10 +48,16 @@ class ForumController extends Controller
 
         $user = $request->user();
 
-        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! \is_array($pests)) {
-            $pests = [];
+        //$pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        $pests = array();
+        if (! $user->hasRole('root') && ! $user->hasRole('sudo')) {
+            foreach ($categories as $forum) {
+                if(! $user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum')){
+                    array_push($pests, $forum->id);
+                }
+            }
         }
+
 
         $topicNeos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
         if (! \is_array($topicNeos)) {
@@ -296,21 +302,33 @@ class ForumController extends Controller
     /**
      * Show All Forums.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
      */
-    public function index()
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
-
+        $user = $request->user();
+        $filteredCat = array();
+             foreach ($categories as $forum) {
+                if($user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum') || ($user->hasRole('root') && $user->hasRole('sudo'))){
+                    array_push($filteredCat, $forum->id);
+                }
+            }
+        $Forums = Forum::whereId('id', $filteredCat);
         // Total Forums Count
-        $numForums = Forum::count();
+        $numForums = $Forums->count();
         // Total Posts Count
-        $numPosts = Post::count();
+        $numPosts = 0;
         // Total Topics Count
-        $numTopics = Topic::count();
+        $numTopics = 0;
+
+        foreach ($Forums as $f) {
+            $numPosts += $f->getPostCount();
+            $numTopics += $f->getTopicCount();
+        }
 
         return \view('forum.index', [
-            'categories' => $categories,
+            'categories' => $Forums,
             'num_posts'  => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,

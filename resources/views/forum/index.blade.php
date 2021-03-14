@@ -39,8 +39,7 @@
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
                 @foreach ($categories as $category)
-                    @if ($category->getPermission() != null && $category->getPermission()->show_forum == true &&
-                        $category->getForumsInCategory()->count() > 0)
+                    @if ($category->getForumsInCategory()->count() > 0)
                         <thead class="no-space">
                             <tr class="no-space">
                                 <td colspan="5" class="no-space">
@@ -76,7 +75,7 @@
                         </thead>
                         <tbody>
                             @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
-                                @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
+                                @if ($auth->user->hasPrivilegeTo( 'forum_'.$categoryChild->slug.'_show_forum'))
                                     <tr>
                                         <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
                                         <td>

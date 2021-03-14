@@ -333,6 +333,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
             Route::post('/{username}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
             Route::post('/{username}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
+            Route::post('/{username}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
             Route::get('/{username}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
             Route::get('/{username}/settings/visible', 'UserController@makeVisible')->name('user_visible');
             Route::get('/{username}/settings/private', 'UserController@makePrivate')->name('user_private');

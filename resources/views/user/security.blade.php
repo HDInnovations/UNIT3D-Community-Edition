@@ -154,7 +154,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                     @if (config('auth.TwoStepEnabled') == true)
                         <div role="tabpanel" class="tab-pane" id="twostep">
                             <form role="form" method="POST"
@@ -179,9 +179,9 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
-                @endif
-    
+                    @endif
+
+                </div>
             </div>
         </div>
     </div>
