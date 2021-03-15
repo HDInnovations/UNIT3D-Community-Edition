@@ -28,8 +28,8 @@
                     @endif
                 </a>
             </li>
-	    
-	    <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
+
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('articles.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
                 </a>
@@ -76,16 +76,9 @@
                     </a>
                 </li>
             @endif
-
-	    <!-- Donation Icon & Bar -->
-	    <?php include '/var/www/html/resources/views/partials/donation.php'; ?>
         </ul>
 
         <ul class="right-navbar">
-	    <!-- Affiliation Seedit4Me -->
-            <?php include '/var/www/html/resources/views/partials/affi_seedit4me.php'; ?>
-            <li class="dropdown hoe-rheader-submenu hoe-header-profile">
-
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>
