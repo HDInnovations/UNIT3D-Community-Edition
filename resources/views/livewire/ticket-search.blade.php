@@ -78,6 +78,24 @@
 						<span>
 							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
                         </span>
+						@if (auth()->user()->group->is_modo)
+						@php $ticket_unread = DB::table('tickets')
+							->where('id', '=', $ticket->id)
+							->where('staff_id', '=', auth()->user()->id)
+							->where('staff_read', '=', 0)
+							->count();
+						@endphp
+						@else
+							@php $ticket_unread = DB::table('tickets')
+								->where('id', '=', $ticket->id)
+	                            ->where('user_id', '=', auth()->user()->id)
+	                            ->where('user_read', '=', 0)
+	                            ->count();
+	                        @endphp
+						@endif
+                        @if ($ticket_unread > 0)
+                            <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
+						@endif
 					</td>
 					<td>
 						<span class="badge-user">

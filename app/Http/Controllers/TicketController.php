@@ -101,6 +101,15 @@ class TicketController extends Controller
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
 
+        if ($user->id == $ticket->user_id) {
+            $ticket->user_read = 1;
+            $ticket->save();
+        }
+        if ($user->id == $ticket->staff_id) {
+            $ticket->staff_read = 1;
+            $ticket->save();
+        }
+
         return view('ticket.show', [
             'user'   => $user,
             'ticket' => $ticket,
