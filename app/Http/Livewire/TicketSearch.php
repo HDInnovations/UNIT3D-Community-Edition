@@ -23,32 +23,32 @@ class TicketSearch extends Component
 
     public $user;
     public $perPage = 25;
-    public $searchTerm = '';
+    public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
 
-    public function paginationView()
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
-    public function updatingSearchTerm()
-    {
-        $this->resetPage();
-    }
-
-    public function mount()
+    final public function mount(): void
     {
         $this->user = \auth()->user();
     }
 
-    public function getTicketsProperty()
+    final public function paginationView(): string
+    {
+        return 'vendor.pagination.livewire-pagination';
+    }
+
+    final public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         if ($this->user->group->is_modo) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
-                ->when($this->searchTerm, function ($query) {
-                    return $query->where('subject', 'LIKE', '%'.$this->searchTerm.'%');
+                ->when($this->search, function ($query) {
+                    return $query->where('subject', 'LIKE', '%'.$this->search.'%');
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
@@ -56,15 +56,15 @@ class TicketSearch extends Component
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
                 ->where('user_id', '=', $this->user->id)
-                ->when($this->searchTerm, function ($query) {
-                    return $query->where('subject', 'LIKE', '%'.$this->searchTerm.'%');
+                ->when($this->search, function ($query) {
+                    return $query->where('subject', 'LIKE', '%'.$this->search.'%');
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
         }
     }
 
-    public function sortBy($field)
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -74,7 +74,7 @@ class TicketSearch extends Component
         $this->sortField = $field;
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.ticket-search', [
             'tickets' => $this->tickets,

@@ -21,18 +21,18 @@ class BookmarkButton extends Component
     public $torrent;
     public $user;
 
-    public function mount($torrent)
+    final public function mount($torrent): void
     {
         $this->user = \auth()->user();
         $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
     }
 
-    public function getIsBookmarkedProperty()
+    final public function getIsBookmarkedProperty(): int
     {
         return $this->torrent->bookmarked() ? 1 : 0;
     }
 
-    public function store()
+    final public function store(): void
     {
         if ($this->user->isBookmarked($this->torrent->id)) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Torrent Has Already Been Bookmarked!']);
@@ -44,13 +44,13 @@ class BookmarkButton extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
     }
 
-    public function destroy()
+    final public function destroy(): void
     {
         $this->user->bookmarks()->detach($this->torrent->id);
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-button');
     }
