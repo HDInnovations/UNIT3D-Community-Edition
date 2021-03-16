@@ -28,6 +28,11 @@ class BookmarkSearch extends Component
     public $sortDirection = 'desc';
     public $user;
 
+    final public function mount(): void
+    {
+        $this->user = \auth()->user();
+    }
+
     final public function paginationView()
     {
         return 'vendor.pagination.livewire-pagination';
@@ -48,14 +53,14 @@ class BookmarkSearch extends Component
         $this->sortField = $field;
     }
 
-    final public function getOwnerProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function getUserProperty()
     {
         return User::where('username', '=', $this->user->username)->firstOrFail();
     }
 
     final public function getBookmarksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return $this->owner->bookmarks()
+        return $this->user->bookmarks()
             ->when($this->search, function ($query) {
                 return $query->where('name', 'LIKE', '%'.$this->search.'%');
             })
@@ -63,7 +68,7 @@ class BookmarkSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function getPersonalFreeleechProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function getPersonalFreeleechProperty()
     {
         return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
@@ -71,7 +76,7 @@ class BookmarkSearch extends Component
     public function render()
     {
         return \view('livewire.bookmark-search', [
-            'user'               => $this->owner,
+            'user'               => $this->user,
             'personal_freeleech' => $this->personalFreeleech,
             'bookmarks'          => $this->bookmarks,
         ]);
