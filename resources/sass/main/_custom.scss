@@ -377,10 +377,10 @@ a:focus {
 }
 
 hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     border: 0;
-    border-top: .5px solid #797979;
+    border-top: 1px solid #ddd;
 }
 
 [role='button'] {
@@ -10606,4 +10606,8 @@ div.single_column {
     padding-top: 40px;
     padding-bottom: 40px;
     z-index: 0;
+}
+
+.dark-th {
+    background-color: #ffffff;
 }
