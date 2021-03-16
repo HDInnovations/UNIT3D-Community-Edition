@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="text" wire:model="searchTerm" class="form-control" style="width: 275px;" placeholder="Subject"/>
+			<input type="text" wire:model="search" class="form-control" style="width: 275px;" placeholder="Subject"/>
 		</div>
 	</div>
 	<div class="box-body no-padding">

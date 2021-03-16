@@ -1,6 +1,6 @@
 <div>
 	<div class="mb-10">
-		<input type="text" wire:model.debounce.250ms="searchTerm" class="form-control" placeholder="@lang('torrent.search-by-name')"/>
+		<input type="text" wire:model.debounce.250ms="search" class="form-control" placeholder="@lang('torrent.search-by-name')"/>
 	</div>
 
 	<div class="row">

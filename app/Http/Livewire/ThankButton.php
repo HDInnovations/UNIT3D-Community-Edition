@@ -22,13 +22,13 @@ class ThankButton extends Component
     public $torrent;
     public $user;
 
-    public function mount($torrent)
+    final public function mount($torrent): void
     {
         $this->user = \auth()->user();
         $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
     }
 
-    public function store()
+    final public function store(): void
     {
         if ($this->user->id === $this->torrent->user_id) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Thank Your Own Content!']);
@@ -56,7 +56,7 @@ class ThankButton extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Thank Was Successfully Applied!']);
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.thank-button');
     }

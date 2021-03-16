@@ -23,37 +23,27 @@ class SubtitleSearch extends Component
     use WithPagination;
 
     public $perPage = 25;
-    public $searchTerm = '';
+    public $search = '';
     public $categories = [];
     public $language = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
 
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function sortBy($field)
+    final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-        $this->sortField = $field;
-    }
-
-    public function render()
-    {
-        $subtitles = Subtitle::with(['user', 'torrent', 'language'])
-            ->when($this->searchTerm, function ($query) {
-                return $query->where('title', 'like', '%'.$this->searchTerm.'%');
+        return Subtitle::with(['user', 'torrent', 'language'])
+            ->when($this->search, function ($query) {
+                return $query->where('title', 'like', '%'.$this->search.'%');
             })
             ->when($this->categories, function ($query) {
                 $torrents = Torrent::whereIn('category_id', $this->categories)->pluck('id');
@@ -65,9 +55,22 @@ class SubtitleSearch extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
 
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortField = $field;
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    {
         return \view('livewire.subtitle-search', [
-            'subtitles' => $subtitles,
+            'subtitles' => $this->subtitles,
         ]);
     }
 }

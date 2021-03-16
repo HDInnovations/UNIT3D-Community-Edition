@@ -23,37 +23,37 @@ class WatchlistSearch extends Component
 
     public $user;
     public $perPage = 25;
-    public $searchTerm = '';
+    public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
 
-    final public function paginationView()
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
-    final public function updatingSearchTerm()
-    {
-        $this->resetPage();
-    }
-
-    final public function mount()
+    final public function mount(): void
     {
         $this->user = \auth()->user();
     }
 
-    final public function getUsersProperty()
+    final public function paginationView(): string
+    {
+        return 'vendor.pagination.livewire-pagination';
+    }
+
+    final public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
             ->with(['user', 'author'])
-            ->when($this->searchTerm, function ($query) {
-                return $query->where('message', 'LIKE', '%'.$this->searchTerm.'%');
+            ->when($this->search, function ($query) {
+                return $query->where('message', 'LIKE', '%'.$this->search.'%');
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field)
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
