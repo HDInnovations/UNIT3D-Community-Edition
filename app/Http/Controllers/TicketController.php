@@ -85,7 +85,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Helpdesk Ticket Was Created Successfully!');
+            ->withSuccess(trans('staff.ticket-created'));
     }
 
     /**
@@ -155,7 +155,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Helpdesk Ticket Was Updated Successfully!');
+            ->withSuccess(trans('staff.ticket-updated'));
     }
 
     /**
@@ -177,7 +177,7 @@ class TicketController extends Controller
         $ticket->delete();
 
         return \redirect()->route('tickets.index')
-            ->withSuccess('Your Helpdesk Ticket Was Deleted Successfully!');
+            ->withSuccess(trans('staff.ticket-deleted'));
     }
 
     /**
@@ -206,7 +206,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Assigned Successfully!');
+            ->withSuccess(trans('staff.ticket-assigned'));
     }
 
     /**
@@ -225,7 +225,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Unassigned Successfully!');
+            ->withSuccess(trans('staff.ticket-unassigned'));
     }
 
     /**
@@ -244,6 +244,6 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Closed Successfully!');
+            ->withSuccess(trans('staff.ticket-closed'));
     }
 }

@@ -121,6 +121,7 @@ return [
     'navigation'           => 'Navigation',
     'new'                  => 'Neu!',
     'new-adj'              => 'Neu',
+    'new-ticket'           => 'Neues Ticket',
     'news'                 => 'News',
     'next'                 => 'Nächster',
     'no'                   => 'Nein',

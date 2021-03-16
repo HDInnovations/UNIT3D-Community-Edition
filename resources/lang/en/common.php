@@ -139,6 +139,7 @@ return [
     'news'                 => 'News',
     'next'                 => 'Next',
     'no'                   => 'No',
+    'new-ticket'           => 'New Ticket',
     'no-comments'          => 'No Comments Yet',
     'no-result'            => 'There is no result in database for query',
     'notifications'        => 'Notifications',

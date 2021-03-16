@@ -35,19 +35,19 @@ class BookmarkButton extends Component
     public function store()
     {
         if ($this->user->isBookmarked($this->torrent->id)) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Torrent Has Already Been Bookmarked!']);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('torrent-was-bookmarked')]);
 
             return;
         }
 
         $this->user->bookmarks()->attach($this->torrent->id);
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => trans('torrent.torrent-bookmarked')]);
     }
 
     public function destroy()
     {
         $this->user->bookmarks()->detach($this->torrent->id);
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => trans('torrent.torrent-unbookmarked')]);
     }
 
     public function render()

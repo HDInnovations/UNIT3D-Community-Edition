@@ -1,6 +1,6 @@
 <div>
 	<div class="mb-10 form-inline pull-left">
-		<a href="{{ route('tickets.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> New Ticket</a>
+		<a href="{{ route('tickets.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> @lang('common.new-ticket')</a>
 	</div>
 	<div class="mb-10 form-inline pull-right">
 		<div class="form-group">
