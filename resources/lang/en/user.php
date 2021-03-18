@@ -318,6 +318,8 @@ return [
     'search'                              => 'Quick Search by Username/Email',
     'security'                            => 'Security',
     'security-settings'                   => 'Security Settings',
+    'seedbox-added'                       => 'Seedbox Has Been Successfully Added!',
+    'seedbox-removed'                     => 'Seedbox Has Been Successfully Deleted',
     'seedboxes'                           => 'Seedboxes',
     'seeding-size'                        => 'Seeding Size',
     'seeds'                               => 'Seeds',
