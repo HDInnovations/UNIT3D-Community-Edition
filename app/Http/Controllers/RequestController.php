@@ -362,16 +362,16 @@ class RequestController extends Controller
         // Auto Shout
         if ($torrentRequest->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $torrentRequest->name)
+                \sprintf('[url=%s]%s[/url] '.trans('request.new-request-by-user').' [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $torrentRequest->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $trUrl, $torrentRequest->name)
+                \sprintf(trans('request.new-request-by-anon').' [url=%s]%s[/url]', $trUrl, $torrentRequest->name)
             );
         }
 
         return \redirect()->route('requests')
-            ->withSuccess('Request Added.');
+            ->withSuccess(trans('request.request-added'));
     }
 
     /**
@@ -464,7 +464,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('requests', ['id' => $torrentRequest->id])
-            ->withSuccess('Request Edited Successfully.');
+            ->withSuccess(trans('request.request-edited'));
     }
 
     /**
@@ -514,11 +514,11 @@ class RequestController extends Controller
         // Auto Shout
         if ($torrentRequestBounty->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profileUrl, $user->username, $request->input('bonus_value'), $trUrl, $tr->name)
+                \sprintf('[url=%s]%s[/url] '.trans('request.bonus-added-by-user').' [url=%s]%s[/url]', $profileUrl, $user->username, $request->input('bonus_value'), $trUrl, $tr->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $trUrl, $tr->name)
+                \sprintf(trans('request.bonus-added-by-anon').' [url=%s]%s[/url]', $request->input('bonus_value'), $trUrl, $tr->name)
             );
         }
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
@@ -528,7 +528,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your bonus has been successfully added.');
+            ->withSuccess(trans('request.bonus-added'));
     }
 
     /**
@@ -558,7 +558,7 @@ class RequestController extends Controller
         $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent->isApproved() === false) {
             return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
+                ->withErrors(trans('request.pending-info-hash'));
         }
 
         if ($v->fails()) {
@@ -575,7 +575,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your request fill is pending approval by the Requester.');
+            ->withSuccess(trans('request.pending-request-fill'));
     }
 
     /**
@@ -595,7 +595,7 @@ class RequestController extends Controller
         if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
             if ($tr->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already approved');
+                    ->withErrors(trans('request.already-approved'));
             }
             $tr->approved_by = $user->id;
             $tr->approved_when = Carbon::now();
@@ -611,7 +611,7 @@ class RequestController extends Controller
             $BonTransactions->cost = $fillAmount;
             $BonTransactions->sender = 0;
             $BonTransactions->receiver = $fillUser->id;
-            $BonTransactions->comment = \sprintf('%s has filled %s and has been awarded %s BONUS.', $fillUser->username, $tr->name, $fillAmount);
+            $BonTransactions->comment = \sprintf(trans('request.awarded-filled'), $fillUser->username, $tr->name, $fillAmount);
             $BonTransactions->save();
 
             $fillUser->seedbonus += $fillAmount;
@@ -629,11 +629,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->filled_anon == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profileUrl, $fillUser->username, $trUrl, $tr->name)
+                    \sprintf('[url=%s]%s[/url] '.trans('request.filled-by-user').' [url=%s]%s[/url]', $profileUrl, $fillUser->username, $trUrl, $tr->name)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $trUrl, $tr->name)
+                    \sprintf(trans('request.filled-by-anon').' [url=%s]%s[/url]', $trUrl, $tr->name)
                 );
             }
 
@@ -644,15 +644,15 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fillUser->username));
+                    ->withSuccess(\sprintf(trans('request.approved-to-user'), $tr->name, $fillUser->username));
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
+                ->withSuccess(\sprintf(trans('request.approved-to-anon'), $tr->name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
+                ->withErrors(trans('request.no-access-approve'));
     }
 
     /**
@@ -672,7 +672,7 @@ class RequestController extends Controller
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already rejected');
+                    ->withErrors(trans('request.already-rejected'));
             }
 
             $requester = User::findOrFail($torrentRequest->filled_by);
@@ -686,11 +686,11 @@ class RequestController extends Controller
             $torrentRequest->save();
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('This request has been reset.');
+                ->withSuccess(trans('request.request-reset'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess("You don't have access to approve this request");
+            ->withSuccess(trans('request.no-access-approve'));
     }
 
     /**
@@ -713,11 +713,11 @@ class RequestController extends Controller
             $torrentRequest->delete();
 
             return \redirect()->route('requests')
-                ->withSuccess(\sprintf('You have deleted %s', $name));
+                ->withSuccess(\sprintf(trans('request.request-deleted'), $name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors("You don't have access to delete this request.");
+            ->withErrors(trans('request.no-access-delete'));
     }
 
     /**
@@ -751,11 +751,11 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Claimed');
+                ->withSuccess(trans('request.claimed-successfull'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Someone else has already claimed this request buddy.');
+            ->withErrors(trans('request.already-claimed'));
     }
 
     /**
@@ -792,11 +792,11 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Un-Claimed');
+                ->withSuccess(trans('request.unclaimed-success'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Nothing To Unclaim.');
+            ->withErrors(trans('request.unclaimed-error'));
     }
 
     /**
@@ -821,6 +821,6 @@ class RequestController extends Controller
         $torrentRequest->save();
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess('The request has been reset!');
+            ->withSuccess(trans('request.request-reset'));
     }
 }
