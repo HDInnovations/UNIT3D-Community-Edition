@@ -148,7 +148,7 @@ class NotificationController extends Controller
         $notification->markAsRead();
 
         return \redirect()->to($notification->data['url'])
-            ->withSuccess('Notification Marked As Read!');
+            ->withSuccess(trans('notification.marked-read'));
     }
 
     /**
@@ -165,18 +165,18 @@ class NotificationController extends Controller
 
         if (! $notification) {
             return \redirect()->route('notifications.index')
-                ->withErrors('Notification Does Not Exist!');
+                ->withErrors(trans('notification.not-existant'));
         }
 
         if ($notification->read_at != null) {
             return \redirect()->route('notifications.index')
-                ->withErrors('Notification Already Marked As Read!');
+                ->withErrors(trans('notification.already-marked-read'));
         }
 
         $notification->markAsRead();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('Notification Marked As Read!');
+            ->withSuccess(trans('notification.marked-read'));
     }
 
     /**
@@ -194,7 +194,7 @@ class NotificationController extends Controller
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('All Notifications Marked As Read!');
+            ->withSuccess(trans('notification.marked-all-read'));
     }
 
     /**
@@ -210,7 +210,7 @@ class NotificationController extends Controller
         $request->user()->notifications()->findOrFail($id)->delete();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('Notification Deleted!');
+            ->withSuccess(trans('notification.deleted'));
     }
 
     /**
@@ -225,6 +225,6 @@ class NotificationController extends Controller
         $request->user()->notifications()->delete();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('All Notifications Deleted!');
+            ->withSuccess(trans('notification.all-deleted'));
     }
 }
