@@ -104,6 +104,7 @@ return [
     'lists'                => 'Listen',
     'lock-account'         => 'Account sperren',
     'logout'               => 'Ausloggen',
+    'magnet'               => 'Magnet',
     'media-language'       => 'Medien Sprache',
     'media-languages'      => 'Medien Sprachen',
     'members'              => 'Mitglieder',
