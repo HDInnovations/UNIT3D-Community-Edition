@@ -46,6 +46,7 @@ return [
     'meta-category'             => 'Liste der Foren in der Kategorie',
     'moderation'                => 'Moderation',
     'name'                      => 'Name',
+    'no-access'                 => 'Du hast kein Zugriff auf dieses Forum!',
     'not-connected'             => 'Du musst verbunden sein',
     'not-subscribed'            => 'Nicht abonniert',
     'open'                      => 'Öffnen',

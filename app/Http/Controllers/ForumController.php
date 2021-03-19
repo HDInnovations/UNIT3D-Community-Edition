@@ -345,7 +345,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->parent_id);
         if ($category->getPermission()->show_forum != true) {
             return \redirect()->route('forums.index')
-                ->withErrors('You Do Not Have Access To This Forum!');
+                ->withErrors(trans('forum.no-access'));
         }
 
         // Fetch topics->posts in descending order
