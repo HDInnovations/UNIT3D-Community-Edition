@@ -35,6 +35,8 @@ return [
     'active-warnings'                       => 'Active Warnings',
     'add-seedbox'                           => 'Add Seedbox',
     'all-torrents'                          => 'All Torrents',
+    'already-following'                     => 'You are already following this user',
+    'already-not-following'                 => 'You are not following this user to begin with',
     'api-token-changed'                     => 'Your API Token Was Changed Successfully!',
     'article-comments'                      => 'Article Comments Made',
     'avatar'                                => 'Avatar',
@@ -106,6 +108,7 @@ return [
     'extra'                                 => 'Extra',
     'filled-request'                        => 'Filled Members Requests',
     'follow'                                => 'Follow',
+    'follow-yourself'                       => 'Nice try, but sadly you can not follow yourself.',
     'follower-privacy'                      => 'Follower Settings',
     'follower-privacy-list'                 => 'Allow users to view a list of your followers',
     'follower-help'                         => 'Control the sharing of specific follower related information with groups that are allowed to access to your profile.
@@ -188,6 +191,7 @@ return [
     'my-wishlist'                           => 'My Wishlist',
     'no-ban'                                => 'The are no bans in the database for this user!',
     'no-logs'                               => 'The are no invite logs in the database for this user!',
+    'no-longer-following'                   => 'You are no longer following %s',
     'no-seedboxes'                          => 'No Seedboxes 😔',
     'no-soft-warning'                       => 'There are no soft deleted warnings in the database for this user!',
     'no-warning'                            => 'The are no warnings in the database for this user!',
@@ -229,6 +233,7 @@ return [
     'notification-from-request-help'        => 'You will only receive request notifications from the system, staff and the following groups.
     These settings are overridden if you <strong>Disable Notifications</strong>',
     'notifications'                         => 'Notifications',
+    'now-following'                         => 'You are now following %s',
     'offline'                               => 'User is Offline!',
     'online'                                => 'User is Online!',
     'open-registration'                     => 'Open Registration',
