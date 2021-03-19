@@ -235,18 +235,18 @@ class BonusController extends Controller
 
             if ($flag === '') {
                 return \redirect()->route('bonus_store')
-                    ->withErrors('Bonus Exchange Failed!');
+                    ->withErrors(trans('bon.exchange-failed'));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
             return \redirect()->route('bonus_store')
-                ->withErrors('Bonus Exchange Failed!');
+                ->withErrors(trans('bon.exchange-failed'));
         }
 
         return \redirect()->route('bonus_store')
-            ->withSuccess('Bonus Exchange Successful');
+            ->withSuccess(trans('bon.exchange-success'));
     }
 
     /**
@@ -286,8 +286,8 @@ class BonusController extends Controller
                 $privateMessage = new PrivateMessage();
                 $privateMessage->sender_id = 1;
                 $privateMessage->receiver_id = $userAcc->id;
-                $privateMessage->subject = 'Personal 24 Hour Freeleech Activated';
-                $privateMessage->message = \sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).\config('app.timezone').'[/b]! 
+                $privateMessage->subject = trans('bon.personal-freeleech');
+                $privateMessage->message = \sprintf(trans('bon.personal-freeleech-msg'), $current->addDays(1)->toDayDateTimeString()).\config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $privateMessage->save();
             } else {
@@ -340,7 +340,7 @@ class BonusController extends Controller
 
             if (! $recipient || $recipient->id == $user->id) {
                 return \redirect()->route('bonus_store')
-                    ->withErrors('Unable to find specified user');
+                    ->withErrors(trans('bon.user-not-found'));
             }
 
             $value = $request->input('bonus_points');
@@ -368,16 +368,16 @@ class BonusController extends Controller
             $recipientUrl = \href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $user->username, $value, $recipientUrl, $recipient->username)
+                \sprintf(trans('bon.gifted-to-sysmsg'), $profileUrl, $user->username, $value, $recipientUrl, $recipient->username)
             );
 
             if ($dest == 'profile') {
                 return \redirect()->route('users.show', ['username' => $recipient->username])
-                    ->withSuccess('Gift Sent');
+                    ->withSuccess(trans('bon.gift-sent'));
             }
 
             return \redirect()->route('bonus_gift')
-                ->withSuccess('Gift Sent');
+                ->withSuccess(trans('bon.gift-sent'));
         }
         $v = \validator($request->all(), [
             'to_username' => 'required|exists:users,username|max:180',
@@ -387,20 +387,20 @@ class BonusController extends Controller
 
             if (! $recipient || $recipient->id == $user->id) {
                 return \redirect()->route('bonus_store')
-                    ->withErrors('Unable to find specified user');
+                    ->withErrors(trans('bon.user-not-found'));
             }
 
             if ($dest == 'profile') {
                 return \redirect()->route('users.show', ['username' => $recipient->username])
-                    ->withErrors('You Must Enter An Amount And Message!');
+                    ->withErrors(trans('bon.enter-amount-and-msg'));
             }
 
             return \redirect()->route('bonus_gift')
-                ->withErrors('You Must Enter An Amount And Message!');
+                ->withErrors(trans('bon.enter-amount-and-msg'));
         }
 
         return \redirect()->route('bonus_store')
-            ->withErrors('Unable to find specified user');
+            ->withErrors(trans('bon.user-not-found'));
     }
 
     /**
@@ -420,15 +420,15 @@ class BonusController extends Controller
         $tipAmount = $request->input('tip');
         if ($tipAmount > $user->seedbonus) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your To Broke To Tip The Uploader!');
+                ->withErrors(trans('bon.not-enough-bon-to-tip'));
         }
         if ($user->id == $torrent->user_id) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('You Cannot Tip Yourself!');
+                ->withErrors(trans('bon.cannot-tip-yourself'));
         }
         if ($tipAmount <= 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('You Cannot Tip A Negative Amount!');
+                ->withErrors(trans('bon.cannot-tip-negative'));
         }
         $uploader->seedbonus += $tipAmount;
         $uploader->save();
@@ -451,7 +451,7 @@ class BonusController extends Controller
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
-            ->withSuccess('Your Tip Was Successfully Applied!');
+            ->withSuccess(trans('bon.tip-successfull'));
     }
 
     /**
@@ -475,15 +475,15 @@ class BonusController extends Controller
         $tipAmount = $request->input('tip');
         if ($tipAmount > $user->seedbonus) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-                ->withErrors('You Are To Broke To Tip The Poster!');
+                ->withErrors(trans('bon.not-enough-bon-to-tip2'));
         }
         if ($user->id == $poster->id) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-                ->withErrors('You Cannot Tip Yourself!');
+                ->withErrors(trans('bon.cannot-tip-yourself'));
         }
         if ($tipAmount <= 0) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-                ->withErrors('You Cannot Tip A Negative Amount!');
+                ->withErrors(trans('bon.cannot-tip-negative'));
         }
         $poster->seedbonus += $tipAmount;
         $poster->save();
@@ -504,7 +504,7 @@ class BonusController extends Controller
         $poster->notify(new NewPostTip('forum', $user->username, $tipAmount, $post));
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-            ->withSuccess('Your Tip Was Successfully Applied!');
+            ->withSuccess(trans('bon.tip-successfull'));
     }
 
     /**

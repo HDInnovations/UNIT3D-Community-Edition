@@ -63,7 +63,7 @@ class GiftController extends Controller
         $recipient = User::where('username', '=', $username)->first();
         if (! $recipient) {
             return \redirect()->route('staff.gifts.index')
-                ->withErrors('Unable To Find Specified User');
+                ->withErrors(trans('bon.user-not-found'));
         }
         $recipient->seedbonus += $seedbonus;
         $recipient->invites += $invites;
@@ -73,7 +73,7 @@ class GiftController extends Controller
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = 1;
         $privateMessage->receiver_id = $recipient->id;
-        $privateMessage->subject = 'You Have Received A System Generated Gift';
+        $privateMessage->subject = trans('bon.user-not-found');
         $privateMessage->message = \sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $seedbonus, $invites, $flTokens);
         $privateMessage->save();
