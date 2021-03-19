@@ -70,7 +70,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
@@ -98,11 +98,11 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
+                    \sprintf(trans('comment.user-left-comment-on-collection'), $profileUrl, $user->username, $collectionUrl, $collection->name)
                 );
         } else {
             $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
+                    \sprintf(trans('comment.anon-left-comment-on-collection'), $collectionUrl, $collection->name)
                 );
         }
 
@@ -147,7 +147,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
+                ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -165,7 +165,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('articles.show', ['id' => $article->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
@@ -191,11 +191,11 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profileUrl, $user->username, $articleUrl, $article->title)
+                \sprintf(trans('comment.user-left-comment-on-article'), $profileUrl, $user->username, $articleUrl, $article->title)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $articleUrl, $article->title)
+                \sprintf(trans('comment.anon-left-comment-on-article'), $articleUrl, $article->title)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -238,7 +238,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('articles.show', ['id' => $article->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -256,7 +256,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
@@ -282,11 +282,11 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profileUrl, $user->username, $playlistUrl, $playlist->name)
+                \sprintf(trans('comment.anon-left-comment-on-playlist'), $profileUrl, $user->username, $playlistUrl, $playlist->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlistUrl, $playlist->name)
+                \sprintf(trans('comment.user-left-comment-on-playlist'), $playlistUrl, $playlist->name)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -329,7 +329,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -347,7 +347,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
@@ -377,11 +377,11 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $user->username, $torrentUrl, $torrent->name)
+                \sprintf(trans('comment.user-left-comment-on-torrent'), $profileUrl, $user->username, $torrentUrl, $torrent->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $torrent->name)
+                \sprintf(trans('comment.anon-left-comment-on-torrent'), $torrentUrl, $torrent->name)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -424,7 +424,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -442,7 +442,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('request', ['id' => $tr->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
@@ -468,11 +468,11 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $tr->name)
+                \sprintf(trans('comment.user-left-comment-on-request'), $profileUrl, $user->username, $trUrl, $tr->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $trUrl, $tr->name)
+                \sprintf(trans('comment.anon-left-comment-on-request'), $trUrl, $tr->name)
             );
         }
         //Notification
@@ -519,7 +519,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade900Comments(), 1);
 
         return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -555,7 +555,7 @@ class CommentController extends Controller
         $comment->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -573,25 +573,26 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(trans('comment.right-revoked'));
         }
 
         $comment = new Comment();
 
         if ($torrent->anon === 1) {
             $thankArray = [
-                'Thanks for the upload! :thumbsup_tone2:',
-                'Time and effort is much appreciated :thumbsup_tone2:',
-                'Great upload! :fire:', 'Thank you :smiley:',
+                trans('comment.thanks-anon-1'),
+                trans('comment.thanks-anon-2'),
+                trans('comment.thanks-anon-3'),
+                trans('comment.thanks-anon-4'),
             ];
         } else {
             $uploader = User::where('id', '=', $torrent->user_id)->first();
             $uploaderUrl = \href_profile($uploader);
 
             $thankArray = [
-                \sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploaderUrl, $uploader->group->color, $uploader->username),
-                \sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploaderUrl, $uploader->group->color, $uploader->username),
-                \sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf(trans('comment.thanks-user-1'), $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf(trans('comment.thanks-user-2'), $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf(trans('comment.thanks-user-3'), $uploaderUrl, $uploader->group->color, $uploader->username),
             ];
         }
 
@@ -632,11 +633,11 @@ class CommentController extends Controller
         $torrentUrl = \href_torrent($torrent);
         $profileUrl = \href_profile($user);
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $user->username, $torrentUrl, $torrent->name)
+            \sprintf(trans('comment.user-left-comment-on-torrent'), $profileUrl, $user->username, $torrentUrl, $torrent->name)
         );
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(trans('comment.added'));
     }
 
     /**
@@ -666,7 +667,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Edited.');
+        return \redirect()->back()->withSuccess(trans('comment.edited'));
     }
 
     /**
@@ -685,6 +686,6 @@ class CommentController extends Controller
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Deleted.');
+        return \redirect()->back()->withSuccess(trans('comment.deleted'));
     }
 }
