@@ -78,7 +78,7 @@ class PageController extends Controller
      */
     public function blacklist()
     {
-        $clients = \config('client-blacklist.clients', []);
+        $clients = \config('client-blacklist.clientsreadable', []);
 
         return \view('page.blacklist', ['clients' => $clients]);
     }
