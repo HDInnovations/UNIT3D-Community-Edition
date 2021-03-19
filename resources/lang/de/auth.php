@@ -53,6 +53,7 @@ return [
     'proof-min'              => '(Minimum 2, Empfohlen 3)',
     'recover-my-password'    => 'Passwort zurücksetzen',
     'register-thanks'        => 'Danke für die Registrierung! Bitte überprüfe dein E-Mail Postfach, um das Konto zu aktivieren.',
+    'remember-me'            => 'Sitzung speichern',
     'require-rules'          => 'Bitte lese und akzeptiere unsere Regeln, indem du zum Ende der Seite gehst.',
     'signup'                 => 'Registrieren',
     'throttle'               => 'Zu viele Anmeldeversuche. Bitte versuche es erneut in :seconds Sekunden.',
