@@ -13,6 +13,9 @@
 
 return [
     'add-option'      => 'Option hinzufügen',
+    'already-voted'   => 'Du hast bereits abgestimmt bei dieser Umfrage. Hier sind die Ergebnisse.',
+    'already-voted2'  => 'Du hast bereits abgestimmt bei dieser Umfrage. Deine neue Stimme wurde nicht gezählt.',
+    'counted'         => 'Deine Stimme wurde gezählt.',
     'create-poll'     => 'Umfrage erstellen',
     'current'         => 'Aktuelle Umfragen',
     'delete-option'   => 'Option löschen',
@@ -22,6 +25,7 @@ return [
     'poll'            => 'Umfrage',
     'polls'           => 'Umfragen',
     'results'         => 'Umfrage-Ergebnisse',
+    'sys-msg-voted'   => '[url=%s]%s[/url] hat abgestimmt an der Umfrage [url=%s]%s[/url]',
     'title'           => 'Titel',
     'total'           => 'Gesamtstimmen bisher',
     'vote'            => 'Abstimmung',

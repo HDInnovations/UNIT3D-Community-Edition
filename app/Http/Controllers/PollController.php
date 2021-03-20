@@ -62,7 +62,7 @@ class PollController extends Controller
 
         if ($userHasVoted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withInfo('You have already vote on this poll. Here are the results.');
+                ->withInfo(trans('poll.already-voted'));
         }
 
         return \view('poll.show', ['poll' => $poll]);
@@ -84,7 +84,7 @@ class PollController extends Controller
             ->exists();
         if ($voted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
+                ->withErrors(trans('poll.already-voted2'));
         }
 
         // Operate options after validation
@@ -102,11 +102,11 @@ class PollController extends Controller
         $profileUrl = \href_profile($user);
 
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
+            \sprintf(trans('poll.sys-msg-voted'), $profileUrl, $user->username, $pollUrl, $poll->title)
         );
 
         return \redirect()->route('poll_results', ['id' => $poll->id])
-            ->withSuccess('Your vote has been counted.');
+            ->withSuccess(trans('poll.counted'));
     }
 
     /**

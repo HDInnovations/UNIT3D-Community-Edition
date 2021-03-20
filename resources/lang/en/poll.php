@@ -13,6 +13,9 @@
 
 return [
     'add-option'           => 'Add Option',
+    'already-voted'        => 'You have already vote on this poll. Here are the results.',
+    'already-voted2'       => 'Bro have already vote on this poll. Your vote has not been counted.',
+    'counted'              => 'Your vote has been counted.',
     'create-poll'          => 'Create Poll',
     'current'              => 'Current Poll(s)',
     'delete-option'        => 'Delete Option',
@@ -22,6 +25,7 @@ return [
     'poll'                 => 'Poll',
     'polls'                => 'Polls',
     'results'              => 'Poll Results',
+    'sys-msg-voted'        => '[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]',
     'title'                => 'Title',
     'total'                => 'Total Votes Ever',
     'vote'                 => 'Vote',
