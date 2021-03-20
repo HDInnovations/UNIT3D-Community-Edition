@@ -210,7 +210,7 @@ return [
     'no-warning'                            => 'The are no warnings in the database for this user!',
     'not-authorized'                        => 'You are not authorized to view this page. This member prefers to be hidden like a ninja!',
     'not-enough-invites'                    => 'You do not have enough invites!',
-    'not-satisfied-not-immune'	            => 'Not Satisfied / Not Immune',
+    'not-satisfied-not-immune'              => 'Not Satisfied / Not Immune',
     'note'                                  => 'Note',
     'notification'                          => 'Notification',
     'notification-settings'                 => 'Notification Settings',
