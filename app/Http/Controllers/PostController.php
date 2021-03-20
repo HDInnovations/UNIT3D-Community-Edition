@@ -64,7 +64,7 @@ class PostController extends Controller
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
             return \redirect()->route('forums.index')
-                ->withErrors('You Cannot Reply To This Topic!');
+                ->withErrors(trans('forum.cannot-reply'));
         }
 
         $post = new Post();
@@ -141,7 +141,7 @@ class PostController extends Controller
         if (\config('other.staff-forum-notify') && ($forum->id == \config('other.staff-forum-id') || $forum->parent_id == \config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
-            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            $this->chatRepository->systemMessage(\sprintf(trans('forum.left-a-reply'), $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
@@ -163,7 +163,7 @@ class PostController extends Controller
         $user->addProgress(new UserMade900Posts(), 1);
 
         return \redirect()->to($realUrl)
-            ->withSuccess('Post Successfully Posted');
+            ->withSuccess(trans('forum.successfull-posted'));
     }
 
     /**
@@ -208,7 +208,7 @@ class PostController extends Controller
         $post->save();
 
         return \redirect()->to($postUrl)
-            ->withSuccess('Post Successfully Edited!');
+            ->withSuccess(trans('forum.edited'));
     }
 
     /**
@@ -230,6 +230,6 @@ class PostController extends Controller
         $post->delete();
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-            ->withSuccess('This Post Is Now Deleted!');
+            ->withSuccess(trans('forum.deleted'));
     }
 }
