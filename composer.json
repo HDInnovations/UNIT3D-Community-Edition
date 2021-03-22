@@ -50,7 +50,7 @@
         "nunomaduro/collision": "^5.0",
         "phpro/grumphp": "^1.2.0",
         "phpunit/phpunit": "^9.3",
-        "rector/rector": "dev-master",
+        "rector/rector": "^0.10",
         "symplify/changelog-linker": "^9.2"
     },
     "config": {
