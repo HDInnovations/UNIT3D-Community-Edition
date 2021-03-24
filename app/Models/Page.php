@@ -14,7 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\BBCodeConverter;
-use App\Helpers\Markdown;
+use App\Helpers\MarkdownExtra;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +66,6 @@ class Page extends Model
     {
         $content = (new BBCodeConverter($this->content))->toMarkdown();
 
-        return (new Markdown())->text($content);
+        return (new MarkdownExtra())->text($content);
     }
 }
