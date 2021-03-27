@@ -202,6 +202,7 @@ class TicketController extends Controller
         \abort_unless($user->group->is_modo, 403);
 
         $ticket->staff_id = $request->input('user_id');
+        $ticket->staff_read = 0;
 
         $v = \validator($ticket->toArray(), [
             'user_id' => 'required|exists:users,id',
