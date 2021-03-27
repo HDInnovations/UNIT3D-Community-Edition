@@ -24,7 +24,7 @@ class TicketSearch extends Component
     public $user;
     public $perPage = 25;
     public $search = '';
-    public $sortField = 'created_at';
+    public $sortField = 'updated_at';
     public $sortDirection = 'desc';
 
     final public function mount(): void
