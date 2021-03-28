@@ -1398,7 +1398,6 @@ class Markdown
                 'extent'  => strlen($matches[0]),
             ];
         }
-
     }
 
     protected function inlineStrikethrough($Excerpt)
