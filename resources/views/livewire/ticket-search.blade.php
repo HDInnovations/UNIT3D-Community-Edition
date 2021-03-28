@@ -71,30 +71,41 @@
 				<tr>
 					<td>
 						<span class="badge-user">
-                            {{ $ticket->id }}
-                        </span>
+							{{ $ticket->id }}
+						</span>
 					</td>
 					<td>
 						<span>
 							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
-                        </span>
+						</span>
 						@if (auth()->user()->group->is_modo)
-						@php $ticket_unread = DB::table('tickets')
-							->where('id', '=', $ticket->id)
-							->where('staff_id', '=', auth()->user()->id)
-							->where('staff_read', '=', 0)
-							->count();
-						@endphp
+							@php
+								$myTicketUnread = DB::table('tickets')
+									->where('id', '=', $ticket->id)
+									->where('staff_id', '=', auth()->user()->id)
+									->where('staff_read', '=', 0)
+									->count();
+
+								$unasignedTicketUnread = DB::table('tickets')
+									->where('id', '=', $ticket->id)
+									->whereNull('staff_id')
+									->whereNull('closed_at')
+									->count();
+							@endphp
 						@else
-							@php $ticket_unread = DB::table('tickets')
-								->where('id', '=', $ticket->id)
-	                            ->where('user_id', '=', auth()->user()->id)
-	                            ->where('user_read', '=', 0)
-	                            ->count();
-	                        @endphp
+							@php
+								$myTicketUnread = DB::table('tickets')
+									->where('id', '=', $ticket->id)
+									->where('user_id', '=', auth()->user()->id)
+									->where('user_read', '=', 0)
+									->count();
+
+								$unasignedTicketUnread = 0;
+							@endphp
 						@endif
-                        @if ($ticket_unread > 0)
-                            <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
+
+						@if ($myTicketUnread > 0 || $unasignedTicketUnread > 0)
+							<i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
 						@endif
 					</td>
 					<td>
@@ -106,36 +117,36 @@
 							@elseif ($ticket->priority->name === 'High')
 								<i class="fas fa-circle text-red"></i>
 							@endif
-                            {{ $ticket->priority->name }}
-                        </span>
+							{{ $ticket->priority->name }}
+						</span>
 					</td>
 					<td>
 						<span class="badge-user">
 							<a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
-                                {{ $ticket->user->username }}
+								{{ $ticket->user->username }}
 							</a>
-                        </span>
+						</span>
 					</td>
 					<td>
 						<span class="badge-user">
-                            @if($ticket->closed_at)
+							@if($ticket->closed_at)
 								<i class="fas fa-circle text-danger"></i> Closed
 							@else
 								<i class="fas fa-circle text-success"></i> Open
 							@endif
-                        </span>
+						</span>
 					</td>
 					<td>
 						<span class="badge-user">
 							<a href="{{ route('users.show', ['username' => $ticket->staff->username ?? 'System']) }}">
-                                {{ $ticket->staff->username ?? 'Unassigned' }}
+								{{ $ticket->staff->username ?? 'Unassigned' }}
 							</a>
-                        </span>
+						</span>
 					</td>
 					<td>
 						<span class="badge-user">
-                            {{ $ticket->created_at->diffForHumans() }}
-                        </span>
+							{{ $ticket->created_at->diffForHumans() }}
+						</span>
 					</td>
 					<td>
 						<div class="dropdown">
