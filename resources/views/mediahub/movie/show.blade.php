@@ -16,7 +16,7 @@
     </li>
     <li>
         <a href="{{ route('mediahub.movies.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.shows')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.movies')</span>
         </a>
     </li>
     <li class="active">
