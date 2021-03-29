@@ -222,8 +222,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Requests System
         Route::group(['prefix' => 'requests'], function () {
-            Route::get('/filter', 'RequestController@faceted');
-            Route::get('/', 'RequestController@requests')->name('requests');
+            Route::name('requests.')->group(function () {
+                Route::get('/', 'RequestController@index')->name('index');
+            });
+        });
+
+        Route::group(['prefix' => 'requests'], function () {
             Route::get('/add/{title?}/{imdb?}/{tmdb?}', 'RequestController@addRequestForm')->name('add_request_form');
             Route::post('/add', 'RequestController@addRequest')->name('add_request');
             Route::get('/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');

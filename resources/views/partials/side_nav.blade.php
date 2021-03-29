@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('requests') }}">
+                    <a href="{{ route('requests.index') }}">
                         <span class="menu-text">@lang('request.requests')</span>
                         <span class="selected"></span>
                     </a>

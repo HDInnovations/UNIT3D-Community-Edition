@@ -39,6 +39,7 @@
 
         <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
         <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
