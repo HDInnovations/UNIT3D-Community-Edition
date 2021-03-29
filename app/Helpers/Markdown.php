@@ -523,7 +523,7 @@ class Markdown
             $contentIndent = strlen($matches[2]);
 
             if ($contentIndent >= 5) {
-                --$contentIndent;
+                $contentIndent--;
                 $matches[1] = substr($matches[1], 0, -$contentIndent);
                 $matches[3] = str_repeat(' ', $contentIndent).$matches[3];
             } elseif ($contentIndent === 0) {
@@ -1591,7 +1591,7 @@ class Markdown
             $autoBreak = $autoBreakNext;
         }
 
-        return $markup . ($autoBreak ? "\n" : '');
+        return $markup.($autoBreak ? "\n" : '');
     }
 
     // ~

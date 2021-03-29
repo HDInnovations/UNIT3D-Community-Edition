@@ -14,8 +14,8 @@
 
 namespace App\Helpers;
 
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 
 class MarkdownExtra extends Markdown
 {
@@ -247,12 +247,12 @@ class MarkdownExtra extends Markdown
         }
 
         if (preg_match('/^<'.$Block['name'].'(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*>/i', $Line['text'])) { // open
-            ++$Block['depth'];
+            $Block['depth']++;
         }
 
         if (preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', $Line['text'], $matches)) { // close
             if ($Block['depth'] > 0) {
-                --$Block['depth'];
+                $Block['depth']--;
             } else {
                 $Block['closed'] = true;
             }
@@ -311,7 +311,7 @@ class MarkdownExtra extends Markdown
                 return;
             }
 
-            ++$this->DefinitionData['Footnote'][$name]['count'];
+            $this->DefinitionData['Footnote'][$name]['count']++;
 
             if (! isset($this->DefinitionData['Footnote'][$name]['number'])) {
                 $this->DefinitionData['Footnote'][$name]['number'] = ++$this->footnoteCount; // » &
