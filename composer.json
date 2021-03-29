@@ -9,7 +9,9 @@
     "type": "project",
     "require": {
         "php": ">=8.0",
+        "ext-dom": "*",
         "ext-json": "*",
+        "ext-libxml": "*",
         "ext-zip": "*",
         "andkab/laravel-joypixels": "^1.0",
         "appstract/laravel-opcache": "^4.0",
