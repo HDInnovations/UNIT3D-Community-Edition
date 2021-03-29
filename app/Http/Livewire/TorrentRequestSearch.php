@@ -13,13 +13,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
+use App\Models\TorrentRequestClaim;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\TorrentRequest;
-use Illuminate\Support\Facades\DB;
-use App\Models\TorrentRequestClaim;
-use App\Models\TorrentRequestBounty;
 
 class TorrentRequestSearch extends Component
 {

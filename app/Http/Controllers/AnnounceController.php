@@ -482,17 +482,17 @@ class AnnounceController extends Controller
         return [
             'failure reason' => $trackerException->getMessage(),
             'min interval'   => self::MIN,
-            /**
-             * BEP 31: Failure Retry Extension.
-             *
-             * However most bittorrent client don't support it, so this feature is disabled default
-             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
-             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
-             *  - libtransmission (e.g. Transmission )
-             *    This library will ignore any other key if failed
-             *
-             * @see http://www.bittorrent.org/beps/bep_0031.html
-             */
+        /**
+         * BEP 31: Failure Retry Extension.
+         *
+         * However most bittorrent client don't support it, so this feature is disabled default
+         *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
+         *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
+         *  - libtransmission (e.g. Transmission )
+         *    This library will ignore any other key if failed
+         *
+         * @see http://www.bittorrent.org/beps/bep_0031.html
+         */
             //'retry in' => self::MIN
         ];
     }
