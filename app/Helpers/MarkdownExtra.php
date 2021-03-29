@@ -2,49 +2,25 @@
 /**
  * NOTICE OF LICENSE.
  *
- * The MIT License (MIT)
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
  *
- * Copyright (c) 2013-2018 Emanuil Rusev, erusev.com
+ * @project    UNIT3D Community Edition
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * @author     Emanuil Rusev <https://erusev.com>
- * @license    https://opensource.org/licenses/MIT The MIT License
- *
- * @link       https://github.com/erusev/parsedown-extra
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @credits    Emanuil Rusev <https://erusev.com>
  */
 
 namespace App\Helpers;
 
+use DOMElement;
+use DOMDocument;
+
 class MarkdownExtra extends Markdown
 {
-    // ~
-
-    const version = '0.8.0';
-
-    // ~
-
     public function __construct()
     {
-        if (version_compare(parent::version, '1.7.1') < 0) {
-            throw new Exception('ParsedownExtra requires a later version of Parsedown');
-        }
-
         $this->BlockTypes[':'][] = 'DefinitionList';
         $this->BlockTypes['*'][] = 'Abbreviation';
 
@@ -54,9 +30,6 @@ class MarkdownExtra extends Markdown
         // identify footnote markers before before links
         array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
-
-    //
-    // ~
 
     public function text($text)
     {
@@ -70,7 +43,7 @@ class MarkdownExtra extends Markdown
 
         // merge consecutive dl elements
 
-        $markup = preg_replace('/<\/dl>\s+<dl>\s+/', '', $markup);
+        $markup = preg_replace('#<\/dl>\s+<dl>\s+#', '', $markup);
 
         // add footnotes
 
@@ -92,14 +65,12 @@ class MarkdownExtra extends Markdown
 
     protected function blockAbbreviation($Line)
     {
-        if (preg_match('/^\*\[(.+?)\]:[ ]*(.+?)[ ]*$/', $Line['text'], $matches)) {
+        if (preg_match('#^\*\[(.+?)\]:[ ]*(.+?)[ ]*$#', $Line['text'], $matches)) {
             $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
 
-            $Block = [
+            return [
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
@@ -108,20 +79,18 @@ class MarkdownExtra extends Markdown
 
     protected function blockFootnote($Line)
     {
-        if (preg_match('/^\[\^(.+?)\]:[ ]?(.*)$/', $Line['text'], $matches)) {
-            $Block = [
+        if (preg_match('#^\[\^(.+?)\]:[ ]?(.*)$#', $Line['text'], $matches)) {
+            return [
                 'label'  => $matches[1],
                 'text'   => $matches[2],
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
     protected function blockFootnoteContinue($Line, $Block)
     {
-        if ($Line['text'][0] === '[' and preg_match('/^\[\^(.+?)\]:/', $Line['text'])) {
+        if ($Line['text'][0] === '[' && preg_match('#^\[\^(.+?)\]:#', $Line['text'])) {
             return;
         }
 
@@ -154,7 +123,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockDefinitionList($Line, $Block)
     {
-        if (! isset($Block) or $Block['type'] !== 'Paragraph') {
+        if (! isset($Block) || $Block['type'] !== 'Paragraph') {
             return;
         }
 
@@ -178,20 +147,16 @@ class MarkdownExtra extends Markdown
 
         $Block['element'] = $Element;
 
-        $Block = $this->addDdElement($Line, $Block);
-
-        return $Block;
+        return $this->addDdElement($Line, $Block);
     }
 
     protected function blockDefinitionListContinue($Line, array $Block)
     {
         if ($Line['text'][0] === ':') {
-            $Block = $this->addDdElement($Line, $Block);
-
-            return $Block;
+            return $this->addDdElement($Line, $Block);
         }
 
-        if (isset($Block['interrupted']) and $Line['indent'] === 0) {
+        if (isset($Block['interrupted']) && $Line['indent'] === 0) {
             return;
         }
 
@@ -234,7 +199,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockMarkup($Line)
     {
-        if ($this->markupEscaped or $this->safeMode) {
+        if ($this->markupEscaped || $this->safeMode) {
             return;
         }
 
@@ -258,12 +223,12 @@ class MarkdownExtra extends Markdown
             $remainder = substr($Line['text'], $length);
 
             if (trim($remainder) === '') {
-                if (isset($matches[2]) or in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || in_array($matches[1], $this->voidElements)) {
                     $Block['closed'] = true;
                     $Block['void'] = true;
                 }
             } else {
-                if (isset($matches[2]) or in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || in_array($matches[1], $this->voidElements)) {
                     return;
                 }
                 if (preg_match('/<\/'.$matches[1].'>[ ]*$/i', $remainder)) {
@@ -282,12 +247,12 @@ class MarkdownExtra extends Markdown
         }
 
         if (preg_match('/^<'.$Block['name'].'(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*>/i', $Line['text'])) { // open
-            $Block['depth']++;
+            ++$Block['depth'];
         }
 
         if (preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', $Line['text'], $matches)) { // close
             if ($Block['depth'] > 0) {
-                $Block['depth']--;
+                --$Block['depth'];
             } else {
                 $Block['closed'] = true;
             }
@@ -339,14 +304,14 @@ class MarkdownExtra extends Markdown
 
     protected function inlineFootnoteMarker($Excerpt)
     {
-        if (preg_match('/^\[\^(.+?)\]/', $Excerpt['text'], $matches)) {
+        if (preg_match('#^\[\^(.+?)\]#', $Excerpt['text'], $matches)) {
             $name = $matches[1];
 
             if (! isset($this->DefinitionData['Footnote'][$name])) {
                 return;
             }
 
-            $this->DefinitionData['Footnote'][$name]['count']++;
+            ++$this->DefinitionData['Footnote'][$name]['count'];
 
             if (! isset($this->DefinitionData['Footnote'][$name]['number'])) {
                 $this->DefinitionData['Footnote'][$name]['number'] = ++$this->footnoteCount; // » &
@@ -429,7 +394,9 @@ class MarkdownExtra extends Markdown
                 $this->currentMeaning = $meaning;
 
                 $Inline['element'] = $this->elementApplyRecursiveDepthFirst(
-                    [$this, 'insertAbreviation'],
+                    function (array $Element) {
+                        return $this->insertAbreviation($Element);
+                    },
                     $Inline['element']
                 );
             }
@@ -503,7 +470,7 @@ class MarkdownExtra extends Markdown
                 $backLinkElements[] = [
                     'name'       => 'a',
                     'attributes' => [
-                        'href'  => "#fnref$number:$definitionId",
+                        'href'  => sprintf('#fnref%s:%s', $number, $definitionId),
                         'rev'   => 'footnote',
                         'class' => 'footnote-backref',
                     ],
@@ -562,7 +529,7 @@ class MarkdownExtra extends Markdown
     {
         $Data = [];
 
-        $attributes = preg_split('/[ ]+/', $attributeString, -1, PREG_SPLIT_NO_EMPTY);
+        $attributes = preg_split('#[ ]+#', $attributeString, -1, PREG_SPLIT_NO_EMPTY);
 
         foreach ($attributes as $attribute) {
             if ($attribute[0] === '#') {
@@ -610,7 +577,7 @@ class MarkdownExtra extends Markdown
             foreach ($DOMDocument->documentElement->childNodes as $Node) {
                 $nodeMarkup = $DOMDocument->saveHTML($Node);
 
-                if ($Node instanceof DOMElement and ! in_array($Node->nodeName, $this->textLevelElements)) {
+                if ($Node instanceof DOMElement && ! in_array($Node->nodeName, $this->textLevelElements)) {
                     $elementText .= $this->processTag($nodeMarkup);
                 } else {
                     $elementText .= $nodeMarkup;
@@ -622,9 +589,8 @@ class MarkdownExtra extends Markdown
         $DOMDocument->documentElement->nodeValue = 'placeholder\x1A';
 
         $markup = $DOMDocument->saveHTML($DOMDocument->documentElement);
-        $markup = str_replace('placeholder\x1A', $elementText, $markup);
 
-        return $markup;
+        return str_replace('placeholder\x1A', $elementText, $markup);
     }
 
     // ~
