@@ -66,8 +66,8 @@ return [
         ],
 
         'ftp' => [
-            'driver' => 'ftp',
-            'host' => 'ftp.example.com',
+            'driver'   => 'ftp',
+            'host'     => 'ftp.example.com',
             'username' => 'your-username',
             'password' => 'your-password',
 
@@ -80,14 +80,14 @@ return [
         ],
 
         'sftp' => [
-            'driver' => 'sftp',
-            'host' => 'example.com',
+            'driver'   => 'sftp',
+            'host'     => 'example.com',
             'username' => 'your-username',
             'password' => 'your-password',
 
             // Settings for SSH key based authentication...
             'privateKey' => '/path/to/privateKey',
-            'password' => 'encryption-password',
+            'password'   => 'encryption-password',
 
             // Optional SFTP Settings...
             // 'port' => 22,
