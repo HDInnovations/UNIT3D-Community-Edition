@@ -31,6 +31,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.1.0",
+        "league/flysystem-cached-adapter": "~1.0",
+        "league/flysystem-sftp": "~1.0",
         "livewire/livewire": "^2.0",
         "marcreichel/igdb-laravel": "^2.1.0",
         "mews/purifier": "^3.2",
