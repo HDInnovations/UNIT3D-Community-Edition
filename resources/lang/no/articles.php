@@ -13,7 +13,7 @@
 
 return [
     'articles'      => 'Artikler',
-    'meta-articles' => 'Artikler og nyheter om tracker og samfunnet',
+    'meta-articles' => 'Artikler og nyheter om trackeren og samfunnet',
     'published-at'  => 'Publisert den',
     'read-more'     => 'Les mer',
 ];
