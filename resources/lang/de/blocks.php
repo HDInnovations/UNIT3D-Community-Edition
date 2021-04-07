@@ -20,7 +20,7 @@ return [
     // Featured Torrents
     'featured-by'             => 'Vorgestellt von',
     'featured-torrents'       => 'Vorgestellte Torrents',
-    'featured-torrents-intro' => 'Holen Sie sie, solange Sie können!',
+    'featured-torrents-intro' => 'Hol sie dir, solange du kannst!',
     'featured-until'          => 'Vorgestellt bis',
 
     // Latest Torrents
@@ -37,7 +37,7 @@ return [
     'users-online'            => 'Nutzer online',
 
     // News/Articles
-    'check-news'              => 'Neuste News',
+    'check-news'              => 'Neuste Nachrichten',
     'new-news'                => 'Neue Nachrichten',
 
     // Top Torrents

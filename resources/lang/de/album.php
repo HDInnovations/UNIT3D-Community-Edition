@@ -13,6 +13,6 @@
 
 return [
     'deleted'             => 'Album wurde erfolgreich gelöscht',
-    'published'           => 'Dein Album wurde erfolgreich veröffentlich!',
-    'metadata-not-found'  => 'Meta Data nicht gefunden. Gallery System Is Being Refactored',
+    'published'           => 'Dein Album wurde erfolgreich veröffentlicht!',
+    'metadata-not-found'  => 'Meta-Daten nicht gefunden. Gallery System wird aktuell überarbeitet.',
 ];

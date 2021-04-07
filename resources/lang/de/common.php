@@ -204,9 +204,9 @@ return [
     'users'                => 'Nutzer',
     'view'                 => 'Zeige',
     'view-all'             => 'Zeige alles',
-    'warnings'             => 'Warnungen',
+    'warnings'             => 'Verwarnungen',
     'year'                 => 'Jahr',
     'yes'                  => 'Ja',
-    'your'                 => 'Ihre',
+    'your'                 => 'Deine',
     'your-comment'         => 'Dein Kommentar',
 ];
