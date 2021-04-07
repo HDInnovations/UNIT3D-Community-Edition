@@ -20,7 +20,7 @@ return [
     'already-rejected'    => 'Es scheint, dass dieser Request bereits abgelehnt wurde',
     'approve'             => 'Genehmigen',
     'approved-to-user'    => 'Du hast %s genehmigt und die Belohnung wurde %s gegeben',
-    'approved-to-anon'    => 'Du hast %s genehmigts und die Belohnung wurde einem anonymen Nutzer gegeben',
+    'approved-to-anon'    => 'Du hast %s genehmigt und die Belohnung wurde einem anonymen Nutzer gegeben',
     'awarded-filled'      => '%s hat %s erfüllt und wurde mit %s Bonus belohnt.',
     'bonus-added'         => 'Dein Bonus wurde erfolgreich hinzugefügt.',
     'bonus-added-by-anon' => 'Ein anonymer Nutzer hat %s Bonus Belohnung zum Request hinzugefügt:',

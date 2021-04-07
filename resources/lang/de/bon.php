@@ -57,7 +57,7 @@ return [
     'system-gift'             => 'Du hast einen System generiertes Geschenk erhalten',
     'tip-successfull'         => 'Du hast erfolgreich Trinkgeld gegeben!',
     'tips'                    => 'Trinkgeld',
-    'total'                   => 'Ingesamt',
+    'total'                   => 'Insgesamt',
     'total-gifts'             => 'Geschenkte Bonuspunkte',
     'total-tips'              => 'Trinkgeld Bonuspunkte',
     'you-have-received-gifts' => 'Du hast erhalten',
