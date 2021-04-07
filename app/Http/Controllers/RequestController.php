@@ -370,7 +370,7 @@ class RequestController extends Controller
             );
         }
 
-        return \redirect()->route('requests')
+        return \redirect()->route('requests.index')
             ->withSuccess(trans('request.request-added'));
     }
 
@@ -463,7 +463,7 @@ class RequestController extends Controller
             $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
-        return \redirect()->route('requests', ['id' => $torrentRequest->id])
+        return \redirect()->route('request', ['id' => $torrentRequest->id])
             ->withSuccess(trans('request.request-edited'));
     }
 
@@ -712,7 +712,7 @@ class RequestController extends Controller
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
-            return \redirect()->route('requests')
+            return \redirect()->route('request')
                 ->withSuccess(\sprintf(trans('request.request-deleted'), $name));
         }
 
