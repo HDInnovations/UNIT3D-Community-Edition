@@ -94,9 +94,9 @@
                         @if (isset($meta->cast))
                             @foreach ($meta->cast as $actor)
                                 <div class="col-xs-4 col-md-2 text-center">
-                                    <img class="img-people" src="https://images.weserv.nl/?url={{ $actor->still }}&w=95&h=140"
-                                         alt="{{ $actor->name }}">
                                     <a href="{{ route('mediahub.persons.show', ['id' => $actor->id]) }}">
+                                        <img class="img-people" src="https://images.weserv.nl/?url={{ $actor->still ?? 'https://via.placeholder.com/95x140' }}&w=95&h=140"
+                                             alt="{{ $actor->name }}">
                                         <span class="badge-user" style="white-space:normal;">
                                             <strong>{{ $actor->name }}</strong>
                                         </span>
