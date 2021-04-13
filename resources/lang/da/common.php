@@ -58,7 +58,7 @@ return [
     'contact-desc'         => 'Denne kontaktanmodning sendes til ejeren og du vil blive kontaktet hurtigst muligt',
     'contact-header'       => 'Hej',
     'create'               => 'Opret',
-    'created_at'           => 'Oprettet af',
+    'created_at'           => 'Oprettet den',
     'date'                 => 'Dato',
     'day'                  => 'Dag(e)',
     'delete'               => 'Slet',
