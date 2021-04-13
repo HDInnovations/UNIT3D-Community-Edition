@@ -15,7 +15,7 @@ return [
     'assign'           => 'Tildel',
     'assigned-staff'   => 'Tildelt',
     'attachments'      => 'Vedhæftninger',
-    'attachments-save' => 'Gem Vedhæftninger',
+    'attachments-save' => 'Gem vedhæftninger',
     'body'             => 'Beskrivelse',
     'body-enter'       => 'Skriv beskrivelsen her...',
     'category'         => 'Kategori',
