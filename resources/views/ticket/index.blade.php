@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Helpdesk - {{ config('other.title') }}</title>
+    <title>@lang('ticket.helpdesk') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('tickets.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Helpdesk</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('ticket.helpdesk')</span>
         </a>
     </li>
 @endsection
@@ -23,7 +23,7 @@
             <div class="header gradient silver">
                 <div class="inner_content">
                     <div class="page-title">
-                        <h1 style="margin: 0;">Helpdesk</h1>
+                        <h1 style="margin: 0;">@lang('ticket.helpdesk')</h1>
                     </div>
                 </div>
             </div>
