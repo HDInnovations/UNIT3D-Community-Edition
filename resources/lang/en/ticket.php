@@ -12,15 +12,27 @@
  */
 
 return [
+    'assign'         => 'Assign',
+    'assigned-staff' => 'Assigned Staff',
+    'attachments'    => 'Attachments',
     'body'           => 'Body',
     'body-enter'     => 'Enter body here...',
     'category'       => 'Category',
+    'close'          => 'Close',
+    'closed'         => 'Closed',
     'create-ticket'  => 'Create Ticket',
+    'delete'         => 'Delete',
+    'description'    => 'Description',
+    'download'       => 'Download',
     'fix-errors'     => 'Please fix the following error(s) and try again:',
     'helpdesk'       => 'Helpdesk',
+    'no-attach'      => 'No attachments found',
     'priority'       => 'Priority',
+    'opened-by'      => 'Opened By:',
+    'reset'          => 'Reset',
     'subject'        => 'Subject',
     'subject-enter'  => 'Enter subject here...',
     'submit-ticket'  => 'Submit Ticket',
-    'reset'          => 'Reset',
+    'ticket'         => 'Ticket',
+    'unassign'       => 'Unassign',
 ];
