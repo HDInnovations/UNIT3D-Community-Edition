@@ -21,26 +21,31 @@ class CollectionSearch extends Component
 {
     use WithPagination;
 
-    protected $queryString = ['searchTerm'];
+    public $search;
 
-    public $searchTerm;
-
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    final public function getCollectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $searchTerm = '%'.$this->searchTerm.'%';
+        return Collection::withCount('movie')
+            ->with('movie')
+            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('name', 'asc')
+            ->paginate(25);
+    }
 
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    {
         return \view('livewire.collection-search', [
-            'collections' => Collection::withCount('movie')->with('movie')->where('name', 'LIKE', $searchTerm)->orderBy('name', 'asc')->paginate(25),
+            'collections' => $this->collections,
         ]);
     }
 }

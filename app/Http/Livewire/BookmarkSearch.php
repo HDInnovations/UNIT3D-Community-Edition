@@ -23,22 +23,27 @@ class BookmarkSearch extends Component
     use WithPagination;
 
     public $perPage = 25;
-    public $searchTerm = '';
+    public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
     public $user;
 
-    public function paginationView()
+    final public function mount(): void
+    {
+        $this->user = \auth()->user();
+    }
+
+    final public function paginationView()
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function sortBy($field)
+    final public function sortBy($field)
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -48,28 +53,32 @@ class BookmarkSearch extends Component
         $this->sortField = $field;
     }
 
-    public function mount()
+    final public function getUserProperty()
     {
-        $this->user = \auth()->user();
+        return User::where('username', '=', $this->user->username)->firstOrFail();
+    }
+
+    final public function getBookmarksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->user->bookmarks()
+            ->when($this->search, function ($query) {
+                return $query->where('name', 'LIKE', '%'.$this->search.'%');
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+    }
+
+    final public function getPersonalFreeleechProperty()
+    {
+        return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
 
     public function render()
     {
-        $user = User::where('username', '=', $this->user->username)->firstOrFail();
-
-        $bookmarks = $user->bookmarks()
-            ->when($this->searchTerm, function ($query) {
-                return $query->where('name', 'like', '%'.$this->searchTerm.'%');
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
-
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
-
         return \view('livewire.bookmark-search', [
-            'user'               => $user,
-            'personal_freeleech' => $personalFreeleech,
-            'bookmarks'          => $bookmarks,
+            'user'               => $this->user,
+            'personal_freeleech' => $this->personalFreeleech,
+            'bookmarks'          => $this->bookmarks,
         ]);
     }
 }

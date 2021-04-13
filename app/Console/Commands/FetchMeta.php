@@ -36,16 +36,6 @@ class FetchMeta extends Command
     protected $description = 'Fetchs Meta Data For New System On Preexxsisting Torrents';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

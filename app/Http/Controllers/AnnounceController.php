@@ -155,14 +155,19 @@ class AnnounceController extends Controller
 
         $userAgent = $request->header('User-Agent');
 
-        // Should also Block those too long User-Agent. ( For Database reason
+        // Should also block User-Agent strings that are to long. (For Database reasons)
         if (\strlen($userAgent) > 64) {
             throw new TrackerException(123);
         }
 
-        // Block Browser by check it's User-Agent
+        // Block Browser by checking it's User-Agent
         if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $userAgent)) {
             throw new TrackerException(121);
+        }
+
+        // Block Blacklisted Clients
+        if (in_array($request->header('User-Agent'), config('client-blacklist.clients'))) {
+            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
         }
     }
 
@@ -477,17 +482,17 @@ class AnnounceController extends Controller
         return [
             'failure reason' => $trackerException->getMessage(),
             'min interval'   => self::MIN,
-            /**
-             * BEP 31: Failure Retry Extension.
-             *
-             * However most bittorrent client don't support it, so this feature is disabled default
-             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
-             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
-             *  - libtransmission (e.g. Transmission )
-             *    This library will ignore any other key if failed
-             *
-             * @see http://www.bittorrent.org/beps/bep_0031.html
-             */
+        /**
+         * BEP 31: Failure Retry Extension.
+         *
+         * However most bittorrent client don't support it, so this feature is disabled default
+         *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
+         *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
+         *  - libtransmission (e.g. Transmission )
+         *    This library will ignore any other key if failed
+         *
+         * @see http://www.bittorrent.org/beps/bep_0031.html
+         */
             //'retry in' => self::MIN
         ];
     }

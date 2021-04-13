@@ -130,7 +130,7 @@
 
                     @if ($data->tv_meta)
                         <div class="form-group">
-                            <label for="episode_number">@lang('torrent.episode-number') <b>(@lang('request.required') For TV)</b></label>
+                            <label for="episode_number">@lang('torrent.episode-number') <b>(@lang('request.required') For TV. Use "0" For Season Packs.)</b></label>
                             <label>
                                 <input type="number" name="episode_number" id="episode_number" class="form-control" value="{{ old('episode_number') ?? '0' }}" required>
                             </label>

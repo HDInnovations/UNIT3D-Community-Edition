@@ -35,16 +35,6 @@ class SetCache extends Command
     protected $description = "Sets Several Common Cache's ...";
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

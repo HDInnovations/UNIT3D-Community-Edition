@@ -35,12 +35,9 @@ use App\Notifications\NewRequestFillApprove;
 use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
-use App\Repositories\RequestFacetedRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 /**
@@ -51,167 +48,20 @@ class RequestController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param \App\Repositories\RequestFacetedRepository $requestFacetedRepository
-     * @param \App\Repositories\ChatRepository           $chatRepository
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(private RequestFacetedRepository $requestFacetedRepository, private ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
     }
 
     /**
-     * Displays Requests List View.
-     *
-     * @param \Illuminate\Http\Request $request
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function requests(Request $request)
+    public function index()
     {
-        $user = $request->user();
-
-        $requests = DB::table('requests')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when filled_by is not null then 1 end) as filled')
-            ->selectRaw('count(case when filled_by is null then 1 end) as unfilled')
-            ->first();
-        $bounties = DB::table('requests')
-            ->selectRaw('coalesce(sum(bounty), 0) as total')
-            ->selectRaw('coalesce(sum(case when filled_by is not null then bounty end), 0) as claimed')
-            ->selectRaw('coalesce(sum(case when filled_by is null then bounty end), 0) as unclaimed')
-            ->first();
-
-        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
-        $repository = $this->requestFacetedRepository;
-
-        return \view('requests.requests', [
-            'torrentRequests'  => $torrentRequests,
-            'repository'       => $repository,
-            'user'             => $user,
-            'requests'         => $requests,
-            'bounties'         => $bounties,
-        ]);
-    }
-
-    /**
-     * Uses Input's To Put Together A Search.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param TorrentRequest           $torrentRequest
-     *
-     * @throws \Throwable
-     *
-     * @return array
-     */
-    public function faceted(Request $request, TorrentRequest $torrentRequest)
-    {
-        $user = $request->user();
-        $search = $request->input('search');
-        $imdbId = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
-        $imdb = \str_replace('tt', '', $imdbId);
-        $tvdb = $request->input('tvdb');
-        $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
-        $categories = $request->input('categories');
-        $types = $request->input('types');
-        $resolutions = $request->input('resolutions');
-        $myrequests = $request->input('myrequests');
-
-        $terms = \explode(' ', $search);
-        $search = '';
-        foreach ($terms as $term) {
-            $search .= '%'.$term.'%';
-        }
-
-        $torrentRequest = $torrentRequest->with(['user', 'category', 'type']);
-
-        if ($request->has('search') && $request->input('search') != null) {
-            $torrentRequest->where('name', 'like', $search);
-        }
-
-        if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrentRequest->where('imdb', '=', \str_replace('tt', '', $imdb));
-        }
-
-        if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrentRequest->orWhere('tvdb', '=', $tvdb);
-        }
-
-        if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrentRequest->orWhere('tmdb', '=', $tmdb);
-        }
-
-        if ($request->has('mal') && $request->input('mal') != null) {
-            $torrentRequest->orWhere('mal', '=', $mal);
-        }
-
-        if ($request->has('igdb') && $request->input('igdb') != null) {
-            $torrentRequest->orWhere('igdb', '=', $igdb);
-        }
-
-        if ($request->has('categories') && $request->input('categories') != null) {
-            $torrentRequest->whereIn('category_id', $categories);
-        }
-
-        if ($request->has('types') && $request->input('types') != null) {
-            $torrentRequest->whereIn('type_id', $types);
-        }
-
-        if ($request->has('resolutions') && $request->input('resolutions') != null) {
-            $torrentRequest->whereIn('resolution_id', $resolutions);
-        }
-
-        if ($request->has('unfilled') && $request->input('unfilled') != null) {
-            $torrentRequest->where('filled_hash', '=', null);
-        }
-
-        if ($request->has('claimed') && $request->input('claimed') != null) {
-            $torrentRequest->where('claimed', '!=', null)->where('filled_hash', '=', null);
-        }
-
-        if ($request->has('pending') && $request->input('pending') != null) {
-            $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '=', null);
-        }
-
-        if ($request->has('filled') && $request->input('filled') != null) {
-            $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
-        }
-
-        if ($request->has('myrequests') && $request->input('myrequests') != null) {
-            $torrentRequest->where('user_id', '=', $myrequests);
-        }
-
-        if ($request->has('myclaims') && $request->input('myclaims') != null) {
-            $requestCliams = TorrentRequestClaim::where('username', '=', $user->username)->pluck('request_id');
-            $torrentRequest->whereIn('id', $requestCliams);
-        }
-
-        if ($request->has('myvoted') && $request->input('myvoted') != null) {
-            $requestVotes = TorrentRequestBounty::where('user_id', '=', $user->id)->pluck('requests_id');
-            $torrentRequest->whereIn('id', $requestVotes);
-        }
-
-        if ($request->has('myfiled') && $request->input('myfiled') != null) {
-            $torrentRequest->where('filled_by', '=', $user->id);
-        }
-
-        if ($request->has('sorting')) {
-            $sorting = $request->input('sorting');
-            $order = $request->input('direction');
-            $torrentRequest->orderBy($sorting, $order);
-        }
-
-        if ($request->has('qty')) {
-            $qty = $request->get('qty');
-            $torrentRequests = $torrentRequest->paginate($qty);
-        } else {
-            $torrentRequests = $torrentRequest->paginate(25);
-        }
-
-        return \view('requests.results', [
-            'user'            => $user,
-            'torrentRequests' => $torrentRequests,
-        ])->render();
+        return \view('torrent_request.index');
     }
 
     /**
@@ -224,7 +74,6 @@ class RequestController extends Controller
      */
     public function request(Request $request, $id)
     {
-        // Find the torrent in the database
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
         $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
@@ -326,7 +175,7 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('requests')
+            return \redirect()->route('requests.index')
                 ->withErrors($v->errors())->withInput();
         }
         $torrentRequest->save();
@@ -370,7 +219,7 @@ class RequestController extends Controller
             );
         }
 
-        return \redirect()->route('requests')
+        return \redirect()->route('requests.index')
             ->withSuccess('Request Added.');
     }
 
@@ -449,7 +298,7 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('requests')
+            return \redirect()->route('requests.index')
                 ->withErrors($v->errors());
         }
         $torrentRequest->save();
@@ -463,7 +312,7 @@ class RequestController extends Controller
             $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
-        return \redirect()->route('requests', ['id' => $torrentRequest->id])
+        return \redirect()->route('request', ['id' => $torrentRequest->id])
             ->withSuccess('Request Edited Successfully.');
     }
 
@@ -712,7 +561,7 @@ class RequestController extends Controller
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
-            return \redirect()->route('requests')
+            return \redirect()->route('requests.index')
                 ->withSuccess(\sprintf('You have deleted %s', $name));
         }
 

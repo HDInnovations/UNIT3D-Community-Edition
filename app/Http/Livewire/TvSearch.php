@@ -21,28 +21,31 @@ class TvSearch extends Component
 {
     use WithPagination;
 
-    public $searchTerm = '';
+    public $search;
 
-    protected $queryString = ['searchTerm'];
-
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    final public function getShowsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return Tv::with('networks', 'genres')
+            ->withCount('torrents', 'seasons')
+            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('name', 'asc')
+            ->paginate(30);
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.tv-search', [
-            'shows' => Tv::with('networks', 'genres')
-                ->withCount('torrents', 'seasons')
-                ->where('name', 'LIKE', '%'.$this->searchTerm.'%')
-                ->orderBy('name', 'asc')
-                ->paginate(30),
+            'shows' => $this->shows,
         ]);
     }
 }

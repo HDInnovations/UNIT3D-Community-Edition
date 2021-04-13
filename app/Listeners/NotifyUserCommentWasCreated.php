@@ -11,14 +11,31 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-return [
-    'base_path' => base_path('/public'),
+namespace App\Listeners;
 
-    'algorithm' => env('SRI_ALGORITHM', 'sha256'),
+use App\Providers\CommentCreated;
 
-    'mix_sri_path' => public_path('mix_sri.json'),
-
-    'hashes' => [
+class NotifyUserCommentWasCreated
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
         //
-    ],
-];
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param CommentCreated $event
+     *
+     * @return void
+     */
+    public function handle(CommentCreated $event)
+    {
+        //
+    }
+}

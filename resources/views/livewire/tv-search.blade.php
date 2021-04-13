@@ -1,6 +1,6 @@
 <div>
 	<div class="mb-10">
-		<input type="text" wire:model="searchTerm" class="form-control" placeholder="Search By Name"/>
+		<input type="text" wire:model="search" class="form-control" placeholder="Search By Name"/>
 	</div>
 
 	@foreach($shows as $show)

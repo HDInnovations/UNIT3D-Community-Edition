@@ -13,17 +13,31 @@
 
 namespace App\Listeners;
 
-class LogoutListener
+use App\Events\TicketWentStale;
+use App\Notifications\UserTicketStale;
+
+class NotifyUserTicketIsStale
 {
     /**
-     * Handle the event.
-     *
-     * @param auth.logout $event
+     * Create the event listener.
      *
      * @return void
      */
-    public function handle($event)
+    public function __construct()
     {
         //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param TicketWentStale $event
+     *
+     * @return void
+     */
+    public function handle(TicketWentStale $event)
+    {
+        $event->ticket->user->notify(new UserTicketStale($event->ticket));
+        $event->ticket->update(['reminded_at' => time()]);
     }
 }

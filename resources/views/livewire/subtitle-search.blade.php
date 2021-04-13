@@ -11,10 +11,10 @@
 				</div>
 				<br>
 				<div class="mx-0 mt-5 form-group fatten-me">
-					<label for="searchTerm" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+					<label for="search" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
 					<div class="col-sm-9 fatten-me">
-						<label for="searchTerm"></label>
-						<input wire:model="searchTerm" type="text" class="form-control" placeholder="@lang('torrent.name')">
+						<label for="search"></label>
+						<input wire:model="search" type="text" class="form-control" placeholder="@lang('torrent.name')">
 					</div>
 				</div>
 

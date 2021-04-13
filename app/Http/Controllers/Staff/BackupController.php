@@ -92,7 +92,7 @@ class BackupController extends Controller
             Artisan::call('backup:run');
             $output = Artisan::output();
             if (\strpos($output, 'Backup failed because')) {
-                \preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                \preg_match('/Backup failed because(.*?)$/ms', $output, $match);
                 $message = 'BackupManager process failed because ';
                 $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);
@@ -128,7 +128,7 @@ class BackupController extends Controller
             Artisan::call('backup:run --only-files');
             $output = Artisan::output();
             if (\strpos($output, 'Backup failed because')) {
-                \preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                \preg_match('/Backup failed because(.*?)$/ms', $output, $match);
                 $message = 'BackupManager process failed because ';
                 $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);
@@ -164,7 +164,7 @@ class BackupController extends Controller
             Artisan::call('backup:run --only-db');
             $output = Artisan::output();
             if (\strpos($output, 'Backup failed because')) {
-                \preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                \preg_match('/Backup failed because(.*?)$/ms', $output, $match);
                 $message = 'BackupManager process failed because ';
                 $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);

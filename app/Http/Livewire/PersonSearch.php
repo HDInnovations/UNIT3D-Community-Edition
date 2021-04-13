@@ -21,26 +21,30 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
-    protected $queryString = ['searchTerm'];
+    public $search;
 
-    public $searchTerm;
-
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $searchTerm = '%'.$this->searchTerm.'%';
+        return Person::select(['id', 'still', 'name'])
+            ->whereNotNull('still')->where('name', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('name', 'asc')
+            ->paginate(30);
+    }
 
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    {
         return \view('livewire.person-search', [
-            'persons' => Person::select(['id', 'still', 'name'])->whereNotNull('still')->where('name', 'LIKE', $searchTerm)->orderBy('name', 'asc')->paginate(30),
+            'persons' => $this->persons,
         ]);
     }
 }

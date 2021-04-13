@@ -128,19 +128,23 @@
                     </div>
 
                     @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
-                    <div class="form-group">
-                        <label for="resolution_id">@lang('request.resolution')</label>
-                        <label>
-                            <select name="resolution_id" class="form-control">
-                                <option value="{{ $torrentRequest->resolution->id }}" selected>{{ $torrentRequest->resolution->name }}
-                                    (@lang('request.current'))
-                                </option>
-                                @foreach ($resolutions as $resolution)
-                                    <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
-                    </div>
+                        <div class="form-group">
+                            <label for="resolution_id">@lang('torrent.resolution')</label>
+                            <label>
+                                <select name="resolution_id" class="form-control">
+                                    @if (! $torrentRequest->resolution)
+                                        <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>)
+                                    @else
+                                        <option value="{{ $torrentRequest->resolution->id }}" selected>{{ $torrentRequest->resolution->name }}
+                                            (@lang('request.current'))
+                                        </option>
+                                    @endif
+                                    @foreach ($resolutions as $resolution)
+                                        <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
                     @endif
         
                     <div class="form-group">

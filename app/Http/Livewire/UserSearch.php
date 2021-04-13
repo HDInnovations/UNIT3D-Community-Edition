@@ -22,21 +22,32 @@ class UserSearch extends Component
     use WithPagination;
 
     public $perPage = 25;
-    public $searchTerm = '';
+    public $search = '';
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
 
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function sortBy($field)
+    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return User::query()
+            ->with('group')
+            ->when($this->search, function ($query) {
+                return $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%');
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+    }
+
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -46,16 +57,10 @@ class UserSearch extends Component
         $this->sortField = $field;
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.user-search', [
-            'users' => User::query()
-                ->with('group')
-                ->when($this->searchTerm, function ($query) {
-                    return $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%');
-                })
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage),
+            'users' => $this->users,
         ]);
     }
 }

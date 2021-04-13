@@ -79,6 +79,12 @@
                                         </i>
                                         </a>
                                     @endif
+                                    @php $watched = App\Models\Watchlist::whereUserId($user->id)->first(); @endphp
+                                    @if ($watched && auth()->user()->group->is_modo)
+                                        <i class="{{ config('other.font-awesome') }} fa-eye fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
+                                           title="" data-original-title="User is being watched!">
+                                        </i>
+                                    @endif
                                 </h2>
                                 <h4>@lang('common.group'): <span class="badge-user text-bold"
                                                                        style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i
@@ -92,6 +98,18 @@
                                         <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                 data-target="#modal_user_note"><span
                                                     class="{{ config('other.font-awesome') }} fa-sticky-note"></span> @lang('user.note') </button>
+                                        @if(! $watched)
+                                        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_watch">
+                                            <span class="{{ config('other.font-awesome') }} fa-eye"></span> Watch </button>
+                                        @else
+                                            <form style="display: inline;" action="{{ route('staff.watchlist.destroy', ['id' => $watched->id]) }}" method="POST">
+							                    @csrf
+                                                @method('DELETE')
+							                    <button class="btn btn-xs btn-warning" type="submit">
+								                    <i class="{{ config('other.font-awesome') }} fa-eye-slash"></i> Unwatch
+							                    </button>
+						                    </form>
+                                        @endif
                                         @if ($user->group->id == 5)
                                             <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                     data-target="#modal_user_unban"><span

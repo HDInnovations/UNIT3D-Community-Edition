@@ -11,10 +11,9 @@
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read',
-                '=', '0')->count(); @endphp
+                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
                 <a href="{{ route('inbox') }}" class="dropdown-toggle icon-circle">
-                    <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
                     @if ($pm > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                     @endif
@@ -31,15 +30,45 @@
             </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('achievements.index') }}" class="icon-circle">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
+                <a href="{{ route('articles.index') }}" class="icon-circle">
+                    <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
+                </a>
+            </li>
+
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
+                <a href="{{ route('tickets.index') }}" class="icon-circle">
+                    <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
+                    <!-- Notifications for Mods -->
+                    @if (auth()->user()->group->is_modo)
+                        @php $tickets = DB::table('tickets')
+                            ->whereNull('closed_at')->whereNull('staff_id')
+                            ->orwhere(function($query) {
+                                $query->where('staff_id', '=', auth()->user()->id)
+                                      ->Where('staff_read', '=', '0');
+                            })
+                            ->count();
+                        @endphp
+                        @if ($tickets > 0)
+                            <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
+                        @endif
+                    <!-- Notification for Users -->
+                    @else
+                        @php $ticket_unread = DB::table('tickets')
+                            ->where('user_id', '=', auth()->user()->id)
+                            ->where('user_read', '=', '0')
+                            ->count();
+                        @endphp
+                        @if ($ticket_unread > 0)
+                            <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
+                        @endif
+                    @endif
                 </a>
             </li>
 
             @if (auth()->user()->group->is_modo)
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="{{ route('staff.moderation.index') }}" class="icon-circle">
-                        <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
+                        <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
                     @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if ($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
@@ -84,6 +113,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('achievements.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i> My @lang('user.achievements')
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.my-uploads')
                         </a>
@@ -112,6 +146,5 @@
                 </ul>
             </li>
         </ul>
-        </li>
     </div>
 </header>
