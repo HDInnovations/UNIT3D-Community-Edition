@@ -21,6 +21,7 @@ return [
     'close'          => 'Close',
     'closed'         => 'Closed',
     'create-ticket'  => 'Create Ticket',
+    'created'        => 'Created',
     'delete'         => 'Delete',
     'description'    => 'Description',
     'download'       => 'Download',
