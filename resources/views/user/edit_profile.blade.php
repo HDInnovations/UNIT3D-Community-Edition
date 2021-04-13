@@ -34,36 +34,36 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="well">
-    
+
                         <div class="form-group">
                             <label for="image">@lang('user.avatar')</label>
                             <small>@lang('user.formats-are-supported', ['formats' => '.jpg , .jpeg , .bmp , .png , .tiff ,
                                 .gif'])</small>
                             <input type="file" name="image">
                         </div>
-    
+
                         <div class="form-group">
                             <label for="title">@lang('user.custom-title')</label>
                             <label>
                                 <input type="text" name="title" class="form-control" value="{{ $user->title }}">
                             </label>
                         </div>
-    
+
                         <div class="form-group">
                             <label for="about">@lang('user.about-me') <span class="badge-extra">BBCode
                                     @lang('common.is-allowed')</span></label>
                             <label>
-                                <textarea name="about" cols="30" rows="10" maxlength="496" class="form-control">{{ $user->about }}</textarea>
+                                <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
                             </label>
                         </div>
-    
+
                         <div class="form-group">
                             <label for="signature">@lang('user.forum-signature') <span class="badge-extra">BBCode
                                     @lang('common.is-allowed')</span></label>
                             <label for=""></label>
                             <textarea name="signature" id="" cols="30" rows="10" class="form-control">{{ $user->signature }}</textarea>
                         </div>
-    
+
                         @if ( !is_null($user->signature))
                             <div class="text-center">
                                 <p>@lang('user.forum-signature') </p> {!! $user->getSignature() !!}
@@ -74,7 +74,7 @@
                         <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                     </div>
                 </form>
-    
+
             </div>
         </div>
     </div>

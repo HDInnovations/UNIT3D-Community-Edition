@@ -13,7 +13,6 @@
 
 return [
     'about'                                 => 'Om',
-    'about-me'                              => 'Om mig (500 max tegn!)',
     'about-me'                              => 'Om mig',
     'accepted-at'                           => 'Accepteret den',
     'accepted-by'                           => 'Accepteret af',
