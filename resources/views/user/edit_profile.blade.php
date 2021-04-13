@@ -53,7 +53,7 @@
                             <label for="about">@lang('user.about-me') <span class="badge-extra">BBCode
                                     @lang('common.is-allowed')</span></label>
                             <label>
-                                <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
+                                <textarea name="about" id="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
                             </label>
                         </div>
 
@@ -61,7 +61,7 @@
                             <label for="signature">@lang('user.forum-signature') <span class="badge-extra">BBCode
                                     @lang('common.is-allowed')</span></label>
                             <label for=""></label>
-                            <textarea name="signature" id="" cols="30" rows="10" class="form-control">{{ $user->signature }}</textarea>
+                            <textarea name="signature" id="signature" cols="30" rows="10" class="form-control">{{ $user->signature }}</textarea>
                         </div>
 
                         @if ( !is_null($user->signature))
@@ -79,4 +79,12 @@
         </div>
     </div>
     </div>
+@endsection
+
+@section('javascripts')
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        $(document).ready(function() {
+            $('#about, #signature').wysibb({});
+        })
+    </script>
 @endsection
