@@ -3,5 +3,5 @@
 
 	@error('attachment') <span class="error">{{ $message }}</span> @enderror
 
-	<button wire:click="upload">@lang('ticket.attachment-save')</button>
+	<button wire:click="upload">@lang('ticket.attachments-save')</button>
 </div>
