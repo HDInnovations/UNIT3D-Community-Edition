@@ -13,7 +13,7 @@
 
 return [
     'assign'         => 'Tildel',
-    'assigned-staff' => 'Tildelt Staff',
+    'assigned-staff' => 'Tildelt',
     'attachments'    => 'Vedhæftninger',
     'body'           => 'Beskrivelse',
     'body-enter'     => 'Skriv beskrivelsen her...',
