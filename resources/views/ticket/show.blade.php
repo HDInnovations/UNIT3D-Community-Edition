@@ -40,7 +40,7 @@
                         <div class="panel-heading">@lang('ticket.ticket') <i class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
                         <div class="panel-body">
                         <span class="float-right small text-right">
-                            <i class="far fa-user"></i> Opened By:
+                            <i class="far fa-user"></i> @lang('ticket.opened-by')
                             <a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
                                 {{ $ticket->user->username }}
                             </a>
