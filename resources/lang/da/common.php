@@ -180,6 +180,8 @@ return [
     'rules'                => 'Regler',
     'save'                 => 'Gem',
     'search'               => 'Søgning',
+    'search-advanced'      => 'Avanceret søgning',
+    'search-hide'          => 'Skjul avanceret søgning',
     'search-results'       => 'Søgeresultater',
     'search-results-desc'  => 'Se dine resultater nedenfor',
     'second'               => 'Sekund(er)',
