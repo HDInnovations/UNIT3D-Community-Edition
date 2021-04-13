@@ -35,6 +35,6 @@ return [
     'subject'          => 'Emne',
     'subject-enter'    => 'Skriv emne her...',
     'submit-ticket'    => 'Indsend Sag',
-    'ticket'           => 'Sager',
+    'ticket'           => 'Sag',
     'unassign'         => 'Fjern tildeling',
 ];
