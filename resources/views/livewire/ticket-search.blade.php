@@ -1,6 +1,6 @@
 <div>
 	<div class="mb-10 form-inline pull-left">
-		<a href="{{ route('tickets.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> New Ticket</a>
+		<a href="{{ route('tickets.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> @lang('ticket.create-ticket')</a>
 	</div>
 	<div class="mb-10 form-inline pull-right">
 		<div class="form-group">
@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="text" wire:model="search" class="form-control" style="width: 275px;" placeholder="Subject"/>
+			<input type="text" wire:model="search" class="form-control" style="width: 275px;" placeholder="@lang('ticket.subject')"/>
 		</div>
 	</div>
 	<div class="box-body no-padding">
@@ -28,13 +28,13 @@
 				</th>
 				<th>
 					<div sortable wire:click="sortBy('subject')" :direction="$sortField === 'subject' ? $sortDirection : null" role="button">
-						Subject
+						@lang('ticket.subject')
 						@include('livewire.includes._sort-icon', ['field' => 'subject'])
 					</div>
 				</th>
 				<th>
 					<div sortable wire:click="sortBy('priority_id')" :direction="$sortField === 'priority_id' ? $sortDirection : null" role="button">
-						Priority
+						@lang('ticket.priority')
 						@include('livewire.includes._sort-icon', ['field' => 'priority_id'])
 					</div>
 				</th>
@@ -47,21 +47,21 @@
 				<th class="hidden-sm hidden-xs">
 					<div sortable wire:click="sortBy('closed_at')" :direction="$sortField === 'closed_at' ? $sortDirection : null"
 					     role="button">
-						Status
+						@lang('common.status')
 						@include('livewire.includes._sort-icon', ['field' => 'closed_at'])
 					</div>
 				</th>
 				<th class="hidden-sm hidden-xs">
 					<div sortable wire:click="sortBy('staff_id')" :direction="$sortField === 'staff_id' ? $sortDirection : null"
 					     role="button">
-						Assigned
+						@lang('ticket.assigned-staff')
 						@include('livewire.includes._sort-icon', ['field' => 'staff_id'])
 					</div>
 				</th>
 				<th class="hidden-sm hidden-xs">
 					<div sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null"
 					     role="button">
-						Created
+						@lang('ticket.created')
 						@include('livewire.includes._sort-icon', ['field' => 'created_at'])
 					</div>
 				</th>

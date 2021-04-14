@@ -12,16 +12,16 @@
 			<div class="mt-5">
 				<div class="row">
 					<div class="form-group col-xs-9">
-						<input wire:model="name" type="search" class="form-control" placeholder="Name" />
+						<input wire:model="name" type="search" class="form-control" placeholder="@lang('common.name')" />
 					</div>
 					<div class="form-group col-xs-3">
-						<button class="btn btn-md btn-primary" @click="open = ! open" x-text="open ? 'Hide Advanced Search' : 'Advanced Search...'"></button>
+						<button class="btn btn-md btn-primary" @click="open = ! open" x-text="open ? '@lang('common.search-hide')' : '@lang('common.search-advanced')'"></button>
 					</div>
 				</div>
 				<div x-show="open">
 					<div class="row">
 						<div class="form-group col-xs-9">
-							<input wire:model="requestor" type="search" class="form-control" placeholder="Requestor Username" />
+							<input wire:model="requestor" type="search" class="form-control" placeholder="@lang('common.author')" />
 						</div>
 					</div>
 					<div class="row">

@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Helpdesk - {{ config('other.title') }}</title>
+    <title>@lang('ticket.helpdesk') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('tickets.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Helpdesk</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('ticket.helpdesk')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('tickets.show', ['id' => $ticket->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Ticket #{{ $ticket->id }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('ticket.ticket') #{{ $ticket->id }}</span>
         </a>
     </li>
 @endsection
@@ -26,7 +26,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h6><b>Please fix the following error(s) and try again:</b></h6>
+                    <h6><b>@lang('ticket.fix-errors')</b></h6>
                     <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -37,10 +37,10 @@
 
                 <div class="col-md-8">
                     <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">Ticket <i class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
+                        <div class="panel-heading">@lang('ticket.ticket') <i class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
                         <div class="panel-body">
                         <span class="float-right small text-right">
-                            <i class="far fa-user"></i> Opened By:
+                            <i class="far fa-user"></i> @lang('ticket.opened-by')
                             <a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
                                 {{ $ticket->user->username }}
                             </a>
@@ -50,16 +50,16 @@
                                     @if(empty($ticket->closed_at))
                                         <form style="display: inline;" role="form" method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-xs btn-warning"><i class="fas fa-times"></i> Close</button>
+                                            <button type="submit" class="btn btn-xs btn-warning"><i class="fas fa-times"></i> @lang('ticket.close')</button>
                                         </form>
                                     @endif
                                         @if(!empty($ticket->closed_at))
-                                            <span style="display: inline;" class="text-danger">Closed {{ $ticket->closed_at->format('m/d/Y') }}</span>
+                                            <span style="display: inline;" class="text-danger">@lang('ticket.closed') {{ $ticket->closed_at->format('m/d/Y') }}</span>
                                         @endif
                                         <form style="display: inline;" role="form" method="POST" action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-xs btn-danger"><i class="fas fa-times"></i> Delete</button>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="fas fa-times"></i> @lang('ticket.delete')</button>
                                         </form>
                                     </div>
                                 </div>
@@ -76,12 +76,12 @@
                                                             <option value="{{ $user->id }}">{{ $user->username }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <button type="submit" class="btn btn-sm btn-warning">Assign</button>
+                                                    <button type="submit" class="btn btn-sm btn-warning">@lang('ticket.assign')</button>
                                                 </form>
                                             @else
                                                 <form role="form" method="POST" action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-sm btn-warning">Unassign</button>
+                                                    <button type="submit" class="btn btn-sm btn-warning">@lang('ticket.unassign')</button>
                                                 </form>
                                             @endif
                                         </div>
@@ -92,7 +92,7 @@
                             <div class="row">
                                 @if(isset($ticket->staff_id))
                                     <div class="col-md-3">
-                                        <label for=""><b>Assigned Staff</b></label><br>
+                                        <label for=""><b>@lang('ticket.assigned-staff')</b></label><br>
                                         <i class="far fa-user"></i>
                                         <a href="{{ route('users.show', ['username' => $ticket->staff->username]) }}">
                                             {{ $ticket->staff->username }}
@@ -100,11 +100,11 @@
                                     </div>
                                 @endif
                                 <div class="col-md-4">
-                                    <label for=""><b>Category</b></label><br>
+                                    <label for=""><b>@lang('ticket.category')</b></label><br>
                                     {{ $ticket->category->name }}
                                 </div>
                                 <div class="col-md-2">
-                                    <label for=""><b>Priority</b></label><br>
+                                    <label for=""><b>@lang('ticket.priority')</b></label><br>
                                     @if($ticket->priority->name === 'Low')
                                         <i class="fas fa-circle text-yellow"></i>
                                     @elseif ($ticket->priority->name === 'Medium')
@@ -115,14 +115,14 @@
                                     {{ $ticket->priority->name }}
                                 </div>
                                 <div class="col-md-3">
-                                    <label for=""><b>Subject</b></label><br>
+                                    <label for=""><b>@lang('ticket.subject')</b></label><br>
                                     {{ $ticket->subject }}
                                 </div>
                             </div>
                             <hr style="margin: 8px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for=""><b>Description</b></label><br>
+                                    <label for=""><b>@lang('ticket.description')</b></label><br>
                                     {{ $ticket->body }}
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
 
                 <div class="col-md-4">
                     <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading"><i class="fas fa-file-pdf"></i> Attachments</div>
+                        <div class="panel-heading"><i class="fas fa-file-pdf"></i> @lang('ticket.attachments')</div>
                         <div class="panel-body">
                             @livewire('attachment-upload', ['id' => $ticket->id])
                             @if(count($ticket->attachments))
@@ -144,7 +144,7 @@
                                                 <td style="width:100px">
                                                     <form action="{{ route('tickets.attachment.download', $attachment) }}" method="POST">
                                                         @csrf
-                                                        <button class="btn btn-success btn-sm">Download</button>
+                                                        <button class="btn btn-success btn-sm">@lang('ticket.download')</button>
                                                     </form>
                                                 </td>
                                                 <td>{{ $attachment->file_name }}</td>
@@ -154,7 +154,7 @@
                                     </table>
                                 </div>
                             @else
-                                No attachments found
+                                @lang('ticket.no-attach')
                             @endif
                         </div>
                     </div>
