@@ -458,20 +458,25 @@ class TorrentController extends BaseController
             $torrent->where('torrents.internal', '=', $internal);
         }
 
+        $func = 'where';
+
         if ($request->has('alive') && $request->input('alive') != null) {
-            $torrent->where('torrents.seeders', '>=', $alive);
+            $torrent->$func('torrents.seeders', '>=', $alive);
+            $func = 'orWhere';
         }
 
         if ($request->has('dying') && $request->input('dying') != null) {
-            $torrent->where('torrents.seeders', '=', $dying)->where('times_completed', '>=', 3);
+            $torrent->$func([['torrents.seeders', '=', $dying], ['times_completed', '>=', 3]]);
+            $func = 'orWhere';
         }
 
         if ($request->has('dead') && $request->input('dead') != null) {
-            $torrent->where('torrents.seeders', '=', $dead);
+            $torrent->$func('torrents.seeders', '=', $dead);
+            $func = 'orWhere';
         }
 
         if ($request->has('reseed') && $request->input('reseed') != null) {
-            $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
+            $torrent->$func([['torrents.seeders', '=', 0], ['torrents.leechers', '>=', 1]]);
         }
 
         if ($torrent !== null) {

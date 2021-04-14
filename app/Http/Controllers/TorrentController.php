@@ -548,16 +548,20 @@ class TorrentController extends Controller
                 $torrent->where('torrentsl.internal', '=', $internal);
             }
 
+            $func = 'where';
+
             if ($request->has('alive') && $request->input('alive') != null) {
-                $torrent->where('torrentsl.seeders', '>=', $alive);
+                $torrent->$func('torrentsl.seeders', '>=', $alive);
+                $func = 'orWhere';
             }
 
             if ($request->has('dying') && $request->input('dying') != null) {
-                $torrent->where('torrentsl.seeders', '=', $dying)->where('torrentsl.times_completed', '>=', 3);
+                $torrent->$func([['torrentsl.seeders', '=', $dying], ['torrentsl.times_completed', '>=', 3]]);
+                $func = 'orWhere';
             }
 
             if ($request->has('dead') && $request->input('dead') != null) {
-                $torrent->where('torrentsl.seeders', '=', $dead);
+                $torrent->$func('torrentsl.seeders', '=', $dead);
             }
         } elseif ($nohistory == 1) {
             $history = History::select(['torrents.id'])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->get()->toArray();
@@ -690,16 +694,20 @@ class TorrentController extends Controller
                 $torrent->where('torrents.internal', '=', $internal);
             }
 
+            $func = 'where';
+
             if ($request->has('alive') && $request->input('alive') != null) {
-                $torrent->where('torrents.seeders', '>=', $alive);
+                $torrent->$func('torrents.seeders', '>=', $alive);
+                $func = 'orWhere';
             }
 
             if ($request->has('dying') && $request->input('dying') != null) {
-                $torrent->where('torrents.seeders', '=', $dying)->where('times_completed', '>=', 3);
+                $torrent->$func([['torrents.seeders', '=', $dying], ['times_completed', '>=', 3]]);
+                $func = 'orWhere';
             }
 
             if ($request->has('dead') && $request->input('dead') != null) {
-                $torrent->where('torrents.seeders', '=', $dead);
+                $torrent->$func('torrents.seeders', '=', $dead);
             }
         }
 
