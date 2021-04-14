@@ -1268,6 +1268,14 @@ class TorrentController extends Controller
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
 
+        $torrentFiles = TorrentTools::getTorrentFiles($decodedTorrent);
+        foreach ($torrentFiles as $file) {
+            if (! TorrentTools::isValidFilename($file['name'])) {
+                return \redirect()->route('upload_form', ['category_id' => $category->id])
+                    ->withErrors('Invalid Filenames In Torrent Files!')->withInput();
+            }
+        }
+
         $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
@@ -1338,7 +1346,7 @@ class TorrentController extends Controller
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
+        foreach ($torrentFiles as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];

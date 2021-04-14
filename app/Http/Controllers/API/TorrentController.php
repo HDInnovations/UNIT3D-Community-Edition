@@ -88,6 +88,13 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
+        $torrentFiles = TorrentTools::getTorrentFiles($decodedTorrent);
+        foreach ($torrentFiles as $file) {
+            if (! TorrentTools::isValidFilename($file['name'])) {
+                return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
+            }
+        }
+
         $fileName = \sprintf('%s.torrent', \uniqid('', true)); // Generate a unique name
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
@@ -181,7 +188,7 @@ class TorrentController extends BaseController
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
+        foreach ($torrentFiles as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];
