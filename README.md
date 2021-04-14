@@ -120,8 +120,15 @@ sudo ./install.sh
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
+### Demo Data
+
+Use this command to generate demo users and torrents for testing purposes:
+
+`php artisan demo:seed`
+
 ## <a name="docs"></a> 📖 Documentation (Out Of Date!)
 Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
+
 Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
 ## <a name="updating"></a> 🖥️ Updating
