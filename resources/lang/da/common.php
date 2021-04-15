@@ -155,7 +155,7 @@ return [
     'patron'               => 'Bliv en Patron',
     'pending-torrents'     => 'Afventende Torrents',
     'personal'             => 'Personlig',
-    'plural-suffix'        => 'er',
+    'plural-suffix'        => '',
     'port'                 => 'Port',
     'position'             => 'Position',
     'posts'                => 'Indlæg',
