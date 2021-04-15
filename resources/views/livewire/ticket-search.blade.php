@@ -160,8 +160,11 @@
 									   href="{{ route('tickets.show', ['id' => $ticket->id]) }}">View</a>
 								</li>
 								<li role="presentation">
-									<a role="menuitem" tabindex="-1"
-									   href="{{ route('tickets.close', ['id' => $ticket->id]) }}">Close</a>
+									<form method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
+										@csrf
+										<button type="submit" role="menuitem" tabindex="-1" style="background-color: #fff; color: #555;
+										font-weight: 400; padding: 7px 15px;">Close</button>
+									</form>
 								</li>
 							</ul>
 						</div>

@@ -13,7 +13,7 @@
 
 return [
     'about'                                => 'Über',
-    'about-me'                             => 'Über mich (max 500 Zeichen)',
+    'about-me'                             => 'Über mich',
     'accepted-at'                          => 'Akzeptiert um',
     'accepted-by'                          => 'Akzeptiert von',
     'account-notification'                 => 'Konto-Benachrichtigungs-Einstellungen',

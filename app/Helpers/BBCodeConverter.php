@@ -316,9 +316,22 @@ class BBCodeConverter
      */
     protected function replaceSpoilers()
     {
-        $this->text = \preg_replace_callback('#\[spoiler\]([\W\D\w\s]*?)\[/spoiler\]#iu',
+        $this->text = \preg_replace_callback('#\[spoiler\](.*?)\[\/spoiler\]#ius',
 
-            fn ($matches) => '<details><summary>Spoiler!</summary><pre><code>'.\trim($matches[1], ' ').'</code></pre></details>',
+            fn ($matches) => '<p><details class="label label-primary"><summary>Spoiler</summary><pre><code>'.\trim($matches[1]).'</code></pre></details></p>',
+
+            $this->text
+        );
+    }
+
+    /**
+     * @brief Replace BBCode named spoiler.
+     */
+    protected function replaceNamedSpoilers()
+    {
+        $this->text = \preg_replace_callback('#\[spoiler\=(.*?)\](.*?)\[\/spoiler\]#ius',
+
+            fn ($matches) => '<p><details class="label label-primary"><summary>'.\trim($matches[1]).'</summary><pre><code>'.\trim($matches[2]).'</code></pre></details></p>',
 
             $this->text
         );
@@ -408,6 +421,7 @@ class BBCodeConverter
         $this->replaceQuotes();
         $this->replaceSnippets();
         $this->replaceSpoilers();
+        $this->replaceNamedSpoilers();
         $this->replaceColor();
         $this->replaceVideo();
         $this->replaceYoutube();

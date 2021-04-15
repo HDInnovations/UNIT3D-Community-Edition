@@ -183,7 +183,7 @@
                         <tr>
                             <td>@lang('user.about')</td>
                             <td>
-                                <span class="badge-extra">@joypixels($user->getAboutHtml())</span>
+                                @joypixels($user->getAboutHtml())
                             </td>
                         </tr>
                         @endif
