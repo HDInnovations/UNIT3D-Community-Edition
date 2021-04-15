@@ -183,4 +183,24 @@ class TorrentTools
 
         return $fileContent;
     }
+
+    /**
+     * Check if the filename is valid or not.
+     *
+     * @param $filename
+     *
+     * @return bool
+     */
+    public static function isValidFilename($filename)
+    {
+        $result = true;
+        if (\strlen($filename) > 255 ||
+            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', $filename) ||
+            \preg_match('#(^\.+|[\. ]+)$#', $filename) ||
+            \preg_match('#^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$#i', $filename)) {
+            $result = false;
+        }
+
+        return $result;
+    }
 }
