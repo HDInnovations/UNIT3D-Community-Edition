@@ -28,9 +28,11 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-question"></i>
+                    <p class="text-red">
+                        <strong><i class="{{ config('other.font-awesome') }} fa-question"></i>
                             @lang('staff.possible-leech-cheaters')
-                        </strong></p>
+                        </strong>
+                    </p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
@@ -57,7 +59,11 @@
                                             </span>
                                         </td>
                                         <td>
-                                            {{ $cheater->user->created_at->toDayDateTimeString() }}
+                                            @if ($cheater->user->created_at != null)
+                                                {{ $cheater->user->created_at->toDayDateTimeString() }}
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
                                         <td>
                                             @if ($cheater->user->last_login != null)

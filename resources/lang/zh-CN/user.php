@@ -13,7 +13,7 @@
 
 return [
     'about'                         => '关于',
-    'about-me'                      => '自我介绍（不超过500字符！）',
+    'about-me'                      => '自我介绍',
     'accepted-at'                   => '接受于',
     'accepted-by'                   => '接受者',
     'account-notification'          => '帐户通知设定',

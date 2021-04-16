@@ -21,26 +21,30 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
-    protected $queryString = ['searchTerm'];
+    public $search;
 
-    public $searchTerm;
-
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $searchTerm = '%'.$this->searchTerm.'%';
+        return Network::withCount('tv')
+            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('name', 'asc')
+            ->paginate(30);
+    }
 
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    {
         return \view('livewire.network-search', [
-            'networks' => Network::withCount('tv')->where('name', 'LIKE', $searchTerm)->orderBy('name', 'asc')->paginate(30),
+            'networks' => $this->networks,
         ]);
     }
 }

@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('requests.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('request.requests')</span>
         </a>
     </li>

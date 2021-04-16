@@ -26,13 +26,13 @@ class AttachmentUpload extends Component
     public $attachment;
     public $storedImage;
 
-    public function mount(int $id)
+    final public function mount(int $id): void
     {
         $this->user = \auth()->user();
         $this->ticket = $id;
     }
 
-    public function upload()
+    final public function upload(): void
     {
         $this->validate([
             'attachment' => 'image|max:1024', // 1MB Max
@@ -53,7 +53,7 @@ class AttachmentUpload extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ticket Attachment Uploaded Successfully!']);
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.attachment-upload');
     }

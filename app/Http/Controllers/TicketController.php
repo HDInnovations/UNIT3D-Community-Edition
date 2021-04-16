@@ -100,6 +100,16 @@ class TicketController extends Controller
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
+        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+
+        if ($user->id == $ticket->user_id) {
+            $ticket->user_read = 1;
+            $ticket->save();
+        }
+        if ($user->id == $ticket->staff_id) {
+            $ticket->staff_read = 1;
+            $ticket->save();
+        }
 
         return view('ticket.show', [
             'user'   => $user,
@@ -193,6 +203,7 @@ class TicketController extends Controller
         \abort_unless($user->hasPrivilegeTo('helpdesk_can_handle'), 403);
 
         $ticket->staff_id = $request->input('user_id');
+        $ticket->staff_read = 0;
 
         $v = \validator($ticket->toArray(), [
             'user_id' => 'required|exists:users,id',

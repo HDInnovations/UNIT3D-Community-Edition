@@ -21,28 +21,31 @@ class MovieSearch extends Component
 {
     use WithPagination;
 
-    public $searchTerm = '';
+    public $search;
 
-    protected $queryString = ['searchTerm'];
-
-    public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    public function updatingSearchTerm()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    final public function getMoviesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return Movie::with('companies', 'genres')
+            ->withCount('torrents')
+            ->where('title', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('title', 'asc')
+            ->paginate(30);
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.movie-search', [
-            'movies' => Movie::with('companies', 'genres')
-                ->withCount('torrents')
-                ->where('title', 'LIKE', '%'.$this->searchTerm.'%')
-                ->orderBy('title', 'asc')
-                ->paginate(30),
+            'movies' => $this->movies,
         ]);
     }
 }
