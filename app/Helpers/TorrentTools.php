@@ -136,6 +136,33 @@ class TorrentTools
     }
 
     /**
+     * Returns file and folder names from the torrent.
+     *
+     * @param $decodedTorrent
+     *
+     * @return array
+     */
+    public static function getFilenameArray($decodedTorrent)
+    {
+        $filenames = [];
+
+        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+            foreach ($decodedTorrent['info']['files'] as $k => $file) {
+                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
+                for ($i = 0; $i < $count; $i++) {
+                    if (! \in_array($file['path'][$i], $filenames)) {
+                        $filenames[] = $file['path'][$i];
+                    }
+                }
+            }
+        } else {
+            $filenames[] = $decodedTorrent['info']['name'];
+        }
+
+        return $filenames;
+    }
+
+    /**
      * Returns the sha1 (hash) of the torrent.
      *
      * @param $decodedTorrent
