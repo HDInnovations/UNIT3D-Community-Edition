@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Privilege;
+use Illuminate\Support\Facades\DB;
 
 trait HasPrivilege
 {
@@ -54,9 +55,12 @@ trait HasPrivilege
      */
     public function hasPrivilegeTo($privilege)
     {
-        $perm = Privilege::where('slug', '=', $privilege)->firstOrFail();
 
-        return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);
+        return (bool) DB::select('SELECT UserHasPrivilegeTo('.$this->id.', \''.$privilege.'\') AS result')[0]->result;
+        
+        /*$perm = Privilege::where('slug', '=', $privilege)->firstOrFail();
+
+        return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);*/
     }
 
     /**
