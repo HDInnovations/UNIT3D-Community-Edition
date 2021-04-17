@@ -55,9 +55,8 @@ trait HasPrivilege
      */
     public function hasPrivilegeTo($privilege)
     {
-
         return (bool) DB::select('SELECT UserHasPrivilegeTo('.$this->id.', \''.$privilege.'\') AS result')[0]->result;
-        
+
         /*$perm = Privilege::where('slug', '=', $privilege)->firstOrFail();
 
         return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);*/
