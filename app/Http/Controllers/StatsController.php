@@ -48,6 +48,7 @@ class StatsController extends Controller
             foreach ($active_users as $user) {
                 array_push($list, $user->id);
             }
+
             return $list;
         });
         $this->NonActiveUserList = \cache()->remember('NonActiveUserIds', $this->carbon, function () {
@@ -56,6 +57,7 @@ class StatsController extends Controller
             foreach ($active_users as $user) {
                 array_push($list, $user->id);
             }
+
             return $list;
         });
     }
@@ -172,8 +174,7 @@ class StatsController extends Controller
      */
     public function uploaded()
     {
-
-        $uploaded = User::latest('uploaded')->whereIn('id',$this->ActiveUserList)->take(100)->get();
+        $uploaded = User::latest('uploaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
 
         return \view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }

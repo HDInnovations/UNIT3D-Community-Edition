@@ -13,7 +13,7 @@ trait HasRole
      *
      * @return bool
      */
-    public function hasRole(array|string $roles): bool
+    public function hasRole(array | string $roles): bool
     {
         if (is_array($roles)) {
             foreach ($roles as $role) {
@@ -32,6 +32,7 @@ trait HasRole
                 return true;
             }
         }
+
         return false;
     }
 
@@ -55,6 +56,7 @@ trait HasRole
         if ($this->primaryRole) {
             return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id)->where('id', '!=', $this->primaryRole->id);
         }
+
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id);
     }
 }
