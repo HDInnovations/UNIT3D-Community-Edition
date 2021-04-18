@@ -113,6 +113,8 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'helpdesk_can_handle', 'name'=> 'Helpdesk: Can Handle Ticket'],
             ['slug' => 'helpdesk_can_edit', 'name'=> 'Helpdesk: Can Edit Ticket'],
             ['slug' => 'helpdesk_can_delete', 'name'=> 'Helpdesk: Can Delete Ticket'],
+            ['slug' => 'can_login', 'name' => 'Global: Can Login'],
+            ['slug' => 'active_user', 'name' => 'Global: Is Active User']
         ], ['slug'], ['name']);
         $this->call(RolePrivileges::class);
         Schema::enableForeignKeyConstraints();

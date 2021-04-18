@@ -74,7 +74,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'banned']], function () {
+    Route::group(['middleware' => ['auth', 'banned', 'privilege:active_user']], function () {
 
         // General
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -193,8 +193,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/torrent/dying', 'StatsController@dying')->name('dying');
             Route::get('/torrent/dead', 'StatsController@dead')->name('dead');
             Route::get('/request/bountied', 'StatsController@bountied')->name('bountied');
-            Route::get('/groups', 'StatsController@groups')->name('groups');
-            Route::get('/groups/group/{id}', 'StatsController@group')->name('group');
+            Route::get('/roles', 'StatsController@roles')->name('groups');
+            Route::get('/roles/role/{id}', 'StatsController@role')->name('group');
             Route::get('/languages', 'StatsController@languages')->name('languages');
         });
 

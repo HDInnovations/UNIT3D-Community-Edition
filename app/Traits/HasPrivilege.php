@@ -11,10 +11,12 @@ trait HasPrivilege
      * @param $privilege
      *
      * @return bool
+     * @throws \Exception
      */
     public function hasPrivilegeTo($privilege)
     {
-        return (bool) \cache()->remember('priv-'.$this->id.'-'.$privilege, 60,
+        $ttl = new \DateInterval('PT60S');
+        return (bool) \cache()->remember('priv-'.$this->id.'-'.$privilege, $ttl,
             function () use ($privilege) {
                 return DB::select('SELECT UserHasPrivilegeTo('.$this->id.', \''.$privilege.'\') AS result')[0]->result;
             });

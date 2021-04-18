@@ -58,7 +58,7 @@
                                             </span>
                                         @elseif ($b->filled_hash != null && $b->approved_by == null)
                                             <span class="label label-default" data-toggle="tooltip"
-                                                data-original-title="@lang('stat.request-pending-aproval')">
+                                                data-original-title="@lang('stat.request-pending-approval')">
                                                 <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
                                             </span>
                                         @else
