@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 trait HasPrivilege
 {
-
     /**
      * @param $privilege
      *
@@ -15,8 +14,7 @@ trait HasPrivilege
      */
     public function hasPrivilegeTo($privilege)
     {
-
-        return (bool)  \cache()->remember('priv-'.$this->id.'-'.$privilege, 60,
+        return (bool) \cache()->remember('priv-'.$this->id.'-'.$privilege, 60,
             function () use ($privilege) {
                 return DB::select('SELECT UserHasPrivilegeTo('.$this->id.', \''.$privilege.'\') AS result')[0]->result;
             });
