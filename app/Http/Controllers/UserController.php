@@ -203,13 +203,13 @@ class UserController extends Controller
                             $image->move(\public_path('/files/img/'), $filename);
                         } else {
                             return \redirect()->route('users.show', ['username' => $user->username])
-                                ->withErrors('Because you are uploading a GIF, your avatar must be square!');
+                                ->withErrors(trans('controllers.gif-square'));
                         }
                     }
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
                     return \redirect()->route('users.show', ['username' => $user->username])
-                        ->withErrors('Your avatar is too large, max file size: '.($maxUpload / 1_000_000).' MB');
+                        ->withErrors(trans('controllers.avatar-large').($maxUpload / 1_000_000).' MB');
                 }
             }
         }
@@ -220,7 +220,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_edit_profile_form', ['username' => $user->username])
-            ->withSuccess('Your Account Was Updated Successfully!');
+            ->withSuccess(trans('controllers.profile-updated'));
     }
 
     /**
@@ -266,7 +266,7 @@ class UserController extends Controller
         $cssUrl = $request->input('custom_css');
         if (isset($cssUrl) && ! \filter_var($cssUrl, FILTER_VALIDATE_URL)) {
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
+                ->withErrors(trans('controllers.external-css'));
         }
         $user->custom_css = $cssUrl;
         $user->nav = $request->input('sidenav');
@@ -278,7 +278,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_settings', ['username' => $user->username])
-            ->withSuccess('Your Account Was Updated Successfully!');
+            ->withSuccess(trans('controllers.account-updated'));
     }
 
     /**
@@ -314,7 +314,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Changed Your TwoStep Auth Status!');
+            ->withSuccess(trans('controllers.twostep-auth'));
     }
 
     /**
@@ -341,15 +341,15 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                return \redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
+                return \redirect()->route('home.index')->withErrors(trans('controllers.password-reset'));
             }
 
             return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your Password Was Incorrect!');
+                ->withErrors(trans('controllers.password-incorrect'));
         }
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your New Password Is To Weak!');
+                ->withErrors(trans('controllers.password-weak'));
     }
 
     /**
@@ -384,7 +384,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
-            ->withSuccess('Your Email Was Updated Successfully!');
+            ->withSuccess(trans('controllers.email-updated'));
     }
 
     /**
@@ -405,7 +405,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Gone Private!');
+            ->withSuccess(trans('controllers.gone-private'));
     }
 
     /**
@@ -426,7 +426,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Gone Public!');
+            ->withSuccess(trans('controllers.gone-public'));
     }
 
     /**
@@ -447,7 +447,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Disabled Notifications!');
+            ->withSuccess(trans('controllers.notifications-disabled'));
     }
 
     /**
@@ -468,7 +468,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Enabled Notifications!');
+            ->withSuccess(trans('controllers.notifications-enabled'));
     }
 
     /**
@@ -489,7 +489,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Disappeared Like A Ninja!');
+            ->withSuccess(trans('controllers.gone-hidden'));
     }
 
     /**
@@ -510,7 +510,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
+            ->withSuccess(trans('controllers.gone-visible'));
     }
 
     /**
@@ -535,7 +535,7 @@ class UserController extends Controller
         \cache()->forget(\sprintf('user:%s', $user->passkey));
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
-            ->withSuccess('Your PID Was Changed Successfully!');
+            ->withSuccess(trans('controllers.pid-change'));
     }
 
     /**
@@ -569,7 +569,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
-            ->withSuccess('Your Other Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-other-privacy'));
     }
 
     /**
@@ -603,7 +603,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
-            ->withSuccess('Your Request Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-request-privacy'));
     }
 
     /**
@@ -637,7 +637,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
-            ->withSuccess('Your Achievement Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-achievement-privacy'));
     }
 
     /**
@@ -672,7 +672,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
-            ->withSuccess('Your Forum History Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-forumhistory-privacy'));
     }
 
     /**
@@ -706,7 +706,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
-            ->withSuccess('Your Follower Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-follower-privacy'));
     }
 
     /**
@@ -745,7 +745,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
-            ->withSuccess('Your Torrent History Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-torrenthistory-privacy'));
     }
 
     /**
@@ -781,7 +781,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
-            ->withSuccess('Your Account Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-account'));
     }
 
     /**
@@ -816,7 +816,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
-            ->withSuccess('Your Followed User Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-followed'));
     }
 
     /**
@@ -851,7 +851,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
-            ->withSuccess('Your BON Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-bon'));
     }
 
     /**
@@ -887,7 +887,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
-            ->withSuccess('Your Subscription Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-subscription'));
     }
 
     /**
@@ -928,7 +928,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
-            ->withSuccess('Your Request Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-request'));
     }
 
     /**
@@ -965,7 +965,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
-            ->withSuccess('Your Torrent Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-torrent'));
     }
 
     /**
@@ -1004,7 +1004,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
-            ->withSuccess('Your @Mention Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-mention'));
     }
 
     /**
@@ -1039,7 +1039,7 @@ class UserController extends Controller
         $notification->save();
 
         return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
-            ->withSuccess('Your Forum Notification Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-forum'));
     }
 
     /**
@@ -1087,7 +1087,7 @@ class UserController extends Controller
         $privacy->save();
 
         return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
-            ->withSuccess('Your Profile Privacy Settings Have Been Saved!');
+            ->withSuccess(trans('controllers.settings-profile-privacy'));
     }
 
     /**
@@ -1108,7 +1108,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
-            ->withSuccess('Your RID Was Changed Successfully!');
+            ->withSuccess(trans('controllers.rid-change'));
     }
 
     /**
@@ -1129,7 +1129,7 @@ class UserController extends Controller
         $user->save();
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
-            ->withSuccess('Your API Token Was Changed Successfully!');
+            ->withSuccess(trans('controllers.api-change'));
     }
 
     /**
@@ -2059,7 +2059,7 @@ class UserController extends Controller
             return \response()->download($zipFile)->deleteFileAfterSend(true);
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return \redirect()->back()->withErrors(trans('controllers.went-wrong'));
     }
 
     /**
