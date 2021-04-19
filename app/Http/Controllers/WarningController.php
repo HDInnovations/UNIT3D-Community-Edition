@@ -79,7 +79,7 @@ class WarningController extends Controller
         $privateMessage->save();
 
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
-            ->withSuccess('Warning Was Successfully Deactivated');
+            ->withSuccess(.trans('controllers.warning-deactivated'));
     }
 
     /**
@@ -111,7 +111,7 @@ class WarningController extends Controller
         $privateMessage->save();
 
         return \redirect()->route('warnings.show', ['username' => $user->username])
-            ->withSuccess('All Warnings Were Successfully Deactivated');
+            ->withSuccess(.trans('controllers.warning-deactivated-all'));
     }
 
     /**
@@ -144,7 +144,7 @@ class WarningController extends Controller
         $warning->delete();
 
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
-            ->withSuccess('Warning Was Successfully Deleted');
+            ->withSuccess(.trans('controllers.warning-deleted'));
     }
 
     /**
@@ -177,7 +177,7 @@ class WarningController extends Controller
         $privateMessage->save();
 
         return \redirect()->route('warnings.show', ['username' => $user->username])
-            ->withSuccess('All Warnings Were Successfully Deleted');
+            ->withSuccess(.trans('controllers.warning-deleted-all'));
     }
 
     /**
@@ -197,6 +197,6 @@ class WarningController extends Controller
         $warning->restore();
 
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
-            ->withSuccess('Warning Was Successfully Restored');
+            ->withSuccess(.trans('controllers.warning-restored'));
     }
 }
