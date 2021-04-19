@@ -74,7 +74,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
-        if ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
+        if ($requestFile->getError() !== 0 || $requestFile->getClientOriginalExtension() !== 'torrent') {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -86,6 +86,12 @@ class TorrentController extends BaseController
             $meta = Bencode::get_meta($decodedTorrent);
         } catch (\Exception $e) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
+        }
+
+        foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
+            if (! TorrentTools::isValidFilename($name)) {
+                return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
+            }
         }
 
         $fileName = \sprintf('%s.torrent', \uniqid('', true)); // Generate a unique name

@@ -1251,15 +1251,30 @@ class TorrentController extends Controller
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
-        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+
+        if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() != 'torrent') {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
-                ->withErrors('An Unknown Error Has Occurred!')->withInput();
+                ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
 
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
-        $meta = Bencode::get_meta($decodedTorrent);
+
+        try {
+            $meta = Bencode::get_meta($decodedTorrent);
+        } catch (\Exception $e) {
+            return \redirect()->route('upload_form', ['category_id' => $category->id])
+                ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
+        }
+
+        foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
+            if (! TorrentTools::isValidFilename($name)) {
+                return \redirect()->route('upload_form', ['category_id' => $category->id])
+                    ->withErrors('Invalid Filenames In Torrent Files!')->withInput();
+            }
+        }
+
         $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 

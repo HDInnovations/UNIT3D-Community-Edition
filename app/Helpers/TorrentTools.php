@@ -136,6 +136,33 @@ class TorrentTools
     }
 
     /**
+     * Returns file and folder names from the torrent.
+     *
+     * @param $decodedTorrent
+     *
+     * @return array
+     */
+    public static function getFilenameArray($decodedTorrent)
+    {
+        $filenames = [];
+
+        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+            foreach ($decodedTorrent['info']['files'] as $k => $file) {
+                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
+                for ($i = 0; $i < $count; $i++) {
+                    if (! \in_array($file['path'][$i], $filenames)) {
+                        $filenames[] = $file['path'][$i];
+                    }
+                }
+            }
+        } else {
+            $filenames[] = $decodedTorrent['info']['name'];
+        }
+
+        return $filenames;
+    }
+
+    /**
      * Returns the sha1 (hash) of the torrent.
      *
      * @param $decodedTorrent
@@ -182,5 +209,25 @@ class TorrentTools
         }
 
         return $fileContent;
+    }
+
+    /**
+     * Check if the filename is valid or not.
+     *
+     * @param $filename
+     *
+     * @return bool
+     */
+    public static function isValidFilename($filename)
+    {
+        $result = true;
+        if (\strlen($filename) > 255 ||
+            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', $filename) ||
+            \preg_match('#(^\.+|[\. ]+)$#', $filename) ||
+            \preg_match('#^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$#i', $filename)) {
+            $result = false;
+        }
+
+        return $result;
     }
 }
