@@ -1,11 +1,19 @@
 @extends('layout.default')
 
+@php $meta = null; @endphp
+@if ($torrents->first()->category->tv_meta)
+    @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $tmdb)->first(); @endphp
+@endif
+@if ($torrents->first()->category->movie_meta)
+    @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdb)->first(); @endphp
+@endif
+
 @section('title')
-    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
+    <title>@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }}) - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('torrent.torrents')">
+    <meta name="description" content="@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})">
 @endsection
 
 @section('breadcrumb')
@@ -17,19 +25,12 @@
     <li>
         <a href="{{ route('torrents.similar', ['category_id' => $torrents->first()->category_id, 'tmdb' => $torrents->first()->tmdb]) }}"
             itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.similar')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})</span>
         </a>
     </li>
 @endsection
 
 @section('content')
-    @php $meta = null; @endphp
-    @if ($torrents->first()->category->tv_meta)
-        @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $tmdb)->first(); @endphp
-    @endif
-    @if ($torrents->first()->category->movie_meta)
-        @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdb)->first(); @endphp
-    @endif
     <div class="container">
         <div class="block">
             @if ($torrents->first()->category->movie_meta)

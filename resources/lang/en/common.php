@@ -184,6 +184,7 @@ return [
     'search-results-desc'  => 'Please see your results below',
     'second'               => 'Second',
     'select'               => 'Select',
+    'similar'              => 'Similar',
     'sort'                 => 'Sort',
     'special'              => 'Special',
     'sponsor'              => 'Become a Sponsor',
