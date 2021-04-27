@@ -82,26 +82,18 @@
                                         @if ($user->show_poster == 1)
                                             <div class="torrent-poster pull-left">
                                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                                    <img src="https://images.weserv.nl/?url={{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}&w=60&h=80"
-                                                         data-name='<i style="color: #a5a5a5;">{{ $meta->title ?? $torrent->name }}</i>'
-                                                         data-image='<img src="https://images.weserv.nl/?url={{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                        alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                                 @endif
 
                                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                                    <img src="https://images.weserv.nl/?url=https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg&w=60&h=80"
-                                                         data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
-                                                         data-image='<img src="https://images.weserv.nl/?url=https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
-                                        alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
                                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                                 @endif
 
                                                 @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                                    <img src="https://images.weserv.nl/?url=https://via.placeholder.com/600x900&w=60&h=80" data-name='<i style="color: #a5a5a5;">N/A</i>'
-                                                         data-image='<img src="https://images.weserv.nl/?url=https://via.placeholder.com/600x900" alt="@lang('torrent.poster')"
-                                        style="height: 1000px;">'
-                                                         class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                    <img src="https://via.placeholder.com/600x900" class="torrent-poster-img-small show-poster"
+                                                         alt="@lang('torrent.poster')">
                                                 @endif
                                             </div>
                                         @else

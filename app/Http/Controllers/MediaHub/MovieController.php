@@ -42,7 +42,7 @@ class MovieController extends Controller
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $movie = Movie::with(['collection', 'genres', 'companies'])->findOrFail($id);
+        $movie = Movie::with(['cast', 'collection', 'genres', 'companies'])->findOrFail($id);
 
         return \view('mediahub.movie.show', [
             'movie'              => $movie,

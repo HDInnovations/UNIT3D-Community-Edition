@@ -1,6 +1,6 @@
 <div class="movie-wrapper">
     <div class="movie-backdrop"
-         style="background-image: url('https://images.weserv.nl/?url={{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }}&w=1270&h=600');">
+         style="background-image: url('{{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }}');">
         <div class="tags">
             {{ $torrent->category->name }}
         </div>
@@ -85,14 +85,6 @@
                         </span>
                     @endif
 
-                    @if (isset($meta->videoTrailer) && $meta->videoTrailer != '')
-                        <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
-                            <a class="text-pink" title="@lang('torrent.trailer')">
-                                <i class="{{ config('other.font-awesome') }} fa-external-link"></i> @lang('torrent.trailer')
-                            </a>
-                        </span>
-                    @endif
-
                     <span class="badge-user text-bold">
                         <a href="{{ route('upload_form', ['category_id' => $torrent->category_id, 'title' => $meta->name ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
                             @lang('common.upload') {{ $meta->name ?? 'Unknown' }}
@@ -101,13 +93,13 @@
 
                     <div class="row cast-list">
                         @if (isset($meta->cast))
-                            @foreach ($meta->cast as $actor)
+                            @foreach ($meta->cast->sortBy('order')->take(6) as $cast)
                                 <div class="col-xs-4 col-md-2 text-center">
-                                    <a href="{{ route('mediahub.persons.show', ['id' => $actor->id]) }}">
-                                        <img class="img-people" src="https://images.weserv.nl/?url={{ $actor->still ?? 'https://via.placeholder.com/95x140' }}&w=95&h=140"
-                                             alt="{{ $actor->name }}">
+                                    <a href="{{ route('mediahub.persons.show', ['id' => $cast->id]) }}">
+                                        <img class="img-people" src="{{ $cast->still ?? 'https://via.placeholder.com/95x140' }}"
+                                             alt="{{ $cast->name }}">
                                         <span class="badge-user" style="white-space:normal;">
-                                            <strong>{{ $actor->name }}</strong>
+                                            <strong>{{ $cast->name }}</strong>
                                         </span>
                                     </a>
                                 </div>
@@ -118,7 +110,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                <img src="https://images.weserv.nl/?url={{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}&w=325&h=485"
+                <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                      class="movie-poster img-responsive hidden-xs">
             </div>
 

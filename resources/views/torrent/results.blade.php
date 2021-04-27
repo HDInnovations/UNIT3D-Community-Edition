@@ -73,17 +73,17 @@
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                    <img loading="lazy" src="https://images.weserv.nl/?url={{ $meta->poster ?? 'https://via.placeholder.com/52x80' }}&w=52&h=80"
+                                    <img loading="lazy" src="{{ $meta->poster ?? 'https://via.placeholder.com/52x80' }}"
                                     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                    <img loading="lazy" src="https://images.weserv.nl/?url=https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg&w=52&h=80"
+                                    <img loading="lazy" src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
                                          class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
                                 @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                    <img loading="lazy" src="https://images.weserv.nl/?url=https://via.placeholder.com/600x900&w=52&h=80"
+                                    <img loading="lazy" src="https://via.placeholder.com/600x900"
                                     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
                             </div>

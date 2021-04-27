@@ -2,7 +2,7 @@
 
 @php $meta = null; @endphp
 @if ($torrents->first()->category->tv_meta)
-    @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $tmdb)->first(); @endphp
+    @php $meta = App\Models\Tv::with('genres', 'cast', 'networks', 'seasons')->where('id', '=', $tmdb)->first(); @endphp
 @endif
 @if ($torrents->first()->category->movie_meta)
     @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdb)->first(); @endphp
