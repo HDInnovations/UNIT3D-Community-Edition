@@ -111,7 +111,7 @@ class User extends Authenticatable
      */
     public function bookmarks()
     {
-        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
+        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
     /**
