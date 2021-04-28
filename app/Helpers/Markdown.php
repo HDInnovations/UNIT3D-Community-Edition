@@ -799,8 +799,8 @@ class Markdown
         }
 
         if (
-            ! str_contains($Block['element']['handler']['argument'], '|') && ! str_contains($Line['text'], '|') && ! str_contains($Line['text'],
-                ':') || str_contains($Block['element']['handler']['argument'], "\n")
+            (!str_contains($Block['element']['handler']['argument'], '|') && !str_contains($Line['text'], '|') && !str_contains($Line['text'],
+                    ':')) || str_contains($Block['element']['handler']['argument'], "\n")
         ) {
             return;
         }
