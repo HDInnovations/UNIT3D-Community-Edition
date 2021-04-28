@@ -1470,7 +1470,7 @@ class Markdown
 
     protected function elementApplyRecursive($closure, array $Element)
     {
-        $Element = call_user_func($closure, $Element);
+        $Element = $closure($Element);
 
         if (isset($Element['elements'])) {
             $Element['elements'] = $this->elementsApplyRecursive($closure, $Element['elements']);
@@ -1489,7 +1489,7 @@ class Markdown
             $Element['element'] = $this->elementsApplyRecursiveDepthFirst($closure, $Element['element']);
         }
 
-        return call_user_func($closure, $Element);
+        return $closure($Element);
     }
 
     protected function elementsApplyRecursive($closure, array $Elements)
