@@ -1601,7 +1601,7 @@ class Markdown
     {
         $Elements = $this->linesElements($lines);
 
-        if (! in_array('', $lines) && isset($Elements[0]) && isset($Elements[0]['name']) && $Elements[0]['name'] === 'p'
+        if (isset($Elements[0], $Elements[0]['name']) && !in_array('', $lines) && $Elements[0]['name'] === 'p'
         ) {
             unset($Elements[0]['name']);
         }
