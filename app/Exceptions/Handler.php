@@ -48,8 +48,9 @@ class Handler extends ExceptionHandler
      *
      * @param \Throwable $throwable
      *
-     * @return void
      * @throws \Throwable
+     *
+     * @return void
      */
     public function report(Throwable $throwable)
     {

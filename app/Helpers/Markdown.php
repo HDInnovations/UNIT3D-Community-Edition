@@ -797,7 +797,7 @@ class Markdown
         }
 
         if (
-            !str_contains($Block['element']['handler']['argument'], '|') && !str_contains($Line['text'], '|') && !str_contains($Line['text'],
+            ! str_contains($Block['element']['handler']['argument'], '|') && ! str_contains($Line['text'], '|') && ! str_contains($Line['text'],
                 ':') || str_contains($Block['element']['handler']['argument'], "\n")
         ) {
             return;
@@ -1309,7 +1309,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || !str_contains($Excerpt['text'], '>')) {
+        if ($this->markupEscaped || $this->safeMode || ! str_contains($Excerpt['text'], '>')) {
             return;
         }
 
@@ -1601,7 +1601,7 @@ class Markdown
     {
         $Elements = $this->linesElements($lines);
 
-        if (isset($Elements[0], $Elements[0]['name']) && !in_array('', $lines) && $Elements[0]['name'] === 'p'
+        if (isset($Elements[0], $Elements[0]['name']) && ! in_array('', $lines) && $Elements[0]['name'] === 'p'
         ) {
             unset($Elements[0]['name']);
         }
