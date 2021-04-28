@@ -15,15 +15,15 @@ namespace App\Helpers;
 
 class StringHelper
 {
-    const KIB = 1_024;
+    public const KIB = 1_024;
 
-    const MIB = 1_024 * 1_024;
+    public const MIB = 1_024 * 1_024;
 
-    const GIB = 1_024 * 1_024 * 1_024;
+    public const GIB = 1_024 * 1_024 * 1_024;
 
-    const TIB = 1_024 * 1_024 * 1_024 * 1_024;
+    public const TIB = 1_024 * 1_024 * 1_024 * 1_024;
 
-    const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
+    public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
 
     /**
      * @var string
