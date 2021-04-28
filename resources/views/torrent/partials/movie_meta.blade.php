@@ -52,13 +52,15 @@
                 </span>
 
                 <span class="movie-details">
-                    @php $director = $meta->crew->where('known_for_department' ,'=', 'Directing')->take(1)->first(); @endphp
+                    @if(isset($meta->crew))
+                        @php $director = $meta->crew->where('known_for_department' ,'=', 'Directing')->take(1)->first(); @endphp
                     @if($director)
                         <span class="badge-user text-bold text-orange">
                             <a href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}" target="_blank">
                                 <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Director: {{ $director->name }}
                             </a>
                         </span>
+                    @endif
                     @endif
 
                     @if ($torrent->imdb != 0 && $torrent->imdb != null)
