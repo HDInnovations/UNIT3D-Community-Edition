@@ -76,7 +76,7 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('release_date', $movie)) {
-                        $year = (int)\substr($movie['release_date'], 0, 4);
+                        $year = (int) \substr($movie['release_date'], 0, 4);
                     }
 
                     Torrent::factory()->create([
