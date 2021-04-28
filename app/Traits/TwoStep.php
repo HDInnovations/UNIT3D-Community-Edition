@@ -166,7 +166,7 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      *
-     * @param \DateTime|\DateTimeImmutable $time
+     * @param \DateTimeInterface $time
      *
      * @return bool
      */

@@ -34,9 +34,9 @@ class VersionController extends Controller
     /**
      * Check the latest release of UNIT3D and compare them to the local version.
      *
-     * @throws \JsonException
-     *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
      */
     public function checkVersion()
     {
