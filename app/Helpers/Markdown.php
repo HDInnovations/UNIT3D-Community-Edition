@@ -584,8 +584,7 @@ class Markdown
 
         $requiredIndent = ($Block['indent'] + strlen($Block['data']['marker']));
 
-        if ($Line['indent'] < $requiredIndent && ($Block['data']['type'] === 'ol' && preg_match('/^[0-9]++'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches) || $Block['data']['type'] === 'ul' && preg_match('/^'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches))
-        ) {
+        if ($Line['indent'] < $requiredIndent && ($Block['data']['type'] === 'ol' && preg_match('/^[0-9]++'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches) || $Block['data']['type'] === 'ul' && preg_match('/^'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches))) {
             if (isset($Block['interrupted'])) {
                 $Block['li']['handler']['argument'][] = '';
 
@@ -612,7 +611,10 @@ class Markdown
             $Block['element']['elements'][] = &$Block['li'];
 
             return $Block;
-        } elseif ($Line['indent'] < $requiredIndent && $this->blockList($Line)) {
+        }
+
+        if ($Line['indent'] < $requiredIndent && $this->blockList($Line)
+        ) {
             return null;
         }
 
