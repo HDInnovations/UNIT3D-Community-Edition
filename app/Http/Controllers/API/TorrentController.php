@@ -360,7 +360,7 @@ class TorrentController extends BaseController
             $description .= '%'.$keyword.'%';
         }
 
-        $torrent = $torrent->newQuery();
+        $torrent = $torrent::newQuery();
 
         if ($request->has('name') && $request->input('name') != null) {
             $torrent->where(function ($query) use ($search) {
