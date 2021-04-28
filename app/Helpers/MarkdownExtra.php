@@ -459,7 +459,7 @@ class MarkdownExtra extends Markdown
 
             $text = $DefinitionData['text'];
 
-            $textElements = parent::textElements($text);
+            $textElements = $this->textElements($text);
 
             $numbers = range(1, $DefinitionData['count']);
 
