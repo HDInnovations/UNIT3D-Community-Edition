@@ -367,7 +367,7 @@ class Markdown
             return;
         }
 
-        if (strpos($Line['text'], '<!--') === 0) {
+        if (str_starts_with($Line['text'], '<!--')) {
             $Block = [
                 'element' => [
                     'rawHtml'   => $Line['body'],
@@ -375,7 +375,7 @@ class Markdown
                 ],
             ];
 
-            if (strpos($Line['text'], '-->') !== false) {
+            if (str_contains($Line['text'], '-->')) {
                 $Block['closed'] = true;
             }
 
@@ -391,7 +391,7 @@ class Markdown
 
         $Block['element']['rawHtml'] .= "\n".$Line['body'];
 
-        if (strpos($Line['text'], '-->') !== false) {
+        if (str_contains($Line['text'], '-->')) {
             $Block['closed'] = true;
         }
 
@@ -413,7 +413,7 @@ class Markdown
 
         $infostring = trim(substr($Line['text'], $openerLength), "\t ");
 
-        if (strpos($infostring, '`') !== false) {
+        if (str_contains($infostring, '`')) {
             return;
         }
 
@@ -517,7 +517,7 @@ class Markdown
 
     protected function blockList($Line, array $CurrentBlock = null)
     {
-        list($name, $pattern) = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
+        [$name, $pattern] = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
 
         if (preg_match('/^('.$pattern.'([ ]++|$))(.*+)/', $Line['text'], $matches)) {
             $contentIndent = strlen($matches[2]);
@@ -770,7 +770,7 @@ class Markdown
 
     protected function blockReference($Line)
     {
-        if (strpos($Line['text'], ']') !== false && preg_match('#^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$#', $Line['text'], $matches)
+        if (str_contains($Line['text'], ']') && preg_match('#^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$#', $Line['text'], $matches)
         ) {
             $id = strtolower($matches[1]);
 
@@ -797,7 +797,8 @@ class Markdown
         }
 
         if (
-            strpos($Block['element']['handler']['argument'], '|') === false && strpos($Line['text'], '|') === false && strpos($Line['text'], ':') === false || strpos($Block['element']['handler']['argument'], "\n") !== false
+            !str_contains($Block['element']['handler']['argument'], '|') && !str_contains($Line['text'], '|') && !str_contains($Line['text'],
+                ':') || str_contains($Block['element']['handler']['argument'], "\n")
         ) {
             return;
         }
@@ -1149,7 +1150,7 @@ class Markdown
         $commonMarkEmail = '[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]++@'
             .$hostnameLabel.'(?:\.'.$hostnameLabel.')*';
 
-        if (strpos($Excerpt['text'], '>') !== false && preg_match(sprintf('/^<((mailto:)?%s)>/i', $commonMarkEmail), $Excerpt['text'], $matches)
+        if (str_contains($Excerpt['text'], '>') && preg_match(sprintf('/^<((mailto:)?%s)>/i', $commonMarkEmail), $Excerpt['text'], $matches)
         ) {
             $url = $matches[1];
 
@@ -1308,7 +1309,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || strpos($Excerpt['text'], '>') === false) {
+        if ($this->markupEscaped || $this->safeMode || !str_contains($Excerpt['text'], '>')) {
             return;
         }
 
@@ -1336,7 +1337,7 @@ class Markdown
 
     protected function inlineSpecialCharacter($Excerpt)
     {
-        if (substr($Excerpt['text'], 1, 1) !== ' ' && strpos($Excerpt['text'], ';') !== false && preg_match('#^&(#?+[0-9a-zA-Z]++);#', $Excerpt['text'], $matches)
+        if (substr($Excerpt['text'], 1, 1) !== ' ' && str_contains($Excerpt['text'], ';') && preg_match('#^&(#?+[0-9a-zA-Z]++);#', $Excerpt['text'], $matches)
         ) {
             return [
                 'element' => ['rawHtml' => '&'.$matches[1].';'],
@@ -1372,7 +1373,7 @@ class Markdown
             return;
         }
 
-        if (strpos($Excerpt['context'], 'http') !== false && preg_match('#\bhttps?+:[\/]{2}[^\s<]+\b\/*+#ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)
+        if (str_contains($Excerpt['context'], 'http') && preg_match('#\bhttps?+:[\/]{2}[^\s<]+\b\/*+#ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)
         ) {
             $url = $matches[0][0];
 
@@ -1392,7 +1393,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt)
     {
-        if (strpos($Excerpt['text'], '>') !== false && preg_match('#^<(\w++:\/{2}[^ >]++)>#i', $Excerpt['text'], $matches)) {
+        if (str_contains($Excerpt['text'], '>') && preg_match('#^<(\w++:\/{2}[^ >]++)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [
