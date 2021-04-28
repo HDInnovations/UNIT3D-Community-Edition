@@ -1721,7 +1721,7 @@ class Markdown
             return false;
         }
 
-        return strtolower(substr($string, 0, $len)) === strtolower($needle);
+        return stripos($string, strtolower($needle)) === 0;
     }
 
     public static function instance($name = 'default')
