@@ -19,7 +19,7 @@
                 <section id="main-content">
                     @include('partials.userbar')
                     @include('partials.breadcrumb')
-                    @include('cookieConsent::index')
+                    @include('cookie-consent::index')
                     @include('partials.alerts')
                     @if (Session::has('achievement'))
                         @include('partials.achievement_modal')
