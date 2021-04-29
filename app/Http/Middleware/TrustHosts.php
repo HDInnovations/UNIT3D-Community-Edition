@@ -13,20 +13,19 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
+use Illuminate\Http\Middleware\TrustHosts as Middleware;
 
-class TrimStrings extends Middleware
+class TrustHosts extends Middleware
 {
     /**
-     * The names of the attributes that should not be trimmed.
+     * Get the host patterns that should be trusted.
      *
-     * @var array
+     * @return array
      */
-    protected $except = [
-        'current_password',
-        'password',
-        'password_confirmation',
-        'info_hash',
-        'peer_id',
-    ];
+    public function hosts()
+    {
+        return [
+            $this->allSubdomainsOfApplicationUrl(),
+        ];
+    }
 }
