@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function show($username)
     {
-        $user = User::with(['privacy', 'history'])->where('username', '=', $username)->firstOrFail();
+        $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
         $groups = Group::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();

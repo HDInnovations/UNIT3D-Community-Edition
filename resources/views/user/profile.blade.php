@@ -140,7 +140,7 @@
                                 <div class="text-center">
                             <span class="badge-user badge-float p-10"><i
                                         class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.total-uploads')
-                                : <span class="text-green text-bold">{{ $user->torrents->count() }}</span></span>
+                                : <span class="text-green text-bold">{{ $user->torrents_count }}</span></span>
                                     <span class="badge-user badge-float p-10"><i
                                                 class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.total-downloads')
                                         : <span class="text-red text-bold">{{ $history->where('actual_downloaded', '>', 0)->count() }}</span></span>
