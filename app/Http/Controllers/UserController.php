@@ -52,14 +52,11 @@ class UserController extends Controller
      */
     public function show($username)
     {
-        $user = User::with(['privacy', 'history'])->where('username', '=', $username)->firstOrFail();
+        $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
         $groups = Group::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
-
-        $uploaded = Torrent::where('user_id', '=', $user->id)->count();
         $history = $user->history;
-
         $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
         $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
@@ -85,7 +82,6 @@ class UserController extends Controller
             'user'         => $user,
             'groups'       => $groups,
             'followers'    => $followers,
-            'uploaded'     => $uploaded,
             'history'      => $history,
             'warnings'     => $warnings,
             'hitrun'       => $hitrun,
