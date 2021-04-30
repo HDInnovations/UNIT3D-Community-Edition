@@ -49,7 +49,7 @@ return [
                     base_path('node_modules'),
                     base_path('storage'),
                     base_path('.git'),
-                    base_path('public/vendor/joypixels')
+                    base_path('public/vendor/joypixels'),
                 ],
 
                 /*
