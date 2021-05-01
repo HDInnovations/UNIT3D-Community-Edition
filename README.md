@@ -206,7 +206,13 @@ URL: https://discord.gg/J8dsx7F5yT
 
 You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. 
 
-https://github.com/sponsors/HDVinnie
+Monthy Recurring:
+
+https://github.com/sponsors/HDVinnie?frequency=recurring&sponsor=HDVinnie
+
+One-time Custom Amount:
+
+https://github.com/sponsors/HDVinnie?frequency=one-time&sponsor=HDVinnie
 
 Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
@@ -219,6 +225,8 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+Monero - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
