@@ -42,6 +42,7 @@
                             <th>@lang('torrent.client')</th>
                             <th>@lang('common.ip')</th>
                             <th>@lang('common.port')</th>
+                            <th>@lang('common.connectable')</th>
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('common.status')</th>
@@ -116,6 +117,14 @@
                                     <td> ---</td>
                                     <td> ---</td>
                                 @endif
+
+                                @if ($fp = @fsockopen($p->ip, $p->port, $errCode, $errStr, 1))
+                                       <td><span class="badge-extra text-bold">@lang('common.port-open')</span></td>
+                                       fclose($fp)
+                                @else
+                                       <td><span class="badge-extra text-bold">@lang('common.port-closed')</span></td>
+                                @endif
+
                                 <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                                 <td> @if ($p->seeder == 0)
