@@ -338,11 +338,8 @@
                                     <div class="card_body">
                                         <div class="body_poster">
                                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                                <img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                                     class="show-poster"
-                                                     data-image='<img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('
-                                                    torrent.poster')" style="height: 1000px;">'
-                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                <img src="{{ isset($torrent->meta->poster) ? \tmdb_image('poster_mid', $torrent->meta->poster) : 'https://via.placeholder.com/200x300' }}"
+                                                     class="show-poster" alt="@lang('torrent.poster')">
                                             @endif
 
                                             @if ($torrent->category->game_meta && isset($torrent->meta) && $torrent->meta->cover->image_id &&

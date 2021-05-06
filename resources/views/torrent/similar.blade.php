@@ -32,7 +32,7 @@
 
 @section('content')
     <div class="container">
-        <div class="block">
+        <div class="block single">
             @if ($torrents->first()->category->movie_meta)
                 @include('torrent.partials.movie_meta', ['torrent' => $torrents->first()])
             @endif
@@ -45,7 +45,7 @@
                 @include('torrent.partials.game_meta')
             @endif
 
-            <div class="table-responsive">
+            <div class="table-responsive mt-20">
                 <table class="table table-condensed table-bordered table-striped">
                     @foreach(App\Models\Type::all()->sortBy('position') as $type)
                         @if($torrents->where('type_id', '=', $type->id)->count() > 0)

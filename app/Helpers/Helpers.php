@@ -79,3 +79,48 @@ if (! function_exists('hrefCollection')) {
         return sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
     }
 }
+
+if (! function_exists('tmdbImage')) {
+    function tmdb_image($type, $original)
+    {
+        $new = 'original';
+
+        switch ($type) {
+            case 'back_big':
+                $new = 'w1280';
+                break;
+            case 'back_small':
+                $new = 'w780';
+                break;
+            case 'poster_big':
+                $new = 'w500';
+                break;
+            case 'poster_mid':
+                $new = 'w342';
+                break;
+            case 'poster_small':
+                $new = 'w92';
+                break;
+            case 'cast_face':
+                $new = 'w138_and_h175_face';
+                break;
+            case 'cast_mid':
+                $new = 'w185';
+                break;
+            case 'cast_big':
+                $new = 'w300';
+                break;
+            case 'still_mid':
+                $new = 'w400';
+                break;
+            case 'logo_small':
+                $new = 'h60';
+                break;
+            case 'logo_mid':
+                $new = 'w300';
+                break;
+        }
+
+        return \str_replace('/original/', '/'.$new.'/', $original);
+    }
+}

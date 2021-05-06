@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-    <div class="torrent box container">
+    <div class="meta-wrapper box container" id="meta-info">
         @if ($torrent->category->movie_meta)
             @include('torrent.partials.movie_meta')
         @endif
@@ -36,70 +36,74 @@
             @include('torrent.partials.game_meta')
         @endif
 
-        <div class="table-responsive" id="vue">
-            <table class="table table-condensed table-bordered table-striped">
-                <div class="text-center">
-                    <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
-                        @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
-                        @if (config('torrent.download_check_page') == 1)
-                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-success">
-                                <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
-                            </a>
-                        @else
-                            <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-success">
-                                <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
-                            </a>
-                        @endif
-                        @else
-                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-sm btn-success">
-                                <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
-                            </a>
-                        @endif
+        <div id="vue" class="torrent-buttons">
+            <div class="button-overlay"></div>
+            <div class="vibrant-overlay"></div>
+            <div class="button-block">
+                @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
+                @if (config('torrent.download_check_page') == 1)
+                    <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="down btn btn-sm btn-success">
+                        <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
+                    </a>
+                @else
+                    <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="down btn btn-sm btn-success">
+                        <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
+                    </a>
+                @endif
+                @else
+                    <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="down btn btn-sm btn-success">
+                        <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
+                    </a>
+                @endif
 
-                        @livewire('thank-button', ['torrent' => $torrent->id])
+                @livewire('thank-button', ['torrent' => $torrent->id])
 
-                        @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
-                            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
-                                <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
-                            </a>
-                        @endif
+                @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
+                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
+                        <i class='{{ config("other.font-awesome") }} fa-clone'></i> Similar
+                    </a>
+                @endif
 
-                        @if ($torrent->nfo != null)
-                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-10">
-                                <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('common.view') NFO
-                            </button>
-                        @endif
+                @if ($torrent->nfo != null)
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-10">
+                        <i class='{{ config("other.font-awesome") }} fa-info-circle'></i> NFO
+                    </button>
+                @endif
 
-                        <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-primary">
-                            <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
-                        </a>
+                <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-primary">
+                    <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
+                </a>
 
-                        <a data-toggle="modal" href="#myModal" role="button" class="btn btn-sm btn-primary">
-                            <i class='{{ config("other.font-awesome") }} fa-file'></i>  @lang('torrent.show-files')
-                        </a>
+                <a data-toggle="modal" href="#myModal" role="button" class="btn btn-sm btn-primary">
+                    <i class='{{ config("other.font-awesome") }} fa-file'></i>  @lang('torrent.show-files')
+                </a>
 
-                        @livewire('bookmark-button', ['torrent' => $torrent->id])
+                @livewire('bookmark-button', ['torrent' => $torrent->id])
 
-                        @if ($playlists->count() > 0)
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
-                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> @lang('torrent.add-to-playlist')
-                        </button>
-                        @endif
+                @if ($playlists->count() > 0)
+                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
+                    <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> @lang('torrent.add-to-playlist')
+                </button>
+                @endif
 
-                        @if ($torrent->seeders <= 2)
-                        <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
-                            <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
-                        </a>
-                        @endif
+                @if ($torrent->seeders <= 2)
+                <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
+                    <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
+                </a>
+                @endif
 
-                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
-                            <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report') @lang('torrent.torrent')
-                        </button>
-                    </span>
-                </div>
-            </table>
+                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
+                    <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report')
+                </button>
+
+                <a role="button" class="btn btn-sm btn-primary" href="{{ route('upload_form', ['category_id' => $torrent->category_id, 'title' => $torrent->name ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
+                </a>
+            </div>
         </div>
+    </div>
 
+    <div class="meta-general box container">
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
@@ -566,7 +570,7 @@
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            <span class="btn-label">@joypixels(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
+                                            {{ strtoupper(trans('torrent.original-output')) }}
                                         </button>
                                     </div>
                                     <div class="slidingDiv">
@@ -597,7 +601,8 @@
                                     <hr>
                                     <div id="collection_waypoint" class="collection">
                                         <div class="header collection"
-                                             style=" background-image: url({{ $meta->collection['0']->backdrop ?? 'https://via.placeholder.com/1400x800' }}); background-size: cover; background-position: 50% 50%;">
+                                            @php $backdrop = $meta->collection['0']->backdrop; @endphp
+                                             style=" background-image: url({{ isset($backdrop) ? \tmdb_image('back_big', $backdrop) : 'https://via.placeholder.com/1280x300' }}); background-size: cover; background-position: 50% 50%;">
                                             <div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
                                             <section class="collection">
                                                 <h2>Part of the {{ $meta->collection['0']->name }}</h2>

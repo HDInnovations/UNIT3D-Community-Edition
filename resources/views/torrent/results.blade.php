@@ -73,7 +73,7 @@
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                    <img loading="lazy" src="{{ $meta->poster ?? 'https://via.placeholder.com/52x80' }}"
+                                    <img loading="lazy" src="{{ isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
                                     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 

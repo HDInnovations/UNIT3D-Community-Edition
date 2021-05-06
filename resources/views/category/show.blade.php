@@ -53,7 +53,7 @@
                             <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                         </tr>
                     </thead>
-    
+
                     <tbody>
                         @foreach ($torrents as $torrent)
                             @php $meta = null; @endphp
@@ -82,7 +82,7 @@
                                         @if ($user->show_poster == 1)
                                             <div class="torrent-poster pull-left">
                                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+                                                    <img src="{{ isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/60x90' }}"
                                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                                 @endif
 
@@ -92,7 +92,7 @@
                                                 @endif
 
                                                 @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                                    <img src="https://via.placeholder.com/600x900" class="torrent-poster-img-small show-poster"
+                                                    <img src="https://via.placeholder.com/60x90" class="torrent-poster-img-small show-poster"
                                                          alt="@lang('torrent.poster')">
                                                 @endif
                                             </div>

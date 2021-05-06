@@ -21,7 +21,7 @@ return [
     'genres'                => 'Genres',
     'includes:'             => 'Includes:',
     'latest-project'        => 'Latest Project:',
-    'networks'              => 'Netvorks',
+    'networks'              => 'Networks',
     'no-data'               => 'No Data Found!',
     'movies'                => 'Movies',
     'movie-credits'         => 'Movie Credits:',
