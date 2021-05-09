@@ -564,7 +564,7 @@ class TorrentController extends Controller
             if (! $history || ! \is_array($history)) {
                 $history = [];
             }
-            $torrent = $torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
+            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
         } elseif ($history == 1) {
             $torrent = History::where('history.user_id', '=', $user->id);
             $torrent->where(function ($query) use ($seedling, $downloaded, $leeching, $idling) {
@@ -593,7 +593,7 @@ class TorrentController extends Controller
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {
-            $torrent = $torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
+            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
         }
         if ($collection != 1) {
             if ($request->has('search') && $request->input('search') != null) {

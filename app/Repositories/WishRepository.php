@@ -38,7 +38,7 @@ class WishRepository implements WishInterface
      */
     public function all($paginate = null)
     {
-        return $paginate ? $this->wish->paginate($paginate) : $this->wish::all();
+        return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }
 
     /**

@@ -51,12 +51,12 @@ class ChatRepository
 
     public function bots()
     {
-        return $this->bot::all();
+        return $this->bot->all();
     }
 
     public function echoes($userId)
     {
-        return $this->userEcho::with([
+        return $this->userEcho->with([
             'bot',
             'user',
             'target',
@@ -70,7 +70,7 @@ class ChatRepository
 
     public function audibles($userId)
     {
-        return $this->userAudible::with([
+        return $this->userAudible->with([
             'bot',
             'user',
             'target',
@@ -84,7 +84,7 @@ class ChatRepository
 
     public function rooms()
     {
-        return $this->chatroom::all();
+        return $this->chatroom->all();
     }
 
     public function roomFindOrFail($id)
@@ -202,7 +202,7 @@ class ChatRepository
 
     public function messages($roomId)
     {
-        return $this->message::with([
+        return $this->message->with([
             'bot',
             'user.group',
             'chatroom',
@@ -221,7 +221,7 @@ class ChatRepository
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
-        return $this->message::with([
+        return $this->message->with([
             'bot',
             'user.group',
             'chatroom',
@@ -238,7 +238,7 @@ class ChatRepository
 
     public function privateMessages($senderId, $targetId)
     {
-        return $this->message::with([
+        return $this->message->with([
             'bot',
             'user.group',
             'chatroom',
@@ -299,14 +299,14 @@ class ChatRepository
             } elseif (\is_int($room)) {
                 $room = $this->chatroom->findOrFail($room)->id;
             } else {
-                $room = $this->chatroom::whereName($room)->first()->id;
+                $room = $this->chatroom->whereName($room)->first()->id;
             }
         } elseif (\is_int($config)) {
             $room = $this->chatroom->findOrFail($config)->id;
         } elseif ($config instanceof Chatroom) {
             $room = $config->id;
         } else {
-            $room = $this->chatroom::whereName($config)->first()->id;
+            $room = $this->chatroom->whereName($config)->first()->id;
         }
 
         return $room;
@@ -314,7 +314,7 @@ class ChatRepository
 
     public function statuses()
     {
-        return $this->chatStatus::all();
+        return $this->chatStatus->all();
     }
 
     public function status($user)
