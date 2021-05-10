@@ -186,8 +186,6 @@ class uploadExtensionBuilder {
                 defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
             });
 
-
-
             let matcher = name.value.toLowerCase();
 
             // Torrent Category
@@ -874,7 +872,7 @@ class facetedSearchBuilder {
             torrentBookmark.update();
             facetedSearch.refresh();
             facetedSearchXHR = null;
-            facetedSearch.posters();
+            // facetedSearch.posters();
         });
     }
     posters() {
@@ -1004,7 +1002,7 @@ class facetedSearchBuilder {
         else {
             this.refresh(function() { });
         }
-        this.posters();
+        // this.posters();
     }
 }
 class userExtensionBuilder {

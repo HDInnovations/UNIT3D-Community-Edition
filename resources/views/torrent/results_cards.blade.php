@@ -31,8 +31,8 @@
                             @endif
 
                             @if ($t->category->no_meta || $t->category->music_meta)
-                                <img src="https://via.placeholder.com/600x900" class="show-poster"
-                                     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                <img src="https://via.placeholder.com/200x300" class="show-poster"
+                                     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                             @endif
                         </div>

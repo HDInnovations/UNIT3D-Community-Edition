@@ -6,10 +6,10 @@
 </head>
 
 @if (auth()->user()->nav == 0)
-    
+
     <body hoe-navigation-type="vertical-compact" hoe-nav-placement="left" theme-layout="wide-layout">
     @else
-    
+
         <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
         @endif
         <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
@@ -84,7 +84,7 @@
         @if (Session::has('achievement'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
                 $('#modal-achievement').modal('show');
-    
+
             </script>
         @endif
 
@@ -97,12 +97,12 @@
                         showConfirmButton: false,
                         timer: 3000
                     });
-        
+
                     Toast.fire({
                         icon: '{{ $key }}',
                         title: '{{ Session::get($key) }}'
                     })
-        
+
                 </script>
             @endif
         @endforeach
@@ -115,7 +115,7 @@
                     html: jQuery("#ERROR_COPY").html(),
                     showCloseButton: true,
                 })
-    
+
             </script>
         @endif
 
@@ -130,7 +130,7 @@
 
                 Toast.fire({
                     icon: 'success',
-                    title: event.detail.message
+                    title: event.detail ? event.detail.message : event.message
                 })
             })
         </script>

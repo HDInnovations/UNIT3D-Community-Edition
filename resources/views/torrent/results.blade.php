@@ -83,7 +83,7 @@
                                 @endif
 
                                 @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                    <img loading="lazy" src="https://via.placeholder.com/600x900"
+                                    <img loading="lazy" src="https://via.placeholder.com/90x135"
                                     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
                             </div>
