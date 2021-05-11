@@ -114,6 +114,9 @@
                     icon: 'error',
                     html: jQuery("#ERROR_COPY").html(),
                     showCloseButton: true,
+                    willOpen: function(el) {
+                        $(el).find('textarea').remove();
+                    }
                 })
 
             </script>
