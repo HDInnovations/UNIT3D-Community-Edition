@@ -31,13 +31,10 @@
             </div>
         </div>
     @else
-        @if (Session::has('previewContent'))
-            <div class="torrent box container">
-                <h2 class="text-center">Upload Description Preview</h2>
-                <div class="preview col-md-12"> @joypixels(Session::get('previewContent')) </div>
-                <hr>
-            </div>
-        @endif
+        <div class="torrent box container" id="preview-box" style="display:none">
+            <h2 class="text-center mt-10">Upload Description Preview</h2>
+            <div class="preview col-md-12" id="preview-content"></div>
+        </div>
         <div class="torrent box container">
             <div class="alert alert-info text-center">
                 <h2 class="mt-10"><strong>@lang('torrent.announce-url'):</strong>
@@ -55,7 +52,7 @@
 
             <div class="upload col-md-12">
                 <h2 class="upload-title">@lang('torrent.torrent')</h2>
-                <form name="upload" class="upload-form" method="POST" action="{{ route('upload') }}"
+                <form name="upload" class="upload-form" id="upload-form" method="POST" action="{{ route('upload') }}"
                       enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -71,7 +68,7 @@
                     <div class="form-group">
                         <label for="name">@lang('torrent.title')</label>
                         <label for="title"></label>
-                        <input type="text" name="name" id="title" class="form-control" value="{{ $title ?? old('name') }}" required>
+                        <input type="text" name="name" id="title" class="form-control" value="{{ !empty($title) ? $title : old('name') }}" required>
                     </div>
 
                     <div class="form-group">
@@ -94,7 +91,7 @@
                             <select name="type_id" id="autotype" class="form-control" required>
                                 <option hidden="" disabled="disabled" selected="selected" value="">--Select Type--</option>
                                 @foreach ($types as $type)
-                                    <option value="{{ $type->id }}" @if (old('type')==$type->name) selected="selected"@endif>
+                                    <option value="{{ $type->id }}" @if (old('type_id')==$type->id) selected="selected"@endif>
                                         {{ $type->name }}
                                     </option>
                                 @endforeach
@@ -102,7 +99,7 @@
                         </label>
                     </div>
 
-                    @php $data = App\Models\Category::where('id', '=', $category_id ?? old('category_id'))->first();@endphp
+                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="resolution_ids">@lang('torrent.resolution')</label>
@@ -110,7 +107,7 @@
                             <select name="resolution_id" id="autores" class="form-control">
                                 <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
                                 @foreach ($resolutions as $resolution)
-                                    <option value="{{ $resolution->id }}" @if (old('resolution')==$resolution->name) selected="selected" @endif>
+                                    <option value="{{ $resolution->id }}" @if (old('resolution_id')==$resolution->id) selected="selected" @endif>
                                         {{ $resolution->name }}
                                     </option>
                                 @endforeach
@@ -142,7 +139,7 @@
                             <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
                             <label>
                                 <input type="text" name="apimatch" id="apimatch" class="form-control" value="" disabled>
-                                <input type="number" name="tmdb" id="autotmdb" class="form-control" value="{{ $tmdb ?? old('tmdb') }}" required>
+                                <input type="number" name="tmdb" id="autotmdb" class="form-control" value="{{ !empty($tmdb) ? $tmdb : old('tmdb') }}" required>
                             </label>
                         </div>
                     @else
@@ -153,7 +150,7 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ $imdb ?? old('imdb') }}" required>
+                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ !empty($imdb) ? $imdb : old('imdb') }}" required>
                             </label>
                         </div>
                     @else
@@ -196,7 +193,7 @@
                     <div class="form-group">
                         <label for="name">@lang('torrent.keywords') (<i>@lang('torrent.keywords-example')</i>)</label>
                         <label>
-                            <input type="text" name="keywords" id="autokeywords" class="form-control">
+                            <input type="text" name="keywords" id="autokeywords" class="form-control" value="{{ old('keywords') }}">
                         </label>
                     </div>
 
@@ -216,10 +213,10 @@
 
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="anonymous" value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="anonymous" value="1"{{ old('anonymous') ? ' checked' : '' }}>@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="anonymous" checked="checked" value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="anonymous" value="0"{{ !old('anonymous') ? ' checked' : '' }}>@lang('common.no')</label>
                     </div>
 
                     @if ($data->movie_meta || $data->tv_meta)
@@ -227,20 +224,20 @@
 
                         <label for="stream" class="control-label">@lang('torrent.stream-optimized')?</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="stream" id="stream" value="1">@lang('common.yes')</label>
+                            <label><input type="radio" name="stream" id="stream" value="1"{{ old('stream') ? ' checked' : '' }}>@lang('common.yes')</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="stream" id="stream" checked="checked" value="0">@lang('common.no')</label>
+                            <label><input type="radio" name="stream" id="stream" value="0"{{ !old('stream') ? ' checked' : '' }}>@lang('common.no')</label>
                         </div>
 
                         <br>
 
                         <label for="sd" class="control-label">@lang('torrent.sd-content')?</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="sd" value="1">@lang('common.yes')</label>
+                            <label><input type="radio" name="sd" value="1"{{ old('sd') ? ' checked' : '' }}>@lang('common.yes')</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="sd" checked="checked" value="0">@lang('common.no')</label>
+                            <label><input type="radio" name="sd" value="0"{{ !old('sd') ? ' checked' : '' }}>@lang('common.no')</label>
                         </div>
                     @else
                         <input type="hidden" name="stream" value="0">
@@ -252,10 +249,10 @@
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="internal" class="control-label">@lang('torrent.internal')?</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="internal" value="1">@lang('common.yes')</label>
+                            <label><input type="radio" name="internal" value="1"{{ old('internal') ? ' checked' : '' }}>@lang('common.yes')</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="internal" checked="checked" value="0">@lang('common.no')</label>
+                            <label><input type="radio" name="internal" value="0"{{ !old('internal') ? ' checked' : '' }}>@lang('common.no')</label>
                         </div>
 
                         <br>
@@ -266,17 +263,17 @@
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="free" value="1">@lang('common.yes')</label>
+                            <label><input type="radio" name="free" value="1"{{ old('free') ? ' checked' : '' }}>@lang('common.yes')</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="free" checked="checked" value="0">@lang('common.no')</label>
+                            <label><input type="radio" name="free" value="0"{{ !old('free') ? ' checked' : '' }}>@lang('common.no')</label>
                         </div>
                     @else
                         <input type="hidden" name="free" value="0">
                     @endif
 
                     <div class="text-center">
-                        <button type="submit" name="preview" value="true" id="preview" class="btn btn-info">
+                        <button type="button" name="preview" value="true" id="preview" class="btn btn-info">
                             @lang('common.preview')
                         </button>
                         <button type="submit" name="post" value="true" id="post" class="btn btn-success">
@@ -292,4 +289,19 @@
 
 @section('javascripts')
     <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        $('#preview').on('click', function() {
+            var text = $('#upload-form-description').bbcode().trim();
+
+            if (text.length > 0) {
+                $.post('/upload/preview', {
+                    'description': text
+                }, function(data){
+                    document.getElementById('preview-content').innerHTML = data;
+                    document.getElementById('preview-box').removeAttribute('style');
+                    document.getElementById('main-content').scrollIntoView({behavior: 'smooth'});
+                });
+            }
+        });
+    </script>
 @endsection
