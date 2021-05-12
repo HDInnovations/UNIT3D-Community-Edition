@@ -182,7 +182,7 @@ class uploadExtensionBuilder {
             defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
         });
 
- 
+
 
         let matcher = name.value.toLowerCase();
 
@@ -626,7 +626,7 @@ class facetedSearchBuilder {
         }
       let localXHR = new XMLHttpRequest()
       localXHR = $.ajax({
-            url: '/filterSettings',
+            url: '/torrents/filterSettings',
             data: {
                 _token: this.csrf,
                 force: force,
