@@ -247,6 +247,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/', 'TorrentController@upload')->name('upload');
+            Route::post('/preview', 'TorrentController@preview');
         });
 
         Route::group(['prefix' => 'torrents'], function () {

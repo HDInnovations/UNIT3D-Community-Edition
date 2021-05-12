@@ -13,9 +13,11 @@
 
 namespace App\Http\Controllers;
 
+use andkab\LaravelJoyPixels\LaravelJoyPixels;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
+use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -1222,6 +1224,29 @@ class TorrentController extends Controller
     }
 
     /**
+     * Preview torrent description.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function preview(Request $request)
+    {
+        // Preview The Upload
+        $joyPixel = \app()->make(LaravelJoyPixels::class);
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
+
+        $previewContent = $joyPixel->toImage(
+            $bbcode->parse(
+                $linkify->linky($request->input('description')
+            ), true)
+        );
+
+        return \response()->json($previewContent);
+    }
+
+    /**
      * Upload A Torrent.
      *
      * @param \Illuminate\Http\Request $request
@@ -1234,17 +1259,6 @@ class TorrentController extends Controller
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
-
-        // Preview The Upload
-        $previewContent = null;
-        if ($request->get('preview') == true) {
-            $previewContent = (new Bbcode())->parse($request->input('description'), true);
-
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
-                ->withInput()
-                ->with(['previewContent' => $previewContent])
-                ->withWarning('Torrent Description Preview Loaded!');
-        }
 
         $requestFile = $request->file('torrent');
         if ($request->hasFile('torrent') == false) {
