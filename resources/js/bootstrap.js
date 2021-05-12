@@ -15,7 +15,7 @@ try {
 
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]'),
+        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
     },
 });
 
