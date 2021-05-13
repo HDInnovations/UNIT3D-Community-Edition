@@ -41,6 +41,23 @@ body {
     color: #696969;
 }
 
+#main-content {
+    margin-left: 230px;
+    position: relative;
+    min-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
+#main-content > .container,
+#main-content > .container-fluid {
+    flex-grow: 1;
+}
+
+.container-fluid {
+    width: 100%;
+}
+
 article,
 aside,
 details,
@@ -5486,7 +5503,8 @@ a.sort {
 
 .likes {
     font-size: 17px;
-    right: 50px;
+    right: 10px;
+    top: 55px;
     position: absolute;
 }
 
@@ -6924,6 +6942,7 @@ time {
 .profil {
     background: #e9e9e9;
     padding: 1em 0;
+    position: relative;
 }
 
 .profil .profil-image {

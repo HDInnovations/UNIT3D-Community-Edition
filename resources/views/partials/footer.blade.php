@@ -1,5 +1,4 @@
 @php $bg = rand(1, 13); $bgchange = $bg.".jpg"; @endphp
-<br>
 <div id="l-footer" style="background-image: url('/img/footer/{{ $bgchange }}');">
     <div class="container">
         <div class="col-md-2 l-footer-section">

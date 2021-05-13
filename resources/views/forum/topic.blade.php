@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-    <div class="topic container-fluid">
+    <div class="topic container">
 
         <h2>{{ $topic->name }}</h2>
 
@@ -63,7 +63,7 @@
                                 @else
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $p->user->username }}"
                                         class="img-thumbnail post-info-image">
-                                @endauth
+                                @endif
                                 <p>
                                     <span class="badge-user text-bold">
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"
@@ -75,7 +75,7 @@
                                         @else
                                             <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip"
                                                 data-original-title="Offline"></i>
-                                        @endauth
+                                        @endif
                                         <a
                                             href="{{ route('create', ['receiver_id' => $p->user->id, 'username' => $p->user->username]) }}">
                                             <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
@@ -98,29 +98,29 @@
                                             <a href="{{ route('user_topics', ['username' => $p->user->username]) }}"
                                                 class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                         </span>
-                                    @endauth
+                                    @endif
                                     @if($p->user->posts && $p->user->posts->count() > 0)
                                         <span class="badge-user text-bold">
                                             <a href="{{ route('user_posts', ['username' => $p->user->username]) }}"
                                                 class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                         </span>
-                                    @endauth
+                                    @endif
                                 </p>
 
 
                                 <span class="inline">
                                     @if ($topic->state == 'open')
                                         <button id="quote" class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
-                                    @endauth
+                                    @endif
                                     @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id)
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
-                                    @endauth
+                                    @endif
                                     @if (auth()->user()->group->is_modo || ($p->user_id == auth()->user()->id && $topic->state ==
                                         'open'))
                                         <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
-                                    @endauth
+                                    @endif
                                 </span>
                             </aside>
 
@@ -133,7 +133,7 @@
                                     @if($p->tips && $p->tips->sum('cost') > 0)
                                         <div class="some-padding">@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
                                             BON</div>
-                                    @endauth
+                                    @endif
                                     <div class="some-padding" id="forumTip" route="{{ route('tip_poster') }}"
                                             leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
                                         <a class="forumTip" href="#/" post="{{ $p->id }}"
@@ -148,19 +148,19 @@
                                 </span>
                             </div>
 
+                            @if ($p->user->signature != null)
                             <div class="post-signature col-md-12">
-                                @if ($p->user->signature != null)
-                                    {!! $p->user->getSignature() !!}
-                                @endauth
+                                {!! $p->user->getSignature() !!}
                             </div>
+                            @endif
 
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <br>
+                </div>
+                <br>
                 @endforeach
                 <div class="text-center">{{ $posts->links() }}</div>
-            </div>
             <br>
             <br>
             <div class="block">
