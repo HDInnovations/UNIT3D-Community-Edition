@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">

@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">
@@ -73,7 +73,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                     <div role="tabpanel" class="tab-pane" id="email">
                         <form role="form" method="POST"
                             action="{{ route('change_email', ['username' => $user->username]) }}">
@@ -94,7 +94,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                     <div role="tabpanel" class="tab-pane" id="pid">
                         <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->username]) }}">
                             @csrf
@@ -103,7 +103,7 @@
                                 <div class="help-block">@lang('user.reset-passkey-help').</div>
                                 </h3>
                                 <hr>
-    
+
                                 <div class="form-group">
                                     <label for="current_pid">Current PID</label>
                                     <p class="form-control-static text-monospace current_pid">{{ $user->passkey }}</p>
@@ -114,7 +114,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                     <div role="tabpanel" class="tab-pane" id="rid">
                         <form role="form" method="POST" action="{{ route('change_rid', ['username' => $user->username]) }}">
                             @csrf
@@ -123,7 +123,7 @@
                                 <div class="help-block">@lang('user.reset-rss-help').</div>
                                 </h3>
                                 <hr>
-    
+
                                 <div class="form-group">
                                     <label for="current_rid">Current RID</label>
                                     <p class="form-control-static text-monospace current_rid">{{ $user->rsskey }}</p>
@@ -154,7 +154,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                     @if (config('auth.TwoStepEnabled') == true)
                         <div role="tabpanel" class="tab-pane" id="twostep">
                             <form role="form" method="POST"
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                 @endif
-    
+
             </div>
         </div>
     </div>
@@ -192,7 +192,7 @@
         $(window).on("load", function() {
             loadTab();
         });
-    
+
         function loadTab() {
             if (window.location.hash && window.location.hash == "#password") {
                 $('#basetabs a[href="#password"]').tab('show');
@@ -207,6 +207,6 @@
                 $('#basetabs a[href="#rid"]').tab('show');
             }
         }
-    
+
     </script>
 @endsection
