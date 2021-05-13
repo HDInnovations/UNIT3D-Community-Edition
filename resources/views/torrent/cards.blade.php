@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="padding: 5px 0; margin: 0;">
+                    <hr style="padding: 0; margin: 0;">
                 </div>
             </div>
             <div id="facetedFilters" style="{{ $user->torrent_filters ? '' : 'display: none;' }}">

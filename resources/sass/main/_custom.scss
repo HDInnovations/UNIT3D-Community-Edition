@@ -9101,6 +9101,20 @@ img.joypixels {
     margin-top: 0;
 }
 
+#facetedSearch, .cat-torrents {
+    .table {
+        margin-bottom: 0;
+    }
+
+    .pagination {
+        padding-top: 10px;
+    }
+
+    &[type="list"] .pagination {
+        padding-bottom: 10px;
+    }
+}
+
 @media only screen and (max-width: 613px) {
   .form-torrent-search .form-group {
       margin-left: 0;
