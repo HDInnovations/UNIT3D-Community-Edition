@@ -89,8 +89,10 @@
                                             data-original-title="{{ $p->user->group->name }}"></i>
                                         {{ $p->user->group->name }}</span>
                                 </p>
-                                <p class="pre">{{ $p->user->title }}</p>
-                                <p>@lang('user.member-since'): {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
+                                @if (!empty($p->user->title))
+                                <p><span class="badge-user title">{{ $p->user->title }}</span></p>
+                                @endif
+                                <p><span class="badge-user text-bold">Joined: {{ date('d M Y', $p->user->created_at->getTimestamp()) }}</span></p>
 
                                 <p>
                                     @if($p->user->topics && $p->user->topics->count() > 0)
@@ -128,13 +130,13 @@
                                 @joypixels($p->getContentHtml())
                             </article>
 
-                            <div class="post-signature col-md-12 some-margin post-tips">
+                            <div class="post-signature col-md-12 mt-10">
                                 <div id="forumTip{{ $p->id }}" class="text-center">
                                     @if($p->tips && $p->tips->sum('cost') > 0)
-                                        <div class="some-padding">@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
+                                        <div>@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
                                             BON</div>
                                     @endif
-                                    <div class="some-padding" id="forumTip" route="{{ route('tip_poster') }}"
+                                    <div id="forumTip" route="{{ route('tip_poster') }}"
                                             leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
                                         <a class="forumTip" href="#/" post="{{ $p->id }}"
                                             user="{{ $p->user->id }}">@lang('forum.tip-this-post')</a></div>
