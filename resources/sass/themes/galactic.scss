@@ -83,6 +83,17 @@ a.text-bright:hover {
     margin-bottom: 0.5em;
 }
 
+.likes {
+    background: none;
+    right: 5px;
+
+    .badge-extra {
+        margin: 0;
+        padding: 3px;
+        font-size: 12px;
+    }
+}
+
 .shoutbox {
     border-color: #000;
     border-radius: 4px;

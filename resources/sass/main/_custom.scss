@@ -5503,9 +5503,17 @@ a.sort {
 
 .likes {
     font-size: 17px;
-    right: 10px;
-    top: 40px;
+    right: 0;
+    top: 0;
     position: absolute;
+    width: 180px;
+    text-align: right;
+    background: linear-gradient(to right, transparent, #D3D3D3 40%, #b8b8b8);
+
+    .badge-extra {
+        border: 0;
+        background: transparent;
+    }
 }
 
 .textcomplete-dropdown {
@@ -6889,7 +6897,7 @@ time {
 .topic .topic-posts .post article.post-content {
     padding: 1.5em 1em;
     word-wrap: break-word;
-    line-height: 1.75em;
+    line-height: 1.5;
     color: #212121;
 }
 
@@ -6965,6 +6973,8 @@ time {
 
 .profil .badge-user {
     margin: 0 0 8px;
+    box-shadow: none !important;
+    border-color: #e1e1e1;
 
     &.title {
         white-space: pre-line;

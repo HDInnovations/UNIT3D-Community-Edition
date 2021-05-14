@@ -126,7 +126,7 @@
                                 </span>
                             </aside>
 
-                            <article class="col-md-9 post-content" data-bbcode="{{ $p->content }}">
+                            <article class="col-md-10 post-content" data-bbcode="{{ $p->content }}">
                                 @joypixels($p->getContentHtml())
                             </article>
 
