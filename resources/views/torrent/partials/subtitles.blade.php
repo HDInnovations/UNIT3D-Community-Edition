@@ -68,14 +68,12 @@
         <p>@lang('torrent.subtitle-included')</p>
             @foreach ($text_crumbs as $key => $s)
                 <span class="text-bold badge-extra">
-                    <em>
                         @foreach ($s as $crumb)
                             {{ $crumb }}
                             @if (!$loop->last)
                                 /
                             @endif
                         @endforeach
-                    </em>
                 </span>
             @endforeach
         @endif

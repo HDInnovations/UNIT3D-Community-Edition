@@ -482,91 +482,79 @@
                         <tr>
                             <td>
                                 <div class="panel-body">
-                                    <div class="text-center">
-                                        <span class="text-bold text-blue">
-                                            @joypixels(':blue_heart:') @lang('torrent.media-info') @joypixels(':blue_heart:')
-                                        </span>
-                                    </div>
-                                    <br>
                                     @if ($general !== null && isset($general['file_name']))
                                         <span class="text-bold text-blue">
                                             @joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
                                         </span>
                                         <span class="text-bold">
-                                            <em>{{ $general['file_name'] }}</em>
+                                            {{ $general['file_name'] }}
                                         </span>
                                         <br>
                                         <br>
                                     @endif
                                     @if ($general_crumbs !== null)
-                                        <span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}
-                                        :</span>
-                                        <span class="text-bold"><em>
+                                        <span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}:</span>
+                                        <span class="text-bold">
                       @foreach ($general_crumbs as $crumb)
                                                     {{ $crumb }}
                                                     @if (!$loop->last)
                                                         /
                                                     @endif
                                                 @endforeach
-                    </em></span>
+                    </span>
                                         <br>
                                         <br>
                                     @endif
                                     @if ($video_crumbs !== null)
                                         @foreach ($video_crumbs as $key => $v)
-                                            <span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}
-                                            :</span>
-                                            <span class="text-bold"><em>
+                                            <span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}:</span>
+                                            <span class="text-bold">
                         @foreach ($v as $crumb)
                                                         {{ $crumb }}
                                                         @if (!$loop->last)
                                                             /
                                                         @endif
                                                     @endforeach
-                      </em></span>
+                      </span>
                                             <br>
                                             <br>
                                         @endforeach
                                     @endif
                                     @if ($audio_crumbs !== null)
                                         @foreach ($audio_crumbs as $key => $a)
-                                            <span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
-                                            :</span>
-                                            <span class="text-bold"><em>
+                                            <span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}:</span>
+                                            <span class="text-bold">
                       @foreach ($a as $crumb)
                                                         {{ $crumb }}
                                                         @if (!$loop->last)
                                                             /
                                                         @endif
                                                     @endforeach
-                    </em></span>
+                    </span>
                                             <br>
                                         @endforeach
                                     @endif
                                     <br>
                                     @if ($text_crumbs !== null)
                                         @foreach ($text_crumbs as $key => $s)
-                                            <span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
-                                            :</span>
-                                            <span class="text-bold"><em>
+                                            <span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}:</span>
+                                            <span class="text-bold">
                       @foreach ($s as $crumb)
                                                         {{ $crumb }}
                                                         @if (!$loop->last)
                                                             /
                                                         @endif
                                                     @endforeach
-                    </em></span>
+                    </span>
                                             <br>
                                         @endforeach
                                     @endif
                                     @if ($settings)
                                         <br>
-                                        <span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
-                                        :</span>
+                                        <span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}:</span>
                                         <br>
                                         <div class="decoda-code text-black">{{ $settings }}</div>
                                     @endif
-                                    <br>
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
@@ -776,8 +764,7 @@
                         <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
-                            :</strong></label>
+                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment'):</strong></label>
                     <label>
                         <input type="radio" value="1" name="anonymous">
                     </label> @lang('common.yes')
