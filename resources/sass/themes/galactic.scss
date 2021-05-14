@@ -314,6 +314,15 @@ a:hover {
     background-image: none;
 }
 
+.btn-default:active,
+.btn-primary:active,
+.btn-success:active,
+.btn-info:active,
+.btn-warning:active,
+.btn-danger:active {
+  margin-top: 0 !important;
+}
+
 .label-default {
     background-color: #6f6f6f;
 }
@@ -892,7 +901,7 @@ div.topic-new-post {
     .panel .nav-tabs {
         padding-bottom: 6px;
         padding-top: 6px;
-    } 
+    }
 }
 
 // Pages
