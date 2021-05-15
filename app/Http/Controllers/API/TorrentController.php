@@ -216,7 +216,6 @@ class TorrentController extends BaseController
         if ($user->group->is_trusted) {
             $appurl = \config('app.url');
             $user = $torrent->user;
-            $userId = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
             $featured = $torrent->featured;

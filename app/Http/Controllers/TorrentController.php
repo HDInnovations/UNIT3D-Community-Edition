@@ -1708,7 +1708,6 @@ class TorrentController extends Controller
      */
     public function reseedTorrent(Request $request, $id)
     {
-        $appurl = \config('app.url');
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();

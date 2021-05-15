@@ -54,8 +54,6 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender.' Has Unclaimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has unclaimed your Requested Torrent '.$this->torrentRequest->name,

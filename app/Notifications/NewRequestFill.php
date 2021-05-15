@@ -54,8 +54,6 @@ class NewRequestFill extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender.' Has Filled One Of Your Torrent Requests',
             'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->torrentRequest->name,

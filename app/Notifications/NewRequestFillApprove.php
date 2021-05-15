@@ -54,8 +54,6 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender.' Has Approved Your Fill Of A Requested Torrent',
             'body'  => $this->sender.' has approved your fill of Requested Torrent '.$this->torrentRequest->name,

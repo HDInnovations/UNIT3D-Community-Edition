@@ -192,7 +192,6 @@ class WarningController extends Controller
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
-        $staff = $request->user();
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();
 

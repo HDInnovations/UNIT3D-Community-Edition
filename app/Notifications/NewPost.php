@@ -55,8 +55,6 @@ class NewPost extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         if ($this->type == 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',

@@ -55,8 +55,6 @@ class NewUploadTip extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
             'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,

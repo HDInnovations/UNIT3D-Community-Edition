@@ -52,7 +52,6 @@ class NewComment extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
         if ($this->type == 'torrent') {
             if ($this->comment->anon == 0) {
                 return [

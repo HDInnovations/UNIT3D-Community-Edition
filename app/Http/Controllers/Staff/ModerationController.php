@@ -69,7 +69,6 @@ class ModerationController extends Controller
         if ($torrent->status !== 1) {
             $appurl = \config('app.url');
             $user = $torrent->user;
-            $userId = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
 

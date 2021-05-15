@@ -54,7 +54,6 @@ class NewCommentTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
         if ($this->type == 'torrent') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Torrent Comment',

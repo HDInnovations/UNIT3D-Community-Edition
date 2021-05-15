@@ -271,7 +271,7 @@ class PrivateMessageController extends Controller
     public function emptyInbox(Request $request)
     {
         $user = $request->user();
-        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->delete();
+        PrivateMessage::where('receiver_id', '=', $user->id)->delete();
 
         return \redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');

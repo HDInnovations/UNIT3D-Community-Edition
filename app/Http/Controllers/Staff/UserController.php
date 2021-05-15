@@ -138,8 +138,6 @@ class UserController extends Controller
     public function permissions(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = $request->user();
-
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
         $user->can_comment = $request->input('can_comment');
@@ -163,10 +161,7 @@ class UserController extends Controller
     protected function password(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = \auth()->user();
-
-        $newPassword = $request->input('new_password');
-        $user->password = Hash::make($newPassword);
+        $user->password = Hash::make($request->input('new_password'));
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
@@ -183,7 +178,6 @@ class UserController extends Controller
     protected function destroy($username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = \auth()->user();
 
         \abort_if($user->group->is_modo || \auth()->user()->id == $user->id, 403);
 

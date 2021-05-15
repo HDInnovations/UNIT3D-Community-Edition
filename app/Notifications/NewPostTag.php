@@ -54,8 +54,6 @@ class NewPostTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->tagger.' Has Tagged You In A Post',
             'body'  => $this->tagger.' has tagged you in a Post in Topic '.$this->post->topic->name,

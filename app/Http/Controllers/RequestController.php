@@ -416,7 +416,6 @@ class RequestController extends Controller
         }
         $torrentRequest->save();
         // Send Private Message
-        $appurl = \config('app.url');
         $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $torrentRequest->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
@@ -515,7 +514,6 @@ class RequestController extends Controller
     public function rejectRequest(Request $request, $id)
     {
         $user = $request->user();
-        $appurl = \config('app.url');
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         if ($user->id == $torrentRequest->user_id) {
