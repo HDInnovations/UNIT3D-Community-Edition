@@ -24,7 +24,7 @@ class SetLanguage
      * This function checks if language to set is an allowed lang of config.
      *
      * @param string $locale
-     **/
+     */
     private function setLocale($locale)
     {
         // Check if is allowed and set default locale if not
