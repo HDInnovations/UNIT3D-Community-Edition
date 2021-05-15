@@ -44,7 +44,7 @@ class TicketController extends Controller
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
 
-        return view('ticket.create', [
+        return \view('ticket.create', [
             'categories' => $categories,
             'priorities' => $priorities,
         ]);
@@ -111,7 +111,7 @@ class TicketController extends Controller
             $ticket->save();
         }
 
-        return view('ticket.show', [
+        return \view('ticket.show', [
             'user'   => $user,
             'ticket' => $ticket,
         ]);

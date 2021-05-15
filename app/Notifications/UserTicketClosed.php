@@ -60,7 +60,7 @@ class UserTicketClosed extends Notification
         return (new MailMessage())
                     ->subject('Your ticket was closed (User)')
                     ->line('Your ticket was closed')
-                    ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
+                    ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**

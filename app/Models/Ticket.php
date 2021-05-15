@@ -33,7 +33,7 @@ class Ticket extends Model
             $query->orderBy('id', 'desc');
         }, 'comments.user'])
             ->has('comments')
-            ->where('reminded_at', '<', strtotime('+ 3 days'))
+            ->where('reminded_at', '<', \strtotime('+ 3 days'))
             ->orWhereNull('reminded_at');
     }
 

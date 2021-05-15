@@ -166,7 +166,7 @@ class AnnounceController extends Controller
         }
 
         // Block Blacklisted Clients
-        if (in_array($request->header('User-Agent'), config('client-blacklist.clients'))) {
+        if (\in_array($request->header('User-Agent'), \config('client-blacklist.clients'))) {
             throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
         }
     }

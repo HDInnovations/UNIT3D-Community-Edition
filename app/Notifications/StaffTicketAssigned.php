@@ -60,7 +60,7 @@ class StaffTicketAssigned extends Notification
         return (new MailMessage())
                     ->subject('A ticket was assigned (Ticket # '.$this->ticket->id.')')
                     ->line('A ticket was assigned to '.$this->ticket->staff->username)
-                    ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
+                    ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**
