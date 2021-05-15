@@ -574,7 +574,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/close', 'TopicController@closeTopic')->name('forum_close');
             // Open Topic
             Route::get('/{id}/open', 'TopicController@openTopic')->name('forum_open');
-            //
+            // Tip Poster
             Route::post('/posts/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
 
             // Edit Topic
