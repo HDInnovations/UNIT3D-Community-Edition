@@ -87,7 +87,6 @@ class BackupController extends Controller
         try {
             \ini_set('max_execution_time', 900);
 
-            // start the backup process
             Log::info('BackupManager called from staff dashboard');
             Artisan::call('backup:run');
             $output = Artisan::output();
@@ -99,10 +98,10 @@ class BackupController extends Controller
             } else {
                 Log::info('BackupManager process has started');
             }
-        } catch (Exception $e) {
-            Log::error($e);
+        } catch (Exception $exception) {
+            Log::error($exception);
 
-            \response($e->getMessage(), 500);
+            \response($exception->getMessage(), 500);
         }
 
         return self::MESSAGE;

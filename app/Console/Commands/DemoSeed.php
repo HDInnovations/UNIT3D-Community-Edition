@@ -242,10 +242,10 @@ Menu
                         'bumped_at'  => \now(),
                         'updated_at' => \now(),
                     ]);
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $abort = true;
 
-                    $this->warn($e);
+                    $this->warn($exception);
 
                     break;
                 }

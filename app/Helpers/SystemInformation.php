@@ -163,7 +163,7 @@ class SystemInformation
     {
         try {
             return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             return \trans('site.error');
         }
     }

@@ -1277,7 +1277,7 @@ class TorrentController extends Controller
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
