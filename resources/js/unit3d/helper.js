@@ -162,7 +162,7 @@ class uploadExtensionBuilder {
         let tmdb = document.querySelector('#autotmdb');
         let imdb = document.querySelector('#autoimdb');
 
-        if (!name.value.trim() && !tmdb.value.trim() && !imdb.value.trim()) {
+        if (!name.value.trim() && !tmdb.value.trim()) {
             let torrent = document.querySelector('#torrent');
             let release;
             if (!name.value) {
