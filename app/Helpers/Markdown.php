@@ -24,9 +24,7 @@ class Markdown
         $markup = $this->elements($Elements);
 
         // trim line breaks
-        $markup = trim($markup, "\n");
-
-        return $markup;
+        return trim($markup, "\n");
     }
 
     protected function textElements($text)
