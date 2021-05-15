@@ -436,9 +436,13 @@ tr.success > td {
 
 a.view-torrent,
 a.view-torrent:hover {
-    color: var(--text-color) !important;
+    color: var(--text-color);
     background: 0 0;
-    -webkit-text-fill-color: var(--text-color);
+    -webkit-text-fill-color: initial;
+}
+
+a.view-torrent:visited {
+    color: #A295FE;
 }
 
 .form-control {
