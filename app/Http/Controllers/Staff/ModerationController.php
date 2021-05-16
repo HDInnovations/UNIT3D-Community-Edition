@@ -28,8 +28,6 @@ class ModerationController extends Controller
 {
     /**
      * ModerationController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -37,10 +35,8 @@ class ModerationController extends Controller
 
     /**
      * Torrent Moderation Panel.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
         $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();
@@ -96,7 +92,6 @@ class ModerationController extends Controller
     /**
      * Postpone A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -133,7 +128,6 @@ class ModerationController extends Controller
     /**
      * Reject A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

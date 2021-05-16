@@ -27,8 +27,6 @@ class GraveyardController extends Controller
 {
     /**
      * GraveyardController Constructor.
-     *
-     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
     public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
     {
@@ -37,11 +35,9 @@ class GraveyardController extends Controller
     /**
      * Show The Graveyard.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
         $user = $request->user();
@@ -60,8 +56,6 @@ class GraveyardController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Torrent                  $torrent
      *
      * @throws \Throwable
      *
@@ -138,9 +132,7 @@ class GraveyardController extends Controller
     /**
      * Resurrect A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $id)
@@ -183,11 +175,9 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

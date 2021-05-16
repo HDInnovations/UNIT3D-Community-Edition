@@ -23,9 +23,6 @@ class NewComment extends Notification
 
     /**
      * NewComment Constructor.
-     *
-     * @param string              $type
-     * @param \App\Models\Comment $comment
      */
     public function __construct(public string $type, public Comment $comment)
     {

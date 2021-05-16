@@ -25,11 +25,9 @@ class PrivateMessageController extends Controller
     /**
      * Search PM Inbox.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function searchPMInbox(Request $request)
+    public function searchPMInbox(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->where([
@@ -42,11 +40,9 @@ class PrivateMessageController extends Controller
     /**
      * Search PM Outbox.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function searchPMOutbox(Request $request)
+    public function searchPMOutbox(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pms = PrivateMessage::where('sender_id', '=', $user->id)->where([
@@ -59,11 +55,9 @@ class PrivateMessageController extends Controller
     /**
      * View Inbox.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessages(Request $request)
+    public function getPrivateMessages(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->latest()->paginate(25);
@@ -74,11 +68,9 @@ class PrivateMessageController extends Controller
     /**
      * View Outbox.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessagesSent(Request $request)
+    public function getPrivateMessagesSent(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pms = PrivateMessage::where('sender_id', '=', $user->id)->latest()->paginate(20);
@@ -89,12 +81,10 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\PrivateMessage $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessageById(Request $request, $id)
+    public function getPrivateMessageById(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -115,13 +105,11 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param \Illuminate\Http\Request $request
      * @param string                   $receiverId
      * @param string                   $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function makePrivateMessage(Request $request, $receiverId = '', $username = '')
+    public function makePrivateMessage(Request $request, $receiverId = '', $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -131,7 +119,6 @@ class PrivateMessageController extends Controller
     /**
      * Create A Message.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -188,9 +175,7 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\PrivateMessage $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function replyPrivateMessage(Request $request, $id)
@@ -229,11 +214,9 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\PrivateMessage $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage(Request $request, $id)
@@ -264,7 +247,6 @@ class PrivateMessageController extends Controller
     /**
      * Empty Private Message Inbox.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -280,7 +262,6 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

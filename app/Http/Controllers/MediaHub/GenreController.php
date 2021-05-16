@@ -20,10 +20,8 @@ class GenreController extends Controller
 {
     /**
      * Display All Genres.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $genres = Genre::paginate(25);
 
@@ -34,10 +32,8 @@ class GenreController extends Controller
      * Show A Genre.
      *
      * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $genre = Genre::with(['tv', 'movie'])->findOrFail($id);
         $shows = $genre->tv()->orderBy('name', 'asc')->paginate(25);

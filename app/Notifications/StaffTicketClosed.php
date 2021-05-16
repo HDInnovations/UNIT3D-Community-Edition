@@ -22,18 +22,14 @@ class StaffTicketClosed extends Notification
 {
     use Queueable;
 
-    private $ticket;
-
     /**
      * Create a new notification instance.
      *
-     * @param Ticket $ticket
      *
      * @return mixed
      */
-    public function __construct(Ticket $ticket)
+    public function __construct(private Ticket $ticket)
     {
-        $this->ticket = $ticket;
     }
 
     /**

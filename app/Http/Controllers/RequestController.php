@@ -47,8 +47,6 @@ class RequestController extends Controller
 {
     /**
      * RequestController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -56,10 +54,8 @@ class RequestController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('torrent_request.index');
     }
@@ -67,12 +63,10 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -109,14 +103,12 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      *
-     * @param \Illuminate\Http\Request $request
      * @param string                   $title
      * @param int                      $imdb
      * @param int                      $tmdb
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -134,7 +126,6 @@ class RequestController extends Controller
     /**
      * Store A New Torrent Request.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -226,12 +217,10 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editRequestForm(Request $request, $id)
+    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -247,9 +236,7 @@ class RequestController extends Controller
     /**
      * Edit A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editrequest(Request $request, $id)
@@ -319,9 +306,7 @@ class RequestController extends Controller
     /**
      * Add Bounty To A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function addBonus(Request $request, $id)
@@ -383,9 +368,7 @@ class RequestController extends Controller
     /**
      * Fill A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function fillRequest(Request $request, $id)
@@ -429,9 +412,7 @@ class RequestController extends Controller
     /**
      * Approve A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function approveRequest(Request $request, $id)
@@ -506,9 +487,7 @@ class RequestController extends Controller
     /**
      * Reject A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function rejectRequest(Request $request, $id)
@@ -543,11 +522,9 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, $id)
@@ -570,9 +547,7 @@ class RequestController extends Controller
     /**
      * Claim A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function claimRequest(Request $request, $id)
@@ -608,11 +583,9 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, $id)
@@ -649,9 +622,7 @@ class RequestController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function resetRequest(Request $request, $id)

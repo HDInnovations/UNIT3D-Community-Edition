@@ -24,10 +24,6 @@ class NewUnfollow extends Notification implements ShouldQueue
 
     /**
      * NewUnfolllow Constructor.
-     *
-     * @param string           $type
-     * @param \App\Models\User $sender
-     * @param \App\Models\User $target
      */
     public function __construct(public string $type, public User $sender, public User $target)
     {

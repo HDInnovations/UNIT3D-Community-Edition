@@ -26,8 +26,6 @@ class ReportController extends Controller
 {
     /**
      * ReportController Constructor.
-     *
-     * @param \App\Models\Report $report
      */
     public function __construct(private Report $report)
     {
@@ -36,9 +34,7 @@ class ReportController extends Controller
     /**
      * Create A Request Report.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function request(Request $request, $id)
@@ -73,9 +69,7 @@ class ReportController extends Controller
     /**
      * Create A Torrent Report.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function torrent(Request $request, $id)
@@ -110,9 +104,7 @@ class ReportController extends Controller
     /**
      * Create A User Report.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function user(Request $request, $username)

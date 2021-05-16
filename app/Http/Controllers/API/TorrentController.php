@@ -40,8 +40,6 @@ class TorrentController extends BaseController
 {
     /**
      * TorrentController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -60,13 +58,11 @@ class TorrentController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -84,7 +80,7 @@ class TorrentController extends BaseController
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -281,9 +277,7 @@ class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @param int                      $id
-     *
      * @return void
      */
     public function update(Request $request, $id)
@@ -306,8 +300,6 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $torrent
      *
      * @return TorrentsResource
      */

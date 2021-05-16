@@ -24,10 +24,6 @@ class NewPostTag extends Notification implements ShouldQueue
 
     /**
      * NewPostTag Constructor.
-     *
-     * @param string           $type
-     * @param string           $tagger
-     * @param \App\Models\Post $post
      */
     public function __construct(public string $type, public string $tagger, public Post $post)
     {

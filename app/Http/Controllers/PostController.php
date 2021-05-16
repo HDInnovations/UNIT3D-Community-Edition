@@ -38,9 +38,6 @@ class PostController extends Controller
 {
     /**
      * PostController Constructor.
-     *
-     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
-     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
@@ -49,9 +46,7 @@ class PostController extends Controller
     /**
      * Store A New Post To A Topic.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Topic        $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request, $id)
@@ -171,10 +166,8 @@ class PostController extends Controller
      *
      * @param \App\Models\Topic $id
      * @param \App\Models\Post  $postId
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function postEditForm($id, $postId)
+    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -192,9 +185,7 @@ class PostController extends Controller
     /**
      * Edit A Post In A Topic.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Post         $postId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, $postId)
@@ -214,11 +205,9 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Post         $postId
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, $postId)

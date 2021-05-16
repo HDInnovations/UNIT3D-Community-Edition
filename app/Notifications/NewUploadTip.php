@@ -25,10 +25,7 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * NewUploadTip Constructor.
      *
-     * @param string              $type
-     * @param string              $tipper
      * @param                     $amount
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(public string $type, public string $tipper, public $amount, public Torrent $torrent)
     {

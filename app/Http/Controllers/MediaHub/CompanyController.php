@@ -20,10 +20,8 @@ class CompanyController extends Controller
 {
     /**
      * Display All Companies.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('mediahub.company.index');
     }
@@ -32,10 +30,8 @@ class CompanyController extends Controller
      * Show A Company.
      *
      * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $company = Company::with('tv', 'movie')->findOrFail($id);
 

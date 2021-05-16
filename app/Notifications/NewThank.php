@@ -23,9 +23,6 @@ class NewThank extends Notification
 
     /**
      * NewThank Constructor.
-     *
-     * @param string            $type
-     * @param \App\Models\Thank $thank
      */
     public function __construct(public string $type, public Thank $thank)
     {

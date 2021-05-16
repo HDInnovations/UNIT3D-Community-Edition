@@ -39,8 +39,6 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
      * ProcessStoppedAnnounceRequest Constructor.
      *
      * @param                     $queries
-     * @param \App\Models\User    $user
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {

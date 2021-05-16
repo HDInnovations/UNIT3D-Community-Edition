@@ -24,9 +24,6 @@ class NewUpload extends Notification implements ShouldQueue
 
     /**
      * NewUpload Constructor.
-     *
-     * @param string              $type
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(public string $type, public Torrent $torrent)
     {

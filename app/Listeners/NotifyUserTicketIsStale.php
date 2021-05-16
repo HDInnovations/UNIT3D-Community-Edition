@@ -31,7 +31,6 @@ class NotifyUserTicketIsStale
     /**
      * Handle the event.
      *
-     * @param TicketWentStale $event
      *
      * @return void
      */

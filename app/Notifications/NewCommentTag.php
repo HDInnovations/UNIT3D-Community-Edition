@@ -24,10 +24,6 @@ class NewCommentTag extends Notification implements ShouldQueue
 
     /**
      * NewCommentTag Constructor.
-     *
-     * @param string              $type
-     * @param string              $tagger
-     * @param \App\Models\Comment $comment
      */
     public function __construct(public string $type, public string $tagger, public Comment $comment)
     {

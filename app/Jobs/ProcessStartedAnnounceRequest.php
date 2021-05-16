@@ -34,8 +34,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      * ProcessStartedAnnounceRequest Constructor.
      *
      * @param                     $queries
-     * @param \App\Models\User    $user
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {

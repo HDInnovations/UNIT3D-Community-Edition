@@ -27,9 +27,6 @@ class ForumController extends Controller
 {
     /**
      * ForumController Constructor.
-     *
-     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
-     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
@@ -38,11 +35,9 @@ class ForumController extends Controller
     /**
      * Search For Topics.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function search(Request $request)
+    public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -173,11 +168,9 @@ class ForumController extends Controller
     /**
      * Search For Subscribed Forums & Topics.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subscriptions(Request $request)
+    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -228,11 +221,9 @@ class ForumController extends Controller
     /**
      * Latest Topics.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestTopics(Request $request)
+    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -262,11 +253,9 @@ class ForumController extends Controller
     /**
      * Latest Posts.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestPosts(Request $request)
+    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -295,10 +284,8 @@ class ForumController extends Controller
 
     /**
      * Show All Forums.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -321,10 +308,8 @@ class ForumController extends Controller
      * Show Forums And Topics Inside.
      *
      * @param \App\Models\Forum $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

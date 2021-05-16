@@ -47,9 +47,6 @@ class CommentController extends Controller
 
     /**
      * CommentController Constructor.
-     *
-     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
-     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
@@ -58,9 +55,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Collection.
      *
-     * @param \Illuminate\Http\Request $request
      * @param                          $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function collection(Request $request, $id)
@@ -153,9 +148,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Article      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function article(Request $request, $id)
@@ -244,9 +237,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Playlist     $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function playlist(Request $request, $id)
@@ -335,9 +326,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function torrent(Request $request, $id)
@@ -430,9 +419,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function request(Request $request, $id)
@@ -525,9 +512,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function ticket(Request $request, $id)
@@ -569,9 +554,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function quickthanks(Request $request, $id)
@@ -650,9 +633,7 @@ class CommentController extends Controller
     /**
      * Edit A Comment.
      *
-     * @param \Illuminate\Http\Request $request
      * @param                          $commentId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editComment(Request $request, $commentId)
@@ -680,9 +661,7 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
-     * @param \Illuminate\Http\Request $request
      * @param                          $commentId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteComment(Request $request, $commentId)

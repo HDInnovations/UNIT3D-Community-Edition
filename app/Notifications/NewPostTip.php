@@ -25,10 +25,7 @@ class NewPostTip extends Notification implements ShouldQueue
     /**
      * NewPostTip Constructor.
      *
-     * @param string           $type
-     * @param string           $tipper
      * @param                  $amount
-     * @param \App\Models\Post $post
      */
     public function __construct(public string $type, public string $tipper, public $amount, public Post $post)
     {

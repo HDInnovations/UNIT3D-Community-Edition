@@ -27,12 +27,10 @@ class WarningController extends Controller
     /**
      * Show A Users Warnings.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $username)
+    public function show(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
@@ -56,9 +54,7 @@ class WarningController extends Controller
     /**
      * Deactivate A Warning.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Warning      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deactivate(Request $request, $id)
@@ -85,9 +81,7 @@ class WarningController extends Controller
     /**
      * Deactivate All Warnings.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deactivateAllWarnings(Request $request, $username)
@@ -117,11 +111,9 @@ class WarningController extends Controller
     /**
      * Delete A Warning.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Warning      $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteWarning(Request $request, $id)
@@ -150,9 +142,7 @@ class WarningController extends Controller
     /**
      * Delete All Warnings.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAllWarnings(Request $request, $username)
@@ -183,9 +173,7 @@ class WarningController extends Controller
     /**
      * Restore A Soft Deleted Warning.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Warning      $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function restoreWarning(Request $request, $id)

@@ -147,8 +147,6 @@ class Comment extends Model
 
     /**
      * Nootify Staff There Is Stale Tickets.
-     *
-     * @param \App\Models\Ticket $ticket
      */
     public static function checkForStale(Ticket $ticket)
     {

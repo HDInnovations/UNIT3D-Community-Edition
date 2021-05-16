@@ -86,7 +86,7 @@ class EmailBlacklistValidator
             if ($autoupdate && ! \cache()->has(\config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
             }
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
         }
     }
 

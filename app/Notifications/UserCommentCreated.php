@@ -22,18 +22,14 @@ class UserCommentCreated extends Notification
 {
     use Queueable;
 
-    private $comment;
-
     /**
      * Create a new notification instance.
      *
-     * @param Comment $comment
      *
      * @return mixed
      */
-    public function __construct(Comment $comment)
+    public function __construct(private Comment $comment)
     {
-        $this->comment = $comment;
     }
 
     /**

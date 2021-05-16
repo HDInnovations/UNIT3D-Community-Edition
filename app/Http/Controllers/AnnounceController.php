@@ -58,11 +58,9 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $passkey
      *
      * @throws \Exception
-     *
      * @return string
      */
     public function index(Request $request, $passkey)
@@ -125,11 +123,9 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param Request $request
      *
      * @throws \App\Exceptions\TrackerException
      *
-     * @return void
      */
     protected function checkClient(Request $request): void
     {
@@ -176,8 +172,6 @@ class AnnounceController extends Controller
      * @param $passkey
      *
      * @throws \App\Exceptions\TrackerException
-     *
-     * @return void
      */
     protected function checkPasskey($passkey): void
     {
@@ -198,11 +192,9 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \App\Exceptions\TrackerException
      *
-     * @return array
      */
     private function checkAnnounceFields(Request $request): array
     {
@@ -283,8 +275,6 @@ class AnnounceController extends Controller
      * @param $queries
      *
      * @throws \App\Exceptions\TrackerException
-     *
-     * @return object
      */
     protected function checkUser($passkey, $queries): object
     {
@@ -328,8 +318,6 @@ class AnnounceController extends Controller
      * @param $infoHash
      *
      * @throws \App\Exceptions\TrackerException
-     *
-     * @return object
      */
     protected function checkTorrent($infoHash): object
     {
@@ -422,8 +410,6 @@ class AnnounceController extends Controller
      * @param $user
      *
      * @throws \Exception
-     *
-     * @return array
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
@@ -472,11 +458,6 @@ class AnnounceController extends Controller
         }
     }
 
-    /**
-     * @param \App\Exceptions\TrackerException $trackerException
-     *
-     * @return array
-     */
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
     {
         return [
@@ -499,10 +480,8 @@ class AnnounceController extends Controller
 
     /**
      * @param $repDict
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    protected function sendFinalAnnounceResponse($repDict)
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -515,8 +494,6 @@ class AnnounceController extends Controller
      * @param     $compact
      * @param     $noPeerId
      * @param int $filterFlag
-     *
-     * @return string
      */
     private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string
     {

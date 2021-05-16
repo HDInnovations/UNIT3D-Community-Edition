@@ -25,10 +25,8 @@ class ContactController extends Controller
 {
     /**
      * Contact Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('contact.index');
     }
@@ -36,7 +34,6 @@ class ContactController extends Controller
     /**
      * Send A Contact Email To Owner/First User.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

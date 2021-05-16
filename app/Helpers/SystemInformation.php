@@ -156,14 +156,12 @@ class SystemInformation
      * Get the file permissions for a specific path/file.
      *
      * @param $path
-     *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
-    public function getDirectoryPermission($path)
+    public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
     {
         try {
             return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return \trans('site.error');
         }
     }

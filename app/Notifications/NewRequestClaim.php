@@ -24,10 +24,6 @@ class NewRequestClaim extends Notification implements ShouldQueue
 
     /**
      * NewRequestClaim Constructor.
-     *
-     * @param string                     $type
-     * @param string                     $sender
-     * @param \App\Models\TorrentRequest $torrentRequest
      */
     public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {

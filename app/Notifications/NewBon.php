@@ -24,10 +24,6 @@ class NewBon extends Notification implements ShouldQueue
 
     /**
      * NewBon Constructor.
-     *
-     * @param string                      $type
-     * @param string                      $sender
-     * @param \App\Models\BonTransactions $bonTransactions
      */
     public function __construct(public string $type, public string $sender, public BonTransactions $bonTransactions)
     {

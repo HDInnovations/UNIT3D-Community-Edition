@@ -97,10 +97,8 @@ class TwoStepController extends Controller
      * Show the twostep verification form.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showVerification()
+    public function showVerification(): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);
@@ -153,10 +151,8 @@ class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function verify(Request $request)
