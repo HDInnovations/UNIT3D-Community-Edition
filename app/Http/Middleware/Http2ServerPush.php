@@ -39,9 +39,9 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param null                     $limit
-     * @param null                     $sizeLimit
-     * @param null                     $excludeKeywords
+     * @param null $limit
+     * @param null $sizeLimit
+     * @param null $excludeKeywords
      *
      * @return mixed
      */
@@ -68,9 +68,10 @@ class Http2ServerPush
     }
 
     /**
-     * @param null                      $limit
-     * @param null                      $sizeLimit
-     * @param null                      $excludeKeywords
+     * @param null $limit
+     * @param null $sizeLimit
+     * @param null $excludeKeywords
+     *
      * @return $this
      */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)

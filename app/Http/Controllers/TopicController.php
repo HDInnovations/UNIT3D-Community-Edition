@@ -53,7 +53,7 @@ class TopicController extends Controller
      * @param string            $page
      * @param string            $post
      */
-    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -98,10 +98,9 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      *
-     * @param \App\Models\Forum        $id
-     *
+     * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
@@ -122,7 +121,8 @@ class TopicController extends Controller
     /**
      * Create A New Topic In The Forum.
      *
-     * @param \App\Models\Forum        $id
+     * @param \App\Models\Forum $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function newTopic(Request $request, $id)
@@ -229,7 +229,7 @@ class TopicController extends Controller
      *
      * @param \App\Models\Topic $id
      */
-    public function editForm($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
@@ -240,7 +240,8 @@ class TopicController extends Controller
     /**
      * Edit Topic In The Forum.
      *
-     * @param \App\Models\Topic        $id
+     * @param \App\Models\Topic $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editTopic(Request $request, $id)
@@ -262,7 +263,8 @@ class TopicController extends Controller
     /**
      * Close The Topic.
      *
-     * @param \App\Models\Topic        $id
+     * @param \App\Models\Topic $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function closeTopic(Request $request, $id)
@@ -281,7 +283,8 @@ class TopicController extends Controller
     /**
      * Open The Topic.
      *
-     * @param \App\Models\Topic        $id
+     * @param \App\Models\Topic $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function openTopic(Request $request, $id)
@@ -300,9 +303,10 @@ class TopicController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @param \App\Models\Topic        $id
+     * @param \App\Models\Topic $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTopic(Request $request, $id)

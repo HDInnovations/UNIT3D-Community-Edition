@@ -73,7 +73,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function generate($action, $old = [], $new = []): false|string
+    protected static function generate($action, $old = [], $new = []): false | string
     {
         $data = [];
         switch ($action) {

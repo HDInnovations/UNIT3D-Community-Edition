@@ -25,10 +25,9 @@ class SeedboxController extends Controller
     /**
      * Get A Users Registered Seedboxes.
      *
-     * @param \App\Models\User         $username
-     *
+     * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -72,9 +71,10 @@ class SeedboxController extends Controller
     /**
      * Delete A Seedbox.
      *
-     * @param \App\Models\Seedbox      $id
+     * @param \App\Models\Seedbox $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function destroy(Request $request, $id)

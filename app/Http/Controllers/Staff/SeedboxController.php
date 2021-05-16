@@ -25,7 +25,7 @@ class SeedboxController extends Controller
     /**
      * Display All Registered Seedboxes.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
@@ -35,9 +35,10 @@ class SeedboxController extends Controller
     /**
      * Delete A Registered Seedbox.
      *
-     * @param \App\Models\Seedbox      $id
+     * @param \App\Models\Seedbox $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

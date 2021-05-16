@@ -34,7 +34,7 @@ class TvSeasonController extends Controller
      *
      * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $season = Season::with(['episodes'])->findOrFail($id);
         $show = Tv::whereId($season->tv_id)->first();

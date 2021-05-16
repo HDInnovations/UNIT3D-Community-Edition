@@ -50,8 +50,9 @@ class HiddenCaptcha
     /**
      * Check the hidden captcha values.
      *
-     * @param int       $minLimit
-     * @param int       $maxLimit
+     * @param int $minLimit
+     * @param int $maxLimit
+     *
      * @return bool
      */
     public static function check(Validator $validator, $minLimit = 0, $maxLimit = 1_200)
@@ -90,7 +91,7 @@ class HiddenCaptcha
      *
      * @param string $captcha
      */
-    private static function getToken($captcha): string|bool|array
+    private static function getToken($captcha): string | bool | array
     {
         // Get the token values
         try {

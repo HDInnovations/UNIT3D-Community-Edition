@@ -42,10 +42,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Gifts System.
-     *
-     *
      */
-    public function gifts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function gifts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -67,10 +65,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Tips System.
-     *
-     *
      */
-    public function tips(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function tips(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -92,10 +88,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Store System.
-     *
-     *
      */
-    public function store(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function store(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -120,10 +114,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Gift System.
-     *
-     *
      */
-    public function gift(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function gift(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -135,10 +127,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
-     * @param string                   $username
-     *
+     * @param string $username
      */
-    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -205,7 +196,8 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param \App\Models\BonExchange  $id
+     * @param \App\Models\BonExchange $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function exchange(Request $request, $id)
@@ -390,7 +382,8 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function tipUploader(Request $request, $id)
@@ -491,7 +484,6 @@ class BonusController extends Controller
     /**
      * @method getDyingCount
      *
-     *
      * @return int
      */
     public function getDyingCount(Request $request)
@@ -511,7 +503,6 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
-     *
      * @return int
      */
     public function getLegendaryCount(Request $request)
@@ -530,7 +521,6 @@ class BonusController extends Controller
 
     /**
      * @method getOldCount
-     *
      *
      * @return int
      */
@@ -552,7 +542,6 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
-     *
      * @return int
      */
     public function getHugeCount(Request $request)
@@ -570,7 +559,6 @@ class BonusController extends Controller
 
     /**
      * @method getLargeCount
-     *
      *
      * @return int
      */
@@ -591,7 +579,6 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
-     *
      * @return int
      */
     public function getRegularCount(Request $request)
@@ -610,7 +597,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
      *
      * @return int
      */
@@ -631,7 +617,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     *
      * @return int
      */
     public function getTeamPlayerSeedCount(Request $request)
@@ -650,7 +635,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
      *
      * @return int
      */
@@ -671,7 +655,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     *
      * @return int
      */
     public function getMVPSeedCount(Request $request)
@@ -690,7 +673,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
      *
      * @return int
      */

@@ -28,7 +28,7 @@ class ChatBotController extends Controller
      *
      * @param null $hash
      */
-    public function index($hash = null): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index($hash = null): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
@@ -40,10 +40,9 @@ class ChatBotController extends Controller
     /**
      * Show the form for editing the specified Bot resource.
      *
-     * @param int                      $id
-     *
+     * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -57,7 +56,8 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      *
-     * @param int                      $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

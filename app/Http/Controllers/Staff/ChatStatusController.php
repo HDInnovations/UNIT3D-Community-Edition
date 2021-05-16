@@ -33,7 +33,7 @@ class ChatStatusController extends Controller
     /**
      * Chat Management.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $chatstatuses = $this->chatRepository->statuses();
 
@@ -74,7 +74,8 @@ class ChatStatusController extends Controller
     /**
      * Update A Chat Status.
      *
-     * @param \App\Models\ChatStatus   $id
+     * @param \App\Models\ChatStatus $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)

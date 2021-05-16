@@ -141,9 +141,10 @@ class SystemBot
     /**
      * Process Message.
      *
-     * @param                  $type
-     * @param string           $message
-     * @param int              $targeted
+     * @param        $type
+     * @param string $message
+     * @param int    $targeted
+     *
      * @return bool
      */
     public function process($type, User $user, $message = '', $targeted = 0)

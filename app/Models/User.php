@@ -623,6 +623,7 @@ class User extends Authenticatable
      *
      * @param string $group
      * @param bool   $type
+     *
      * @return int
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
@@ -657,6 +658,7 @@ class User extends Authenticatable
      *
      * @param string $group
      * @param bool   $type
+     *
      * @return int
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
@@ -689,7 +691,8 @@ class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param        $topicId
+     * @param $topicId
+     *
      * @return string
      */
     public function isSubscribed(string $type, $topicId)

@@ -24,8 +24,6 @@ class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     *
      */
     final public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
@@ -48,8 +46,6 @@ class TicketController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
      */
     final public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -84,8 +80,6 @@ class TicketController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     *
      */
     final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
@@ -110,8 +104,6 @@ class TicketController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     *
      */
     final public function edit(int $id): \Illuminate\Http\Response
     {
@@ -120,8 +112,6 @@ class TicketController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
      */
     final public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -156,8 +146,6 @@ class TicketController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     *
      */
     final public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

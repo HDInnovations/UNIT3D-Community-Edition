@@ -28,7 +28,7 @@ class ForumController extends Controller
     /**
      * Display All Forums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
@@ -38,7 +38,7 @@ class ForumController extends Controller
     /**
      * Show Forum Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
@@ -95,7 +95,7 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -111,7 +111,8 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      *
-     * @param \App\Models\Forum        $id
+     * @param \App\Models\Forum $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)

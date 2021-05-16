@@ -25,7 +25,7 @@ class AuditController extends Controller
     /**
      * Display All Audits.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $audits = Audit::with('user')->latest()->paginate(50);
 
@@ -35,9 +35,10 @@ class AuditController extends Controller
     /**
      * Delete A Audit.
      *
-     * @param \App\Models\Audit        $id
+     * @param \App\Models\Audit $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

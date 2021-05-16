@@ -58,9 +58,10 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \App\Models\User         $passkey
+     * @param \App\Models\User $passkey
      *
      * @throws \Exception
+     *
      * @return string
      */
     public function index(Request $request, $passkey)
@@ -123,9 +124,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     *
      * @throws \App\Exceptions\TrackerException
-     *
      */
     protected function checkClient(Request $request): void
     {
@@ -192,9 +191,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     *
      * @throws \App\Exceptions\TrackerException
-     *
      */
     private function checkAnnounceFields(Request $request): array
     {
@@ -481,7 +478,7 @@ class AnnounceController extends Controller
     /**
      * @param $repDict
      */
-    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory | \Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])

@@ -34,7 +34,7 @@ class PollController extends Controller
     /**
      * Display All Polls.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $polls = Poll::latest()->paginate(25);
 
@@ -46,7 +46,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -56,7 +56,7 @@ class PollController extends Controller
     /**
      * Poll Add Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.poll.create');
     }
@@ -91,7 +91,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 
@@ -101,9 +101,10 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param                              $id
+     * @param $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StorePoll $storePoll, $id)

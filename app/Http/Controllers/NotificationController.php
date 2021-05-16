@@ -23,10 +23,8 @@ class NotificationController extends Controller
 {
     /**
      * Show All Notifications.
-     *
-     *
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $notifications = $request->user()->notifications()->paginate(25);
 
@@ -38,6 +36,7 @@ class NotificationController extends Controller
      *
      *
      * @throws \Throwable
+     *
      * @return array
      */
     public function faceted(Request $request)
@@ -134,6 +133,7 @@ class NotificationController extends Controller
      * Show A Notification And Mark As Read.
      *
      * @param \App\Models\Notification $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Request $request, $id)
@@ -149,6 +149,7 @@ class NotificationController extends Controller
      * Set A Notification To Read.
      *
      * @param \App\Models\Notification $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -176,6 +177,7 @@ class NotificationController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateAll(Request $request)
@@ -191,6 +193,7 @@ class NotificationController extends Controller
      * Delete A Notification.
      *
      * @param \App\Models\Notification $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

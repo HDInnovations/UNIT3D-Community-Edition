@@ -55,7 +55,8 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Collection.
      *
-     * @param                          $id
+     * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function collection(Request $request, $id)
@@ -148,7 +149,8 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param \App\Models\Article      $id
+     * @param \App\Models\Article $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function article(Request $request, $id)
@@ -237,7 +239,8 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      *
-     * @param \App\Models\Playlist     $id
+     * @param \App\Models\Playlist $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function playlist(Request $request, $id)
@@ -326,7 +329,8 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function torrent(Request $request, $id)
@@ -420,6 +424,7 @@ class CommentController extends Controller
      * Store A New Comment To A Request.
      *
      * @param \App\Models\TorrentRequest $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function request(Request $request, $id)
@@ -513,6 +518,7 @@ class CommentController extends Controller
      * Store A New Comment To A Request.
      *
      * @param \App\Models\TorrentRequest $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function ticket(Request $request, $id)
@@ -554,7 +560,8 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function quickthanks(Request $request, $id)
@@ -633,7 +640,8 @@ class CommentController extends Controller
     /**
      * Edit A Comment.
      *
-     * @param                          $commentId
+     * @param $commentId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editComment(Request $request, $commentId)
@@ -661,7 +669,8 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
-     * @param                          $commentId
+     * @param $commentId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteComment(Request $request, $commentId)

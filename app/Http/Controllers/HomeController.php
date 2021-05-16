@@ -39,9 +39,8 @@ class HomeController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // For Cache
         $current = Carbon::now();

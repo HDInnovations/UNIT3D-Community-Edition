@@ -20,8 +20,6 @@ class PasswordProtectBackup
 {
     /**
      * Handle the event.
-     *
-     *
      */
     public function handle(BackupZipWasCreated $backupZipWasCreated): string
     {

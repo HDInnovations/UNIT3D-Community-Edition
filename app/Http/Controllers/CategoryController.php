@@ -27,7 +27,7 @@ class CategoryController extends Controller
     /**
      * Display All Categories.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Category::withCount('torrents')->get()->sortBy('position');
 
@@ -37,10 +37,9 @@ class CategoryController extends Controller
     /**
      * Show A Category.
      *
-     * @param \App\Models\Category     $id
-     *
+     * @param \App\Models\Category $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $category = Category::select(['id', 'name'])->findOrFail($id);

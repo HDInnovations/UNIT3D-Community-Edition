@@ -46,7 +46,8 @@ class PostController extends Controller
     /**
      * Store A New Post To A Topic.
      *
-     * @param \App\Models\Topic        $id
+     * @param \App\Models\Topic $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request, $id)
@@ -167,7 +168,7 @@ class PostController extends Controller
      * @param \App\Models\Topic $id
      * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -185,7 +186,8 @@ class PostController extends Controller
     /**
      * Edit A Post In A Topic.
      *
-     * @param \App\Models\Post         $postId
+     * @param \App\Models\Post $postId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, $postId)
@@ -205,9 +207,10 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \App\Models\Post         $postId
+     * @param \App\Models\Post $postId
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, $postId)

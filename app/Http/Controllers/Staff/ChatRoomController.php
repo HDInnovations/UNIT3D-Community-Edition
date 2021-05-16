@@ -34,7 +34,7 @@ class ChatRoomController extends Controller
     /**
      * Display All Chat Rooms.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $chatrooms = $this->chatRepository->rooms();
 
@@ -71,7 +71,8 @@ class ChatRoomController extends Controller
     /**
      * Update A Chatroom.
      *
-     * @param \App\Models\Chatroom     $id
+     * @param \App\Models\Chatroom $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)

@@ -27,7 +27,7 @@ class ImageController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function create($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::find($id);
 
@@ -100,9 +100,10 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param \App\Models\Image        $id
+     * @param \App\Models\Image $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

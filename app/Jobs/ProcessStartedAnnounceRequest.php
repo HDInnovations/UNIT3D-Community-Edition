@@ -33,7 +33,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
     /**
      * ProcessStartedAnnounceRequest Constructor.
      *
-     * @param                     $queries
+     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {

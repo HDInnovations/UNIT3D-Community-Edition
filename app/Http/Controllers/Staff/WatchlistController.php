@@ -32,8 +32,6 @@ class WatchlistController extends Controller
 
     /**
      * Store A New Watched User.
-     *
-     *
      */
     final public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

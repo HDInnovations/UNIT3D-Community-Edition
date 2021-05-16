@@ -45,7 +45,7 @@ class SubtitleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('subtitle.index');
     }
@@ -55,7 +55,7 @@ class SubtitleController extends Controller
      *
      * @param \App\Models\Torrent $torrentId
      */
-    public function create($torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create($torrentId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::findOrFail($torrentId);
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
@@ -145,7 +145,8 @@ class SubtitleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Models\Subtitle     $id
+     * @param \App\Models\Subtitle $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -175,9 +176,10 @@ class SubtitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Subtitle     $id
+     * @param \App\Models\Subtitle $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
@@ -200,10 +202,9 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      *
-     * @param \App\Models\Subtitle     $id
-     *
+     * @param \App\Models\Subtitle $id
      */
-    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

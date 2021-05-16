@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     /**
      * Display All Applications.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $applications = Application::withAnyStatus()
             ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
@@ -46,7 +46,7 @@ class ApplicationController extends Controller
      *
      * @param \App\Models\Application $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
@@ -56,9 +56,10 @@ class ApplicationController extends Controller
     /**
      * Approve A Application.
      *
-     * @param \App\Models\Application  $id
+     * @param \App\Models\Application $id
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function approve(Request $request, $id)
@@ -108,7 +109,8 @@ class ApplicationController extends Controller
     /**
      * Reject A Application.
      *
-     * @param \App\Models\Application  $id
+     * @param \App\Models\Application $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request, $id)

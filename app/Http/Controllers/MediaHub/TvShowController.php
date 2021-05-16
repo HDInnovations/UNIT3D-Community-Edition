@@ -21,7 +21,7 @@ class TvShowController extends Controller
     /**
      * Display All TV Shows.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('mediahub.tv.index');
     }
@@ -31,7 +31,7 @@ class TvShowController extends Controller
      *
      * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $show = Tv::with(['seasons', 'genres', 'networks', 'companies'])->withCount('torrents')->findOrFail($id);
 

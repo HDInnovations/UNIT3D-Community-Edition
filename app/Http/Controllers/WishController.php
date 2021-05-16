@@ -33,10 +33,9 @@ class WishController extends Controller
     /**
      * Get A Users Wishlist.
      *
-     * @param \App\Models\User         $username
-     *
+     * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
@@ -56,6 +55,7 @@ class WishController extends Controller
      *
      *
      * @throws \JsonException
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -101,7 +101,8 @@ class WishController extends Controller
     /**
      * Delete A Wish.
      *
-     * @param \App\Models\Wish         $id
+     * @param \App\Models\Wish $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)

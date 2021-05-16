@@ -37,7 +37,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
     /**
      * ProcessBasicAnnounceRequest Constructor.
      *
-     * @param                     $queries
+     * @param $queries
      */
     public function __construct(protected $queries, protected \App\Models\User $user, protected \App\Models\Torrent $torrent)
     {

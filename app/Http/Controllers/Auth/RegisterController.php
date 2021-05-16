@@ -42,7 +42,7 @@ class RegisterController extends Controller
      *
      * @param $code
      */
-    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {

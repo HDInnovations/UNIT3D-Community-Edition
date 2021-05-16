@@ -26,7 +26,7 @@ class ActivateUser extends Mailable
     /**
      * ActivateUser constructor.
      *
-     * @param                  $code
+     * @param $code
      */
     public function __construct(public User $user, public $code)
     {

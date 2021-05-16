@@ -24,7 +24,7 @@ class PageController extends Controller
     /**
      * Display All Pages.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $pages = Page::all();
 
@@ -36,7 +36,7 @@ class PageController extends Controller
      *
      * @param \App\Models\Page $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 
@@ -46,7 +46,7 @@ class PageController extends Controller
     /**
      * Show Staff Page.
      */
-    public function staff(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function staff(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
 
@@ -56,7 +56,7 @@ class PageController extends Controller
     /**
      * Show Internals Page.
      */
-    public function internal(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function internal(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
 
@@ -66,7 +66,7 @@ class PageController extends Controller
     /**
      * Show Blacklist Page.
      */
-    public function blacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function blacklist(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $clients = \config('client-blacklist.clients', []);
 
@@ -76,7 +76,7 @@ class PageController extends Controller
     /**
      * Show About Us Page.
      */
-    public function about(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function about(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('page.aboutus');
     }
