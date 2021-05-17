@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tv;
 use App\Models\Movie;
 use App\Models\Person;
+use App\Models\Tv;
 use Livewire\Component;
 
 class QuickSearchDropdown extends Component
@@ -46,7 +46,7 @@ class QuickSearchDropdown extends Component
         }
 
         return \view('livewire.quick-search-dropdown', [
-            'search_results' => $search_results
+            'search_results' => $search_results,
         ]);
     }
 }
