@@ -344,7 +344,7 @@
 
                                             @if ($torrent->category->game_meta && isset($torrent->meta) && $torrent->meta->cover->image_id &&
                                                 $torrent->meta->name)
-                                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg"
+                                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
                                                      class="show-poster"
                                                      data-name='<i style="color: #a5a5a5;">{{ $torrent->meta->name ?? 'N/A' }}</i>'
                                                      data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg" alt="@lang('

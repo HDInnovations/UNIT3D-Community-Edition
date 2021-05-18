@@ -78,7 +78,7 @@
                                 @endif
 
                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                    <img loading="lazy" src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                    <img loading="lazy" src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ $meta->cover->image_id }}.jpg"
                                          class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
@@ -194,14 +194,12 @@
                         @endif
 
                             @if ($torrent->category->game_meta && isset($meta))
-                                <a href="{{ $meta->url }}" title="IMDB" target="_blank">
-                                    <span class="badge-extra text-bold">@lang('torrent.rating'):
-                                        <span class="text-gold movie-rating-stars">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                                        </span>
-                                        {{ $meta->rating ?? '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                <span class="badge-extra text-bold">@lang('torrent.rating'):
+                                    <span class="text-gold movie-rating-stars">
+                                        <i class="{{ config('other.font-awesome') }} fa-star"></i>
                                     </span>
-                                </a>
+                                    {{ $meta->rating ? \round($meta->rating) : '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                </span>
                             @endif
 
                             <span class="badge-extra text-bold text-pink">

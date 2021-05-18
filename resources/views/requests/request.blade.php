@@ -74,7 +74,7 @@
                 @endif
 
                 @if ($torrentRequest->category->game_meta)
-                    @include('requests.partials.game_meta')
+                    @include('torrent.partials.game_meta', ['torrent' => $torrentRequest])
                 @endif
 
                 <div class="table-responsive mt-20">

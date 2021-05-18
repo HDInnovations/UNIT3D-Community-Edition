@@ -132,7 +132,7 @@
 									@endif
 
 									@if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
-										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg"
+										<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $t->torrent->meta->cover->image_id }}.jpg"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 

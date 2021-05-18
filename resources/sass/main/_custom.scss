@@ -7506,6 +7506,10 @@ select.icon-right i {
 .movie-poster {
     z-index: 2;
     width: 27%;
+
+    .game & {
+        width: 30%;
+    }
 }
 
 .movie-poster img {
@@ -7519,6 +7523,10 @@ select.icon-right i {
     width: 73%;
     position: relative;
     overflow: hidden;
+
+    .game & {
+        width: 72%;
+    }
 }
 
 .movie-backdrop {
