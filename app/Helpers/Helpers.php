@@ -83,43 +83,19 @@ if (! function_exists('hrefCollection')) {
 if (! function_exists('tmdbImage')) {
     function tmdb_image($type, $original)
     {
-        $new = 'original';
-
-        switch ($type) {
-            case 'back_big':
-                $new = 'w1280';
-                break;
-            case 'back_small':
-                $new = 'w780';
-                break;
-            case 'poster_big':
-                $new = 'w500';
-                break;
-            case 'poster_mid':
-                $new = 'w342';
-                break;
-            case 'poster_small':
-                $new = 'w92';
-                break;
-            case 'cast_face':
-                $new = 'w138_and_h175_face';
-                break;
-            case 'cast_mid':
-                $new = 'w185';
-                break;
-            case 'cast_big':
-                $new = 'w300';
-                break;
-            case 'still_mid':
-                $new = 'w400';
-                break;
-            case 'logo_small':
-                $new = 'h60';
-                break;
-            case 'logo_mid':
-                $new = 'w300';
-                break;
-        }
+        $new = match ($type) {
+            'back_big'     => 'w1280',
+            'back_small'   => 'w780',
+            'poster_big'   => 'w500',
+            'poster_mid'   => 'w342',
+            'cast_face'    => 'w138_and_h175_face',
+            'cast_mid'     => 'w185',
+            'cast_big'     => 'w300',
+            'still_mid'    => 'w400',
+            'logo_small'   => 'h60',
+            'logo_mid'     => 'w300',
+            default        => 'original',
+        };
 
         return \str_replace('/original/', '/'.$new.'/', $original);
     }

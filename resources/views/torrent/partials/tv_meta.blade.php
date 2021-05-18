@@ -42,20 +42,14 @@
 
         <div class="movie-top">
             <h1 class="movie-heading">
-                <span class="text-bold">{{ isset($meta->name) ? Str::limit($meta->name, $limit = 100, $end = '...') : 'No Meta Found' }}</span>
+                <span class="text-bold">{{ isset($meta->name) ? $meta->name : 'No Meta Found' }}</span>
                 @if(isset($meta->first_air_date))
                 <span> ({{ substr($meta->first_air_date, 0, 4) ?? '' }})</span>
                 @endif
             </h1>
 
-            @if(isset($meta->original_name))
-            <h2 class="movie-subhead">
-                {{ Str::limit($meta->original_name, $limit = 70, $end = '...') }}
-            </h2>
-            @endif
-
             <div class="movie-overview">
-                {{ isset($meta->name) ? Str::limit($meta->overview, $limit = 310, $end = '...') : '' }}
+                {{ isset($meta->name) ? Str::limit($meta->overview, $limit = 350, $end = '...') : '' }}
             </div>
         </div>
 

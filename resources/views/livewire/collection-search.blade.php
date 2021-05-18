@@ -10,7 +10,7 @@
 					<div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
 					<section class="collection">
 						<h2>{{ $collection->name }}</h2>
-						<p class="text-blue">Includes:
+						<p class="text-blue">@lang('mediahub.includes')
 							@foreach($collection->movie as $collection_movie)
 								{{ $collection_movie->title }},
 							@endforeach

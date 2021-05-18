@@ -47,20 +47,14 @@
 
                     <div class="movie-top">
                         <h1 class="movie-heading">
-                            <span class="text-bold">{{ isset($movie->title) ? Str::limit($movie->title, $limit = 100, $end = '...') : 'No Meta Found' }}</span>
+                            <span class="text-bold">{{ isset($movie->title) ? $movie->title : 'No Meta Found' }}</span>
                             @if(isset($movie->release_date))
                             <span> ({{ substr($movie->release_date, 0, 4) ?? '' }})</span>
                             @endif
                         </h1>
 
-                        @if(isset($movie->original_name))
-                        <h2 class="movie-subhead">
-                            {{ Str::limit($meta->original_name, $limit = 70, $end = '...') }}
-                        </h2>
-                        @endif
-
                         <div class="movie-overview">
-                            {{ isset($meta->overview) ? Str::limit($movie->overview, $limit = 310, $end = '...') : '' }}
+                            {{ isset($meta->overview) ? Str::limit($movie->overview, $limit = 350, $end = '...') : '' }}
                         </div>
                     </div>
 

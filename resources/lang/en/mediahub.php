@@ -19,7 +19,7 @@ return [
     'episodes'              => 'Episodes',
     'first-seen'            => 'First Appeared:',
     'genres'                => 'Genres',
-    'includes:'             => 'Includes:',
+    'includes'              => 'Includes:',
     'latest-project'        => 'Latest Project:',
     'networks'              => 'Networks',
     'no-data'               => 'No Data Found!',
