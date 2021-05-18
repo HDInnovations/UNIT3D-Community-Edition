@@ -150,7 +150,14 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ !empty($imdb) ? $imdb : old('imdb') }}" required>
+                                @php $imdb_val = 0;
+                                if (!empty($imdb)) {
+                                    $imdb_val = $imdb;
+                                }
+                                if (!empty(old('imdb'))) {
+                                    $imdb_val = old('imdb');
+                                } @endphp
+                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ $imdb_val }}">
                             </label>
                         </div>
                     @else
