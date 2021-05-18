@@ -73,12 +73,12 @@
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                    <img loading="lazy" src="{{ $meta->poster ?? 'https://via.placeholder.com/52x80' }}"
+                                    <img loading="lazy" src="{{ isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
                                     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                    <img loading="lazy" src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                    <img loading="lazy" src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ $meta->cover->image_id }}.jpg"
                                          class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
@@ -194,14 +194,12 @@
                         @endif
 
                             @if ($torrent->category->game_meta && isset($meta))
-                                <a href="{{ $meta->url }}" title="IMDB" target="_blank">
-                                    <span class="badge-extra text-bold">@lang('torrent.rating'):
-                                        <span class="text-gold movie-rating-stars">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                                        </span>
-                                        {{ $meta->rating ?? '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                <span class="badge-extra text-bold">@lang('torrent.rating'):
+                                    <span class="text-gold movie-rating-stars">
+                                        <i class="{{ config('other.font-awesome') }} fa-star"></i>
                                     </span>
-                                </a>
+                                    {{ $meta->rating ? \round($meta->rating) : '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                </span>
                             @endif
 
                             <span class="badge-extra text-bold text-pink">

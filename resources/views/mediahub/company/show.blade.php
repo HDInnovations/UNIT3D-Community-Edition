@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="card_body">
                                     <div class="body_poster">
-                                        <img src="{{ $show->poster }}" class="show-poster">
+                                        <img src="{{ isset($show->poster) ? \tmdb_image('poster_mid', $show->poster) : 'https://via.placeholder.com/200x300' }}" class="show-poster">
                                     </div>
                                     <div class="body_description">
                                         <h3 class="description_title">

@@ -49,7 +49,7 @@
                         <div class="movie-image">
                             <img class="backdrop" src=
                             @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
-                                "{{ $meta->backdrop ?? 'https://via.placeholder.com/533x300' }}">
+                                "{{ isset($meta->backdrop) ? \tmdb_image('back_small', $meta->backdrop) : 'https://via.placeholder.com/533x300' }}">
                             @elseif ($feature->torrent->category->game_meta && isset($meta) && $meta->artworks)
                                 "https://images.igdb.com/igdb/image/upload/t_screenshot_med/{{ $meta->artworks[0]['image_id'] }}.jpg">
                             @else
@@ -65,7 +65,7 @@
                                         <h1 class="movie-title">{{ $feature->torrent->name }}</h1>
                                     </a>
                                     <h4 class="movie-info">
-                                        @if (isset($meta) && $meta->genres->isNotEmpty())
+                                        @if (isset($meta) && isset($meta->genres) && $meta->genres->isNotEmpty())
                                             @foreach ($meta->genres as $genre)
                                                 @if ($feature->torrent->category->tv_meta ||
                                                     $feature->torrent->category->movie_meta ||

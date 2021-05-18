@@ -9,6 +9,23 @@ $('img.img-tor-poster, i.img-tor-poster').popover({
         return '<img src="' + c + '" class="img-thumbnail torrent-poster-popup">';
     },
 });
+
+var metaElement = document.getElementById('meta-info');
+var metaPoster = document.getElementById('meta-poster');
+if (metaElement && metaPoster) {
+    if (!metaPoster.src.includes('via.placeholder')) {
+        Vibrant.from(metaPoster.src).getPalette().then(function(palette) {
+            var rgb = palette.DarkMuted.getRgb();
+            rgb.push(0.75);
+            var rgba = 'rgba(' + rgb.join(',') + ')';
+            $meta = $(metaElement);
+            $meta.find('.movie-overlay').css('background-color', rgba);
+            $meta.find('.button-overlay').css('opacity', 0);
+            $meta.find('.vibrant-overlay').css({'opacity': 1, 'background': 'linear-gradient(to bottom, ' + rgba + ', transparent)'});
+        });
+    }
+}
+
 $(document).ready(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 50) {

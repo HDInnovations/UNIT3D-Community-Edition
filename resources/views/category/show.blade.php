@@ -53,7 +53,7 @@
                             <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                         </tr>
                     </thead>
-    
+
                     <tbody>
                         @foreach ($torrents as $torrent)
                             @php $meta = null; @endphp
@@ -82,17 +82,17 @@
                                         @if ($user->show_poster == 1)
                                             <div class="torrent-poster pull-left">
                                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+                                                    <img src="{{ isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/60x90' }}"
                                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                                 @endif
 
                                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ $meta->cover->image_id }}.jpg"
                                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                                 @endif
 
                                                 @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                                    <img src="https://via.placeholder.com/600x900" class="torrent-poster-img-small show-poster"
+                                                    <img src="https://via.placeholder.com/60x90" class="torrent-poster-img-small show-poster"
                                                          alt="@lang('torrent.poster')">
                                                 @endif
                                             </div>
@@ -203,14 +203,12 @@
                                         @endif
 
                                         @if ($torrent->category->game_meta && isset($meta))
-                                            <a href="{{ $meta->url }}" title="IMDB" target="_blank">
                                     <span class="badge-extra text-bold">@lang('torrent.rating'):
                                         <span class="text-gold movie-rating-stars">
                                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
-                                        {{ $meta->rating ?? '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                        {{ $meta->rating ? \round($meta->rating) : '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
                                     </span>
-                                            </a>
                                         @endif
 
                                         <span class="badge-extra text-bold text-pink">

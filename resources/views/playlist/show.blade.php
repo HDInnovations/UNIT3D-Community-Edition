@@ -16,7 +16,7 @@
 @section('content')
 	<div class="container">
 		<div class="block">
-			<section class="inner_content header" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+			<section class="inner_content header" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1280x350' }});">
 				<div class="bg_filter">
 					<div class="single_column">
 						<h2>{{ $playlist->name }}</h2>
@@ -127,17 +127,17 @@
 							<div class="card_body">
 								<div class="body_poster">
 									@if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta)
-										<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+										<img src="{{ isset($meta->poster) ? \tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
 									@if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
-										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg"
+										<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $t->torrent->meta->cover->image_id }}.jpg"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
 									@if ($t->torrent->category->no_meta || $t->torrent->category->music_meta)
-										<img src="https://via.placeholder.com/600x900"
+										<img src="https://via.placeholder.com/160x240"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 								</div>

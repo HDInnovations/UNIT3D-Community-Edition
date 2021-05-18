@@ -50,9 +50,7 @@
                                 </div>
                                 <div class="card_body" style="height: 190px;">
                                     <div class="body_poster">
-                                        @if($season->poster)
-                                            <img src="{{ $season->poster }}" class="show-poster" style="height: 190px;">
-                                        @endif
+                                        <img src="{{ isset($season->poster) ? \tmdb_image('poster_mid', $season->poster) : 'https://via.placeholder.com/200x300' }}" class="show-poster" style="height: 190px;">
                                     </div>
                                     <div class="body_description" style=" height: 190px;">
                                         <h3 class="description_title">
