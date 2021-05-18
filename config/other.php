@@ -156,7 +156,7 @@ return [
     | 7 = Dark Teal Theme
     | 8 = Dark Yellow Theme
     */
-    'default_style' => 2,
+    'default_style' => 0,
 
     /*
     |--------------------------------------------------------------------------
