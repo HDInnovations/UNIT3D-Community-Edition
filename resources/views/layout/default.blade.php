@@ -133,7 +133,7 @@
 
                 Toast.fire({
                     icon: 'success',
-                    title: event.detail ? event.detail.message : event.message
+                    title: event.detail.message
                 })
             })
         </script>
