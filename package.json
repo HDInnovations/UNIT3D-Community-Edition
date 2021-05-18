@@ -28,6 +28,7 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "dayjs": "^1.10.4"
+    "dayjs": "^1.10.4",
+    "keen-slider": "^5.4.0"
   }
 }
