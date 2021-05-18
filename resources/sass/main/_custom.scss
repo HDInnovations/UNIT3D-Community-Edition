@@ -8484,6 +8484,33 @@ div.header div.inner_content h1 {
 /*! purgecss end ignore */
 
 // Caterories / Polls Design
+.poll-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.poll-item {
+    margin: 15px 0;
+}
+
+.poll-item input {
+    margin-top: 6px !important;
+}
+
+.poll-item .badge-user {
+    font-size: 16px;
+}
+
+.poll-note {
+    margin-top: 15px;
+}
+
+.poll.form-group {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
 div.blocks {
     display: flex;
     justify-content: space-between;
