@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="padding: 5px 0; margin: 0;">
+                    <hr style="padding: 0; margin: 0;">
                 </div>
             </div>
             <div id="facetedFilters" style="{{ $user->torrent_filters ? '' : 'display: none;' }}">
@@ -344,7 +344,7 @@
                 </div>
             </div>
             <span id="facetedHeader"></span>
-            <div id="facetedSearch" type="list" class="mt-10" font-awesome="{{ config('other.font-awesome') }}">
+            <div id="facetedSearch" type="list" font-awesome="{{ config('other.font-awesome') }}">
                 @include('torrent.results')
             </div>
             <div class="container-fluid well">

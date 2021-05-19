@@ -64,18 +64,16 @@
         </table>
     </div>
     <div class="panel-footer text-center">
-        <p>@lang('torrent.subtitle-included')</p>
         @if ($text_crumbs !== null)
+        <p>@lang('torrent.subtitle-included')</p>
             @foreach ($text_crumbs as $key => $s)
                 <span class="text-bold badge-extra">
-                    <em>
                         @foreach ($s as $crumb)
                             {{ $crumb }}
                             @if (!$loop->last)
                                 /
                             @endif
                         @endforeach
-                    </em>
                 </span>
             @endforeach
         @endif

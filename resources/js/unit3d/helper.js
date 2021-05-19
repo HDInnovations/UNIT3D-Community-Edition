@@ -186,8 +186,6 @@ class uploadExtensionBuilder {
                 defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
             });
 
-
-
             let matcher = name.value.toLowerCase();
 
             // Torrent Category
@@ -594,9 +592,9 @@ class userFilterBuilder {
                 var trigger = 'click';
             }
             $(this).off(trigger);
-            $(this).on(trigger, function(e) {
+            $(this).on(trigger, _.debounce(function(e) {
                  userFilter.handle();
-            });
+            }, 400));
         });
 
       let page = 0
@@ -862,19 +860,21 @@ class facetedSearchBuilder {
             }
         }).done(function (e) {
             $data = $(e);
-            $("#facetedSearch").html($data);
-            if (page) {
-                $("#facetedHeader")[0].scrollIntoView();
-            }
-            if (!nav) {
-                if (window.history && window.history.replaceState) {
-                    window.history.replaceState(null, null, ' ');
+            if (!$data[0].hasOwnProperty('result')) {
+                $("#facetedSearch").html($data);
+                if (page) {
+                    $("#facetedHeader")[0].scrollIntoView();
                 }
+                if (!nav) {
+                    if (window.history && window.history.replaceState) {
+                        window.history.replaceState(null, null, ' ');
+                    }
+                }
+                torrentBookmark.update();
+                facetedSearch.refresh();
+                facetedSearchXHR = null;
+                // facetedSearch.posters();
             }
-            torrentBookmark.update();
-            facetedSearch.refresh();
-            facetedSearchXHR = null;
-            facetedSearch.posters();
         });
     }
     posters() {
@@ -900,18 +900,18 @@ class facetedSearchBuilder {
         return this.active;
     }
     handle(id) {
-      const trigger = $('#' + id).attr('trigger')
-      this.active = id;
+        const trigger = $('#' + id).attr('trigger');
+        this.active = id;
         if(trigger && trigger == 'keyup') {
-          const length = $('#' + id).val().length
-          if(length == this.memory[id]) return;
+            const length = $('#' + id).val().length;
+            if(length == this.memory[id]) return;
             this.memory[id] = length;
         } else if(trigger && trigger == 'sort') {
             $('.facetedSort').each(function() {
                 if($(this).attr('id') && $(this).attr('id') == facetedSearch.inform()) {
-
-                    if($('#'+id).length == 0) { return; }
-
+                    if($('#'+id).length == 0) {
+                        return;
+                    }
                     if($('#'+id).attr('state') && ($('#'+id).attr('state') == 0 || $('#'+id).attr('state') == 2)) {
                         $('#'+id).attr('state',1);
                     } else if($('#'+id).attr('state') && ($('#'+id).attr('state') == 1)) {
@@ -928,16 +928,23 @@ class facetedSearchBuilder {
     }
     refresh(callback) {
         $('.facetedSearch').each(function() {
-          const trigger = $(this).attr('trigger') ? $(this).attr('trigger') : 'click'
-          let cloner = trigger
-          if(cloner == 'sort') { cloner='click'; }
-            $(this).off(cloner);
-            $(this).on(cloner, function(e) {
-                if($(this).attr('trigger') == 'sort') {
+            const $this = $(this);
+            const trigger = $this.attr('trigger') ? $this.attr('trigger') : 'click';
+            let cloner = trigger;
+            if(cloner == 'sort') {
+                cloner='click';
+            }
+            $this.off(cloner);
+            if($this.attr('trigger') == 'sort') {
+                $this.on(cloner, function(e) {
                     e.preventDefault();
-                }
-                facetedSearch.handle($(this).attr('id'));
-            });
+                    facetedSearch.handle($this.attr('id'));
+                });
+            } else {
+                $this.on(cloner, _.debounce(function(e) {
+                    facetedSearch.handle($this.attr('id'));
+                }, 400));
+            }
         });
         $('.facetedLoader').each(function() {
             $(this).off('click');
@@ -1004,7 +1011,7 @@ class facetedSearchBuilder {
         else {
             this.refresh(function() { });
         }
-        this.posters();
+        // this.posters();
     }
 }
 class userExtensionBuilder {

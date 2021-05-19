@@ -83,6 +83,17 @@ a.text-bright:hover {
     margin-bottom: 0.5em;
 }
 
+.likes {
+    background: none;
+    right: 5px;
+
+    .badge-extra {
+        margin: 0;
+        padding: 3px;
+        font-size: 12px;
+    }
+}
+
 .shoutbox {
     border-color: #000;
     border-radius: 4px;
@@ -312,6 +323,15 @@ a:hover {
 .bbcode-spoiler-button:hover {
     background-color: var(--color-light-magenta);
     background-image: none;
+}
+
+.btn-default:active,
+.btn-primary:active,
+.btn-success:active,
+.btn-info:active,
+.btn-warning:active,
+.btn-danger:active {
+  margin-top: 0 !important;
 }
 
 .label-default {
@@ -892,7 +912,7 @@ div.topic-new-post {
     .panel .nav-tabs {
         padding-bottom: 6px;
         padding-top: 6px;
-    } 
+    }
 }
 
 // Pages

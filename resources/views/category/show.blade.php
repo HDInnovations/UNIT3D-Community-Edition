@@ -34,7 +34,10 @@
                     <h1>@lang('torrent.torrents') in {{ $category->name }}</h1>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive cat-torrents" type="list">
+                <div class="text-center">
+                    {{ $torrents->links() }}
+                </div>
                 <table class="table table-condensed table-bordered table-striped table-hover">
                     <thead>
                         <tr>

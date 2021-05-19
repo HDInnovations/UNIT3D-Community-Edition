@@ -68,7 +68,7 @@
                             </thead>
                             @endif
                         <tbody>
-                        @foreach($torrents->where('type_id', '=', $type->id)->where('resolution_id', '=', $resolution->id) as $torrent)
+                        @foreach($torrents->where('type_id', '=', $type->id)->where('resolution_id', '=', $resolution->id)->sortByDesc('created_at') as $torrent)
                             @if($torrent->sticky == 1)
                                 <tr class="success">
                             @else

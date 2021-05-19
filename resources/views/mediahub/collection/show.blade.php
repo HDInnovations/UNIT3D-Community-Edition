@@ -160,9 +160,8 @@
             <form role="form" method="POST" action="{{ route('comment_collection', ['id' => $collection->id]) }}">
                 @csrf
                 <div class="form-group">
-                    <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
-                        <strong>:</strong> @lang('common.for') emoji</span> <span
-                            class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                    <label for="content">@lang('common.your-comment'):</label>
+                    <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
                     <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
@@ -181,7 +180,6 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
-        emoji.textcomplete()
       })
     </script>
 @endsection
