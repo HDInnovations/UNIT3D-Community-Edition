@@ -214,7 +214,7 @@ class TorrentController extends Controller
      *
      * @throws \Throwable
      */
-    public function groupingLayout(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function groupingLayout(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | string
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
