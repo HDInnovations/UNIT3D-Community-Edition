@@ -204,7 +204,7 @@ class SubtitleController extends Controller
      *
      * @param \App\Models\Subtitle $id
      */
-    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse | \Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();
