@@ -398,15 +398,14 @@
 									</button>
 									<div class="modal fade" id="resurrect-{{ $torrent->id }}" tabindex="-1" role="dialog"
 									     aria-labelledby="resurrect">
-										<div class="modal-dialog modal-dark" role="document">
+										<div class="modal-dialog{{ \modal_style() }}" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 													<h2>
-														<i
-																class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('graveyard.resurrect')
+														<i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('graveyard.resurrect')
 														{{ strtolower(trans('torrent.torrent')) }} ?
 													</h2>
 												</div>
@@ -444,27 +443,27 @@
                                                         {{ config('graveyard.reward') }} @lang('torrent.freeleech') Token(s)!
                                                     </span>
 														</p>
-														<div class="btns">
-															<form id="resurrect-torrent" role="form" method="POST"
-															      action="{{ route('graveyard.store', ['id' => $torrent->id]) }}">
-																@csrf
-																@if (!$history)
-																	<label for="seedtime"></label><input hidden="seedtime" name="seedtime"
-																	                                     id="seedtime" value="{{ config('graveyard.time') }}">
-																@else
-																	<label for="seedtime"></label><input hidden="seedtime" name="seedtime"
-																	                                     id="seedtime"
-																	                                     value="{{ $history->seedtime + config('graveyard.time') }}">
-																@endif
-																<button type="submit" class="btn btn-success">
-																	@lang('graveyard.resurrect') !
-																</button>
-																<button type="button" class="btn btn-warning" data-dismiss="modal">
-																	@lang('common.cancel')
-																</button>
-															</form>
-														</div>
 													</div>
+												</div>
+												<div class="modal-footer">
+													<form id="resurrect-torrent" class="text-center" role="form" method="POST"
+													      action="{{ route('graveyard.store', ['id' => $torrent->id]) }}">
+														@csrf
+														@if (!$history)
+															<label for="seedtime"></label><input hidden="seedtime" name="seedtime"
+															                                     id="seedtime" value="{{ config('graveyard.time') }}">
+														@else
+															<label for="seedtime"></label><input hidden="seedtime" name="seedtime"
+															                                     id="seedtime"
+															                                     value="{{ $history->seedtime + config('graveyard.time') }}">
+														@endif
+														<button type="button" class="btn btn-primary" data-dismiss="modal">
+															@lang('common.cancel')
+														</button>
+														<button type="submit" class="btn btn-success">
+															@lang('graveyard.resurrect')
+														</button>
+													</form>
 												</div>
 											</div>
 										</div>

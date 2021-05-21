@@ -100,3 +100,10 @@ if (! function_exists('tmdbImage')) {
         return \str_replace('/original/', '/'.$new.'/', $original);
     }
 }
+
+if (! function_exists('modalStyle')) {
+    function modal_style()
+    {
+        return (auth()->user()->style == 0) ? '' : ' modal-dark';
+    }
+}

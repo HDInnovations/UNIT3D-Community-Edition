@@ -284,7 +284,7 @@
 	</div>
 
 	<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dark">
+		<div class="modal-dialog{{ \modal_style() }}">
 			<div class="modal-content">
 				<div class="container-fluid">
 					<form role="form" method="POST" action="{{ route('playlists.attach') }}">
@@ -306,11 +306,11 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="@lang('common.save')">
+								<input class="btn btn-success" type="submit" value="@lang('common.save')">
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+							<button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
 						</div>
 					</form>
 				</div>

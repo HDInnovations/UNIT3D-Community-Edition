@@ -3566,8 +3566,18 @@ button.close {
 
 .modal-dialog {
     position: relative;
-    width: auto;
-    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-dialog, .modal > form {
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.modal form > .form-group {
+    margin: 0;
 }
 
 .modal-content {
@@ -3577,6 +3587,13 @@ button.close {
     border-radius: 0;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     outline: 0;
+    min-width: 600px;
+    margin: 0 auto;
+    pointer-events: auto;
+}
+
+.modal-content .table {
+    margin: 0;
 }
 
 .modal-backdrop {
@@ -3661,7 +3678,7 @@ button.close {
 @media (min-width: 768px) {
     .modal-dialog {
         width: 600px;
-        margin: 30px auto;
+        margin: 0 auto;
     }
     .modal-content {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
