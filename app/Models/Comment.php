@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -130,7 +131,7 @@ class Comment extends Model
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -141,8 +142,9 @@ class Comment extends Model
     public function getContentHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->content, true);
+        return $linkify->linky($bbcode->parse($this->content, true));
     }
 
     /**

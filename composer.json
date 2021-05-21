@@ -46,7 +46,8 @@
         "spiral/roadrunner": "^2.0",
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0",
-        "voku/anti-xss": "^4.1"
+        "voku/anti-xss": "^4.1",
+        "vstelmakh/url-highlight": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
