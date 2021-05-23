@@ -13,9 +13,9 @@
 
 namespace App\Helpers;
 
+use VStelmakh\UrlHighlight\Highlighter\HtmlHighlighter;
 use VStelmakh\UrlHighlight\UrlHighlight;
 use VStelmakh\UrlHighlight\Validator\Validator;
-use VStelmakh\UrlHighlight\Highlighter\HtmlHighlighter;
 
 class Linkify
 {
