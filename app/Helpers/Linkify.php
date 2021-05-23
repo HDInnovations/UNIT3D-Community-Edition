@@ -14,6 +14,8 @@
 namespace App\Helpers;
 
 use VStelmakh\UrlHighlight\UrlHighlight;
+use VStelmakh\UrlHighlight\Validator\Validator;
+use VStelmakh\UrlHighlight\Highlighter\HtmlHighlighter;
 
 class Linkify
 {
@@ -22,7 +24,21 @@ class Linkify
      */
     public function linky($text)
     {
-        $urlHighlight = new UrlHighlight();
+        $validator = new Validator(
+            false, // bool - if should use top level domain to match urls without scheme
+            [],    // string[] - array of blacklisted schemes
+            [],    // string[] - array of whitelisted schemes
+            true   // bool - if should match emails (if match by TLD set to "false" - will match only "mailto" urls)
+        );
+
+        $highlighter = new HtmlHighlighter(
+            'http', // string - scheme to use for urls matched by top level domain
+            ['rel' => 'noopener noreferrer'], // string[] - key/value map of tag attributes
+            '',     // string - content to add before highlight: {here}<a...
+            ''      // string - content to add after highlight: ...</a>{here}
+        );
+
+        $urlHighlight = new UrlHighlight($validator, $highlighter);
 
         return $urlHighlight->highlightUrls($text);
     }
