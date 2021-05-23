@@ -24,6 +24,6 @@ class Linkify
     {
         $urlHighlight = new UrlHighlight();
 
-        return $urlHighlight->highlightUrls($text);
+        return \str_replace('a href=', 'a rel="noopener noreferrer" href=', $urlHighlight->highlightUrls($text));
     }
 }
