@@ -1,4 +1,5 @@
 @php $bg = rand(1, 13); $bgchange = $bg.".jpg"; @endphp
+<br>
 <div id="l-footer" style="background-image: url('/img/footer/{{ $bgchange }}');">
     <div class="container">
         <div class="col-md-2 l-footer-section">
@@ -62,6 +63,20 @@
                 <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
                         class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="subfooter text-center">
+    <div class="container">
+        <div class="subfooter-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="text-bold">
+                        This page took {{ \round(\microtime(true) - LARAVEL_START, 3) }} seconds to render
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
