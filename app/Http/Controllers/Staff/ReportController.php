@@ -52,7 +52,7 @@ class ReportController extends Controller
      *
      * @param \App\Models\Report $id
      */
-    public function update(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 
