@@ -99,27 +99,7 @@ class TorrentController extends Controller
      */
     public function torrents(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $user = $request->user();
-        $repository = $this->torrentFacetedRepository;
-
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->orderBy('sticky', 'desc')
-            ->orderBy('bumped_at', 'desc')
-            ->paginate(25);
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $bookmarks = Bookmark::where('user_id', $user->id)->get();
-
-        return \view('torrent.torrents', [
-            'personal_freeleech' => $personalFreeleech,
-            'repository'         => $repository,
-            'bookmarks'          => $bookmarks,
-            'torrents'           => $torrents,
-            'user'               => $user,
-            'sorting'            => '',
-            'direction'          => 1,
-            'links'              => null,
-        ]);
+        return \view('torrent.torrents');
     }
 
     /**

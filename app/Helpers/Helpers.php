@@ -107,3 +107,20 @@ if (! function_exists('modalStyle')) {
         return (auth()->user()->style == 0) ? '' : ' modal-dark';
     }
 }
+
+if (! function_exists('ratingColor')) {
+    function rating_color($number)
+    {
+        if ($number > 0 && $number <= 3.9) {
+            return 'text-danger';
+        }
+
+        if ($number >= 4 && $number <= 6.9) {
+            return 'text-warning';
+        }
+
+        if ($number >= 7 && $number <= 10) {
+            return 'text-success';
+        }
+    }
+}
