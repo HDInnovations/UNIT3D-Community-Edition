@@ -136,6 +136,13 @@
                             <textarea name="mediainfo" cols="30" rows="10" class="form-control">{{ $torrent->mediainfo }}</textarea>
                         </label>
                     </div>
+
+                    <div class="form-group">
+                        <label for="description">BDInfo (Quick Summary)</label>
+                        <label>
+                            <textarea name="bdinfo" cols="30" rows="10" class="form-control">{{ $torrent->bdinfo }}</textarea>
+                        </label>
+                    </div>
     
                     <label for="hidden" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">

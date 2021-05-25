@@ -471,10 +471,170 @@
             </div>
         </div>
 
-        @if ($torrent->mediainfo != null)
+	    <div class="panel panel-chat shoutbox">
+		    <div class="panel-heading">
+			    <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
+		    </div>
+		    <div class="table-responsive">
+			    <table class="table table-condensed table-bordered table-striped">
+				    <tbody>
+				    <tr>
+					    <td>
+						    <div class="panel-body">
+							    @joypixels($torrent->getDescriptionHtml())
+
+							    @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
+								    <hr>
+								    <div id="collection_waypoint" class="collection">
+									    <div class="header collection"
+									         @php $backdrop = $meta->collection['0']->backdrop; @endphp
+									         style=" background-image: url({{ isset($backdrop) ? \tmdb_image('back_big', $backdrop) : 'https://via.placeholder.com/1280x300' }}); background-size: cover; background-position: 50% 50%;">
+										    <div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
+										    <section class="collection">
+											    <h2>Part of the {{ $meta->collection['0']->name }}</h2>
+											    <p class="text-blue">Includes:
+												    @foreach($meta->collection['0']->movie as $collection_movie)
+													    {{ $collection_movie->title }},
+												    @endforeach
+											    </p>
+
+											    <a href="{{ route('mediahub.collections.show', ['id' => $meta->collection['0']->id]) }}"
+											       role="button" class="btn btn-labeled btn-primary"
+											       style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
+												<span class="btn-label">
+													<i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
+												</span>
+											    </a>
+										    </section>
+									    </div>
+								    </div>
+							    @endif
+						    </div>
+					    </td>
+				    </tr>
+				    </tbody>
+			    </table>
+		    </div>
+	    </div>
+
+	@if ($torrent->mediainfo != null)
+		<div class="panel panel-chat shoutbox">
+			<div class="panel-heading">
+				<h4><i class="{{ config("other.font-awesome") }} fa-info-square"></i> Media Info</h4>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-condensed table-bordered table-striped">
+					<tbody>
+					<tr>
+						<td>
+							<div class="panel-body">
+								<div class="text-center">
+									<span class="text-bold text-blue">
+										@joypixels(':blue_heart:') @lang('torrent.media-info') @joypixels(':blue_heart:')
+									</span>
+								</div>
+								<br>
+								@if ($general !== null && isset($general['file_name']))
+									<span class="text-bold text-blue">
+										@joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
+									</span>
+									<span class="text-bold">
+										<em>{{ $general['file_name'] }}</em>
+									</span>
+									<br>
+									<br>
+								@endif
+								@if ($general_crumbs !== null)
+									<span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}
+									:</span>
+									<span class="text-bold"><em>
+				  @foreach ($general_crumbs as $crumb)
+												{{ $crumb }}
+												@if (!$loop->last)
+													/
+												@endif
+											@endforeach
+				</em></span>
+									<br>
+									<br>
+								@endif
+								@if ($video_crumbs !== null)
+									@foreach ($video_crumbs as $key => $v)
+										<span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}
+										:</span>
+										<span class="text-bold"><em>
+					@foreach ($v as $crumb)
+													{{ $crumb }}
+													@if (!$loop->last)
+														/
+													@endif
+												@endforeach
+				  </em></span>
+										<br>
+										<br>
+									@endforeach
+								@endif
+								@if ($audio_crumbs !== null)
+									@foreach ($audio_crumbs as $key => $a)
+										<span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
+										:</span>
+										<span class="text-bold"><em>
+				  @foreach ($a as $crumb)
+													{{ $crumb }}
+													@if (!$loop->last)
+														/
+													@endif
+												@endforeach
+				</em></span>
+										<br>
+									@endforeach
+								@endif
+								<br>
+								@if ($text_crumbs !== null)
+									@foreach ($text_crumbs as $key => $s)
+										<span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
+										:</span>
+										<span class="text-bold"><em>
+				  @foreach ($s as $crumb)
+													{{ $crumb }}
+													@if (!$loop->last)
+														/
+													@endif
+												@endforeach
+				</em></span>
+										<br>
+									@endforeach
+								@endif
+								@if ($settings)
+									<br>
+									<span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
+									:</span>
+									<br>
+									<div class="decoda-code text-black">{{ $settings }}</div>
+								@endif
+								<br>
+								<br>
+								<div class="text-center">
+									<button class="show_hide btn btn-labeled btn-primary" href="#">
+										{{ strtoupper(trans('torrent.original-output')) }}
+									</button>
+								</div>
+								<div class="slidingDiv">
+									<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
+								</div>
+							</div>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	@endif
+
+        @if ($torrent->bdinfo != null)
             <div class="panel panel-chat shoutbox">
                 <div class="panel-heading">
-                    <h4><i class="{{ config("other.font-awesome") }} fa-info-square"></i> Media Info</h4>
+                    <h4><i class="{{ config("other.font-awesome") }} fa-compact-disc"></i> BDInfo Info</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered table-striped">
@@ -482,88 +642,7 @@
                         <tr>
                             <td>
                                 <div class="panel-body">
-                                    @if ($general !== null && isset($general['file_name']))
-                                        <span class="text-bold text-blue">
-                                            @joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
-                                        </span>
-                                        <span class="text-bold">
-                                            {{ $general['file_name'] }}
-                                        </span>
-                                        <br>
-                                        <br>
-                                    @endif
-                                    @if ($general_crumbs !== null)
-                                        <span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}:</span>
-                                        <span class="text-bold">
-                      @foreach ($general_crumbs as $crumb)
-                                                    {{ $crumb }}
-                                                    @if (!$loop->last)
-                                                        /
-                                                    @endif
-                                                @endforeach
-                    </span>
-                                        <br>
-                                        <br>
-                                    @endif
-                                    @if ($video_crumbs !== null)
-                                        @foreach ($video_crumbs as $key => $v)
-                                            <span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}:</span>
-                                            <span class="text-bold">
-                        @foreach ($v as $crumb)
-                                                        {{ $crumb }}
-                                                        @if (!$loop->last)
-                                                            /
-                                                        @endif
-                                                    @endforeach
-                      </span>
-                                            <br>
-                                            <br>
-                                        @endforeach
-                                    @endif
-                                    @if ($audio_crumbs !== null)
-                                        @foreach ($audio_crumbs as $key => $a)
-                                            <span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}:</span>
-                                            <span class="text-bold">
-                      @foreach ($a as $crumb)
-                                                        {{ $crumb }}
-                                                        @if (!$loop->last)
-                                                            /
-                                                        @endif
-                                                    @endforeach
-                    </span>
-                                            <br>
-                                        @endforeach
-                                    @endif
-                                    <br>
-                                    @if ($text_crumbs !== null)
-                                        @foreach ($text_crumbs as $key => $s)
-                                            <span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}:</span>
-                                            <span class="text-bold">
-                      @foreach ($s as $crumb)
-                                                        {{ $crumb }}
-                                                        @if (!$loop->last)
-                                                            /
-                                                        @endif
-                                                    @endforeach
-                    </span>
-                                            <br>
-                                        @endforeach
-                                    @endif
-                                    @if ($settings)
-                                        <br>
-                                        <span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}:</span>
-                                        <br>
-                                        <div class="decoda-code text-black">{{ $settings }}</div>
-                                    @endif
-                                    <br>
-                                    <div class="text-center">
-                                        <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            {{ strtoupper(trans('torrent.original-output')) }}
-                                        </button>
-                                    </div>
-                                    <div class="slidingDiv">
-                                        <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
-                                    </div>
+                                    <pre class="decoda-code"><code>{{ $torrent->bdinfo }}</code></pre>
                                 </div>
                             </td>
                         </tr>
@@ -573,249 +652,177 @@
             </div>
         @endif
 
-        <div class="panel panel-chat shoutbox">
-            <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-condensed table-bordered table-striped">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div class="panel-body">
-                                @joypixels($torrent->getDescriptionHtml())
+	{{-- Subtitles Block --}}
+	@if($torrent->category->movie_meta || $torrent->category->tv_meta)
+		@include('torrent.partials.subtitles')
+	@endif
 
-                                @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
-                                    <hr>
-                                    <div id="collection_waypoint" class="collection">
-                                        <div class="header collection"
-                                            @php $backdrop = $meta->collection['0']->backdrop; @endphp
-                                             style=" background-image: url({{ isset($backdrop) ? \tmdb_image('back_big', $backdrop) : 'https://via.placeholder.com/1280x300' }}); background-size: cover; background-position: 50% 50%;">
-                                            <div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
-                                            <section class="collection">
-                                                <h2>Part of the {{ $meta->collection['0']->name }}</h2>
-                                                <p class="text-blue">Includes:
-                                                    @foreach($meta->collection['0']->movie as $collection_movie)
-                                                        {{ $collection_movie->title }},
-                                                    @endforeach
-                                                </p>
+	<div class="panel panel-chat shoutbox">
+		<div class="panel-heading">
+			<h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-condensed table-bordered table-striped">
+				<tbody>
+				<tr>
+					<td>
+						<div class="col-md-7">
+							<form role="form" method="POST"
+								  action="{{ route('tip_uploader', ['id' => $torrent->id]) }}"
+								  class="form-inline">
+								@csrf
+								<div class="form-group">
+									<span class="text-green text-bold">@lang('torrent.define-tip-amount')</span>
+									<label>
+										<input type="number" name="tip" value="0" placeholder="0" class="form-control"
+											   style="width: 80%;">
+									</label>
+									<button type="submit"
+											class="btn btn-primary">@lang('torrent.leave-tip')</button>
+								</div>
+								<br>
+								<span class="text-green text-bold">@lang('torrent.quick-tip')</span>
+								<br>
+								<button type="submit" value="1000" name="tip" class="btn">1,000</button>
+								<button type="submit" value="2000" name="tip" class="btn">2,000</button>
+								<button type="submit" value="5000" name="tip" class="btn">5,000</button>
+								<button type="submit" value="10000" name="tip" class="btn">10,000</button>
+								<button type="submit" value="20000" name="tip" class="btn">20,000</button>
+								<button type="submit" value="50000" name="tip" class="btn">50,000</button>
+								<button type="submit" value="100000" name="tip" class="btn">100,000</button>
+							</form>
+						</div>
+						<div class="col-md-5">
+							<div class="well" style="box-shadow: none !important;">
+								<h4>{!! trans('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}
+									.</h4>
+								<span class="text-red text-bold">(@lang('torrent.torrent-tips-desc'))</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-                                                <a href="{{ route('mediahub.collections.show', ['id' => $meta->collection['0']->id]) }}"
-                                                   role="button" class="btn btn-labeled btn-primary"
-                                                   style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
-                                                    <span class="btn-label">
-                                                        <i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
-                                                    </span>
-                                                </a>
-                                            </section>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        {{-- Subtitles Block --}}
-        @if($torrent->category->movie_meta || $torrent->category->tv_meta)
-            @include('torrent.partials.subtitles')
-        @endif
-
-        <div class="panel panel-chat shoutbox">
-            <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-condensed table-bordered table-striped">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div class="col-md-7">
-                                <form role="form" method="POST"
-                                      action="{{ route('tip_uploader', ['id' => $torrent->id]) }}"
-                                      class="form-inline">
-                                    @csrf
-                                    <div class="form-group">
-                                        <span class="text-green text-bold">@lang('torrent.define-tip-amount')</span>
-                                        <label>
-                                            <input type="number" name="tip" value="0" placeholder="0" class="form-control"
-                                                   style="width: 80%;">
-                                        </label>
-                                        <button type="submit"
-                                                class="btn btn-primary">@lang('torrent.leave-tip')</button>
-                                    </div>
-                                    <br>
-                                    <span class="text-green text-bold">@lang('torrent.quick-tip')</span>
-                                    <br>
-                                    <button type="submit" value="10" name="tip" class="btn"><img
-                                                src="/img/coins/10coin.png" alt="coin"/></button>
-                                    <button type="submit" value="20" name="tip" class="btn"><img
-                                                src="/img/coins/20coin.png" alt="coin"/></button>
-                                    <button type="submit" value="50" name="tip" class="btn"><img
-                                                src="/img/coins/50coin.png" alt="coin"/></button>
-                                    <button type="submit" value="100" name="tip" class="btn"><img
-                                                src="/img/coins/100coin.png" alt="coin"/></button>
-                                    <button type="submit" value="200" name="tip" class="btn"><img
-                                                src="/img/coins/200coin.png" alt="coin"/></button>
-                                    <button type="submit" value="500" name="tip" class="btn"><img
-                                                src="/img/coins/500coin.png" alt="coin"/></button>
-                                    <button type="submit" value="1000" name="tip" class="btn"><img
-                                                src="/img/coins/1000coin.png" alt="coin"/></button>
-                                </form>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="well" style="box-shadow: none !important;">
-                                    <h4>{!! trans('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}
-                                        .</h4>
-                                    <span class="text-red text-bold">(@lang('torrent.torrent-tips-desc'))</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="torrent box container" id="comments">
-        <div class="clearfix"></div>
-        <div class="row ">
-            <div class="col-md-12 col-sm-12">
-                <div class="panel panel-chat shoutbox">
-                    <div class="panel-heading">
-                        <h4>
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
-                        </h4>
-                    </div>
-                    <div class="panel-body no-padding">
-                        <ul class="media-list comments-list">
-                            @if (count($comments) == 0)
-                                <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
-                                        !</h4>
-                                </div>
-                            @else
-                                @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
-                                        <div class="media-body">
-                                            @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px;">
-                                                    <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }};">(<span><i
-                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
-                                            @else
-                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                   class="pull-left" style="padding-right: 10px;">
-                                                    @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @else
-                                                    <img src="{{ url('img/profile.png') }}"
-                                                         alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @endif
-                                                <strong><a
-                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                            style="color:{{ $comment->user->group->color }};"><span><i
-                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                            <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                            @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                <a title="@lang('common.delete-comment')"
-                                                   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa fa-times"
-                                                            aria-hidden="true"></i></a>
-                                                <a title="@lang('common.edit-comment')" data-toggle="modal"
-                                                   data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa-pencil"
-                                                            aria-hidden="true"></i></a>
-                                            @endif
-                                            <div class="pt-5">
-                                                @joypixels($comment->getContentHtml())
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @include('partials.modals', ['comment' => $comment])
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<div class="torrent box container" id="comments">
+	<div class="clearfix"></div>
+	<div class="row ">
+		<div class="col-md-12 col-sm-12">
+			<div class="panel panel-chat shoutbox">
+				<div class="panel-heading">
+					<h4>
+						<i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+					</h4>
+				</div>
+				<div class="panel-body no-padding">
+					<ul class="media-list comments-list">
+						@if (count($comments) == 0)
+							<div class="text-center"><h4 class="text-bold text-danger"><i
+											class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+									!</h4>
+							</div>
+						@else
+							@foreach ($comments as $comment)
+								<li class="media" style="border-left: 5px solid rgb(1,188,140);">
+									<div class="media-body">
+										@if ($comment->anon == 1)
+											<a href="#" class="pull-left" style="padding-right: 10px;">
+												<img src="{{ url('img/profile.png') }}" class="img-avatar-48">
+												<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+												<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+												   style="color:{{ $comment->user->group->color }};">(<span><i
+																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+										@else
+											<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+											   class="pull-left" style="padding-right: 10px;">
+												@if ($comment->user->image != null)
+													<img src="{{ url('files/img/' . $comment->user->image) }}"
+														 alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+											@else
+												<img src="{{ url('img/profile.png') }}"
+													 alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+											@endif
+											<strong><a
+														href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+														style="color:{{ $comment->user->group->color }};"><span><i
+																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+										<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
+										@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+											<a title="@lang('common.delete-comment')"
+											   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
+														class="pull-right {{ config('other.font-awesome') }} fa fa-times"
+														aria-hidden="true"></i></a>
+											<a title="@lang('common.edit-comment')" data-toggle="modal"
+											   data-target="#modal-comment-edit-{{ $comment->id }}"><i
+														class="pull-right {{ config('other.font-awesome') }} fa-pencil"
+														aria-hidden="true"></i></a>
+										@endif
+										<div class="pt-5">
+											@joypixels($comment->getContentHtml())
+										</div>
+									</div>
+								</li>
+								@include('partials.modals', ['comment' => $comment])
+							@endforeach
+						@endif
+					</ul>
+				</div>
+			</div>
+		</div>
 
 
-            <div class="clearfix"></div>
-            <div class="col-md-12 home-pagination">
-                <div class="text-center">{{ $comments->links() }}</div>
-            </div>
-            <br>
+		<div class="clearfix"></div>
+		<div class="col-md-12 home-pagination">
+			<div class="text-center">{{ $comments->links() }}</div>
+		</div>
+		<br>
 
-            <div class="col-md-12">
-                <form role="form" method="POST"
-                      action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="content">@lang('common.your-comment'):</label>
-                        <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
-                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment'):</strong></label>
-                    <label>
-                        <input type="radio" value="1" name="anonymous">
-                    </label> @lang('common.yes')
-                    <label>
-                        <input type="radio" value="0" checked="checked" name="anonymous">
-                    </label> @lang('common.no')
-                </form>
-            </div>
-        </div>
-    </div>
-    @include('torrent.torrent_modals', ['user' => $user, 'torrent' => $torrent])
+		<div class="col-md-12">
+			<form role="form" method="POST"
+				  action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
+				@csrf
+				<div class="form-group">
+					<label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type-verb')
+					<strong>":"</strong> @lang('common.for') emoji</span> <span
+							class="badge-extra">BBCode @lang('common.is-allowed')</span>
+					<textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+				</div>
+				<button type="submit" class="btn btn-danger">@lang('common.submit')</button>
+				<label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+						:</strong></label>
+				<label>
+					<input type="radio" value="1" name="anonymous">
+				</label> @lang('common.yes')
+				<label>
+					<input type="radio" value="0" checked="checked" name="anonymous">
+				</label> @lang('common.no')
+			</form>
+		</div>
+	</div>
+</div>
+@include('torrent.torrent_modals', ['user' => $user, 'torrent' => $torrent])
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({});
-      })
-    </script>
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+  $(document).ready(function () {
+	$('#content').wysibb({});
+  })
+</script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+  $(document).ready(function () {
 
-        $('.slidingDiv').hide();
-        $('.show_hide').show();
+	$('.slidingDiv').hide();
+	$('.show_hide').show();
 
-        $('.show_hide').click(function () {
-          $('.slidingDiv').slideToggle()
-        })
+	$('.show_hide').click(function () {
+	  $('.slidingDiv').slideToggle()
+	})
 
-      })
-    </script>
-
-    @if (isset($meta) && $torrent->category->game_meta && $meta->videos && $meta->name)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-          $('.show-trailer').each(function () {
-            $(this).off('click');
-            $(this).on('click', function (e) {
-              e.preventDefault();
-              Swal.fire({
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: 'rgb(35,35,35)',
-                width: 970,
-                html: '<iframe width="930" height="523" src="{{ $meta->videos[0] }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                title: '<i style="color: #a5a5a5;">{{ $meta->name }}</i>',
-                text: ''
-              });
-            });
-          });
-        </script>
-    @endif
-
+  })
+</script>
 @endsection

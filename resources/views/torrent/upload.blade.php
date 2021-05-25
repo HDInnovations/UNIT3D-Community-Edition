@@ -218,6 +218,14 @@
                         </div>
                     @endif
 
+                    @if ($data->movie_meta || $data->tv_meta)
+                        <div class="form-group">
+                            <label for="bdinfo">BDInfo (Quick Summary)</label>
+                            <label for="upload-form-description"></label>
+                            <textarea id="upload-form-description" name="bdinfo" cols="30" rows="10" class="form-control" placeholder="Paste BDInfo Quick Summary">{{ old('bdinfo') }}</textarea>
+                        </div>
+                    @endif
+
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" value="1"{{ old('anonymous') ? ' checked' : '' }}>@lang('common.yes')</label>
