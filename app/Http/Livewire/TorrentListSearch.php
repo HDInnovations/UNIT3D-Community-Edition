@@ -13,13 +13,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Keyword;
+use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
-use Livewire\Component;
-use App\Models\Keyword;
-use Livewire\WithPagination;
-use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class TorrentListSearch extends Component
 {
