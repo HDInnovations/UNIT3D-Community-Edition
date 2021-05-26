@@ -471,6 +471,10 @@
             </div>
         </div>
 
+	    @if (auth()->user()->group->is_modo)
+		    @include('torrent.partials.audits')
+	    @endif
+
 	    <div class="panel panel-chat shoutbox">
 		    <div class="panel-heading">
 			    <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
