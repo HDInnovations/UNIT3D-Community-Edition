@@ -6,7 +6,7 @@
 		<div class="card_body">
 			<div class="body_poster">
 				@if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-					<img src="{{ \tmdb_image('poster_big', $meta->poster) ?? 'https://via.placeholder.com/600x900' }}"
+					<img src="{{ isset($meta->poster) ? \tmdb_image('poster_big', $meta->poster) : 'https://via.placeholder.com/600x900' }}"
 					     class="show-poster" alt="@lang('torrent.poster')">
 				@endif
 
@@ -39,7 +39,7 @@
 						@endif
 					</a>
 				</h3>
-				@if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+				@if (($torrent->category->movie_meta || $torrent->category->tv_meta) && isset($meta->genres))
 					@foreach ($meta->genres as $genre)
 						<span class="genre-label">{{ $genre->name }}</span>
 					@endforeach
