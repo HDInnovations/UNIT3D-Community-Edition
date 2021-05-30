@@ -151,7 +151,7 @@ class TorrentListSearch extends Component
             ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
-            ->when($this->imdbId ==='0' || $this->imdbId, function ($query) {
+            ->when($this->imdbId === '0' || $this->imdbId, function ($query) {
                 $query->where('imdb', '=', $this->imdbId);
             })
             ->when($this->tvdbId === '0' || $this->tvdbId, function ($query) {
