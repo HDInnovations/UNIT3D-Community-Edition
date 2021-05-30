@@ -10060,7 +10060,7 @@ section.inner_content.header div.bg_filter {
     display: block;
     width: 100%;
     left: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.5);
     padding: 40px 0
 }
 
@@ -10069,7 +10069,7 @@ section.inner_content.header {
     background: rgba(0, 0, 0, 0.35);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 50% 0
+    background-position: 50%;
 }
 
 section.inner_content.header div.single_column {
@@ -10082,7 +10082,8 @@ section.inner_content div.single_column {
     top: 0;
     transform: none;
     padding-top: 0;
-    padding-bottom: 0
+    padding-bottom: 0;
+    text-shadow: 1.3px 1.5px rgba(0, 0, 0, 0.8);
 }
 
 section.inner_content.header div.single_column, section.inner_content.header div.single_column ul,
