@@ -73,11 +73,10 @@
                                     </div>
                                     <div class="body_description" style=" height: 190px;">
                                         <h3 class="description_title">
-                                            <a href="#">{{ $episode->name }}
+                                            {{ $episode->name }} -
                                                 @if($episode->air_date)
                                                     <span class="text-bold text-pink"> {{ $episode->air_date }}</span>
                                                 @endif
-                                            </a>
                                         </h3>
                                         <p class="description_plot">
                                             {{ $episode->overview }}

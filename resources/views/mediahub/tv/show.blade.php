@@ -84,7 +84,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($season->torrents()->get()->sortBy('size') as $torrent)
+                                                    @foreach($season->torrents()->get()->sortByDesc('created_at') as $torrent)
                                                         <tr>
                                                             <td>
                                                                 <a href="{{ route('torrent', ['id' => $torrent->id]) }}" style="color: #8fa8e0;">{{ $torrent->name }}</a>
@@ -163,7 +163,7 @@
                                                 <ul>
                                                     @if ($show->genres)
                                                         @foreach ($show->genres as $genre)
-                                                            <li><a class="rounded" href="#">{{ $genre->name }}</a></li>
+                                                            <li><a class="rounded" href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">{{ $genre->name }}</a></li>
                                                         @endforeach
                                                     @endif
                                                 </ul>

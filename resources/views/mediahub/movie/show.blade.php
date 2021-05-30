@@ -42,6 +42,21 @@
                         @lang('mediahub.movies')
                     </div>
 
+                    <div class="movie-right">
+                        @if(isset($movie->companies) && $movie->companies->isNotEmpty())
+                        @php $company = $movie->companies->first(); @endphp
+                        <div class="badge-user">
+                            <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">
+                            @if(isset($company->logo))
+                                <img class="img-responsive" src="{{ \tmdb_image('logo_small', $company->logo) }}" title="{{ $company->name }}">
+                            @else
+                            {{ $company->name }}
+                            @endif
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+
                     @php $tmdb_backdrop = $movie->backdrop ? \tmdb_image('back_big', $movie->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
                     <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
 
@@ -54,7 +69,7 @@
                         </h1>
 
                         <div class="movie-overview">
-                            {{ isset($meta->overview) ? Str::limit($movie->overview, $limit = 350, $end = '...') : '' }}
+                            {{ isset($movie->overview) ? Str::limit($movie->overview, $limit = 350, $end = '...') : '' }}
                         </div>
                     </div>
 
@@ -98,7 +113,7 @@
                         </div>
 
                         <div class="movie-details">
-                            @if(isset($meta) && !empty(trim($movie->homepage)))
+                            @if(isset($movie) && !empty(trim($movie->homepage)))
                             <span class="badge-user text-bold">
                                 <a href="{{ $movie->homepage }}" title="Homepage" rel="noopener noreferrer" target="_blank">
                                     <i class="{{ config('other.font-awesome') }} fa-external-link-alt"></i> Homepage

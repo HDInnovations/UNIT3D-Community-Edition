@@ -23,6 +23,7 @@ return [
     'latest-project'        => 'Latest Project:',
     'networks'              => 'Networks',
     'no-data'               => 'No Data Found!',
+    'movie'                 => 'Movie',
     'movies'                => 'Movies',
     'movie-credits'         => 'Movie Credits:',
     'persons'               => 'Persons',
