@@ -148,16 +148,16 @@ class TorrentListSearch extends Component
             ->when($this->resolutions, function ($query) {
                 $query->whereIn('resolution_id', $this->resolutions);
             })
-            ->when($this->tmdbId, function ($query) {
+            ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
-            ->when($this->imdbId, function ($query) {
+            ->when($this->imdbId ==='0' || $this->imdbId, function ($query) {
                 $query->where('imdb', '=', $this->imdbId);
             })
-            ->when($this->tvdbId, function ($query) {
+            ->when($this->tvdbId === '0' || $this->tvdbId, function ($query) {
                 $query->where('tvdb', '=', $this->tvdbId);
             })
-            ->when($this->malId, function ($query) {
+            ->when($this->malId === '0' || $this->malId, function ($query) {
                 $query->where('mal', '=', $this->malId);
             })
             ->when($this->free, function ($query) {
