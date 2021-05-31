@@ -56,13 +56,21 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-sm-6 col-xs-6">
-							<label for="description" class="label label-default">@lang('torrent.start-year')</label>
+						<div class="form-group col-sm-3 col-xs-6">
+							<label for="year" class="label label-default">@lang('torrent.start-year')</label>
 							<input wire:model="startYear" type="text" class="form-control" placeholder="Year Range">
 						</div>
-						<div class="form-group col-sm-6 col-xs-6">
-							<label for="mediainfo" class="label label-default">@lang('torrent.end-year')</label>
+						<div class="form-group col-sm-3 col-xs-6">
+							<label for="year" class="label label-default">@lang('torrent.end-year')</label>
 							<input wire:model="endYear" type="text" class="form-control" placeholder="Year Range">
+						</div>
+						<div class="form-group col-sm-3 col-xs-6">
+							<label for="playlist" class="label label-default">Playlist</label>
+							<input wire:model="playlistId" type="text" class="form-control" placeholder="Playlist ID">
+						</div>
+						<div class="form-group col-sm-3 col-xs-6">
+							<label for="collection" class="label label-default">Collection</label>
+							<input wire:model="collectionId" type="text" class="form-control" placeholder="Collection ID">
 						</div>
 					</div>
 					<div class="row">
@@ -162,6 +170,30 @@
 								<label class="inline">
 									<input wire:model="personalRelease" type="checkbox" value="1">
 									Personal Release
+								</label>
+							</span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6">
+							<label for="extra" class="label label-default">@lang('torrent.health')</label>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="alive" type="checkbox" value="1">
+									@lang('torrent.alive')
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="dying" type="checkbox" value="1">
+									@lang('torrent.dying-torrent')
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="dead" type="checkbox" value="1">
+									@lang('torrent.dead-torrent')
 								</label>
 							</span>
 						</div>

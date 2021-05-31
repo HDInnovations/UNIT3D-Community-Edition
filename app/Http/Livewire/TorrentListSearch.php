@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Keyword;
+use App\Models\Category;
+use App\Models\PlaylistTorrent;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
@@ -40,6 +42,8 @@ class TorrentListSearch extends Component
     public $imdbId = '';
     public $tvdbId = '';
     public $malId = '';
+    public $playlistId = '';
+    public $collectionId = '';
     public $free;
     public $doubleup;
     public $featured;
@@ -48,6 +52,9 @@ class TorrentListSearch extends Component
     public $highspeed;
     public $internal;
     public $personalRelease;
+    public $alive;
+    public $dying;
+    public $dead;
 
     public $perPage = 25;
     public $sortField = 'bumped_at';
@@ -69,6 +76,8 @@ class TorrentListSearch extends Component
         'imdbId'          => ['except' => ''],
         'tvdbId'          => ['except' => ''],
         'malId'           => ['except' => ''],
+        'playlistId'      => ['except' => ''],
+        'collectionId'    => ['except' => ''],
         'free'            => ['except' => false],
         'doubleup'        => ['except' => false],
         'featured'        => ['except' => false],
@@ -77,6 +86,9 @@ class TorrentListSearch extends Component
         'highspeed'       => ['except' => false],
         'internal'        => ['except' => false],
         'personalRelease' => ['except' => false],
+        'alive'           => ['except' => false],
+        'dying'           => ['except' => false],
+        'dead'            => ['except' => false],
         'sortField'       => ['except' => 'bumped_at'],
         'sortDirection'   => ['except' => 'desc'],
         'page'            => ['except' => 1],
@@ -109,7 +121,7 @@ class TorrentListSearch extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Torrent::with(['category', 'type', 'resolution'])
+        return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($this->name, function ($query) {
                 $terms = \explode(' ', $this->name);
@@ -160,6 +172,15 @@ class TorrentListSearch extends Component
             ->when($this->malId === '0' || $this->malId, function ($query) {
                 $query->where('mal', '=', $this->malId);
             })
+            ->when($this->playlistId, function ($query) {
+                $playlist = PlaylistTorrent::where('playlist_id', '=', $this->playlistId)->pluck('torrent_id');
+                $query->whereIn('id', $playlist);
+            })
+            ->when($this->collectionId, function ($query) {
+                $categories = Category::where('movie_meta', '=', 1)->pluck('id');
+                $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
+                $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
+            })
             ->when($this->free, function ($query) {
                 $query->where('free', '=', 1);
             })
@@ -183,6 +204,15 @@ class TorrentListSearch extends Component
             })
             ->when($this->personalRelease, function ($query) {
                 $query->where('personal_release', '=', 1);
+            })
+            ->when($this->alive, function ($query) {
+                $query->where('seeders', '>=', 1);
+            })
+            ->when($this->dying, function ($query) {
+                $query->where('seeders', '=', 1)->where('times_completed', '>=', 3);
+            })
+            ->when($this->dead, function ($query) {
+                $query->where('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
             ->orderBy($this->sortField, $this->sortDirection)
