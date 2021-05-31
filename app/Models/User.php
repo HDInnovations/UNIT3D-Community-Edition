@@ -901,7 +901,7 @@ class User extends Authenticatable
      */
     public function getSeedbonus()
     {
-        return \number_format($this->seedbonus, 2, '.', ' ');
+        return \number_format($this->seedbonus, 0, '.', ' ');
     }
 
     /**

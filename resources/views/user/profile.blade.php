@@ -159,7 +159,7 @@
 
                     <h3><i class="{{ config('other.font-awesome') }} fa-unlock"></i> @lang('user.public-info')</h3>
                 <div style="word-wrap: break-word; display: table; width: 100%;">
-                    <table class="table table-condensed table-striped table-bordered">
+                    <table class="table user-info table-condensed table-striped table-bordered">
                         <tbody>
                         <tr>
                             <td colspan="2" class="text-bold">
@@ -199,41 +199,41 @@
                         </tr>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_ratio'))
             <tr>
-                <td class="col-md-2">@lang('common.download')</td>
+                <td class="col-md-2">@lang('user.download-recorded')</td>
                 <td>
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="@lang('user.download-recorded')">{{ $realdownload }}</span> =
+                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
+                          data-original-title="Default Starter Download">{{ App\Helpers\StringHelper::formatBytes($def_download , 2) }}</span> +
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-recorded')">{{ $user->getDownloaded() }}</span>
-                    +
-                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-bon')">{{ App\Helpers\StringHelper::formatBytes($bondownload , 2) }}</span> =
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-true')">{{ App\Helpers\StringHelper::formatBytes($realdownload , 2) }}</span></td>
+                          data-original-title="@lang('user.download-true')">{{ App\Helpers\StringHelper::formatBytes($his_down , 2) }}</span> −
+                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
+                          data-original-title="Freeleech Downloads">{{ App\Helpers\StringHelper::formatBytes($free_down , 2) }}</span>
+                </td>
             </tr>
             <tr>
-                <td>Recorded @lang('common.upload')</td>
+                <td>@lang('user.upload-recorded')</td>
                 <td>
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="@lang('user.upload-recorded')">{{ $user->getUploaded() }}</span> =
                     <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                          data-original-title="Default Starter Upload">{{ App\Helpers\StringHelper::formatBytes(config('other.default_upload') , 2) }}</span> +
+                          data-original-title="Default Starter Upload">{{ App\Helpers\StringHelper::formatBytes($def_upload , 2) }}</span> +
                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                          data-original-title="True Client Upload">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span> +
+                          data-original-title="@lang('user.upload-true')">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span> +
                     <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                          data-original-title="Upload From Multipliers">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre - $his_upl , 2) }}</span> +
+                          data-original-title="Upload from Multipliers">{{ App\Helpers\StringHelper::formatBytes($multi_upload , 2) }}</span> +
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> =
-                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                          data-original-title="Recorded Account Upload">{{ $user->getUploaded() }}</span></td>
+                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> +
+                    <span class="badge-extra text-pink" data-toggle="tooltip" title=""
+                          data-original-title="Manually Added or Misc">{{ App\Helpers\StringHelper::formatBytes($man_upload , 2) }}</span>
+                </td>
             </tr>
             <tr>
-                <td>Real @lang('common.upload')</td>
+                <td>@lang('user.upload-true')</td>
                 <td>
                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                          data-original-title="Recorded Account Upload">{{ $user->getUploaded() }}</span> -
-                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                          data-original-title="Upload From Multipliers">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre - $his_upl , 2) }}</span> -
-                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> =
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-true')">{{ App\Helpers\StringHelper::formatBytes($realupload , 2) }}</span></td>
+                          data-original-title="@lang('user.upload-true')">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span>
+                </td>
             </tr>
             <tr>
                 <td>@lang('common.ratio')</td>
@@ -250,13 +250,13 @@
             <tr>
                 <td>@lang('user.total-seedtime')</td>
                 <td>
-                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed($history->sum('seedtime')) }} ( @lang('user.all-torrents') )</span>
+                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed($history->sum('seedtime')) }}</span> <span>(@lang('user.all-torrents'))</span>
                 </td>
             </tr>
             <tr>
                 <td>@lang('user.avg-seedtime')</td>
                 <td>
-                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed(round($history->sum('seedtime') / max(1, $history->count()))) }} ( @lang('user.per-torrent') )</span>
+                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed(round($history->sum('seedtime') / max(1, $history->count()))) }}</span> <span>(@lang('user.per-torrent'))</span>
                 </td>
             </tr>
             <tr>
@@ -288,32 +288,32 @@
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.tips-received'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.tips-given'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.gift-received'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.gift-given'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.bounty-received'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                                 <li>
           <span class="badge-extra"><strong>@lang('user.bounty-given'):</strong>
-            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 2) }} @lang('bon.bon')</span>
+            <span class="text-pink text-bold">{{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, '.', ' ') }} @lang('bon.bon')</span>
           </span>
                                 </li>
                             </ul>
@@ -538,7 +538,7 @@
         <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> @lang('user.private-info')</h3>
             <div style="word-wrap: break-word; display: table; width: 100%;">
-                <table class="table table-condensed table-striped table-bordered">
+                <table class="table user-info table-condensed table-striped table-bordered">
                 <tbody>
                 <tr>
                     <td colspan="2" class="text-bold">
@@ -667,7 +667,7 @@
                 <div class="block">
                     <h3><i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('user.important-info')</h3>
                     <div class="table-responsive">
-                        <table class="table table-condensed table-striped table-bordered">
+                        <table class="table user-info table-condensed table-striped table-bordered">
                             <thead>
                             <tr>
                                 <th colspan="4" class="text-bold">
