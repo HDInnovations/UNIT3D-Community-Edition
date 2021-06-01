@@ -32,7 +32,7 @@ return [
     'active-warnings'                      => 'Avvertimenti attivi',
     'add-seedbox'                          => 'Aggiungi Seedbox',
     'all-torrents'                         => 'Tutti i torrents',
-    'article-comments'                     => 'Commenti Fatti',
+    'article-comments'                     => 'Commenti Fatti nel Forum',
     'avatar'                               => 'Avatar',
     'avg-seedtime'                         => 'Seedtime medio',
     'badges'                               => 'Badge',
