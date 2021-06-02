@@ -35,7 +35,7 @@ class GenreController extends Controller
      */
     public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $genre = Genre::with(['tv', 'movie'])->findOrFail($id);
+        $genre = Genre::withCount(['tv', 'movie'])->findOrFail($id);
         $shows = $genre->tv()->orderBy('name', 'asc')->paginate(25);
         $movies = $genre->movie()->orderBy('title', 'asc')->paginate(25);
 
