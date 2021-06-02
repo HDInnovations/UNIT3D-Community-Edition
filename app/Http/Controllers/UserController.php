@@ -59,16 +59,22 @@ class UserController extends Controller
         $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        $bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+        //$bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
 
         //  With Multipliers
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
         //  Without Multipliers
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
-        $total = $hisUplCre - $hisUpl;
 
-        $realupload = ($user->uploaded - $bonupload) - $total;
-        $realdownload = $user->downloaded + $bondownload;
+        $defUpl = \config('other.default_upload');
+        $multiUpload = $hisUplCre - $hisUpl;
+        $manUpload = $user->uploaded - $hisUplCre - $defUpl - $bonupload;
+        $realupload = $user->getUploaded();
+
+        $hisDown = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $defDown = \config('other.default_download');
+        $freeDownload = $hisDown + $defDown - $user->downloaded;
+        $realdownload = $user->getDownloaded();
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
@@ -83,12 +89,20 @@ class UserController extends Controller
             'history'      => $history,
             'warnings'     => $warnings,
             'hitrun'       => $hitrun,
-            'bonupload'    => $bonupload,
-            'realupload'   => $realupload,
-            'bondownload'  => $bondownload,
+
+            //'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
-            'his_upl_cre'  => $hisUplCre,
+            'def_download' => $defDown,
+            'his_down'     => $hisDown,
+            'free_down'    => $freeDownload,
+
+            'realupload'   => $realupload,
+            'def_upload'   => $defUpl,
             'his_upl'      => $hisUpl,
+            'multi_upload' => $multiUpload,
+            'bonupload'    => $bonupload,
+            'man_upload'   => $manUpload,
+
             'requested'    => $requested,
             'filled'       => $filled,
             'invitedBy'    => $invitedBy,

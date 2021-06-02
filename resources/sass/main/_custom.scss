@@ -5670,6 +5670,16 @@ a.view-torrent:visited {
     color: #8768e0;
 }
 
+.user-info {
+    td {
+        vertical-align: middle !important;
+    }
+
+    .list-inline > li {
+        padding: 3px 0;
+    }
+}
+
 .profile-footer {
     height: auto;
     min-height: 70px;

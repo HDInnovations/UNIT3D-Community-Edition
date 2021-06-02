@@ -45,9 +45,13 @@ class StringHelper
         return $string;
     }
 
-    public static function formatBytes($bytes, $precision = 2)
+    public static function formatBytes($bytes = 0, $precision = 2)
     {
-        $bytes = \max($bytes, 0);
+        $minus = false;
+        if ($bytes < 0) {
+            $minus = true;
+            $bytes = $bytes * -1;
+        }
         $suffix = 'B';
         $value = $bytes;
         if ($bytes >= self::PIB) {
@@ -67,7 +71,12 @@ class StringHelper
             $value = $bytes / self::KIB;
         }
 
-        return \round($value, $precision).' '.$suffix;
+        $result = \round($value, $precision);
+        if ($minus) {
+            $result = $result * -1;
+        }
+
+        return $result.' '.$suffix;
     }
 
     /**
