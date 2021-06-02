@@ -16,7 +16,8 @@
 @section('content')
 	<div class="container">
 		<div class="block">
-			<section class="inner_content header" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1280x350' }});">
+			@php $tmdb_backdrop = isset($meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350'; @endphp
+			<section class="inner_content header" style="background-image: url('{{ $tmdb_backdrop }}')">
 				<div class="bg_filter">
 					<div class="single_column">
 						<h2>{{ $playlist->name }}</h2>
