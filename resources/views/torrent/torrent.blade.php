@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $torrent->name }} - @lang('torrent.torrents') - {{ config('other.title') }}</title>
+    <title>{{ @$torrent->name }} - @lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('torrent.meta-desc', ['name' => $torrent->name])!">
+    <meta name="description" content="@lang('torrent.meta-desc', ['name' => @$torrent->name])!">
 @endsection
 
 @section('breadcrumb')
@@ -17,7 +17,7 @@
     <li class="active">
         <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ @$torrent->name }}</span>
         </a>
     </li>
 @endsection
@@ -40,7 +40,7 @@
             <div class="button-overlay"></div>
             <div class="vibrant-overlay"></div>
             <div class="button-block">
-                @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
+                @if (file_exists(public_path().'/files/torrents/'.@$torrent->file_name))
                 @if (config('torrent.download_check_page') == 1)
                     <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="down btn btn-sm btn-success">
                         <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
@@ -51,7 +51,7 @@
                     </a>
                 @endif
                 @else
-                    <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="down btn btn-sm btn-success">
+                    <a href="magnet:?dn={{ @$torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="down btn btn-sm btn-success">
                         <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
                     </a>
                 @endif
@@ -95,8 +95,10 @@
                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
                     <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report')
                 </button>
+				
+				
 
-                <a role="button" class="btn btn-sm btn-primary" href="{{ route('upload_form', ['category_id' => $torrent->category_id, 'title' => $torrent->name ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
+                <a role="button" class="btn btn-sm btn-primary" href="{{ route('upload_form', @['category_id' => $torrent->category_id, 'title' => preg_replace('/[^a-zA-Z0-9\-\. ]/','',$torrent->name) ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                 </a>
             </div>
@@ -212,7 +214,7 @@
                         <td class="col-sm-2">
                             <strong>@lang('torrent.name')</strong>
                         </td>
-                        <td>{{ $torrent->name }} &nbsp; &nbsp;
+                        <td>{{ @$torrent->name }} &nbsp; &nbsp;
                             @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
                                 <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
