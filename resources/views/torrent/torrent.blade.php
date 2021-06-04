@@ -96,7 +96,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report')
                 </button>
 
-                <a role="button" class="btn btn-sm btn-primary" href="{{ route('upload_form', ['category_id' => $torrent->category_id, 'title' => $torrent->name ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
+                <a role="button" class="btn btn-sm btn-primary" href="{{ route('upload_form', ['category_id' => $torrent->category_id, 'title' => \rawurlencode($torrent->name) ?? 'Unknown', 'imdb' => $torrent->imdb, 'tmdb' => $torrent->tmdb]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                 </a>
             </div>
