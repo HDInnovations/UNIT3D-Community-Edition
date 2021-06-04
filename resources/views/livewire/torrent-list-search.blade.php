@@ -348,7 +348,7 @@
 												<img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 											@else
 												<img src="https://via.placeholder.com/400x600" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
-                                            @endif
+											@endif
 										@endif
 									</div>
 								@else

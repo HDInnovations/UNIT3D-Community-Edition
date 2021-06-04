@@ -105,7 +105,7 @@
                     </div>
                     
                     @if ($torrent->category->no_meta)
-		            <div class="form-group">
+                    <div class="form-group">
                         <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
                         <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
                     </div>

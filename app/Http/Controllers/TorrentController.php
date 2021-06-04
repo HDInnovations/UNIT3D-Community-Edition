@@ -1244,7 +1244,7 @@ class TorrentController extends Controller
 
         $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
-        
+
         // Create the torrent (DB)
         $torrent = new Torrent();
         $torrent->name = $request->input('name');

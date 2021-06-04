@@ -361,13 +361,13 @@
                                             @endif
                                             
                                             @if ($torrent->category->no_meta)
-                                            	@if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg')) 
-							                        <img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="show-poster" alt="@lang('torrent.poster')">
-						                        @else
-							                        <img src="https://via.placeholder.com/200x300" class="show-poster" data-name='<i style="color: #a5a5a5;">N/A</i>'
-								                        data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                @if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg')) 
+                                                    <img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="show-poster" alt="@lang('torrent.poster')">
+                                                @else
+                                                        <img src="https://via.placeholder.com/200x300" class="show-poster" data-name='<i style="color: #a5a5a5;">N/A</i>'
+                                                        data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                                         class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
-						                        @endif
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="body_description">
