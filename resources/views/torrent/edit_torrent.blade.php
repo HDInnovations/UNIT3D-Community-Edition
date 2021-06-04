@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <h2>@lang('common.edit'): {{ $torrent->name }}</h2>
             <div class="block">
-                <form role="form" method="POST" action="{{ route('edit', ['id' => $torrent->id]) }}">
+                <form role="form" method="POST" action="{{ route('edit', ['id' => $torrent->id]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title">@lang('torrent.title')</label>
@@ -103,6 +103,13 @@
                             </select>
                         </label>
                     </div>
+                    
+                    @if ($torrent->category->no_meta)
+		            <div class="form-group">
+                        <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
+                    </div>
+                    @endif
 
                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">

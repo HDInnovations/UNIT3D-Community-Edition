@@ -64,6 +64,14 @@
                         <label for="nfo">NFO @lang('torrent.file') (@lang('torrent.optional'))</label>
                         <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
                     </div>
+                    
+                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
+                    @if ($data->no_meta)
+                    <div class="form-group">
+                        <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
+                    </div>
+                    @endif
 
                     <div class="form-group">
                         <label for="name">@lang('torrent.title')</label>
@@ -99,7 +107,6 @@
                         </label>
                     </div>
 
-                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="resolution_ids">@lang('torrent.resolution')</label>

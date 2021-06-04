@@ -56,6 +56,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
+use Intervention\Image\Facades\Image;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -1032,6 +1033,14 @@ class TorrentController extends Controller
         }
         $torrent->save();
 
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover') == true) {
+            $image_cover = $request->file('torrent-cover');
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -1235,7 +1244,7 @@ class TorrentController extends Controller
 
         $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
-
+        
         // Create the torrent (DB)
         $torrent = new Torrent();
         $torrent->name = $request->input('name');
@@ -1328,6 +1337,14 @@ class TorrentController extends Controller
             $tag->name = $keyword;
             $tag->torrent_id = $torrent->id;
             $tag->save();
+        }
+        
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover') == true) {
+            $image_cover = $request->file('torrent-cover');
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
         // check for trusted user and update torrent
