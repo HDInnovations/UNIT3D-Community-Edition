@@ -54,9 +54,9 @@ use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
-use Intervention\Image\Facades\Image;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -1338,7 +1338,7 @@ class TorrentController extends Controller
             $tag->torrent_id = $torrent->id;
             $tag->save();
         }
-        
+
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover') == true) {
             $image_cover = $request->file('torrent-cover');
