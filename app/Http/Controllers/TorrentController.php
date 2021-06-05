@@ -1525,13 +1525,13 @@ class TorrentController extends Controller
             $torrent->free = '1';
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name)
+                \sprintf('Ladies and Gents, [url='.$torrentUrl.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:')
             );
         } else {
             $torrent->free = '0';
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its 100%% FreeLeech! :poop:', $torrentUrl, $torrent->name)
+                \sprintf('Ladies and Gents, [url='.$torrentUrl.']'.$torrent->name.'[/url] has been revoked of its 100%% FreeLeech! :poop:')
             );
         }
 
