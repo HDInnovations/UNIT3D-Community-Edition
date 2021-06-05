@@ -4938,16 +4938,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "7.5.3",
+            "version": "7.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "8019cbd89fb5543ad9235bd21345f11fd4acd0cb"
+                "reference": "93d340475dd3567ccbc2d6336357c4d28dcda846"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/8019cbd89fb5543ad9235bd21345f11fd4acd0cb",
-                "reference": "8019cbd89fb5543ad9235bd21345f11fd4acd0cb",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/93d340475dd3567ccbc2d6336357c4d28dcda846",
+                "reference": "93d340475dd3567ccbc2d6336357c4d28dcda846",
                 "shasum": ""
             },
             "require": {
@@ -5017,7 +5017,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-backup/issues",
-                "source": "https://github.com/spatie/laravel-backup/tree/7.5.3"
+                "source": "https://github.com/spatie/laravel-backup/tree/7.5.4"
             },
             "funding": [
                 {
@@ -5029,7 +5029,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-05-23T09:56:56+00:00"
+            "time": "2021-05-28T11:05:52+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
