@@ -338,9 +338,17 @@
 											     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 										@endif
 
-										@if ($torrent->category->no_meta || $torrent->category->music_meta)
+										@if ($torrent->category->music_meta)
 											<img src="https://via.placeholder.com/90x135"
 											     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
+										@endif
+										
+										@if ($torrent->category->no_meta)
+											@if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg')) 
+												<img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
+											@else
+												<img src="https://via.placeholder.com/400x600" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
+											@endif
 										@endif
 									</div>
 								@else

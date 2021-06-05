@@ -35,6 +35,10 @@
         @if ($torrent->category->game_meta)
             @include('torrent.partials.game_meta')
         @endif
+        
+        @if ($torrent->category->no_meta)
+            @include('torrent.partials.no_meta')
+        @endif
 
         <div id="vue" class="torrent-buttons">
             <div class="button-overlay"></div>
