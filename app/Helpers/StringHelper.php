@@ -50,7 +50,7 @@ class StringHelper
         $minus = false;
         if ($bytes < 0) {
             $minus = true;
-            $bytes = $bytes * -1;
+            $bytes *= -1;
         }
         $suffix = 'B';
         $value = $bytes;
@@ -73,7 +73,7 @@ class StringHelper
 
         $result = \round($value, $precision);
         if ($minus) {
-            $result = $result * -1;
+            $result *= -1;
         }
 
         return $result.' '.$suffix;
