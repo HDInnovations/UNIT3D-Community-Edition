@@ -492,7 +492,7 @@ class AnnounceController extends Controller
      * @param     $noPeerId
      * @param int $filterFlag
      */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string
+    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string | array
     {
         if ($compact) {
             $pcomp = '';
