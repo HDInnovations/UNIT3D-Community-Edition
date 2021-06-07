@@ -1041,6 +1041,14 @@ class TorrentController extends Controller
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner') == true) {
+            $image_cover = $request->file('torrent-banner');
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+        }
+
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -1345,6 +1353,14 @@ class TorrentController extends Controller
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = \public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner') == true) {
+            $image_cover = $request->file('torrent-banner');
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // check for trusted user and update torrent
