@@ -1048,7 +1048,7 @@ class TorrentController extends Controller
             $path_cover = \public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
-        
+
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -1362,7 +1362,7 @@ class TorrentController extends Controller
             $path_cover = \public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
-        
+
         // check for trusted user and update torrent
         if ($user->group->is_trusted) {
             $appurl = \config('app.url');
