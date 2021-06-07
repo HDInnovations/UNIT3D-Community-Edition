@@ -11,6 +11,10 @@
         <div class="tags">
             {{ $torrent->category->name }}
         </div>
+        @if(file_exists(public_path().'/files/img/torrent-banner_'.$torrent->id.'.jpg')) 
+        <div class="movie-backdrop" style="background-image: url({{ url('files/img/torrent-banner_' . $torrent->id . '.jpg') }});"></div>
+        @else
         <div class="movie-backdrop" style="background-image: url('https://via.placeholder.com/960x540');"></div>
+        @endif
     </div>
 </div>

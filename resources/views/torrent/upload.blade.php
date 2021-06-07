@@ -71,6 +71,10 @@
                         <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
                         <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
                     </div>
+                    <div class="form-group">
+                        <label for="torrent-banner">Banner @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-banner">
+                    </div>
                     @endif
 
                     <div class="form-group">
