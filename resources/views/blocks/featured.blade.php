@@ -52,6 +52,8 @@
                                 "{{ isset($meta->backdrop) ? \tmdb_image('back_small', $meta->backdrop) : 'https://via.placeholder.com/533x300' }}">
                             @elseif ($feature->torrent->category->game_meta && isset($meta) && $meta->artworks)
                                 "https://images.igdb.com/igdb/image/upload/t_screenshot_med/{{ $meta->artworks[0]['image_id'] }}.jpg">
+                            @elseif ($feature->torrent->category->no_meta && file_exists(public_path().'/files/img/torrent-banner_'.$feature->torrent->id.'.jpg'))
+                                "{{'/files/img/torrent-banner_'.$feature->torrent->id.'.jpg'}}">
                             @else
                                 "{{'https://via.placeholder.com/533x300'}}">
                             @endif
