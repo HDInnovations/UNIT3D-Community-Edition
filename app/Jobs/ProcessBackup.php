@@ -21,7 +21,9 @@ use Spatie\Backup\Tasks\Backup\BackupJobFactory;
 
 class ProcessBackup implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
 
     protected $option;
 

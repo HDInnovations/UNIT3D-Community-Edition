@@ -13,14 +13,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\ProcessBackup;
+use App\Rules\BackupDisk;
+use App\Rules\PathToZip;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use App\Jobs\ProcessBackup;
-use App\Rules\BackupDisk;
-use App\Rules\PathToZip;
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\BackupDestination\BackupDestination;
 use Spatie\Backup\Helpers\Format;
@@ -44,13 +44,13 @@ class BackupPanel extends Component
     {
         $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), function () {
             return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
-                ->map(fn(BackupDestinationStatus $backupDestinationStatus) => [
-                    'name' => $backupDestinationStatus->backupDestination()->backupName(),
-                    'disk' => $backupDestinationStatus->backupDestination()->diskName(),
+                ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
+                    'name'      => $backupDestinationStatus->backupDestination()->backupName(),
+                    'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
                     'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
-                    'healthy' => $backupDestinationStatus->isHealthy(),
-                    'amount' => $backupDestinationStatus->backupDestination()->backups()->count(),
-                    'newest' => $backupDestinationStatus->backupDestination()->newestBackup()
+                    'healthy'   => $backupDestinationStatus->isHealthy(),
+                    'amount'    => $backupDestinationStatus->backupDestination()->backups()->count(),
+                    'newest'    => $backupDestinationStatus->backupDestination()->newestBackup()
                         ? $backupDestinationStatus->backupDestination()->newestBackup()->date()->diffForHumans()
                         : 'No backups present',
                     'usedStorage' => Format::humanReadableSize($backupDestinationStatus->backupDestination()->usedStorage()),
@@ -64,7 +64,7 @@ class BackupPanel extends Component
         }
 
         $this->disks = collect($this->backupStatuses)
-            ->map(fn($backupStatus): mixed => $backupStatus['disk'])
+            ->map(fn ($backupStatus): mixed => $backupStatus['disk'])
             ->values()
             ->all();
 
@@ -121,11 +121,11 @@ class BackupPanel extends Component
 
         $backupDestination
             ->backups()
-            ->first(fn(Backup $backup) => $backup->path() === $deletingFile['path'])
+            ->first(fn (Backup $backup) => $backup->path() === $deletingFile['path'])
             ->delete();
 
         $this->files = collect($this->files)
-            ->reject(fn($file) => $file['path'] === $deletingFile['path']
+            ->reject(fn ($file) => $file['path'] === $deletingFile['path']
                 && $file['date'] === $deletingFile['date']
                 && $file['size'] === $deletingFile['size'])
             ->values()
@@ -135,14 +135,14 @@ class BackupPanel extends Component
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    final public function downloadFile(string $filePath): Response|StreamedResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    final public function downloadFile(string $filePath): Response | StreamedResponse | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->validateActiveDisk();
         $this->validateFilePath($filePath);
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $backup = $backupDestination->backups()->first(fn(Backup $backup) => $backup->path() === $filePath);
+        $backup = $backupDestination->backups()->first(fn (Backup $backup) => $backup->path() === $filePath);
 
         if (! $backup) {
             return response('Backup not found', Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -157,11 +157,11 @@ class BackupPanel extends Component
         $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
         $downloadHeaders = [
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-Type' => 'application/zip',
-            'Content-Length' => $size,
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-Type'        => 'application/zip',
+            'Content-Length'      => $size,
             'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
-            'Pragma' => 'public',
+            'Pragma'              => 'public',
         ];
 
         return response()->stream(function () use ($backup) {
