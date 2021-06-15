@@ -29,7 +29,9 @@
 
         <div class="movie-top">
             <h1 class="movie-heading">
-                <span class="text-bold">{{ isset($meta->title) ? $meta->title : 'No Meta Found' }}</span>
+                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
+                    <span class="text-bright text-bold">{{ $meta->title ?? 'No Meta Found' }}</span>
+                </a>
                 @if(isset($meta->release_date))
                 <span> ({{ substr($meta->release_date, 0, 4) ?? '' }})</span>
                 @endif
@@ -77,6 +79,7 @@
                 @endif
                 @endif
 
+                <br>
                 @if (isset($meta->genres) && $meta->genres->isNotEmpty())
                 @foreach ($meta->genres as $genre)
                 <span class="badge-user text-bold text-green">
