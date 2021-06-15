@@ -206,13 +206,13 @@ class TorrentListSearch extends Component
                 $query->where('personal_release', '=', 1);
             })
             ->when($this->alive, function ($query) {
-                $query->where('seeders', '>=', 1);
+                $query->orWhere('seeders', '>=', 1);
             })
             ->when($this->dying, function ($query) {
-                $query->where('seeders', '=', 1)->where('times_completed', '>=', 3);
+                $query->orWhere('seeders', '=', 1)->where('times_completed', '>=', 3);
             })
             ->when($this->dead, function ($query) {
-                $query->where('seeders', '=', 0);
+                $query->orWhere('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
             ->orderBy($this->sortField, $this->sortDirection)
