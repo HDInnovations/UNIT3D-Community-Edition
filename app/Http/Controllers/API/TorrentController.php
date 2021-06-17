@@ -17,13 +17,12 @@ use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
-use App\Models\PlaylistTorrent;
-use Illuminate\Support\Facades\DB;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
+use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
@@ -31,6 +30,7 @@ use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -347,7 +347,7 @@ class TorrentController extends BaseController
             })
             ->when($request->has('genres'), function ($query) use ($request) {
                 $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $request->input('genres'))->pluck('tv_id');
-                $movieCollection =  DB::table('genre_movie')->whereIn('genre_id', $request->input('genres'))->pluck('movie_id');
+                $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $request->input('genres'))->pluck('movie_id');
                 $mergedCollection = $tvCollection->merge($movieCollection);
 
                 $query->whereIn('tmdb', $mergedCollection);
