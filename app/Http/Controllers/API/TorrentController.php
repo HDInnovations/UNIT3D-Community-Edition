@@ -53,7 +53,10 @@ class TorrentController extends BaseController
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
+            ->orderBy('sticky', 'desc')
+            ->orderBy('bumped_at', 'desc')
+            ->paginate(25));
     }
 
     /**
