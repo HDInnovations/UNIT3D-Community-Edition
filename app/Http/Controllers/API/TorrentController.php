@@ -325,6 +325,11 @@ class TorrentController extends BaseController
             ->when($request->has('mediainfo'), function ($query) use ($request) {
                 $query->where('mediainfo', 'LIKE', '%'.$request->input('mediainfo').'%');
             })
+            ->when($request->has('file_name'), function ($query) use ($request) {
+                $query->whereHas('files', function ($q) use ($request) {
+                    $q->where('name', $request->input('file_name'));
+                });
+            })
             ->when($request->has('uploader'), function ($query) use ($request) {
                 $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->orderBy('username', 'ASC')->first();
                 if ($match) {
