@@ -25,6 +25,7 @@ class ProcessBackup implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
 
+    public $timeout = 0;
     protected $option;
 
     public function __construct($option = '')
