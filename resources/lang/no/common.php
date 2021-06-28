@@ -131,9 +131,9 @@ return [
     'moderation-reject'    => 'Avvis',
     'month'                => 'Måned',
     'months'               => 'Måneder',
-    
-    # not 'min' if only used with 'name'
-    # could be 'mine' also if e.g. 'my torrents' (mine torrenter)
+
+    // not 'min' if only used with 'name'
+    // could be 'mine' also if e.g. 'my torrents' (mine torrenter)
     'my'                   => 'Mitt',
     'name'                 => 'Navn',
     'navigation'           => 'Navigasjon',
@@ -156,11 +156,11 @@ return [
     'pending-torrents'     => 'Ventende torrenter',
     'personal'             => 'Personlig',
 
-    # Norwegian has more than one plural suffix.
+    // Norwegian has more than one plural suffix.
     'plural-suffix'        => '',
     'port'                 => 'Port',
-    
-    # open for change as could be 'posisjon'
+
+    // open for change as could be 'posisjon'
     'position'             => 'Stilling',
     'posts'                => 'Innlegg',
     'powered-by'           => 'Drevet av UNIT3D',
