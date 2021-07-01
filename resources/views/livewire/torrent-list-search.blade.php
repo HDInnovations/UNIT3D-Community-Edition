@@ -111,6 +111,18 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6">
+							<label for="resolutions" class="label label-default">@lang('common.genre')</label>
+							@foreach (App\Models\Genre::all()->sortBy('name') as $genre)
+								<span class="badge-user">
+									<label class="inline">
+										<input type="checkbox" wire:model="genres" value="{{ $genre->id }}"> {{ $genre->name }}
+									</label>
+								</span>
+							@endforeach
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6">
 							<label for="extra" class="label label-default">Buff</label>
 							<span class="badge-user">
 								<label class="inline">
@@ -247,12 +259,6 @@
 				</ul>
 				<a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
-				</a>
-				<a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-					<i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
-				</a>
-				<a href="{{ route('groupings') }}" class="btn btn-xs btn-primary">
-					<i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')
 				</a>
 				<a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
 					<i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss') @lang('rss.feeds')

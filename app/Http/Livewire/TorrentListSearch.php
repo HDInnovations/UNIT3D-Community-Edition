@@ -95,6 +95,10 @@ class TorrentListSearch extends Component
         'perPage'         => ['except' => ''],
     ];
 
+    protected $rules = [
+        'genres.*' => 'exists:genres,id'
+    ];
+
     final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
@@ -160,6 +164,16 @@ class TorrentListSearch extends Component
             ->when($this->resolutions, function ($query) {
                 $query->whereIn('resolution_id', $this->resolutions);
             })
+            ->when($this->genres, function ($query) {
+                $this->validate();
+
+                $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $this->genres)->pluck('tv_id');
+                $movieCollection =  DB::table('genre_movie')->whereIn('genre_id', $this->genres)->pluck('movie_id');
+                $mergedCollection = $tvCollection->merge($movieCollection);
+
+                $query->whereRaw("tmdb in ('" . \implode("','", $mergedCollection->toArray()) . "')"); // Protected with Validation that IDs passed are not malicious
+                //$query->whereIn('tmdb', $mergedCollection); Very SLOW!
+            })
             ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
@@ -206,13 +220,13 @@ class TorrentListSearch extends Component
                 $query->where('personal_release', '=', 1);
             })
             ->when($this->alive, function ($query) {
-                $query->orWhere('seeders', '>=', 1);
+                $query->where('seeders', '>=', 1);
             })
             ->when($this->dying, function ($query) {
-                $query->orWhere('seeders', '=', 1)->where('times_completed', '>=', 3);
+                $query->where('seeders', '=', 1)->where('times_completed', '>=', 3);
             })
             ->when($this->dead, function ($query) {
-                $query->orWhere('seeders', '=', 0);
+                $query->where('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
             ->orderBy($this->sortField, $this->sortDirection)
