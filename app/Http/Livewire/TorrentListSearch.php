@@ -96,7 +96,7 @@ class TorrentListSearch extends Component
     ];
 
     protected $rules = [
-        'genres.*' => 'exists:genres,id'
+        'genres.*' => 'exists:genres,id',
     ];
 
     final public function paginationView(): string
@@ -168,10 +168,10 @@ class TorrentListSearch extends Component
                 $this->validate();
 
                 $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $this->genres)->pluck('tv_id');
-                $movieCollection =  DB::table('genre_movie')->whereIn('genre_id', $this->genres)->pluck('movie_id');
+                $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $this->genres)->pluck('movie_id');
                 $mergedCollection = $tvCollection->merge($movieCollection);
 
-                $query->whereRaw("tmdb in ('" . \implode("','", $mergedCollection->toArray()) . "')"); // Protected with Validation that IDs passed are not malicious
+                $query->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
                 //$query->whereIn('tmdb', $mergedCollection); Very SLOW!
             })
             ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
