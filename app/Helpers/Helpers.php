@@ -88,6 +88,7 @@ if (! function_exists('tmdbImage')) {
             'back_small'   => 'w780',
             'poster_big'   => 'w500',
             'poster_mid'   => 'w342',
+            'poster_small' => 'w92',
             'cast_face'    => 'w138_and_h175_face',
             'cast_mid'     => 'w185',
             'cast_big'     => 'w300',
