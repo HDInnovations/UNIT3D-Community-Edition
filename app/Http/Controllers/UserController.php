@@ -2015,29 +2015,29 @@ class UserController extends Controller
      */
     public function flushOwnGhostPeers(Request $request, $username): \Illuminate\Http\RedirectResponse
     {
-	    // Authorized User
+        // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();
         \abort_unless($request->user()->id == $user->id, 403);
 
         // Check if User can flush
         if ($request->user()->own_flushes == 0){
             return \redirect()->back()->withErrors('You can only flush twice a day!');
-        }else{
-            $new_value = $request->user()->own_flushes - 1;
-            User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
         }
 
-        $carbon = new Carbon();
-        
-        // Get Peer List from User
-	    $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('user_id', '=', $request->user()->id)->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())->get();
-	
-	    // Return with Error if no Peer exists
-	    if ($peers->isEmpty()) {
-	        return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
-	    }
+        $new_value = $request->user()->own_flushes - 1;
+        User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
 
-	    // Iterate over Peers
+        $carbon = new Carbon();
+
+        // Get Peer List from User
+        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('user_id', '=', $request->user()->id)->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())->get();
+
+        // Return with Error if no Peer exists
+        if ($peers->isEmpty()) {
+            return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
+        }
+
+        // Iterate over Peers
         foreach ($peers as $peer) {
             $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
             if ($history) {
@@ -2047,6 +2047,6 @@ class UserController extends Controller
             $peer->delete();
         }
 
-	    return \redirect()->back()->withSuccess('Peers were flushed successfully!');
+        return \redirect()->back()->withSuccess('Peers were flushed successfully!');
     }
 }
