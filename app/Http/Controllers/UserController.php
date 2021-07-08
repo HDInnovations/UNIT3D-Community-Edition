@@ -2009,7 +2009,7 @@ class UserController extends Controller
     }
 
     /**
-     * Flushes own Peers
+     * Flushes own Peers.
      *
      * @param \App\Models\User $username
      */
@@ -2020,7 +2020,7 @@ class UserController extends Controller
         \abort_unless($request->user()->id == $user->id, 403);
 
         // Check if User can flush
-        if ($request->user()->own_flushes == 0){
+        if ($request->user()->own_flushes == 0) {
             return \redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
