@@ -74,7 +74,7 @@ class NotificationController extends Controller
         }
 
         if ($request->has('request_bounties') && $request->input('request_bounties') != null) {
-            $notification->where('type', '=', 'App\Notifications\NewRequestCounty');
+            $notification->where('type', '=', \App\Notifications\NewRequestBounty::class);
         }
 
         if ($request->has('request_claims') && $request->input('request_claims') != null) {
@@ -114,7 +114,7 @@ class NotificationController extends Controller
         }
 
         if ($request->has('unfollows') && $request->input('unfollows') != null) {
-            $notification->where('type', '=', 'App\Notifications\NewUnfollowt');
+            $notification->where('type', '=', \App\Notifications\NewUnfollow::class);
         }
 
         if ($request->has('uploads') && $request->input('uploads') != null) {
