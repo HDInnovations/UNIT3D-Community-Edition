@@ -52,7 +52,7 @@ return [
 
         'attributes' => [
             'prefix'     => 'staff/log-viewer',
-            'namespace'  => ['Staff'],
+            'namespace'  => 'Staff',
             'middleware' => ['web', 'auth', 'owner'],
         ],
     ],
