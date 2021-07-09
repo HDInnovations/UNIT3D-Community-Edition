@@ -2,8 +2,8 @@
 
 namespace Tests\Todo\Feature\Http\Controllers;
 
-use App\Models\Warning;
 use App\Models\User;
+use App\Models\Warning;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
