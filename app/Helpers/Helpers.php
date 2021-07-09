@@ -17,7 +17,7 @@ if (! function_exists('appurl')) {
     }
 }
 
-if (! function_exists('hrefProfile')) {
+if (! function_exists('href_profile')) {
     function href_profile($user)
     {
         $appurl = appurl();
@@ -26,7 +26,7 @@ if (! function_exists('hrefProfile')) {
     }
 }
 
-if (! function_exists('hrefArticle')) {
+if (! function_exists('href_article')) {
     function href_article($article)
     {
         $appurl = appurl();
@@ -35,7 +35,7 @@ if (! function_exists('hrefArticle')) {
     }
 }
 
-if (! function_exists('hrefTorrent')) {
+if (! function_exists('href_torrent')) {
     function href_torrent($torrent)
     {
         $appurl = appurl();
@@ -44,7 +44,7 @@ if (! function_exists('hrefTorrent')) {
     }
 }
 
-if (! function_exists('hrefRequest')) {
+if (! function_exists('href_request')) {
     function href_request($torrentRequest)
     {
         $appurl = appurl();
@@ -53,7 +53,7 @@ if (! function_exists('hrefRequest')) {
     }
 }
 
-if (! function_exists('hrefPoll')) {
+if (! function_exists('href_poll')) {
     function href_poll($poll)
     {
         $appurl = appurl();
@@ -62,7 +62,7 @@ if (! function_exists('hrefPoll')) {
     }
 }
 
-if (! function_exists('hrefPlaylist')) {
+if (! function_exists('href_playlist')) {
     function href_playlist($playlist)
     {
         $appurl = appurl();
@@ -71,7 +71,7 @@ if (! function_exists('hrefPlaylist')) {
     }
 }
 
-if (! function_exists('hrefCollection')) {
+if (! function_exists('href_collection')) {
     function href_collection($collection)
     {
         $appurl = appurl();
@@ -80,7 +80,7 @@ if (! function_exists('hrefCollection')) {
     }
 }
 
-if (! function_exists('tmdbImage')) {
+if (! function_exists('tmdb_image')) {
     function tmdb_image($type, $original)
     {
         $new = match ($type) {
@@ -102,14 +102,14 @@ if (! function_exists('tmdbImage')) {
     }
 }
 
-if (! function_exists('modalStyle')) {
+if (! function_exists('modal_style')) {
     function modal_style()
     {
         return (auth()->user()->style == 0) ? '' : ' modal-dark';
     }
 }
 
-if (! function_exists('ratingColor')) {
+if (! function_exists('rating_color')) {
     function rating_color($number)
     {
         if ($number > 0 && $number <= 3.9) {
