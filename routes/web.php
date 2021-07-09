@@ -292,9 +292,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/edit', 'UserController@editProfileForm')->name('user_edit_profile_form');
             Route::post('/{username}/edit', 'UserController@editProfile')->name('user_edit_profile');
             Route::post('/{username}/photo', 'UserController@changePhoto')->name('user_change_photo');
-            Route::get('/{username}/activate/{token}', 'UserController@activate')->name('user_activate');
-            Route::post('/{username}/about', 'UserController@changeAbout')->name('user_change_about');
-            Route::post('/{username}/photo', 'UserController@changeTitle')->name('user_change_title');
             Route::get('/{username}/banlog', 'UserController@getBans')->name('banlog');
             Route::post('/{username}/userFilters', 'UserController@myFilter')->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
@@ -387,7 +384,6 @@ Route::group(['middleware' => 'language'], function () {
         // Graveyard System
         Route::group(['prefix' => 'graveyard'], function () {
             Route::name('graveyard.')->group(function () {
-                Route::get('/filter', 'GraveyardController@faceted');
                 Route::get('/', 'GraveyardController@index')->name('index');
                 Route::post('/{id}/store', 'GraveyardController@store')->name('store');
                 Route::delete('/{id}/destroy', 'GraveyardController@destroy')->name('destroy');
@@ -661,11 +657,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'backups'], function () {
             Route::name('staff.backups.')->group(function () {
                 Route::get('/', 'BackupController@index')->name('index');
-                Route::post('/full', 'BackupController@create')->name('full');
-                Route::post('/files', 'BackupController@files')->name('files');
-                Route::post('/database', 'BackupController@database')->name('database');
-                Route::get('/download/{file_name?}', 'BackupController@download')->name('download');
-                Route::delete('/destroy/{file_name?}', 'BackupController@destroy')->where('file_name', '(.*)')->name('destroy');
             });
         });
 
