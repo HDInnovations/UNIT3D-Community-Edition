@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Events\TicketWentStale;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Traits\Auditable;

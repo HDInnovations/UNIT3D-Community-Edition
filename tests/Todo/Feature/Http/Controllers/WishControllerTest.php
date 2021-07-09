@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers;
 
+use App\Models\Wish;
 use App\Models\User;
 use Tests\TestCase;
 
