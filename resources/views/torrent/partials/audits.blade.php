@@ -10,7 +10,7 @@
     <div class="table-responsive panel-collapse collapse" id="collapseOne">
         <table class="table table-condensed table-bordered table-striped">
             <tbody>
-            @foreach(App\Models\Audit::whereModelEntryId($torrent->id)->latest()->get() as $audit)
+            @foreach(App\Models\Audit::where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get() as $audit)
                 @php $values = json_decode($audit->record, true); @endphp
                 <tr>
                     <td>
