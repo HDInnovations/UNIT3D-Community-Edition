@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\Providers\TicketClosed;
+use App\Events\TicketClosed;
 
 class NotifyUserTicketWasClosed
 {

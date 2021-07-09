@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\Providers\TicketAssigned;
+use App\Events\TicketAssigned;
 
 class NotifyUserTicketWasAssigned
 {

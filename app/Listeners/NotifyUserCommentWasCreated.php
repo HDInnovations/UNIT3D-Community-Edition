@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\Providers\CommentCreated;
+use App\Events\CommentCreated;
 
 class NotifyUserCommentWasCreated
 {
