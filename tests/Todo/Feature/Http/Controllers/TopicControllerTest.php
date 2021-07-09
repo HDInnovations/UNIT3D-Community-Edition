@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers;
 
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

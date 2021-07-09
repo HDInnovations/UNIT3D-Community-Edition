@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers\Staff;
 
+use App\Models\Seedbox;
 use App\Models\User;
 use Tests\TestCase;
 

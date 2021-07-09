@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\User;
 use Tests\TestCase;
 
