@@ -49,7 +49,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $id])
+            return redirect()->route('request', ['id' => $id])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -63,7 +63,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('request', ['id' => $id])
+        return redirect()->route('request', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
 
@@ -85,7 +85,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $id])
+            return redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -99,7 +99,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('torrent', ['id' => $id])
+        return redirect()->route('torrent', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
 
@@ -120,7 +120,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $username])
+            return redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -134,7 +134,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('users.show', ['username' => $username])
+        return redirect()->route('users.show', ['username' => $username])
             ->withSuccess('Your report has been successfully sent');
     }
 }

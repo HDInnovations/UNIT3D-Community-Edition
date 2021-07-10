@@ -55,7 +55,7 @@ class AlbumController extends Controller
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
         if ($meta === null || ! $meta) {
-            return \redirect()->route('albums.create')
+            return redirect()->route('albums.create')
                 ->withErrors('Meta Data Not Found. Gallery System Is Being Refactored');
         }
 
@@ -80,13 +80,13 @@ class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('albums.create')
+            return redirect()->route('albums.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
         $album->save();
 
-        return \redirect()->route('albums.show', ['id' => $album->id])
+        return redirect()->route('albums.show', ['id' => $album->id])
             ->withSuccess('Your album has successfully published!');
     }
 
@@ -120,7 +120,7 @@ class AlbumController extends Controller
         \abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
-        return \redirect()->route('albums.index')
+        return redirect()->route('albums.index')
             ->withSuccess('Album has successfully been deleted');
     }
 }

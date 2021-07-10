@@ -90,7 +90,7 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.create')
+            return redirect()->route('playlists.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
@@ -103,7 +103,7 @@ class PlaylistController extends Controller
             );
         }
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id])
+        return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Was Created Successfully!');
     }
 
@@ -197,13 +197,13 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.edit', ['id' => $playlist->id])
+            return redirect()->route('playlists.edit', ['id' => $playlist->id])
                 ->withInput()
                 ->withErrors($v->errors());
         }
         $playlist->save();
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id])
+        return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Has Successfully Been Updated!');
     }
 
@@ -225,7 +225,7 @@ class PlaylistController extends Controller
 
         $playlist->delete();
 
-        return \redirect()->route('playlists.index')
+        return redirect()->route('playlists.index')
             ->withSuccess('Playlist Deleted!');
     }
 
@@ -315,6 +315,6 @@ class PlaylistController extends Controller
             }
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return redirect()->back()->withErrors('Something Went Wrong!');
     }
 }

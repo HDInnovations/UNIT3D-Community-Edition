@@ -82,7 +82,7 @@ class PollController extends Controller
             \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
         );
 
-        return \redirect()->route('staff.polls.index')
+        return redirect()->route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
     }
 
@@ -151,7 +151,7 @@ class PollController extends Controller
 
         $poll->save();
 
-        return \redirect()->route('staff.polls.index')
+        return redirect()->route('staff.polls.index')
             ->withSuccess('Your poll has been edited.');
     }
 
@@ -169,7 +169,7 @@ class PollController extends Controller
         $poll = Poll::findOrFail($id);
         $poll->delete();
 
-        return \redirect()->route('staff.polls.index')
+        return redirect()->route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');
     }
 }

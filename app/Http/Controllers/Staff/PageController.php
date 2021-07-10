@@ -61,12 +61,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.pages.index')
+            return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
         $page->save();
 
-        return \redirect()->route('staff.pages.index')
+        return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
 
@@ -103,12 +103,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.pages.index')
+            return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
         $page->save();
 
-        return \redirect()->route('staff.pages.index')
+        return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }
 
@@ -125,7 +125,7 @@ class PageController extends Controller
     {
         Page::findOrFail($id)->delete();
 
-        return \redirect()->route('staff.pages.index')
+        return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }

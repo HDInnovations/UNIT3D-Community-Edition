@@ -141,7 +141,7 @@ class NotificationController extends Controller
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
-        return \redirect()->to($notification->data['url'])
+        return redirect()->to($notification->data['url'])
             ->withSuccess('Notification Marked As Read!');
     }
 
@@ -157,18 +157,18 @@ class NotificationController extends Controller
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
         if (! $notification) {
-            return \redirect()->route('notifications.index')
+            return redirect()->route('notifications.index')
                 ->withErrors('Notification Does Not Exist!');
         }
 
         if ($notification->read_at != null) {
-            return \redirect()->route('notifications.index')
+            return redirect()->route('notifications.index')
                 ->withErrors('Notification Already Marked As Read!');
         }
 
         $notification->markAsRead();
 
-        return \redirect()->route('notifications.index')
+        return redirect()->route('notifications.index')
             ->withSuccess('Notification Marked As Read!');
     }
 
@@ -185,7 +185,7 @@ class NotificationController extends Controller
         $carbon = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
 
-        return \redirect()->route('notifications.index')
+        return redirect()->route('notifications.index')
             ->withSuccess('All Notifications Marked As Read!');
     }
 
@@ -200,7 +200,7 @@ class NotificationController extends Controller
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
-        return \redirect()->route('notifications.index')
+        return redirect()->route('notifications.index')
             ->withSuccess('Notification Deleted!');
     }
 
@@ -214,7 +214,7 @@ class NotificationController extends Controller
     {
         $request->user()->notifications()->delete();
 
-        return \redirect()->route('notifications.index')
+        return redirect()->route('notifications.index')
             ->withSuccess('All Notifications Deleted!');
     }
 }

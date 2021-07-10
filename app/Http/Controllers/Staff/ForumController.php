@@ -86,7 +86,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return \redirect()->route('staff.forums.index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -149,7 +149,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return \redirect()->route('staff.forums.index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
@@ -209,7 +209,7 @@ class ForumController extends Controller
             $forum->delete();
         }
 
-        return \redirect()->route('staff.forums.index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

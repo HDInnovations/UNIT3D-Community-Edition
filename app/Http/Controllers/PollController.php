@@ -54,7 +54,7 @@ class PollController extends Controller
         $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($userHasVoted) {
-            return \redirect()->route('poll_results', ['id' => $poll->id])
+            return redirect()->route('poll_results', ['id' => $poll->id])
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
@@ -75,7 +75,7 @@ class PollController extends Controller
             ->where('poll_id', '=', $poll->id)
             ->exists();
         if ($voted) {
-            return \redirect()->route('poll_results', ['id' => $poll->id])
+            return redirect()->route('poll_results', ['id' => $poll->id])
                 ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
         }
 
@@ -97,7 +97,7 @@ class PollController extends Controller
             \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
         );
 
-        return \redirect()->route('poll_results', ['id' => $poll->id])
+        return redirect()->route('poll_results', ['id' => $poll->id])
             ->withSuccess('Your vote has been counted.');
     }
 

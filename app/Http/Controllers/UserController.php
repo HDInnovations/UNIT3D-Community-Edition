@@ -204,13 +204,13 @@ class UserController extends Controller
                         if ($v->passes()) {
                             $image->move(\public_path('/files/img/'), $filename);
                         } else {
-                            return \redirect()->route('users.show', ['username' => $user->username])
+                            return redirect()->route('users.show', ['username' => $user->username])
                                 ->withErrors('Because you are uploading a GIF, your avatar must be square!');
                         }
                     }
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
-                    return \redirect()->route('users.show', ['username' => $user->username])
+                    return redirect()->route('users.show', ['username' => $user->username])
                         ->withErrors('Your avatar is too large, max file size: '.($maxUpload / 1_000_000).' MB');
                 }
             }
@@ -221,7 +221,7 @@ class UserController extends Controller
         $user->signature = $request->input('signature');
         $user->save();
 
-        return \redirect()->route('user_edit_profile_form', ['username' => $user->username])
+        return redirect()->route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -263,7 +263,7 @@ class UserController extends Controller
         $user->style = (int) $request->input('theme');
         $cssUrl = $request->input('custom_css');
         if (isset($cssUrl) && ! \filter_var($cssUrl, FILTER_VALIDATE_URL)) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
         $user->custom_css = $cssUrl;
@@ -275,7 +275,7 @@ class UserController extends Controller
         $user->ratings = $request->input('ratings');
         $user->save();
 
-        return \redirect()->route('user_settings', ['username' => $user->username])
+        return redirect()->route('user_settings', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -307,7 +307,7 @@ class UserController extends Controller
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
@@ -334,14 +334,14 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                return \redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
+                return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             }
 
-            return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
         }
 
-        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
     }
 
@@ -369,13 +369,13 @@ class UserController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
         }
         $user->email = $request->input('email');
         $user->save();
 
-        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
             ->withSuccess('Your Email Was Updated Successfully!');
     }
 
@@ -395,7 +395,7 @@ class UserController extends Controller
         $user->private_profile = 1;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Private!');
     }
 
@@ -415,7 +415,7 @@ class UserController extends Controller
         $user->private_profile = 0;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Public!');
     }
 
@@ -435,7 +435,7 @@ class UserController extends Controller
         $user->block_notifications = 1;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disabled Notifications!');
     }
 
@@ -455,7 +455,7 @@ class UserController extends Controller
         $user->block_notifications = 0;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Enabled Notifications!');
     }
 
@@ -475,7 +475,7 @@ class UserController extends Controller
         $user->hidden = 1;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disappeared Like A Ninja!');
     }
 
@@ -495,7 +495,7 @@ class UserController extends Controller
         $user->hidden = 0;
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
     }
 
@@ -519,7 +519,7 @@ class UserController extends Controller
 
         \cache()->forget(\sprintf('user:%s', $user->passkey));
 
-        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
     }
 
@@ -552,7 +552,7 @@ class UserController extends Controller
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
             ->withSuccess('Your Other Privacy Settings Have Been Saved!');
     }
 
@@ -585,7 +585,7 @@ class UserController extends Controller
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Privacy Settings Have Been Saved!');
     }
 
@@ -618,7 +618,7 @@ class UserController extends Controller
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
             ->withSuccess('Your Achievement Privacy Settings Have Been Saved!');
     }
 
@@ -652,7 +652,7 @@ class UserController extends Controller
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum History Privacy Settings Have Been Saved!');
     }
 
@@ -685,7 +685,7 @@ class UserController extends Controller
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
             ->withSuccess('Your Follower Privacy Settings Have Been Saved!');
     }
 
@@ -723,7 +723,7 @@ class UserController extends Controller
         $user->peer_hidden = 0;
         $user->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent History Privacy Settings Have Been Saved!');
     }
 
@@ -758,7 +758,7 @@ class UserController extends Controller
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
             ->withSuccess('Your Account Notification Settings Have Been Saved!');
     }
 
@@ -792,7 +792,7 @@ class UserController extends Controller
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
             ->withSuccess('Your Followed User Notification Settings Have Been Saved!');
     }
 
@@ -826,7 +826,7 @@ class UserController extends Controller
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
             ->withSuccess('Your BON Notification Settings Have Been Saved!');
     }
 
@@ -861,7 +861,7 @@ class UserController extends Controller
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
             ->withSuccess('Your Subscription Notification Settings Have Been Saved!');
     }
 
@@ -901,7 +901,7 @@ class UserController extends Controller
         $notification->show_request_unclaim = ($request->input('show_request_unclaim') && $request->input('show_request_unclaim') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Notification Settings Have Been Saved!');
     }
 
@@ -937,7 +937,7 @@ class UserController extends Controller
         $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent Notification Settings Have Been Saved!');
     }
 
@@ -975,7 +975,7 @@ class UserController extends Controller
 
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
             ->withSuccess('Your @Mention Notification Settings Have Been Saved!');
     }
 
@@ -1009,7 +1009,7 @@ class UserController extends Controller
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum Notification Settings Have Been Saved!');
     }
 
@@ -1056,7 +1056,7 @@ class UserController extends Controller
         $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
         $privacy->save();
 
-        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
             ->withSuccess('Your Profile Privacy Settings Have Been Saved!');
     }
 
@@ -1076,7 +1076,7 @@ class UserController extends Controller
         $user->rsskey = \md5(\uniqid('', true).\time().\microtime());
         $user->save();
 
-        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
     }
 
@@ -1096,7 +1096,7 @@ class UserController extends Controller
         $user->api_token = Str::random(100);
         $user->save();
 
-        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
             ->withSuccess('Your API Token Was Changed Successfully!');
     }
 
@@ -1992,7 +1992,7 @@ class UserController extends Controller
             return \response()->download($zipFile)->deleteFileAfterSend(true);
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return redirect()->back()->withErrors('Something Went Wrong!');
     }
 
     /**

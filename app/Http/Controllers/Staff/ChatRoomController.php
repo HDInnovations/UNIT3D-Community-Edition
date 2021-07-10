@@ -59,12 +59,12 @@ class ChatRoomController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.rooms.index')
+            return redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
         $chatroom->save();
 
-        return \redirect()->route('staff.rooms.index')
+        return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
 
@@ -85,12 +85,12 @@ class ChatRoomController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.rooms.index')
+            return redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
         $chatroom->save();
 
-        return \redirect()->route('staff.rooms.index')
+        return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }
 
@@ -114,7 +114,7 @@ class ChatRoomController extends Controller
         }
         $chatroom->delete();
 
-        return \redirect()->route('staff.rooms.index')
+        return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 }

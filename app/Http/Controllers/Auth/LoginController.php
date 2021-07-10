@@ -77,7 +77,7 @@ class LoginController extends Controller
             $this->guard()->logout();
             $request->session()->invalidate();
 
-            return \redirect()->route('login')
+            return redirect()->route('login')
                 ->withErrors(\trans('auth.not-activated'));
         }
 
@@ -85,7 +85,7 @@ class LoginController extends Controller
             $this->guard()->logout();
             $request->session()->invalidate();
 
-            return \redirect()->route('login')
+            return redirect()->route('login')
                 ->withErrors(\trans('auth.banned'));
         }
 
@@ -100,7 +100,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
                 ->withSuccess(\trans('auth.welcome-restore'));
         }
 
@@ -115,16 +115,16 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
                 ->withSuccess(\trans('auth.welcome-restore'));
         }
 
         if ($user->read_rules == 0) {
-            return \redirect()->to(\config('other.rules_url'))
+            return redirect()->to(\config('other.rules_url'))
                 ->withWarning(\trans('auth.require-rules'));
         }
 
-        return \redirect()->route('home.index')
+        return redirect()->route('home.index')
             ->withSuccess(\trans('auth.welcome'));
     }
 }

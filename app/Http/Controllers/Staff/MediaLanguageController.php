@@ -55,12 +55,12 @@ class MediaLanguageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.media_languages.index')
+            return redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
         $mediaLanguage->save();
 
-        return \redirect()->route('staff.media_languages.index')
+        return redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Added');
     }
 
@@ -95,12 +95,12 @@ class MediaLanguageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.media_languages.index')
+            return redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
         $mediaLanguage->save();
 
-        return \redirect()->route('staff.media_languages.index')
+        return redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');
     }
 
@@ -118,7 +118,7 @@ class MediaLanguageController extends Controller
         $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->delete();
 
-        return \redirect()->route('staff.media_languages.index')
+        return redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');
     }
 }

@@ -89,7 +89,7 @@ class PrivateMessageController extends Controller
             return \view('pm.message', ['pm' => $pm, 'user' => $user]);
         }
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
             ->withErrors('What Are You Trying To Do Here!');
     }
 
@@ -124,7 +124,7 @@ class PrivateMessageController extends Controller
         if ($request->has('receiver_id')) {
             $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
         } else {
-            return \redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
+            return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
         }
 
@@ -145,20 +145,20 @@ class PrivateMessageController extends Controller
 
         if ($v->fails()) {
             if ($dest == 'profile') {
-                return \redirect()->route('users.show', ['username' => $recipient->username])
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors($v->errors());
             }
 
-            return \redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
+            return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
         }
         $privateMessage->save();
         if ($dest == 'profile') {
-            return \redirect()->route('users.show', ['username' => $recipient->username])
+            return redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
         }
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');
     }
 
@@ -193,12 +193,12 @@ class PrivateMessageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('inbox')
+            return redirect()->route('inbox')
                 ->withErrors($v->errors());
         }
         $privateMessage->save();
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');
     }
 
@@ -225,14 +225,14 @@ class PrivateMessageController extends Controller
             $pm->delete();
 
             if ($dest == 'outbox') {
-                return \redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
+                return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
             }
 
-            return \redirect()->route('inbox')
+            return redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');
         }
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');
     }
 
@@ -247,7 +247,7 @@ class PrivateMessageController extends Controller
         $user = $request->user();
         PrivateMessage::where('receiver_id', '=', $user->id)->delete();
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');
     }
 
@@ -265,7 +265,7 @@ class PrivateMessageController extends Controller
             $pm->save();
         }
 
-        return \redirect()->route('inbox')
+        return redirect()->route('inbox')
             ->withSuccess('Your Messages Have All Been Marked As Read!');
     }
 }

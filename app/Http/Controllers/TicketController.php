@@ -67,14 +67,14 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.create')
+            return redirect()->route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Your Helpdesk Ticket Was Created Successfully!');
     }
 
@@ -133,14 +133,14 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.create')
+            return redirect()->route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Your Helpdesk Ticket Was Updated Successfully!');
     }
 
@@ -157,7 +157,7 @@ class TicketController extends Controller
         TicketAttachment::where('ticket_id', '=', $id)->delete();
         $ticket->delete();
 
-        return \redirect()->route('tickets.index')
+        return redirect()->route('tickets.index')
             ->withSuccess('Your Helpdesk Ticket Was Deleted Successfully!');
     }
 
@@ -175,13 +175,13 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.show', ['id' => $ticket->id])
+            return redirect()->route('tickets.show', ['id' => $ticket->id])
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Helpdesk Ticket Was Assigned Successfully!');
     }
 
@@ -194,7 +194,7 @@ class TicketController extends Controller
         $ticket->staff_id = null;
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Helpdesk Ticket Was Unassigned Successfully!');
     }
 
@@ -207,7 +207,7 @@ class TicketController extends Controller
         $ticket->closed_at = \now();
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return redirect()->route('tickets.show', ['id' => $ticket->id])
             ->withSuccess('Helpdesk Ticket Was Closed Successfully!');
     }
 }

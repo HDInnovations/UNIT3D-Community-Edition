@@ -59,7 +59,7 @@ class PostController extends Controller
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
-            return \redirect()->route('forums.index')
+            return redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
 
@@ -75,7 +75,7 @@ class PostController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('forum_topic', ['id' => $topic->id])
+            return redirect()->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         }
         $post->save();
@@ -158,7 +158,7 @@ class PostController extends Controller
         $user->addProgress(new UserMade800Posts(), 1);
         $user->addProgress(new UserMade900Posts(), 1);
 
-        return \redirect()->to($realUrl)
+        return redirect()->to($realUrl)
             ->withSuccess('Post Successfully Posted');
     }
 
@@ -200,7 +200,7 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
 
-        return \redirect()->to($postUrl)
+        return redirect()->to($postUrl)
             ->withSuccess('Post Successfully Edited!');
     }
 
@@ -221,7 +221,7 @@ class PostController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('This Post Is Now Deleted!');
     }
 }

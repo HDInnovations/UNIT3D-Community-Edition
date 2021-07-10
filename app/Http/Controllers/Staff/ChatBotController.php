@@ -115,11 +115,11 @@ class ChatBotController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('staff.bots.edit', ['id' => $id])
+            return redirect()->route('staff.bots.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return \redirect()->route('staff.bots.edit', ['id' => $id])
+        return redirect()->route('staff.bots.edit', ['id' => $id])
             ->withSuccess($success);
     }
 
@@ -137,7 +137,7 @@ class ChatBotController extends Controller
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
 
-        return \redirect()->route('staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
@@ -154,7 +154,7 @@ class ChatBotController extends Controller
         $bot->active = 0;
         $bot->save();
 
-        return \redirect()->route('staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Disabled');
     }
 
@@ -171,7 +171,7 @@ class ChatBotController extends Controller
         $bot->active = 1;
         $bot->save();
 
-        return \redirect()->route('staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Enabled');
     }
 }

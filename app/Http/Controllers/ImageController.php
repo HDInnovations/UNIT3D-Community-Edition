@@ -65,12 +65,12 @@ class ImageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('images.create', ['id' => $request->input('album_id')])
+            return redirect()->route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
         }
         $image->save();
 
-        return \redirect()->route('albums.show', ['id' => $request->input('album_id')])
+        return redirect()->route('albums.show', ['id' => $request->input('album_id')])
             ->withSuccess('Your image has successfully published!');
     }
 
@@ -87,7 +87,7 @@ class ImageController extends Controller
         $filename = $image->image;
 
         if (! \file_exists(\getcwd().'/files/img/'.$filename)) {
-            return \redirect()->route('show_album', ['id' => $image->album_id])
+            return redirect()->route('show_album', ['id' => $image->album_id])
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
@@ -114,7 +114,7 @@ class ImageController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
         $image->delete();
 
-        return \redirect()->route('albums.show', ['id' => $image->album_id])
+        return redirect()->route('albums.show', ['id' => $image->album_id])
             ->withSuccess('Image has successfully been deleted');
     }
 }

@@ -46,13 +46,13 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {
-            return \redirect()->route('application.create')
+            return redirect()->route('application.create')
                 ->withInfo(\trans('auth.allow-invite-appl'));
         }
 
         // Make sure open reg is off and invite code is not present
         if ($code === 'null' && \config('other.invite-only') == 1) {
-            return \redirect()->route('login')
+            return redirect()->route('login')
                 ->withWarning(\trans('auth.allow-invite'));
         }
 
@@ -64,7 +64,7 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
         if (\config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return \redirect()->route('registrationForm', ['code' => $code])
+            return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors(\trans('auth.invalid-key'));
         }
 
@@ -113,7 +113,7 @@ class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('registrationForm', ['code' => $code])
+            return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         }
         $user->save();
@@ -161,7 +161,7 @@ class RegisterController extends Controller
         $privateMessage->message = \config('welcomepm.message');
         $privateMessage->save();
 
-        return \redirect()->route('login')
+        return redirect()->route('login')
             ->withSuccess(\trans('auth.register-thanks'));
     }
 }

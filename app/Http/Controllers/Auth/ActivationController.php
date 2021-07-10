@@ -40,11 +40,11 @@ class ActivationController extends Controller
 
             $activation->delete();
 
-            return \redirect()->route('login')
+            return redirect()->route('login')
                 ->withSuccess(\trans('auth.activation-success'));
         }
 
-        return \redirect()->route('login')
+        return redirect()->route('login')
             ->withErrors(\trans('auth.activation-error'));
     }
 }

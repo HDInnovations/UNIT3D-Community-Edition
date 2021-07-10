@@ -50,15 +50,15 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (\config('other.invite-only') == false) {
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
         if ($user->can_invite == 0) {
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
         if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
@@ -79,19 +79,19 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
-            return \redirect()->route('home.index')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
         if ($user->invites <= 0) {
-            return \redirect()->route('invites.create')
+            return redirect()->route('invites.create')
                 ->withErrors('You do not have enough invites!');
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
-            return \redirect()->route('invites.create')
+            return redirect()->route('invites.create')
                 ->withErrors('The email address your trying to send a invite to has already been sent one.');
         }
 
@@ -116,7 +116,7 @@ class InviteController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('invites.create')
+            return redirect()->route('invites.create')
                 ->withErrors($v->errors());
         }
         Mail::to($request->input('email'))->send(new InviteUser($invite));
@@ -124,7 +124,7 @@ class InviteController extends Controller
         $user->invites--;
         $user->save();
 
-        return \redirect()->route('invites.create')
+        return redirect()->route('invites.create')
             ->withSuccess('Invite was sent successfully!');
     }
 
@@ -143,13 +143,13 @@ class InviteController extends Controller
         \abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return \redirect()->route('invites.index', ['username' => $user->username])
+            return redirect()->route('invites.index', ['username' => $user->username])
                 ->withErrors('The invite you are trying to resend has already been used.');
         }
 
         Mail::to($invite->email)->send(new InviteUser($invite));
 
-        return \redirect()->route('invites.index', ['username' => $user->username])
+        return redirect()->route('invites.index', ['username' => $user->username])
             ->withSuccess('Invite was resent successfully!');
     }
 }

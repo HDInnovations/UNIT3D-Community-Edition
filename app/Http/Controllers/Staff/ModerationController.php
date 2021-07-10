@@ -81,11 +81,11 @@ class ModerationController extends Controller
 
             TorrentHelper::approveHelper($torrent->id);
 
-            return \redirect()->route('staff.moderation.index')
+            return redirect()->route('staff.moderation.index')
                 ->withSuccess('Torrent Approved');
         }
 
-        return \redirect()->route('staff.moderation.index')
+        return redirect()->route('staff.moderation.index')
             ->withErrors('Torrent Already Approved');
     }
 
@@ -104,7 +104,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.moderation.index')
+            return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
         $user = $request->user();
@@ -121,7 +121,7 @@ class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
 
-        return \redirect()->route('staff.moderation.index')
+        return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Postponed');
     }
 
@@ -140,7 +140,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.moderation.index')
+            return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
         $user = $request->user();
@@ -157,7 +157,7 @@ class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
 
-        return \redirect()->route('staff.moderation.index')
+        return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Rejected');
     }
 }

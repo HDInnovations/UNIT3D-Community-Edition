@@ -105,7 +105,7 @@ class UserController extends Controller
         // Hard coded until group change.
 
         if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -118,7 +118,7 @@ class UserController extends Controller
         $user->group_id = (int) $request->input('group_id');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -140,7 +140,7 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -157,7 +157,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -245,11 +245,11 @@ class UserController extends Controller
         }
 
         if ($user->delete()) {
-            return \redirect()->route('staff.dashboard.index')
+            return redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        return \redirect()->route('staff.dashboard.index')
+        return redirect()->route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }
 }

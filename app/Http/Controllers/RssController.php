@@ -135,11 +135,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('rss.create')
+            return redirect()->route('rss.create')
                 ->withErrors($error);
         }
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -394,11 +394,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('rss.edit', ['id' => $id])
+            return redirect()->route('rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -416,7 +416,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess('RSS Feed Deleted!');
     }
 }
