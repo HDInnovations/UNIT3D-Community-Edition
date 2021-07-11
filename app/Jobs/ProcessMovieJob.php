@@ -14,14 +14,15 @@
 namespace App\Jobs;
 
 use App\Models\Cast;
+use App\Models\Movie;
 use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Crew;
 use App\Models\Genre;
-use App\Models\Person;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
+use App\Models\Recommendation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -85,6 +86,21 @@ class ProcessMovieJob implements ShouldQueue
                     'backdrop'  => $tmdb->image('backdrop', $belongsToCollection),
                 ];
                 Collection::updateOrCreate(['id' => $belongsToCollection['id']], $belongsToCollectionArray)->movie()->syncWithoutDetaching([$this->movie['id']]);
+            }
+        }
+
+        if(isset($this->movie['recommendations'])){
+            foreach($this->movie['recommendations']['results'] as $recommendation) {
+                if(Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    $new = new Recommendation();
+                    $new->recommendation_movie_id = $recommendation['id'];
+                    $new->movie_id = $this->movie['id'];
+                    $new->title = $recommendation['title'];
+                    $new->vote_average = $recommendation['vote_average'];
+                    $new->poster = $tmdb->image('poster', $recommendation);
+                    $new->releasse_date = $recommendation['release_date'];
+                    $new->save();
+                }
             }
         }
 

@@ -13,6 +13,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Tv;
 use App\Models\Cast;
 use App\Models\Company;
 use App\Models\Crew;
@@ -25,6 +26,7 @@ use App\Models\Season;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
+use App\Models\Recommendation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -89,6 +91,21 @@ class ProcessTvJob implements ShouldQueue
                     'origin_country' => $network['origin_country'],
                 ];
                 Network::updateOrCreate(['id' => $network['id']], $networkArray)->tv()->syncWithoutDetaching([$this->id]);
+            }
+        }
+
+        if(isset($this->tv['recommendations'])){
+            foreach($this->tv['recommendations']['results'] as $recommendation) {
+                if(Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    $new = new Recommendation();
+                    $new->recommendation_tv_id = $recommendation['id'];
+                    $new->tv_id = $this->tv['id'];
+                    $new->title = $recommendation['name'];
+                    $new->vote_average = $recommendation['vote_average'];
+                    $new->poster = $tmdb->image('poster', $recommendation);
+                    $new->first_air_date = $recommendation['first_air_date'];
+                    $new->save();
+                }
             }
         }
 
