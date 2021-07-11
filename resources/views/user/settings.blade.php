@@ -70,11 +70,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="custom_css" class="control-label">External CSS Stylesheet</label>
+                                    <label for="custom_css" class="control-label">External CSS Stylesheet (Stacks on top of above theme)</label>
                                     <label>
                                         <input type="text" name="custom_css" class="form-control"
                                         value="@if ($user->custom_css) {{ $user->custom_css }}@endif"
                                             placeholder="CSS URL">
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="standalone_css" class="control-label">Standalone CSS Stylesheet (No site theme used)</label>
+                                    <label>
+                                        <input type="text" name="standalone_css" class="form-control"
+                                               value="@if ($user->standalone_css) {{ $user->standalone_css }}@endif"
+                                               placeholder="CSS URL">
                                     </label>
                                 </div>
                                 <label for="sidenav" class="control-label">Side Navigation</label>

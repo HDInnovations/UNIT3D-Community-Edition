@@ -261,12 +261,21 @@ class UserController extends Controller
 
         // Style Settings
         $user->style = (int) $request->input('theme');
-        $cssUrl = $request->input('custom_css');
-        if (isset($cssUrl) && ! \filter_var($cssUrl, FILTER_VALIDATE_URL)) {
+
+        $customCss = $request->input('custom_css');
+        if (isset($customCss) && ! \filter_var($customCss, FILTER_VALIDATE_URL)) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
-        $user->custom_css = $cssUrl;
+        $user->custom_css = $customCss;
+
+        $standaloneCss = $request->input('standalone_css');
+        if (isset($standaloneCss) && ! \filter_var($standaloneCss, FILTER_VALIDATE_URL)) {
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
+        }
+        $user->standalone_css = $standaloneCss;
+
         $user->nav = $request->input('sidenav');
 
         // Torrent Settings
