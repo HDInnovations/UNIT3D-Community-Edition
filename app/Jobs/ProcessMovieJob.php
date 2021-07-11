@@ -14,15 +14,15 @@
 namespace App\Jobs;
 
 use App\Models\Cast;
-use App\Models\Movie;
 use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Crew;
 use App\Models\Genre;
+use App\Models\Movie;
+use App\Models\Recommendation;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
-use App\Models\Recommendation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -89,9 +89,9 @@ class ProcessMovieJob implements ShouldQueue
             }
         }
 
-        if(isset($this->movie['recommendations'])){
-            foreach($this->movie['recommendations']['results'] as $recommendation) {
-                if(Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
+        if (isset($this->movie['recommendations'])) {
+            foreach ($this->movie['recommendations']['results'] as $recommendation) {
+                if (Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
                     $new = new Recommendation();
                     $new->recommendation_movie_id = $recommendation['id'];
                     $new->movie_id = $this->movie['id'];
@@ -104,14 +104,14 @@ class ProcessMovieJob implements ShouldQueue
             }
         }
 
-        if(isset($this->movie['credits']['cast'])){
-            foreach($this->movie['credits']['cast'] as $cast){
+        if (isset($this->movie['credits']['cast'])) {
+            foreach ($this->movie['credits']['cast'] as $cast) {
                 Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
             }
         }
 
-        if(isset($this->movie['credits']['crew'])){
-            foreach($this->movie['credits']['crew'] as $crew){
+        if (isset($this->movie['credits']['crew'])) {
+            foreach ($this->movie['credits']['crew'] as $crew) {
                 Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
             }
         }

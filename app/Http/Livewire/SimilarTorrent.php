@@ -13,20 +13,19 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Peer;
-use App\Models\History;
-use App\Models\Warning;
-use App\Models\Subtitle;
+use App\Models\FeaturedTorrent;
 use App\Models\Graveyard;
+use App\Models\History;
+use App\Models\Peer;
+use App\Models\PersonalFreeleech;
+use App\Models\PlaylistTorrent;
+use App\Models\PrivateMessage;
+use App\Models\Subtitle;
+use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\TorrentRequest;
-use App\Models\PrivateMessage;
-use App\Models\PlaylistTorrent;
-use App\Models\FeaturedTorrent;
-use App\Models\PersonalFreeleech;
-use App\Models\Torrent;
+use App\Models\Warning;
 use Livewire\Component;
-use phpDocumentor\Reflection\Types\Collection;
 
 class SimilarTorrent extends Component
 {
@@ -90,14 +89,14 @@ class SimilarTorrent extends Component
     {
         $torrents = Torrent::whereKey($this->checked)->pluck('name');
         $names = [];
-        foreach($torrents as $torrent) {
+        foreach ($torrents as $torrent) {
             $names[] = $torrent;
         }
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
             'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!' .\nl2br("\n")
-                        . \nl2br(\implode("\n", $names))
+            'body'    => 'If deleted, you will not be able to recover the following files!'.\nl2br("\n")
+                        .\nl2br(\implode("\n", $names)),
         ]);
     }
 
@@ -105,14 +104,14 @@ class SimilarTorrent extends Component
     {
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
-        foreach($torrents as $torrent) {
+        foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
             foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                 $pmuser = new PrivateMessage();
                 $pmuser->sender_id = 1;
                 $pmuser->receiver_id = $pm->user_id;
                 $pmuser->subject = 'Bulk Torrents Deleted!';
-                $pmuser->message = '[b]Attention: [/b] The following torrents '. \implode(", ", $names) .' have been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                $pmuser->message = '[b]Attention: [/b] The following torrents '.\implode(', ', $names).' have been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
                                     [b]Removal Reason: [/b] '.$this->reason.'
                                     [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pmuser->save();
@@ -141,7 +140,7 @@ class SimilarTorrent extends Component
             Subtitle::where('torrent_id', '=', $torrent->id)->delete();
             Graveyard::where('torrent_id', '=', $torrent->id)->delete();
             if ($torrent->featured === 1) {
-                FeaturedTorrent::where('torrent_id', '=',$torrent->id)->delete();
+                FeaturedTorrent::where('torrent_id', '=', $torrent->id)->delete();
             }
 
             $torrent->delete();
@@ -154,7 +153,7 @@ class SimilarTorrent extends Component
         $this->dispatchBrowserEvent('swal:modal', [
             'type'    => 'success',
             'message' => 'Torrents Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded these torrents.'
+            'text'    => 'A personal message has been sent to all users that have downloaded these torrents.',
         ]);
     }
 
@@ -167,7 +166,7 @@ class SimilarTorrent extends Component
         $this->dispatchBrowserEvent('swal:modal', [
             'type'    => 'success',
             'message' => 'Torrent Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded this torrent.'
+            'text'    => 'A personal message has been sent to all users that have downloaded this torrent.',
         ]);
     }
 

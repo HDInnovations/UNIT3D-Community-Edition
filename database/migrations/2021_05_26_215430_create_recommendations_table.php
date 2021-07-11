@@ -33,8 +33,8 @@ class CreateRecommendationsTable extends Migration
             $table->unsignedBigInteger('recommendation_tv_id')->nullable()->index();
             $table->foreign('recommendation_tv_id')->references('id')->on('tv')->onDelete('cascade');
 
-            $table->unique(['movie_id','recommendation_movie_id']);
-            $table->unique(['tv_id','recommendation_tv_id']);
+            $table->unique(['movie_id', 'recommendation_movie_id']);
+            $table->unique(['tv_id', 'recommendation_tv_id']);
         });
     }
 

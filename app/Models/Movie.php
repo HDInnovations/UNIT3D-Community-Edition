@@ -76,7 +76,6 @@ class Movie extends Model
         return $this->hasMany(Recommendation::class, 'movie_id', 'id');
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

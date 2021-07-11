@@ -13,7 +13,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Tv;
 use App\Models\Cast;
 use App\Models\Company;
 use App\Models\Crew;
@@ -22,11 +21,12 @@ use App\Models\Genre;
 use App\Models\GuestStar;
 use App\Models\Network;
 use App\Models\Person;
+use App\Models\Recommendation;
 use App\Models\Season;
+use App\Models\Tv;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
-use App\Models\Recommendation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -94,9 +94,9 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        if(isset($this->tv['recommendations'])){
-            foreach($this->tv['recommendations']['results'] as $recommendation) {
-                if(Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
+        if (isset($this->tv['recommendations'])) {
+            foreach ($this->tv['recommendations']['results'] as $recommendation) {
+                if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
                     $new = new Recommendation();
                     $new->recommendation_tv_id = $recommendation['id'];
                     $new->tv_id = $this->tv['id'];
