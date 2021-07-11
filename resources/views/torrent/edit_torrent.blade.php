@@ -21,6 +21,18 @@
                             <input type="text" class="form-control" name="name" value="{{ $torrent->name }}" required>
                         </label>
                     </div>
+
+                    @if ($torrent->category->no_meta)
+                        <div class="form-group">
+                            <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
+                            <input class="upload-form-file" type="file" accept=".jpg, .jpeg, .png" name="torrent-cover">
+                        </div>
+                        <div class="form-group">
+                            <label for="torrent-banner">Banner @lang('torrent.file') (@lang('torrent.optional'))</label>
+                            <input class="upload-form-file" type="file" accept=".jpg, .jpeg, .png" name="torrent-banner">
+                        </div>
+                    @endif
+
                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
                         <label for="name">TMDB ID <b>(@lang('common.required'))</b></label>
@@ -103,17 +115,6 @@
                             </select>
                         </label>
                     </div>
-                    
-                    @if ($torrent->category->no_meta)
-                    <div class="form-group">
-                        <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
-                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
-                    </div>
-                    <div class="form-group">
-                        <label for="torrent-banner">Banner @lang('torrent.file') (@lang('torrent.optional'))</label>
-                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-banner">
-                    </div>
-                    @endif
 
                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
@@ -154,7 +155,7 @@
                             <textarea name="bdinfo" cols="30" rows="10" class="form-control">{{ $torrent->bdinfo }}</textarea>
                         </label>
                     </div>
-    
+
                     <label for="hidden" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked
@@ -203,6 +204,21 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
+                    @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                    <label for="personal" class="control-label">Personal Release?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="personal_release" @if ($torrent->personal_release == 1) checked
+                                      @endif value="1">@lang('common.yes')</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="personal_release" @if ($torrent->personal_release == 0) checked
+                                      @endif value="0">@lang('common.no')</label>
+                    </div>
+                    @else
+                        <input type="hidden" name="personal_release" value="0">
+                    @endif
+                    <br>
+                    <br>
                     <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                 </form>
             </div>

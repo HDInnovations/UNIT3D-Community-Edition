@@ -125,3 +125,61 @@ if (! function_exists('rating_color')) {
         }
     }
 }
+
+if (! function_exists('languageFlag')) {
+    function language_flag($language)
+    {
+        $flag = match ($language) {
+            'English' => "us",
+            'Arabic' => "ae",
+            'Belarusian' => "by",
+            'Bulgarian' => "bg",
+            'Catalan' => "ad",
+            'Chinese' => "tw",
+            'Croatian' => "hr",
+            'Czech' => "cz",
+            'Danish' => "dk",
+            'Dutch' => "nl",
+            'Estonian' => "et",
+            'Finnish' => "fi",
+            'French' => "fr",
+            'Georgian' => "ge",
+            'German' => "de",
+            'Greek' => "gr",
+            'Hebrew' => "il",
+            'Hindi', 'Tamil', 'Telugu' => "in",
+            'Hungarian' => "hu",
+            'Icelandic' => "is",
+            'Indonesian' => "id",
+            'Italian' => "it",
+            'Japanese' => "jp",
+            'Korean' => "kr",
+            'Latvian' => "lv",
+            'Lithuanian' => "lt",
+            'Malay' => "my",
+            'Norwegian', 'Norwegian Bokmal' => "no",
+            'Persian' => "fa",
+            'Polish' => "pl",
+            'Portuguese' => "pt",
+            'Romanian' => "ro",
+            'Russian' => "ru",
+            'Serbian' => "sr",
+            'Slovak' => "sk",
+            'Slovenian' => "sl",
+            'Spanish' => "es",
+            'Swedish' => "se",
+            'Tagalog' => "ph",
+            'Thai' => "th",
+            'Turkish' => "tr",
+            'Ukrainian' => "ua",
+            'Vietnamese' => "vi",
+            default => null,
+        };
+        if ($flag !== null) {
+            $flagUrl = '/img/flags/' . $flag . '.png';
+        } else {
+            $flagUrl = null;
+        }
+        return $flagUrl;
+    }
+}

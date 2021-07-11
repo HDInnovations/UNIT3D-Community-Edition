@@ -107,28 +107,33 @@ class TorrentController extends Controller
      * Torrent Similar Results.
      *
      * @param $categoryId
-     * @param $tmdb
+     * @param $tmdbId
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar(Request $request, $categoryId, $tmdb): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $user = $request->user();
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->where('category_id', '=', $categoryId)
-            ->where('tmdb', '=', $tmdb)
-            ->get()
-            ->sortByDesc('name');
+        $torrent = Torrent::where('category_id', '=', $categoryId)
+            ->where('tmdb', '=', $tmdbId)
+            ->first();
 
-        if (! $torrents || $torrents->count() < 1) {
+        if (! $torrent || $torrent->count() === 0) {
             \abort(404, 'No Similar Torrents Found');
         }
 
+        $meta = null;
+        if ($torrent->category->tv_meta) {
+            $meta = Tv::with('genres', 'cast', 'networks', 'seasons')->where('id', '=', $tmdbId)->first();
+        }
+        if ($torrent->category->movie_meta) {
+            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdbId)->first();
+        }
+
         return \view('torrent.similar', [
-            'user'               => $user,
-            'personal_freeleech' => $personalFreeleech,
-            'torrents'           => $torrents,
-            'tmdb'               => $tmdb,
+            'meta'       => $meta,
+            'torrent'    => $torrent,
+            'categoryId' => $categoryId,
+            'tmdbId'     => $tmdbId,
         ]);
     }
 
@@ -887,11 +892,14 @@ class TorrentController extends Controller
         $lastSeedActivity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $meta = null;
+        $trailer = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Tv::with('genres', 'cast', 'companies', 'networks', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
         if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Movie::with('genres', 'cast', 'companies', 'collection', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
         $characters = null;
@@ -902,32 +910,9 @@ class TorrentController extends Controller
 
         $featured = $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null;
 
-        $general = null;
-        $video = null;
-        $settings = null;
-        $audio = null;
-        $generalCrumbs = null;
-        $textCrumbs = null;
-        $subtitle = null;
-        $viewCrumbs = null;
-        $videoCrumbs = null;
-        $settings = null;
-        $audioCrumbs = null;
-        $subtitle = null;
-        $subtitleCrumbs = null;
-        if ($torrent->mediainfo != null) {
-            $mediaInfo = new MediaInfo();
-            $parsed = $mediaInfo->parse($torrent->mediainfo);
-            $viewCrumbs = $mediaInfo->prepareViewCrumbs($parsed);
-            $general = $parsed['general'];
-            $generalCrumbs = $viewCrumbs['general'];
-            $video = $parsed['video'];
-            $videoCrumbs = $viewCrumbs['video'];
-            $settings = (isset($parsed['video'][0], $parsed['video'][0]['encoding_settings']) && $parsed['video'] !== null) ? $parsed['video'][0]['encoding_settings'] : null;
-            $audio = $parsed['audio'];
-            $audioCrumbs = $viewCrumbs['audio'];
-            $subtitle = $parsed['text'];
-            $textCrumbs = $viewCrumbs['text'];
+        $mediaInfo = null;
+        if ($torrent->mediainfo !== null) {
+            $mediaInfo = (new MediaInfo())->parse($torrent->mediainfo);
         }
 
         $playlists = $user->playlists;
@@ -939,19 +924,12 @@ class TorrentController extends Controller
             'personal_freeleech' => $personalFreeleech,
             'freeleech_token'    => $freeleechToken,
             'meta'               => $meta,
+            'trailer'            => $trailer,
             'characters'         => $characters,
             'total_tips'         => $totalTips,
             'user_tips'          => $userTips,
             'featured'           => $featured,
-            'general'            => $general,
-            'general_crumbs'     => $generalCrumbs,
-            'video_crumbs'       => $videoCrumbs,
-            'audio_crumbs'       => $audioCrumbs,
-            'text_crumbs'        => $textCrumbs,
-            'video'              => $video,
-            'audio'              => $audio,
-            'subtitle'           => $subtitle,
-            'settings'           => $settings,
+            'mediaInfo'          => $mediaInfo,
             'uploader'           => $uploader,
             'last_seed_activity' => $lastSeedActivity,
             'playlists'          => $playlists,
@@ -1009,6 +987,7 @@ class TorrentController extends Controller
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
         $torrent->internal = $request->input('internal');
+        $torrent->personal_release = $request->input('personal_release');
 
         $v = \validator($torrent->toArray(), [
             'name'          => 'required',
@@ -1157,7 +1136,7 @@ class TorrentController extends Controller
     public function history($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
+        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
 
         return \view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -1279,6 +1258,7 @@ class TorrentController extends Controller
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
         $torrent->internal = $request->input('internal');
+        $torrent->personal_release = $request->input('personal_release');
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;

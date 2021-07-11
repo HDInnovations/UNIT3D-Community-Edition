@@ -69,14 +69,22 @@
                 @endif
 
                 @if(isset($meta->crew))
-                    @php $director = $meta->crew->where('known_for_department' ,'=', 'Directing')->sortBy('order')->first(); @endphp
+                    @php $director = $meta->crew->where('known_for_department' ,'=', 'Directing')->sortByDesc('popularity')->first(); @endphp
                 @if($director)
                     <span class="badge-user text-bold text-purple">
                         <a href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Dir. {{ $director->name }}
+                            <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Director: {{ $director->name }}
                         </a>
                     </span>
                 @endif
+                @endif
+
+                @if (isset($trailer))
+                    <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
+                        <a class="text-pink" title="@lang('torrent.trailer')">@lang('torrent.trailer')
+                            <i class="{{ config('other.font-awesome') }} fa-external-link"></i>
+                        </a>
+                    </span>
                 @endif
 
                 <br>

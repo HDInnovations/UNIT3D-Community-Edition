@@ -35,12 +35,12 @@
         @if ($torrent->category->game_meta)
             @include('torrent.partials.game_meta')
         @endif
-        
-        @if ($torrent->category->no_meta)
-            @include('torrent.partials.no_meta')
-        @endif
 
-        <div id="vue" class="torrent-buttons">
+	    @if ($torrent->category->no_meta)
+		    @include('torrent.partials.no_meta')
+	    @endif
+
+        <div class="torrent-buttons">
             <div class="button-overlay"></div>
             <div class="vibrant-overlay"></div>
             <div class="button-block">
@@ -61,12 +61,6 @@
                 @endif
 
                 @livewire('thank-button', ['torrent' => $torrent->id])
-
-                @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
-                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
-                        <i class='{{ config("other.font-awesome") }} fa-clone'></i> Similar
-                    </a>
-                @endif
 
                 @if ($torrent->nfo != null)
                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-10">
@@ -107,7 +101,7 @@
         </div>
     </div>
 
-    <div class="meta-general box container">
+    <div class="meta-general box container col-xs-12">
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
@@ -479,6 +473,123 @@
 		    @include('torrent.partials.audits')
 	    @endif
 
+	    @if ($torrent->mediainfo != null)
+		    <div class="panel panel-chat shoutbox">
+			    <div class="panel-heading show_hide">
+				    <h4>
+					    <i class="{{ config("other.font-awesome") }} fa-info-square"></i> MediaInfo
+					    <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" style="cursor: pointer;"></i>
+				    </h4>
+			    </div>
+			    <div class="table-responsive tabla-mediainfo">
+				    <table class="table table-condensed table-bordered table-striped">
+					    <tbody>
+					    <tr>
+						    <td>
+							    <div class="panel-body">
+								    <div class="slidingDiv2">
+									    <div class="text-left text-main" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
+										    @if ($mediaInfo !== null && isset($mediaInfo['general']['file_name']))
+											    <span class="text-bold text-main">{{ $mediaInfo['general']['file_name'] ?? '' }}</span>
+										    @endif
+									    </div>
+									    <div style="width: 100%; display:table;">
+										    <div style="width: 20%; display:table-cell; text-align: left;">
+											    <div class="text-bold">@joypixels(':information_source:') General:</div>
+											    <div><u style="font-weight: bold;">Format:</u> {{ $mediaInfo['general']['format'] ?? '' }}</div>
+											    <div><u style="font-weight: bold;">Duration:</u> {{ $mediaInfo['general']['duration'] ?? '' }}</div>
+											    <div><u style="font-weight: bold;">Global Bit Rate:</u> {{ $mediaInfo['general']['bit_rate'] ?? '' }}</div>
+											    <div><u style="font-weight: bold;">Overall Size:</u> {{ App\Helpers\StringHelper::formatBytes($mediaInfo['general']['file_size'] ?? 0, 2) }}</div>
+										    </div>
+										    <div style="width: 30%; display:table-cell; text-align: left;">
+											    <div class="text-bold">@joypixels(':projector:') Video Tracks:</div>
+											    @if ($mediaInfo !== null && isset($mediaInfo['video']))
+												    @foreach ($mediaInfo['video'] as $key => $videoElement)
+													    <div>Track {{ ++$key }}:</div>
+													    <div><u style="font-weight: bold;">Format:</u> {{ $videoElement['format'] ?? '' }} ({{ $videoElement['bit_depth'] ?? '' }})</div>
+													    <div><u style="font-weight: bold;">Resolution:</u> {{ $videoElement['width'] ?? '' }} x {{ $videoElement['height'] ?? '' }}</div>
+													    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? '' }}</div>
+													    <div><u style="font-weight: bold;">Frame Rate:</u> {{ $videoElement['frame_rate'] ?? '' }}</div>
+													    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? '' }}</div>
+												        @if($videoElement['format'] === 'HEVC')
+														    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? '' }}</div>
+														    <div><u style="font-weight: bold;">Color Primaries:</u> {{ $videoElement['color_primaries'] ?? '' }}</div>
+														    <div><u style="font-weight: bold;">Transfer Characteristics:</u> {{ $videoElement['transfer_characteristics'] ?? '' }}</div>
+													    @endif
+													    @if(count($mediaInfo['video']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
+												    @endforeach
+											    @endif
+										    </div>
+										    <div style="width: 50%; display:table-cell; text-align: left;">
+											    <div class="text-bold">@joypixels(':loud_sound:') Audio Tracks:</div>
+											    @if ($mediaInfo !== null && isset($mediaInfo['audio']))
+												    @foreach ($mediaInfo['audio'] as $key => $audioElement)
+													    <div>Track {{ ++$key }}:</div>
+												        <div>{{ $audioElement['language'] ?? '' }} | {{ $audioElement['format'] ?? '' }} | {{ $audioElement['channels'] ?? '' }} | {{ $audioElement['bit_rate'] ?? '' }} | {{ $audioElement['title'] ?? '' }}</div>
+													    @if(count($mediaInfo['audio']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
+												    @endforeach
+											    @endif
+										    </div>
+									    </div>
+
+									    <div class="text-left text-main" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
+										    <span class="text-bold">@joypixels(':speech_balloon:') Subtitles:</span>
+											@if ($mediaInfo !== null && isset($mediaInfo['text']))
+												@foreach ($mediaInfo['text'] as $key => $textElement)
+												    <span><img src="{{ \language_flag($textElement['language'] ?? '') }}" alt="{{ $textElement['language'] ?? '' }}" width="20" height="13" data-toggle="tooltip" data-original-title="{{ $textElement['language'] ?? '' }} | {{ $textElement['format'] ?? '' }} | {{ $textElement['title'] ?? '' }}">&nbsp;</span>
+												@endforeach
+											@endif
+									    </div>
+
+									    @if ($mediaInfo !== null && isset($mediaInfo['video']))
+										    @foreach ($mediaInfo['video'] as $key => $videoElement)
+											    @if ($mediaInfo !== null && isset($videoElement['encoding_settings']))
+												    <div class="text-left text-main" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
+													    <span class="text-bold">@joypixels(':information_source:') Encode Settings:</span>
+													    <br>
+													    <pre class="decoda-code"><code>{{ $videoElement['encoding_settings'] ?? '' }}</code></pre>
+												    </div>
+											    @endif
+										    @endforeach
+									    @endif
+								    </div>
+
+								    <div class="slidingDiv" style="opacity: 1; display: none;">
+									    <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
+										    <span class="text-center text-bold">Full MediaInfo Dump</span>
+											<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
+									    </div>
+								    </div>
+							    </div>
+						    </td>
+					    </tr>
+					    </tbody>
+				    </table>
+			    </div>
+		    </div>
+	    @endif
+
+	    @if ($torrent->bdinfo != null)
+		    <div class="panel panel-chat shoutbox">
+			    <div class="panel-heading">
+				    <h4><i class="{{ config("other.font-awesome") }} fa-compact-disc"></i> BDInfo</h4>
+			    </div>
+			    <div class="table-responsive">
+				    <table class="table table-condensed table-bordered table-striped">
+					    <tbody>
+					    <tr>
+						    <td>
+							    <div class="panel-body">
+								    <pre class="decoda-code"><code>{{ $torrent->bdinfo }}</code></pre>
+							    </div>
+						    </td>
+					    </tr>
+					    </tbody>
+				    </table>
+			    </div>
+		    </div>
+	    @endif
+
 	    <div class="panel panel-chat shoutbox">
 		    <div class="panel-heading">
 			    <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
@@ -524,141 +635,6 @@
 			    </table>
 		    </div>
 	    </div>
-
-	@if ($torrent->mediainfo != null)
-		<div class="panel panel-chat shoutbox">
-			<div class="panel-heading">
-				<h4><i class="{{ config("other.font-awesome") }} fa-info-square"></i> Media Info</h4>
-			</div>
-			<div class="table-responsive">
-				<table class="table table-condensed table-bordered table-striped">
-					<tbody>
-					<tr>
-						<td>
-							<div class="panel-body">
-								<div class="text-center">
-									<span class="text-bold text-blue">
-										@joypixels(':blue_heart:') @lang('torrent.media-info') @joypixels(':blue_heart:')
-									</span>
-								</div>
-								<br>
-								@if ($general !== null && isset($general['file_name']))
-									<span class="text-bold text-blue">
-										@joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
-									</span>
-									<span class="text-bold">
-										<em>{{ $general['file_name'] }}</em>
-									</span>
-									<br>
-									<br>
-								@endif
-								@if ($general_crumbs !== null)
-									<span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}
-									:</span>
-									<span class="text-bold"><em>
-				  @foreach ($general_crumbs as $crumb)
-												{{ $crumb }}
-												@if (!$loop->last)
-													/
-												@endif
-											@endforeach
-				</em></span>
-									<br>
-									<br>
-								@endif
-								@if ($video_crumbs !== null)
-									@foreach ($video_crumbs as $key => $v)
-										<span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}
-										:</span>
-										<span class="text-bold"><em>
-					@foreach ($v as $crumb)
-													{{ $crumb }}
-													@if (!$loop->last)
-														/
-													@endif
-												@endforeach
-				  </em></span>
-										<br>
-										<br>
-									@endforeach
-								@endif
-								@if ($audio_crumbs !== null)
-									@foreach ($audio_crumbs as $key => $a)
-										<span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
-										:</span>
-										<span class="text-bold"><em>
-				  @foreach ($a as $crumb)
-													{{ $crumb }}
-													@if (!$loop->last)
-														/
-													@endif
-												@endforeach
-				</em></span>
-										<br>
-									@endforeach
-								@endif
-								<br>
-								@if ($text_crumbs !== null)
-									@foreach ($text_crumbs as $key => $s)
-										<span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
-										:</span>
-										<span class="text-bold"><em>
-				  @foreach ($s as $crumb)
-													{{ $crumb }}
-													@if (!$loop->last)
-														/
-													@endif
-												@endforeach
-				</em></span>
-										<br>
-									@endforeach
-								@endif
-								@if ($settings)
-									<br>
-									<span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
-									:</span>
-									<br>
-									<div class="decoda-code text-black">{{ $settings }}</div>
-								@endif
-								<br>
-								<br>
-								<div class="text-center">
-									<button class="show_hide btn btn-labeled btn-primary" href="#">
-										{{ strtoupper(trans('torrent.original-output')) }}
-									</button>
-								</div>
-								<div class="slidingDiv">
-									<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
-								</div>
-							</div>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	@endif
-
-        @if ($torrent->bdinfo != null)
-            <div class="panel panel-chat shoutbox">
-                <div class="panel-heading">
-                    <h4><i class="{{ config("other.font-awesome") }} fa-compact-disc"></i> BDInfo Info</h4>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-condensed table-bordered table-striped">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="panel-body">
-                                    <pre class="decoda-code"><code>{{ $torrent->bdinfo }}</code></pre>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endif
 
 	{{-- Subtitles Block --}}
 	@if($torrent->category->movie_meta || $torrent->category->tv_meta)
@@ -713,9 +689,53 @@
 			</table>
 		</div>
 	</div>
-</div>
 
-<div class="torrent box container" id="comments">
+	    @if (! empty($meta->recommendations))
+		    <div class="panel panel-chat shoutbox">
+			    <div class="panel-heading">
+				    <h4><i class="{{ config("other.font-awesome") }} fa-exclamation"></i> Recommended</h4>
+			    </div>
+			    <div class="panel-body" style="padding: 5px;">
+				    <section class="recommendations">
+					    <div class="scroller" style="padding-bottom: 10px;">
+						    @foreach($meta->recommendations as $recommendation)
+							    <div class="item mini backdrop mini_card">
+								    <div class="image_content">
+									    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation->recommendation_movie_id ?? $recommendation->recommendation_tv_id]) }}">
+										    <div>
+											    @if(isset($recommendation->poster))
+												    <img class="backdrop" src="{{ \tmdb_image('poster_big', $recommendation->poster) }}">
+											    @else
+												    <div class="no_image_holder w300_and_h450 backdrop"></div>
+											    @endif
+										    </div>
+										    <div style=" margin-top: 8px">
+											    <span class="badge-extra">
+												    <i class="fas fa-clock"></i> @lang('common.year'):
+												    @if(isset($recommendation->release_date))
+													    {{ substr($recommendation->release_date, 0, 4) }}
+												    @elseif(isset($recommendation->first_air_date))
+													    {{ substr($recommendation->first_air_date, 0, 4) }}
+												    @else
+													    @lang('common.unknown')
+												    @endif
+											    </span>
+											    <span class="badge-extra {{ \rating_color($recommendation->vote_average ?? 'text-white') }}">
+												    <i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ $recommendation->vote_average ?? 0 }}/10
+											    </span>
+										    </div>
+									    </a>
+								    </div>
+							    </div>
+						    @endforeach
+					    </div>
+				    </section>
+			    </div>
+		    </div>
+        @endif
+	</div>
+
+<div class="torrent box container col-xs-12" id="comments">
 	<div class="clearfix"></div>
 	<div class="row ">
 		<div class="col-md-12 col-sm-12">
@@ -833,4 +853,24 @@
 
   })
 </script>
+
+@if (isset($trailer))
+	<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      $('.show-trailer').each(function () {
+        $(this).off('click');
+        $(this).on('click', function (e) {
+          e.preventDefault();
+          Swal.fire({
+            showConfirmButton: false,
+            showCloseButton: true,
+            background: 'rgb(35,35,35)',
+            width: 970,
+            html: '<iframe width="930" height="523" src="{{ $trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            title: '<i style="color: #a5a5a5;">Trailer</i>',
+            text: ''
+          });
+        });
+      });
+	</script>
+@endif
 @endsection

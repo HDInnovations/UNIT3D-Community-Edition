@@ -71,6 +71,15 @@ class Movie extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class, 'movie_id', 'id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function torrents()
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'id');

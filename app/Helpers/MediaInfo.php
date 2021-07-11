@@ -205,12 +205,23 @@ class MediaInfo
 
                                 break;
                             case 'color primaries':
+                                $output['color_primaries'] = $value;
+
+                                break;
                             case 'title':
                                 $output['title'] = $value;
 
                                 break;
                             case 'scan type':
                                 $output['scan_type'] = $value;
+
+                                break;
+                            case 'transfer characteristics':
+                                $output['transfer_characteristics'] = $value;
+
+                                break;
+                            case 'hdr format':
+                                $output['hdr_format'] = $value;
 
                                 break;
                         }
@@ -339,99 +350,6 @@ class MediaInfo
         $output['text'] = empty($data['text']) ? null : $data['text'];
 
         return $output;
-    }
-
-    public function prepareViewCrumbs($data)
-    {
-        $output = ['general'=>[], 'video'=>[], 'audio'=>[]];
-
-        $generalCrumbs = ['format'=>'ucfirst', 'duration'=>null];
-
-        if ($data['general'] === null) {
-            $output['general'] = null;
-        } else {
-            if (isset($data['general']['format'])) {
-                $output['general'][] = \ucfirst($data['general']['format']);
-            }
-            if (isset($data['general']['duration'])) {
-                $output['general'][] = $data['general']['duration'];
-            }
-        }
-
-        if ($data['video'] === null) {
-            $output['video'] = null;
-        } else {
-            $tempOutput = [];
-            foreach ($data['video'] as $videoElement) {
-                $tempVideoOutput = [];
-                if (isset($videoElement['format'])) {
-                    $tempVideoOutput[] = \strtoupper($videoElement['format']);
-                }
-                if (isset($videoElement['width'], $videoElement['height'])) {
-                    $tempVideoOutput[] = $videoElement['width'].' x '.$videoElement['height'];
-                }
-                foreach (['aspect_ratio', 'frame_rate', 'bit_depth', 'bit_rate', 'format_profile', 'scan_type', 'title', 'color primaries'] as $property) {
-                    if (isset($videoElement[$property])) {
-                        $tempVideoOutput[] = $videoElement[$property];
-                    }
-                }
-
-                if (! empty($tempVideoOutput)) {
-                    $tempOutput[] = $tempVideoOutput;
-                }
-            }
-
-            $output['video'] = empty($tempOutput) ? null : $tempOutput;
-        }
-
-        if ($data['audio'] === null) {
-            $output['audio'] = null;
-        } else {
-            $tempOutput = [];
-            foreach ($data['audio'] as $audioElement) {
-                $tempAudioOutput = [];
-                foreach (['language', 'format', 'channels', 'bit_rate', 'title'] as $property) {
-                    if (isset($audioElement[$property])) {
-                        $tempAudioOutput[] = $audioElement[$property];
-                    }
-                }
-
-                if (! empty($tempAudioOutput)) {
-                    $tempOutput[] = $tempAudioOutput;
-                }
-            }
-
-            $output['audio'] = empty($tempOutput) ? null : $tempOutput;
-        }
-
-        if ($data['text'] === null) {
-            $output['text'] = null;
-        } else {
-            $tempOutput = [];
-            foreach ($data['text'] as $textElement) {
-                $tempTextOutput = [];
-                foreach (['language', 'format', 'title'] as $property) {
-                    if (isset($textElement[$property])) {
-                        $tempTextOutput[] = $textElement[$property];
-                    }
-                }
-                if (isset($textElement['forced']) && \strtolower($textElement['forced']) === 'yes') {
-                    $tempTextOutput[] = 'Forced';
-                }
-
-                if (! empty($tempTextOutput)) {
-                    $tempOutput[] = $tempTextOutput;
-                }
-            }
-
-            $output['text'] = empty($tempOutput) ? null : $tempOutput;
-        }
-
-        return $output;
-    }
-
-    private function parseAudioFormat($string)
-    {
     }
 
     private function computerSize($number, $size)

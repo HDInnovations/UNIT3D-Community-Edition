@@ -36,7 +36,7 @@ class Movie
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
                     'language'           => \config('app.locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,keywords',
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations',
                 ],
             ]
         );
@@ -172,7 +172,7 @@ class Movie
     public function get_trailer()
     {
         if ($this->data['videos']['results']) {
-            return 'https://www.youtube.com/embed/'.$this->data['videos']['results'][0]['key'];
+            return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'][0]['key'];
         }
 
         return null;
