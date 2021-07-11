@@ -296,6 +296,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/userFilters', 'UserController@myFilter')->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
             Route::get('/{username}/seeds', 'UserController@seeds')->name('user_seeds');
+            Route::get('/{username}/flushOwnGhostPeers', 'UserController@flushOwnGhostPeers')->name('flush_own_ghost_peers');
             Route::get('/{username}/resurrections', 'UserController@resurrections')->name('user_resurrections');
             Route::get('/{username}/requested', 'UserController@requested')->name('user_requested');
             Route::get('/{username}/active', 'UserController@active')->name('user_active');
