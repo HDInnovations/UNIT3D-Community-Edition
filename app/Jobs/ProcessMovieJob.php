@@ -98,7 +98,7 @@ class ProcessMovieJob implements ShouldQueue
                     $new->title = $recommendation['title'];
                     $new->vote_average = $recommendation['vote_average'];
                     $new->poster = $tmdb->image('poster', $recommendation);
-                    $new->releasse_date = $recommendation['release_date'];
+                    $new->release_date = $recommendation['release_date'];
                     $new->save();
                 }
             }
