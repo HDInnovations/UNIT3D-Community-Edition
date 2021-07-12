@@ -210,7 +210,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if ($flag === '') {
+            if ($flag === false) {
                 return \redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
@@ -232,9 +232,9 @@ class BonusController extends Controller
      * @param \App\Models\User        $userID
      * @param \App\Models\BonExchange $itemID
      *
-     * @return string
+     * @return bool
      */
-    public function doItemExchange($userID, $itemID)
+    public function doItemExchange($userID, $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
