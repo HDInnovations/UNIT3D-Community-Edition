@@ -359,9 +359,9 @@
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes, delete it!',
-        }).then((result, value) => {
+        }).then((result) => {
           if (result.isConfirmed) {
-          @this.set('reason', value);
+          @this.set('reason', result.value);
             Livewire.emit('destroy')
           }
         })
