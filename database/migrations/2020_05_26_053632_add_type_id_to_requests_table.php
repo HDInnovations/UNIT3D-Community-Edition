@@ -40,16 +40,4 @@ class AddTypeIdToRequestsTable extends Migration
             $table->dropColumn('type');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('requests', function (Blueprint $table) {
-            //
-        });
-    }
 }

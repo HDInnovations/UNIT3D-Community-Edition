@@ -30,14 +30,4 @@ class CreateTypesTable extends Migration
             $table->integer('position');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('types');
-    }
 }

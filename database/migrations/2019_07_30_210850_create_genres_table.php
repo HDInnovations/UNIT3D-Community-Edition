@@ -18,14 +18,4 @@ class CreateGenresTable extends Migration
             $table->string('name')->index();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('genres');
-    }
 }

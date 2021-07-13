@@ -29,16 +29,4 @@ class AddAnonToRequestsTable extends Migration
             $table->boolean('filled_anon')->default(0)->after('filled_when');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('requests', function (Blueprint $table) {
-            //
-        });
-    }
 }

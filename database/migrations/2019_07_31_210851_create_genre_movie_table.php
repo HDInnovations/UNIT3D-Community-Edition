@@ -19,14 +19,4 @@ class CreateGenreMovieTable extends Migration
             $table->primary(['genre_id', 'movie_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('genre_movie');
-    }
 }

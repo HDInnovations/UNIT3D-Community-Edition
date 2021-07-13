@@ -36,24 +36,4 @@ class CreateAuditsTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('audits');
-        Schema::create('log_activities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('subject');
-            $table->string('url');
-            $table->string('method');
-            $table->string('ip');
-            $table->string('agent')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->timestamps();
-        });
-    }
 }

@@ -28,16 +28,4 @@ class AlterTorrentsTable extends Migration
             $table->string('igdb')->default(0)->index()->after('mal');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            //
-        });
-    }
 }

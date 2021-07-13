@@ -27,16 +27,4 @@ class AddForeignKeysToArticlesTable extends Migration
             $table->foreign('user_id', 'fk_articles_users1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->dropForeign('fk_articles_users1');
-        });
-    }
 }

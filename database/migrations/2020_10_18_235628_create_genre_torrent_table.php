@@ -19,14 +19,4 @@ class CreateGenreTorrentTable extends Migration
             $table->primary(['genre_id', 'torrent_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('genre_torrent');
-    }
 }

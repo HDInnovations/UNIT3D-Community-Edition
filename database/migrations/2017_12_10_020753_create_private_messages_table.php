@@ -35,14 +35,4 @@ class CreatePrivateMessagesTable extends Migration
             $table->index(['sender_id', 'read']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('private_messages');
-    }
 }

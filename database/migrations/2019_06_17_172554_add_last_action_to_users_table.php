@@ -28,16 +28,4 @@ class AddLastActionToUsersTable extends Migration
             $table->dateTime('last_action')->after('last_login')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_action');
-        });
-    }
 }

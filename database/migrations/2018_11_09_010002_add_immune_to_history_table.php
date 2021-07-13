@@ -30,16 +30,4 @@ class AddImmuneToHistoryTable extends Migration
             $table->boolean('prewarn')->default(0)->index()->after('hitrun');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('history', function (Blueprint $table) {
-            //
-        });
-    }
 }

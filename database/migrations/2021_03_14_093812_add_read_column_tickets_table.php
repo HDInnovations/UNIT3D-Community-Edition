@@ -18,17 +18,4 @@ class AddReadColumnTicketsTable extends Migration
             $table->tinyInteger('staff_read')->nullable()->after('user_read');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('user_read');
-            $table->dropColumn('staff_read');
-        });
-    }
 }

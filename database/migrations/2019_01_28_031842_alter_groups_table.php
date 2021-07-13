@@ -44,16 +44,4 @@ class AlterGroupsTable extends Migration
         DB::table('groups')->whereRaw(' id=15')->update(['level' => 20]);
         DB::table('groups')->whereRaw(' id=2')->update(['level' => 10]);
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->dropColumn('level');
-        });
-    }
 }

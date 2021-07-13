@@ -25,14 +25,4 @@ class RenameBanTable extends Migration
     {
         Schema::rename('ban', 'bans');
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::rename('bans', 'ban');
-    }
 }

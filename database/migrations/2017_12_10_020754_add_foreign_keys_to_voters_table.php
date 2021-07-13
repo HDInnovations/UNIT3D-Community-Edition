@@ -27,16 +27,4 @@ class AddForeignKeysToVotersTable extends Migration
             $table->foreign('poll_id')->references('id')->on('polls')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('voters', function (Blueprint $table) {
-            $table->dropForeign('voters_poll_id_foreign');
-        });
-    }
 }

@@ -19,14 +19,4 @@ class CreateCastEpisodeTable extends Migration
             $table->primary(['cast_id', 'episode_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('cast_episode');
-    }
 }

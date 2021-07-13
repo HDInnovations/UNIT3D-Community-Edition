@@ -28,16 +28,4 @@ class AddCustomCssToUsersTable extends Migration
             $table->string('custom_css')->after('nav')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

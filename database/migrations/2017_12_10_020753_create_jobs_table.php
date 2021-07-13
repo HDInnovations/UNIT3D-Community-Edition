@@ -34,14 +34,4 @@ class CreateJobsTable extends Migration
             $table->index(['queue', 'reserved_at']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('jobs');
-    }
 }

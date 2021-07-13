@@ -26,14 +26,4 @@ class CreateJobBatchesTable extends Migration
             $table->integer('finished_at')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('job_batches');
-    }
 }

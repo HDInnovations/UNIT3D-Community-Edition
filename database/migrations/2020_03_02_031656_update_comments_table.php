@@ -17,16 +17,4 @@ class UpdateCommentsTable extends Migration
             $table->integer('collection_id')->nullable()->index()->after('requests_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('collection_id');
-        });
-    }
 }

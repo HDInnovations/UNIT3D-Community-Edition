@@ -27,16 +27,4 @@ class AlterPeersTable extends Migration
             $table->renameColumn('hash', 'info_hash');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('peers', function ($table) {
-            $table->renameColumn('info_hash', 'hash');
-        });
-    }
 }

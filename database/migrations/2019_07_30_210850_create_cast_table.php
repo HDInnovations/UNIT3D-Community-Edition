@@ -23,14 +23,4 @@ class CreateCastTable extends Migration
             $table->string('still')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('person');
-    }
 }

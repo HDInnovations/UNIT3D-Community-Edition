@@ -28,17 +28,4 @@ class AddForeignKeysToHistoryTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('history', function (Blueprint $table) {
-            $table->dropForeign('history_info_hash_foreign');
-            $table->dropForeign('history_user_id_foreign');
-        });
-    }
 }

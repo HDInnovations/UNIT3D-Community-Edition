@@ -17,16 +17,4 @@ class AddPersonalReleaseToTorrentsTable extends Migration
             $table->integer('personal_release')->index();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            $table->dropColumn('personal_release');
-        });
-    }
 }

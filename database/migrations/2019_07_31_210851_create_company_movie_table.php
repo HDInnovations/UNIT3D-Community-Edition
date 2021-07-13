@@ -19,14 +19,4 @@ class CreateCompanyMovieTable extends Migration
             $table->primary(['company_id', 'movie_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('company_movie');
-    }
 }

@@ -30,14 +30,4 @@ class CreateFilesTable extends Migration
             $table->bigInteger('torrent_id')->unsigned()->index('fk_files_torrents1_idx');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('files');
-    }
 }

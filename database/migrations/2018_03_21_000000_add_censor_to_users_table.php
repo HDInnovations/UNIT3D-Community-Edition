@@ -28,16 +28,4 @@ class AddCensorToUsersTable extends Migration
             $table->boolean('censor')->default(0)->after('rsskey');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

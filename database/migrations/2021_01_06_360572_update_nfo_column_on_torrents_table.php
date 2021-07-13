@@ -17,14 +17,4 @@ class UpdateNfoColumnOnTorrentsTable extends Migration
             $table->binary('nfo')->change();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 }

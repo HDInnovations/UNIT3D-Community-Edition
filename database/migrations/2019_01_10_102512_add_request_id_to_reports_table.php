@@ -29,17 +29,4 @@ class AddRequestIdToReportsTable extends Migration
             $table->integer('torrent_id')->unsigned()->default(0)->change();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('request_id');
-            $table->integer('torrent_id')->unsigned()->change();
-        });
-    }
 }

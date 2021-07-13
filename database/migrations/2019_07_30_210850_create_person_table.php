@@ -31,14 +31,4 @@ class CreatePersonTable extends Migration
             $table->string('homepage')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('person');
-    }
 }

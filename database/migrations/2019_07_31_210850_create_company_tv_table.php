@@ -19,14 +19,4 @@ class CreateCompanyTvTable extends Migration
             $table->primary(['company_id', 'tv_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('company_tv');
-    }
 }

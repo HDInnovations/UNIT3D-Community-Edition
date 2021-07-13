@@ -28,16 +28,4 @@ class AlterUsersTables extends Migration
             $table->boolean('block_notifications')->default(0)->index()->after('private_profile');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

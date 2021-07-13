@@ -17,16 +17,4 @@ class AddUuidToFailedJobsTable extends Migration
             $table->string('uuid')->after('id')->nullable()->unique();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('failed_jobs', function (Blueprint $table) {
-            //
-        });
-    }
 }

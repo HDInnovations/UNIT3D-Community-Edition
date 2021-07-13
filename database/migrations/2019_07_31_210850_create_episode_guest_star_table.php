@@ -19,14 +19,4 @@ class CreateEpisodeGuestStarTable extends Migration
             $table->primary(['episode_id', 'person_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('episode_guest_star');
-    }
 }

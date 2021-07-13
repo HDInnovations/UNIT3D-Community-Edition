@@ -32,14 +32,4 @@ class UpdateTagTorrentTable extends Migration
             $table->string('tag_name')->index();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 }

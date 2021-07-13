@@ -17,16 +17,4 @@ class DropIpCheckingInPollsTable extends Migration
             $table->dropColumn('ip_checking');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('polls', function (Blueprint $table) {
-            $table->boolean('ip_checking')->default(0);
-        });
-    }
 }

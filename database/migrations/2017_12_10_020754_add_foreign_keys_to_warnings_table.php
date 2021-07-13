@@ -29,18 +29,4 @@ class AddForeignKeysToWarningsTable extends Migration
             $table->foreign('warned_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('warnings', function (Blueprint $table) {
-            $table->dropForeign('warnings_torrent_foreign');
-            $table->dropForeign('warnings_user_id_foreign');
-            $table->dropForeign('warnings_warned_by_foreign');
-        });
-    }
 }
