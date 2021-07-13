@@ -42,17 +42,13 @@ class SubtitleSearch extends Component
     final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user', 'torrent', 'language'])
-            ->when($this->search, function ($query) {
-                return $query->where('title', 'like', '%'.$this->search.'%');
-            })
+            ->when($this->search, fn($query) => $query->where('title', 'like', '%'.$this->search.'%'))
             ->when($this->categories, function ($query) {
                 $torrents = Torrent::whereIn('category_id', $this->categories)->pluck('id');
 
                 return $query->whereIn('torrent_id', $torrents);
             })
-            ->when($this->language, function ($query) {
-                return $query->where('language_id', '=', $this->language);
-            })
+            ->when($this->language, fn($query) => $query->where('language_id', '=', $this->language))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -31,21 +31,11 @@ class CommentFactory extends Factory
         return [
             'content'    => $this->faker->text,
             'anon'       => (int) $this->faker->boolean(),
-            'torrent_id' => function () {
-                return Torrent::factory()->create()->id;
-            },
-            'article_id' => function () {
-                return Article::factory()->create()->id;
-            },
-            'requests_id' => function () {
-                return TorrentRequest::factory()->create()->id;
-            },
-            'playlist_id' => function () {
-                return Playlist::factory()->create()->id;
-            },
-            'user_id'       => function () {
-                return User::factory()->create()->id;
-            },
+            'torrent_id' => fn() => Torrent::factory()->create()->id,
+            'article_id' => fn() => Article::factory()->create()->id,
+            'requests_id' => fn() => TorrentRequest::factory()->create()->id,
+            'playlist_id' => fn() => Playlist::factory()->create()->id,
+            'user_id'       => fn() => User::factory()->create()->id,
         ];
     }
 }

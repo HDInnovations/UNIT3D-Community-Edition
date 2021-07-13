@@ -1454,16 +1454,12 @@ class Markdown
 
     protected function handleElementRecursive(array $Element)
     {
-        return $this->elementApplyRecursive(function (array $Element) {
-            return $this->handle($Element);
-        }, $Element);
+        return $this->elementApplyRecursive(fn(array $Element) => $this->handle($Element), $Element);
     }
 
     protected function handleElementsRecursive(array $Elements)
     {
-        return $this->elementsApplyRecursive(function (array $Element) {
-            return $this->handle($Element);
-        }, $Elements);
+        return $this->elementsApplyRecursive(fn(array $Element) => $this->handle($Element), $Elements);
     }
 
     protected function elementApplyRecursive($closure, array $Element)

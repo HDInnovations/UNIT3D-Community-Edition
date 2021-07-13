@@ -25,12 +25,8 @@ class PrivateMessageFactory extends Factory
     public function definition()
     {
         return [
-            'sender_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'receiver_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'sender_id' => fn() => User::factory()->create()->id,
+            'receiver_id' => fn() => User::factory()->create()->id,
             'subject'    => $this->faker->word,
             'message'    => $this->faker->text,
             'read'       => $this->faker->boolean,

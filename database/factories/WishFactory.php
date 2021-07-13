@@ -25,9 +25,7 @@ class WishFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id' => fn() => User::factory()->create()->id,
             'title'  => $this->faker->word,
             'imdb'   => $this->faker->word,
             'type'   => $this->faker->word,

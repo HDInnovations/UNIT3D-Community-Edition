@@ -25,9 +25,7 @@ class SeedboxFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id' => fn() => User::factory()->create()->id,
             'name' => $this->faker->name,
             'ip'   => $this->faker->word,
         ];

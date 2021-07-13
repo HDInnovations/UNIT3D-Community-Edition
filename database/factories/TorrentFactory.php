@@ -40,24 +40,16 @@ class TorrentFactory extends Factory
             'leechers'        => $this->faker->randomNumber(),
             'seeders'         => $this->faker->randomNumber(),
             'times_completed' => $this->faker->randomNumber(),
-            'category_id'     => function () {
-                return Category::factory()->create()->id;
-            },
+            'category_id'     => fn() => Category::factory()->create()->id,
             'announce' => $this->faker->word,
-            'user_id'  => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id'  => fn() => User::factory()->create()->id,
             'imdb'         => $this->faker->randomNumber(),
             'tvdb'         => $this->faker->randomNumber(),
             'tmdb'         => $this->faker->randomNumber(),
             'mal'          => $this->faker->randomNumber(),
             'igdb'         => $this->faker->randomNumber(),
-            'type_id'      => function () {
-                return Type::factory()->create()->id;
-            },
-            'resolution_id'      => function () {
-                return Resolution::factory()->create()->id;
-            },
+            'type_id'      => fn() => Type::factory()->create()->id,
+            'resolution_id'      => fn() => Resolution::factory()->create()->id,
             'stream'       => $this->faker->boolean,
             'free'         => $this->faker->boolean,
             'doubleup'     => $this->faker->boolean,

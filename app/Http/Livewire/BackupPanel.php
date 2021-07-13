@@ -42,22 +42,20 @@ class BackupPanel extends Component
 
     final public function updateBackupStatuses(): void
     {
-        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), function () {
-            return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
-                ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
-                    'name'      => $backupDestinationStatus->backupDestination()->backupName(),
-                    'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
-                    'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
-                    'healthy'   => $backupDestinationStatus->isHealthy(),
-                    'amount'    => $backupDestinationStatus->backupDestination()->backups()->count(),
-                    'newest'    => $backupDestinationStatus->backupDestination()->newestBackup()
-                        ? $backupDestinationStatus->backupDestination()->newestBackup()->date()->diffForHumans()
-                        : 'No backups present',
-                    'usedStorage' => Format::humanReadableSize($backupDestinationStatus->backupDestination()->usedStorage()),
-                ])
-                ->values()
-                ->toArray();
-        });
+        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), fn() => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
+            ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
+                'name'      => $backupDestinationStatus->backupDestination()->backupName(),
+                'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
+                'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
+                'healthy'   => $backupDestinationStatus->isHealthy(),
+                'amount'    => $backupDestinationStatus->backupDestination()->backups()->count(),
+                'newest'    => $backupDestinationStatus->backupDestination()->newestBackup()
+                    ? $backupDestinationStatus->backupDestination()->newestBackup()->date()->diffForHumans()
+                    : 'No backups present',
+                'usedStorage' => Format::humanReadableSize($backupDestinationStatus->backupDestination()->usedStorage()),
+            ])
+            ->values()
+            ->toArray());
 
         if (! $this->activeDisk && count($this->backupStatuses)) {
             $this->activeDisk = $this->backupStatuses[0]['disk'];
@@ -84,20 +82,18 @@ class BackupPanel extends Component
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), function () use ($backupDestination) {
-            return $backupDestination
-                ->backups()
-                ->map(function (Backup $backup) {
-                    $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
+        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), fn() => $backupDestination
+            ->backups()
+            ->map(function (Backup $backup) {
+                $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
-                    return [
-                        'path' => $backup->path(),
-                        'date' => $backup->date()->format('Y-m-d H:i:s'),
-                        'size' => Format::humanReadableSize($size),
-                    ];
-                })
-                ->toArray();
-        });
+                return [
+                    'path' => $backup->path(),
+                    'date' => $backup->date()->format('Y-m-d H:i:s'),
+                    'size' => Format::humanReadableSize($size),
+                ];
+            })
+            ->toArray());
     }
 
     final public function showDeleteModal($fileIndex): void
