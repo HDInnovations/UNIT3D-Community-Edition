@@ -124,6 +124,7 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
+        $torrent->personal_release = $request->input('personal_release') ?? 0;
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
@@ -140,31 +141,32 @@ class TorrentController extends BaseController
 
         // Validation
         $v = \validator($torrent->toArray(), [
-            'name'           => 'required|unique:torrents',
-            'slug'           => 'required',
-            'description'    => 'required',
-            'info_hash'      => 'required|unique:torrents',
-            'file_name'      => 'required',
-            'num_file'       => 'required|numeric',
-            'announce'       => 'required',
-            'size'           => 'required',
-            'category_id'    => 'required|exists:categories,id',
-            'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => 'nullable|exists:resolutions,id',
-            'user_id'        => 'required|exists:users,id',
-            'imdb'           => 'required|numeric',
-            'tvdb'           => 'required|numeric',
-            'tmdb'           => 'required|numeric',
-            'mal'            => 'required|numeric',
-            'igdb'           => 'required|numeric',
-            'anon'           => 'required',
-            'stream'         => 'required',
-            'sd'             => 'required',
-            'internal'       => 'required',
-            'featured'       => 'required',
-            'free'           => 'required',
-            'doubleup'       => 'required',
-            'sticky'         => 'required',
+            'name'              => 'required|unique:torrents',
+            'slug'              => 'required',
+            'description'       => 'required',
+            'info_hash'         => 'required|unique:torrents',
+            'file_name'         => 'required',
+            'num_file'          => 'required|numeric',
+            'announce'          => 'required',
+            'size'              => 'required',
+            'category_id'       => 'required|exists:categories,id',
+            'type_id'           => 'required|exists:types,id',
+            'resolution_id'     => 'nullable|exists:resolutions,id',
+            'user_id'           => 'required|exists:users,id',
+            'imdb'              => 'required|numeric',
+            'tvdb'              => 'required|numeric',
+            'tmdb'              => 'required|numeric',
+            'mal'               => 'required|numeric',
+            'igdb'              => 'required|numeric',
+            'anon'              => 'required',
+            'stream'            => 'required',
+            'sd'                => 'required',
+            'personal_release'  => 'nullable',
+            'internal'          => 'required',
+            'featured'          => 'required',
+            'free'              => 'required',
+            'doubleup'          => 'required',
+            'sticky'            => 'required',
         ]);
 
         if ($v->fails()) {
