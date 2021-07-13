@@ -829,7 +829,7 @@ class Markdown
                 $alignment = 'left';
             }
 
-            if (\substr($dividerCell, -1) === ':') {
+            if (\str_ends_with($dividerCell, ':')) {
                 $alignment = $alignment === 'left' ? 'center' : 'right';
             }
 
