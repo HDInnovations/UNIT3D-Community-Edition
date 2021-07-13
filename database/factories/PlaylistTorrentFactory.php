@@ -27,13 +27,9 @@ class PlaylistTorrentFactory extends Factory
     {
         return [
             'position'    => $this->faker->randomNumber(),
-            'playlist_id' => function () {
-                return Playlist::factory()->create()->id;
-            },
-            'torrent_id' => function () {
-                return Torrent::factory()->create()->id;
-            },
-            'tmdb_id' => $this->faker->randomNumber(),
+            'playlist_id' => fn () => Playlist::factory()->create()->id,
+            'torrent_id'  => fn ()  => Torrent::factory()->create()->id,
+            'tmdb_id'     => $this->faker->randomNumber(),
         ];
     }
 }
