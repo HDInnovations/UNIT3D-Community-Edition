@@ -20,7 +20,7 @@ class InviteControllerTest extends TestCase
     protected function createStaffUser()
     {
         return User::factory()->create([
-            'group_id' => fn() => Group::factory()->create([
+            'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
                 'is_modo'  => true,

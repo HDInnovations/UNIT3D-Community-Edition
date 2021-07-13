@@ -29,7 +29,7 @@ class ArticleFactory extends Factory
             'slug'    => $this->faker->slug,
             'image'   => $this->faker->word,
             'content' => $this->faker->text,
-            'user_id' => fn() => User::factory()->create()->id,
+            'user_id' => fn () => User::factory()->create()->id,
         ];
     }
 }

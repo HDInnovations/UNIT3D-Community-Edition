@@ -25,7 +25,7 @@ class UserPrivacyFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fn() => User::factory()->create()->id,
+            'user_id'                    => fn ()                    => User::factory()->create()->id,
             'show_achievement'           => $this->faker->boolean,
             'show_bon'                   => $this->faker->boolean,
             'show_comment'               => $this->faker->boolean,

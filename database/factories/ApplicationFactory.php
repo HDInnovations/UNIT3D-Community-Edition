@@ -30,8 +30,8 @@ class ApplicationFactory extends Factory
             'referrer'     => $this->faker->text,
             'status'       => $this->faker->boolean,
             'moderated_at' => $this->faker->dateTime(),
-            'moderated_by' => fn() => User::factory()->create()->id,
-            'accepted_by' => $this->faker->randomNumber(),
+            'moderated_by' => fn () => User::factory()->create()->id,
+            'accepted_by'  => $this->faker->randomNumber(),
         ];
     }
 }

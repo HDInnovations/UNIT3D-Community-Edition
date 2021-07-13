@@ -26,10 +26,10 @@ class GraveyardFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fn() => User::factory()->create()->id,
-            'torrent_id' => fn() => Torrent::factory()->create()->id,
-            'seedtime' => $this->faker->randomNumber(),
-            'rewarded' => $this->faker->boolean,
+            'user_id'    => fn ()    => User::factory()->create()->id,
+            'torrent_id' => fn () => Torrent::factory()->create()->id,
+            'seedtime'   => $this->faker->randomNumber(),
+            'rewarded'   => $this->faker->boolean,
         ];
     }
 }

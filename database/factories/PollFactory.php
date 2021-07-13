@@ -25,7 +25,7 @@ class PollFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fn() => User::factory()->create()->id,
+            'user_id'         => fn ()         => User::factory()->create()->id,
             'title'           => $this->faker->word,
             'slug'            => $this->faker->slug,
             'ip_checking'     => $this->faker->boolean,

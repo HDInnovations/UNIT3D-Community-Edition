@@ -25,8 +25,8 @@ class ApplicationImageProofFactory extends Factory
     public function definition()
     {
         return [
-            'application_id' => fn() => Application::factory()->create()->id,
-            'image' => $this->faker->word,
+            'application_id' => fn () => Application::factory()->create()->id,
+            'image'          => $this->faker->word,
         ];
     }
 }

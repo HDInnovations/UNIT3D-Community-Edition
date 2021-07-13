@@ -42,7 +42,7 @@ class BackupPanel extends Component
 
     final public function updateBackupStatuses(): void
     {
-        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), fn() => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
+        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), fn () => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
             ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
                 'name'      => $backupDestinationStatus->backupDestination()->backupName(),
                 'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
@@ -82,7 +82,7 @@ class BackupPanel extends Component
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), fn() => $backupDestination
+        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), fn () => $backupDestination
             ->backups()
             ->map(function (Backup $backup) {
                 $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();

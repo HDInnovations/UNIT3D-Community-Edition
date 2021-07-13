@@ -47,7 +47,7 @@ class TicketSearch extends Component
         if ($this->user->group->is_modo) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
-                ->when($this->search, fn($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
+                ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
         }
@@ -55,7 +55,7 @@ class TicketSearch extends Component
         return Ticket::query()
             ->with(['user', 'category', 'priority'])
             ->where('user_id', '=', $this->user->id)
-            ->when($this->search, fn($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -26,8 +26,8 @@ class VoterFactory extends Factory
     public function definition()
     {
         return [
-            'poll_id' => fn() => Poll::factory()->create()->id,
-            'user_id' => fn() => User::factory()->create()->id,
+            'poll_id'    => fn ()    => Poll::factory()->create()->id,
+            'user_id'    => fn ()    => User::factory()->create()->id,
             'ip_address' => $this->faker->word,
         ];
     }

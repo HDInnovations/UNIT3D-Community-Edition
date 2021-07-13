@@ -394,7 +394,7 @@ class MarkdownExtra extends Markdown
                 $this->currentMeaning = $meaning;
 
                 $Inline['element'] = $this->elementApplyRecursiveDepthFirst(
-                    fn(array $Element) => $this->insertAbreviation($Element),
+                    fn (array $Element) => $this->insertAbreviation($Element),
                     $Inline['element']
                 );
             }

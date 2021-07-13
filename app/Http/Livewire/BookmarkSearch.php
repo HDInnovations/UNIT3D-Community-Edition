@@ -61,7 +61,7 @@ class BookmarkSearch extends Component
     final public function getBookmarksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->user->bookmarks()
-            ->when($this->search, fn($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->search, fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

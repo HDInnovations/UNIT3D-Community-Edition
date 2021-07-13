@@ -46,7 +46,7 @@ class WatchlistSearch extends Component
     {
         return Watchlist::query()
             ->with(['user', 'author'])
-            ->when($this->search, fn($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

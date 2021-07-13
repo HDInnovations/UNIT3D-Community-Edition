@@ -25,11 +25,11 @@ class WishFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fn() => User::factory()->create()->id,
-            'title'  => $this->faker->word,
-            'imdb'   => $this->faker->word,
-            'type'   => $this->faker->word,
-            'source' => $this->faker->word,
+            'user_id' => fn () => User::factory()->create()->id,
+            'title'   => $this->faker->word,
+            'imdb'    => $this->faker->word,
+            'type'    => $this->faker->word,
+            'source'  => $this->faker->word,
         ];
     }
 }
