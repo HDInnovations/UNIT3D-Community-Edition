@@ -686,150 +686,150 @@ Route::group(['middleware' => 'language'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
-            Route::get('/', [HomeController::class, 'index'])->name('index');
+            Route::get('/', [\App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
         });
 
         // Articles System
         Route::group(['prefix' => 'articles'], function () {
             Route::name('staff.articles.')->group(function () {
-                Route::get('/', [ArticleController::class, 'index'])->name('index');
-                Route::get('/create', [ArticleController::class, 'create'])->name('create');
-                Route::post('/store', [ArticleController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [ArticleController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [ArticleController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [ArticleController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [\App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Applications System
         Route::group(['prefix' => 'applications'], function () {
             Route::name('staff.applications.')->group(function () {
-                Route::get('/', [ApplicationController::class, 'index'])->name('index');
-                Route::get('/{id}', [ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/approve', [ApplicationController::class, 'approve'])->name('approve');
-                Route::post('/{id}/reject', [ApplicationController::class, 'reject'])->name('reject');
+                Route::get('/', [\App\Http\Controllers\Staff\ApplicationController::class, 'index'])->name('index');
+                Route::get('/{id}', [\App\Http\Controllers\Staff\ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
+                Route::post('/{id}/approve', [\App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve');
+                Route::post('/{id}/reject', [\App\Http\Controllers\Staff\ApplicationController::class, 'reject'])->name('reject');
             });
         });
 
         // Audit Log
         Route::group(['prefix' => 'audits'], function () {
             Route::name('staff.audits.')->group(function () {
-                Route::get('/', [AuditController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [AuditController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\AuditController::class, 'index'])->name('index');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Authentications Log
         Route::group(['prefix' => 'authentications'], function () {
             Route::name('staff.authentications.')->group(function () {
-                Route::get('/', [AuthenticationController::class, 'index'])->name('index');
+                Route::get('/', [\App\Http\Controllers\Staff\AuthenticationController::class, 'index'])->name('index');
             });
         });
 
         // Backup System
         Route::group(['prefix' => 'backups'], function () {
             Route::name('staff.backups.')->group(function () {
-                Route::get('/', [BackupController::class, 'index'])->name('index');
+                Route::get('/', [\App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
         });
 
         // Ban System
         Route::group(['prefix' => 'bans'], function () {
             Route::name('staff.bans.')->group(function () {
-                Route::get('/', [BanController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [BanController::class, 'store'])->name('store');
-                Route::post('/{username}/update', [BanController::class, 'update'])->name('update');
+                Route::get('/', [\App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
+                Route::post('/{username}/store', [\App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
+                Route::post('/{username}/update', [\App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
             });
         });
 
         // Categories System
         Route::group(['prefix' => 'categories'], function () {
             Route::name('staff.categories.')->group(function () {
-                Route::get('/', [CategoryController::class, 'index'])->name('index');
-                Route::get('/create', [CategoryController::class, 'create'])->name('create');
-                Route::post('/store', [CategoryController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [CategoryController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\CategoryController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\CategoryController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\CategoryController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [\App\Http\Controllers\Staff\CategoryController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\CategoryController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Chat Bots System
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.bots.')->group(function () {
-                Route::get('/bots', [ChatBotController::class, 'index'])->name('index');
-                Route::get('/bots/{id}/edit', [ChatBotController::class, 'edit'])->name('edit');
-                Route::patch('/bots/{id}/update', [ChatBotController::class, 'update'])->name('update');
-                Route::delete('/bots/{id}/destroy', [ChatBotController::class, 'destroy'])->name('destroy');
-                Route::get('/bots/{id}/disable', [ChatBotController::class, 'disable'])->name('disable');
-                Route::get('/bots/{id}/enable', [ChatBotController::class, 'enable'])->name('enable');
+                Route::get('/bots', [\App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
+                Route::get('/bots/{id}/edit', [\App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
+                Route::patch('/bots/{id}/update', [\App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
+                Route::delete('/bots/{id}/destroy', [\App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
+                Route::get('/bots/{id}/disable', [\App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
+                Route::get('/bots/{id}/enable', [\App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
             });
         });
 
         // Chat Rooms System
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.rooms.')->group(function () {
-                Route::get('/rooms', [ChatRoomController::class, 'index'])->name('index');
-                Route::post('/rooms/store', [ChatRoomController::class, 'store'])->name('store');
-                Route::post('/rooms/{id}/update', [ChatRoomController::class, 'update'])->name('update');
-                Route::delete('/rooms/{id}/destroy', [ChatRoomController::class, 'destroy'])->name('destroy');
+                Route::get('/rooms', [\App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
+                Route::post('/rooms/store', [\App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
+                Route::post('/rooms/{id}/update', [\App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
+                Route::delete('/rooms/{id}/destroy', [\App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Chat Statuses System
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.statuses.')->group(function () {
-                Route::get('/statuses', [ChatStatusController::class, 'index'])->name('index');
-                Route::post('/statuses/store', [ChatStatusController::class, 'store'])->name('store');
-                Route::post('/statuses/{id}/update', [ChatStatusController::class, 'update'])->name('update');
-                Route::delete('/statuses/{id}/destroy', [ChatStatusController::class, 'destroy'])->name('destroy');
+                Route::get('/statuses', [\App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
+                Route::post('/statuses/store', [\App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
+                Route::post('/statuses/{id}/update', [\App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
+                Route::delete('/statuses/{id}/destroy', [\App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Cheaters
         Route::group(['prefix' => 'cheaters'], function () {
             Route::name('staff.cheaters.')->group(function () {
-                Route::get('/ghost-leechers', [CheaterController::class, 'index'])->name('index');
+                Route::get('/ghost-leechers', [\App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
         });
 
         // Codebase Version Check
         Route::group(['prefix' => 'UNIT3D'], function () {
-            Route::get('/', [VersionController::class, 'checkVersion']);
+            Route::get('/', [\App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
         });
 
         // Commands
         Route::group(['prefix' => 'commands'], function () {
-            Route::get('/', [CommandController::class, 'index'])->name('staff.commands.index');
-            Route::get('/maintance-enable', [CommandController::class, 'maintanceEnable']);
-            Route::get('/maintance-disable', [CommandController::class, 'maintanceDisable']);
-            Route::get('/clear-cache', [CommandController::class, 'clearCache']);
-            Route::get('/clear-view-cache', [CommandController::class, 'clearView']);
-            Route::get('/clear-route-cache', [CommandController::class, 'clearRoute']);
-            Route::get('/clear-config-cache', [CommandController::class, 'clearConfig']);
-            Route::get('/clear-all-cache', [CommandController::class, 'clearAllCache']);
-            Route::get('/set-all-cache', [CommandController::class, 'setAllCache']);
-            Route::get('/clear-compiled', [CommandController::class, 'clearCompiled']);
-            Route::get('/test-email', [CommandController::class, 'testEmail']);
+            Route::get('/', [\App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
+            Route::get('/maintance-enable', [\App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
+            Route::get('/maintance-disable', [\App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
+            Route::get('/clear-cache', [\App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
+            Route::get('/clear-view-cache', [\App\Http\Controllers\Staff\CommandController::class, 'clearView']);
+            Route::get('/clear-route-cache', [\App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
+            Route::get('/clear-config-cache', [\App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
+            Route::get('/clear-all-cache', [\App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
+            Route::get('/set-all-cache', [\App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
+            Route::get('/clear-compiled', [\App\Http\Controllers\Staff\CommandController::class, 'clearCompiled']);
+            Route::get('/test-email', [\App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
         });
 
         // Flush System
         Route::group(['prefix' => 'flush'], function () {
             Route::name('staff.flush.')->group(function () {
-                Route::get('/peers', [FlushController::class, 'peers'])->name('peers');
-                Route::get('/chat', [FlushController::class, 'chat'])->name('chat');
+                Route::get('/peers', [\App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
+                Route::get('/chat', [\App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
         });
 
         // Forums System
         Route::group(['prefix' => 'forums'], function () {
             Route::name('staff.forums.')->group(function () {
-                Route::get('/', [ForumController::class, 'index'])->name('index');
-                Route::get('/create', [ForumController::class, 'create'])->name('create');
-                Route::post('/store', [ForumController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [ForumController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [ForumController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [ForumController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [\App\Http\Controllers\Staff\ForumController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\ForumController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -847,157 +847,157 @@ Route::group(['middleware' => 'language'], function () {
         // Invites Log
         Route::group(['prefix' => 'invites'], function () {
             Route::name('staff.invites.')->group(function () {
-                Route::get('/', [InviteController::class, 'index'])->name('index');
+                Route::get('/', [\App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
             });
         });
 
         // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {
-            Route::get('/validate-users', [MassActionController::class, 'update'])->name('staff.mass-actions.validate');
-            Route::get('/mass-pm', [MassActionController::class, 'create'])->name('staff.mass-pm.create');
-            Route::post('/mass-pm/store', [MassActionController::class, 'store'])->name('staff.mass-pm.store');
+            Route::get('/validate-users', [\App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('staff.mass-actions.validate');
+            Route::get('/mass-pm', [\App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('staff.mass-pm.create');
+            Route::post('/mass-pm/store', [\App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('staff.mass-pm.store');
         });
 
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::group(['prefix' => 'media-languages'], function () {
             Route::name('staff.media_languages.')->group(function () {
-                Route::get('/', [MediaLanguageController::class, 'index'])->name('index');
-                Route::get('/create', [MediaLanguageController::class, 'create'])->name('create');
-                Route::post('/store', [MediaLanguageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [MediaLanguageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [MediaLanguageController::class, 'update'])->name('update');
-                Route::delete('/{id}/delete', [MediaLanguageController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'update'])->name('update');
+                Route::delete('/{id}/delete', [\App\Http\Controllers\Staff\MediaLanguageController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Moderation System
         Route::group(['prefix' => 'moderation'], function () {
             Route::name('staff.moderation.')->group(function () {
-                Route::get('/', [ModerationController::class, 'index'])->name('index');
-                Route::get('/{id}/approve', [ModerationController::class, 'approve'])->name('approve');
-                Route::post('/reject', [ModerationController::class, 'reject'])->name('reject');
-                Route::post('/postpone', [ModerationController::class, 'postpone'])->name('postpone');
+                Route::get('/', [\App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
+                Route::get('/{id}/approve', [\App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
+                Route::post('/reject', [\App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
+                Route::post('/postpone', [\App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
             });
         });
 
         //Pages System
         Route::group(['prefix' => 'pages'], function () {
             Route::name('staff.pages.')->group(function () {
-                Route::get('/', [PageController::class, 'index'])->name('index');
-                Route::get('/create', [PageController::class, 'create'])->name('create');
-                Route::post('/store', [PageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [PageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [PageController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [PageController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\PageController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\PageController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [\App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Polls System
         Route::group(['prefix' => 'polls'], function () {
             Route::name('staff.polls.')->group(function () {
-                Route::get('/', [PollController::class, 'index'])->name('index');
-                Route::get('/{id}', [PollController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::get('/create', [PollController::class, 'create'])->name('create');
-                Route::post('/store', [PollController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [PollController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [PollController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [PollController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\PollController::class, 'index'])->name('index');
+                Route::get('/{id}', [\App\Http\Controllers\Staff\PollController::class, 'show'])->where('id', '[0-9]+')->name('show');
+                Route::get('/create', [\App\Http\Controllers\Staff\PollController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\PollController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [\App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Registered Seedboxes
         Route::group(['prefix' => 'seedboxes'], function () {
             Route::name('staff.seedboxes.')->group(function () {
-                Route::get('/', [SeedboxController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [SeedboxController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Reports
         Route::group(['prefix' => 'reports'], function () {
             Route::name('staff.reports.')->group(function () {
-                Route::get('/', [ReportController::class, 'index'])->name('index');
-                Route::get('/{id}', [ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/solve', [ReportController::class, 'update'])->name('update');
+                Route::get('/', [\App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
+                Route::get('/{id}', [\App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
+                Route::post('/{id}/solve', [\App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
             });
         });
 
         // Resolutions
         Route::group(['prefix' => 'resolutions'], function () {
             Route::name('staff.resolutions.')->group(function () {
-                Route::get('/', [ResolutionController::class, 'index'])->name('index');
-                Route::get('/create', [ResolutionController::class, 'create'])->name('create');
-                Route::post('/store', [ResolutionController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [ResolutionController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [ResolutionController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [ResolutionController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\ResolutionController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\ResolutionController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\ResolutionController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [\App\Http\Controllers\Staff\ResolutionController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\ResolutionController::class, 'destroy'])->name('destroy');
             });
         });
 
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::name('staff.rss.')->group(function () {
-                Route::get('/', [RssController::class, 'index'])->name('index');
-                Route::get('/create', [RssController::class, 'create'])->name('create');
-                Route::post('/store', [RssController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [RssController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [RssController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [RssController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\RssController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\RssController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [\App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Types
         Route::group(['prefix' => 'types'], function () {
             Route::name('staff.types.')->group(function () {
-                Route::get('/', [TypeController::class, 'index'])->name('index');
-                Route::get('/create', [TypeController::class, 'create'])->name('create');
-                Route::post('/store', [TypeController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [TypeController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [TypeController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [TypeController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\TypeController::class, 'index'])->name('index');
+                Route::get('/create', [\App\Http\Controllers\Staff\TypeController::class, 'create'])->name('create');
+                Route::post('/store', [\App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [\App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [\App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
             });
         });
 
         // User Gifting (From System)
         Route::group(['prefix' => 'gifts'], function () {
             Route::name('staff.gifts.')->group(function () {
-                Route::get('/', [GiftController::class, 'index'])->name('index');
-                Route::post('/store', [GiftController::class, 'store'])->name('store');
+                Route::get('/', [\App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
+                Route::post('/store', [\App\Http\Controllers\Staff\GiftController::class, 'store'])->name('store');
             });
         });
 
         // User Staff Notes
         Route::group(['prefix' => 'notes'], function () {
             Route::name('staff.notes.')->group(function () {
-                Route::get('/', [NoteController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [NoteController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [NoteController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
+                Route::post('/{username}/store', [\App\Http\Controllers\Staff\NoteController::class, 'store'])->name('store');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
             });
         });
 
         // User Tools TODO: Leaving since we will be refactoring users and roles
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/', [UserController::class, 'index'])->name('user_search');
-            Route::post('/{username}/edit', [UserController::class, 'edit'])->name('user_edit');
-            Route::get('/{username}/settings', [UserController::class, 'settings'])->name('user_setting');
-            Route::post('/{username}/permissions', [UserController::class, 'permissions'])->name('user_permissions');
-            Route::post('/{username}/password', [UserController::class, 'password'])->name('user_password');
-            Route::get('/{username}/destroy', [UserController::class, 'destroy'])->name('user_delete');
+            Route::get('/', [\App\Http\Controllers\Staff\UserController::class, 'index'])->name('user_search');
+            Route::post('/{username}/edit', [\App\Http\Controllers\Staff\UserController::class, 'edit'])->name('user_edit');
+            Route::get('/{username}/settings', [\App\Http\Controllers\Staff\UserController::class, 'settings'])->name('user_setting');
+            Route::post('/{username}/permissions', [\App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('user_permissions');
+            Route::post('/{username}/password', [\App\Http\Controllers\Staff\UserController::class, 'password'])->name('user_password');
+            Route::get('/{username}/destroy', [\App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
         });
 
         // Warnings Log
         Route::group(['prefix' => 'warnings'], function () {
             Route::name('staff.warnings.')->group(function () {
-                Route::get('/', [WarningController::class, 'index'])->name('index');
+                Route::get('/', [\App\Http\Controllers\Staff\WarningController::class, 'index'])->name('index');
             });
         });
 
         // Watchlist
         Route::group(['prefix' => 'watchlist'], function () {
             Route::name('staff.watchlist.')->group(function () {
-                Route::get('/', [WatchlistController::class, 'index'])->name('index');
-                Route::post('/{id}/store', [WatchlistController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [WatchlistController::class, 'destroy'])->name('destroy');
+                Route::get('/', [\App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
+                Route::post('/{id}/store', [\App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
+                Route::delete('/{id}/destroy', [\App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
             });
         });
     });
