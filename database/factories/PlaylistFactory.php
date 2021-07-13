@@ -25,7 +25,7 @@ class PlaylistFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'     => fn ()     => User::factory()->create()->id,
+            'user_id'     => fn () => User::factory()->create()->id,
             'name'        => $this->faker->name,
             'description' => $this->faker->text,
             'cover_image' => $this->faker->word,

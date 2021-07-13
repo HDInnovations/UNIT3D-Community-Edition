@@ -26,9 +26,9 @@ class WarningFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'    => fn ()    => User::factory()->create()->id,
-            'warned_by'  => fn ()  => User::factory()->create()->id,
-            'torrent'    => fn ()    => Torrent::factory()->create()->id,
+            'user_id'    => fn () => User::factory()->create()->id,
+            'warned_by'  => fn () => User::factory()->create()->id,
+            'torrent'    => fn () => Torrent::factory()->create()->id,
             'reason'     => $this->faker->text,
             'expires_on' => $this->faker->dateTime(),
             'active'     => $this->faker->boolean,

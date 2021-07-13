@@ -26,7 +26,7 @@ class FeaturedTorrentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'    => fn ()    => User::factory()->create()->id,
+            'user_id'    => fn () => User::factory()->create()->id,
             'torrent_id' => fn () => Torrent::factory()->create()->id,
         ];
     }

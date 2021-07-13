@@ -37,7 +37,7 @@ class PeerFactory extends Factory
             'left'        => $this->faker->randomNumber(),
             'seeder'      => $this->faker->boolean,
             'torrent_id'  => fn () => Torrent::factory()->create()->id,
-            'user_id'     => fn ()     => User::factory()->create()->id,
+            'user_id'     => fn () => User::factory()->create()->id,
             'torrents.id' => fn () => Torrent::factory()->create()->id,
         ];
     }
