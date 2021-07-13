@@ -124,6 +124,7 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
+        $torrent->personal_release = $request->input('personal_release') ?? 0;
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
