@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *

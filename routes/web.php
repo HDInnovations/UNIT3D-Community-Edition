@@ -70,6 +70,7 @@ use App\Http\Controllers\WarningController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\WishController;
 use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -536,7 +537,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned'],], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned']], function () {
         // MediaHub Home
         Route::get('/', [HomeController::class, 'index'])->name('mediahub.index');
 
@@ -591,7 +592,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'],], function () {
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned']], function () {
         Route::get('/', [ChatController::class, 'index']);
         Route::get('/chatrooms', [ChatController::class, 'fetchChatrooms']);
         Route::post('/change-chatroom', [ChatController::class, 'changeChatroom']);
@@ -681,7 +682,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'],], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {

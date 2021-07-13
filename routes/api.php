@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TorrentController;
 use Illuminate\Support\Facades\Route;
+
 /*
  * NOTICE OF LICENSE
  *
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Torrents System
-Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents',], function () {
+Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents'], function () {
     Route::get('/', [TorrentController::class, 'index'])->name('torrents.index');
     Route::get('/filter', [TorrentController::class, 'filter']);
     Route::get('/{id}', [TorrentController::class, 'show'])->where('id', '[0-9]+');
