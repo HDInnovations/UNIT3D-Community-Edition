@@ -39,14 +39,4 @@ class CreateGroupsTable extends Migration
             $table->boolean('autogroup')->default(0);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('groups');
-    }
 }

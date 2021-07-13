@@ -31,16 +31,4 @@ class AddApiTokenFieldUsers extends Migration
                 ->default(null);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('api_token');
-        });
-    }
 }

@@ -27,16 +27,4 @@ class AddForeignKeysToRssTable extends Migration
             $table->foreign('userID', 'rss_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('rss', function (Blueprint $table) {
-            $table->dropForeign('rss_user_id');
-        });
-    }
 }

@@ -17,16 +17,4 @@ class AddBumpedAtToTorrentsTable extends Migration
             $table->dateTime('bumped_at')->nullable()->after('updated_at');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            $table->dateTime('bumped_at')->nullable();
-        });
-    }
 }

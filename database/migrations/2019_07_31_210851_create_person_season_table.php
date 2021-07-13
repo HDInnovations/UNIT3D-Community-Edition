@@ -19,14 +19,4 @@ class CreatePersonSeasonTable extends Migration
             $table->primary(['person_id', 'season_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('person_season');
-    }
 }

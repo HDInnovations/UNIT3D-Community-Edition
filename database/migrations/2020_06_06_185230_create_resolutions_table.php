@@ -31,14 +31,4 @@ class CreateResolutionsTable extends Migration
             $table->integer('position');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('resolutions');
-    }
 }

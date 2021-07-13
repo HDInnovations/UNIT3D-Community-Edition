@@ -17,14 +17,4 @@ class UpdateAboutColumnOnUsersTable extends Migration
             $table->mediumText('about')->nullable()->change();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 }

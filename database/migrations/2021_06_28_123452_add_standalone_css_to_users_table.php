@@ -28,16 +28,4 @@ class AddStandaloneCssToUsersTable extends Migration
             $table->string('standalone_css')->after('custom_css')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

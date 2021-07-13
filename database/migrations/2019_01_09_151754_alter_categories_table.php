@@ -34,14 +34,4 @@ class AlterCategoriesTable extends Migration
             $table->dropColumn('meta');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 }

@@ -42,16 +42,4 @@ class AddResolutionIdToTorrentsTable extends Migration
             });
         }
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            //
-        });
-    }
 }

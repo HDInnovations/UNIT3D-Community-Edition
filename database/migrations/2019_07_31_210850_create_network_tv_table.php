@@ -19,14 +19,4 @@ class CreateNetworkTvTable extends Migration
             $table->primary(['network_id', 'tv_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('network_tv');
-    }
 }

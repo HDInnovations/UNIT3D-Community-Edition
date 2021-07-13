@@ -19,18 +19,4 @@ class UpdateUsersTable extends Migration
             $table->unique('rsskey');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique('users_username_unique');
-            $table->dropUnique('users_passkey_unique');
-            $table->dropUnique('users_rsskey_unique');
-        });
-    }
 }

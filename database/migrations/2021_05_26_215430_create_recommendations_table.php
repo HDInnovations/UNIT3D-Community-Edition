@@ -37,14 +37,4 @@ class CreateRecommendationsTable extends Migration
             $table->unique(['tv_id', 'recommendation_tv_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('recommendations');
-    }
 }

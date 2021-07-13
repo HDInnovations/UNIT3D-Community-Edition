@@ -34,16 +34,4 @@ class RenameTopicSubscriptionsTable extends Migration
             $table->index('topic_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('topic_subscriptions', function (Blueprint $table) {
-            //
-        });
-    }
 }

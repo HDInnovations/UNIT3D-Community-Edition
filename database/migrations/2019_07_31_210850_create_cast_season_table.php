@@ -19,14 +19,4 @@ class CreateCastSeasonTable extends Migration
             $table->primary(['cast_id', 'season_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('cast_season');
-    }
 }

@@ -17,16 +17,4 @@ class AddTicketIdToCommentsTable extends Migration
             $table->integer('ticket_id')->nullable()->index()->after('playlist_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('ticket_id');
-        });
-    }
 }

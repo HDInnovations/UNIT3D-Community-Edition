@@ -38,21 +38,4 @@ class AlterRssTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('rss');
-        Schema::create('rss', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->integer('userID')->index('userID');
-            $table->string('category')->nullable();
-            $table->timestamps();
-            $table->foreign('userID', 'rss_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-        });
-    }
 }

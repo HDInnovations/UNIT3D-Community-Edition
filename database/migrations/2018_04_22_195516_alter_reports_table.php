@@ -30,17 +30,4 @@ class AlterReportsTable extends Migration
             $table->integer('torrent_id')->unsigned();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('reported_user');
-            $table->dropColumn('torrent_id');
-        });
-    }
 }

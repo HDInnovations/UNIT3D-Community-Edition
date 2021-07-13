@@ -27,16 +27,4 @@ class AlterPrivateMessagesTable extends Migration
             $table->renameColumn('reciever_id', 'receiver_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('private_messages', function ($table) {
-            $table->renameColumn('receiver_id', 'reciever_id');
-        });
-    }
 }

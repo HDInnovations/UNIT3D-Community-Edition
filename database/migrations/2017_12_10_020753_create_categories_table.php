@@ -32,14 +32,4 @@ class CreateCategoriesTable extends Migration
             $table->integer('num_torrent')->default(0);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('categories');
-    }
 }

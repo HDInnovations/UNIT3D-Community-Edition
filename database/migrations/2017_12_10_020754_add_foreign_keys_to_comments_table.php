@@ -28,17 +28,4 @@ class AddForeignKeysToCommentsTable extends Migration
             $table->foreign('user_id', 'fk_comments_users_1')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropForeign('fk_comments_articles_1');
-            $table->dropForeign('fk_comments_users_1');
-        });
-    }
 }

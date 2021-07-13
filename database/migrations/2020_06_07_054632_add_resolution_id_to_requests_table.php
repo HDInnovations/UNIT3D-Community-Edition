@@ -28,16 +28,4 @@ class AddResolutionIdToRequestsTable extends Migration
             $table->integer('resolution_id')->nullable()->index();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('requests', function (Blueprint $table) {
-            //
-        });
-    }
 }

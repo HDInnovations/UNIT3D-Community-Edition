@@ -40,14 +40,4 @@ class CreateHistoryTable extends Migration
             $table->dateTime('completed_at')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('history');
-    }
 }

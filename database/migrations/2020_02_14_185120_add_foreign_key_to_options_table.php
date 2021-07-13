@@ -17,16 +17,4 @@ class AddForeignKeyToOptionsTable extends Migration
             $table->foreign('poll_id', 'fk_options_poll')->references('id')->on('polls')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('options', function (Blueprint $table) {
-            $table->dropForeign('fk_options_poll');
-        });
-    }
 }

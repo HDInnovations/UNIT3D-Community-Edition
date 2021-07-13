@@ -17,16 +17,4 @@ class AddIsDoubleUploadToGroupsTable extends Migration
             $table->boolean('is_double_upload')->after('is_freeleech')->default(0);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('groups', function (Blueprint $table) {
-            //
-        });
-    }
 }

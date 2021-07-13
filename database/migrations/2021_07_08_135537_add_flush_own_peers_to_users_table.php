@@ -17,16 +17,4 @@ class AddFlushOwnPeersToUsersTable extends Migration
             $table->tinyInteger('own_flushes')->default('2');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('own_flushes');
-        });
-    }
 }

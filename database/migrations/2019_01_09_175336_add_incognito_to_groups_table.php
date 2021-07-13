@@ -28,16 +28,4 @@ class AddIncognitoToGroupsTable extends Migration
             $table->boolean('is_incognito')->default(0)->after('can_upload');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('groups', function (Blueprint $table) {
-            //
-        });
-    }
 }

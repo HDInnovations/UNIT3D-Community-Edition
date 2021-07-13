@@ -28,16 +28,4 @@ class AlterBonTransactionsTable extends Migration
             $table->integer('post_id')->nullable()->index()->after('torrent_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('bon_transactions', function (Blueprint $table) {
-            //
-        });
-    }
 }

@@ -29,14 +29,4 @@ class CreateTagsTable extends Migration
             $table->string('slug')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('tags');
-    }
 }

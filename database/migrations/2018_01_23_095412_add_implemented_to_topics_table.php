@@ -28,16 +28,4 @@ class AddImplementedToTopicsTable extends Migration
             $table->boolean('implemented')->default(0)->after('suggestion');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('topics', function (Blueprint $table) {
-            //
-        });
-    }
 }

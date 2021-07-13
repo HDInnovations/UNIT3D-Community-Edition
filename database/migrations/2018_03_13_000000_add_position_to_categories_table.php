@@ -28,16 +28,4 @@ class AddPositionToCategoriesTable extends Migration
             $table->integer('position')->after('slug');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('categories', function (Blueprint $table) {
-            //
-        });
-    }
 }

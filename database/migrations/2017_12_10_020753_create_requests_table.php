@@ -44,14 +44,4 @@ class CreateRequestsTable extends Migration
             $table->dateTime('approved_when')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('requests');
-    }
 }

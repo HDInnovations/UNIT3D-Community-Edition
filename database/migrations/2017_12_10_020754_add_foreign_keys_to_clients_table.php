@@ -27,16 +27,4 @@ class AddForeignKeysToClientsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropForeign('clients_user_id_foreign');
-        });
-    }
 }
