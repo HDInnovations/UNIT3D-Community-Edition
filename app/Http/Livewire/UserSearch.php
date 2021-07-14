@@ -60,8 +60,8 @@ class UserSearch extends Component
         return \view('livewire.user-search', [
             'users' => User::query()
                 ->with('primaryRole')
-                ->when($this->searchTerm, function ($query) {
-                    return $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%');
+                ->when($this->search, function ($query) {
+                    return $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%');
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),

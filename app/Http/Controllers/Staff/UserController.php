@@ -24,6 +24,7 @@ use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Role;
 use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
