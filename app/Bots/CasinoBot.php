@@ -87,7 +87,7 @@ class CasinoBot
      *
      * @return string
      */
-    public function putDonate($amount = 0, $note = '')
+    public function putDonate($amount = 0, $note = ''): string
     {
         $output = \implode($note, ' ');
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
@@ -130,7 +130,7 @@ class CasinoBot
      *
      * @return string
      */
-    public function getDonations($duration = 'default')
+    public function getDonations($duration = 'default'): string
     {
         $donations = \cache()->get('casinobot-donations');
         if (! $donations) {
@@ -166,7 +166,7 @@ class CasinoBot
      *
      * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, $message = '', $targeted = 0): bool
     {
         $this->target = $user;
         if ($type === 'message') {

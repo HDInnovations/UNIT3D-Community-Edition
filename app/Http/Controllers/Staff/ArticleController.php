@@ -48,7 +48,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $article = new Article();
         $article->title = $request->input('title');
@@ -103,7 +103,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -146,7 +146,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->delete();

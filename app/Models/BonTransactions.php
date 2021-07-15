@@ -76,7 +76,7 @@ class BonTransactions extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function senderObj()
+    public function senderObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
             'username' => 'System',
@@ -92,7 +92,7 @@ class BonTransactions extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function receiverObj()
+    public function receiverObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver', 'id')->withDefault([
             'username' => 'System',
@@ -105,7 +105,7 @@ class BonTransactions extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function exchange()
+    public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
             'value' => 0,

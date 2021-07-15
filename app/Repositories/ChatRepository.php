@@ -84,7 +84,7 @@ class ChatRepository
         return $this->chatroom->findOrFail($id);
     }
 
-    public function ping($type, $id)
+    public function ping($type, $id): bool
     {
         if ($type === 'room') {
             foreach (Chatroom::where('id', '>', 0)->get() as $room) {
@@ -118,7 +118,7 @@ class ChatRepository
         return $message;
     }
 
-    public function botMessage($botId, $roomId, $message, $receiver = null)
+    public function botMessage($botId, $roomId, $message, $receiver = null): void
     {
         $user = $this->user->find($receiver);
         if ($user->censor) {
@@ -245,7 +245,7 @@ class ChatRepository
             ->get();
     }
 
-    public function checkMessageLimits($roomId)
+    public function checkMessageLimits($roomId): void
     {
         $messages = $this->messages($roomId)->toArray();
         $limit = \config('chat.message_limit');
@@ -266,7 +266,7 @@ class ChatRepository
         }
     }
 
-    public function systemMessage($message, $bot = null)
+    public function systemMessage($message, $bot = null): ChatRepository
     {
         $systemUserId = User::where('username', 'System')->first()->id;
 
@@ -332,7 +332,7 @@ class ChatRepository
      *
      * @return string
      */
-    protected function censorMessage($message)
+    protected function censorMessage($message): string
     {
         foreach (\config('censor.redact') as $word) {
             if (\preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {

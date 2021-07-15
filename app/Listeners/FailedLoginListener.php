@@ -28,7 +28,7 @@ class FailedLoginListener
      *
      * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 

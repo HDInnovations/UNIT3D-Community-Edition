@@ -44,7 +44,7 @@ class ProcessMovieJob implements ShouldQueue
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $tmdb = new TMDB();
 

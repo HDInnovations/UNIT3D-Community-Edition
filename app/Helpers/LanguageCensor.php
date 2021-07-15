@@ -25,12 +25,12 @@ class LanguageCensor
      */
     private const SPECIAL_CHARS = "<>\n [].;,";
 
-    protected static function isSpecial($c)
+    protected static function isSpecial($c): bool
     {
         return \str_contains(self::SPECIAL_CHARS, $c);
     }
 
-    protected static function matchWordIndexes($string, $word)
+    protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
         $length = \strlen($word);

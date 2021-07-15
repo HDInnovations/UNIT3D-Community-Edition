@@ -57,7 +57,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
@@ -67,7 +67,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -80,7 +80,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes()
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('like', '=', 1);
     }
@@ -90,7 +90,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function dislikes()
+    public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('dislike', '=', 1);
     }
@@ -100,7 +100,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tips()
+    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BonTransactions::class);
     }
@@ -112,7 +112,7 @@ class Post extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute($value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -122,7 +122,7 @@ class Post extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
         $linkify = new Linkify();
@@ -139,7 +139,7 @@ class Post extends Model
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 100, $ellipses = true, $stripHtml = false)
+    public function getBrief($length = 100, $ellipses = true, $stripHtml = false): string
     {
         $input = $this->content;
         //strip tags, if desired
@@ -169,7 +169,7 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPostNumber()
+    public function getPostNumber(): string
     {
         return $this->topic->postNumberFromId($this->id);
     }
@@ -179,7 +179,7 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPageNumber()
+    public function getPageNumber(): string
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
 

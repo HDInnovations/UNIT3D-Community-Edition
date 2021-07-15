@@ -145,7 +145,7 @@ class Bencode
         }
     }
 
-    public static function bencode($d)
+    public static function bencode($d): ?string
     {
         if (\is_array($d)) {
             $ret = 'l';
@@ -198,12 +198,12 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function get_infohash($t)
+    public static function get_infohash($t): string
     {
         return \sha1(self::bencode($t['info']));
     }
 
-    public static function get_meta($t)
+    public static function get_meta($t): array
     {
         $result = [];
         $size = 0;

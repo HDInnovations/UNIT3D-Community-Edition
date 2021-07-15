@@ -39,7 +39,7 @@ class StaffTicketCreated extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -51,7 +51,7 @@ class StaffTicketCreated extends Notification
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->subject('A ticket was created (Ticket # '.$this->ticket->id.')')
@@ -66,7 +66,7 @@ class StaffTicketCreated extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

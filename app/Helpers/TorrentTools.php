@@ -69,7 +69,7 @@ class TorrentTools
      *
      * @return int
      */
-    public static function getFileCount($decodedTorrent)
+    public static function getFileCount($decodedTorrent): int
     {
         // Multiple file torrent ?
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -142,7 +142,7 @@ class TorrentTools
      *
      * @return array
      */
-    public static function getFilenameArray($decodedTorrent)
+    public static function getFilenameArray($decodedTorrent): array
     {
         $filenames = [];
 
@@ -169,7 +169,7 @@ class TorrentTools
      *
      * @return string
      */
-    public static function getTorrentHash($decodedTorrent)
+    public static function getTorrentHash($decodedTorrent): string
     {
         return \sha1(Bencode::bencode($decodedTorrent['info']));
     }
@@ -181,7 +181,7 @@ class TorrentTools
      *
      * @return int
      */
-    public static function getTorrentFileCount($decodedTorrent)
+    public static function getTorrentFileCount($decodedTorrent): int
     {
         if (\array_key_exists('files', $decodedTorrent['info'])) {
             return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
@@ -218,7 +218,7 @@ class TorrentTools
      *
      * @return bool
      */
-    public static function isValidFilename($filename)
+    public static function isValidFilename($filename): bool
     {
         $result = true;
         if (\strlen($filename) > 255 ||

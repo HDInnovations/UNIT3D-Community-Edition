@@ -32,7 +32,7 @@ class ActivateUser extends Mailable
     {
     }
 
-    public function build()
+    public function build(): ActivateUser
     {
         return $this->markdown('emails.activate')
             ->subject('Activation Required '.\config('other.title'));

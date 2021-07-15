@@ -145,7 +145,7 @@ class VendorCleanup extends Command
      *
      * @return array
      */
-    protected function expandDirectoryTree($dir)
+    protected function expandDirectoryTree($dir): array
     {
         $directories = [];
         foreach (\array_diff(\scandir($dir), ['.', '..']) as $file) {
@@ -166,7 +166,7 @@ class VendorCleanup extends Command
      *
      * @return bool
      */
-    protected function delTree($dir)
+    protected function delTree($dir): ?bool
     {
         if (! \file_exists($dir) || ! \is_dir($dir)) {
             return false;
@@ -192,7 +192,7 @@ class VendorCleanup extends Command
      *
      * @return string
      */
-    protected function prepareWord($matches)
+    protected function prepareWord($matches): string
     {
         return '['.\strtolower($matches[1]).\strtoupper($matches[1]).']';
     }
@@ -208,7 +208,7 @@ class VendorCleanup extends Command
         return false;
     }
 
-    protected function out($message)
+    protected function out($message): void
     {
         if ($this->option('check')) {
             echo $message.PHP_EOL;

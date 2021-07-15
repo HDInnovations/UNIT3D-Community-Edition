@@ -94,7 +94,7 @@ class Language
      *
      * @return array
      */
-    public static function names($codes)
+    public static function names($codes): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -127,7 +127,7 @@ class Language
      *
      * @return array
      */
-    public static function codes($langs)
+    public static function codes($langs): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -160,7 +160,7 @@ class Language
      *
      * @return string
      */
-    public static function back($code)
+    public static function back($code): string
     {
         return \route('back', ['locale' => $code]);
     }
@@ -172,7 +172,7 @@ class Language
      *
      * @return string
      */
-    public static function home($code)
+    public static function home($code): string
     {
         return \route('home', ['locale' => $code]);
     }
@@ -184,7 +184,7 @@ class Language
      *
      * @return string
      */
-    public static function getCode($name = 'default')
+    public static function getCode($name = 'default'): string
     {
         if ($name === 'default') {
             $name = self::getName();
@@ -200,7 +200,7 @@ class Language
      *
      * @return string
      */
-    public static function getLongCode($short = 'default')
+    public static function getLongCode($short = 'default'): string
     {
         if ($short === 'default') {
             $short = \app()->getLocale();
@@ -227,7 +227,7 @@ class Language
      *
      * @return string
      */
-    public static function getShortCode($long = 'default')
+    public static function getShortCode($long = 'default'): string
     {
         if ($long === 'default') {
             $long = \app()->getLocale();
@@ -256,7 +256,7 @@ class Language
      *
      * @return string
      */
-    public static function getName($code = 'default')
+    public static function getName($code = 'default'): string
     {
         if ($code === 'default') {
             $code = \app()->getLocale();

@@ -67,7 +67,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -80,7 +80,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function options()
+    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Option::class);
     }
@@ -90,7 +90,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function voters()
+    public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Voter::class);
     }
@@ -102,7 +102,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function setTitleAttribute($title)
+    public function setTitleAttribute($title): string
     {
         return $this->attributes['title'] = $title;
     }
@@ -114,7 +114,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function makeSlugFromTitle($title)
+    public function makeSlugFromTitle($title): string
     {
         $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', '%'.$slug.'%')->count();

@@ -68,7 +68,7 @@ class BotTransaction extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -84,7 +84,7 @@ class BotTransaction extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function bot()
+    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class)->withDefault([
             'username' => 'System',

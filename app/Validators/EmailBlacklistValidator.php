@@ -34,7 +34,7 @@ class EmailBlacklistValidator
      *
      * @return string
      */
-    public function message($message, $attribute, $rule, $parameters)
+    public function message($message, $attribute, $rule, $parameters): string
     {
         return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
     }
@@ -50,7 +50,7 @@ class EmailBlacklistValidator
      *
      * @return bool.
      */
-    public function validate($attribute, $value, $parameters)
+    public function validate($attribute, $value, $parameters): bool
     {
         // Load blacklisted domains
         $this->refresh();
@@ -71,14 +71,14 @@ class EmailBlacklistValidator
      *
      * @return void
      */
-    public function refresh()
+    public function refresh(): void
     {
         $this->shouldUpdate();
         $this->domains = \cache()->get(\config('email-blacklist.cache-key'));
         $this->appendCustomDomains();
     }
 
-    protected function shouldUpdate()
+    protected function shouldUpdate(): void
     {
         $autoupdate = \config('email-blacklist.auto-update');
 
@@ -90,7 +90,7 @@ class EmailBlacklistValidator
         }
     }
 
-    protected function appendCustomDomains()
+    protected function appendCustomDomains(): void
     {
         $appendList = \config('email-blacklist.append');
         if ($appendList === null) {

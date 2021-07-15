@@ -63,7 +63,7 @@ class MarkdownExtra extends Markdown
     //
     // Abbreviation
 
-    protected function blockAbbreviation($Line)
+    protected function blockAbbreviation($Line): ?array
     {
         if (\preg_match('#^\*\[(.+?)\]:[ ]*(.+?)[ ]*$#', $Line['text'], $matches)) {
             $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
@@ -77,7 +77,7 @@ class MarkdownExtra extends Markdown
     //
     // Footnote
 
-    protected function blockFootnote($Line)
+    protected function blockFootnote($Line): ?array
     {
         if (\preg_match('#^\[\^(.+?)\]:[ ]?(.*)$#', $Line['text'], $matches)) {
             return [
@@ -88,7 +88,7 @@ class MarkdownExtra extends Markdown
         }
     }
 
-    protected function blockFootnoteContinue($Line, $Block)
+    protected function blockFootnoteContinue($Line, $Block): void
     {
         if ($Line['text'][0] === '[' && \preg_match('#^\[\^(.+?)\]:#', $Line['text'])) {
             return;
@@ -268,7 +268,7 @@ class MarkdownExtra extends Markdown
         return $Block;
     }
 
-    protected function blockMarkupComplete($Block)
+    protected function blockMarkupComplete($Block): array
     {
         if (! isset($Block['void'])) {
             $Block['element']['rawHtml'] = $this->processTag($Block['element']['rawHtml']);
@@ -361,7 +361,7 @@ class MarkdownExtra extends Markdown
     private $currentAbreviation;
     private $currentMeaning;
 
-    protected function insertAbreviation(array $Element)
+    protected function insertAbreviation(array $Element): array
     {
         if (isset($Element['text'])) {
             $Element['elements'] = self::pregReplaceElements(
@@ -407,7 +407,7 @@ class MarkdownExtra extends Markdown
     // Util Methods
     //
 
-    protected function addDdElement(array $Line, array $Block)
+    protected function addDdElement(array $Line, array $Block): array
     {
         $text = \substr($Line['text'], 1);
         $text = \trim($text);
@@ -434,7 +434,7 @@ class MarkdownExtra extends Markdown
         return $Block;
     }
 
-    protected function buildFootnoteElement()
+    protected function buildFootnoteElement(): array
     {
         $Element = [
             'name'       => 'div',
@@ -523,7 +523,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function parseAttributeData($attributeString)
+    protected function parseAttributeData($attributeString): array
     {
         $Data = [];
 

@@ -41,7 +41,7 @@ class ProcessCompanyJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->company['movie'] as $movie) {
             $metadata = new TMDBScraper();

@@ -32,7 +32,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -43,7 +43,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -69,7 +69,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function edit($id)
+    public function edit($id): void
     {
         //
     }
@@ -81,7 +81,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): void
     {
         //
     }
@@ -93,7 +93,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
+    public function destroy($id): void
     {
         //
     }

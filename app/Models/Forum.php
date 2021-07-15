@@ -79,7 +79,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function topics()
+    public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Topic::class);
     }
@@ -89,7 +89,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sub_topics()
+    public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
         if (\is_array($children)) {
@@ -104,7 +104,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function forums()
+    public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
@@ -114,7 +114,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscription_topics()
+    public function subscription_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         if (\auth()->user() !== null) {
             $id = $this->id;
@@ -133,7 +133,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscriptions()
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Subscription::class, 'forum_id', 'id');
     }
@@ -143,7 +143,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function permissions()
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -156,7 +156,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function notifySubscribers($poster, $topic)
+    public function notifySubscribers($poster, $topic): ?string
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -180,7 +180,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function notifyStaffers($poster, $topic)
+    public function notifyStaffers($poster, $topic): ?string
     {
         $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
             ->select('users.id')
@@ -198,7 +198,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getForumsInCategory()
+    public function getForumsInCategory(): string
     {
         return self::where('parent_id', '=', $this->id)->get();
     }
@@ -210,7 +210,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getForumsInCategoryById($forumId)
+    public function getForumsInCategoryById($forumId): string
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
@@ -220,7 +220,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return self::find($this->parent_id);
     }
@@ -250,7 +250,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getTopicCount($forumId)
+    public function getTopicCount($forumId): string
     {
         $forum = self::find($forumId);
 
@@ -262,7 +262,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getPermission()
+    public function getPermission(): string
     {
         $group = \auth()->check() ? \auth()->user()->group : Group::where('slug', 'guest')->first();
 

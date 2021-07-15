@@ -50,7 +50,7 @@ class IrcMessage extends Command
      *
      * @return array
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
             ['channel', InputArgument::REQUIRED, 'Channel that you would like to message'],

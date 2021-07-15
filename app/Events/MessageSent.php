@@ -61,7 +61,7 @@ class MessageSent implements ShouldBroadcastNow
         return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.message';
     }

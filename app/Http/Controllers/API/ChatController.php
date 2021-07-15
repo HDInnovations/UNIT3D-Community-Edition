@@ -51,7 +51,7 @@ class ChatController extends Controller
     }
 
     /* ECHOES */
-    public function echoes()
+    public function echoes(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $user = User::with(['echoes'])->findOrFail($this->authFactory->user()->id);
 
@@ -66,7 +66,7 @@ class ChatController extends Controller
     }
 
     /* AUDIBLES */
-    public function audibles()
+    public function audibles(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $user = User::with(['audibles'])->findOrFail($this->authFactory->user()->id);
 
@@ -82,13 +82,13 @@ class ChatController extends Controller
     }
 
     /* BOTS */
-    public function bots()
+    public function bots(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return BotResource::collection($this->chatRepository->bots());
     }
 
     /* ROOMS */
-    public function rooms()
+    public function rooms(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatRoomResource::collection($this->chatRepository->rooms());
     }
@@ -99,19 +99,19 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
-    public function messages($roomId)
+    public function messages($roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->messages($roomId));
     }
 
     /* MESSAGES */
-    public function privateMessages($targetId)
+    public function privateMessages($targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->privateMessages($this->authFactory->user()->id, $targetId));
     }
 
     /* MESSAGES */
-    public function botMessages($botId)
+    public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $bot = Bot::where('id', '=', $botId)->firstOrFail();
         if ($bot->is_systembot) {

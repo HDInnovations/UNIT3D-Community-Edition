@@ -35,7 +35,7 @@ class StringHelper
      */
     private const ENDS = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
 
-    public static function generateRandomString($length = 20)
+    public static function generateRandomString($length = 20): string
     {
         $string = '';
         for ($i = 0; $i < $length; $i++) {
@@ -45,7 +45,7 @@ class StringHelper
         return $string;
     }
 
-    public static function formatBytes($bytes = 0, $precision = 2)
+    public static function formatBytes($bytes = 0, $precision = 2): string
     {
         $minus = false;
         if ($bytes < 0) {
@@ -86,7 +86,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeRemaining($seconds)
+    public static function timeRemaining($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -142,7 +142,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeElapsed($seconds)
+    public static function timeElapsed($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -189,7 +189,7 @@ class StringHelper
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    public static function ordinal($number)
+    public static function ordinal($number): string
     {
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';

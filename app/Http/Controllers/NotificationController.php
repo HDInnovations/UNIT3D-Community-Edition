@@ -39,7 +39,7 @@ class NotificationController extends Controller
      *
      * @return array
      */
-    public function faceted(Request $request)
+    public function faceted(Request $request): array
     {
         $user = $request->user();
 
@@ -136,7 +136,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -152,7 +152,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
@@ -180,7 +180,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateAll(Request $request)
+    public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
@@ -196,7 +196,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
@@ -210,7 +210,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroyAll(Request $request)
+    public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->delete();
 

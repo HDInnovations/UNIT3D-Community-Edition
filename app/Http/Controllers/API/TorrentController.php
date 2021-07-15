@@ -51,7 +51,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentsResource
      */
-    public function index()
+    public function index(): TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
             ->orderBy('sticky', 'desc')
@@ -271,7 +271,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentResource
      */
-    public function show($id)
+    public function show($id): TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -287,7 +287,7 @@ class TorrentController extends BaseController
      *
      * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): void
     {
         //
     }
@@ -299,7 +299,7 @@ class TorrentController extends BaseController
      *
      * @return void
      */
-    public function destroy($id)
+    public function destroy($id): void
     {
         //
     }
@@ -434,7 +434,7 @@ class TorrentController extends BaseController
      *
      * @return array
      */
-    private static function anonymizeMediainfo($mediainfo)
+    private static function anonymizeMediainfo($mediainfo): array
     {
         if ($mediainfo === null) {
             return;
@@ -462,7 +462,7 @@ class TorrentController extends BaseController
      *
      * @return array
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];

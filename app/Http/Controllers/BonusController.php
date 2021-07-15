@@ -200,7 +200,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function exchange(Request $request, $id)
+    public function exchange(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -296,7 +296,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sendGift(Request $request)
+    public function sendGift(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -386,7 +386,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipUploader(Request $request, $id)
+    public function tipUploader(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -435,7 +435,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipPoster(Request $request)
+    public function tipPoster(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -486,7 +486,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getDyingCount(Request $request)
+    public function getDyingCount(Request $request): int
     {
         $user = $request->user();
 
@@ -505,7 +505,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLegendaryCount(Request $request)
+    public function getLegendaryCount(Request $request): int
     {
         $user = $request->user();
 
@@ -524,7 +524,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getOldCount(Request $request)
+    public function getOldCount(Request $request): int
     {
         $user = $request->user();
 
@@ -544,7 +544,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getHugeCount(Request $request)
+    public function getHugeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -562,7 +562,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLargeCount(Request $request)
+    public function getLargeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -581,7 +581,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getRegularCount(Request $request)
+    public function getRegularCount(Request $request): int
     {
         $user = $request->user();
 
@@ -600,7 +600,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getParticipaintSeedCount(Request $request)
+    public function getParticipaintSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -619,7 +619,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getTeamPlayerSeedCount(Request $request)
+    public function getTeamPlayerSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -638,7 +638,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getCommitedSeedCount(Request $request)
+    public function getCommitedSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -657,7 +657,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getMVPSeedCount(Request $request)
+    public function getMVPSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -676,7 +676,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLegendarySeedCount(Request $request)
+    public function getLegendarySeedCount(Request $request): int
     {
         $user = $request->user();
 

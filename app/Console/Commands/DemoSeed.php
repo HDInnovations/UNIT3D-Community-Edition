@@ -275,7 +275,7 @@ Menu
         return (new Movie($id))->getData();
     }
 
-    private function ids()
+    private function ids(): array
     {
         return [
             '602315',

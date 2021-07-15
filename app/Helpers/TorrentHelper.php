@@ -36,7 +36,7 @@ use Carbon\Carbon;
 
 class TorrentHelper
 {
-    public static function approveHelper($id)
+    public static function approveHelper($id): void
     {
         $appurl = \config('app.url');
         $appname = \config('app.name');

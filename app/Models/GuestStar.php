@@ -24,7 +24,7 @@ class GuestStar extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function episode()
+    public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Episode::class, 'episode_guest_star', 'episode_id', 'person_id');
     }

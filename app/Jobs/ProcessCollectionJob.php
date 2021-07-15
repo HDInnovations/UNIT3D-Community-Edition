@@ -41,7 +41,7 @@ class ProcessCollectionJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->collection['parts'] as $parts) {
             $metadata = new TMDBScraper();

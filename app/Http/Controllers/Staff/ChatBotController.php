@@ -60,7 +60,7 @@ class ChatBotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\Response
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -132,7 +132,7 @@ class ChatBotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\Response
     {
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
@@ -148,7 +148,7 @@ class ChatBotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function disable($id)
+    public function disable($id): \Illuminate\Http\Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 0;
@@ -165,7 +165,7 @@ class ChatBotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function enable($id)
+    public function enable($id): \Illuminate\Http\Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 1;

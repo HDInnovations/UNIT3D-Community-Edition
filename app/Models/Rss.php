@@ -92,7 +92,7 @@ class Rss extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -105,7 +105,7 @@ class Rss extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staff()
+    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         // Not needed yet. Just added for future extendability.
         return $this->belongsTo(User::class, 'staff_id');
@@ -133,7 +133,7 @@ class Rss extends Model
      *
      * @return array
      */
-    public function getExpectedFieldsAttribute()
+    public function getExpectedFieldsAttribute(): array
     {
         // Just Torrents for now... extendable to check on feed type in future.
         return ['search'             => null, 'description' => null, 'uploader' => null, 'imdb' => null,

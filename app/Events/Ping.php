@@ -48,7 +48,7 @@ class Ping implements ShouldBroadcastNow
         return new PresenceChannel('chatroom.'.$this->room);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.ping';
     }

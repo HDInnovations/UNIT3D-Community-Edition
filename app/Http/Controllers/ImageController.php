@@ -40,7 +40,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $image = new Image();
         $image->user_id = $request->user()->id;
@@ -81,7 +81,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function download($id)
+    public function download($id): \Illuminate\Http\RedirectResponse
     {
         $image = Image::findOrFail($id);
         $filename = $image->image;
@@ -106,7 +106,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

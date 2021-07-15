@@ -35,7 +35,7 @@ class NewThank extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -47,7 +47,7 @@ class NewThank extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',

@@ -91,7 +91,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }
@@ -101,7 +101,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'first_post_user_id', 'id');
     }
@@ -111,7 +111,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function posts()
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -121,7 +121,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscriptions()
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Subscription::class);
     }
@@ -135,7 +135,7 @@ class Topic extends Model
      *
      * @return string
      */
-    public function notifySubscribers($poster, $topic, $post)
+    public function notifySubscribers($poster, $topic, $post): ?string
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -160,7 +160,7 @@ class Topic extends Model
      *
      * @return string
      */
-    public function notifyStaffers($poster, $topic, $post)
+    public function notifyStaffers($poster, $topic, $post): ?string
     {
         $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
             ->select('users.id')
@@ -196,7 +196,7 @@ class Topic extends Model
      *
      * @return bool
      */
-    public function notifyStarter($poster, $topic, $post)
+    public function notifyStarter($poster, $topic, $post): bool
     {
         $user = User::find($topic->first_post_user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'forum', 'show_forum_topic')) {

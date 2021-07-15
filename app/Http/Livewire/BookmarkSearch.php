@@ -33,17 +33,17 @@ class BookmarkSearch extends Component
         $this->user = \auth()->user();
     }
 
-    final public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    final public function updatingSearch()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function sortBy($field)
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

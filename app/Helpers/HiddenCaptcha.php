@@ -26,7 +26,7 @@ class HiddenCaptcha
      *
      * @return string
      */
-    public static function render($mustBeEmptyField = '_username')
+    public static function render($mustBeEmptyField = '_username'): string
     {
         $ts = \time();
         $random = Str::random(16);
@@ -55,7 +55,7 @@ class HiddenCaptcha
      *
      * @return bool
      */
-    public static function check(Validator $validator, $minLimit = 0, $maxLimit = 1_200)
+    public static function check(Validator $validator, $minLimit = 0, $maxLimit = 1_200): bool
     {
         $formData = $validator->getData();
 

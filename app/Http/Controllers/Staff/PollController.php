@@ -67,7 +67,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePoll $storePoll)
+    public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
     {
         $user = $storePoll->user();
 
@@ -107,7 +107,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StorePoll $storePoll, $id)
+    public function update(StorePoll $storePoll, $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
 
@@ -164,7 +164,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();

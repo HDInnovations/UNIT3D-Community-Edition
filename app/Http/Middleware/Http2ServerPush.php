@@ -74,7 +74,7 @@ class Http2ServerPush
      *
      * @return $this
      */
-    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null): self
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
@@ -114,7 +114,7 @@ class Http2ServerPush
      *
      * @return \Symfony\Component\DomCrawler\Crawler
      */
-    protected function getCrawler(Response $response)
+    protected function getCrawler(Response $response): Crawler
     {
         if ($this->crawler) {
             return $this->crawler;
@@ -130,7 +130,7 @@ class Http2ServerPush
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function fetchLinkableNodes($response)
+    protected function fetchLinkableNodes($response): \Illuminate\Support\Collection
     {
         $crawler = $this->getCrawler($response);
 
@@ -144,7 +144,7 @@ class Http2ServerPush
      *
      * @return string
      */
-    private function buildLinkHeaderString($url)
+    private function buildLinkHeaderString($url): ?string
     {
         $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {
@@ -160,7 +160,7 @@ class Http2ServerPush
      *
      * @param $link
      */
-    private function addLinkHeader(Response $response, $link)
+    private function addLinkHeader(Response $response, $link): void
     {
         if ($response->headers->get('Link')) {
             $link = $response->headers->get('Link').','.$link;

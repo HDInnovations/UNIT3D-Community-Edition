@@ -89,7 +89,7 @@ class SystemBot
      *
      * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift($receiver = '', $amount = 0, $note = ''): string
     {
         $output = \implode(' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
@@ -147,7 +147,7 @@ class SystemBot
      *
      * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, $message = '', $targeted = 0): bool
     {
         $this->target = $user;
         $x = $type === 'message' ? 0 : 1;

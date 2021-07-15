@@ -36,7 +36,7 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -48,7 +48,7 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'title' => $this->sender.' Has Gifted You '.$this->bonTransactions->cost.' BON',

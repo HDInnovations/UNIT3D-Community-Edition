@@ -35,7 +35,7 @@ class NewComment extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -47,7 +47,7 @@ class NewComment extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         if ($this->type === 'torrent') {
             if ($this->comment->anon == 0) {

@@ -125,7 +125,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function newTopic(Request $request, $id)
+    public function newTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
@@ -244,7 +244,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editTopic(Request $request, $id)
+    public function editTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -267,7 +267,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function closeTopic(Request $request, $id)
+    public function closeTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -287,7 +287,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function openTopic(Request $request, $id)
+    public function openTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -309,7 +309,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic(Request $request, $id)
+    public function deleteTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -330,7 +330,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function pinTopic($id)
+    public function pinTopic($id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -347,7 +347,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function unpinTopic($id)
+    public function unpinTopic($id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;

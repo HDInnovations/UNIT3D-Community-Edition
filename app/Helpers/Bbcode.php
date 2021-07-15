@@ -296,7 +296,7 @@ class Bbcode
      *
      * @return string
      */
-    public function parse($source, $caseInsensitive = false)
+    public function parse($source, $caseInsensitive = false): string
     {
         foreach ($this->enabledParsers as $name => $parser) {
             $pattern = ($caseInsensitive) ? $parser['pattern'].'i' : $parser['pattern'];
@@ -314,7 +314,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    public function stripBBCodeTags($source)
+    public function stripBBCodeTags($source): string
     {
         foreach ($this->parsers as $name => $parser) {
             $source = $this->searchAndReplace($parser['pattern'].'i', $parser['content'], $source);
@@ -332,7 +332,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    protected function searchAndReplace($pattern, $replace, $source)
+    protected function searchAndReplace($pattern, $replace, $source): string
     {
         while (\preg_match($pattern, $source)) {
             $source = \preg_replace($pattern, $replace, $source);
@@ -348,7 +348,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    public function parseCaseSensitive($source)
+    public function parseCaseSensitive($source): string
     {
         return $this->parse($source, false);
     }
@@ -360,7 +360,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    public function parseCaseInsensitive($source)
+    public function parseCaseInsensitive($source): string
     {
         return $this->parse($source, true);
     }
@@ -370,7 +370,7 @@ class Bbcode
      *
      * @return array array of parsers
      */
-    public function getParsers()
+    public function getParsers(): array
     {
         return $this->enabledParsers;
     }
@@ -386,7 +386,7 @@ class Bbcode
      *
      * @return void
      */
-    public function setParser($name, $pattern, $replace, $content)
+    public function setParser($name, $pattern, $replace, $content): void
     {
         $this->parsers[$name] = [
             'pattern' => $pattern,

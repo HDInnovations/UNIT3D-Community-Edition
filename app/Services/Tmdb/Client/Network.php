@@ -71,7 +71,7 @@ class Network
         return $this->data['id'];
     }
 
-    public function get_foto()
+    public function get_foto(): string
     {
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }

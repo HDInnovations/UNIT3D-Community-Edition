@@ -37,7 +37,7 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         // Fetch owner account
         $user = User::where('username', \config('unit3d.owner-username'))->first();

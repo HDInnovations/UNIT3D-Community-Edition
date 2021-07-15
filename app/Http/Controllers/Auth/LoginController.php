@@ -39,7 +39,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function username()
+    public function username(): string
     {
         return 'username';
     }
@@ -50,7 +50,7 @@ class LoginController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function validateLogin(Request $request)
+    protected function validateLogin(Request $request): void
     {
         if (\config('captcha.enabled') == true) {
             $this->validate($request, [

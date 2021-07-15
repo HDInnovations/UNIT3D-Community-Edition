@@ -180,7 +180,7 @@ class TorrentController extends Controller
      *
      * @return void
      */
-    public function filtered(Request $request)
+    public function filtered(Request $request): void
     {
         $user = $request->user();
         if ($user && $request->has('force')) {
@@ -314,7 +314,7 @@ class TorrentController extends Controller
      *
      * @return array
      */
-    public function faceted(Request $request, Torrent $torrent)
+    public function faceted(Request $request, Torrent $torrent): array
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
@@ -832,7 +832,7 @@ class TorrentController extends Controller
      *
      * @return array
      */
-    private static function anonymizeMediainfo($mediainfo)
+    private static function anonymizeMediainfo($mediainfo): array
     {
         if ($mediainfo === null) {
             return;
@@ -860,7 +860,7 @@ class TorrentController extends Controller
      *
      * @return array
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];
@@ -964,7 +964,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1048,7 +1048,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteTorrent(Request $request)
+    public function deleteTorrent(Request $request): ?\Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
@@ -1171,7 +1171,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function preview(Request $request)
+    public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
         // Preview The Upload
         $joyPixel = \app()->make(LaravelJoyPixels::class);
@@ -1193,7 +1193,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function upload(Request $request)
+    public function upload(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1389,7 +1389,7 @@ class TorrentController extends Controller
      *
      * @return TorrentFile
      */
-    public function download(Request $request, $id, $rsskey = null)
+    public function download(Request $request, $id, $rsskey = null): TorrentFile
     {
         $user = $request->user();
         if (! $user && $rsskey) {
@@ -1452,7 +1452,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function bumpTorrent(Request $request, $id)
+    public function bumpTorrent(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1489,7 +1489,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sticky(Request $request, $id)
+    public function sticky(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1509,7 +1509,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function grantFL(Request $request, $id)
+    public function grantFL(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1544,7 +1544,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function grantFeatured(Request $request, $id)
+    public function grantFeatured(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1584,7 +1584,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function revokeFeatured(Request $request, $id)
+    public function revokeFeatured(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1620,7 +1620,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function grantDoubleUp(Request $request, $id)
+    public function grantDoubleUp(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1653,7 +1653,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, $id)
+    public function reseedTorrent(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
@@ -1687,7 +1687,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function freeleechToken(Request $request, $id)
+    public function freeleechToken(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
