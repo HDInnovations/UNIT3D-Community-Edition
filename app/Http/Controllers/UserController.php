@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -1013,9 +1014,10 @@ class UserController extends Controller
      * Uses Input's To Put Together A Filtered View.
      *
      *
-     *@throws \Throwable
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User         $username
      *
-     *@return string
+     * @return bool|string
      */
     public function myFilter(Request $request, User $username): bool | string
     {
