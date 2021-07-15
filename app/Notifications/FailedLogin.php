@@ -28,7 +28,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @param string $ip
      */
-    public function __construct(string public $ip)
+    public function __construct(string $ip)
     {
     }
 
