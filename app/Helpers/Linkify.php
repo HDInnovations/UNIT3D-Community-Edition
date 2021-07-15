@@ -20,9 +20,8 @@ use VStelmakh\UrlHighlight\Validator\Validator;
 class Linkify
 {
     /**
-     *
-     *
      * @return string
+     *
      * @var string
      */
     public function linky($text): string

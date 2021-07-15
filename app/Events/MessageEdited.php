@@ -31,7 +31,7 @@ class MessageEdited implements ShouldBroadcastNow
      *
      * @var Message
      */
-    public Message|ChatMessageResource $message;
+    public Message | ChatMessageResource $message;
 
     /**
      * Create a new event instance.

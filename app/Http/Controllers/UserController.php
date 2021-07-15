@@ -513,9 +513,9 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePID(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -1146,11 +1146,11 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      *
-     * @return string
      *@throws \Throwable
      *
+     * @return string
      */
-    public function myFilter(Request $request, User $username): bool|string
+    public function myFilter(Request $request, User $username): bool | string
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

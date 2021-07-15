@@ -23,9 +23,9 @@ class DbLoad extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      *@throws \Exception
      *
+     * @return void
      */
     public function handle()
     {

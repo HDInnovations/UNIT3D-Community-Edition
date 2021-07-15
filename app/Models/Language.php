@@ -26,7 +26,7 @@ class Language
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public static function flag(string $code = 'default'): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public static function flag(string $code = 'default'): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\Foundation\Application
     {
         if ($code === 'default') {
             $code = \app()->getLocale();
@@ -63,7 +63,7 @@ class Language
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public static function flags(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public static function flags(): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\Foundation\Application
     {
         return \view('vendor.language.flags');
     }

@@ -116,7 +116,7 @@ class Rss extends Model
      *
      * @return false|object
      */
-    public function getObjectTorrentAttribute(): object|bool
+    public function getObjectTorrentAttribute(): object | bool
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {

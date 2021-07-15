@@ -212,9 +212,9 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(\App\Playlist $id): \Illuminate\Http\RedirectResponse
     {

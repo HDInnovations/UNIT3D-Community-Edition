@@ -43,9 +43,9 @@ class BanController extends Controller
      *
      * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {

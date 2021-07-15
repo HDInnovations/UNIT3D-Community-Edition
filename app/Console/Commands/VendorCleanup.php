@@ -197,7 +197,7 @@ class VendorCleanup extends Command
         return '['.\strtolower($matches[1]).\strtoupper($matches[1]).']';
     }
 
-    protected function arrayFind($needle, array $haystack): bool|int|string
+    protected function arrayFind($needle, array $haystack): bool | int | string
     {
         foreach ($haystack as $key => $value) {
             if (false !== \stripos($value, $needle)) {

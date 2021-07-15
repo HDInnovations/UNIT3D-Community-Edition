@@ -197,7 +197,7 @@ class TorrentTools
      *
      * @return false|string|null
      */
-    public static function getNfo($inputFile): bool|string|null
+    public static function getNfo($inputFile): bool | string | null
     {
         $fileName = \uniqid('', true).'.nfo';
         $inputFile->move(\getcwd().'/files/tmp/', $fileName);

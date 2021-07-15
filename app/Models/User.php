@@ -696,7 +696,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function isSubscribed(string $type, $topicId): bool|string
+    public function isSubscribed(string $type, $topicId): bool | string
     {
         if ($type === 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);

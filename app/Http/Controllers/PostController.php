@@ -209,9 +209,9 @@ class PostController extends Controller
      *
      * @param \App\Models\Post $postId
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, Post $postId): \Illuminate\Http\RedirectResponse
     {

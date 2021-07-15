@@ -13,7 +13,7 @@ class QuickSearchDropdown extends Component
     public string $series = '';
     public string $person = '';
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         $search_results = [];
 

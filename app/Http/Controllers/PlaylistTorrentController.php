@@ -59,9 +59,9 @@ class PlaylistTorrentController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

@@ -60,11 +60,11 @@ class AnnounceController extends Controller
      *
      * @param \App\Models\User $passkey
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Exception
      *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function index(Request $request, User $passkey): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+    public function index(Request $request, User $passkey): \Illuminate\Http\Response | \Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
             /**
@@ -271,8 +271,9 @@ class AnnounceController extends Controller
      * @param $passkey
      * @param $queries
      *
-     * @return object
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
     protected function checkUser($passkey, $queries): object
     {
@@ -315,8 +316,9 @@ class AnnounceController extends Controller
     /**
      * @param $infoHash
      *
-     * @return object
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
     protected function checkTorrent($infoHash): object
     {

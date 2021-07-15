@@ -178,7 +178,7 @@ class Topic extends Model
      *
      * @return string
      */
-    public function viewable(): Forum|bool|string
+    public function viewable(): Forum | bool | string
     {
         if (\auth()->user()->group->is_modo) {
             return true;

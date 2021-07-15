@@ -310,9 +310,9 @@ class TorrentController extends Controller
      * Uses Input's To Put Together A Search.
      *
      *
-     * @return string
      *@throws \Throwable
      *
+     * @return string
      */
     public function faceted(Request $request, Torrent $torrent): string
     {
@@ -880,10 +880,11 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \ReflectionException
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrent(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1176,8 +1177,10 @@ class TorrentController extends Controller
      *
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {

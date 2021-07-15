@@ -109,9 +109,9 @@ class MediaLanguageController extends Controller
      *
      * @param \App\Models\MediaLanguage $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(MediaLanguage $id): \Illuminate\Http\RedirectResponse
     {

@@ -81,7 +81,7 @@ if (! function_exists('href_collection')) {
 }
 
 if (! function_exists('tmdb_image')) {
-    function tmdb_image($type, $original): array|string
+    function tmdb_image($type, $original): array | string
     {
         $new = match ($type) {
             'back_big'     => 'w1280',

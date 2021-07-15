@@ -114,7 +114,7 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function getPermissionsByForum($forum): Model|object|\Illuminate\Database\Eloquent\Builder|null
+    public function getPermissionsByForum($forum): Model | object | \Illuminate\Database\Eloquent\Builder | null
     {
         return Permission::where('forum_id', '=', $forum->id)
             ->where('group_id', '=', $this->id)

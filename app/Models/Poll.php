@@ -127,7 +127,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function totalVotes(): int|string
+    public function totalVotes(): int | string
     {
         $result = 0;
         foreach ($this->options as $option) {

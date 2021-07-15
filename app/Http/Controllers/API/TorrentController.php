@@ -309,7 +309,7 @@ class TorrentController extends BaseController
      *
      * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
-    public function filter(Request $request): \Illuminate\Http\JsonResponse|TorrentsResource
+    public function filter(Request $request): \Illuminate\Http\JsonResponse | TorrentsResource
     {
         $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])

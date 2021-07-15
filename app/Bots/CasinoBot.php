@@ -62,7 +62,7 @@ class CasinoBot
      *
      * @return array|string|string[]
      */
-    public function replaceVars($output): array|string
+    public function replaceVars($output): array | string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
@@ -83,13 +83,13 @@ class CasinoBot
      * @param int    $amount
      * @param string $note
      *
-     * @return string
      *@throws \Exception
      *
+     * @return string
      */
     public function putDonate(int $amount = 0, string $note = ''): string
     {
-        $output = \implode((array)$note, ' ');
+        $output = \implode((array) $note, ' ');
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
             'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -126,9 +126,9 @@ class CasinoBot
      *
      * @param string $duration
      *
-     * @return string
      *@throws \Exception
      *
+     * @return string
      */
     public function getDonations(string $duration = 'default'): string
     {
@@ -163,8 +163,9 @@ class CasinoBot
      * @param string           $message
      * @param int              $targeted
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): bool
     {
@@ -216,7 +217,7 @@ class CasinoBot
     /**
      * Output Message.
      */
-    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function pm(): \Illuminate\Http\Response | bool | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;

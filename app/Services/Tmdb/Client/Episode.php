@@ -56,12 +56,12 @@ class Episode
         return $this->data['first_air_date'];
     }
 
-    public function get_name(): array|string|null
+    public function get_name(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
-    public function get_overview(): array|string|null
+    public function get_overview(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }

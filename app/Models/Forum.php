@@ -232,7 +232,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getPostCount($forumId): int|string
+    public function getPostCount($forumId): int | string
     {
         $topics = self::find($forumId)->topics;
         $count = 0;

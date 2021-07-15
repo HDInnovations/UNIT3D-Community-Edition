@@ -24,9 +24,9 @@ class CheckIfBanned
      * @param \Illuminate\Http\Request $request
      * @param string|null              $guard
      *
-     * @return mixed
      *@throws \Exception
      *
+     * @return mixed
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next, string $guard = null): mixed
     {

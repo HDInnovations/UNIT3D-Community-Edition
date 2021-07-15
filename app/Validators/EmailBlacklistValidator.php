@@ -46,9 +46,9 @@ class EmailBlacklistValidator
      * @param string $value
      * @param array  $parameters
      *
-     * @return bool.
      *@throws \Exception
      *
+     * @return bool.
      */
     public function validate(string $attribute, string $value, array $parameters): bool
     {

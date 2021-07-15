@@ -305,9 +305,9 @@ class TopicController extends Controller
      *
      * @param \App\Models\Topic $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {

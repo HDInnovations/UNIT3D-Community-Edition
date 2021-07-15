@@ -159,9 +159,9 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Poll $id): \Illuminate\Http\RedirectResponse
     {

@@ -49,7 +49,7 @@ class Markdown
     // Setters
     //
 
-    public function setBreaksEnabled($breaksEnabled): Markdown
+    public function setBreaksEnabled($breaksEnabled): self
     {
         $this->breaksEnabled = $breaksEnabled;
 
@@ -58,7 +58,7 @@ class Markdown
 
     protected $breaksEnabled;
 
-    public function setMarkupEscaped($markupEscaped): Markdown
+    public function setMarkupEscaped($markupEscaped): self
     {
         $this->markupEscaped = $markupEscaped;
 
@@ -67,7 +67,7 @@ class Markdown
 
     protected $markupEscaped;
 
-    public function setUrlsLinked($urlsLinked): Markdown
+    public function setUrlsLinked($urlsLinked): self
     {
         $this->urlsLinked = $urlsLinked;
 
@@ -76,7 +76,7 @@ class Markdown
 
     protected bool $urlsLinked = true;
 
-    public function setSafeMode($safeMode): Markdown
+    public function setSafeMode($safeMode): self
     {
         $this->safeMode = (bool) $safeMode;
 
@@ -85,7 +85,7 @@ class Markdown
 
     protected $safeMode;
 
-    public function setStrictMode($strictMode): Markdown
+    public function setStrictMode($strictMode): self
     {
         $this->strictMode = (bool) $strictMode;
 

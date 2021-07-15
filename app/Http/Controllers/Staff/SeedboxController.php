@@ -37,9 +37,9 @@ class SeedboxController extends Controller
      *
      * @param \App\Models\Seedbox $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Seedbox $id): \Illuminate\Http\RedirectResponse
     {

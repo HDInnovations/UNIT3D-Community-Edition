@@ -66,10 +66,11 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \ReflectionException
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function request(Request $request, TorrentRequest $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -532,9 +533,9 @@ class RequestController extends Controller
      *
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
@@ -595,9 +596,9 @@ class RequestController extends Controller
      *
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {

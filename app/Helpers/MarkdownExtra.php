@@ -31,7 +31,7 @@ class MarkdownExtra extends Markdown
         \array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
 
-    public function text($text): array|string|null
+    public function text($text): array | string | null
     {
         $Elements = $this->textElements($text);
 
@@ -546,7 +546,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function processTag($elementMarkup): array|bool|string // recursive
+    protected function processTag($elementMarkup): array | bool | string // recursive
     {
         // http://stackoverflow.com/q/1148928/200145
         \libxml_use_internal_errors(true);

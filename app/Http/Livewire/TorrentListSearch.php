@@ -109,7 +109,7 @@ class TorrentListSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTorrentsStatProperty(): \Illuminate\Database\Eloquent\Model|object|\Illuminate\Database\Query\Builder|null
+    final public function getTorrentsStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('torrents')
             ->selectRaw('count(*) as total')

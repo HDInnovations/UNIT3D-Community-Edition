@@ -41,12 +41,12 @@ class ChatRepository
         return \config('chat');
     }
 
-    public function bots(): \Illuminate\Database\Eloquent\Collection|array
+    public function bots(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->bot->all();
     }
 
-    public function echoes($userId): \Illuminate\Database\Eloquent\Collection|array
+    public function echoes($userId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->userEcho->with([
             'bot',
@@ -60,7 +60,7 @@ class ChatRepository
             ->get();
     }
 
-    public function audibles($userId): \Illuminate\Database\Eloquent\Collection|array
+    public function audibles($userId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->userAudible->with([
             'bot',
@@ -74,7 +74,7 @@ class ChatRepository
             ->get();
     }
 
-    public function rooms(): \Illuminate\Database\Eloquent\Collection|array
+    public function rooms(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->chatroom->all();
     }
@@ -146,7 +146,7 @@ class ChatRepository
         $message->delete();
     }
 
-    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder|array|null
+    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null): \Illuminate\Database\Eloquent\Model | \Illuminate\Database\Eloquent\Collection | \Illuminate\Database\Eloquent\Builder | array | null
     {
         if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
@@ -192,7 +192,7 @@ class ChatRepository
         }
     }
 
-    public function messages($roomId): \Illuminate\Database\Eloquent\Collection|array
+    public function messages($roomId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->message->with([
             'bot',
@@ -209,7 +209,7 @@ class ChatRepository
             ->get();
     }
 
-    public function botMessages($senderId, $botId): \Illuminate\Database\Eloquent\Collection|array
+    public function botMessages($senderId, $botId): \Illuminate\Database\Eloquent\Collection | array
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
@@ -228,7 +228,7 @@ class ChatRepository
             ->get();
     }
 
-    public function privateMessages($senderId, $targetId): \Illuminate\Database\Eloquent\Collection|array
+    public function privateMessages($senderId, $targetId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->message->with([
             'bot',
@@ -266,7 +266,7 @@ class ChatRepository
         }
     }
 
-    public function systemMessage($message, $bot = null): ChatRepository
+    public function systemMessage($message, $bot = null): self
     {
         $systemUserId = User::where('username', 'System')->first()->id;
 
@@ -304,7 +304,7 @@ class ChatRepository
         return $room;
     }
 
-    public function statuses(): \Illuminate\Database\Eloquent\Collection|array
+    public function statuses(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->chatStatus->all();
     }

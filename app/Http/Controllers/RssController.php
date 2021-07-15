@@ -149,9 +149,9 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return array
      *@throws \Exception
      *
+     * @return array
      */
     public function show(int $id, string $rsskey): array
     {
@@ -403,9 +403,9 @@ class RssController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
      *@throws \Exception
      *
+     * @return \Illuminate\Http\Response
      */
     public function destroy(int $id): \Illuminate\Http\Response
     {

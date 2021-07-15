@@ -37,9 +37,9 @@ class AuditController extends Controller
      *
      * @param \App\Models\Audit $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Audit $id): \Illuminate\Http\RedirectResponse
     {

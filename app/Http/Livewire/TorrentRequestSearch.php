@@ -83,7 +83,7 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty(): \Illuminate\Database\Eloquent\Model|object|\Illuminate\Database\Query\Builder|null
+    final public function getTorrentRequestStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -92,7 +92,7 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty(): \Illuminate\Database\Eloquent\Model|object|\Illuminate\Database\Query\Builder|null
+    final public function getTorrentRequestBountyStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')

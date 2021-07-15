@@ -102,9 +102,9 @@ class ImageController extends Controller
      *
      * @param \App\Models\Image $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      *@throws \Exception
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Image $id): \Illuminate\Http\RedirectResponse
     {
