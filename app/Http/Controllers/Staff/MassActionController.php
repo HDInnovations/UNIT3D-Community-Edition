@@ -42,7 +42,6 @@ class MassActionController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

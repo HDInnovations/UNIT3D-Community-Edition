@@ -72,7 +72,6 @@ class PrivateMessageController extends Controller
 
     /**
      * View A Message.
-     *
      */
     public function getPrivateMessageById(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
@@ -94,7 +93,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Create Message Form.
-     *
      */
     public function makePrivateMessage(Request $request, string $receiverId = '', string $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -105,8 +103,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Create A Message.
-     *
-     *
      */
     public function sendPrivateMessage(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -160,8 +156,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Reply To A Message.
-     *
-     *
      */
     public function replyPrivateMessage(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
@@ -201,7 +195,6 @@ class PrivateMessageController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function deletePrivateMessage(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
@@ -230,8 +223,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Empty Private Message Inbox.
-     *
-     *
      */
     public function emptyInbox(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -244,8 +235,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Mark All Messages As Read.
-     *
-     *
      */
     public function markAllAsRead(Request $request): \Illuminate\Http\RedirectResponse
     {

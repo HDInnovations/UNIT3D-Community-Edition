@@ -43,7 +43,6 @@ class BanController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -85,8 +84,6 @@ class BanController extends Controller
 
     /**
      * Unban A User (banned -> new_group).
-     *
-     *
      */
     public function update(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {

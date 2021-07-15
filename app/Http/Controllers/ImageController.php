@@ -24,7 +24,6 @@ class ImageController extends Controller
 {
     /**
      * Show Image Create Form.
-     *
      */
     public function create(Album $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -35,8 +34,6 @@ class ImageController extends Controller
 
     /**
      * Store A New Image.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -100,7 +97,6 @@ class ImageController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function destroy(Request $request, Image $id): \Illuminate\Http\RedirectResponse
     {

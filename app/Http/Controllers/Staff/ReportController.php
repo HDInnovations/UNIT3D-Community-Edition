@@ -35,7 +35,6 @@ class ReportController extends Controller
 
     /**
      * Show A Report.
-     *
      */
     public function show(Report $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -48,7 +47,6 @@ class ReportController extends Controller
 
     /**
      * Update A Report.
-     *
      */
     public function update(Request $request, Report $id): \Illuminate\Http\RedirectResponse
     {

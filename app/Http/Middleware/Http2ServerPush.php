@@ -42,7 +42,6 @@ class Http2ServerPush
      * @param null $limit
      * @param null $sizeLimit
      * @param null $excludeKeywords
-     *
      */
     public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null): mixed
     {
@@ -109,8 +108,6 @@ class Http2ServerPush
 
     /**
      * Get the DomCrawler instance.
-     *
-     *
      */
     protected function getCrawler(Response $response): Crawler
     {

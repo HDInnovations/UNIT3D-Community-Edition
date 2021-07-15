@@ -45,8 +45,6 @@ class ChatRoomController extends Controller
 
     /**
      * Store A New Chatroom.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -69,8 +67,6 @@ class ChatRoomController extends Controller
 
     /**
      * Update A Chatroom.
-     *
-     *
      */
     public function update(Request $request, Chatroom $id): \Illuminate\Http\RedirectResponse
     {

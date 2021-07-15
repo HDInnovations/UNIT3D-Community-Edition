@@ -43,7 +43,6 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
      */
     public function show(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -62,8 +61,6 @@ class PollController extends Controller
 
     /**
      * Store A New Poll.
-     *
-     *
      */
     public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
     {
@@ -86,7 +83,6 @@ class PollController extends Controller
 
     /**
      * Poll Edit Form.
-     *
      */
     public function edit(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

@@ -44,7 +44,6 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
      */
     public function show(Request $request, Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
@@ -62,8 +61,6 @@ class PollController extends Controller
 
     /**
      * Vote On A Poll.
-     *
-     *
      */
     public function vote(VoteOnPoll $voteOnPoll): \Illuminate\Http\RedirectResponse
     {
@@ -101,7 +98,6 @@ class PollController extends Controller
 
     /**
      * Show A Polls Results.
-     *
      */
     public function result(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

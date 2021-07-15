@@ -32,8 +32,6 @@ class NotifyStaffCommentWasCreated
 
     /**
      * Handle the event.
-     *
-     *
      */
     public function handle(CommentCreated $event): void
     {

@@ -48,7 +48,6 @@ class TopicController extends Controller
 
     /**
      * Show The Topic.
-     *
      */
     public function topic(Topic $id, string $page = '', string $post = ''): \Illuminate\Http\RedirectResponse
     {
@@ -94,7 +93,6 @@ class TopicController extends Controller
 
     /**
      * Topic Add Form.
-     *
      */
     public function addForm(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
@@ -116,8 +114,6 @@ class TopicController extends Controller
 
     /**
      * Create A New Topic In The Forum.
-     *
-     *
      */
     public function newTopic(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
@@ -220,7 +216,6 @@ class TopicController extends Controller
 
     /**
      * Topic Edit Form.
-     *
      */
     public function editForm(Topic $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -232,8 +227,6 @@ class TopicController extends Controller
 
     /**
      * Edit Topic In The Forum.
-     *
-     *
      */
     public function editTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -253,8 +246,6 @@ class TopicController extends Controller
 
     /**
      * Close The Topic.
-     *
-     *
      */
     public function closeTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -271,8 +262,6 @@ class TopicController extends Controller
 
     /**
      * Open The Topic.
-     *
-     *
      */
     public function openTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -292,7 +281,6 @@ class TopicController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function deleteTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {

@@ -154,8 +154,9 @@ class TwoStepController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\JsonResponse|null
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse|null
      */
     public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {

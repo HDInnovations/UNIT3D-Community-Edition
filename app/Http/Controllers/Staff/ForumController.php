@@ -48,8 +48,6 @@ class ForumController extends Controller
 
     /**
      * Store A New Forum.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -91,7 +89,6 @@ class ForumController extends Controller
 
     /**
      * Forum Edit Form.
-     *
      */
     public function edit(Forum $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -108,8 +105,6 @@ class ForumController extends Controller
 
     /**
      * Edit A Forum.
-     *
-     *
      */
     public function update(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {

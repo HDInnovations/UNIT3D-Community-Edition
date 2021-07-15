@@ -23,7 +23,6 @@ class BookmarkController extends Controller
 {
     /**
      * Display All Bookmarks.
-     *
      */
     public function index(Request $request, User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

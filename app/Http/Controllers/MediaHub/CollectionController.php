@@ -39,8 +39,6 @@ class CollectionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
      */
     public function store(Request $request): void
     {
@@ -49,7 +47,6 @@ class CollectionController extends Controller
 
     /**
      * Display the specified resource.
-     *
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -74,8 +71,6 @@ class CollectionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
      */
     public function update(Request $request, int $id): void
     {

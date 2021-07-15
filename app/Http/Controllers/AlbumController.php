@@ -45,8 +45,6 @@ class AlbumController extends Controller
 
     /**
      * Store A New Album.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -91,7 +89,6 @@ class AlbumController extends Controller
 
     /**
      * Show A Album.
-     *
      */
     public function show(Album $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -106,7 +103,6 @@ class AlbumController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function destroy(Request $request, Album $id): \Illuminate\Http\RedirectResponse
     {

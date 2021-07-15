@@ -24,7 +24,6 @@ class ForumCategoryController extends Controller
 {
     /**
      * Show The Forum Category.
-     *
      */
     public function show(Forum $id): \Illuminate\Http\RedirectResponse
     {

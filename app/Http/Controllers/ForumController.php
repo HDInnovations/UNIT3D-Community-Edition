@@ -297,7 +297,6 @@ class ForumController extends Controller
 
     /**
      * Show Forums And Topics Inside.
-     *
      */
     public function show(Forum $id): \Illuminate\Http\RedirectResponse
     {

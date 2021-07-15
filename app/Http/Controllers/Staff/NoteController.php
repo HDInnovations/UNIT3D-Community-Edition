@@ -35,8 +35,6 @@ class NoteController extends Controller
 
     /**
      * Store A New User Note.
-     *
-     *
      */
     public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {

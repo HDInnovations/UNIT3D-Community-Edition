@@ -44,8 +44,6 @@ class ChatStatusController extends Controller
 
     /**
      * Store A New Chat Status.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -72,8 +70,6 @@ class ChatStatusController extends Controller
 
     /**
      * Update A Chat Status.
-     *
-     *
      */
     public function update(Request $request, ChatStatus $id): \Illuminate\Http\RedirectResponse
     {

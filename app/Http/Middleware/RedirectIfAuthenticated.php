@@ -23,7 +23,6 @@ class RedirectIfAuthenticated
      * Handle an incoming request.
      *
      * @param string|null ...$guards
-     *
      */
     public function handle(Request $request, Closure $next, ...$guards): mixed
     {

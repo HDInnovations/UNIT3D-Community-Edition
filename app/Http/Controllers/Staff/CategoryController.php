@@ -44,8 +44,6 @@ class CategoryController extends Controller
 
     /**
      * Store A Category.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -94,7 +92,6 @@ class CategoryController extends Controller
 
     /**
      * Category Edit Form.
-     *
      */
     public function edit(Category $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -105,8 +102,6 @@ class CategoryController extends Controller
 
     /**
      * Update A Category.
-     *
-     *
      */
     public function update(Request $request, Category $id): \Illuminate\Http\RedirectResponse
     {

@@ -19,8 +19,6 @@ class CheckForModo
 {
     /**
      * Handle an incoming request.
-     *
-     *
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {

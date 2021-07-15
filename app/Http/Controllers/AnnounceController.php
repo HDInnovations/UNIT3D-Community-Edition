@@ -60,7 +60,6 @@ class AnnounceController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function index(Request $request, User $passkey): \Illuminate\Http\Response | \Illuminate\Contracts\Routing\ResponseFactory
     {

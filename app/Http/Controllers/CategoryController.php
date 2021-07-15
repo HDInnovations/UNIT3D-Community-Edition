@@ -36,7 +36,6 @@ class CategoryController extends Controller
 
     /**
      * Show A Category.
-     *
      */
     public function show(Request $request, Category $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

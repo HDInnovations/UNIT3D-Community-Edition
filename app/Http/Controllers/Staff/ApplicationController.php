@@ -43,7 +43,6 @@ class ApplicationController extends Controller
 
     /**
      * Get A Application.
-     *
      */
     public function show(Application $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -57,7 +56,6 @@ class ApplicationController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function approve(Request $request, Application $id): \Illuminate\Http\RedirectResponse
     {
@@ -105,8 +103,6 @@ class ApplicationController extends Controller
 
     /**
      * Reject A Application.
-     *
-     *
      */
     public function reject(Request $request, Application $id): \Illuminate\Http\RedirectResponse
     {

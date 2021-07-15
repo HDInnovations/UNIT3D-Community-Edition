@@ -40,8 +40,6 @@ class GraveyardController extends Controller
 
     /**
      * Resurrect A Torrent.
-     *
-     *
      */
     public function store(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -85,7 +83,6 @@ class GraveyardController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

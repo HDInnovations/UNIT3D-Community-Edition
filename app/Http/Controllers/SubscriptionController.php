@@ -25,8 +25,6 @@ class SubscriptionController extends Controller
 {
     /**
      * Subscribe To A Topic.
-     *
-     *
      */
     public function subscribeTopic(Request $request, string $route, Topic $topic): \Illuminate\Http\RedirectResponse
     {
@@ -55,8 +53,6 @@ class SubscriptionController extends Controller
 
     /**
      * Unsubscribe To A Topic.
-     *
-     *
      */
     public function unsubscribeTopic(Request $request, string $route, Topic $topic): \Illuminate\Http\RedirectResponse
     {
@@ -83,8 +79,6 @@ class SubscriptionController extends Controller
 
     /**
      * Subscribe To A Forum.
-     *
-     *
      */
     public function subscribeForum(Request $request, string $route, Forum $forum): \Illuminate\Http\RedirectResponse
     {
@@ -113,8 +107,6 @@ class SubscriptionController extends Controller
 
     /**
      * Unsubscribe To A Forum.
-     *
-     *
      */
     public function unsubscribeForum(Request $request, string $route, Forum $forum): \Illuminate\Http\RedirectResponse
     {

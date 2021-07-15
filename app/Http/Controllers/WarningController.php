@@ -26,7 +26,6 @@ class WarningController extends Controller
 {
     /**
      * Show A Users Warnings.
-     *
      */
     public function show(Request $request, User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -51,8 +50,6 @@ class WarningController extends Controller
 
     /**
      * Deactivate A Warning.
-     *
-     *
      */
     public function deactivate(Request $request, Warning $id): \Illuminate\Http\RedirectResponse
     {
@@ -77,8 +74,6 @@ class WarningController extends Controller
 
     /**
      * Deactivate All Warnings.
-     *
-     *
      */
     public function deactivateAllWarnings(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -109,7 +104,6 @@ class WarningController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function deleteWarning(Request $request, Warning $id): \Illuminate\Http\RedirectResponse
     {
@@ -136,8 +130,6 @@ class WarningController extends Controller
 
     /**
      * Delete All Warnings.
-     *
-     *
      */
     public function deleteAllWarnings(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -166,8 +158,6 @@ class WarningController extends Controller
 
     /**
      * Restore A Soft Deleted Warning.
-     *
-     *
      */
     public function restoreWarning(Request $request, Warning $id): \Illuminate\Http\RedirectResponse
     {

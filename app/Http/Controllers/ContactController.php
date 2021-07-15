@@ -33,8 +33,6 @@ class ContactController extends Controller
 
     /**
      * Send A Contact Email To Owner/First User.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

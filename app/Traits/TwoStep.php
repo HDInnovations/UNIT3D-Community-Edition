@@ -93,7 +93,6 @@ trait TwoStep
      *
      *
      * @throws \Exception
-     *
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
@@ -157,8 +156,6 @@ trait TwoStep
 
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
-     *
-     *
      */
     protected function checkExceededTime(\DateTimeInterface $time): bool
     {

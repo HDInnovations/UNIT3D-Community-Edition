@@ -52,7 +52,6 @@ class SubtitleController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      */
     public function create(Torrent $torrentId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -64,8 +63,6 @@ class SubtitleController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -142,8 +139,6 @@ class SubtitleController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
      */
     public function update(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse
     {
@@ -174,7 +169,6 @@ class SubtitleController extends Controller
      *
      *
      *@throws \Exception
-     *
      */
     public function destroy(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse
     {
@@ -195,7 +189,6 @@ class SubtitleController extends Controller
 
     /**
      * Download the specified resource from storage.
-     *
      */
     public function download(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse | \Symfony\Component\HttpFoundation\StreamedResponse
     {

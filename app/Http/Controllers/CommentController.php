@@ -149,8 +149,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Article.
-     *
-     *
      */
     public function article(Request $request, Article $id): \Illuminate\Http\RedirectResponse
     {
@@ -237,8 +235,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Playlist.
-     *
-     *
      */
     public function playlist(Request $request, Playlist $id): \Illuminate\Http\RedirectResponse
     {
@@ -325,8 +321,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent.
-     *
-     *
      */
     public function torrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -417,8 +411,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-     *
-     *
      */
     public function request(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
@@ -509,8 +501,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-     *
-     *
      */
     public function ticket(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
@@ -550,8 +540,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
-     *
-     *
      */
     public function quickthanks(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {

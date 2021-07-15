@@ -33,8 +33,6 @@ class ReportController extends Controller
 
     /**
      * Create A Request Report.
-     *
-     *
      */
     public function request(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
@@ -67,8 +65,6 @@ class ReportController extends Controller
 
     /**
      * Create A Torrent Report.
-     *
-     *
      */
     public function torrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -101,8 +97,6 @@ class ReportController extends Controller
 
     /**
      * Create A User Report.
-     *
-     *
      */
     public function user(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
