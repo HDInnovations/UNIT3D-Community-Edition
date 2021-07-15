@@ -71,6 +71,8 @@ class ResolutionController extends Controller
      * Resolution Edit Form.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -82,7 +84,8 @@ class ResolutionController extends Controller
     /**
      * Edit A Resolution.
      *
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
