@@ -115,7 +115,7 @@ class PollController extends Controller
         $poll->multiple_choice = (bool) $storePoll->input('multiple_choice');
 
         // Remove the deleted options in poll
-        $oldOptionIds = \collect($poll->options)->map(fn ($option) => $option->id)->all();
+        $oldOptionIds = $poll->options->map(fn ($option) => $option->id)->all();
 
         $existingOldOptionIds = \collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
