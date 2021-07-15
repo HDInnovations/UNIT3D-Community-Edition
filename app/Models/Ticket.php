@@ -22,7 +22,9 @@ class Ticket extends Model
 
         if ($status === 'closed') {
             return $query->whereNotNull('closed_at');
-        } elseif ($status === 'open') {
+        }
+
+        if ($status === 'open') {
             return $query->whereNull('closed_at');
         }
     }
