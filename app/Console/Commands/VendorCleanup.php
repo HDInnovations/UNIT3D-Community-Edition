@@ -32,7 +32,7 @@ class VendorCleanup extends Command
      */
     protected $description = 'Cleans up useless files from  vendor folder.';
 
-    protected $patterns =
+    protected array $patterns =
         [
             'test',
             'tests',
@@ -75,7 +75,7 @@ class VendorCleanup extends Command
      *
      * @return void
      */
-    protected $excluded =
+    protected array $excluded =
         [
             /**List of  Folders*/
             'src',
@@ -145,7 +145,7 @@ class VendorCleanup extends Command
      *
      * @return array
      */
-    protected function expandDirectoryTree($dir): array
+    protected function expandDirectoryTree(string $dir): array
     {
         $directories = [];
         foreach (\array_diff(\scandir($dir), ['.', '..']) as $file) {
@@ -166,7 +166,7 @@ class VendorCleanup extends Command
      *
      * @return bool
      */
-    protected function delTree($dir): ?bool
+    protected function delTree(string $dir): ?bool
     {
         if (! \file_exists($dir) || ! \is_dir($dir)) {
             return false;
@@ -192,12 +192,12 @@ class VendorCleanup extends Command
      *
      * @return string
      */
-    protected function prepareWord($matches): string
+    protected function prepareWord(string $matches): string
     {
         return '['.\strtolower($matches[1]).\strtoupper($matches[1]).']';
     }
 
-    protected function arrayFind($needle, array $haystack)
+    protected function arrayFind($needle, array $haystack): bool|int|string
     {
         foreach ($haystack as $key => $value) {
             if (false !== \stripos($value, $needle)) {
@@ -210,10 +210,6 @@ class VendorCleanup extends Command
 
     protected function out($message): void
     {
-        if ($this->option('check')) {
-            echo $message.PHP_EOL;
-        } else {
-            echo $message.PHP_EOL;
-        }
+        echo $message.PHP_EOL;
     }
 }

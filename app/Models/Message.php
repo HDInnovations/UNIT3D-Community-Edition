@@ -111,7 +111,7 @@ class Message extends Model
      *
      * @return void
      */
-    public function setMessageAttribute($value): void
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

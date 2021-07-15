@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class EmailBlacklistUpdater
 {
-    public static function update()
+    public static function update(): bool|int
     {
         $url = \config('email-blacklist.source');
         if ($url === null) {

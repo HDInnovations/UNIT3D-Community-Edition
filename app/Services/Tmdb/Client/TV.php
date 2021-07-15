@@ -18,9 +18,9 @@ class TV
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($id)
     {
@@ -105,7 +105,7 @@ class TV
         return $this->data['last_episode_to_air'];
     }
 
-    public function get_name()
+    public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
@@ -135,12 +135,12 @@ class TV
         return $this->data['original_language'];
     }
 
-    public function get_original_name()
+    public function get_original_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
     }
 
-    public function get_overview()
+    public function get_overview(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }

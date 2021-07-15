@@ -64,7 +64,7 @@ class AnnounceController extends Controller
      * @throws \Exception
      *
      */
-    public function index(Request $request, $passkey)
+    public function index(Request $request, User $passkey): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
             /**
@@ -495,9 +495,10 @@ class AnnounceController extends Controller
      * @param     $compact
      * @param     $noPeerId
      * @param int $filterFlag
+     *
      * @return string|array
      */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string | array
+    private function givePeers($peers, $compact, $noPeerId, int $filterFlag = FILTER_FLAG_IPV4): string | array
     {
         if ($compact) {
             $pcomp = '';

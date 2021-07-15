@@ -129,7 +129,7 @@ class BonusController extends Controller
      *
      * @param string $username
      */
-    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bonus(Request $request, string $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -200,7 +200,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function exchange(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function exchange(Request $request, BonExchange $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -234,7 +234,7 @@ class BonusController extends Controller
      *
      * @return bool
      */
-    public function doItemExchange($userID, $itemID): bool
+    public function doItemExchange(User $userID, BonExchange $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
@@ -386,7 +386,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipUploader(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function tipUploader(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);

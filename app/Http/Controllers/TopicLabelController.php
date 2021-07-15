@@ -27,7 +27,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve($id): \Illuminate\Http\RedirectResponse
+    public function approve(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->approved = $topic->approved == 0 ? '1' : '0';
@@ -44,7 +44,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deny($id): \Illuminate\Http\RedirectResponse
+    public function deny(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->denied = $topic->denied == 0 ? '1' : '0';
@@ -61,7 +61,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function solve($id): \Illuminate\Http\RedirectResponse
+    public function solve(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->solved = $topic->solved == 0 ? '1' : '0';
@@ -78,7 +78,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function invalid($id): \Illuminate\Http\RedirectResponse
+    public function invalid(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->invalid = $topic->invalid == 0 ? '1' : '0';
@@ -95,7 +95,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function bug($id): \Illuminate\Http\RedirectResponse
+    public function bug(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->bug = $topic->bug == 0 ? '1' : '0';
@@ -112,7 +112,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function suggest($id): \Illuminate\Http\RedirectResponse
+    public function suggest(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->suggestion = $topic->suggestion == 0 ? '1' : '0';
@@ -129,7 +129,7 @@ class TopicLabelController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function implement($id): \Illuminate\Http\RedirectResponse
+    public function implement(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->implemented = $topic->implemented == 0 ? '1' : '0';

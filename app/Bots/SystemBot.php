@@ -57,7 +57,7 @@ class SystemBot
      *
      * @return array|string|string[]
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
@@ -89,9 +89,9 @@ class SystemBot
      *
      * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = ''): string
+    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
-        $output = \implode(' ', $note);
+        $output = \implode((array)' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
             'amount'     => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -148,7 +148,7 @@ class SystemBot
      *
      * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0): bool
+    public function process($type, User $user, string $message = '', int $targeted = 0): bool
     {
         $this->target = $user;
         $x = $type === 'message' ? 0 : 1;
@@ -186,7 +186,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;

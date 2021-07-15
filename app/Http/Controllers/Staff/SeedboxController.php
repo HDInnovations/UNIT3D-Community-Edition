@@ -37,11 +37,11 @@ class SeedboxController extends Controller
      *
      * @param \App\Models\Seedbox $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Seedbox $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

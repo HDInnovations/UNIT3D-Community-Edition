@@ -40,9 +40,9 @@ class CasinoBot
 
     private $log;
 
-    private $expiresAt;
+    private Carbon $expiresAt;
 
-    private $current;
+    private Carbon $current;
 
     /**
      * NerdBot Constructor.
@@ -62,7 +62,7 @@ class CasinoBot
      *
      * @return array|string|string[]
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
@@ -83,13 +83,13 @@ class CasinoBot
      * @param int    $amount
      * @param string $note
      *
-     * @throws \Exception
-     *
      * @return string
+     *@throws \Exception
+     *
      */
-    public function putDonate($amount = 0, $note = ''): string
+    public function putDonate(int $amount = 0, string $note = ''): string
     {
-        $output = \implode($note, ' ');
+        $output = \implode((array)$note, ' ');
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
             'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -126,11 +126,11 @@ class CasinoBot
      *
      * @param string $duration
      *
-     * @throws \Exception
-     *
      * @return string
+     *@throws \Exception
+     *
      */
-    public function getDonations($duration = 'default'): string
+    public function getDonations(string $duration = 'default'): string
     {
         $donations = \cache()->get('casinobot-donations');
         if (! $donations) {
@@ -166,7 +166,7 @@ class CasinoBot
      * @return bool
      * @throws \Exception
      */
-    public function process($type, User $user, $message = '', $targeted = 0): bool
+    public function process($type, User $user, string $message = '', int $targeted = 0): bool
     {
         $this->target = $user;
         if ($type === 'message') {
@@ -216,7 +216,7 @@ class CasinoBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;

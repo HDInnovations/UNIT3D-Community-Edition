@@ -36,7 +36,7 @@ class NewUpload extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable): array
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -48,7 +48,7 @@ class NewUpload extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable): array
+    public function toArray(mixed $notifiable): array
     {
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',

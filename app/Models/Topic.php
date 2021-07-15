@@ -178,7 +178,7 @@ class Topic extends Model
      *
      * @return string
      */
-    public function viewable()
+    public function viewable(): Forum|bool|string
     {
         if (\auth()->user()->group->is_modo) {
             return true;
@@ -213,7 +213,7 @@ class Topic extends Model
      *
      * @return int
      */
-    public function postNumberFromId($searchId)
+    public function postNumberFromId($searchId): int
     {
         $count = 0;
         foreach ($this->posts as $post) {

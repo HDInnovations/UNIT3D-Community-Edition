@@ -89,7 +89,7 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Article $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $article = Article::findOrFail($id);
 
@@ -103,7 +103,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -142,11 +142,11 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->delete();

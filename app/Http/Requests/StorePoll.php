@@ -49,7 +49,7 @@ class StorePoll extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'options.*.filled' => 'You must fill in all options fields',

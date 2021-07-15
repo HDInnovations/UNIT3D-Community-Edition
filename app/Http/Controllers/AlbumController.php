@@ -95,7 +95,7 @@ class AlbumController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Album $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -108,11 +108,11 @@ class AlbumController extends Controller
      *
      * @param \App\Models\Album $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Album $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);

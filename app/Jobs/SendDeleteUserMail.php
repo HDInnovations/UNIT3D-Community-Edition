@@ -34,7 +34,7 @@ class SendDeleteUserMail implements ShouldQueue
      *
      * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * SendDeleteUserMail Constructor.

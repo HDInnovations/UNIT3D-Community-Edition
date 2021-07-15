@@ -37,7 +37,7 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable): array
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -49,7 +49,7 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable): array
+    public function toArray(mixed $notifiable): array
     {
         if ($this->type === 'staff') {
             return [

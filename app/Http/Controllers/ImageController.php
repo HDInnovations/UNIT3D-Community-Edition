@@ -27,7 +27,7 @@ class ImageController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Album $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::find($id);
 
@@ -79,9 +79,9 @@ class ImageController extends Controller
      *
      * @param \App\Models\Image $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download($id): \Illuminate\Http\RedirectResponse
+    public function download(Image $id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $image = Image::findOrFail($id);
         $filename = $image->image;
@@ -102,11 +102,11 @@ class ImageController extends Controller
      *
      * @param \App\Models\Image $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Image $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

@@ -75,7 +75,7 @@ class ChatRoomController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Chatroom $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');
@@ -99,11 +99,11 @@ class ChatRoomController extends Controller
      *
      * @param \App\Models\Chatroom $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(Chatroom $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();

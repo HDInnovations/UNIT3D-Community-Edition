@@ -22,10 +22,10 @@ class BookmarkSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
-    public $search = '';
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
+    public int $perPage = 25;
+    public string $search = '';
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
     public $user;
 
     final public function mount(): void
@@ -71,7 +71,7 @@ class BookmarkSearch extends Component
         return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-search', [
             'user'               => $this->user,

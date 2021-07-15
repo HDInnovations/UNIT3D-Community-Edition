@@ -52,7 +52,7 @@ class Page extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value): void
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = $value;
     }

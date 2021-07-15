@@ -18,9 +18,9 @@ class FindMovie
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($query, $year)
     {

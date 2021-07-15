@@ -98,7 +98,7 @@ class CategoryController extends Controller
      *
      * @param \App\Models\Category $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Category $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $category = Category::findOrFail($id);
 
@@ -112,7 +112,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Category $id): \Illuminate\Http\RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -160,11 +160,11 @@ class CategoryController extends Controller
      *
      * @param \App\Models\Category $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(Category $id): \Illuminate\Http\RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();

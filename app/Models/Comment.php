@@ -130,7 +130,7 @@ class Comment extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value): void
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

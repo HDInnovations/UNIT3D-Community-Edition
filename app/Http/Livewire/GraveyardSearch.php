@@ -22,14 +22,14 @@ class GraveyardSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
-    public $categories = [];
-    public $types = [];
-    public $resolutions = [];
-    public $tmdbId = '';
-    public $imdbId = '';
-    public $tvdbId = '';
-    public $malId = '';
+    public string $name = '';
+    public array $categories = [];
+    public array $types = [];
+    public array $resolutions = [];
+    public string $tmdbId = '';
+    public string $imdbId = '';
+    public string $tvdbId = '';
+    public string $malId = '';
     public $free;
     public $doubleup;
     public $featured;
@@ -38,10 +38,10 @@ class GraveyardSearch extends Component
     public $highspeed;
     public $internal;
 
-    public $perPage = 25;
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
-    public $showFilters = false;
+    public int $perPage = 25;
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
+    public bool $showFilters = false;
 
     protected $queryString = [
         'name'          => ['except' => ''],

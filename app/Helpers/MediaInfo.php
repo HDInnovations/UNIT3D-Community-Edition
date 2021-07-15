@@ -326,17 +326,17 @@ class MediaInfo
         return $number;
     }
 
-    private function parseBitRate($string)
+    private function parseBitRate($string): array|string
     {
         return \str_replace([' ', 'kbps'], ['', ' kbps'], \strtolower($string));
     }
 
-    private function parseWidthHeight($string)
+    private function parseWidthHeight($string): array|string
     {
         return \str_replace(['pixels', ' '], null, \strtolower($string));
     }
 
-    private function parseAudioChannels($string)
+    private function parseAudioChannels($string): array|string
     {
         return \str_ireplace(\array_keys(self::REPLACE), self::REPLACE, $string);
     }

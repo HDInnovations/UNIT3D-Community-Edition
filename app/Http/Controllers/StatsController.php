@@ -32,7 +32,7 @@ class StatsController extends Controller
     /**
      * @var \Carbon\Carbon|mixed
      */
-    public $carbon;
+    public mixed $carbon;
 
     /**
      * StatsController Constructor.
@@ -339,7 +339,7 @@ class StatsController extends Controller
      *
      * @param \App\Models\Group $id
      */
-    public function group($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function group(Group $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);

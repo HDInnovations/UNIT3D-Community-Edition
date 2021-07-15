@@ -26,7 +26,7 @@ class Http2ServerPush
      *
      * @var \Symfony\Component\DomCrawler\Crawler
      */
-    protected $crawler;
+    protected Crawler $crawler;
 
     /**
      * @var string[]
@@ -45,7 +45,7 @@ class Http2ServerPush
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null): mixed
     {
         $response = $next($request);
 
@@ -130,7 +130,7 @@ class Http2ServerPush
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function fetchLinkableNodes($response): \Illuminate\Support\Collection
+    protected function fetchLinkableNodes(Response $response): \Illuminate\Support\Collection
     {
         $crawler = $this->getCrawler($response);
 
@@ -144,7 +144,7 @@ class Http2ServerPush
      *
      * @return string
      */
-    private function buildLinkHeaderString($url): ?string
+    private function buildLinkHeaderString(string $url): ?string
     {
         $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {

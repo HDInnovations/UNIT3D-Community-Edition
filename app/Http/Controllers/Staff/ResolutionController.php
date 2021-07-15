@@ -87,9 +87,9 @@ class ResolutionController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): Illuminate\Http\RedirectResponse
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');

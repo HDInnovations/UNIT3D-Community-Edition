@@ -75,7 +75,7 @@ class PrivateMessageController extends Controller
      *
      * @param \App\Models\PrivateMessage $id
      */
-    public function getPrivateMessageById(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function getPrivateMessageById(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -99,7 +99,7 @@ class PrivateMessageController extends Controller
      * @param string $receiverId
      * @param string $username
      */
-    public function makePrivateMessage(Request $request, $receiverId = '', $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function makePrivateMessage(Request $request, string $receiverId = '', string $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -169,7 +169,7 @@ class PrivateMessageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function replyPrivateMessage(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function replyPrivateMessage(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -207,11 +207,11 @@ class PrivateMessageController extends Controller
      *
      * @param \App\Models\PrivateMessage $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function deletePrivateMessage(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function deletePrivateMessage(Request $request, PrivateMessage $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();

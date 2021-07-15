@@ -53,7 +53,7 @@ class CollectionController extends Controller
      *
      * @param int $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $collection = Collection::with(['movie', 'comments'])->findOrFail($id);
 
@@ -69,7 +69,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function edit($id): void
+    public function edit(int $id): void
     {
         //
     }
@@ -81,7 +81,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, $id): void
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -93,7 +93,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function destroy($id): void
+    public function destroy(int $id): void
     {
         //
     }

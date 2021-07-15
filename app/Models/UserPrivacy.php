@@ -189,7 +189,7 @@ class UserPrivacy extends Model
      *
      * @return void
      */
-    public function setDefaultValues($type = 'default'): void
+    public function setDefaultValues(string $type = 'default'): void
     {
         foreach ($this->casts as $k => $v) {
             if ($v === 'array') {

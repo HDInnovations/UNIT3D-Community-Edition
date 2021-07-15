@@ -203,7 +203,7 @@ class Bencode
         return \sha1(self::bencode($t['info']));
     }
 
-    public static function get_meta($t): array
+    public static function get_meta(&$t): array
     {
         $result = [];
         $size = 0;

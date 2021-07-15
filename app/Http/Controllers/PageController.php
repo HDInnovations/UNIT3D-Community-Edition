@@ -36,7 +36,7 @@ class PageController extends Controller
      *
      * @param \App\Models\Page $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Page $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 

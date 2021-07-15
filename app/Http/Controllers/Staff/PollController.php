@@ -46,7 +46,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -91,7 +91,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 
@@ -159,11 +159,11 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(Poll $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();

@@ -86,7 +86,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeRemaining($seconds): string
+    public static function timeRemaining(time $seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -142,7 +142,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeElapsed($seconds): string
+    public static function timeElapsed(time $seconds): string
     {
         $minutes = 0;
         $hours = 0;

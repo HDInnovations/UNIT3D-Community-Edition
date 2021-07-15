@@ -16,7 +16,7 @@ namespace App\Helpers;
 
 class Markdown
 {
-    public function text($text)
+    public function text($text): string
     {
         $Elements = $this->textElements($text);
 
@@ -74,7 +74,7 @@ class Markdown
         return $this;
     }
 
-    protected $urlsLinked = true;
+    protected bool $urlsLinked = true;
 
     public function setSafeMode($safeMode): Markdown
     {
@@ -94,7 +94,7 @@ class Markdown
 
     protected $strictMode;
 
-    protected $safeLinksWhitelist = [
+    protected array $safeLinksWhitelist = [
         'http://',
         'https://',
         'ftp://',
@@ -116,7 +116,7 @@ class Markdown
     // Lines
     //
 
-    protected $BlockTypes = [
+    protected array $BlockTypes = [
         '#' => ['Header'],
         '*' => ['Rule', 'List'],
         '+' => ['List'],
@@ -144,7 +144,7 @@ class Markdown
 
     // ~
 
-    protected $unmarkedBlockTypes = [
+    protected array $unmarkedBlockTypes = [
         'Code',
     ];
 
@@ -770,7 +770,7 @@ class Markdown
 
     protected function blockReference($Line): ?array
     {
-        if (\str_contains($Line['text'], ']') && \preg_match('#^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$#', $Line['text'], $matches)
+        if (\str_contains($Line['text'], ']') && \preg_match('#^\[(.+?)]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$#', $Line['text'], $matches)
         ) {
             $id = \strtolower($matches[1]);
 
@@ -986,7 +986,7 @@ class Markdown
     // Inline Elements
     //
 
-    protected $InlineTypes = [
+    protected array $InlineTypes = [
         '!'  => ['Image'],
         '&'  => ['SpecialCharacter'],
         '*'  => ['Emphasis'],
@@ -1001,7 +1001,7 @@ class Markdown
 
     // ~
 
-    protected $inlineMarkerList = '!*_&[:<`~\\';
+    protected string $inlineMarkerList = '!*_&[:<`~\\';
 
     //
     // ~
@@ -1106,7 +1106,7 @@ class Markdown
     // ~
     //
 
-    protected function inlineText($text)
+    protected function inlineText($text): array
     {
         $Inline = [
             'extent'  => \strlen($text),
@@ -1263,7 +1263,7 @@ class Markdown
 
         $remainder = $Excerpt['text'];
 
-        if (\preg_match('#\[((?:[^][]++|(?R))*+)\]#', $remainder, $matches)) {
+        if (\preg_match('#\[((?:[^][]++|(?R))*+)]#', $remainder, $matches)) {
             $Element['handler']['argument'] = $matches[1];
 
             $extent += \strlen($matches[0]);
@@ -1282,7 +1282,7 @@ class Markdown
 
             $extent += \strlen($matches[0]);
         } else {
-            if (\preg_match('#^\s*\[(.*?)\]#', $remainder, $matches)) {
+            if (\preg_match('#^\s*\[(.*?)]#', $remainder, $matches)) {
                 $definition = $matches[1] != '' ? $matches[1] : $Element['handler']['argument'];
                 $definition = \strtolower($definition);
 
@@ -1313,7 +1313,7 @@ class Markdown
             return;
         }
 
-        if ($Excerpt['text'][1] === '/' && \preg_match('#^<\/\w[\w-]*+[ ]*+>#s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '/' && \preg_match('#^</\w[\w-]*+[ ]*+>#s', $Excerpt['text'], $matches)) {
             return [
                 'element' => ['rawHtml' => $matches[0]],
                 'extent'  => \strlen($matches[0]),
@@ -1373,7 +1373,7 @@ class Markdown
             return;
         }
 
-        if (\str_contains($Excerpt['context'], 'http') && \preg_match('#\bhttps?+:[\/]{2}[^\s<]+\b\/*+#ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)
+        if (\str_contains($Excerpt['context'], 'http') && \preg_match('#\bhttps?+:[/]{2}[^\s<]+\b/*+#ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)
         ) {
             $url = $matches[0][0];
 
@@ -1393,7 +1393,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt): ?array
     {
-        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w++:\/{2}[^ >]++)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w++:/{2}[^ >]++)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [
@@ -1422,7 +1422,7 @@ class Markdown
     // Handlers
     //
 
-    protected function handle(array $Element)
+    protected function handle(array $Element): array
     {
         if (isset($Element['handler'])) {
             if (! isset($Element['nonNestables'])) {
@@ -1731,7 +1731,7 @@ class Markdown
         return $static;
     }
 
-    private static $instances = [];
+    private static array $instances = [];
 
     //
     // Fields
@@ -1742,27 +1742,27 @@ class Markdown
     //
     // Read-Only
 
-    protected $specialCharacters = [
+    protected array $specialCharacters = [
         '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '~',
     ];
 
-    protected $StrongRegex = [
+    protected array $StrongRegex = [
         '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*+[*])+?)[*]{2}(?![*])/s',
         '_' => '/^__((?:\\\\_|[^_]|_[^_]*+_)+?)__(?!_)/us',
     ];
 
-    protected $EmRegex = [
+    protected array $EmRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
         '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
-    protected $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
+    protected string $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
 
-    protected $voidElements = [
+    protected array $voidElements = [
         'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
     ];
 
-    protected $textLevelElements = [
+    protected array $textLevelElements = [
         'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
         'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
         'i', 'rp', 'del', 'code',          'strike', 'marquee',

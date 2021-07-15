@@ -18,9 +18,9 @@ class Genre
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($id)
     {
@@ -55,12 +55,12 @@ class Genre
         return $this->data['birthday'];
     }
 
-    public function get_known_for_department()
+    public function get_known_for_department(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
 
-    public function get_deathday()
+    public function get_deathday(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
     }
@@ -75,7 +75,7 @@ class Genre
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
 
-    public function get_name()
+    public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }

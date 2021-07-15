@@ -30,13 +30,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupPanel extends Component
 {
-    public $backupStatuses = [];
+    public array $backupStatuses = [];
 
     public $activeDisk = null;
 
-    public $disks = [];
+    public array $disks = [];
 
-    public $files = [];
+    public array $files = [];
 
     public $deletingFile = null;
 

@@ -31,7 +31,7 @@ class MessageSent implements ShouldBroadcastNow
      *
      * @var Message
      */
-    public $message;
+    public Message|ChatMessageResource $message;
 
     /**
      * Create a new event instance.
@@ -54,7 +54,7 @@ class MessageSent implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 

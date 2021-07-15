@@ -58,7 +58,7 @@ class Seedbox extends Model
      *
      * @var array
      */
-    protected $encryptable = [
+    protected array $encryptable = [
         'ip',
     ];
 

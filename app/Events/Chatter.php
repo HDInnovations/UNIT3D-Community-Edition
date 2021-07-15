@@ -60,7 +60,7 @@ class Chatter implements ShouldBroadcastNow
      *
      * @return PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('chatter.'.$this->target);
     }

@@ -40,7 +40,7 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $username): \Illuminate\Http\RedirectResponse
+    public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -71,11 +71,11 @@ class NoteController extends Controller
      *
      * @param \App\Models\Note $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(Note $id): \Illuminate\Http\RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

@@ -30,7 +30,7 @@ class GitUpdater extends Command
     /**
      * The copy command.
      */
-    private $copyCommand = 'cp -Rfp';
+    private string $copyCommand = 'cp -Rfp';
 
     /**
      * The console command signature.

@@ -22,7 +22,7 @@ class EmailBlacklistValidator
     /**
      * Array of blacklisted domains.
      */
-    private $domains = [];
+    private array $domains = [];
 
     /**
      * Generate the error message on validation failure.
@@ -46,11 +46,11 @@ class EmailBlacklistValidator
      * @param string $value
      * @param array  $parameters
      *
-     * @throws \Exception
-     *
      * @return bool.
+     *@throws \Exception
+     *
      */
-    public function validate($attribute, $value, $parameters): bool
+    public function validate(string $attribute, string $value, array $parameters): bool
     {
         // Load blacklisted domains
         $this->refresh();

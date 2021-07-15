@@ -24,7 +24,7 @@ class CheckForModo
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         \abort_unless($request->user()->group->is_modo, 403);
 

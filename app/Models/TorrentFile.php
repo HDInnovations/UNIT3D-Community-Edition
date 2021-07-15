@@ -71,7 +71,7 @@ class TorrentFile extends Model
      *
      * @return string
      */
-    public function getSize($bytes = null, $precision = 2): string
+    public function getSize($bytes = null, int $precision = 2): string
     {
         $bytes = $this->size;
 

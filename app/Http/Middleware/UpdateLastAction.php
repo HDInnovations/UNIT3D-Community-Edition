@@ -24,7 +24,7 @@ class UpdateLastAction
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         if (! $user = $request->user()) {
             return $next($request);

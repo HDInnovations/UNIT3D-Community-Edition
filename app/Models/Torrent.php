@@ -146,7 +146,7 @@ class Torrent extends Model
      *
      * @var array
      */
-    public $sortable = [
+    public array $sortable = [
         'id',
         'name',
         'size',
@@ -354,7 +354,7 @@ class Torrent extends Model
      *
      * @return void
      */
-    public function setDescriptionAttribute($value): void
+    public function setDescriptionAttribute(string $value): void
     {
         $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -379,7 +379,7 @@ class Torrent extends Model
      *
      * @return void
      */
-    public function setMediaInfoAttribute($value): void
+    public function setMediaInfoAttribute(string $value): void
     {
         $this->attributes['mediainfo'] = $value;
     }
@@ -402,7 +402,7 @@ class Torrent extends Model
      *
      * @return string
      */
-    public function getSize($bytes = null, $precision = 2): string
+    public function getSize($bytes = null, int $precision = 2): string
     {
         $bytes = $this->size;
 
@@ -429,8 +429,8 @@ class Torrent extends Model
      */
     public function notifyUploader($type, $payload): bool
     {
+        $user = User::with('notification')->findOrFail($this->user_id);
         if ($type === 'thank') {
-            $user = User::with('notification')->findOrFail($this->user_id);
             if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));
 
@@ -439,7 +439,6 @@ class Torrent extends Model
 
             return true;
         }
-        $user = User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
             $user->notify(new NewComment('torrent', $payload));
 

@@ -112,7 +112,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -151,7 +151,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -168,7 +168,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, \App\Playlist $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -212,11 +212,11 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(\App\Playlist $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);

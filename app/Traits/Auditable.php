@@ -74,7 +74,7 @@ trait Auditable
      * @return false|string
      * @throws \JsonException
      */
-    protected static function generate($action, $old = [], $new = []): false | string
+    protected static function generate($action, array $old = [], array $new = []): false | string
     {
         $data = [];
         switch ($action) {
@@ -131,7 +131,7 @@ trait Auditable
      *
      * @return mixed|null
      */
-    public static function getUserId()
+    public static function getUserId(): mixed
     {
         if (\auth()->guest()) {
             return;

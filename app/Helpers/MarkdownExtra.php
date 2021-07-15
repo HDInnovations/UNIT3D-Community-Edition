@@ -31,7 +31,7 @@ class MarkdownExtra extends Markdown
         \array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
 
-    public function text($text)
+    public function text($text): array|string|null
     {
         $Elements = $this->textElements($text);
 
@@ -43,7 +43,7 @@ class MarkdownExtra extends Markdown
 
         // merge consecutive dl elements
 
-        $markup = \preg_replace('#<\/dl>\s+<dl>\s+#', '', $markup);
+        $markup = \preg_replace('#</dl>\s+<dl>\s+#', '', $markup);
 
         // add footnotes
 
@@ -65,7 +65,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockAbbreviation($Line): ?array
     {
-        if (\preg_match('#^\*\[(.+?)\]:[ ]*(.+?)[ ]*$#', $Line['text'], $matches)) {
+        if (\preg_match('#^\*\[(.+?)]:[ ]*(.+?)[ ]*$#', $Line['text'], $matches)) {
             $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
 
             return [
@@ -79,7 +79,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockFootnote($Line): ?array
     {
-        if (\preg_match('#^\[\^(.+?)\]:[ ]?(.*)$#', $Line['text'], $matches)) {
+        if (\preg_match('#^\[\^(.+?)]:[ ]?(.*)$#', $Line['text'], $matches)) {
             return [
                 'label'  => $matches[1],
                 'text'   => $matches[2],
@@ -90,7 +90,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockFootnoteContinue($Line, $Block): void
     {
-        if ($Line['text'][0] === '[' && \preg_match('#^\[\^(.+?)\]:#', $Line['text'])) {
+        if ($Line['text'][0] === '[' && \preg_match('#^\[\^(.+?)]:#', $Line['text'])) {
             return;
         }
 
@@ -304,7 +304,7 @@ class MarkdownExtra extends Markdown
 
     protected function inlineFootnoteMarker($Excerpt)
     {
-        if (\preg_match('#^\[\^(.+?)\]#', $Excerpt['text'], $matches)) {
+        if (\preg_match('#^\[\^(.+?)]#', $Excerpt['text'], $matches)) {
             $name = $matches[1];
 
             if (! isset($this->DefinitionData['Footnote'][$name])) {
@@ -334,7 +334,7 @@ class MarkdownExtra extends Markdown
         }
     }
 
-    private $footnoteCount = 0;
+    private int $footnoteCount = 0;
 
     //
     // Link
@@ -384,7 +384,7 @@ class MarkdownExtra extends Markdown
         return $Element;
     }
 
-    protected function inlineText($text)
+    protected function inlineText($text): array
     {
         $Inline = parent::inlineText($text);
 
@@ -546,7 +546,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function processTag($elementMarkup) // recursive
+    protected function processTag($elementMarkup): array|bool|string // recursive
     {
         // http://stackoverflow.com/q/1148928/200145
         \libxml_use_internal_errors(true);
@@ -602,5 +602,5 @@ class MarkdownExtra extends Markdown
     // Fields
     //
 
-    protected $regexAttribute = '(?:[#.][-\w]+[ ]*)';
+    protected string $regexAttribute = '(?:[#.][-\w]+[ ]*)';
 }

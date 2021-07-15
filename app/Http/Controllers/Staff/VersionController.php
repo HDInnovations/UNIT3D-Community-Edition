@@ -24,7 +24,7 @@ class VersionController extends Controller
     /**
      * @var VersionController
      */
-    private $versionController;
+    private mixed $versionController;
 
     public function __construct()
     {

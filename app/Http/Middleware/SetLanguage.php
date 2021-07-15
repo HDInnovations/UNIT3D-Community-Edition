@@ -25,7 +25,7 @@ class SetLanguage
      *
      * @param string $locale
      */
-    private function setLocale($locale): void
+    private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
@@ -88,7 +88,7 @@ class SetLanguage
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

@@ -32,11 +32,11 @@ class SimilarTorrent extends Component
     public $categoryId;
     public $tmdbId;
     public $reason;
-    public $checked = [];
-    public $selectPage = false;
-    public $selectAll = false;
-    public $sortField = 'bumped_at';
-    public $sortDirection = 'desc';
+    public array $checked = [];
+    public bool $selectPage = false;
+    public bool $selectAll = false;
+    public string $sortField = 'bumped_at';
+    public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
 

@@ -18,13 +18,13 @@ class Company
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     /**
      * @var int|mixed
      */
-    public $page;
+    public mixed $page;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($id, $page = null)
     {
@@ -61,12 +61,12 @@ class Company
         return $this->data['birthday'];
     }
 
-    public function get_known_for_department()
+    public function get_known_for_department(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
 
-    public function get_deathday()
+    public function get_deathday(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
     }
@@ -81,7 +81,7 @@ class Company
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
 
-    public function get_name()
+    public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }

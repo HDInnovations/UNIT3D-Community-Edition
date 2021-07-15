@@ -592,7 +592,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
+    public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         if ($sender->id === $target->id) {
@@ -626,7 +626,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isVisible(self $target, $group = 'profile', $type = false)
+    public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
@@ -661,7 +661,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isAllowed(self $target, $group = 'profile', $type = false)
+    public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
@@ -696,7 +696,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function isSubscribed(string $type, $topicId)
+    public function isSubscribed(string $type, $topicId): bool|string
     {
         if ($type === 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
@@ -712,7 +712,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isFollowing($targetId)
+    public function isFollowing($targetId): bool
     {
         return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
@@ -725,7 +725,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getUploaded($bytes = null, $precision = 2): string
+    public function getUploaded($bytes = null, int $precision = 2): string
     {
         $bytes = $this->uploaded;
 
@@ -744,7 +744,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getDownloaded($bytes = null, $precision = 2): string
+    public function getDownloaded($bytes = null, int $precision = 2): string
     {
         $bytes = $this->downloaded;
 
@@ -807,7 +807,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function ratioAfterSizeString($size, $freeleech = false): string
+    public function ratioAfterSizeString($size, bool $freeleech = false): string
     {
         if ($freeleech) {
             return $this->getRatioString().' ('.\trans('torrent.freeleech').')';
@@ -847,7 +847,7 @@ class User extends Authenticatable
      *
      * @return void
      */
-    public function setSignatureAttribute($value): void
+    public function setSignatureAttribute(string $value): void
     {
         $this->attributes['signature'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -872,7 +872,7 @@ class User extends Authenticatable
      *
      * @return void
      */
-    public function setAboutAttribute($value): void
+    public function setAboutAttribute(string $value): void
     {
         $this->attributes['about'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -900,7 +900,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getSeedbonus(): decimal
+    public function getSeedbonus(): string
     {
         return \number_format($this->seedbonus, 0, '.', ' ');
     }

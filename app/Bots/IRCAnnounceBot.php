@@ -18,35 +18,35 @@ class IRCAnnounceBot
     /**
      * @var mixed
      */
-    public $server;
+    public mixed $server;
 
     /**
      * @var mixed
      */
-    public $port;
+    public mixed $port;
 
     /**
      * @var mixed
      */
-    public $hostname;
+    public mixed $hostname;
 
     /**
      * @var mixed
      */
-    public $nickservpass;
+    public mixed $nickservpass;
 
     /**
      * @var mixed
      */
-    public $joinchannel;
+    public mixed $joinchannel;
 
     protected $socket = null;
 
-    private $channel;
+    private mixed $channel;
 
-    private $username;
+    private mixed $username;
 
-    private $registered = false;
+    private bool $registered = false;
 
     public function __construct()
     {

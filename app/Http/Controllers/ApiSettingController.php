@@ -55,7 +55,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function show($id): void
+    public function show(int $id): void
     {
         //
     }
@@ -67,7 +67,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function edit($id): void
+    public function edit(int $id): void
     {
         //
     }
@@ -79,7 +79,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, $id): void
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -91,7 +91,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function destroy($id): void
+    public function destroy(int $id): void
     {
         //
     }

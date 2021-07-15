@@ -39,7 +39,7 @@ class NotificationController extends Controller
      *@throws \Throwable
      *
      */
-    public function faceted(Request $request): array
+    public function faceted(Request $request): string
     {
         $user = $request->user();
 
@@ -136,7 +136,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function show(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -152,7 +152,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
@@ -196,7 +196,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 

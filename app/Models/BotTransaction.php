@@ -97,7 +97,7 @@ class BotTransaction extends Model
      *
      * @return string
      */
-    public function forHumans()
+    public function forHumans(): string
     {
         if ($this->type === 'bon') {
             return 'BON';

@@ -154,7 +154,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function article(Request $request, Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -244,7 +244,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function playlist(Request $request, Playlist $id): \Illuminate\Http\RedirectResponse
     {
         $playlist = Playlist::findOrFail($id);
         $user = \auth()->user();
@@ -334,7 +334,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function torrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -428,7 +428,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function request(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -522,7 +522,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function ticket(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function ticket(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -565,7 +565,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function quickthanks(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();

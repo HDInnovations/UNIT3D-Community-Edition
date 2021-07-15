@@ -23,7 +23,7 @@ trait ConsoleTools
     /**
      * @var SymfonyStyle
      */
-    protected $io;
+    protected SymfonyStyle $io;
 
     private function cyan($line): void
     {

@@ -26,7 +26,7 @@ class Language
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public static function flag($code = 'default')
+    public static function flag(string $code = 'default'): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         if ($code === 'default') {
             $code = \app()->getLocale();
@@ -45,7 +45,7 @@ class Language
      *
      * @return string
      */
-    public static function country($locale = 'default')
+    public static function country(string $locale = 'default'): string
     {
         if ($locale === 'default') {
             $locale = \app()->getLocale();
@@ -63,7 +63,7 @@ class Language
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public static function flags()
+    public static function flags(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return \view('vendor.language.flags');
     }
@@ -94,7 +94,7 @@ class Language
      *
      * @return array
      */
-    public static function names($codes): array
+    public static function names(array $codes): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -127,7 +127,7 @@ class Language
      *
      * @return array
      */
-    public static function codes($langs): array
+    public static function codes(array $langs): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -160,7 +160,7 @@ class Language
      *
      * @return string
      */
-    public static function back($code): string
+    public static function back(string $code): string
     {
         return \route('back', ['locale' => $code]);
     }
@@ -172,7 +172,7 @@ class Language
      *
      * @return string
      */
-    public static function home($code): string
+    public static function home(string $code): string
     {
         return \route('home', ['locale' => $code]);
     }
@@ -184,7 +184,7 @@ class Language
      *
      * @return string
      */
-    public static function getCode($name = 'default'): string
+    public static function getCode(string $name = 'default'): string
     {
         if ($name === 'default') {
             $name = self::getName();
@@ -200,7 +200,7 @@ class Language
      *
      * @return string
      */
-    public static function getLongCode($short = 'default'): string
+    public static function getLongCode(string $short = 'default'): string
     {
         if ($short === 'default') {
             $short = \app()->getLocale();
@@ -227,7 +227,7 @@ class Language
      *
      * @return string
      */
-    public static function getShortCode($long = 'default'): string
+    public static function getShortCode(string $long = 'default'): string
     {
         if ($long === 'default') {
             $long = \app()->getLocale();
@@ -256,7 +256,7 @@ class Language
      *
      * @return string
      */
-    public static function getName($code = 'default'): string
+    public static function getName(string $code = 'default'): string
     {
         if ($code === 'default') {
             $code = \app()->getLocale();

@@ -59,11 +59,11 @@ class PlaylistTorrentController extends Controller
      *
      * @param int $id
      *
-     * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
+     *
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlistTorrent = PlaylistTorrent::findOrFail($id);

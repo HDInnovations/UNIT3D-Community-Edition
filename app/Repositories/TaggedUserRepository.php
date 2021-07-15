@@ -29,12 +29,12 @@ class TaggedUserRepository
      *
      * @var bool
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
     /**
      * @var string
      */
-    protected $regex = '/@[a-zA-Z0-9-_]+/m';
+    protected string $regex = '/@[a-zA-Z0-9-_]+/m';
 
     /**
      * TaggedUserRepository Constructor.
@@ -48,7 +48,7 @@ class TaggedUserRepository
      *
      * @return mixed
      */
-    public function getTags($content)
+    public function getTags($content): mixed
     {
         \preg_match_all($this->regex, $content, $tagged);
 

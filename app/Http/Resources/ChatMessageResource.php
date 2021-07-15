@@ -28,23 +28,21 @@ class ChatMessageResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $emojiOne = \app()->make(LaravelJoyPixels::class);
 
         $logger = null;
+        $bbcode = new Bbcode();
         if ($this->user_id && $this->user_id == 1) {
-            $bbcode = new Bbcode();
             $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
             $logger = $emojiOne->toImage($logger);
             $logger = \str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
-            $logger = \htmlspecialchars_decode($logger);
         } else {
-            $bbcode = new Bbcode();
             $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
             $logger = $emojiOne->toImage($logger);
-            $logger = \htmlspecialchars_decode($logger);
         }
+        $logger = \htmlspecialchars_decode($logger);
 
         return [
             'id'         => $this->id,

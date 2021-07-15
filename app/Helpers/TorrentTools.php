@@ -18,12 +18,12 @@ class TorrentTools
     /**
      * Name of the file to be saved.
      */
-    public static $fileName = '';
+    public static string $fileName = '';
 
     /**
      * Representative table of the decoded torrent.
      */
-    public static $decodedTorrent = [];
+    public static array $decodedTorrent = [];
 
     /**
      * Moves and decodes the torrent.
@@ -86,7 +86,7 @@ class TorrentTools
      *
      * @return int|mixed
      */
-    public static function getTorrentSize($decodedTorrent)
+    public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -110,7 +110,7 @@ class TorrentTools
      *
      * @return array
      */
-    public static function getTorrentFiles($decodedTorrent)
+    public static function getTorrentFiles($decodedTorrent): array
     {
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
@@ -197,7 +197,7 @@ class TorrentTools
      *
      * @return false|string|null
      */
-    public static function getNfo($inputFile)
+    public static function getNfo($inputFile): bool|string|null
     {
         $fileName = \uniqid('', true).'.nfo';
         $inputFile->move(\getcwd().'/files/tmp/', $fileName);
@@ -222,8 +222,8 @@ class TorrentTools
     {
         $result = true;
         if (\strlen($filename) > 255 ||
-            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', $filename) ||
-            \preg_match('#(^\.+|[\. ]+)$#', $filename) ||
+            \preg_match('#[/?<>:*|"\x00-\x1f]#', $filename) ||
+            \preg_match('#(^\.+|[. ]+)$#', $filename) ||
             \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', $filename)) {
             $result = false;
         }

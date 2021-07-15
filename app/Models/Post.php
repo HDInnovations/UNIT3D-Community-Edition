@@ -112,7 +112,7 @@ class Post extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value): void
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -139,7 +139,7 @@ class Post extends Model
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 100, $ellipses = true, $stripHtml = false): string
+    public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
         //strip tags, if desired

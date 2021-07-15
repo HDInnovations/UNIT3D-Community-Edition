@@ -47,7 +47,7 @@ class VoteOnPoll extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'option.required' => 'You must select an answer',
