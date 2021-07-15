@@ -49,9 +49,6 @@ class TopicController extends Controller
     /**
      * Show The Topic.
      *
-     * @param \App\Models\Topic $id
-     * @param string            $page
-     * @param string            $post
      */
     public function topic(Topic $id, string $page = '', string $post = ''): \Illuminate\Http\RedirectResponse
     {
@@ -98,7 +95,6 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      *
-     * @param \App\Models\Forum $id
      */
     public function addForm(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
@@ -121,9 +117,7 @@ class TopicController extends Controller
     /**
      * Create A New Topic In The Forum.
      *
-     * @param \App\Models\Forum $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function newTopic(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
@@ -227,7 +221,6 @@ class TopicController extends Controller
     /**
      * Topic Edit Form.
      *
-     * @param \App\Models\Topic $id
      */
     public function editForm(Topic $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -240,9 +233,7 @@ class TopicController extends Controller
     /**
      * Edit Topic In The Forum.
      *
-     * @param \App\Models\Topic $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function editTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -263,9 +254,7 @@ class TopicController extends Controller
     /**
      * Close The Topic.
      *
-     * @param \App\Models\Topic $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function closeTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -283,9 +272,7 @@ class TopicController extends Controller
     /**
      * Open The Topic.
      *
-     * @param \App\Models\Topic $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function openTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -303,11 +290,9 @@ class TopicController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @param \App\Models\Topic $id
      *
      *@throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {

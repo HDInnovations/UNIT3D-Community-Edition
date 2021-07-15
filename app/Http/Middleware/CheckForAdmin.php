@@ -20,9 +20,7 @@ class CheckForAdmin
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return mixed
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {

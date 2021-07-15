@@ -84,7 +84,7 @@ class TorrentTools
      *
      * @param $decodedTorrent
      *
-     * @return int|mixed
+     * @return mixed
      */
     public static function getTorrentSize($decodedTorrent): mixed
     {

@@ -37,7 +37,6 @@ class NotificationController extends Controller
      *
      *@throws \Throwable
      *
-     * @return string
      */
     public function faceted(Request $request): string
     {
@@ -132,9 +131,7 @@ class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      *
-     * @param \App\Models\Notification $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
@@ -148,9 +145,7 @@ class NotificationController extends Controller
     /**
      * Set A Notification To Read.
      *
-     * @param \App\Models\Notification $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
@@ -178,7 +173,6 @@ class NotificationController extends Controller
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -192,9 +186,7 @@ class NotificationController extends Controller
     /**
      * Delete A Notification.
      *
-     * @param \App\Models\Notification $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
@@ -208,7 +200,6 @@ class NotificationController extends Controller
      * Mass Delete All Notification's.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {

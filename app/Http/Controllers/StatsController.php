@@ -337,7 +337,6 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Groups.
      *
-     * @param \App\Models\Group $id
      */
     public function group(Group $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

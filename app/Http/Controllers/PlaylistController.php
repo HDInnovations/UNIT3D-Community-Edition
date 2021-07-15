@@ -59,7 +59,6 @@ class PlaylistController extends Controller
      * Store A New Playlist.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -110,7 +109,6 @@ class PlaylistController extends Controller
     /**
      * Show A Playlist.
      *
-     * @param \App\Playlist $id
      */
     public function show(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -149,7 +147,6 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Update Form.
      *
-     * @param \App\Playlist $id
      */
     public function edit(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -164,9 +161,7 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param \App\Playlist $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, \App\Playlist $id): \Illuminate\Http\RedirectResponse
     {

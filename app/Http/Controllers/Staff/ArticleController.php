@@ -46,7 +46,6 @@ class ArticleController extends Controller
      * Store A New Article.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -87,7 +86,6 @@ class ArticleController extends Controller
     /**
      * Article Edit Form.
      *
-     * @param \App\Models\Article $id
      */
     public function edit(Article $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -99,9 +97,7 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      *
-     * @param \App\Models\Article $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Article $id): \Illuminate\Http\RedirectResponse
     {

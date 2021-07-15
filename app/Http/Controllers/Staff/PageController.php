@@ -45,7 +45,6 @@ class PageController extends Controller
      * Store A New Page.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -73,7 +72,6 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      *
-     * @param \App\Models\Page $id
      */
     public function edit(Page $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -85,9 +83,7 @@ class PageController extends Controller
     /**
      * Edit A Page.
      *
-     * @param \App\Models\Page $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Page $id): \Illuminate\Http\RedirectResponse
     {

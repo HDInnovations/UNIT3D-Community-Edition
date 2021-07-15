@@ -33,7 +33,6 @@ class WishController extends Controller
     /**
      * Get A Users Wishlist.
      *
-     * @param \App\Models\User $username
      */
     public function index(Request $request, User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -56,7 +55,6 @@ class WishController extends Controller
      *
      * @throws \JsonException
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -101,9 +99,7 @@ class WishController extends Controller
     /**
      * Delete A Wish.
      *
-     * @param \App\Models\Wish $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, \App\Models\Wish $id): \Illuminate\Http\RedirectResponse
     {

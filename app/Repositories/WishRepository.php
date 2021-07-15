@@ -37,9 +37,6 @@ class WishRepository implements WishInterface
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }
 
-    /**
-     * @return mixed
-     */
     public function create(array $data): mixed
     {
         return $this->wish->create($data);

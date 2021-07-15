@@ -31,7 +31,7 @@ class MarkdownExtra extends Markdown
         \array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
 
-    public function text($text): array | string | null
+    public function text($text): string
     {
         $Elements = $this->textElements($text);
 
@@ -88,7 +88,7 @@ class MarkdownExtra extends Markdown
         }
     }
 
-    protected function blockFootnoteContinue($Line, $Block): void
+    protected function blockFootnoteContinue($Line, $Block): string
     {
         if ($Line['text'][0] === '[' && \preg_match('#^\[\^(.+?)]:#', $Line['text'])) {
             return;

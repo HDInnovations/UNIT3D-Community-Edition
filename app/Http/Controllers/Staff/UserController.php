@@ -55,7 +55,6 @@ class UserController extends Controller
     /**
      * User Edit Form.
      *
-     * @param \App\Models\User $username
      */
     public function settings(User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -73,9 +72,7 @@ class UserController extends Controller
     /**
      * Edit A User.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -125,9 +122,7 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function permissions(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -147,9 +142,7 @@ class UserController extends Controller
     /**
      * Edit A Users Password.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     protected function password(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {

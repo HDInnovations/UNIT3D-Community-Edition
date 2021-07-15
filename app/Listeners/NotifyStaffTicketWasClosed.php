@@ -34,7 +34,6 @@ class NotifyStaffTicketWasClosed
      * Handle the event.
      *
      *
-     * @return void
      */
     public function handle(TicketClosed $event): void
     {

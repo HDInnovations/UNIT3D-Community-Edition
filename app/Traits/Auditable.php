@@ -130,7 +130,7 @@ trait Auditable
     /**
      * Gets the current user ID, or null if guest.
      *
-     * @return mixed|null
+     * @return mixed
      */
     public static function getUserId(): mixed
     {

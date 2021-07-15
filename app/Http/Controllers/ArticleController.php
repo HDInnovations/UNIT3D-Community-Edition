@@ -33,7 +33,6 @@ class ArticleController extends Controller
     /**
      * Show A Article.
      *
-     * @param \App\Models\Article $id
      */
     public function show(Article $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

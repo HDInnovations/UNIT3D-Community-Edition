@@ -92,7 +92,7 @@ class VendorCleanup extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $patterns = \array_diff($this->patterns, $this->excluded);
 
@@ -164,7 +164,7 @@ class VendorCleanup extends Command
      *
      * @param string $dir
      *
-     * @return bool
+     * @return bool|null
      */
     protected function delTree(string $dir): ?bool
     {

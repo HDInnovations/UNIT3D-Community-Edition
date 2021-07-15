@@ -35,11 +35,9 @@ class AuditController extends Controller
     /**
      * Delete A Audit.
      *
-     * @param \App\Models\Audit $id
      *
      *@throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Audit $id): \Illuminate\Http\RedirectResponse
     {

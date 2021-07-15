@@ -42,7 +42,6 @@ class ResolutionController extends Controller
      * Store A New Resolution.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

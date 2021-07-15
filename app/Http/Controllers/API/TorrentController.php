@@ -283,9 +283,7 @@ class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
      *
-     * @return void
      */
     public function update(Request $request, int $id): void
     {
@@ -307,7 +305,6 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
     public function filter(Request $request): \Illuminate\Http\JsonResponse | TorrentsResource
     {

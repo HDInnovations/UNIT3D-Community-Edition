@@ -25,7 +25,6 @@ class ForumCategoryController extends Controller
     /**
      * Show The Forum Category.
      *
-     * @param \App\Models\Forum $id
      */
     public function show(Forum $id): \Illuminate\Http\RedirectResponse
     {

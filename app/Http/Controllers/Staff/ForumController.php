@@ -50,7 +50,6 @@ class ForumController extends Controller
      * Store A New Forum.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -93,7 +92,6 @@ class ForumController extends Controller
     /**
      * Forum Edit Form.
      *
-     * @param \App\Models\Forum $id
      */
     public function edit(Forum $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -111,9 +109,7 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      *
-     * @param \App\Models\Forum $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {

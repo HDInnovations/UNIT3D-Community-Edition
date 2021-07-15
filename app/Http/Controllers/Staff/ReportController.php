@@ -36,13 +36,12 @@ class ReportController extends Controller
     /**
      * Show A Report.
      *
-     * @param \App\Models\Report $id
      */
     public function show(Report $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $report = Report::findOrFail($id);
 
-        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
+        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
 
         return \view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }
@@ -50,7 +49,6 @@ class ReportController extends Controller
     /**
      * Update A Report.
      *
-     * @param \App\Models\Report $id
      */
     public function update(Request $request, Report $id): \Illuminate\Http\RedirectResponse
     {

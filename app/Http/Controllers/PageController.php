@@ -34,7 +34,6 @@ class PageController extends Controller
     /**
      * Show A Page.
      *
-     * @param \App\Models\Page $id
      */
     public function show(Page $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

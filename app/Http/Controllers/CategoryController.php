@@ -37,7 +37,6 @@ class CategoryController extends Controller
     /**
      * Show A Category.
      *
-     * @param \App\Models\Category $id
      */
     public function show(Request $request, Category $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

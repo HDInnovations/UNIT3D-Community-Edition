@@ -125,7 +125,7 @@ class Poll extends Model
     /**
      * Get Total Votes On A Poll Option.
      *
-     * @return string
+     * @return int|string
      */
     public function totalVotes(): int | string
     {

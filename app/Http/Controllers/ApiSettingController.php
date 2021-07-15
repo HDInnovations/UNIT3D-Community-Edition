@@ -41,7 +41,6 @@ class ApiSettingController extends Controller
      * Store a newly created resource in storage.
      *
      *
-     * @return void
      */
     public function store(Request $request): void
     {
@@ -75,9 +74,7 @@ class ApiSettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
      *
-     * @return void
      */
     public function update(Request $request, int $id): void
     {

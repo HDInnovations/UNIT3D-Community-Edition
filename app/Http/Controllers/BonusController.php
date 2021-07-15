@@ -127,7 +127,6 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
-     * @param string $username
      */
     public function bonus(Request $request, string $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -196,9 +195,7 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param \App\Models\BonExchange $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function exchange(Request $request, BonExchange $id): \Illuminate\Http\RedirectResponse
     {
@@ -294,7 +291,6 @@ class BonusController extends Controller
      * Gift Points To A User.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function sendGift(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -382,9 +378,7 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function tipUploader(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -433,7 +427,6 @@ class BonusController extends Controller
      * Tip Points To A Poster.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function tipPoster(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -484,7 +477,6 @@ class BonusController extends Controller
     /**
      * @method getDyingCount
      *
-     * @return int
      */
     public function getDyingCount(Request $request): int
     {
@@ -503,7 +495,6 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
-     * @return int
      */
     public function getLegendaryCount(Request $request): int
     {
@@ -522,7 +513,6 @@ class BonusController extends Controller
     /**
      * @method getOldCount
      *
-     * @return int
      */
     public function getOldCount(Request $request): int
     {
@@ -542,7 +532,6 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
-     * @return int
      */
     public function getHugeCount(Request $request): int
     {
@@ -560,7 +549,6 @@ class BonusController extends Controller
     /**
      * @method getLargeCount
      *
-     * @return int
      */
     public function getLargeCount(Request $request): int
     {
@@ -579,7 +567,6 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
-     * @return int
      */
     public function getRegularCount(Request $request): int
     {
@@ -598,7 +585,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @return int
      */
     public function getParticipaintSeedCount(Request $request): int
     {
@@ -617,7 +603,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @return int
      */
     public function getTeamPlayerSeedCount(Request $request): int
     {
@@ -636,7 +621,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @return int
      */
     public function getCommitedSeedCount(Request $request): int
     {
@@ -655,7 +639,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @return int
      */
     public function getMVPSeedCount(Request $request): int
     {
@@ -674,7 +657,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @return int
      */
     public function getLegendarySeedCount(Request $request): int
     {

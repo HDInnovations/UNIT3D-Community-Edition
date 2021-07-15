@@ -53,7 +53,6 @@ class GroupController extends Controller
      * Store A New Group.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -116,7 +115,6 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      *
-     * @param \App\Models\Group $id
      */
     public function edit(Request $request, Group $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -131,9 +129,7 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param \App\Models\Group $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Group $id): \Illuminate\Http\RedirectResponse
     {

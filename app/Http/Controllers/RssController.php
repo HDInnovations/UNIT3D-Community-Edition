@@ -310,7 +310,6 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      *
-     * @param int $id
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -332,7 +331,6 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      *
-     * @param int $id
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
     {

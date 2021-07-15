@@ -154,7 +154,7 @@ class Forum extends Model
      * @param $poster
      * @param $topic
      *
-     * @return void
+     * @return string|null
      */
     public function notifySubscribers($poster, $topic): ?string
     {
@@ -178,7 +178,7 @@ class Forum extends Model
      * @param $poster
      * @param $topic
      *
-     * @return void
+     * @return string|null
      */
     public function notifyStaffers($poster, $topic): ?string
     {
@@ -230,7 +230,7 @@ class Forum extends Model
      *
      * @param $forumId
      *
-     * @return string
+     * @return int|string
      */
     public function getPostCount($forumId): int | string
     {

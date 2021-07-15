@@ -40,7 +40,7 @@ class SyncPeers extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $torrents = Torrent::select(['id', 'seeders', 'leechers'])
             ->with('peers')

@@ -21,7 +21,6 @@ class UserObserver
      * Handle the User "created" event.
      *
      *
-     * @return void
      */
     public function created(User $user): void
     {
@@ -32,7 +31,6 @@ class UserObserver
      * Handle the User "updated" event.
      *
      *
-     * @return void
      */
     public function updated(User $user): void
     {
@@ -43,7 +41,6 @@ class UserObserver
      * Handle the User "retrieved" event.
      *
      *
-     * @return void
      */
     public function retrieved(User $user): void
     {
@@ -54,7 +51,6 @@ class UserObserver
      * Handle the User "deleted" event.
      *
      *
-     * @return void
      */
     public function deleted(User $user): void
     {
@@ -65,7 +61,6 @@ class UserObserver
      * Handle the User "restored" event.
      *
      *
-     * @return void
      */
     public function restored(User $user): void
     {

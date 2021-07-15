@@ -587,10 +587,7 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      *
-     * @param string $group
-     * @param bool   $type
      *
-     * @return bool
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool $type = false): bool
     {
@@ -621,10 +618,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param string $group
-     * @param bool   $type
      *
-     * @return bool
      */
     public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -656,10 +650,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param string $group
-     * @param bool   $type
      *
-     * @return bool
      */
     public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -694,7 +685,7 @@ class User extends Authenticatable
      * @param string $type
      * @param        $topicId
      *
-     * @return string
+     * @return bool|string
      */
     public function isSubscribed(string $type, $topicId): bool | string
     {

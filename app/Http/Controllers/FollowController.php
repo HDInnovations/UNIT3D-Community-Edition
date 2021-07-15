@@ -27,9 +27,7 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
@@ -60,9 +58,7 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {

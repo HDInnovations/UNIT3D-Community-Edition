@@ -45,7 +45,7 @@ class AutoPreWarning extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();

@@ -42,7 +42,7 @@ class DemoSeed extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');

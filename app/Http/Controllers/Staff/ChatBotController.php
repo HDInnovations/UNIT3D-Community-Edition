@@ -40,7 +40,6 @@ class ChatBotController extends Controller
     /**
      * Show the form for editing the specified Bot resource.
      *
-     * @param int $id
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -56,9 +55,7 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      *
-     * @param int $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

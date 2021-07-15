@@ -45,7 +45,6 @@ class TypeController extends Controller
      * Store A New Type.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -73,7 +72,6 @@ class TypeController extends Controller
     /**
      * Type Edit Form.
      *
-     * @param \App\Models\Type $id
      */
     public function edit(Type $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -85,9 +83,7 @@ class TypeController extends Controller
     /**
      * Edit A Type.
      *
-     * @param \App\Models\Type $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Type $id): \Illuminate\Http\RedirectResponse
     {

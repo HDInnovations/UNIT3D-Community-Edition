@@ -31,7 +31,6 @@ class AchievementUnlocked
      * Handle the event.
      *
      *
-     * @return void
      */
     public function handle(Unlocked $unlocked): void
     {

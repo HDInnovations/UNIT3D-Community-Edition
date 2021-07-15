@@ -152,9 +152,10 @@ class TwoStepController extends Controller
      * Verify the user code input.
      *
      *
-     * @throws \Exception
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|null
+     * @throws \Exception
      */
     public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {

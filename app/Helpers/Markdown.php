@@ -1313,14 +1313,14 @@ class Markdown
             return;
         }
 
-        if ($Excerpt['text'][1] === '/' && \preg_match('#^</\w[\w-]*+[ ]*+>#s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '/' && \preg_match('#^</\w[\w-]*+[ ]*+>#', $Excerpt['text'], $matches)) {
             return [
                 'element' => ['rawHtml' => $matches[0]],
                 'extent'  => \strlen($matches[0]),
             ];
         }
 
-        if ($Excerpt['text'][1] === '!' && \preg_match('#^<!---?[^>-](?:-?+[^-])*-->#s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '!' && \preg_match('#^<!---?[^>-](?:-?+[^-])*-->#', $Excerpt['text'], $matches)) {
             return [
                 'element' => ['rawHtml' => $matches[0]],
                 'extent'  => \strlen($matches[0]),
@@ -1393,7 +1393,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt): ?array
     {
-        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w++:/{2}[^ >]++)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w++:/{2}[^ >]++)>#', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [

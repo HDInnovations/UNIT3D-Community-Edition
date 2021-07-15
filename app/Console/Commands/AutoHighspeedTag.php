@@ -43,7 +43,7 @@ class AutoHighspeedTag extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         DB::table('torrents')->update(['highspeed' => 0]);
 

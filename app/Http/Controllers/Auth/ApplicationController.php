@@ -36,7 +36,6 @@ class ApplicationController extends Controller
      * Store A New Application.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

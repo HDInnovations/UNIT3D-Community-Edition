@@ -37,7 +37,7 @@ class CheckForStaleTickets extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         Ticket::checkForStaleTickets();
     }

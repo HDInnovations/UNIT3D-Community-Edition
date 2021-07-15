@@ -133,7 +133,7 @@ class Topic extends Model
      * @param $topic
      * @param $post
      *
-     * @return void
+     * @return string|null
      */
     public function notifySubscribers($poster, $topic, $post): ?string
     {
@@ -158,7 +158,7 @@ class Topic extends Model
      * @param $topic
      * @param $post
      *
-     * @return void
+     * @return string|null
      */
     public function notifyStaffers($poster, $topic, $post): ?string
     {
@@ -176,7 +176,7 @@ class Topic extends Model
     /**
      * Does User Have Permission To View Topic.
      *
-     * @return string
+     * @return \App\Models\Forum|bool|string
      */
     public function viewable(): Forum | bool | string
     {

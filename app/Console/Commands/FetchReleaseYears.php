@@ -42,7 +42,7 @@ class FetchReleaseYears extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $appurl = \config('app.url');
 

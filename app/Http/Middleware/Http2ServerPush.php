@@ -43,7 +43,6 @@ class Http2ServerPush
      * @param null $sizeLimit
      * @param null $excludeKeywords
      *
-     * @return mixed
      */
     public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null): mixed
     {
@@ -112,7 +111,6 @@ class Http2ServerPush
      * Get the DomCrawler instance.
      *
      *
-     * @return \Symfony\Component\DomCrawler\Crawler
      */
     protected function getCrawler(Response $response): Crawler
     {
@@ -142,7 +140,7 @@ class Http2ServerPush
      *
      * @param string $url
      *
-     * @return string
+     * @return string|null
      */
     private function buildLinkHeaderString(string $url): ?string
     {

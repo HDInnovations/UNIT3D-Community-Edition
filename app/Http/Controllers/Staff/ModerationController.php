@@ -93,7 +93,6 @@ class ModerationController extends Controller
      * Postpone A Torrent.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function postpone(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -129,7 +128,6 @@ class ModerationController extends Controller
      * Reject A Torrent.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request): \Illuminate\Http\RedirectResponse
     {

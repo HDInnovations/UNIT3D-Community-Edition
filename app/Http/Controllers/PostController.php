@@ -46,9 +46,7 @@ class PostController extends Controller
     /**
      * Store A New Post To A Topic.
      *
-     * @param \App\Models\Topic $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -165,8 +163,6 @@ class PostController extends Controller
     /**
      * Edit Post Form.
      *
-     * @param \App\Models\Topic $id
-     * @param \App\Models\Post  $postId
      */
     public function postEditForm(Topic $id, Post $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -186,9 +182,7 @@ class PostController extends Controller
     /**
      * Edit A Post In A Topic.
      *
-     * @param \App\Models\Post $postId
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, Post $postId): \Illuminate\Http\RedirectResponse
     {
@@ -207,11 +201,9 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \App\Models\Post $postId
      *
      *@throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, Post $postId): \Illuminate\Http\RedirectResponse
     {

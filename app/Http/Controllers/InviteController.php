@@ -29,7 +29,6 @@ class InviteController extends Controller
     /**
      * Invite Tree.
      *
-     * @param \App\Models\User $username
      */
     public function index(Request $request, User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -71,7 +70,6 @@ class InviteController extends Controller
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -131,9 +129,7 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
-     * @param \App\Models\Invite $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function send(Request $request, Invite $id): \Illuminate\Http\RedirectResponse
     {

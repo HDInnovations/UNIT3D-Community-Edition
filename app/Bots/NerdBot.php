@@ -64,7 +64,7 @@ class NerdBot
      *
      * @param $output
      *
-     * @return array|string|string[]
+     * @return array|string
      */
     public function replaceVars($output): array | string
     {

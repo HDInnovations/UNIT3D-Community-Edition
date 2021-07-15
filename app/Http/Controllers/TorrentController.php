@@ -178,7 +178,6 @@ class TorrentController extends Controller
      * Torrent Filter Remember Setting.
      *
      *
-     * @return void
      */
     public function filtered(Request $request): void
     {
@@ -312,7 +311,6 @@ class TorrentController extends Controller
      *
      *@throws \Throwable
      *
-     * @return string
      */
     public function faceted(Request $request, Torrent $torrent): string
     {
@@ -946,7 +944,6 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      *
-     * @param \App\Models\Torrent $id
      */
     public function editForm(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -967,9 +964,7 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1051,9 +1046,10 @@ class TorrentController extends Controller
      * Delete A Torrent.
      *
      *
-     * @throws \Exception
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|null
+     * @throws \Exception
      */
     public function deleteTorrent(Request $request): ?\Illuminate\Http\RedirectResponse
     {
@@ -1125,7 +1121,6 @@ class TorrentController extends Controller
     /**
      * Display Peers Of A Torrent.
      *
-     * @param \App\Models\Torrent $id
      */
     public function peers(Torrent $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1138,7 +1133,6 @@ class TorrentController extends Controller
     /**
      * Display History Of A Torrent.
      *
-     * @param \App\Models\Torrent $id
      */
     public function history(Torrent $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1151,10 +1145,6 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      *
-     * @param int    $categoryId
-     * @param string $title
-     * @param int    $imdb
-     * @param int    $tmdb
      */
     public function uploadForm(Request $request, int $categoryId = 0, string $title = '', int $imdb = 0, int $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1202,7 +1192,6 @@ class TorrentController extends Controller
      * Upload A Torrent.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function upload(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -1382,7 +1371,6 @@ class TorrentController extends Controller
     /**
      * Download Check.
      *
-     * @param \App\Models\Torrent $id
      */
     public function downloadCheck(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1395,10 +1383,8 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
-     * @param \App\Models\Torrent $id
      * @param null                $rsskey
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function download(Request $request, Torrent $id, $rsskey = null): \Illuminate\Http\RedirectResponse
     {
@@ -1459,9 +1445,7 @@ class TorrentController extends Controller
     /**
      * Bump A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function bumpTorrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1496,9 +1480,7 @@ class TorrentController extends Controller
     /**
      * Sticky A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function sticky(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1516,9 +1498,7 @@ class TorrentController extends Controller
     /**
      * 100% Freeleech A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function grantFL(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1551,9 +1531,7 @@ class TorrentController extends Controller
     /**
      * Feature A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function grantFeatured(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1627,9 +1605,7 @@ class TorrentController extends Controller
     /**
      * Double Upload A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function grantDoubleUp(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1660,9 +1636,7 @@ class TorrentController extends Controller
     /**
      * Reseed Request A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function reseedTorrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -1694,9 +1668,7 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function freeleechToken(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
