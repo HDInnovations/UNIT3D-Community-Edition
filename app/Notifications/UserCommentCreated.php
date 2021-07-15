@@ -26,7 +26,7 @@ class UserCommentCreated extends Notification
      * Create a new notification instance.
      *
      *
-     * @return mixed
+     * @return void
      */
     public function __construct(private Comment $comment)
     {

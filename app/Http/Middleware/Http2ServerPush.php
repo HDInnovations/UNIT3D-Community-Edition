@@ -158,7 +158,8 @@ class Http2ServerPush
     /**
      * Add Link Header.
      *
-     * @param $link
+     * @param \Illuminate\Http\Response $response
+     * @param                           $link
      */
     private function addLinkHeader(Response $response, $link): void
     {

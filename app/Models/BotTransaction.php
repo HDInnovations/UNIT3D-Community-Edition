@@ -95,7 +95,7 @@ class BotTransaction extends Model
     /**
      * Get the Bot transaction type answer as string.
      *
-     * @return int
+     * @return string
      */
     public function forHumans()
     {

@@ -133,7 +133,7 @@ class Topic extends Model
      * @param $topic
      * @param $post
      *
-     * @return string
+     * @return void
      */
     public function notifySubscribers($poster, $topic, $post): ?string
     {
@@ -158,7 +158,7 @@ class Topic extends Model
      * @param $topic
      * @param $post
      *
-     * @return string
+     * @return void
      */
     public function notifyStaffers($poster, $topic, $post): ?string
     {
@@ -211,7 +211,7 @@ class Topic extends Model
      *
      * @param $searchId
      *
-     * @return string
+     * @return int
      */
     public function postNumberFromId($searchId)
     {

@@ -40,7 +40,9 @@ class RegisterController extends Controller
     /**
      * Registration Form.
      *
-     * @param $code
+     * @param null $code
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {

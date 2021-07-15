@@ -25,7 +25,10 @@ class NewRequestBounty extends Notification implements ShouldQueue
     /**
      * NewRequestBounty Constructor.
      *
-     * @param $amount
+     * @param string                     $type
+     * @param string                     $sender
+     * @param                            $amount
+     * @param \App\Models\TorrentRequest $torrentRequest
      */
     public function __construct(public string $type, public string $sender, public $amount, public TorrentRequest $torrentRequest)
     {

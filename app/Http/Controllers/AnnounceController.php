@@ -60,9 +60,9 @@ class AnnounceController extends Controller
      *
      * @param \App\Models\User $passkey
      *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Exception
      *
-     * @return string
      */
     public function index(Request $request, $passkey)
     {
@@ -271,6 +271,7 @@ class AnnounceController extends Controller
      * @param $passkey
      * @param $queries
      *
+     * @return object
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkUser($passkey, $queries): object
@@ -314,6 +315,7 @@ class AnnounceController extends Controller
     /**
      * @param $infoHash
      *
+     * @return object
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkTorrent($infoHash): object
@@ -406,7 +408,7 @@ class AnnounceController extends Controller
      * @param $torrent
      * @param $user
      *
-     * @throws \Exception
+     * @return array
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
@@ -477,6 +479,8 @@ class AnnounceController extends Controller
 
     /**
      * @param $repDict
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory | \Illuminate\Http\Response
     {
@@ -491,6 +495,7 @@ class AnnounceController extends Controller
      * @param     $compact
      * @param     $noPeerId
      * @param int $filterFlag
+     * @return string|array
      */
     private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string | array
     {

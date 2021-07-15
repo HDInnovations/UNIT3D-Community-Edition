@@ -55,7 +55,8 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Collection.
      *
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -640,7 +641,8 @@ class CommentController extends Controller
     /**
      * Edit A Comment.
      *
-     * @param $commentId
+     * @param \Illuminate\Http\Request $request
+     * @param                          $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -669,7 +671,8 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
-     * @param $commentId
+     * @param \Illuminate\Http\Request $request
+     * @param                          $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */

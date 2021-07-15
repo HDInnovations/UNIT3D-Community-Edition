@@ -71,6 +71,7 @@ trait Auditable
      * @param array $old
      * @param array $new
      *
+     * @return false|string
      * @throws \JsonException
      */
     protected static function generate($action, $old = [], $new = []): false | string

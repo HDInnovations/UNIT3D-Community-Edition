@@ -101,9 +101,8 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param $id
-     *
-     * @throws \Exception
+     * @param \App\Http\Requests\StorePoll $storePoll
+     * @param                              $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -877,7 +877,13 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \App\Models\Torrent $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \JsonException
+     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
+     * @throws \ReflectionException
      */
     public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -1169,7 +1175,9 @@ class TorrentController extends Controller
      * Preview torrent description.
      *
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -1579,8 +1587,8 @@ class TorrentController extends Controller
     /**
      * UnFeature A Torrent.
      *
-     * @param \App\Models\Torrent $id
-     * @param \App\Models\FeaturedTorrent torrent_id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

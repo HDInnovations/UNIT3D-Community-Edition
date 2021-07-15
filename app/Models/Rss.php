@@ -114,7 +114,7 @@ class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      *
-     * @return string
+     * @return false|object
      */
     public function getObjectTorrentAttribute()
     {

@@ -30,6 +30,8 @@ class PersonController extends Controller
      * Show A Person.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

@@ -40,9 +40,9 @@ class AutoFlushPeers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @return void
+     *@throws \Exception
      *
-     * @return mixed
      */
     public function handle()
     {

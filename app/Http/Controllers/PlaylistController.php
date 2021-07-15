@@ -233,6 +233,8 @@ class PlaylistController extends Controller
      * Download All Playlist Torrents.
      *
      * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {

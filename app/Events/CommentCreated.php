@@ -30,7 +30,7 @@ class CommentCreated
      * Create a new event instance.
      *
      *
-     * @return mixed
+     * @return void
      */
     public function __construct(public Comment $comment, public User $user)
     {

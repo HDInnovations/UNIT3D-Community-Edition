@@ -55,7 +55,7 @@ class SystemBot
      *
      * @param $output
      *
-     * @return mixed
+     * @return array|string|string[]
      */
     public function replaceVars($output)
     {
@@ -141,9 +141,10 @@ class SystemBot
     /**
      * Process Message.
      *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
+     * @param                  $type
+     * @param \App\Models\User $user
+     * @param string           $message
+     * @param int              $targeted
      *
      * @return bool
      */

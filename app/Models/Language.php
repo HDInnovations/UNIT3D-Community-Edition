@@ -24,7 +24,7 @@ class Language
      *
      * @param string $code
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public static function flag($code = 'default')
     {
@@ -43,7 +43,7 @@ class Language
      *
      * @param string $locale
      *
-     * @return mixed
+     * @return string
      */
     public static function country($locale = 'default')
     {
@@ -61,7 +61,7 @@ class Language
     /**
      * Get all flags view.
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public static function flags()
     {

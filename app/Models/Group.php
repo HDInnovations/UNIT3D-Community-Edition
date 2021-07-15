@@ -127,7 +127,7 @@ class Group extends Model
      * @param $object
      * @param $groupId
      *
-     * @return int
+     * @return bool
      */
     public function isAllowed($object, $groupId)
     {

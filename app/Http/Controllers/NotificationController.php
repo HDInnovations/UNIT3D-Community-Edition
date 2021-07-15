@@ -35,9 +35,9 @@ class NotificationController extends Controller
      * Uses Input's To Put Together A Search.
      *
      *
-     * @throws \Throwable
+     * @return string
+     *@throws \Throwable
      *
-     * @return array
      */
     public function faceted(Request $request): array
     {

@@ -33,6 +33,8 @@ class TvSeasonController extends Controller
      * Show A TV Season.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

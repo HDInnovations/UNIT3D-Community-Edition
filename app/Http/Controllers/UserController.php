@@ -1146,9 +1146,9 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      *
-     * @throws \Throwable
+     * @return false|string
+     *@throws \Throwable
      *
-     * @return array
      */
     public function myFilter(Request $request, $username)
     {

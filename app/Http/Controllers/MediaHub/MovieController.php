@@ -31,7 +31,10 @@ class MovieController extends Controller
     /**
      * Show A Movie.
      *
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

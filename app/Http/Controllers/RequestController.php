@@ -63,7 +63,13 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      *
+     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \JsonException
+     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
+     * @throws \ReflectionException
      */
     public function request(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

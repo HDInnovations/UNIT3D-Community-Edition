@@ -108,7 +108,7 @@ class TorrentTools
      *
      * @param $decodedTorrent
      *
-     * @return mixed
+     * @return array
      */
     public static function getTorrentFiles($decodedTorrent)
     {

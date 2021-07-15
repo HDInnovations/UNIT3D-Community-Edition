@@ -590,7 +590,7 @@ class User extends Authenticatable
      * @param string $group
      * @param bool   $type
      *
-     * @return int
+     * @return bool
      */
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
     {
@@ -624,7 +624,7 @@ class User extends Authenticatable
      * @param string $group
      * @param bool   $type
      *
-     * @return int
+     * @return bool
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
     {
@@ -659,7 +659,7 @@ class User extends Authenticatable
      * @param string $group
      * @param bool   $type
      *
-     * @return int
+     * @return bool
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
     {
@@ -691,7 +691,8 @@ class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param $topicId
+     * @param string $type
+     * @param        $topicId
      *
      * @return string
      */
@@ -709,7 +710,7 @@ class User extends Authenticatable
      *
      * @param $targetId
      *
-     * @return string
+     * @return bool
      */
     public function isFollowing($targetId)
     {
@@ -897,7 +898,7 @@ class User extends Authenticatable
      *
      * Formats the seebonus of the User
      *
-     * @return decimal
+     * @return string
      */
     public function getSeedbonus(): decimal
     {

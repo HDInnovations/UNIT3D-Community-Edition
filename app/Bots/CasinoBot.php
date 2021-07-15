@@ -60,7 +60,7 @@ class CasinoBot
      *
      * @param $output
      *
-     * @return mixed
+     * @return array|string|string[]
      */
     public function replaceVars($output)
     {
@@ -158,13 +158,13 @@ class CasinoBot
     /**
      * Process Message.
      *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
-     *
-     * @throws \Exception
+     * @param                  $type
+     * @param \App\Models\User $user
+     * @param string           $message
+     * @param int              $targeted
      *
      * @return bool
+     * @throws \Exception
      */
     public function process($type, User $user, $message = '', $targeted = 0): bool
     {
