@@ -49,7 +49,7 @@ class NewComment extends Notification
      */
     public function toArray($notifiable)
     {
-        if ($this->type == 'torrent') {
+        if ($this->type === 'torrent') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Torrent Comment Received',

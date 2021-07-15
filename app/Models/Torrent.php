@@ -429,7 +429,7 @@ class Torrent extends Model
      */
     public function notifyUploader($type, $payload)
     {
-        if ($type == 'thank') {
+        if ($type === 'thank') {
             $user = User::with('notification')->findOrFail($this->user_id);
             if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));

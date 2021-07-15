@@ -328,7 +328,7 @@ class TorrentController extends Controller
         $leeching = null;
         $idling = null;
 
-        if ($request->has('view') && $request->input('view') == 'group') {
+        if ($request->has('view') && $request->input('view') === 'group') {
             $collection = 1;
         }
         if ($request->has('notdownloaded') && $request->input('notdownloaded') != null) {
@@ -414,7 +414,7 @@ class TorrentController extends Controller
             // $order = 'asc';
         }
 
-        $direction = $order == 'asc' ? 1 : 2;
+        $direction = $order === 'asc' ? 1 : 2;
 
         $qty = $request->has('qty') ? $request->input('qty') : 25;
 
@@ -781,7 +781,7 @@ class TorrentController extends Controller
                 }
             }
         }
-        if ($request->has('view') && $request->input('view') == 'card') {
+        if ($request->has('view') && $request->input('view') === 'card') {
             if ($logger == null) {
                 $logger = 'torrent.results_cards';
             }
@@ -1206,7 +1206,7 @@ class TorrentController extends Controller
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
 
-        if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() != 'torrent') {
+        if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() !== 'torrent') {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }

@@ -180,7 +180,7 @@ class ChatController extends Controller
             $target = 'system';
             $message = '/bot gift'.\substr($message, \strlen($trip) + 1, \strlen($message));
         }
-        if ($target == 'system') {
+        if ($target === 'system') {
             $runbot = new SystemBot($this->chatRepository);
         }
         if ($which == null) {
@@ -210,7 +210,7 @@ class ChatController extends Controller
             }
         }
 
-        if ($which != null && $which != 'skip' && ! $runbot) {
+        if ($which != null && $which !== 'skip' && ! $runbot) {
             if ($bot->is_systembot) {
                 $runbot = new SystemBot($this->chatRepository);
             } elseif ($bot->is_nerdbot) {

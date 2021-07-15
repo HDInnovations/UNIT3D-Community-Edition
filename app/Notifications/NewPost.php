@@ -51,7 +51,7 @@ class NewPost extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        if ($this->type == 'subscription') {
+        if ($this->type === 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',
                 'body'  => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
@@ -59,7 +59,7 @@ class NewPost extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'staff') {
+        if ($this->type === 'staff') {
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum Topic',
                 'body'  => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,

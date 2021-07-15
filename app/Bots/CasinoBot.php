@@ -169,7 +169,7 @@ class CasinoBot
     public function process($type, User $user, $message = '', $targeted = 0)
     {
         $this->target = $user;
-        if ($type == 'message') {
+        if ($type === 'message') {
             $x = 0;
             $y = 1;
             $z = 2;
@@ -224,7 +224,7 @@ class CasinoBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
+        if ($type === 'message' || $type === 'private') {
             $receiverDirty = 0;
             $receiverEchoes = \cache()->get('user-echoes'.$target->id);
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
@@ -281,7 +281,7 @@ class CasinoBot
 
             return \response('success');
         }
-        if ($type == 'echo') {
+        if ($type === 'echo') {
             if ($txt != '') {
                 $roomId = 0;
                 $message = $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
@@ -290,7 +290,7 @@ class CasinoBot
             return \response('success');
         }
 
-        if ($type == 'public') {
+        if ($type === 'public') {
             if ($txt != '') {
                 $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
