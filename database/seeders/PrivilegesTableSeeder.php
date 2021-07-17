@@ -39,6 +39,7 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'torrent_can_internal', 'name' => 'torrent_can_internal'],
             ['slug' => 'torrent_can_freeleech', 'name' => 'torrent_can_freeleech'],
             ['slug' => 'torrent_can_doubleupload', 'name' => 'torrent_can_doubleupload'],
+            ['slug' => 'torrent_can_sticky', 'name' => 'torrent_can_sticky'],
             ['slug' => 'torrent_can_feature', 'name' => 'torrent_can_feature'],
             ['slug' => 'request_can_viewAny', 'name' => 'request_can_viewAny'],
             ['slug' => 'request_can_view', 'name' => 'request_can_view'],

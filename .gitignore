@@ -46,3 +46,7 @@ _ide_helper.php
 storage/debugbar/
 
 config/ignition.php
+
+_ide_helper_models.php
+
+supervisord.pid
