@@ -14,7 +14,7 @@ class AddPersonalReleaseToTorrentsTable extends Migration
     public function up()
     {
         Schema::table('torrents', function (Blueprint $table) {
-            $table->integer('personal_release')->index();
+            $table->integer('personal_release')->default('0')->index();
         });
     }
 }
