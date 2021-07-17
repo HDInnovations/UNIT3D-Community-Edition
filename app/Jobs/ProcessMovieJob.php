@@ -14,6 +14,7 @@
 namespace App\Jobs;
 
 use App\Models\Cast;
+use App\Models\Person;
 use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Crew;
@@ -107,6 +108,7 @@ class ProcessMovieJob implements ShouldQueue
         if (isset($this->movie['credits']['cast'])) {
             foreach ($this->movie['credits']['cast'] as $cast) {
                 Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
+                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
             }
         }
 

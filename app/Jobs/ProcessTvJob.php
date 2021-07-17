@@ -115,17 +115,16 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        foreach ($this->tv['credits']['crew'] as $crew) {
-            if (isset($crew['id'])) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
-                Person::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
+        if (isset($this->tv['credits']['cast'])) {
+            foreach ($this->tv['credits']['cast'] as $cast) {
+                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
+                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
             }
         }
 
-        foreach ($this->tv['credits']['cast'] as $cast) {
-            if (isset($cast['id'])) {
-                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->tv()->syncWithoutDetaching([$this->id]);
-                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->tv()->syncWithoutDetaching([$this->id]);
+        if (isset($this->tv['credits']['crew'])) {
+            foreach ($this->tv['credits']['crew'] as $crew) {
+                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->tv['id']]);
             }
         }
 
