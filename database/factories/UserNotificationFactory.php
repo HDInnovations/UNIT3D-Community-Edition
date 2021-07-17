@@ -25,9 +25,7 @@ class UserNotificationFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id'                      => fn () => User::factory()->create()->id,
             'show_bon_gift'                => $this->faker->boolean,
             'show_mention_forum_post'      => $this->faker->boolean,
             'show_mention_article_comment' => $this->faker->boolean,

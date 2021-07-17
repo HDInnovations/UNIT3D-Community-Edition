@@ -33,9 +33,7 @@ class Movie extends Model
      */
     public function cast()
     {
-        return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id')
-            ->orderBy('movie_id')
-            ->take(6);
+        return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id');
     }
 
     /**
@@ -68,6 +66,14 @@ class Movie extends Model
     public function collection()
     {
         return $this->belongsToMany(Collection::class)->take(1);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class, 'movie_id', 'id');
     }
 
     /**

@@ -45,14 +45,4 @@ class CreateTopicsTable extends Migration
             $table->integer('forum_id')->index('fk_topics_forums1_idx');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('topics');
-    }
 }

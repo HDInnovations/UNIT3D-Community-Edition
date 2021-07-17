@@ -34,14 +34,4 @@ class CreateNotificationsTable extends Migration
             $table->index(['notifiable_id', 'notifiable_type']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('notifications');
-    }
 }

@@ -38,16 +38,4 @@ class CreateBotTransactionsTable extends Migration
             $table->foreign('bot_id')->references('id')->on('bots')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('bot_transactions', function (Blueprint $table) {
-            $table->dropIfExists('bot_transactions');
-        });
-    }
 }

@@ -36,7 +36,7 @@ class TV
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
                     'language'           => \config('app.locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids',
+                    'append_to_response' => 'videos,images,credits,external_ids,recommendations',
                 ],
             ]
         );
@@ -196,7 +196,7 @@ class TV
     public function get_videos()
     {
         if ($this->data['videos']['results']) {
-            return 'https://www.youtube.com/embed/'.$this->data['videos']['results'];
+            return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'];
         }
 
         return null;

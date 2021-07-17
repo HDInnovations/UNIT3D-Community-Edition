@@ -28,16 +28,4 @@ class AddTwoStepToUsersTable extends Migration
             $table->boolean('twostep')->default(0)->after('stat_hidden');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

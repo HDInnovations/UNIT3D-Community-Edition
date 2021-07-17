@@ -28,16 +28,4 @@ class AddAnonToRequestBountyTable extends Migration
             $table->boolean('anon')->default(0)->after('requests_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('request_bounty', function (Blueprint $table) {
-            //
-        });
-    }
 }

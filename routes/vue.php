@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,47 +20,47 @@
 |--------------------------------------------------------------------------
 */
 
-Route::namespace('API')->group(function () {
+Route::group(['middleware' => ['auth', 'banned']], function () {
     Route::prefix('chat')->group(function () {
-        Route::get('/config', 'ChatController@config');
+        Route::get('/config', [App\Http\Controllers\API\ChatController::class, 'config']);
 
         Route::get('/permissions', 'ChatController@permissions');
 
         /* Statuses */
-        Route::get('/statuses', 'ChatController@statuses');
+        Route::get('/statuses', [App\Http\Controllers\API\ChatController::class, 'statuses']);
 
         /* Rooms */
-        Route::get('/rooms', 'ChatController@rooms');
+        Route::get('/rooms', [App\Http\Controllers\API\ChatController::class, 'rooms']);
 
         /* Bots */
-        Route::get('/bots', 'ChatController@bots');
+        Route::get('/bots', [App\Http\Controllers\API\ChatController::class, 'bots']);
 
         /* Audibles */
-        Route::get('/audibles', 'ChatController@audibles');
-        Route::post('/audibles/{user_id}/toggle/chatroom', 'ChatController@toggleRoomAudible');
-        Route::post('/audibles/{user_id}/toggle/target', 'ChatController@toggleTargetAudible');
-        Route::post('/audibles/{user_id}/toggle/bot', 'ChatController@toggleBotAudible');
+        Route::get('/audibles', [App\Http\Controllers\API\ChatController::class, 'audibles']);
+        Route::post('/audibles/{user_id}/toggle/chatroom', [App\Http\Controllers\API\ChatController::class, 'toggleRoomAudible']);
+        Route::post('/audibles/{user_id}/toggle/target', [App\Http\Controllers\API\ChatController::class, 'toggleTargetAudible']);
+        Route::post('/audibles/{user_id}/toggle/bot', [App\Http\Controllers\API\ChatController::class, 'toggleBotAudible']);
 
         /* Echoes */
-        Route::get('/echoes', 'ChatController@echoes');
-        Route::post('/echoes/{user_id}/delete/chatroom', 'ChatController@deleteRoomEcho');
-        Route::post('/echoes/{user_id}/delete/target', 'ChatController@deleteTargetEcho');
-        Route::post('/echoes/{user_id}/delete/bot', 'ChatController@deleteBotEcho');
+        Route::get('/echoes', [App\Http\Controllers\API\ChatController::class, 'echoes']);
+        Route::post('/echoes/{user_id}/delete/chatroom', [App\Http\Controllers\API\ChatController::class, 'deleteRoomEcho']);
+        Route::post('/echoes/{user_id}/delete/target', [App\Http\Controllers\API\ChatController::class, 'deleteTargetEcho']);
+        Route::post('/echoes/{user_id}/delete/bot', [App\Http\Controllers\API\ChatController::class, 'deleteBotEcho']);
 
         /* Messages */
-        Route::post('/messages', 'ChatController@createMessage');
-        Route::get('/message/{id}/delete', 'ChatController@deleteMessage');
-        Route::get('/messages/{room_id}', 'ChatController@messages');
+        Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'createMessage']);
+        Route::get('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
+        Route::get('/messages/{room_id}', [App\Http\Controllers\API\ChatController::class, 'messages']);
 
         /* Private Stuff */
-        Route::get('/private/messages/{target_id}', 'ChatController@privateMessages');
+        Route::get('/private/messages/{target_id}', [App\Http\Controllers\API\ChatController::class, 'privateMessages']);
 
         /* Bot Stuff */
-        Route::get('/bot/{bot_id}', 'ChatController@botMessages');
+        Route::get('/bot/{bot_id}', [App\Http\Controllers\API\ChatController::class, 'botMessages']);
 
         /* Users */
-        Route::post('/user/{id}/target', 'ChatController@updateUserTarget');
-        Route::post('/user/{id}/chatroom', 'ChatController@updateUserRoom');
-        Route::post('/user/{id}/status', 'ChatController@updateUserChatStatus');
+        Route::post('/user/{id}/target', [App\Http\Controllers\API\ChatController::class, 'updateUserTarget']);
+        Route::post('/user/{id}/chatroom', [App\Http\Controllers\API\ChatController::class, 'updateUserRoom']);
+        Route::post('/user/{id}/status', [App\Http\Controllers\API\ChatController::class, 'updateUserChatStatus']);
     });
 });

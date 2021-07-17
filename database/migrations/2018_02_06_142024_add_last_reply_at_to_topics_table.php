@@ -28,16 +28,4 @@ class AddLastReplyAtToTopicsTable extends Migration
             $table->timestamp('last_reply_at')->nullable()->after('last_post_user_username');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('topics', function (Blueprint $table) {
-            //
-        });
-    }
 }

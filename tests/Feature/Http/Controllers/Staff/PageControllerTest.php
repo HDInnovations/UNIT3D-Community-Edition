@@ -21,13 +21,11 @@ class PageControllerTest extends TestCase
     protected function createStaffUser()
     {
         return User::factory()->create([
-            'group_id' => function () {
-                return Group::factory()->create([
-                    'is_owner' => true,
-                    'is_admin' => true,
-                    'is_modo'  => true,
-                ])->id;
-            },
+            'group_id' => fn () => Group::factory()->create([
+                'is_owner' => true,
+                'is_admin' => true,
+                'is_modo'  => true,
+            ])->id,
         ]);
     }
 

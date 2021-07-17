@@ -28,16 +28,4 @@ class AddChatStatusIdToUsersTable extends Migration
             $table->integer('chat_status_id')->unsigned()->default(1);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('chat_status_id');
-        });
-    }
 }

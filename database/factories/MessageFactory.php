@@ -27,19 +27,11 @@ class MessageFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'chatroom_id' => function () {
-                return Chatroom::factory()->create()->id;
-            },
-            'receiver_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'bot_id' => function () {
-                return Bot::factory()->create()->id;
-            },
-            'message' => $this->faker->text,
+            'user_id'     => fn () => User::factory()->create()->id,
+            'chatroom_id' => fn () => Chatroom::factory()->create()->id,
+            'receiver_id' => fn () => User::factory()->create()->id,
+            'bot_id'      => fn () => Bot::factory()->create()->id,
+            'message'     => $this->faker->text,
         ];
     }
 }

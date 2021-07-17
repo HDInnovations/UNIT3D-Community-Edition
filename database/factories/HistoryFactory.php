@@ -26,13 +26,9 @@ class HistoryFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'agent'     => $this->faker->word,
-            'info_hash' => function () {
-                return Torrent::factory()->create()->id;
-            },
+            'user_id'           => fn () => User::factory()->create()->id,
+            'agent'             => $this->faker->word,
+            'info_hash'         => fn () => Torrent::factory()->create()->id,
             'uploaded'          => $this->faker->randomNumber(),
             'actual_uploaded'   => $this->faker->randomNumber(),
             'client_uploaded'   => $this->faker->randomNumber(),

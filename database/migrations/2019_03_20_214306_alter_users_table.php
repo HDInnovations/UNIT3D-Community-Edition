@@ -28,16 +28,4 @@ class AlterUsersTable extends Migration
             $table->boolean('read_rules')->default(0)->index()->after('ratings');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

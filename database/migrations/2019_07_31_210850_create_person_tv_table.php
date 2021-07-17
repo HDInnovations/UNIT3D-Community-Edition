@@ -19,14 +19,4 @@ class CreatePersonTvTable extends Migration
             $table->primary(['person_id', 'tv_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('person_tv');
-    }
 }

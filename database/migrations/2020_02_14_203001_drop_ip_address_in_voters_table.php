@@ -17,16 +17,4 @@ class DropIpAddressInVotersTable extends Migration
             $table->dropColumn('ip_address');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('voters', function (Blueprint $table) {
-            $table->string('ip_address')->default('dbRollback');
-        });
-    }
 }

@@ -33,14 +33,4 @@ class CreatePermissionsTable extends Migration
             $table->boolean('start_topic');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('permissions');
-    }
 }

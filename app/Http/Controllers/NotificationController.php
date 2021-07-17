@@ -23,12 +23,8 @@ class NotificationController extends Controller
 {
     /**
      * Show All Notifications.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $notifications = $request->user()->notifications()->paginate(25);
 
@@ -38,7 +34,6 @@ class NotificationController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Throwable
      *
@@ -79,7 +74,7 @@ class NotificationController extends Controller
         }
 
         if ($request->has('request_bounties') && $request->input('request_bounties') != null) {
-            $notification->where('type', '=', 'App\Notifications\NewRequestCounty');
+            $notification->where('type', '=', \App\Notifications\NewRequestBounty::class);
         }
 
         if ($request->has('request_claims') && $request->input('request_claims') != null) {
@@ -119,7 +114,7 @@ class NotificationController extends Controller
         }
 
         if ($request->has('unfollows') && $request->input('unfollows') != null) {
-            $notification->where('type', '=', 'App\Notifications\NewUnfollowt');
+            $notification->where('type', '=', \App\Notifications\NewUnfollow::class);
         }
 
         if ($request->has('uploads') && $request->input('uploads') != null) {
@@ -137,7 +132,6 @@ class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Notification $id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -154,7 +148,6 @@ class NotificationController extends Controller
     /**
      * Set A Notification To Read.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Notification $id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -182,7 +175,6 @@ class NotificationController extends Controller
     /**
      * Mass Update All Notification's To Read.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
      *
@@ -200,7 +192,6 @@ class NotificationController extends Controller
     /**
      * Delete A Notification.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Notification $id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -216,7 +207,6 @@ class NotificationController extends Controller
     /**
      * Mass Delete All Notification's.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

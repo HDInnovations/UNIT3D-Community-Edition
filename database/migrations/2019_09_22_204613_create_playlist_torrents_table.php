@@ -34,14 +34,4 @@ class CreatePlaylistTorrentsTable extends Migration
             $table->unique(['playlist_id', 'torrent_id', 'tmdb_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('playlist_torrents');
-    }
 }

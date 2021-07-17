@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\Providers\TicketCreated;
+use App\Events\TicketCreated;
 
 class NotifyUserTicketWasCreated
 {

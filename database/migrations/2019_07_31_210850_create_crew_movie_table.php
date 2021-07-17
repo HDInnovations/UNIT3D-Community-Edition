@@ -19,14 +19,4 @@ class CreateCrewMovieTable extends Migration
             $table->primary(['movie_id', 'person_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('crew_movie');
-    }
 }

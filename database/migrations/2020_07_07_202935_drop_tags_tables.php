@@ -15,14 +15,4 @@ class DropTagsTables extends Migration
         Schema::dropIfExists('tags');
         Schema::dropIfExists('tag_torrent');
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 }

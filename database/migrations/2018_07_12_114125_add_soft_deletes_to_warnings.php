@@ -29,16 +29,4 @@ class AddSoftDeletesToWarnings extends Migration
             $table->softDeletes()->after('deleted_by');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('warnings', function (Blueprint $table) {
-            //
-        });
-    }
 }

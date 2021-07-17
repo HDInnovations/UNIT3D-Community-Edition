@@ -28,16 +28,4 @@ class AddChatHiddenToUsersTable extends Migration
             $table->boolean('chat_hidden')->default(0)->after('censor');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('chat_hidden', function (Blueprint $table) {
-            //
-        });
-    }
 }

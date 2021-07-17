@@ -27,9 +27,7 @@ class TorrentFileFactory extends Factory
         return [
             'name'       => $this->faker->name,
             'size'       => $this->faker->randomNumber(),
-            'torrent_id' => function () {
-                return Torrent::factory()->create()->id;
-            },
+            'torrent_id' => fn () => Torrent::factory()->create()->id,
         ];
     }
 }

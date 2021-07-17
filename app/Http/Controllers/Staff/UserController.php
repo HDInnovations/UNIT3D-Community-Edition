@@ -46,10 +46,8 @@ class UserController extends Controller
 
     /**
      * Users List.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.user.index');
     }
@@ -58,10 +56,8 @@ class UserController extends Controller
      * User Edit Form.
      *
      * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($username)
+    public function settings($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -77,8 +73,7 @@ class UserController extends Controller
     /**
      * Edit A User.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -112,8 +107,7 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -142,20 +136,14 @@ class UserController extends Controller
     /**
      * Edit A Users Password.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function password(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = $request->user();
-
-        if (! $staff->hasPrivilegeTo('users_edit_security') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
-            return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You Are Not Authorized To Perform This Action!');
-        }
+        $staff = \auth()->user();
 
         $newPassword = $request->input('new_password');
         $user->password = Hash::make($newPassword);
@@ -175,7 +163,7 @@ class UserController extends Controller
     protected function destroy(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = $request->user();
+        $staff = \auth()->user();
 
         \abort_if($user->primaryRole->position >= 900 || $staff->id == $user->id, 403);
 

@@ -25,9 +25,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id'     => fn () => User::factory()->create()->id,
             'album_id'    => $this->faker->randomNumber(),
             'image'       => $this->faker->word,
             'description' => $this->faker->text,

@@ -33,14 +33,4 @@ class CreateArticlesTable extends Migration
             $table->integer('user_id')->index('fk_articles_users1_idx');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('articles');
-    }
 }

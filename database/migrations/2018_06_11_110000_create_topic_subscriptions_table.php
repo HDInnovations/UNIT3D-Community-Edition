@@ -32,14 +32,4 @@ class CreateTopicSubscriptionsTable extends Migration
             $table->unique(['user_id', 'topic_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('topic_subscriptions');
-    }
 }

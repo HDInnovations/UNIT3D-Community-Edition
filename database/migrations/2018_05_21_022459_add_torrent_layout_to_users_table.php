@@ -28,16 +28,4 @@ class AddTorrentLayoutToUsersTable extends Migration
             $table->boolean('torrent_layout')->default(0)->after('nav');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('torrent_layout');
-        });
-    }
 }

@@ -30,7 +30,6 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      *
      * @return void
      */
@@ -58,6 +57,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:correct_history')->daily();
         $schedule->command('auto:sync_peers')->daily();
         $schedule->command('auto:email-blacklist-update')->weekends();
+        $schedule->command('auto:reset_user_flushes')->daily();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();

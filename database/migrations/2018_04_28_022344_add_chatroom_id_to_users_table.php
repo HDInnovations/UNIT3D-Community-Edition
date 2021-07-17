@@ -28,16 +28,4 @@ class AddChatroomIdToUsersTable extends Migration
             $table->integer('chatroom_id')->unsigned()->default(1)->after('rsskey');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
 }

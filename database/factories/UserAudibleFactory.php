@@ -27,19 +27,11 @@ class UserAudibleFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'room_id' => function () {
-                return Chatroom::factory()->create()->id;
-            },
-            'target_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'bot_id' => function () {
-                return Bot::factory()->create()->id;
-            },
-            'status' => $this->faker->boolean,
+            'user_id'   => fn () => User::factory()->create()->id,
+            'room_id'   => fn () => Chatroom::factory()->create()->id,
+            'target_id' => fn () => User::factory()->create()->id,
+            'bot_id'    => fn () => Bot::factory()->create()->id,
+            'status'    => $this->faker->boolean,
         ];
     }
 }

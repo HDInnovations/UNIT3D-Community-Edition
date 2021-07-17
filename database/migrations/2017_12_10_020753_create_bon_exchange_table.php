@@ -33,14 +33,4 @@ class CreateBonExchangeTable extends Migration
             $table->boolean('invite')->default(0);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('bon_exchange');
-    }
 }

@@ -21,7 +21,9 @@ use App\Models\Genre;
 use App\Models\GuestStar;
 use App\Models\Network;
 use App\Models\Person;
+use App\Models\Recommendation;
 use App\Models\Season;
+use App\Models\Tv;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
@@ -92,23 +94,37 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
+        if (isset($this->tv['recommendations'])) {
+            foreach ($this->tv['recommendations']['results'] as $recommendation) {
+                if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    $new = new Recommendation();
+                    $new->recommendation_tv_id = $recommendation['id'];
+                    $new->tv_id = $this->tv['id'];
+                    $new->title = $recommendation['name'];
+                    $new->vote_average = $recommendation['vote_average'];
+                    $new->poster = $tmdb->image('poster', $recommendation);
+                    $new->first_air_date = $recommendation['first_air_date'];
+                    $new->save();
+                }
+            }
+        }
+
         foreach ($this->tv['genres'] as $genre) {
             if (isset($genre['name'])) {
                 Genre::updateOrCreate(['id' => $genre['id']], $genre)->tv()->syncWithoutDetaching([$this->id]);
             }
         }
 
-        foreach ($this->tv['credits']['crew'] as $crew) {
-            if (isset($crew['id'])) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
-                Person::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
+        if (isset($this->tv['credits']['cast'])) {
+            foreach ($this->tv['credits']['cast'] as $cast) {
+                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
+                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
             }
         }
 
-        foreach ($this->tv['credits']['cast'] as $cast) {
-            if (isset($cast['id'])) {
-                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->tv()->syncWithoutDetaching([$this->id]);
-                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->tv()->syncWithoutDetaching([$this->id]);
+        if (isset($this->tv['credits']['crew'])) {
+            foreach ($this->tv['credits']['crew'] as $crew) {
+                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->tv['id']]);
             }
         }
 

@@ -31,14 +31,4 @@ class CreateFailedLoginAttemptsTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('failed_login_attempts');
-    }
 }

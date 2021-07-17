@@ -28,16 +28,4 @@ class AddInternalToTorrentsTable extends Migration
             $table->boolean('internal')->default(0)->after('sd');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            //
-        });
-    }
 }

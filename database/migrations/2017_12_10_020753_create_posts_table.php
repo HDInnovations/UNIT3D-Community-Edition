@@ -31,14 +31,4 @@ class CreatePostsTable extends Migration
             $table->integer('topic_id')->index('fk_posts_topics1_idx');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('posts');
-    }
 }

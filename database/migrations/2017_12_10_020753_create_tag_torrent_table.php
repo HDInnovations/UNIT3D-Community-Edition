@@ -29,14 +29,4 @@ class CreateTagTorrentTable extends Migration
             $table->primary(['torrent_id', 'tag_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('tag_torrent');
-    }
 }

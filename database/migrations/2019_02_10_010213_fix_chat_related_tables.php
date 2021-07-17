@@ -35,16 +35,4 @@ class FixChatRelatedTables extends Migration
             $table->integer('target_id')->change();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('user_echoes', function (Blueprint $table) {
-            //
-        });
-    }
 }

@@ -17,16 +17,4 @@ class BdinfoToTorrentsTable extends Migration
             $table->longText('bdinfo')->nullable()->after('mediainfo');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('torrents', function (Blueprint $table) {
-            //
-        });
-    }
 }

@@ -29,9 +29,4 @@ class CreateAlbumsTable extends Migration
             $table->timestamps();
         });
     }
-
-    public function down()
-    {
-        Schema::dropIfExists('albums');
-    }
 }

@@ -25,10 +25,8 @@ class UserActivationFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'token' => $this->faker->uuid,
+            'user_id' => fn () => User::factory()->create()->id,
+            'token'   => $this->faker->uuid,
         ];
     }
 }

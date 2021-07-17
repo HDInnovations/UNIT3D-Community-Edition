@@ -34,14 +34,4 @@ class CreateBonTransactionsTable extends Migration
             $table->timestamp('date_actioned')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('bon_transactions');
-    }
 }

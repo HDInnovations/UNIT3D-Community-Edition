@@ -29,14 +29,4 @@ class CreatePasswordResetsTable extends Migration
             $table->dateTime('created_at')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('password_resets');
-    }
 }

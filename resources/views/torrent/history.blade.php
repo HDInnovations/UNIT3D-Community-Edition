@@ -25,11 +25,11 @@
     <div class="container">
         <h1 class="title">@lang('torrent.torrent') @lang('torrent.history')</h1>
         <div class="block">
-            <div class="">
-                <p class="lead">@lang('torrent.history') @lang('common.for')
-                    <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
-                </p>
-            </div>
+            <p class="lead">@lang('torrent.history') @lang('common.for')
+                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                <span class="badge-extra pull-right">Total Up: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_uploaded'), 2) }}</span>
+                <span class="badge-extra pull-right">Total Down: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_downloaded'), 2) }}</span>
+            </p>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
@@ -109,7 +109,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $history->links() }}
             </div>
         </div>
     </div>

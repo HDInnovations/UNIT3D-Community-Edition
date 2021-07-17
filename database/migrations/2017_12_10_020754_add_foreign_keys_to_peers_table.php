@@ -28,17 +28,4 @@ class AddForeignKeysToPeersTable extends Migration
             $table->foreign('user_id', 'fk_peers_users1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('peers', function (Blueprint $table) {
-            $table->dropForeign('fk_peers_torrents1');
-            $table->dropForeign('fk_peers_users1');
-        });
-    }
 }

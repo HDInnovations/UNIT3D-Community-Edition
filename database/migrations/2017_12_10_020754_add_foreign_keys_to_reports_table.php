@@ -28,17 +28,4 @@ class AddForeignKeysToReportsTable extends Migration
             $table->foreign('staff_id', 'foreign_staff_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropForeign('foreign_reporting_user_id');
-            $table->dropForeign('foreign_staff_user_id');
-        });
-    }
 }

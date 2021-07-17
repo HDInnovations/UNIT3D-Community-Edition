@@ -28,16 +28,4 @@ class AddTorrentFiltersToUsersTable extends Migration
             $table->boolean('torrent_filters')->default(0)->index()->after('torrent_layout');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('torrent_filters');
-        });
-    }
 }

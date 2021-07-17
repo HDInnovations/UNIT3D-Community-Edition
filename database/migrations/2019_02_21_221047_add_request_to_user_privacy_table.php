@@ -33,16 +33,4 @@ class AddRequestToUserPrivacyTable extends Migration
             $table->boolean('show_requested')->index()->default(1)->after('show_rank');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('user_privacy', function (Blueprint $table) {
-            //
-        });
-    }
 }

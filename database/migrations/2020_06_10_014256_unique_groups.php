@@ -17,16 +17,4 @@ class UniqueGroups extends Migration
             $table->unique('slug');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->dropUnique('groups_slug_unique');
-        });
-    }
 }

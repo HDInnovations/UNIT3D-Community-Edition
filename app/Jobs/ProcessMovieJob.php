@@ -18,7 +18,9 @@ use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Crew;
 use App\Models\Genre;
+use App\Models\Movie;
 use App\Models\Person;
+use App\Models\Recommendation;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Bus\Queueable;
@@ -88,14 +90,31 @@ class ProcessMovieJob implements ShouldQueue
             }
         }
 
-        foreach ($this->movie['credits']['cast'] as $person) {
-            if (isset($person['id'])) {
-                Cast::updateOrCreate(['id' => $person['id']], $tmdb->cast_array($person))->movie()->syncWithoutDetaching([$this->movie['id']]);
-                Person::updateOrCreate(['id' => $person['id']], $tmdb->person_array($person))->movie()->syncWithoutDetaching([$this->movie['id']]);
+        if (isset($this->movie['recommendations'])) {
+            foreach ($this->movie['recommendations']['results'] as $recommendation) {
+                if (Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    $new = new Recommendation();
+                    $new->recommendation_movie_id = $recommendation['id'];
+                    $new->movie_id = $this->movie['id'];
+                    $new->title = $recommendation['title'];
+                    $new->vote_average = $recommendation['vote_average'];
+                    $new->poster = $tmdb->image('poster', $recommendation);
+                    $new->release_date = $recommendation['release_date'];
+                    $new->save();
+                }
+            }
+        }
 
-                $client = new Client\Person($person['id']);
-                $people = $client->getData();
-                Crew::updateOrCreate(['id' => $people['id']], $tmdb->person_array($people))->movie()->syncWithoutDetaching([$this->movie['id']]);
+        if (isset($this->movie['credits']['cast'])) {
+            foreach ($this->movie['credits']['cast'] as $cast) {
+                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
+                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
+            }
+        }
+
+        if (isset($this->movie['credits']['crew'])) {
+            foreach ($this->movie['credits']['crew'] as $crew) {
+                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
             }
         }
     }

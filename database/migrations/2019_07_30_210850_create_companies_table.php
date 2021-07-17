@@ -23,14 +23,4 @@ class CreateCompaniesTable extends Migration
             $table->string('origin_country')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('companies');
-    }
 }

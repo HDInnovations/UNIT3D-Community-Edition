@@ -38,9 +38,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
     /**
      * ProcessCompletedAnnounceRequest Constructor.
      *
-     * @param                     $queries
-     * @param \App\Models\User    $user
-     * @param \App\Models\Torrent $torrent
+     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
@@ -104,7 +102,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == true || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
         } else {
             $modDownloaded = $downloaded;

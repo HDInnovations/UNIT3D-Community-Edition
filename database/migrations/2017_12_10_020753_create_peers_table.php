@@ -39,14 +39,4 @@ class CreatePeersTable extends Migration
             $table->integer('user_id')->nullable()->index('fk_peers_users1_idx');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('peers');
-    }
 }
