@@ -14,12 +14,12 @@
 namespace App\Jobs;
 
 use App\Models\Cast;
-use App\Models\Person;
 use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Crew;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Person;
 use App\Models\Recommendation;
 use App\Services\Tmdb\Client;
 use App\Services\Tmdb\TMDB;

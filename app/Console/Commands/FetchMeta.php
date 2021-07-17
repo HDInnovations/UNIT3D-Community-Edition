@@ -13,9 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Movie;
 use App\Models\Torrent;
-use App\Models\Tv;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Console\Command;
 
