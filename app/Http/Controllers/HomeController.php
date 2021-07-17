@@ -21,7 +21,6 @@ use App\Models\Group;
 use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
-use App\Models\Role;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;

@@ -34,14 +34,13 @@ class CheckIfBanned
         if (! $user->hasPrivilegeTo('can_login')) {
             \auth()->logout();
             $request->session()->flush();
-            if ( $user->hasRole('banned')){
+            if ($user->hasRole('banned')) {
                 return \redirect()->route('login')
                     ->withErrors('This account is Banned!');
-            } else {
-                return \redirect()->route('login')
-                    ->withErrors('Your account is not allowed to sign in. If you recently registered - Check your email for an Activation link.');
             }
 
+            return \redirect()->route('login')
+                    ->withErrors('Your account is not allowed to sign in. If you recently registered - Check your email for an Activation link.');
         }
 
         return $next($request);
