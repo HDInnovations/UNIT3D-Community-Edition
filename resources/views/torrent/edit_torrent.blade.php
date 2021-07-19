@@ -204,7 +204,7 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
-                    @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                    @if (auth()->user()->hasPrivilegeTo('torrent_can_personal_release') || auth()->user()->id === $torrent->user_id)
                     <label for="personal" class="control-label">Personal Release?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="personal_release" @if ($torrent->personal_release == 1) checked

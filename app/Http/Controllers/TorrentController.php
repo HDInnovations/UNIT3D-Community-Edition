@@ -946,7 +946,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_update') || $user->id == $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
             'categories'  => Category::all()->sortBy('position'),
