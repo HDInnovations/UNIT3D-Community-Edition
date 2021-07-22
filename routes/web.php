@@ -252,13 +252,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
         });
 
-        // Roles System
-        Route::group(['prefix' => 'roles'], function () {
-            Route::name('roles.')->group(function () {
-                Route::get('/', 'RoleController@index')->name('index');
-            });
-        });
-
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'uploadForm'])->name('upload_form');
@@ -867,17 +860,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Roles System
-        Route::group(['prefix' => 'roles'], function () {
-            Route::name('staff.roles.')->group(function () {
-                Route::get('/', 'RoleController@index')->name('index');
-                Route::get('/create', 'RoleController@create')->name('create');
-                Route::post('/store', 'RoleController@store')->name('store');
-                Route::get('/{id}/edit', 'RoleController@edit')->name('edit');
-                Route::post('/{id}/update', 'RoleController@update')->name('update');
-                Route::delete('/{id}/destroy', 'RoleController@destroy')->name('destroy');
-            });
-        });
 
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
