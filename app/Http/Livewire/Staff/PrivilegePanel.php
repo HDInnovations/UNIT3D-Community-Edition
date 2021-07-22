@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Staff;
 
-use App\Http\Livewire\CollectionSearch;
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\User;
@@ -26,17 +25,17 @@ class PrivilegePanel extends Component
 
     public function render()
     {
-        return \view('livewire.staff.privilege-panel',[
+        return \view('livewire.staff.privilege-panel', [
             'roles' => Role::query()
             ->with('Privileges')->get(),
             'privileges' => Privilege::all(),
-            'users' => User::query()
+            'users'      => User::query()
                 ->with(['primaryRole', 'privileges', 'roles'])
                 ->when($this->userSearch, function ($query) {
                     return $query->where('username', 'LIKE', '%'.$this->userSearch.'%')->orWhere('email', 'LIKE', '%'.$this->userSearch.'%');
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
         ]);
     }
 
@@ -49,10 +48,12 @@ class PrivilegePanel extends Component
         }
         $this->sortField = $field;
     }
+
     public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
+
     public function updatingSearch(): void
     {
         $this->resetPage();

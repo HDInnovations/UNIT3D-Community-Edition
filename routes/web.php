@@ -834,11 +834,9 @@ Route::group(['middleware' => 'language'], function () {
         // Privilege Panel - for Managing the Privileges of Roles and Users
         Route::group(['prefix' => 'privileges'], function () {
             Route::name('staff.privileges.')->group(function () {
-                 Route::get('/', [\App\Http\Controllers\Staff\Privileges::class, 'index'])->name('index');
+                Route::get('/', [\App\Http\Controllers\Staff\Privileges::class, 'index'])->name('index');
             });
         });
-
-
 
         // Registered Seedboxes
         Route::group(['prefix' => 'seedboxes'], function () {
@@ -868,7 +866,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ResolutionController::class, 'destroy'])->name('destroy');
             });
         });
-
 
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
