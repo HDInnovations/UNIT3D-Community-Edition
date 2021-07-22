@@ -39,7 +39,7 @@ class UserSearch extends Component
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
-            ->with('group')
+            ->with('primaryRole')
             ->when($this->search, fn ($query) => $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
