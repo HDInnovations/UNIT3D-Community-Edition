@@ -1548,7 +1548,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->hasPrivilegeTo('torrent_feature'), 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_feature'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($torrent->featured == 0) {
