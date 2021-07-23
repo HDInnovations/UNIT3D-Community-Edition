@@ -41,4 +41,14 @@ trait HasPrivilege
     {
         return Privilege::whereIn('slug', $privileges)->get();
     }
+
+    public function hasPrivilegeThroughRole(Privilege $privilege): bool
+    {
+        foreach ($privilege->roles as $role) {
+            if ($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
