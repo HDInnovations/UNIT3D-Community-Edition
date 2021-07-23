@@ -49,6 +49,7 @@ trait HasPrivilege
                 return true;
             }
         }
+
         return false;
     }
 }

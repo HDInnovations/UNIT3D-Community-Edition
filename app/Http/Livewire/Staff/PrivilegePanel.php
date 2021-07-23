@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Staff;
 
-use App\Models\Collection;
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\User;
@@ -26,6 +25,7 @@ class PrivilegePanel extends Component
         $this->sortField = 'created_at';
         $this->sortDirection = 'desc';
     }
+
     public function render()
     {
         return \view('livewire.staff.privilege-panel', [
@@ -39,11 +39,11 @@ class PrivilegePanel extends Component
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
-            'rolesprivileges' => $this->RolesPrivileges
-
+            'rolesprivileges' => $this->RolesPrivileges,
 
         ]);
     }
+
     public function sortBy($field): void
     {
         if ($this->sortField === $field) {
@@ -53,37 +53,46 @@ class PrivilegePanel extends Component
         }
         $this->sortField = $field;
     }
+
     public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
+
     public function updatingSearch(): void
     {
         $this->resetPage();
     }
-    public function GetRolesPrivileges($roleSlug) {
+
+    public function GetRolesPrivileges($roleSlug)
+    {
         $role = Role::where('slug', '=', $roleSlug)->with('privileges')->first();
         $this->role = $role;
         $this->RolesPrivileges = $role->privileges;
     }
-    public function GiveRolePrivilege($roleSlug, $privSlug) {
+
+    public function GiveRolePrivilege($roleSlug, $privSlug)
+    {
         $role = Role::where('slug', '=', $roleSlug)->first();
         $priv = Privilege::where('slug', '=', $privSlug)->first();
         $role->privileges()->attach($priv);
         $this->GetRolesPrivileges($roleSlug);
     }
-    public function GetUser(User $user) {
+
+    public function GetUser(User $user)
+    {
         $this->activeUser = $user;
     }
 
-
-    public function GiveUserPrivilege(User $user, $privSlug) {
+    public function GiveUserPrivilege(User $user, $privSlug)
+    {
         $priv = Privilege::where('slug', '=', $privSlug)->first();
         $user->privileges()->attach($priv);
         $this->GetUser($roleSlug);
     }
 
-    public function CheckUserPrivilege(User $user, $privSlug){
+    public function CheckUserPrivilege(User $user, $privSlug)
+    {
         return $user->hasPrivilegeTo($privSlug);
     }
 }
