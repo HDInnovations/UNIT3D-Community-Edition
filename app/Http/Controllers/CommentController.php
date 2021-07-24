@@ -129,18 +129,20 @@ class CommentController extends Controller
         }
 
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
 
         return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
@@ -219,18 +221,20 @@ class CommentController extends Controller
             }
         }
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
 
         return \redirect()->route('articles.show', ['id' => $article->id])
             ->withSuccess('Your Comment Has Been Added!');
@@ -309,18 +313,20 @@ class CommentController extends Controller
             }
         }
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
@@ -403,18 +409,20 @@ class CommentController extends Controller
             }
         }
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
 
         return \redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
@@ -497,18 +505,20 @@ class CommentController extends Controller
             }
         }
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
 
         return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
@@ -609,23 +619,28 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
+
         // Achievements
-        $user->unlock(new UserMadeComment(), 1);
-        $user->addProgress(new UserMadeTenComments(), 1);
-        $user->addProgress(new UserMade50Comments(), 1);
-        $user->addProgress(new UserMade100Comments(), 1);
-        $user->addProgress(new UserMade200Comments(), 1);
-        $user->addProgress(new UserMade300Comments(), 1);
-        $user->addProgress(new UserMade400Comments(), 1);
-        $user->addProgress(new UserMade500Comments(), 1);
-        $user->addProgress(new UserMade600Comments(), 1);
-        $user->addProgress(new UserMade700Comments(), 1);
-        $user->addProgress(new UserMade800Comments(), 1);
-        $user->addProgress(new UserMade900Comments(), 1);
+        if ($comment->anon == 0) {
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+        }
+
         //Notification
         if ($user->id != $torrent->user_id) {
             User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
         }
+
         // Auto Shout
         $torrentUrl = \href_torrent($torrent);
         $profileUrl = \href_profile($user);
