@@ -48,7 +48,7 @@ return [
     'report-link-hash'    => 'Aktuální odkaz',
     'thanks'              => 'Děkujeme, že používáte',
     'unban-footer'        => 'Vítej zpět!',
-    'unban-header'        => 'Byli jste unbanned',
+    'unban-header'        => 'Byl jste odbanován',
     'unban-reason'        => 'Důvod',
     'username-reminder'   => 'Nedávno jste nám poslali žádost o své uživatelské jméno v naší aplikaci. Vaše uživatelské jméno je',
     'username-sent'       => 'Vaše uživatelské jméno bylo odesláno na vaši e-mailovou adresu!',
