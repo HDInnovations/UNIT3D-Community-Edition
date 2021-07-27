@@ -40,7 +40,7 @@
                 </li>
                 <li>
                     <a href="{{ route('mediahub.index') }}">
-                        <span class="menu-text">MediaHub</span>
+                        <span class="menu-text">@lang('mediahub.title')</span>
                         <span class="selected"></span>
                     </a>
                 </li>
@@ -90,7 +90,7 @@
 
                 <li>
                     <a href="{{ route('playlists.index') }}">
-                        <span class="menu-text">Playlists</span>
+                        <span class="menu-text">@lang('playlist.playlists')</span>
                         <span class="selected"></span>
                     </a>
                 </li>
