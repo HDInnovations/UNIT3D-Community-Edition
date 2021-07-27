@@ -1,5 +1,4 @@
 <?php
-header("Content-Type: text/html; charset=utf-8");
 /**
  * NOTICE OF LICENSE.
  *
@@ -38,4 +37,3 @@ return [
     'view-collection'       => '查看收藏',
     'wiki-read'             => '在维基百科上阅读完整的个人简介：',
 ];
-?>
