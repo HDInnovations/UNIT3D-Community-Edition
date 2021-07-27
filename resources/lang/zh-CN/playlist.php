@@ -29,4 +29,3 @@ return [
     'title'           => '标题',
     'titles'          => '标题',
 ];
-?>
