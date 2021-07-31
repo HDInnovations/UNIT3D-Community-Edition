@@ -85,6 +85,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs To A Internal Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function internal()
+    {
+        return $this->belongsTo(Internal::class, 'internal_id', 'id', 'name');
+    }
+
+    /**
      * Belongs To A Chatroom.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

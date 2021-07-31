@@ -923,6 +923,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Internals System
+        Route::group(['prefix' => 'internals'], function () {
+            Route::name('staff.internals.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
+                Route::get('/create', [App\Http\Controllers\Staff\InternalController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\InternalController::class, 'store'])->name('store');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\InternalController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Watchlist
         Route::group(['prefix' => 'watchlist'], function () {
             Route::name('staff.watchlist.')->group(function () {
