@@ -106,6 +106,23 @@
                             </select>
                         </label>
                     </div>
+                    
+                    @if ($user->group->name == "Internal")
+                        <div class="form-group">
+                            <label for="about">Internal Group:</label>
+                            <label>
+                                <select name="internal_id" class="form-control">
+                                    @if ($user->internal != null)
+                                    <option value="{{ $user->internal->id }}">{{ $user->internal->name }} (Default)</option>
+                                    @endif
+                                    <option value="i0">None</option>
+                                    @foreach ($internals as $i)
+                                        <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                    @endforeach
+                                </select>
+                             </label>
+                        </div>
+                    @endif
 
                     <button type="submit" class="btn btn-default">@lang('common.save')</button>
                 </form>
