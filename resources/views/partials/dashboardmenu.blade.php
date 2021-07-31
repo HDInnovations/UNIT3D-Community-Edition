@@ -80,6 +80,11 @@
                 </li>
             @endif
             <li>
+                <a href="{{ route('staff.internals.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-magic"></i> Internals
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('staff.pages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.pages')
                 </a>
