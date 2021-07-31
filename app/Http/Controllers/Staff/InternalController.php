@@ -15,9 +15,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Internal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -42,7 +41,7 @@ class InternalController extends Controller
     }
 
     /**
-     * Edit A group
+     * Edit A group.
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\UsersVIP     $id
@@ -82,7 +81,7 @@ class InternalController extends Controller
         $v = \validator($internal->toArray(), [
             'name'      => 'required',
             'icon'      => 'required',
-            'effect'    => 'required'
+            'effect'    => 'required',
         ]);
 
         if ($v->fails()) {
