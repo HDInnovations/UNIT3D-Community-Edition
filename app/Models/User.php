@@ -83,6 +83,16 @@ class User extends Authenticatable
             'level'         => \config('user.group.defaults.level'),
         ]);
     }
+    
+    /**
+     * Belongs To A Internal Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function internal()
+    {
+        return $this->belongsTo(Internal::Class, 'internal_id', 'id', 'name');
+    }
 
     /**
      * Belongs To A Chatroom.
