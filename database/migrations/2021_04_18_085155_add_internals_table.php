@@ -22,7 +22,7 @@ class AddInternalsTable extends Migration
         });
 
         //Update Users Table
-	Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->integer('internal_id')->index('fk_users_internal_idx')->after('group_id');
         });
     }
@@ -36,9 +36,9 @@ class AddInternalsTable extends Migration
     {
         //Delete Table
         Schema::dropIfExists('internals');
-	
+
         //Update Users Table
-	Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('internal_id');
         });
     }
