@@ -83,7 +83,7 @@ class User extends Authenticatable
             'level'         => \config('user.group.defaults.level'),
         ]);
     }
-    
+
     /**
      * Belongs To A Internal Group.
      *
@@ -91,7 +91,7 @@ class User extends Authenticatable
      */
     public function internal()
     {
-        return $this->belongsTo(Internal::Class, 'internal_id', 'id', 'name');
+        return $this->belongsTo(Internal::class, 'internal_id', 'id', 'name');
     }
 
     /**
