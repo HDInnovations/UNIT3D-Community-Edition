@@ -523,7 +523,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->passkey = \md5(\uniqid('', true).\time().\microtime());
+        $user->passkey = \md5(\random_bytes(60).$user->password);
         $user->save();
 
         \cache()->forget(\sprintf('user:%s', $user->passkey));
@@ -1082,7 +1082,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->rsskey = \md5(\uniqid('', true).\time().\microtime());
+        $user->rsskey = \md5(\random_bytes(60).$user->password);
         $user->save();
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
