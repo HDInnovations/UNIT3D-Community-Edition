@@ -81,6 +81,8 @@ class UserController extends Controller
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
+        $peers = Peer::with(['user'])->where('user_id', '=', $user->id)->latest('seeder')->get();
+
         return \view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
@@ -106,6 +108,7 @@ class UserController extends Controller
             'requested'    => $requested,
             'filled'       => $filled,
             'invitedBy'    => $invitedBy,
+            'peers'        => $peers,
         ]);
     }
 
@@ -2057,5 +2060,42 @@ class UserController extends Controller
         }
 
         return \redirect()->back()->withSuccess('Peers were flushed successfully!');
+    }
+
+    /**
+     * Get A Users Active Table by IP and Port.
+     *
+     * @param \App\Models\User $username
+     * @param \App\Models\Peer $ip
+     * @param \App\Models\Peer $port
+     */
+    public function activeByClient(Request $request, $username, $ip, $port): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+
+        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
+
+        $active = Peer::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->sortable(['created_at' => 'desc'])
+            ->where('user_id', '=', $user->id)
+            ->where('ip', '=', $ip)
+            ->where('port', '=', $port)
+            ->distinct('info_hash')
+            ->paginate(50);
+
+        return \view('user.private.active', ['user' => $user,
+            'route'                                 => 'active',
+            'active'                                => $active,
+            'his_upl'                               => $hisUpl,
+            'his_upl_cre'                           => $hisUplCre,
+            'his_downl'                             => $hisDownl,
+            'his_downl_cre'                         => $hisDownlCre,
+        ]);
     }
 }
