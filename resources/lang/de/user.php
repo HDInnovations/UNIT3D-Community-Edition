@@ -63,6 +63,8 @@ return [
     'change-email-help'                    => 'Du musst dein Konto erneut bestätigen, nachdem du deine E-Mail-Adresse geändert hast',
     'change-password'                      => 'Ändere das Passwort',
     'change-password-help'                 => 'Du musst dich erneut anmelden, nachdem du dein Passwort geändert hast',
+    'client-connectable-state'             => '{0}Nein|{1}Ja',
+    'client-list'                          => 'Clients und IP-Adressen',
     'client-ip-address'                    => 'Client-IP-Adresse',
     'code'                                 => 'Code',
     'comments'                             => 'Kommentare',

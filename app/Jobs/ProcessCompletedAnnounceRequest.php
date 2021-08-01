@@ -127,6 +127,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $peer->left = 0;
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
+        $peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 

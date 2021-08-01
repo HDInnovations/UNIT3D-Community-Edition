@@ -15,6 +15,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Predis\Client as RedisClient;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
@@ -35,6 +36,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null                        $torrent_id
  * @property int|null                        $user_id
+ * @property bool                            $connectable
  * @property-read \App\Models\Torrent $seed
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
@@ -111,5 +113,25 @@ class Peer extends Model
     public function seed()
     {
         return $this->belongsTo(Torrent::class, 'torrents.id', 'torrent_id');
+    }
+
+    /**
+     * Updates Connectable State If Needed.
+     * 
+     * @var resource
+     */
+    public function updateConnectableStateIfNeeded()
+    {
+        $redis = new RedisClient();
+        if (!$redis->get('peers:connectable:' . $this->id)) {
+            $con = @fsockopen($this->ip, $this->port, $_, $_, 1);
+
+            $this->connectable = is_resource($con);
+            $redis->setex('peers:connectable:' . $this->id, config('announce.connectable_check_interval'), $this->connectable ? 'yes' : 'no');
+
+            if (is_resource($con)) {
+                fclose($con);
+            }
+        }
     }
 }
