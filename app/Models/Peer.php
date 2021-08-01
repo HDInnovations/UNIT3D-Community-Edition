@@ -15,8 +15,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Predis\Client as RedisClient;
 use Kyslik\ColumnSortable\Sortable;
+use Predis\Client as RedisClient;
 
 /**
  * App\Models\Peer.
@@ -117,17 +117,17 @@ class Peer extends Model
 
     /**
      * Updates Connectable State If Needed.
-     * 
+     *
      * @var resource
      */
     public function updateConnectableStateIfNeeded()
     {
         $redis = new RedisClient();
-        if (!$redis->get('peers:connectable:' . $this->id)) {
+        if (! $redis->get('peers:connectable:'.$this->id)) {
             $con = @fsockopen($this->ip, $this->port, $_, $_, 1);
 
             $this->connectable = is_resource($con);
-            $redis->setex('peers:connectable:' . $this->id, config('announce.connectable_check_interval'), $this->connectable ? 'yes' : 'no');
+            $redis->setex('peers:connectable:'.$this->id, config('announce.connectable_check_interval'), $this->connectable ? 'yes' : 'no');
 
             if (is_resource($con)) {
                 fclose($con);

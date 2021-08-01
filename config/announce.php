@@ -55,6 +55,6 @@ return [
     |
     */
 
-    'connectable_check_interval' => 60*20,
+    'connectable_check_interval' => 60 * 20,
 
 ];
