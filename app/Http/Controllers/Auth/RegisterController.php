@@ -74,7 +74,7 @@ class RegisterController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        $user->passkey = \md5(\random_bytes(60));
+        $user->passkey = \md5(\random_bytes(60).$user->password);
         $user->rsskey = \md5(\random_bytes(60).$user->password);
         $user->uploaded = \config('other.default_upload');
         $user->downloaded = \config('other.default_download');
