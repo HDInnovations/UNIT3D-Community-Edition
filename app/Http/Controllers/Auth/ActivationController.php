@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\UserActivation;
 
@@ -24,13 +25,19 @@ class ActivationController extends Controller
 {
     public function activate($token)
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Role::where('slug', '=', 'user')->pluck('id'));
+
+        $member = Role::where('slug', 'user')->firstOrFail();
+        $validating = Role::where('slug', 'validating')->firstOrFail();
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
-        if ($activation->user->id && $activation->user->primaryRole->id != $bannedGroup[0]) {
+        if (
+            $activation->user->id && ! $activation->user->hasRole('banned') ) {
+            $activation->user->privileges()->attach(Privilege::where('slug', 'can_login')->firstOrFail());
+            $activation->user->privileges()->attach(Privilege::where('slug', 'active_user')->firstOrFail());
+            $activation->user->roles()->attach($member);
+            $activation->user->roles()->detach($validating);
             $activation->user->active = 1;
-            $activation->user->primaryRole = $memberGroup[0];
+            $activation->user->primaryRole()->associate($member);
             $activation->user->save();
 
             $activation->delete();

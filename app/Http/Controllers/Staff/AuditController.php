@@ -25,8 +25,10 @@ class AuditController extends Controller
     /**
      * Display All Audits.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->hasPrivilegeTo('dashboard_can_audit_log'), 403);
         $audits = Audit::with('user')->latest()->paginate(50);
 
         return \view('Staff.audit.index', ['audits' => $audits]);
@@ -46,7 +48,7 @@ class AuditController extends Controller
         $user = $request->user();
         $audit = Audit::findOrFail($id);
 
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasPrivilegeTo('dashboard_can_audit_log'), 403);
         $audit->delete();
 
         return \redirect()->route('staff.audits.index')

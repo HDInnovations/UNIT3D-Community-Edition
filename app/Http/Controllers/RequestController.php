@@ -429,7 +429,7 @@ class RequestController extends Controller
 
         $tr = TorrentRequest::findOrFail($id);
 
-        if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
+        if ($user->id == $tr->user_id || $request->user()->hasPrivilegeTo('request_can_approve')) {
             if ($tr->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
                     ->withErrors('Seems this request was already approved');
@@ -542,7 +542,7 @@ class RequestController extends Controller
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
+        if ($user->hasPrivilegeTo('request_can_delete') || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
@@ -606,7 +606,7 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
 
-        \abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
+        \abort_unless($user->hasPrivilegeTo('request_can_unclaim') || $user->username == $claimer->username, 403);
 
         if ($torrentRequest->claimed == 1) {
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
@@ -641,7 +641,7 @@ class RequestController extends Controller
     public function resetRequest(Request $request, $id)
     {
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasPrivilegeTo('request_can_reset'), 403);
 
         $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = null;

@@ -26,7 +26,7 @@ class BackupController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        \abort_unless($request->user()->hasRole('owner'), 403);
+        \abort_unless($request->user()->hasRole('root'), 403);
 
         return \view('Staff.backup.index');
     }

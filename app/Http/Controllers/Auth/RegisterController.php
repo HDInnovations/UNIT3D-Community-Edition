@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Invite;
 use App\Models\PrivateMessage;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserActivation;
 use App\Models\UserNotification;

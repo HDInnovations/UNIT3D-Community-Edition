@@ -214,7 +214,7 @@ class TorrentController extends BaseController
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted) {
+        if ($user->hasPrivilegeTo('torrent_can_bypass_modq')) {
             $appurl = \config('app.url');
             $user = $torrent->user;
             $username = $user->username;

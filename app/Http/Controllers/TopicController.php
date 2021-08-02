@@ -249,7 +249,7 @@ class TopicController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_edit_topic') || $user->id === $topic->first_post_user_id, 403);
         $name = $request->input('name');
         $forumId = $request->input('forum_id');
         $topic->name = $name;
@@ -272,7 +272,7 @@ class TopicController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_moderate') || $user->id === $topic->first_post_user_id, 403);
         $topic->state = 'close';
         $topic->save();
 
@@ -292,7 +292,7 @@ class TopicController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_moderate') || $user->id === $topic->first_post_user_id, 403);
         $topic->state = 'open';
         $topic->save();
 
@@ -314,7 +314,7 @@ class TopicController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_delete_topic')|| $user->id === $topic->first_post_user_id, 403);
         $posts = $topic->posts();
         $posts->delete();
         $topic->delete();
@@ -330,8 +330,9 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function pinTopic($id)
+    public function pinTopic(Request $request,$id)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('forums_can_sticky'),403);
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
         $topic->save();
@@ -347,8 +348,9 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function unpinTopic($id)
+    public function unpinTopic(Request $request, $id)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('forums_can_sticky'),403);
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;
         $topic->save();

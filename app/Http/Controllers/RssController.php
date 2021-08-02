@@ -159,19 +159,7 @@ class RssController extends Controller
     public function show($id, $rsskey)
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
-        \abort_unless($user->hasPrivilegeTo('user_can_rss'), 403);
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-
-        if ($user->group->id == $bannedGroup[0]) {
-            \abort(404);
-        }
-        if ($user->group->id == $disabledGroup[0]) {
-            \abort(404);
-        }
-        if ($user->active == 0) {
-            \abort(404);
-        }
+        \abort_unless($user->hasPrivilegeTo('user_can_rss') && $user->hasPrivilegeTo('active_user'), 403);
 
         $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
@@ -324,7 +312,7 @@ class RssController extends Controller
         \abort_unless($request->user()->hasPrivilegeTo('user_can_rss'), 403);
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+        \abort_unless($user->id === $rss->user_id, 403);
         $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.edit', [
@@ -344,9 +332,9 @@ class RssController extends Controller
      */
     public function update(Request $request, $id): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
     {
-        \abort_unless($request->user()->hasPrivilegeTo('user_can_rss'), 403);
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
+        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+        \abort_unless($request->user()->hasPrivilegeTo('user_can_rss') && $request->user()->id === $rss->user_id, 403);
         $v = \validator($request->all(), [
             'search'      => 'max:255',
             'description' => 'max:255',
@@ -418,8 +406,8 @@ class RssController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        \abort_unless($request->user()->hasPrivilegeTo('user_can_rss'), 403);
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+        \abort_unless($request->user()->hasPrivilegeTo('user_can_rss') && $request->user()->id === $rss->user_id, 403);
         $rss->delete();
 
         return \redirect()->route('rss.index', ['hash' => 'private'])

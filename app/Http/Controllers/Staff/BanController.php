@@ -18,6 +18,8 @@ use App\Mail\BanUser;
 use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
+use App\Models\Privilege;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,17 +53,16 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();;
+        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();;
+        $banned = Role::where('slug', 'banned')->firstOrFail();
+        \abort_if($user->hasPrivilegeTo('user_special_staff') ||
+            ! $staff->hasPrivilegeTo('users_give_infractions') ||
+            $request->user()->id == $user->id, 403);
 
-        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
-
-        $user->group_id = $bannedGroup[0];
-        $user->can_upload = 0;
-        $user->can_download = 0;
-        $user->can_comment = 0;
-        $user->can_invite = 0;
-        $user->can_request = 0;
-        $user->can_chat = 0;
+        $user->UserRestrictedPrivileges()->attach($canLogin);
+        $user->UserRestrictedPrivileges()->attach($activeUser);
+        $user->roles()->attach($banned);
 
         $ban = new Ban();
         $ban->owned_by = $user->id;
@@ -96,16 +97,17 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
+        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();;
+        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();;
+        $banned = Role::where('slug', 'banned')->firstOrFail();
 
-        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_if($user->hasPrivilegeTo('user_special_staff') ||
+            ! $staff->hasPrivilegeTo('users_edit_infractions') ||
+            $request->user()->id == $user->id, 403);
 
-        $user->group_id = $request->input('group_id');
-        $user->can_upload = 1;
-        $user->can_download = 1;
-        $user->can_comment = 1;
-        $user->can_invite = 1;
-        $user->can_request = 1;
-        $user->can_chat = 1;
+        $user->UserRestrictedPrivileges()->detach($canLogin);
+        $user->UserRestrictedPrivileges()->detach($activeUser);
+        $user->roles()->detach($banned);
 
         $ban = new Ban();
         $ban->owned_by = $user->id;
