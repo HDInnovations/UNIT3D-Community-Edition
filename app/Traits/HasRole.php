@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait HasRole
 {
@@ -15,33 +16,23 @@ trait HasRole
      */
     public function hasRole(array | string $roles): bool
     {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->primaryRole->slug === $role) {
-                    return true;
-                }
-                if ($this->additionalRoles->contains('slug', '=', $role)) {
-                    return true;
-                }
-            }
-        } else {
-            if ($this->primaryRole->slug === $roles) {
-                return true;
-            }
-            if ($this->additionalRoles->contains('slug', '=', $roles)) {
+        if(is_array($roles)){
+            $count = $this->roles()->whereIn('slug', $roles)->count();
+            if ($count > 0) {
                 return true;
             }
         }
-
+        if($this->roles()->where('slug', $roles)->count() > 0) {
+            return true;
+        }
         return false;
     }
 
     /**
      * Check A Users Primary Role.
      *
-     * @return mixed
      */
-    public function primaryRole()
+    public function primaryRole() : HasOne
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
