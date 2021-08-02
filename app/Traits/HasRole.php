@@ -16,23 +16,23 @@ trait HasRole
      */
     public function hasRole(array | string $roles): bool
     {
-        if(is_array($roles)){
+        if (is_array($roles)) {
             $count = $this->roles()->whereIn('slug', $roles)->count();
             if ($count > 0) {
                 return true;
             }
         }
-        if($this->roles()->where('slug', $roles)->count() > 0) {
+        if ($this->roles()->where('slug', $roles)->count() > 0) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Check A Users Primary Role.
-     *
      */
-    public function primaryRole() : HasOne
+    public function primaryRole(): HasOne
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
