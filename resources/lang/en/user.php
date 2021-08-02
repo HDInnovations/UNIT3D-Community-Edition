@@ -67,6 +67,8 @@ return [
     'change-email-help'            => 'You will have to re-confirm your account, after you change your email',
     'change-password'              => 'Change Password',
     'change-password-help'         => 'You will have to login again, after you change your password',
+    'client-connectable-state'     => '{0}No|{1}Yes',
+    'client-list'                  => 'Clients and IP-Addresses',
     'client-ip-address'            => 'Client IP Address',
     'code'                         => 'Code',
     'comments'                     => 'Comments',

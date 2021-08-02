@@ -309,6 +309,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
+            Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
             Route::get('/{username}/downloads', [App\Http\Controllers\UserController::class, 'downloads'])->name('user_downloads');
@@ -922,6 +923,18 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'warnings'], function () {
             Route::name('staff.warnings.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\WarningController::class, 'index'])->name('index');
+            });
+        });
+
+        // Internals System
+        Route::group(['prefix' => 'internals'], function () {
+            Route::name('staff.internals.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
+                Route::post('/{id}/update', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
+                Route::get('/create', [App\Http\Controllers\Staff\InternalController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\InternalController::class, 'store'])->name('store');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\InternalController::class, 'destroy'])->name('destroy');
             });
         });
 

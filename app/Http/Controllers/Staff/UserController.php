@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\Group;
+use App\Models\Internal;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
@@ -61,12 +62,14 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
+        $internals = Internal::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('Staff.user.edit', [
-            'user'   => $user,
-            'groups' => $groups,
-            'notes'  => $notes,
+            'user'      => $user,
+            'groups'    => $groups,
+            'internals' => $internals,
+            'notes'     => $notes,
         ]);
     }
 
@@ -98,6 +101,7 @@ class UserController extends Controller
         $user->title = $request->input('title');
         $user->about = $request->input('about');
         $user->role_id = (int) $request->input('role_id');
+        $user->internal_id = (int) $request->input('internal_id');
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])

@@ -545,6 +545,57 @@
             </div>
     @if (auth()->user()->hasPrivilegeTo('users_view_private'))
         <div class="block">
+            <h3><i class="{{ config('other.font-awesome') }} fa-broadcast-tower"></i> @lang('user.client-list')</h3>
+            <div style="word-wrap: break-word; display: table; width: 100%;">
+                <table class="table table-condensed table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>@lang('torrent.client')</th>
+                            <th>@lang('common.ip')</th>
+                            <th>@lang('common.port')</th>
+                            <th>@lang('torrent.started')</th>
+                            <th>@lang('torrent.last-update')</th>
+                            <th>@lang('torrent.torrents')</th>
+                            <th>Connectable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @php $peer_array = []; @endphp
+                    @foreach ($peers as $p)
+			            @if (!in_array([$p->ip, $p->port], $peer_array))
+                            @php $count = App\Models\Peer::with(['user'])->where('user_id', '=', $user->id)->latest('seeder')->where('ip', '=', $p->ip)->where('port', '=', $p->port)->count(); @endphp
+                            <tr>
+                                <td>
+                                    <span class="badge-extra text-purple text-bold">{{ $p->agent }}</span>
+                                </td>
+                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
+                                    <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
+                                    <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
+                                @else
+                                    <td> ---</td>
+                                    <td> ---</td>
+                                @endif
+                                <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
+                                <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
+                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
+			                        <td>
+				                        <a href="{{ route('user_active_by_client', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port]) }}" itemprop="url" class="l-breadcrumb-item-link">
+            				                        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $count }}</span>
+        			                    </a>
+			                        </td>
+                                @else
+                                    <td> ---</td>
+                                @endif
+                                <td>@choice('user.client-connectable-state', $p->connectable)</td>
+                            </tr>
+			                @php array_push($peer_array, [$p->ip, $p->port]); @endphp
+			            @endif
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> @lang('user.private-info')</h3>
             <div style="word-wrap: break-word; display: table; width: 100%;">
                 <table class="table user-info table-condensed table-striped table-bordered">

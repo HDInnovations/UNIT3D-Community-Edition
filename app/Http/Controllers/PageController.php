@@ -58,9 +58,10 @@ class PageController extends Controller
      */
     public function internal(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
+        $internal_group = DB::table('internals')->get();
+        $internal_user = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon', 'users.internal_id'])->where('groups.is_internal', 1)->get();
 
-        return \view('page.internal', ['internal' => $internal]);
+        return \view('page.internal', ['internal_user' => $internal_user, 'internal_group' => $internal_group]);
     }
 
     /**

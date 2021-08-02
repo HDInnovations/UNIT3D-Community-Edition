@@ -46,4 +46,15 @@ return [
 
     'rate_limit' => 3,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Connectable check interval
+    |--------------------------------------------------------------------------
+    |
+    | Amount Of Time until the next connectable check
+    |
+    */
+
+    'connectable_check_interval' => 60 * 20,
+
 ];
