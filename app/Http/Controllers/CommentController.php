@@ -103,7 +103,8 @@ class CommentController extends Controller
         }
 
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here')
+                && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
 
                 $collection->comments()->get()->each(function ($c, $v) use ($users) {
@@ -194,7 +195,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
 
                 $article->comments()->get()->each(function ($c) use ($users) {
@@ -284,7 +285,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
 
                 $playlist->comments()->get()->each(function ($c) use ($users) {
@@ -378,7 +379,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
 
                 $torrent->comments()->get()->each(function ($c) use ($users) {
@@ -472,7 +473,7 @@ class CommentController extends Controller
             $tr->notifyRequester('comment', $comment);
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
 
                 $tr->comments()->get()->each(function ($c) use ($users) {
@@ -649,7 +650,7 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
 
-        \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('comments_can_moderate') || $user->id == $comment->user_id, 403);
         $comment->content = $request->input('comment-edit');
 
         $v = \validator($comment->toArray(), [
@@ -678,7 +679,7 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
 
-        \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('comments_can_moderate') || $user->id == $comment->user_id, 403);
         $comment->delete();
 
         return \redirect()->back()->withSuccess('Comment Has Been Deleted.');

@@ -27,8 +27,9 @@ class ImageController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
         $album = Album::find($id);
 
         return \view('album.image', ['album' => $album]);
@@ -42,6 +43,8 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
+
         $image = new Image();
         $image->user_id = $request->user()->id;
         $image->album_id = $request->input('album_id');
@@ -81,8 +84,10 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function download($id)
+    public function download(Request $request, $id)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
+
         $image = Image::findOrFail($id);
         $filename = $image->image;
 
@@ -111,7 +116,7 @@ class ImageController extends Controller
         $user = $request->user();
         $image = Image::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('album_can_delete') || $user->id === $image->user_id, 403);
         $image->delete();
 
         return \redirect()->route('albums.show', ['id' => $image->album_id])

@@ -114,6 +114,9 @@ class PrivateMessageController extends Controller
      */
     public function sendPrivateMessage(Request $request)
     {
+
+        \abort_unless($request->user()->hasPrivilegeTo('user_can_private_message'), 403);
+
         $user = $request->user();
 
         $dest = 'default';
@@ -125,7 +128,7 @@ class PrivateMessageController extends Controller
             $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
         } else {
             return \redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
-                ->withErrors($v->errors());
+                ->withErrors('Recipient Not Found');
         }
 
         $privateMessage = new PrivateMessage();
@@ -171,6 +174,8 @@ class PrivateMessageController extends Controller
      */
     public function replyPrivateMessage(Request $request, $id)
     {
+
+
         $user = $request->user();
 
         $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -182,6 +187,9 @@ class PrivateMessageController extends Controller
         $privateMessage->message = $request->input('message');
         $privateMessage->related_to = $message->id;
         $privateMessage->read = 0;
+
+        \abort_unless($request->user()->hasPrivilegeTo('user_can_private_message'), 403);
+
 
         $v = \validator($privateMessage->toArray(), [
             'sender_id'   => 'required',

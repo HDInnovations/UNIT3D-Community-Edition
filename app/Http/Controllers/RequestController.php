@@ -67,6 +67,8 @@ class RequestController extends Controller
      */
     public function request(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('request_can_view'), 403);
+
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
         $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
@@ -108,6 +110,8 @@ class RequestController extends Controller
      */
     public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('request_can_create'), 403);
+
         $user = $request->user();
 
         return \view('requests.add_request', [
@@ -129,6 +133,8 @@ class RequestController extends Controller
      */
     public function addrequest(Request $request)
     {
+
+        \abort_unless($request->user()->hasPrivilegeTo('request_can_create'), 403);
         $user = $request->user();
 
         $category = Category::findOrFail($request->input('category_id'));
@@ -222,6 +228,8 @@ class RequestController extends Controller
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
+        \abort_unless($request->user()->hasPrivilegeTo('request_can_update') || $torrentRequest->user_id === $user->id, 403);
+
         return \view('requests.edit_request', [
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -239,9 +247,11 @@ class RequestController extends Controller
      */
     public function editrequest(Request $request, $id)
     {
+
+
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
+        \abort_unless($request->user()->hasPrivilegeTo('request_can_update') || $torrentRequest->user_id === $user->id, 403);
 
         // Find the right category
         $name = $request->input('name');
@@ -310,6 +320,8 @@ class RequestController extends Controller
      */
     public function addBonus(Request $request, $id)
     {
+
+
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);

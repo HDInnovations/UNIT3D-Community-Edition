@@ -40,8 +40,10 @@ class PlaylistController extends Controller
     /**
      * Display All Playlists.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('playlist_can_view'), 403);
+
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
@@ -50,8 +52,9 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('playlist_can_create'), 403);
         return \view('playlist.create');
     }
 
@@ -63,8 +66,8 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        $user = \auth()->user();
-
+        $user = $request->user();
+        \abort_unless($user->hasPrivilegeTo('playlist_can_create'), 403);
         $playlist = new Playlist();
         $playlist->user_id = $user->id;
         $playlist->name = $request->input('name');
@@ -112,8 +115,10 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('playlist_can_create'), 403);
+
         $playlist = Playlist::findOrFail($id);
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
@@ -151,12 +156,12 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        \abort_unless($user->id == $playlist->user_id || $user->hasPrivilegeTo('playlist_can_update'), 403);
 
         return \view('playlist.edit', ['playlist' => $playlist]);
     }
@@ -170,10 +175,10 @@ class PlaylistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        \abort_unless($user->id == $playlist->user_id || $user->hasPrivilegeTo('playlist_can_update'), 403);
 
         $playlist->name = $request->input('name');
         $playlist->description = $request->input('description');
@@ -216,12 +221,13 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        //Privilege Check
+        \abort_unless($user->id == $playlist->user_id || $user->hasPrivilegeTo('playlist_can_delete'), 403);
 
         $playlist->delete();
 
@@ -234,16 +240,19 @@ class PlaylistController extends Controller
      *
      * @param $id
      */
-    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadPlaylist(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
+        // Authorized User
+        $user = $request->user();
+
+        // Privilege Check
+        \abort_unless($user->hasPrivilegeTo('playlist_can_download_all'), 403);
+       
         //  Extend The Maximum Execution Time
         \set_time_limit(300);
 
         // Playlist
         $playlist = Playlist::with('torrents')->findOrFail($id);
-
-        // Authorized User
-        $user = \auth()->user();
 
         // Define Dir Folder
         $path = \getcwd().'/files/tmp_zip/';

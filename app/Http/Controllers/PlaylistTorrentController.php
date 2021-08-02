@@ -30,10 +30,10 @@ class PlaylistTorrentController extends Controller
      */
     public function store(Request $request)
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $playlist = Playlist::findOrFail($request->input('playlist_id'));
 
-        \abort_unless($user->id === $playlist->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('playlist_can_update') || $user->id === $playlist->user_id, 403);
 
         $playlistTorrent = new PlaylistTorrent();
         $playlistTorrent->playlist_id = $playlist->id;
@@ -63,12 +63,12 @@ class PlaylistTorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $playlistTorrent = PlaylistTorrent::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $playlistTorrent->playlist->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('playlist_can_update') || $user->id === $playlistTorrent->playlist->user_id, 403);
         $playlistTorrent->delete();
 
         return \redirect()->route('playlists.show', ['id' => $playlistTorrent->playlist->id])

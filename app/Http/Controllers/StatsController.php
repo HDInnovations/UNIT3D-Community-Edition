@@ -23,6 +23,7 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -67,8 +68,10 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Total Members Count (All Groups)
         $allUser = \cache()->remember('all_user', $this->carbon, fn () => User::withTrashed()->count());
 
@@ -168,8 +171,9 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function uploaded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploaded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $uploaded = User::latest('uploaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
 
         return \view('stats.users.uploaded', ['uploaded' => $uploaded]);
@@ -180,8 +184,9 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function downloaded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function downloaded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $downloaded = User::latest('downloaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
 
         return \view('stats.users.downloaded', ['downloaded' => $downloaded]);
@@ -190,8 +195,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seeders(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seeders(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Seeders
         $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
@@ -201,8 +207,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function leechers(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function leechers(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Leechers
         $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
 
@@ -212,7 +219,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function uploaders(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploaders(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Uploaders
         $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
@@ -225,8 +232,9 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function bankers(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bankers(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
@@ -241,8 +249,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seedtime(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seedtime(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Total Seedtime
         $seedtime = User::with('history')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
 
@@ -252,9 +261,10 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seedsize(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seedsize(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        // Fetch Top Total Seedsize Users
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
+        /// Fetch Top Total Seedsize Users
         $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
 
         return \view('stats.users.seedsize', ['seedsize' => $seedsize]);
@@ -263,8 +273,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function seeded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seeded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Seeded
         $seeded = Torrent::latest('seeders')->take(100)->get();
 
@@ -274,8 +285,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function leeched(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function leeched(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Leeched
         $leeched = Torrent::latest('leechers')->take(100)->get();
 
@@ -285,8 +297,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function completed(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function completed(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Completed
         $completed = Torrent::latest('times_completed')->take(100)->get();
 
@@ -296,8 +309,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function dying(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function dying(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Dying
         $dying = Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
 
@@ -307,8 +321,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function dead(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function dead(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Dead
         $dead = Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
 
@@ -318,8 +333,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrent Requests.
      */
-    public function bountied(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bountied(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Bountied
         $bountied = TorrentRequest::latest('bounty')->take(100)->get();
 
@@ -329,8 +345,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Groups.
      */
-    public function roles(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function roles(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Groups User Counts
         $groups = Role::OrderBy('position')->get();
 
@@ -342,8 +359,9 @@ class StatsController extends Controller
      *
      * @param \App\Models\Group $id
      */
-    public function group($id)
+    public function group(Request $request, $id)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Users In Group
         $group = Role::findOrFail($id);
         $users = User::withTrashed()->where('role_id', '=', $group->id)->latest()->paginate(100);
@@ -354,8 +372,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Languages.
      */
-    public function languages(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function languages(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch All Languages
         $languages = Language::allowed();
 

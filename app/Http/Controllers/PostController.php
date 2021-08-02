@@ -52,13 +52,16 @@ class PostController extends Controller
      */
     public function reply(Request $request, $id)
     {
+        
+        \abort_unless($request->user()->hasPrivilegeTo('forums_can_comment'), 403);
+        
         $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
+        if (!$user->hasPrivilegeTo('forum_'.$forum->slug.'_reply_topic') || !$user->hasPrivilegeTo('forums_sudo') || ($topic->state == 'close' && ! $user->hasPrivilegeTo('forums_sudo'))) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -168,13 +171,13 @@ class PostController extends Controller
      * @param \App\Models\Topic $id
      * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function postEditForm(Request $request, Topic $id, Post $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
-
+        \abort_unless($request->user()->hasPrivilegeTo('forums_can_update_comment') || $request->user()->id === $post->user_id, 403);
         return \view('forum.post_edit', [
             'topic'    => $topic,
             'forum'    => $forum,
@@ -196,7 +199,7 @@ class PostController extends Controller
         $post = Post::findOrFail($postId);
         $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_update_comment') || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
         $post->save();
 
@@ -218,7 +221,7 @@ class PostController extends Controller
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->hasPrivilegeTo('forums_can_delete_topic') || $user->id === $post->user_id, 403);
         $post->delete();
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])

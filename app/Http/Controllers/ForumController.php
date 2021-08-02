@@ -175,9 +175,11 @@ class ForumController extends Controller
     {
         $user = $request->user();
 
-        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! \is_array($pests)) {
-            $pests = [];
+        $pests = [];
+        foreach (Forum::all() as $forum) {
+            if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum')){
+                array_push($pests, $forum->id);
+            }
         }
 
         $topicNeos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
@@ -282,27 +284,27 @@ class ForumController extends Controller
     /**
      * Show All Forums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
         $user = $request->user();
         $filteredCat = [];
         foreach ($categories as $forum) {
-            if ($user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum') || ($user->hasRole('root') && $user->hasRole('sudo'))) {
+            if ($user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum') || $user->hasPrivilegeTo('forums_sudo')) {
                 array_push($filteredCat, $forum->id);
             }
         }
-        $Forums = Forum::whereId('id', $filteredCat);
+        $Forums = Forum::whereIn('id', $filteredCat)->get();
         // Total Forums Count
-        $numForums = $Forums->count();
+        $numForums = Forum::whereIn('id', $filteredCat)->where('parent_id', '!=', 0)->count();
         // Total Posts Count
         $numPosts = 0;
         // Total Topics Count
         $numTopics = 0;
 
         foreach ($Forums as $f) {
-            $numPosts += $f->getPostCount();
-            $numTopics += $f->getTopicCount();
+                $numPosts += $f->getPostCount($f->id);
+                $numTopics += $f->getTopicCount($f->id);
         }
 
         return \view('forum.index', [
@@ -310,6 +312,7 @@ class ForumController extends Controller
             'num_posts'  => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
+            'user' => $user
         ]);
     }
 
@@ -318,8 +321,10 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
+
+        $user = $request->user();
         // Find the topic
         $forum = Forum::findOrFail($id);
 
@@ -337,7 +342,7 @@ class ForumController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->parent_id);
-        if ($category->getPermission()->show_forum != true) {
+        if ($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') != true) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }

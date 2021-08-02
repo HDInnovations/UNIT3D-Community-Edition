@@ -35,8 +35,9 @@ class PollController extends Controller
     /**
      * Show All Polls.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $polls = Poll::latest()->paginate(15);
 
         return \view('poll.latest', ['polls' => $polls]);
@@ -49,6 +50,7 @@ class PollController extends Controller
      */
     public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
+        \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $poll = Poll::findOrFail($id);
         $user = $request->user();
         $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
@@ -67,8 +69,9 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function vote(VoteOnPoll $voteOnPoll)
+    public function vote(Request $request, VoteOnPoll $voteOnPoll)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('polls_can_vote'), 403);
         $user = $voteOnPoll->user();
         $poll = Option::findOrFail($voteOnPoll->input('option.0'))->poll;
         $voted = Voter::where('user_id', '=', $user->id)
@@ -106,8 +109,9 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function result($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function result(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $poll = Poll::findOrFail($id);
         $map = [
             'poll'        => $poll,

@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ForumCategoryControllerTest
@@ -27,8 +28,9 @@ class ForumCategoryController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
+        $user = $request->user();
         // Find the topic
         $forum = Forum::findOrFail($id);
 
@@ -46,7 +48,7 @@ class ForumCategoryController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
-        if ($category->getPermission()->show_forum != true) {
+        if ($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') != true) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To This Category!');
         }

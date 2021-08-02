@@ -28,8 +28,9 @@ class AlbumController extends Controller
     /**
      * Display All Albums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
         $albums = Album::withCount('images')->get();
 
         return \view('album.index')->with('albums', $albums);
@@ -38,8 +39,9 @@ class AlbumController extends Controller
     /**
      * Show Album Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
         return \view('album.create');
     }
 
@@ -51,6 +53,8 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
+        
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
@@ -117,7 +121,7 @@ class AlbumController extends Controller
         $user = $request->user();
         $album = Album::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
+        \abort_unless($user->hasPrivilegeTo('album_can_delete') || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
         return \redirect()->route('albums.index')

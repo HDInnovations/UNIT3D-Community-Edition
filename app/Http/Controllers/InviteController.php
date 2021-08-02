@@ -35,7 +35,7 @@ class InviteController extends Controller
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
+        \abort_unless($user->hasPrivilegeTo('users_view_invites') || $user->id === $owner->id, 403);
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
@@ -45,7 +45,7 @@ class InviteController extends Controller
     /**
      * Invite Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -53,13 +53,9 @@ class InviteController extends Controller
             return \redirect()->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
-        if ($user->can_invite == 0) {
+        if (!$user->hasPrivilegeTo('user_can_invite')) {
             return \redirect()->route('home.index')
-            ->withErrors('Your Invite Rights Have Been Revoked!');
-        }
-        if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
-            return \redirect()->route('home.index')
-                ->withErrors('Invites are currently disabled for your group.');
+            ->withErrors('You Do Not Have The Privilege of Sending Invites.');
         }
 
         return \view('user.invite', ['user' => $user, 'route' => 'invite']);
@@ -78,9 +74,9 @@ class InviteController extends Controller
         $carbon = new Carbon();
         $user = $request->user();
 
-        if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
+        if (!$user->hasPrivilegeTo('user_can_invite')) {
             return \redirect()->route('home.index')
-                ->withErrors('Invites are currently disabled for your group.');
+                ->withErrors('You Do Not Have The Privilege of Sending Invites.');
         }
 
         if ($user->invites <= 0) {
