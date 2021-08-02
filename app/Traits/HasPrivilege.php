@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 trait HasPrivilege
 {
-
-    public function hasPrivilegeTo($privilege) : bool
+    public function hasPrivilegeTo($privilege): bool
     {
         $ttl = new \DateInterval('PT60S');
 
@@ -23,10 +22,9 @@ trait HasPrivilege
         return $this->belongsToMany(Privilege::class, 'user_privilege', 'user_id', 'privilege_id');
     }
 
-    public function UserRestrictedPrivileges() {
-     
+    public function UserRestrictedPrivileges()
+    {
         return $this->belongsToMany(Privilege::class, 'user_restricted_privilege', 'user_id', 'privilege_id');
-    
     }
 
     protected function getAllPrivileges(array $privileges)

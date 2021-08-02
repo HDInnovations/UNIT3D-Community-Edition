@@ -53,8 +53,8 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();;
-        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();;
+        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();
+        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();
         $banned = Role::where('slug', 'banned')->firstOrFail();
         \abort_if($user->hasPrivilegeTo('user_special_staff') ||
             ! $staff->hasPrivilegeTo('users_give_infractions') ||
@@ -97,8 +97,8 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();;
-        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();;
+        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();
+        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();
         $banned = Role::where('slug', 'banned')->firstOrFail();
 
         \abort_if($user->hasPrivilegeTo('user_special_staff') ||

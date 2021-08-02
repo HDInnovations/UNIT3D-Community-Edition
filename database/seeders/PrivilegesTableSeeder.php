@@ -117,7 +117,7 @@ class PrivilegesTableSeeder extends Seeder
 
             ['slug'           => 'dashboard_can_warning_log', 'name' => 'Site Tools: Can Access Warning Log',
                 'description' => '', ],
-            
+
             ['slug'           => 'torrent_can_view', 'name' => 'Torrents: Can Search & View',
                 'description' => 'Can Search and View Torrents on The Site', ],
 

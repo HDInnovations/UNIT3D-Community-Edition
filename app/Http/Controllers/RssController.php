@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Torrent;
@@ -332,7 +331,6 @@ class RssController extends Controller
      */
     public function update(Request $request, $id): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
     {
-
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         \abort_unless($request->user()->hasPrivilegeTo('user_can_rss') && $request->user()->id === $rss->user_id, 403);
         $v = \validator($request->all(), [

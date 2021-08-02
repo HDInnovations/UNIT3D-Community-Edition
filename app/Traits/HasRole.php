@@ -5,7 +5,6 @@ namespace App\Traits;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait HasRole
 {
@@ -39,7 +38,7 @@ trait HasRole
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
-    public function roles() : BelongsToMany
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }

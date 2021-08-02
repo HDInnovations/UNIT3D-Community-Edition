@@ -25,13 +25,12 @@ class ActivationController extends Controller
 {
     public function activate($token)
     {
-
         $member = Role::where('slug', 'user')->firstOrFail();
         $validating = Role::where('slug', 'validating')->firstOrFail();
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if (
-            $activation->user->id && ! $activation->user->hasRole('banned') ) {
+            $activation->user->id && ! $activation->user->hasRole('banned')) {
             $activation->user->privileges()->attach(Privilege::where('slug', 'can_login')->firstOrFail());
             $activation->user->privileges()->attach(Privilege::where('slug', 'active_user')->firstOrFail());
             $activation->user->roles()->attach($member);

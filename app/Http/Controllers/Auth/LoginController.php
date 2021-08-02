@@ -73,7 +73,7 @@ class LoginController extends Controller
         $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
         $memberGroup = \cache()->rememberForever('member_group', fn () => Role::where('slug', '=', 'user')->pluck('id'));
 
-        if (! $user->hasPrivilegeTo('active_user') ) {
+        if (! $user->hasPrivilegeTo('active_user')) {
             $this->guard()->logout();
             $request->session()->invalidate();
 

@@ -1150,9 +1150,8 @@ class UserController extends Controller
      * @param \App\Models\User $username
      *
      * @throws \Throwable
-     *
      */
-    public function myFilter(Request $request, $username) : string
+    public function myFilter(Request $request, $username): string
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
