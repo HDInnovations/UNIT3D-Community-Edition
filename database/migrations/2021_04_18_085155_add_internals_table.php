@@ -23,7 +23,7 @@ class AddInternalsTable extends Migration
 
         //Update Users Table
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('internal_id')->index('fk_users_internal_idx')->after('group_id');
+            $table->integer('internal_id')->index('fk_users_internal_idx')->after('role_id')->nullable();
         });
     }
 
