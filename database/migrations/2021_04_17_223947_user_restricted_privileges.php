@@ -14,6 +14,7 @@ class UserRestrictedPrivileges extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
+
         Schema::create('user_restricted_privilege', function (Blueprint $table) {
             $table->integer('user_id');
             $table->foreignId('privilege_id');
@@ -25,6 +26,19 @@ class UserRestrictedPrivileges extends Migration
             //SETTING THE PRIMARY KEYS
             $table->primary(['user_id', 'privilege_id']);
         });
+
+        Schema::create('role_restricted_privilege', function (Blueprint $table) {
+            $table->foreignId('role_id');
+            $table->foreignId('privilege_id');
+
+            //FOREIGN KEY CONSTRAINTS
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('privilege_id')->references('id')->on('privileges');
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['role_id', 'privilege_id']);
+        });
+
         Schema::enableForeignKeyConstraints();
     }
 

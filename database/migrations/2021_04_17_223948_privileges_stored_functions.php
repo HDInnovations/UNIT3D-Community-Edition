@@ -14,11 +14,11 @@ class PrivilegesStoredFunctions extends Migration
     {
         DB::unprepared('drop function if exists UserHasPrivilegeTo;');
         DB::unprepared('CREATE FUNCTION UserHasPrivilegeTo(USER INT UNSIGNED, privilege_slug VARCHAR(255)) RETURNS INT UNSIGNED DETERMINISTIC READS SQL DATA BEGIN DECLARE result INT(1) DEFAULT 0; DECLARE role BIGINT; DECLARE privilege BIGINT; DECLARE bDone INT(1) DEFAULT 0;
-    DECLARE countUR INT; DECLARE countR INT; DECLARE countU INT;
+    DECLARE countUR INT; DECLARE countR INT; DECLARE countU INT; DECLARE countRR INT;
     DECLARE roles CURSOR FOR SELECT role_id FROM user_role WHERE user_id = USER;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET bDone = 1;
     SELECT id INTO privilege FROM privileges WHERE ((slug LIKE privilege_slug) COLLATE utf8mb4_unicode_ci);
-    SET result = 0; SET countU = 0; SET countUR = 0;
+    SET result = 0; SET countU = 0; SET countUR = 0; SET countRR = 0;
     SELECT COUNT(*) INTO countUR FROM user_restricted_privilege WHERE user_id = USER AND privilege_id = privilege;
     IF countUR < 1 THEN
         SELECT COUNT(*) INTO countU FROM user_privilege WHERE user_id = USER AND privilege_id = privilege;
@@ -29,9 +29,13 @@ class PrivilegesStoredFunctions extends Migration
             REPEAT
                 FETCH roles INTO role; SET countR = 0;
                 SELECT COUNT(*) INTO countR FROM role_privilege WHERE role_id = role AND privilege_id = privilege;
-                IF countR >= 1 THEN SET bDone = 1; END IF;
+                SELECT COUNT(*) INTO countRR FROM role_restricted_privilege WHERE role_id = role AND privilege_id = privilege;
+                IF countRR < 1 THEN
+                    IF countR >= 1 THEN SET result = 1; END IF;
+                ELSE 
+                    SET result = 0; SET bDone = 1;
+                END IF;                
             UNTIL bDone END REPEAT;
-            IF countR >= 1 THEN SET result = 1; END IF;
         END IF;
     END IF;
     RETURN (result); END;');
