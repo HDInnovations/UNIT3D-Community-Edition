@@ -10,7 +10,7 @@
                       </ul>
                   </div>
                   <div class="panel-body">
-                        <section x-show="tab === 1">
+                        <section x-show="tab === 1 && panel == 0">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -27,14 +27,14 @@
                                                   style="color:{{ $role->color }}; background-image:{{ $role->effects }}; margin-bottom: 2px;">
                             <i class="{{ $role->icon }}" data-toggle="tooltip"
                                data-original-title="{{ $role->name }}"></i> {{$role->name}} </span></td>
-                                        <td><a class="btn btn-success" href="#">Edit Settings</a> <a class="btn btn-primary" @click="$wire.GetRolesPrivileges('{{$role->slug}}').then(() => { tab = 4; roleSlug = '{{$role->slug}}' })" href="#">Edit Privileges</a></td>
+                                        <td><a class="btn btn-success" href="#">Edit Settings</a> <a class="btn btn-primary" @click="$wire.GetRolesPrivileges('{{$role->slug}}').then(() => { tab = 1; panel = 1; roleSlug = '{{$role->slug}}' })" href="#">Edit Privileges</a></td>
 
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </section>
-                        <section x-show="tab === 2">
+                        <section x-show="tab === 2 && panel == 0">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -56,7 +56,7 @@
                             </table>
 
                         </section>
-                        <section x-show="tab === 3">
+                        <section x-show="tab === 3 && panel == 0">
 
                             <div class="row">
                                 <div class="col-xs-12">
@@ -121,7 +121,7 @@
                                         <td class="hidden-sm hidden-xs">{{ $user->email }}</td>
                                         <td class="hidden-sm hidden-xs">{{ \Illuminate\Support\Carbon::make($user->created_at)->toFormattedDateString() }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="#"  @click.prevent="tab = 5; $wire.GetUser({{$user->id}})">Edit Privileges & Restrictions</a>
+                                            <a class="btn btn-success" href="#"  @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 2; } );">Edit Privileges & Restrictions</a>
                                             <a class="btn btn-primary" href="#">Change Primary Role</a>
                                         </td>
                                     </tr>
@@ -130,13 +130,13 @@
                             </table>
 
                         </section>
-                        <section x-show="tab === 4">
+                        <section x-show="tab === 1 && panel == 1">
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th>Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></th>
                                     <th>Description</th>
-                                    <th>Status</th>
+                                    <th style="min-width: 250px;">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -145,26 +145,27 @@
                                         <td>{{$privilege->name}}<small style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small></td>
                                         <td>{{$privilege->description}}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="#" @click="$wire.GiveRolePrivilege( roleSlug ,'{{$privilege?->slug}}')" class="btn {{ (!empty($rolesprivileges) && $rolesprivileges->contains($privilege) ? 'btn-success' : 'btn-primary' ) }}">Yes</a>
-                                                <button type="button" class="btn {{ (!empty($rolesprivileges) && $rolesprivileges->contains($privilege) ? 'btn-primary' : 'btn-success' ) }}">No</button>
-                                                <button type="button" class="btn btn-primary">Never</button>
-                                            </div>
+                                                <a href="#" style="margin-right: 10px;" @click="$wire.GiveRolePrivilege( roleSlug ,'{{$privilege?->slug}}')" class="btn btn-xs {{ (!empty($rolesprivileges) && $rolesprivileges->contains($privilege) ? 'btn-success selected' : 'btn-primary selected' ) }}">Yes</a>
+                                                <a href="#" style="margin-right: 10px;" class="btn btn-xs {{ (!empty($rolesprivileges) && $rolesprivileges->contains($privilege) ? 'btn-primary not-selected' : 'btn-success selected' ) }}">No</a>
+                                                <a href="#" style="margin-right: 10px;" class="btn btn-xs btn-primary not-selected">Never</a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </section>
-                        <section x-show="tab === 5">
-                            @if(isset($activeUser) && !empty($activeUser))
-                            <p>User ID: {{ $activeUser->id }} </p>
+                        <section x-show="tab === 3 && panel === 2">
+                            @if(isset($ActiveUser) && !empty($ActiveUser))
+                            <div>
+                                <p>Username: {{ $ActiveUser->username }} User ID: {{ $ActiveUser->id }} </p>
+                            </div>
+
                             <table class="table">
                                   <thead>
                                   <tr>
                                       <th>Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></th>
                                       <th>Description</th>
-                                      <th>Status</th>
+                                      <th style="min-width: 250px;">Status</th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -173,11 +174,9 @@
                                           <td>{{$privilege->name}}<small style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small></td>
                                           <td>{{$privilege->description}}</td>
                                           <td>
-                                              <div class="btn-group" role="group">
-                                                  <a href="#" class="btn {{ $activeUser->hasPrivilegeTo($privilege->slug) && !$activeUser->hasPrivilegeThroughRole($privilege) ? 'btn-success' : 'btn-primary'}} {{ $activeUser->hasPrivilegeThroughRole($privilege) ? 'disabled' : '' }}">User Level</a>
-                                                  <a href="#" class="btn {{ $activeUser->hasPrivilegeThroughRole($privilege) ? 'btn-success' : 'btn-primary'}}">By Role</a>
-                                                  <a href="#" class="btn">Never</a>
-                                              </div>
+                                                  <a href="#" style="margin-right: 10px;" @click.prevent="$wire.GiveUserPrivilege({{$ActiveUser->id}}, '{{$privilege->slug}}')" class="btn btn-xs {{ $ActiveUser->hasPrivilegeTo($privilege->slug) && !$ActiveUser->hasPrivilegeThroughRole($privilege) ? 'btn-success selected' : 'btn-primary not-selected'}}" {{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'disabled' : '' }}>User Level</a>
+                                                  <a href="#" style="margin-right: 10px;" class="btn btn-xs {{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'btn-success selected' : 'btn-primary not-selected'}}">By Role</a>
+                                                  <a href="#" style="margin-right: 10px;" class="btn btn-xs btn-primary not-selected">Never</a>
                                           </td>
                                       </tr>
                                   @endforeach
