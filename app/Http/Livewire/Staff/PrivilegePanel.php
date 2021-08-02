@@ -63,7 +63,9 @@ class PrivilegePanel extends Component
     {
         $this->resetPage();
     }
-    final public function GetRolesPrivileges($roleSlug) {
+
+    final public function GetRolesPrivileges($roleSlug)
+    {
         $role = Role::where('slug', '=', $roleSlug)->with('privileges')->first();
         $this->role = $role;
         $this->RolesPrivileges = $role->privileges;
@@ -76,14 +78,16 @@ class PrivilegePanel extends Component
         $role->privileges()->attach($priv);
         $this->GetRolesPrivileges($roleSlug);
     }
-    final public function GetUser(User $user) {
+
+    final public function GetUser(User $user)
+    {
         $this->ActiveUser = $user;
     }
 
-    public function GiveUserPrivilege(User $user, $privSlug) {
+    public function GiveUserPrivilege(User $user, $privSlug)
+    {
         $priv = Privilege::where('slug', '=', $privSlug)->first();
         $user->privileges()->attach($priv);
         $this->GetUser($user);
     }
-
 }

@@ -177,7 +177,7 @@ class ForumController extends Controller
 
         $pests = [];
         foreach (Forum::all() as $forum) {
-            if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum')){
+            if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum')) {
                 array_push($pests, $forum->id);
             }
         }
@@ -303,8 +303,8 @@ class ForumController extends Controller
         $numTopics = 0;
 
         foreach ($Forums as $f) {
-                $numPosts += $f->getPostCount($f->id);
-                $numTopics += $f->getTopicCount($f->id);
+            $numPosts += $f->getPostCount($f->id);
+            $numTopics += $f->getTopicCount($f->id);
         }
 
         return \view('forum.index', [
@@ -312,7 +312,7 @@ class ForumController extends Controller
             'num_posts'  => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
-            'user' => $user
+            'user'       => $user,
         ]);
     }
 
@@ -323,7 +323,6 @@ class ForumController extends Controller
      */
     public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
-
         $user = $request->user();
         // Find the topic
         $forum = Forum::findOrFail($id);

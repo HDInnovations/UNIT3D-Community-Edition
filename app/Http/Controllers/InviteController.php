@@ -53,7 +53,7 @@ class InviteController extends Controller
             return \redirect()->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
-        if (!$user->hasPrivilegeTo('user_can_invite')) {
+        if (! $user->hasPrivilegeTo('user_can_invite')) {
             return \redirect()->route('home.index')
             ->withErrors('You Do Not Have The Privilege of Sending Invites.');
         }
@@ -74,7 +74,7 @@ class InviteController extends Controller
         $carbon = new Carbon();
         $user = $request->user();
 
-        if (!$user->hasPrivilegeTo('user_can_invite')) {
+        if (! $user->hasPrivilegeTo('user_can_invite')) {
             return \redirect()->route('home.index')
                 ->withErrors('You Do Not Have The Privilege of Sending Invites.');
         }

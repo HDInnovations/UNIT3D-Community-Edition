@@ -42,6 +42,7 @@ class AlbumController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
+
         return \view('album.create');
     }
 
@@ -54,7 +55,7 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
-        
+
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 

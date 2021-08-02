@@ -40,7 +40,6 @@ class ReportController extends Controller
      */
     public function request(Request $request, $id)
     {
-
         \abort_unless($request->user()->hasPrivilegeTo('user_can_report'), 403);
 
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -80,7 +79,6 @@ class ReportController extends Controller
     public function torrent(Request $request, $id)
     {
         \abort_unless($request->user()->hasPrivilegeTo('user_can_report'), 403);
-
 
         $torrent = Torrent::findOrFail($id);
         $reportedBy = $request->user();

@@ -133,7 +133,6 @@ class RequestController extends Controller
      */
     public function addrequest(Request $request)
     {
-
         \abort_unless($request->user()->hasPrivilegeTo('request_can_create'), 403);
         $user = $request->user();
 
@@ -247,8 +246,6 @@ class RequestController extends Controller
      */
     public function editrequest(Request $request, $id)
     {
-
-
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
         \abort_unless($request->user()->hasPrivilegeTo('request_can_update') || $torrentRequest->user_id === $user->id, 403);
@@ -320,8 +317,6 @@ class RequestController extends Controller
      */
     public function addBonus(Request $request, $id)
     {
-
-
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);

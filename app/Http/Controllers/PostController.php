@@ -52,16 +52,15 @@ class PostController extends Controller
      */
     public function reply(Request $request, $id)
     {
-        
         \abort_unless($request->user()->hasPrivilegeTo('forums_can_comment'), 403);
-        
+
         $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (!$user->hasPrivilegeTo('forum_'.$forum->slug.'_reply_topic') || !$user->hasPrivilegeTo('forums_sudo') || ($topic->state == 'close' && ! $user->hasPrivilegeTo('forums_sudo'))) {
+        if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_reply_topic') || ! $user->hasPrivilegeTo('forums_sudo') || ($topic->state == 'close' && ! $user->hasPrivilegeTo('forums_sudo'))) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -178,6 +177,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
         \abort_unless($request->user()->hasPrivilegeTo('forums_can_update_comment') || $request->user()->id === $post->user_id, 403);
+
         return \view('forum.post_edit', [
             'topic'    => $topic,
             'forum'    => $forum,

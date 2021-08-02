@@ -114,7 +114,6 @@ class PrivateMessageController extends Controller
      */
     public function sendPrivateMessage(Request $request)
     {
-
         \abort_unless($request->user()->hasPrivilegeTo('user_can_private_message'), 403);
 
         $user = $request->user();
@@ -174,8 +173,6 @@ class PrivateMessageController extends Controller
      */
     public function replyPrivateMessage(Request $request, $id)
     {
-
-
         $user = $request->user();
 
         $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -189,7 +186,6 @@ class PrivateMessageController extends Controller
         $privateMessage->read = 0;
 
         \abort_unless($request->user()->hasPrivilegeTo('user_can_private_message'), 403);
-
 
         $v = \validator($privateMessage->toArray(), [
             'sender_id'   => 'required',

@@ -33,7 +33,6 @@ class RssController extends Controller
      */
     public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
     {
-
     }
 
     /**
@@ -159,7 +158,6 @@ class RssController extends Controller
      */
     public function show($id, $rsskey)
     {
-
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         \abort_unless($user->hasPrivilegeTo('user_can_rss'), 403);
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));

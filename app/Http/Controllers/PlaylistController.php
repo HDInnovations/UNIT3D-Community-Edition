@@ -55,6 +55,7 @@ class PlaylistController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('playlist_can_create'), 403);
+
         return \view('playlist.create');
     }
 
@@ -247,7 +248,7 @@ class PlaylistController extends Controller
 
         // Privilege Check
         \abort_unless($user->hasPrivilegeTo('playlist_can_download_all'), 403);
-       
+
         //  Extend The Maximum Execution Time
         \set_time_limit(300);
 

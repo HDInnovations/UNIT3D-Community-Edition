@@ -70,7 +70,6 @@ class StatsController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Total Members Count (All Groups)
         $allUser = \cache()->remember('all_user', $this->carbon, fn () => User::withTrashed()->count());
