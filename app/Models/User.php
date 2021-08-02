@@ -63,22 +63,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function privileges()
-    {
-        return $this->belongsToMany(Role::class, 'user_privilege', 'user_id', 'privilege_id');
-    }
-
-    /**
      * Belongs To A Internal Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

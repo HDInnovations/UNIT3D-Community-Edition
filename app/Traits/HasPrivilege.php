@@ -7,14 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 trait HasPrivilege
 {
-    /**
-     * @param $privilege
-     *
-     * @throws \Exception
-     *
-     * @return bool
-     */
-    public function hasPrivilegeTo($privilege)
+
+    public function hasPrivilegeTo($privilege) : bool
     {
         $ttl = new \DateInterval('PT60S');
 
@@ -24,19 +18,17 @@ trait HasPrivilege
             });
     }
 
-    /**
-     * @return mixed
-     */
     public function privileges()
     {
         return $this->belongsToMany(Privilege::class, 'user_privilege', 'user_id', 'privilege_id');
     }
 
-    /**
-     * @param array $privileges
-     *
-     * @return mixed
-     */
+    public function UserRestrictedPrivileges() {
+     
+        return $this->belongsToMany(Privilege::class, 'user_restricted_privilege', 'user_id', 'privilege_id');
+    
+    }
+
     protected function getAllPrivileges(array $privileges)
     {
         return Privilege::whereIn('slug', $privileges)->get();

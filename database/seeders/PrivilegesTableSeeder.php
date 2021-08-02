@@ -117,7 +117,7 @@ class PrivilegesTableSeeder extends Seeder
 
             ['slug'           => 'dashboard_can_warning_log', 'name' => 'Site Tools: Can Access Warning Log',
                 'description' => '', ],
-
+            
             ['slug'           => 'torrent_can_view', 'name' => 'Torrents: Can Search & View',
                 'description' => 'Can Search and View Torrents on The Site', ],
 
@@ -217,6 +217,9 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'request_can_update_meta_ids', 'name' => 'Requests: Can Update Meta Id\'s',
                 'description' => ' ', ],
 
+            ['slug'           => 'request_can_unclaim', 'name' => 'Requests: Can Remove Claiming User',
+                'description' => ' ', ],
+
             ['slug'           => 'request_can_delete', 'name' => 'Requests: Can Delete',
                 'description' => ' ', ],
 
@@ -250,7 +253,7 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'forums_can_view', 'name' => 'Forums (Global): Can View',
                 'description' => ' ', ],
 
-            ['slug'           => 'forums_can_sticky', 'name' => 'Forums (Global): Can Sticky',
+            ['slug'           => 'forums_can_sticky', 'name' => 'Forums (Global): Can Sticky/Pin',
                 'description' => ' ', ],
 
             ['slug'           => 'forums_can_bump', 'name' => 'Forums (Global): Can Bump',
@@ -259,7 +262,13 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'forums_can_create_topic', 'name' => 'Forums (Global): Can Create Topic',
                 'description' => ' ', ],
 
+            ['slug'           => 'forums_can_edit_topic', 'name' => 'Forums (Global): Can Edit Topic',
+                'description' => ' ', ],
+
             ['slug'           => 'forums_can_delete_topic', 'name' => 'Forums (Global): Can Delete Topic',
+                'description' => ' ', ],
+
+            ['slug'           => 'forums_can_moderate', 'name' => 'Forums (Global): Can Moderate',
                 'description' => ' ', ],
 
             ['slug'           => 'forums_can_comment', 'name' => 'Forums (Global): Can Comment',
@@ -385,6 +394,15 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'users_edit_privileges', 'name' => 'Users: Edit Users Privileges',
                 'description' => ' ', ],
 
+            ['slug'           => 'users_view_infractions', 'name' => 'Users: View Bans and Warnings',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_edit_infractions', 'name' => 'Users: Edit Bans and Warnings',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_give_infractions', 'name' => 'Users: Ban Users and Handout Warnings',
+                'description' => ' ', ],
+
             ['slug'           => 'users_view_personal', 'name' => 'Users: View Users Personal Information',
                 'description' => ' ', ],
 
@@ -397,7 +415,22 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'users_edit_security', 'name' => 'Users: Edit Users Security Information',
                 'description' => ' ', ],
 
+            ['slug'           => 'users_view_torrents', 'name' => 'Users: View Users Torrent History',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_view_requests', 'name' => 'Users: View Users Request History',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_view_wishlist', 'name' => 'Users: View Users Wishlist',
+                'description' => ' ', ],
+
             ['slug'           => 'users_view_invites', 'name' => 'Users: View Users Invites',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_view_rss', 'name' => 'Users: View RSS Feeds',
+                'description' => ' ', ],
+
+            ['slug'           => 'users_edit_rss', 'name' => 'Users: Edit RSS Feeds',
                 'description' => ' ', ],
 
             ['slug'           => 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences',
@@ -408,6 +441,12 @@ class PrivilegesTableSeeder extends Seeder
 
             ['slug'           => 'user_special_double_upload', 'name'=> 'User: Special Double Upload',
                 'description' => ' ', ],
+
+            ['slug'           => 'user_special_immune', 'name'=> 'User: Special Immunity to Hit and Runs',
+                'description' => 'User is Immune to Hit and Runs', ],
+
+            ['slug'           => 'user_special_staff', 'name'=> 'User: Special Site Staff',
+                'description' => 'Marks User as Staff. Prevents User from being banned.', ],
 
             ['slug'           => 'user_can_invite', 'name'=> 'User: Can Invite Users',
                 'description' => ' ', ],
