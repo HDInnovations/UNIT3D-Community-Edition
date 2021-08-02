@@ -48,15 +48,18 @@
                                 <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal"
                                         data-target="#vote"><i class="{{ config('other.font-awesome') }} fa-thumbs-up">
                                     </i> @lang('request.vote')</button>
-                            @endif @if ($user->group->is_modo && $torrentRequest->filled_hash != null)
+                            @endif @if ($user->hasPrivilegeTo('request_can_reset') && $torrentRequest->filled_hash != null)
                                 <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i
                                             class="{{ config('other.font-awesome') }} fa-undo">
                                     </i> @lang('request.reset-request')</button>
-                            @endif @if ($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
+                            @endif
+                            @if ($user->hasPrivilegeTo('request_can_update') || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <a class="btn btn-warning btn-xs"
                                    href="{{ route('edit_request', ['id' => $torrentRequest->id]) }}" role="button"><i
                                             class="{{ config('other.font-awesome') }} fa-edit"
                                             aria-hidden="true"> @lang('request.edit-request')</i></a>
+                            @endif
+                            @if ($user->hasPrivilegeTo('request_can_delete') || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i
                                             class="{{ config('other.font-awesome') }} fa-trash">
                                     </i> @lang('common.delete')</button>
@@ -150,7 +153,7 @@
                                 </span>
                                 @else
                                 <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                                @if ($user->hasPrivilegeTo('users_view_private') || $torrentRequest->user->username == $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         ({{ $torrentRequest->user->username }})
                                     </a>
@@ -193,7 +196,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                        @if ($user->hasPrivilegeTo('users_view_private') || $torrentRequestClaim->username == $user->username)
                                             ({{ $torrentRequestClaim->username }})
                                         @endif
                                     </span>
@@ -243,7 +246,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                        @if ($user->hasPrivilegeTo('users_view_private') || $torrentRequest->FillUser->username == $user->username)
                                             <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                                 ({{ $torrentRequest->FillUser->username }})
                                             </a>
@@ -265,7 +268,7 @@
                             </tr>
                         @endif
 
-                        @if (($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null) || (auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null))
+                        @if (($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null) || ($user->hasPrivilegeTo('request_can_approve') && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null))
                             <tr>
                                 <td>
                                     <strong>@lang('request.filled-by')</strong>
@@ -279,7 +282,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                        @if ($user->hasPrivilegeTo('users_view_private') || $torrentRequest->FillUser->username == $user->username)
                                             ({{ $torrentRequest->FillUser->username }})
                                         @endif
                                     </span>
@@ -344,7 +347,7 @@
                                             </span>
                                             @else
                                             <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                                @if ($user->group->is_modo || $voter->user->username == $user->username)
+                                                @if ($user->hasPrivilegeTo('users_view_private') || $voter->user->username == $user->username)
                                                     <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                         ({{ $voter->user->username }})
                                                     </a>
@@ -389,8 +392,8 @@
                                                 @if ($comment->anon == 1)
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
+                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if ($user->id == $comment->user->id || $user->hasPrivilegeTo('users_view_private'))
+                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
@@ -404,14 +407,16 @@
                                                              alt="{{ $comment->user->username }}"
                                                              class="img-avatar-48"></a>
                                                     @endif
-                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
+                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                                @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_delete'))
                                                     <a title="@lang('common.delete-your-comment')"
                                                        href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                                                 class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times"
                                                                 aria-hidden="true"></i></a>
+                                                @endif
+                                                @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_update'))
                                                     <a title="@lang('common.edit-your-comment')"
                                                        data-toggle="modal"
                                                        data-target="#modal-comment-edit-{{ $comment->id }}"><i

@@ -93,8 +93,8 @@
                     <div class="text-center">
                         <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
-                            @endif class="btn btn-warning">@lang('request.reset')</button>
+                        @if (!$user->hasPrivilegeTo('request_can_reset') || $torrentRequest->filled_hash == null)<button type="submit"
+                             class="btn btn-warning">@lang('request.reset')</button>@endif
                     </div>
                 </div>
             </form>
