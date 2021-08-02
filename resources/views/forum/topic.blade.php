@@ -68,7 +68,7 @@
                                     <span class="badge-user text-bold">
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                             class="post-info-username"
-                                            style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
+                                            style="color:{{ $p->user->primaryRole->color }}; display:inline;">{{ $p->user->username }}</a>
                                         @if ($p->user->isOnline())
                                             <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"
                                                 data-original-title="Online"></i>
@@ -84,10 +84,10 @@
                                 </p>
 
                                 <p><span class="badge-user text-bold"
-                                        style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                            class="{{ $p->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $p->user->group->name }}"></i>
-                                        {{ $p->user->group->name }}</span>
+                                        style="color:{{ $p->user->primaryRole->color }}; background-image:{{ $p->user->primaryRole->effect }};"><i
+                                            class="{{ $p->user->primaryRole->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $p->user->primaryRole->name }}"></i>
+                                        {{ $p->user->primaryRole->name }}</span>
                                 </p>
                                 @if (!empty($p->user->title))
                                 <p><span class="badge-user title">{{ $p->user->title }}</span></p>
@@ -114,11 +114,11 @@
                                     @if ($topic->state == 'open')
                                         <button id="quote" class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
                                     @endif
-                                    @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id)
+                                    @if (auth()->user()->hasPrivilegeTo('forums_can_update_comment') || $p->user_id == auth()->user()->id)
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
                                     @endif
-                                    @if (auth()->user()->group->is_modo || ($p->user_id == auth()->user()->id && $topic->state ==
+                                    @if (auth()->user()->hasPrivilegeTo('forums_can_delete_topic')  || ($p->user_id == auth()->user()->id && $topic->state ==
                                         'open'))
                                         <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
@@ -167,11 +167,11 @@
             <br>
             <div class="block">
                 <div class="topic-new-post">
-                    @if ($topic->state == "close" && auth()->user()->group->is_modo)
+                    @if ($topic->state == "close" && auth()->user()->hasPrivilegeTo('forums_can_moderate'))
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
                             <div class="text-danger">This topic is closed, but you can still reply due to you
-                                being {{ auth()->user()->group->name }}.
+                                having the Forums Moderation Privilege.
                             </div>
                             <div class="from-group">
                                 <label for="topic-response"></label>
@@ -182,6 +182,7 @@
                     @elseif ($topic->state == "close")
                         <div class="col-md-12 alert alert-danger">@lang('forum.topic-closed')</div>
                     @else
+                        @if(auth()->user()->hasPrivilegeTo('forums_can_comment'))
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
                             <div class="from-group">
@@ -190,10 +191,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                         </form>
+                        @endif
                     @endif
 
                     <div class="text-center">
-                        @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+                        @if (auth()->user()->hasPrivilegeTo('forums_can_moderate') || $topic->first_post_user_id == auth()->user()->id)
                             <h3>@lang('forum.moderation')</h3>
                             @if ($topic->state == "close")
                                 <a href="{{ route('forum_open', ['id' => $topic->id]) }}"
@@ -203,13 +205,16 @@
                                     class="btn btn-info">@lang('forum.close-topic')</a>
                             @endif
                         @endif
-                        @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+                        @if (auth()->user()->hasPrivilegeTo('forums_can_edit_topic') || $topic->first_post_user_id == auth()->user()->id)
                             <a href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
                                 class="btn btn-warning">@lang('forum.edit-topic')</a>
+                            @endif
+                            @if (auth()->user()->hasPrivilegeTo('forums_can_delete_topic') || $topic->first_post_user_id == auth()->user()->id)
+
                             <a href="{{ route('forum_delete_topic', ['id' => $topic->id]) }}"
                                 class="btn btn-danger">@lang('forum.delete-topic')</a>
                         @endif
-                        @if (auth()->user()->group->is_modo)
+                        @if (auth()->user()->hasPrivilegeTo('forums_can_sticky'))
                             @if ($topic->pinned == 0)
                                 <a href="{{ route('forum_pin_topic', ['id' => $topic->id]) }}"
                                     class="btn btn-primary">@lang('forum.pin') {{ strtolower(trans('forum.topic')) }}</a>
@@ -221,7 +226,7 @@
 
                         <br>
 
-                        @if (auth()->user()->group->is_modo)
+                        @if (auth()->user()->hasPrivilegeTo('forums_can_moderate') )
                             <h3>@lang('forum.label-system')</h3>
                             @if ($topic->approved == "0")
                                 <a href="{{ route('topics.approve', ['id' => $topic->id]) }}"

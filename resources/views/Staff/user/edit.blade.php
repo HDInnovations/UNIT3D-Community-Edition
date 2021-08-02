@@ -107,7 +107,7 @@
                         </label>
                     </div>
                     
-                    @if ($user->group->name == "Internal")
+                    @if ($user->primaryRole->name == "Internal")
                         <div class="form-group">
                             <label for="about">Internal Group:</label>
                             <label>

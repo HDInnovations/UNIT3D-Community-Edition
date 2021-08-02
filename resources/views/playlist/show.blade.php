@@ -193,9 +193,9 @@
                                                 </span>
 									@else
 										<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
-                                            <span class="badge-user text-bold" style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
-                                                <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip" title=""
-                                                   data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
+                                            <span class="badge-user text-bold" style="color:{{ $t->torrent->user->primaryRole->color }}; background-image:{{ $t->torrent->user->primaryRole->effect }};">
+                                                <i class="{{ $t->torrent->user->primaryRole->icon }}" data-toggle="tooltip" title=""
+                                                   data-original-title="{{ $t->torrent->user->primaryRole->name }}"></i> {{ $t->torrent->user->username }}
                                             </span>
 										</a>
 									@endif

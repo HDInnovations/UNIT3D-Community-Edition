@@ -86,12 +86,12 @@
                                         </i>
                                     @endif
                                 </h2>
-                                <h4>@lang('common.primary role'): <span class="badge-user text-bold"
+                                <h4>@lang('common.primary_role'): <span class="badge-user text-bold"
                                                                        style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};"><i
                                                 class="{{ $user->primaryRole->icon}}" data-toggle="tooltip" title=""
                                                 data-original-title="{{ $user->primaryRole->name }}"></i> {{ $user->primaryRole->name }}</span>
                                         @if($user->additionalRoles->count() > 0 )
-                                        @lang('common.additional roles'):
+                                        @lang('common.additional_roles'):
                                             @foreach($user->additionalRoles as $role)
                                                 <span class="badge-user text-bold"
                                                       style="color:{{ $role->color }}; background-image:{{ $role->effect }};"><i
