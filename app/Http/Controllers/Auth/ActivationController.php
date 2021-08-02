@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\UserActivation;
 
 /**
@@ -27,14 +28,9 @@ class ActivationController extends Controller
         $memberGroup = \cache()->rememberForever('member_group', fn () => Role::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
-        if ($activation->user->id && $activation->user->role->id != $bannedGroup[0]) {
+        if ($activation->user->id && $activation->user->primaryRole->id != $bannedGroup[0]) {
             $activation->user->active = 1;
-            $activation->user->can_upload = 1;
-            $activation->user->can_download = 1;
-            $activation->user->can_request = 1;
-            $activation->user->can_comment = 1;
-            $activation->user->can_invite = 1;
-            $activation->user->role_id = $memberGroup[0];
+            $activation->user->primaryRole = $memberGroup[0];
             $activation->user->save();
 
             $activation->delete();
