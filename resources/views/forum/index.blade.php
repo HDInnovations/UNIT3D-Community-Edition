@@ -75,7 +75,7 @@
                         </thead>
                         <tbody>
                             @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
-                                @if ($auth->user->hasPrivilegeTo( 'forum_'.$categoryChild->slug.'_show_forum'))
+                                @if ($user->hasPrivilegeTo( 'forum_'.$categoryChild->slug.'_show_forum'))
                                     <tr>
                                         <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
                                         <td>

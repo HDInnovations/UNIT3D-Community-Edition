@@ -21,7 +21,7 @@ class CreateRolesTable extends Migration
             $table->text('description')->nullable();
             $table->string('color')->default('rgb(0,0,0)');
             $table->string('icon')->nullable();
-            $table->string('effect')->default('none');
+            $table->string('effect')->default('none')->nullable();
             $table->integer('rule_id')->nullable();
             $table->boolean('system_required')->default(false);
             $table->timestamps();
