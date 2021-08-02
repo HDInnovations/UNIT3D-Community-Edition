@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
     Route::prefix('chat')->group(function () {
         Route::get('/config', [App\Http\Controllers\API\ChatController::class, 'config']);
 
-        Route::get('/permissions', 'ChatController@permissions');
+        Route::get('/permissions', [App\Http\Controllers\API\ChatController::class, 'privileges']);
 
         /* Statuses */
         Route::get('/statuses', [App\Http\Controllers\API\ChatController::class, 'statuses']);
