@@ -16,6 +16,8 @@ namespace App\Console\Commands;
 use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
+use App\Models\Privilege;
+use App\Models\Role;
 use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -49,20 +51,26 @@ class AutoBan extends Command
      */
     public function handle()
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+
+        $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();;
+        $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();;
+        $banned = Role::where('slug', 'banned')->firstOrFail();
+
+        //$bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
-            if ($ban->warneduser->group_id != $bannedGroup[0] && ! $ban->warneduser->group->is_immune) {
+
+
+            if (! $ban->warneduser->hasRole('banned') || $ban->warneduser->hasPrivilegeTo('can_login') || $ban->warneduser->hasPrivilegeTo('active_user')  && ! $ban->warneduser->hasPrivilegeTo('user_special_immune')) {
+
+                $ban->warneduser->UserRestrictedPrivileges()->attach($canLogin);
+                $ban->warneduser->UserRestrictedPrivileges()->attach($activeUser);
+                $ban->warneduser->roles()->attach($banned);
+
                 // If User Has x or More Active Warnings Ban Set The Users Group To Banned
-                $ban->warneduser->group_id = $bannedGroup[0];
-                $ban->warneduser->can_upload = 0;
-                $ban->warneduser->can_download = 0;
-                $ban->warneduser->can_comment = 0;
-                $ban->warneduser->can_invite = 0;
-                $ban->warneduser->can_request = 0;
-                $ban->warneduser->can_chat = 0;
+                //$ban->warneduser->group_id = $bannedGroup[0];
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log
