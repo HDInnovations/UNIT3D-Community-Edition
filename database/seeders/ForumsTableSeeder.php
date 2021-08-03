@@ -24,7 +24,6 @@ class ForumsTableSeeder extends Seeder
     public function __construct()
     {
         $this->forums = $this->getForums();
-
     }
 
     /**

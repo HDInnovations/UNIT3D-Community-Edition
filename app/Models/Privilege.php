@@ -10,7 +10,7 @@ class Privilege extends Model
     use HasFactory;
 
     protected $fillable = [
-        'slug', 'name'
+        'slug', 'name',
     ];
 
     /**

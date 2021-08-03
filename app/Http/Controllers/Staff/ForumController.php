@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
-use App\Models\Permission;
 use App\Models\Privilege;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -70,7 +69,7 @@ class ForumController extends Controller
         $replyTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_reply_topic', 'name' =>'Forums: '.$forum->name.' - Reply To Topics'])->save();
         $createTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_start_topic', 'name' =>'Forums: '.$forum->name.' - Create Topics'])->save();
 
-        if ( ! $request->user()->hasPrivilegeTo('forums_sudo')) {
+        if (! $request->user()->hasPrivilegeTo('forums_sudo')) {
             $request->user()->privilege()->attach($showForum);
             $request->user()->privilege()->attach($readTopics);
             $request->user()->privilege()->attach($replyTopic);
@@ -117,7 +116,6 @@ class ForumController extends Controller
         $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
-
         return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
@@ -133,15 +131,14 @@ class ForumController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-
         \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         // Forum to delete
         $forum = Forum::findOrFail($id);
         $showForum = Privilege::where('slug', 'forum_'.$forum->slug.'_show_forum')->firstOrFail();
-        $readTopics = Privilege::where('slug','forum_'.$forum->slug.'_read_topic')->firstOrFail();
-        $replyTopic = Privilege::where('slug','forum_'.$forum->slug.'_reply_topic')->firstOrFail();
-        $createTopic = Privilege::where('slug','forum_'.$forum->slug.'_start_topic')->firstOrFail();
+        $readTopics = Privilege::where('slug', 'forum_'.$forum->slug.'_read_topic')->firstOrFail();
+        $replyTopic = Privilege::where('slug', 'forum_'.$forum->slug.'_reply_topic')->firstOrFail();
+        $createTopic = Privilege::where('slug', 'forum_'.$forum->slug.'_start_topic')->firstOrFail();
 
         $forum->delete();
         $showForum->delete();

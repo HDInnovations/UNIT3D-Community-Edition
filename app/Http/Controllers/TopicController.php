@@ -78,7 +78,7 @@ class TopicController extends Controller
         $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
 
         // The user can post a topic here ?
-        if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_read_topic') || $user->hasPrivilegeTo('forums_sudo') ) ) {
+        if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_read_topic') || $user->hasPrivilegeTo('forums_sudo'))) {
             // Redirect him to the forum index
             return \redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
@@ -102,7 +102,7 @@ class TopicController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View
     {
         $user = $request->user();
 
@@ -110,7 +110,7 @@ class TopicController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
+        if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
@@ -136,7 +136,7 @@ class TopicController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
+        if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
