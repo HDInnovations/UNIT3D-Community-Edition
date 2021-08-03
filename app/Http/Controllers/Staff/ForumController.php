@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use App\Models\Privilege;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -54,7 +55,7 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        $groups = Group::all();
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         $forum = new Forum();
         $forum->name = $request->input('title');
@@ -64,26 +65,16 @@ class ForumController extends Controller
         $forum->parent_id = $request->input('parent_id');
         $forum->save();
 
-        // Permissions
-        foreach ($groups as $k => $group) {
-            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-            if ($perm == null) {
-                $perm = new Permission();
-            }
-            $perm->forum_id = $forum->id;
-            $perm->group_id = $group->id;
-            if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
-                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
-                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
-                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
-            } else {
-                $perm->show_forum = false;
-                $perm->read_topic = false;
-                $perm->reply_topic = false;
-                $perm->start_topic = false;
-            }
-            $perm->save();
+        $showForum = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_show_forum', 'name' =>'Forums: '.$forum->name.' - Show Forum'])->save();
+        $readTopics = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_read_topic', 'name' =>'Forums: '.$forum->name.' - Read Topics'])->save();
+        $replyTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_reply_topic', 'name' =>'Forums: '.$forum->name.' - Reply To Topics'])->save();
+        $createTopic = Privilege::create(['slug'=> 'forum_'.$forum->slug.'_start_topic', 'name' =>'Forums: '.$forum->name.' - Create Topics'])->save();
+
+        if ( ! $request->user()->hasPrivilegeTo('forums_sudo')) {
+            $request->user()->privilege()->attach($showForum);
+            $request->user()->privilege()->attach($readTopics);
+            $request->user()->privilege()->attach($replyTopic);
+            $request->user()->privilege()->attach($createTopic);
         }
 
         return \redirect()->route('staff.forums.index')
@@ -118,7 +109,6 @@ class ForumController extends Controller
     public function update(Request $request, $id)
     {
         $forum = Forum::findOrFail($id);
-        $groups = Group::all();
 
         $forum->name = $request->input('title');
         $forum->position = $request->input('position');
@@ -127,27 +117,6 @@ class ForumController extends Controller
         $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
-        // Permissions
-        foreach ($groups as $k => $group) {
-            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-            if ($perm == null) {
-                $perm = new Permission();
-            }
-            $perm->forum_id = $forum->id;
-            $perm->group_id = $group->id;
-            if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
-                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
-                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
-                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
-            } else {
-                $perm->show_forum = false;
-                $perm->read_topic = false;
-                $perm->reply_topic = false;
-                $perm->start_topic = false;
-            }
-            $perm->save();
-        }
 
         return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
@@ -162,52 +131,23 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
+
         // Forum to delete
         $forum = Forum::findOrFail($id);
+        $showForum = Privilege::where('slug', 'forum_'.$forum->slug.'_show_forum')->firstOrFail();
+        $readTopics = Privilege::where('slug','forum_'.$forum->slug.'_read_topic')->firstOrFail();
+        $replyTopic = Privilege::where('slug','forum_'.$forum->slug.'_reply_topic')->firstOrFail();
+        $createTopic = Privilege::where('slug','forum_'.$forum->slug.'_start_topic')->firstOrFail();
 
-        $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-        foreach ($permissions as $p) {
-            $p->delete();
-        }
-        unset($permissions);
-
-        if ($forum->parent_id == 0) {
-            $category = $forum;
-            $permissions = Permission::where('forum_id', '=', $category->id)->get();
-            foreach ($permissions as $p) {
-                $p->delete();
-            }
-
-            foreach ($category->getForumsInCategory() as $forum) {
-                $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-                foreach ($permissions as $p) {
-                    $p->delete();
-                }
-
-                foreach ($forum->topics as $t) {
-                    foreach ($t->posts as $p) {
-                        $p->delete();
-                    }
-                    $t->delete();
-                }
-                $forum->delete();
-            }
-            $category->delete();
-        } else {
-            $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-            foreach ($permissions as $p) {
-                $p->delete();
-            }
-            foreach ($forum->topics as $t) {
-                foreach ($t->posts as $p) {
-                    $p->delete();
-                }
-                $t->delete();
-            }
-            $forum->delete();
-        }
+        $forum->delete();
+        $showForum->delete();
+        $readTopics->delete();
+        $replyTopic->delete();
+        $createTopic->delete();
 
         return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');

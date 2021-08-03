@@ -341,7 +341,7 @@ class ForumController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->parent_id);
-        if ($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') != true) {
+        if (!($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') || $user->hasPrivilegeTo('forums_sudo'))) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }
@@ -356,6 +356,7 @@ class ForumController extends Controller
             'num_posts'  => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
+            'user' => $user
         ]);
     }
 }

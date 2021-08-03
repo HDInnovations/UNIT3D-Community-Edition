@@ -50,6 +50,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
+
         $category = new Category();
         $category->name = $request->input('name');
         $category->slug = Str::slug($category->name);

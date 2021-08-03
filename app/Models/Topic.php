@@ -17,6 +17,7 @@ use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Topic.
@@ -180,11 +181,11 @@ class Topic extends Model
      */
     public function viewable()
     {
-        if (\auth()->user()->group->is_modo) {
+        if (\auth()->user()->hasPrivilegeTo('forums_sudo')) {
             return true;
         }
 
-        return $this->forum->getPermission()->read_topic;
+        return \auth()->user()->hasPrivilegeTo('forum_'.$this->forum->slug.'_read_topic');
     }
 
     /**

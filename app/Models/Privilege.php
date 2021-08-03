@@ -9,6 +9,10 @@ class Privilege extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'slug', 'name'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

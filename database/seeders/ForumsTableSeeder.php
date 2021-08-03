@@ -14,6 +14,7 @@
 namespace Database\Seeders;
 
 use App\Models\Forum;
+use App\Models\Privilege;
 use Illuminate\Database\Seeder;
 
 class ForumsTableSeeder extends Seeder
@@ -23,6 +24,7 @@ class ForumsTableSeeder extends Seeder
     public function __construct()
     {
         $this->forums = $this->getForums();
+
     }
 
     /**
@@ -34,6 +36,10 @@ class ForumsTableSeeder extends Seeder
     {
         foreach ($this->forums as $forum) {
             Forum::updateOrCreate($forum);
+            Privilege::create(['slug'=> 'forum_'.$forum['slug'].'_show_forum', 'name' =>'Forums: '.$forum['name'].' - Show Forum']);
+            Privilege::create(['slug'=> 'forum_'.$forum['slug'].'_read_topic', 'name' =>'Forums: '.$forum['name'].' - Read Topics']);
+            Privilege::create(['slug'=> 'forum_'.$forum['slug'].'_reply_topic', 'name' =>'Forums: '.$forum['name'].' - Reply To Topics']);
+            Privilege::create(['slug'=> 'forum_'.$forum['slug'].'_start_topic', 'name' =>'Forums: '.$forum['name'].' - Create Topics']);
         }
     }
 

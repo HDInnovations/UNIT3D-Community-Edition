@@ -53,8 +53,10 @@ class TopicController extends Controller
      * @param string            $page
      * @param string            $post
      */
-    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function topic(Request $request, $id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->hasPrivilegeTo('forums_can_view'), 403);
         // Find the topic
         $topic = Topic::findOrFail($id);
 
@@ -65,7 +67,7 @@ class TopicController extends Controller
         $category = $forum->getCategory();
 
         // Get all posts
-        $posts = $topic->posts()->with(['user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips'])
+        $posts = $topic->posts()->with(['user', 'user.primaryRole', 'user.topics', 'user.posts', 'topic', 'tips'])
             ->withCount(['likes' => function (Builder $query) {
                 $query->where('like', '=', 1);
             }, 'likes as dislikes_count' => function (Builder $query) {
@@ -76,7 +78,7 @@ class TopicController extends Controller
         $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
 
         // The user can post a topic here ?
-        if ($category->getPermission()->read_topic != true) {
+        if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_read_topic') || $user->hasPrivilegeTo('forums_sudo') ) ) {
             // Redirect him to the forum index
             return \redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
@@ -100,13 +102,15 @@ class TopicController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
+        $user = $request->user();
+
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if ($category->getPermission()->start_topic != true) {
+        if (!($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
@@ -132,7 +136,7 @@ class TopicController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if ($category->getPermission()->start_topic != true) {
+        if (!($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }

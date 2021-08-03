@@ -60,11 +60,12 @@
                             <div class="button-holder">
                                 <div class="button-left"></div>
                                 <div class="button-right">
-                                    @if ($category->getPermission()->start_topic == true)
+
+                                    @if ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo'))
                                         <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}"
                                             class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
                                     @endif
-                                    @if ($category->getPermission()->show_forum == true)
+                                    @if ($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') || $user->hasPrivilegeTo('forums_sudo'))
                                         @if (auth()->user()->isSubscribed('forum',$forum->id))
                                             <a href="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
                                                 class="btn btn-sm btn-danger">

@@ -436,6 +436,12 @@ class PrivilegesTableSeeder extends Seeder
             ['slug'           => 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences',
                 'description' => ' ', ],
 
+            ['slug'           => 'user_special_no_auto_role', 'name'=> 'User: Special No Auto Role',
+                'description' => ' ', ],
+
+            ['slug'           => 'user_special_no_auto_privilege', 'name'=> 'User: Special No Auto Privilege',
+                'description' => ' ', ],
+
             ['slug'           => 'user_special_freeleech', 'name'=> 'User: Special Freeleech',
                 'description' => ' ', ],
 
@@ -491,6 +497,15 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => ' ', ],
 
             ['slug'           => 'stats_can_view', 'name' => 'Site Stats: Can View Site Stats Pages',
+                'description' => ' ', ],
+
+            ['slug'           => 'store_can_buy_upload', 'name' => 'Store: Can Buy Upload',
+                'description' => ' ', ],
+
+            ['slug'           => 'store_can_buy_freeleech', 'name' => 'Store: Can Buy Freeleech',
+                'description' => ' ', ],
+
+            ['slug'           => 'store_can_buy_invites', 'name' => 'Store: Can Buy Invites',
                 'description' => ' ', ],
         ],
             ['slug'], ['name',
