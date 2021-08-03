@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // GroupsTableSeeder::class,
             RolesTableSeeder::class,
             PrivilegesTableSeeder::class,
             UsersTableSeeder::class,
@@ -35,7 +34,6 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             TypesTableSeeder::class,
             ArticlesTableSeeder::class,
-            PermissionsTableSeeder::class,
             ForumsTableSeeder::class,
             ChatroomTableSeeder::class,
             ChatStatusSeeder::class,
