@@ -21,11 +21,11 @@ export default {
         showCancelButton: true,
         confirmButtonText: 'Send',
         showLoaderOnConfirm: true,
-        onOpen: () => {
+        willOpen: () => {
           this.editor = $('#chat-message-pm').wysibb()
           this.target = $('#receiver-id').val();
         },
-        onClose: () => {
+        willClose: () => {
           this.editor = null;
           this.target = null;
         },
