@@ -30,6 +30,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -2036,9 +2037,6 @@ class UserController extends Controller
             return \redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
-        $new_value = $request->user()->own_flushes - 1;
-        User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
-
         $carbon = new Carbon();
 
         // Get Peer List from User
@@ -2047,6 +2045,9 @@ class UserController extends Controller
         // Return with Error if no Peer exists
         if ($peers->isEmpty()) {
             return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
+        } else {
+            $new_value = $request->user()->own_flushes - 1;
+            User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
         }
 
         // Iterate over Peers
