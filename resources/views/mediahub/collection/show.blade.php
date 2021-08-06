@@ -72,7 +72,8 @@
                         @foreach($collection->movie as $movie)
                             <div class="item mini backdrop mini_card col-md-3">
                                 <div class="image_content">
-                                    <a href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $movie->id]) }}">
+                                    @php $torrent_temp = App\Models\Torrent::where('tmdb', '=', $movie->id)->first();  @endphp
+                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent_temp->category_id, 'tmdb' => $movie->id]) }}">
                                         <div>
                                             <img class="backdrop" src="{{ \tmdb_image('poster_mid', $movie->poster) }}">
                                         </div>
