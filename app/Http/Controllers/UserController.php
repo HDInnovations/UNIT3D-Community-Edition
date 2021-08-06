@@ -2045,10 +2045,10 @@ class UserController extends Controller
         // Return with Error if no Peer exists
         if ($peers->isEmpty()) {
             return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
-        } else {
-            $new_value = $request->user()->own_flushes - 1;
-            User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
         }
+
+        $new_value = $request->user()->own_flushes - 1;
+        User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
 
         // Iterate over Peers
         foreach ($peers as $peer) {
