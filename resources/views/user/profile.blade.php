@@ -547,7 +547,7 @@
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('torrent.torrents')</th>
-                            <th>Connectable</th>
+                            {{--<th>Connectable</th>--}}
                         </tr>
                     </thead>
                     <tbody>
@@ -568,7 +568,7 @@
                                         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $count }}</span>
                                     </a>
                                 </td>
-                                <td>@choice('user.client-connectable-state', $p->connectable)</td>
+                                {{--<td>@choice('user.client-connectable-state', $p->connectable)</td>--}}
                             </tr>
 			                @php array_push($peer_array, [$p->ip, $p->port]); @endphp
 			            @endif

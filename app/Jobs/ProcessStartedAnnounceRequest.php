@@ -86,7 +86,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
+        //$peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 

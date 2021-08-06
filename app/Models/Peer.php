@@ -133,8 +133,6 @@ class Peer extends Model
             if (\is_resource($con)) {
                 \fclose($con);
             }
-
-            self::where('ip', '=', $this->ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable]);
         }
     }
 }
