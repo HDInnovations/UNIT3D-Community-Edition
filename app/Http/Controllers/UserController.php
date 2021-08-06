@@ -81,7 +81,7 @@ class UserController extends Controller
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
-        $peers = Peer::with(['user'])->where('user_id', '=', $user->id)->latest('seeder')->get();
+        $peers = Peer::where('user_id', '=', $user->id)->get();
 
         return \view('user.profile', [
             'route'        => 'profile',

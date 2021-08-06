@@ -118,20 +118,23 @@ class Peer extends Model
     /**
      * Updates Connectable State If Needed.
      *
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Exception
      * @var resource
      */
-    public function updateConnectableStateIfNeeded()
+    public function updateConnectableStateIfNeeded(): void
     {
-        $redis = new RedisClient();
-        if (! $redis->get('peers:connectable:'.$this->id)) {
+        if (! \cache()->has('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent)) {
             $con = @fsockopen($this->ip, $this->port, $_, $_, 1);
 
-            $this->connectable = is_resource($con);
-            $redis->setex('peers:connectable:'.$this->id, config('announce.connectable_check_interval'), $this->connectable ? 'yes' : 'no');
+            $this->connectable = \is_resource($con);
+            \cache()->put('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addDay());
 
-            if (is_resource($con)) {
-                fclose($con);
+            if (\is_resource($con)) {
+                \fclose($con);
             }
+
+            self::where('ip', '=', $this->ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable]);
         }
     }
 }
