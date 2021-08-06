@@ -22,6 +22,7 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
+    public $show = false;
     public $perPage = 25;
     public $search = '';
     public $sortField = 'updated_at';
