@@ -104,6 +104,13 @@ class TorrentListSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingName(): void
     {
         $this->resetPage();

@@ -152,6 +152,15 @@
         @yield('javascripts')
         @yield('scripts')
         @livewireScripts(['nonce' => Bepsvpt\SecureHeaders\SecureHeaders::nonce()])
-    </body>
 
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+            Livewire.on('paginationChanged', () => {
+                window.scrollTo({
+                    top: 15,
+                    left: 15,
+                    behaviour: 'smooth'
+                })
+            })
+        </script>
+    </body>
 </html>

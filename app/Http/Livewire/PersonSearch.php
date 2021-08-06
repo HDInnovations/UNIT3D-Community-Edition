@@ -28,6 +28,13 @@ class PersonSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();

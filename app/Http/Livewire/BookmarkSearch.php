@@ -33,17 +33,24 @@ class BookmarkSearch extends Component
         $this->user = \auth()->user();
     }
 
-    final public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    final public function updatingSearch()
+    final public function setPage($page): void
+    {
+        $this->page = $page;
+
+        $this->emit('paginationChanged');
+    }
+
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function sortBy($field)
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -71,7 +78,7 @@ class BookmarkSearch extends Component
         return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-search', [
             'user'               => $this->user,
