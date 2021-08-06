@@ -74,7 +74,6 @@
 				<th>@lang('common.action')</th>
 			</tr>
 			@foreach ($tickets as $ticket)
-			@if($show || !$show && !$ticket->closed_at)
 				<tr>
 					<td>
 						<span class="badge-user">
@@ -177,7 +176,6 @@
 						</div>
 					</td>
 				</tr>
-			@endif
 			@endforeach
 			</tbody>
 		</table>
