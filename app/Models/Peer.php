@@ -16,7 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
-use Predis\Client as RedisClient;
 
 /**
  * App\Models\Peer.
@@ -120,6 +119,7 @@ class Peer extends Model
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \Exception
+     *
      * @var resource
      */
     public function updateConnectableStateIfNeeded(): void
