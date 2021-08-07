@@ -280,8 +280,8 @@
 			<table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
 				<thead>
 				<tr>
-					<th class="torrent-listings-poster></th>
-					<th class="torrent-listings-format></th>
+					<th class="torrent-listings-poster"></th>
+					<th class="torrent-listings-format"></th>
 					<th class="torrents-filename torrent-listings-overview">
 						<div sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null" role="button">
 							@lang('common.name')
