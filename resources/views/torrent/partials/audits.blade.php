@@ -1,4 +1,4 @@
-<div class="panel panel-chat shoutbox">
+<div class="panel panel-chat shoutbox torrent-audits">
     <div class="panel-heading" data-toggle="collapse" data-parent="#accordion2"
          href="#collapseOne">
         <h4>
