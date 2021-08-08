@@ -102,7 +102,7 @@
     </div>
 
     <div class="meta-general box container col-xs-12">
-        <div class="panel panel-chat shoutbox">
+        <div class="panel panel-chat shoutbox torrent-general">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
             </div>
@@ -111,7 +111,7 @@
                     <tbody>
 
                     @if ($torrent->featured == '0')
-                        <tr class="success">
+                        <tr class="success torrent-discounts">
                             <td>
                                 <strong>@lang('torrent.discounts')</strong>
                             </td>
@@ -173,7 +173,7 @@
                         </tr>
 
                         @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
-                            <tr>
+                            <tr class="torrent-freeleech-token">
                                 <td><strong>@lang('common.fl_token')</strong></td>
                                 <td>
                                     <a href="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
@@ -191,7 +191,7 @@
                     @endif
 
                     @if ($torrent->featured == 1)
-                        <tr class="info">
+                        <tr class="info torrent-featured">
                             <td>
                                 <strong>@lang('torrent.featured')</strong>
                             </td>
@@ -206,7 +206,7 @@
                         </tr>
                     @endif
 
-                    <tr>
+                    <tr class="torrent-name">
                         <td class="col-sm-2">
                             <strong>@lang('torrent.name')</strong>
                         </td>
@@ -225,7 +225,7 @@
                     </tr>
 
                     @if (auth()->user()->group->is_modo)
-                        <tr>
+                        <tr class="torrent-moderation-controls">
                             <td class="col-sm-2">
                                 <strong>@lang('common.moderation')</strong>
                             </td>
@@ -259,7 +259,7 @@
 
 
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
-                        <tr>
+                        <tr class="torrent-internal-controls">
                             <td class="col-sm-2"><strong>@lang('common.staff-tools')</strong></td>
                             <td>
                                 @if ($torrent->free == 0)
@@ -319,7 +319,7 @@
                         </tr>
                     @endif
 
-                    <tr>
+                    <tr class="torrent-uploader">
                         <td class="col-sm-2"><strong>@lang('torrent.uploader')</strong></td>
                         <td>
                             @if ($torrent->anon == 1)
@@ -367,22 +367,22 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-uploaded-time">
                         <td class="col-sm-2"><strong>@lang('torrent.uploaded')</strong></td>
                         <td>{{ $torrent->created_at }} ({{ $torrent->created_at->diffForHumans() }})</td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-size">
                         <td class="col-sm-2"><strong>@lang('torrent.size')</strong></td>
                         <td>{{ $torrent->getSize() }}</td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-estimated-ratio">
                         <td class="col-sm-2"><strong>@lang('torrent.estimated-ratio')</strong></td>
                         <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}</td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-category">
                         <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
                         <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
                                data-toggle="tooltip" data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i>
@@ -390,18 +390,18 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-type">
                         <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
                         <td>{{ $torrent->type->name }}</td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-resolution">
                         <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
                         <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
                     </tr>
 
                     @if ($torrent->keywords->isNotEmpty())
-                        <tr>
+                        <tr class="torrent-keywords">
                             <td class="col-sm-2"><strong>@lang('torrent.keywords')</strong></td>
                             <td>
                                 @foreach($torrent->keywords as $keyword)
@@ -411,19 +411,19 @@
                         </tr>
                     @endif
 
-                    <tr>
+                    <tr class="torrent-stream-optimized">
                         <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
                         <td>
                             @if ($torrent->stream == "1") @lang('common.yes') @else @lang('common.no') @endif
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-info-hash">
                         <td class="col-sm-2"><strong>@lang('torrent.info-hash')</strong></td>
                         <td>{{ $torrent->info_hash }}</td>
                     </tr>
 
-                    <tr>
+                    <tr class="torrent-peers">
                         <td class="col-sm-2"><strong>@lang('torrent.peers')</strong></td>
                         <td>
                             <span class="badge-extra text-green">
@@ -449,7 +449,7 @@
                     </tr>
 
                     @if ($torrent->seeders == 0)
-                        <tr>
+                        <tr class="torrent-last-seed-activity">
                             <td class="col-sm-2"><strong>@lang('torrent.last-seed-activity')</strong></td>
                             <td>
                                 @if ($last_seed_activity)
@@ -474,7 +474,7 @@
 	    @endif
 
 	    @if ($torrent->mediainfo != null)
-		    <div class="panel panel-chat shoutbox">
+		    <div class="panel panel-chat shoutbox torrent-mediainfo">
 			    <div class="panel-heading show_hide">
 				    <h4>
 					    <i class="{{ config("other.font-awesome") }} fa-info-square"></i> MediaInfo
@@ -488,20 +488,20 @@
 						    <td>
 							    <div class="panel-body">
 								    <div class="slidingDiv2">
-									    <div class="text-left text-main" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
+									    <div class="text-left text-main mediainfo-filename" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
 										    @if ($mediaInfo !== null && isset($mediaInfo['general']['file_name']))
 											    <span class="text-bold text-main">{{ $mediaInfo['general']['file_name'] ?? '' }}</span>
 										    @endif
 									    </div>
-									    <div style="width: 100%; display:table;">
-										    <div style="width: 20%; display:table-cell; text-align: left;">
+									    <div class="mediainfo-main" style="width: 100%; display:table;">
+										    <div class="mediainfo-general" style="width: 20%; display:table-cell; text-align: left;">
 											    <div class="text-bold">@joypixels(':information_source:') General:</div>
 											    <div><u style="font-weight: bold;">Format:</u> {{ $mediaInfo['general']['format'] ?? '' }}</div>
 											    <div><u style="font-weight: bold;">Duration:</u> {{ $mediaInfo['general']['duration'] ?? '' }}</div>
 											    <div><u style="font-weight: bold;">Global Bit Rate:</u> {{ $mediaInfo['general']['bit_rate'] ?? '' }}</div>
 											    <div><u style="font-weight: bold;">Overall Size:</u> {{ App\Helpers\StringHelper::formatBytes($mediaInfo['general']['file_size'] ?? 0, 2) }}</div>
 										    </div>
-										    <div style="width: 30%; display:table-cell; text-align: left;">
+										    <div class="mediainfo-video" style="width: 30%; display:table-cell; text-align: left;">
 											    <div class="text-bold">@joypixels(':projector:') Video Tracks:</div>
 											    @if ($mediaInfo !== null && isset($mediaInfo['video']))
 												    @foreach ($mediaInfo['video'] as $key => $videoElement)
@@ -520,7 +520,7 @@
 												    @endforeach
 											    @endif
 										    </div>
-										    <div style="width: 50%; display:table-cell; text-align: left;">
+										    <div class="mediainfo-audio" style="width: 50%; display:table-cell; text-align: left;">
 											    <div class="text-bold">@joypixels(':loud_sound:') Audio Tracks:</div>
 											    @if ($mediaInfo !== null && isset($mediaInfo['audio']))
 												    @foreach ($mediaInfo['audio'] as $key => $audioElement)
@@ -532,7 +532,7 @@
 										    </div>
 									    </div>
 
-									    <div class="text-left text-main" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
+									    <div class="text-left text-main mediainfo-subtitles" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
 										    <span class="text-bold">@joypixels(':speech_balloon:') Subtitles:</span>
 											@if ($mediaInfo !== null && isset($mediaInfo['text']))
 												@foreach ($mediaInfo['text'] as $key => $textElement)
@@ -544,7 +544,7 @@
 									    @if ($mediaInfo !== null && isset($mediaInfo['video']))
 										    @foreach ($mediaInfo['video'] as $key => $videoElement)
 											    @if ($mediaInfo !== null && isset($videoElement['encoding_settings']))
-												    <div class="text-left text-main" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
+												    <div class="text-left text-main mediainfo-encode-settings" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
 													    <span class="text-bold">@joypixels(':information_source:') Encode Settings:</span>
 													    <br>
 													    <pre class="decoda-code"><code>{{ $videoElement['encoding_settings'] ?? '' }}</code></pre>
@@ -554,7 +554,7 @@
 									    @endif
 								    </div>
 
-								    <div class="slidingDiv" style="opacity: 1; display: none;">
+								    <div class="slidingDiv torrent-mediainfo-dump" style="opacity: 1; display: none;">
 									    <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
 										    <span class="text-center text-bold">Full MediaInfo Dump</span>
 											<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
@@ -570,7 +570,7 @@
 	    @endif
 
 	    @if ($torrent->bdinfo != null)
-		    <div class="panel panel-chat shoutbox">
+		    <div class="panel panel-chat shoutbox torrent-bdinfo">
 			    <div class="panel-heading">
 				    <h4><i class="{{ config("other.font-awesome") }} fa-compact-disc"></i> BDInfo</h4>
 			    </div>
@@ -590,7 +590,7 @@
 		    </div>
 	    @endif
 
-	    <div class="panel panel-chat shoutbox">
+	    <div class="panel panel-chat shoutbox torrent-description">
 		    <div class="panel-heading">
 			    <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
 		    </div>
@@ -641,7 +641,7 @@
 		@include('torrent.partials.subtitles')
 	@endif
 
-	<div class="panel panel-chat shoutbox">
+	<div class="panel panel-chat shoutbox torrent-tip-jar">
 		<div class="panel-heading">
 			<h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
 		</div>
@@ -691,7 +691,7 @@
 	</div>
 
 	    @if (! empty($meta->recommendations))
-		    <div class="panel panel-chat shoutbox">
+		    <div class="panel panel-chat shoutbox torrent-recommendations">
 			    <div class="panel-heading">
 				    <h4><i class="{{ config("other.font-awesome") }} fa-exclamation"></i> Recommended</h4>
 			    </div>
