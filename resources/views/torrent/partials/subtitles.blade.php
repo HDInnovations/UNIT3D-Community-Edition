@@ -1,4 +1,4 @@
-<div class="panel panel-chat shoutbox">
+<div class="panel panel-chat shoutbox torrent-subtitles">
     <div class="panel-heading">
         <h4>
             <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> @lang('common.subtitles')
