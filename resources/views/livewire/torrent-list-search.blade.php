@@ -58,11 +58,11 @@
 					<div class="row">
 						<div class="form-group col-sm-3 col-xs-6 adv-search-startYear">
 							<label for="startYear" class="label label-default">@lang('torrent.start-year')</label>
-							<input wire:model="startYear" type="text" class="form-control" placeholder="Year Range">
+							<input wire:model="startYear" type="text" class="form-control" placeholder="Start Year">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-endYear">
 							<label for="endYear" class="label label-default">@lang('torrent.end-year')</label>
-							<input wire:model="endYear" type="text" class="form-control" placeholder="Year Range">
+							<input wire:model="endYear" type="text" class="form-control" placeholder="End Year">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-playlist">
 							<label for="playlist" class="label label-default">Playlist</label>
