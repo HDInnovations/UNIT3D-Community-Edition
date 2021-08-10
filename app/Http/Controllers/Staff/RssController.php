@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Models\Genre;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
-use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -26,13 +26,6 @@ use Illuminate\Http\Request;
  */
 class RssController extends Controller
 {
-    /**
-     * RssController Constructor.
-     */
-    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
-    {
-    }
-
     /**
      * Display a listing of the RSS resource.
      *
@@ -54,14 +47,14 @@ class RssController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('Staff.rss.create', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
-            'user'               => $user, ]);
+            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'      => Genre::all()->sortBy('name'),
+            'user'        => $user,
+            ]);
     }
 
     /**
@@ -79,7 +72,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres'      => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
@@ -124,15 +117,14 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('Staff.rss.edit', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
-            'user'               => $user,
-            'rss'                => $rss,
+            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'      => Genre::all()->sortBy('name'),
+            'user'        => $user,
+            'rss'         => $rss,
         ]);
     }
 
@@ -153,7 +145,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres'      => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Resolution;
@@ -20,21 +21,14 @@ use App\Models\Rss;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
  */
 class RssController extends Controller
 {
-    /**
-     * RssController Constructor.
-     */
-    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
-    {
-    }
-
     /**
      * Display a listing of the RSS resource.
      *
@@ -61,13 +55,12 @@ class RssController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.create', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
+            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'             => Genre::all()->sortBy('name'),
             'user'               => $user,
         ]);
     }
@@ -87,7 +80,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
@@ -263,7 +256,11 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            // TODO
+            $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $genres)->pluck('tv_id');
+            $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $genres)->pluck('movie_id');
+            $mergedCollection = $tvCollection->merge($movieCollection);
+
+            $builder->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
@@ -321,13 +318,12 @@ class RssController extends Controller
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         \abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.edit', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
+            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'             => Genre::all()->sortBy('name'),
             'user'               => $user,
             'rss'                => $rss,
         ]);
@@ -349,7 +345,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 

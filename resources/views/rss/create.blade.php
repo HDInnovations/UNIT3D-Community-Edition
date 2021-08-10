@@ -58,11 +58,11 @@
                     <div class="form-group">
                         <label for="category">@lang('torrent.category')</label>
                         <div>
-                            @foreach ($torrent_repository->categories() as $id => $category)
+                            @foreach ($categories as $category)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}"
-                                            class="category"> {{ $category }}
+                                        <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}" class="category">
+                                        {{ $category->name }}
                                     </label>
                                 </span>
                             @endforeach
@@ -71,11 +71,11 @@
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <div>
-                            @foreach ($torrent_repository->types() as $id => $type)
+                            @foreach ($types as $type)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
-                                        {{ $type }}
+                                        <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type">
+                                        {{ $type->name }}
                                     </label>
                                 </span>
                             @endforeach
@@ -84,11 +84,11 @@
                     <div class="form-group">
                         <label for="resolution">@lang('torrent.resolution')</label>
                         <div>
-                            @foreach ($torrent_repository->resolutions() as $id => $resolution)
+                            @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $resolution }}" value="{{ $id }}" class="resolution" name="resolutions[]">
-                                        {{ $resolution }}
+                                        <input type="checkbox" id="{{ $resolution->name }}" value="{{ $resolution->id }}" class="resolution" name="resolutions[]">
+                                        {{ $resolution->name }}
                                     </label>
                                 </span>
                             @endforeach
@@ -97,11 +97,11 @@
                     <div class="form-group">
                         <label for="genre">@lang('torrent.genre')</label>
                         <div>
-                            @foreach ($torrent_repository->genres() as $id => $genre)
+                            @foreach ($genres as $genre)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
-                                            class="genre"> {{ $genre }}
+                                        <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}" class="genre">
+                                        {{ $genre->name }}
                                     </label>
                                 </span>
                             @endforeach
