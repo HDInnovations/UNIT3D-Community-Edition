@@ -1969,7 +1969,7 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `passkey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `group_id` int NOT NULL,
-  `internal_id` int NOT NULL,
+  `internal_id` int DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint unsigned NOT NULL DEFAULT '0',
