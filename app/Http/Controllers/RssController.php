@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genre;
 use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Rss;

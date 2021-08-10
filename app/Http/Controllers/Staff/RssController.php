@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Genre;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
@@ -54,7 +54,7 @@ class RssController extends Controller
             'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
             'genres'      => Genre::all()->sortBy('name'),
             'user'        => $user,
-            ]);
+        ]);
     }
 
     /**
