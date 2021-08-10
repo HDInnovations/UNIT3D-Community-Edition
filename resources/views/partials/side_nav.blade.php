@@ -21,13 +21,7 @@
             </a>
             <ul class="hoe-sub-menu">
                 <li>
-                    @if (auth()->user()->torrent_layout == 1)
-                        <a href="{{ route('groupings') }}">
-                    @elseif (auth()->user()->torrent_layout == 2)
-                        <a href="{{ route('cards') }}">
-                    @else
-                        <a href="{{ route('torrents') }}">
-                    @endif
+                    <a href="{{ route('torrents') }}">
                         <span class="menu-text">@lang('torrent.torrents')</span>
                         <span class="selected"></span>
                     </a>

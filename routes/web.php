@@ -254,16 +254,12 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['prefix' => 'torrents'], function () {
-            Route::get('/filter', [App\Http\Controllers\TorrentController::class, 'faceted']);
-            Route::get('/filterSettings', [App\Http\Controllers\TorrentController::class, 'filtered']);
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'torrents'])->name('torrents');
             Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'torrent'])->name('torrent');
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentController::class, 'peers'])->name('peers');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentController::class, 'history'])->name('history');
             Route::get('/download_check/{id}', [App\Http\Controllers\TorrentController::class, 'downloadCheck'])->name('download_check');
             Route::get('/download/{id}', [App\Http\Controllers\TorrentController::class, 'download'])->name('download');
-            Route::get('/view/cards', [App\Http\Controllers\TorrentController::class, 'cardLayout'])->name('cards');
-            Route::get('/view/groupings', [App\Http\Controllers\TorrentController::class, 'groupingLayout'])->name('groupings');
             Route::post('/delete', [App\Http\Controllers\TorrentController::class, 'deleteTorrent'])->name('delete');
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'editForm'])->name('edit_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit');

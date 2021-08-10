@@ -260,10 +260,10 @@
 				<a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
 				</a>
-				<a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
+				<a href="#" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
 				</a>
-				<a href="{{ route('groupings') }}" class="btn btn-xs btn-primary">
+				<a href="#" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')
 				</a>
 				<a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
