@@ -164,6 +164,7 @@ if (! function_exists('language_flag')) {
             'Vietnamese' => 'vn',
             default      => null,
         };
+
         return $flag !== null ? '/img/flags/'.$flag.'.png' : null;
     }
 }
