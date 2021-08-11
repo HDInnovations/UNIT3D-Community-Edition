@@ -42,11 +42,7 @@ class SimilarTorrent extends Component
 
     final public function updatedSelectPage($value): void
     {
-        if ($value) {
-            $this->checked = $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray();
-        } else {
-            $this->checked = [];
-        }
+        $this->checked = $value ? $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray() : [];
     }
 
     final public function selectAll(): void
@@ -89,9 +85,7 @@ class SimilarTorrent extends Component
     {
         $torrents = Torrent::whereKey($this->checked)->pluck('name');
         $names = [];
-        foreach ($torrents as $torrent) {
-            $names[] = $torrent;
-        }
+        $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
             'message' => 'Are you sure?',
