@@ -1,4 +1,4 @@
-preset: recommended
+preset: laravel
 risky: true
 version: 8
 enabled:
