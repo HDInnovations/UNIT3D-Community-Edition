@@ -20,103 +20,103 @@ class PrivilegesTableSeeder extends Seeder
         Privilege::upsert([
 
             ['slug'           => 'dashboard_can_view', 'name' => 'Site Tools: Can View Dashboard',
-                'description' => 'This allow the user to access the Site Toolss dashboard panel. The user will see the modules they are privileged to use only.', ],
+                'description' => 'This allows the user to access the Site Tools dashboard panel. The user will see the modules they are privileged to use only.', ],
 
             ['slug'           => 'dashboard_can_backup', 'name' => 'Site Tools: Can Run & Access Backups',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools backup panel. The user will be able to view, create, download and delete backups.', ],
 
             ['slug'           => 'dashboard_can_commands', 'name' => 'Site Tools: Can Run Server Commands',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools commands panel. The user will be able to run predefined commands such as cache clearing and more.', ],
 
             ['slug'           => 'dashboard_can_chat_statuses', 'name' => 'Site Tools: Can Manage Chat Statuses',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools chat statuses panel. The user will be able to view, create, edit and delete chat statuses.', ],
 
             ['slug'           => 'dashboard_can_chat_rooms', 'name' => 'Site Tools: Can Manage Chat Rooms',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools chat rooms panel. The user will be able to view, create, edit and delete chat rooms.', ],
 
             ['slug'           => 'dashboard_can_chat_bots', 'name' => 'Site Tools: Can Manage Chat Bots',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools chat bots panel. The user will be able to view, edit, enable and disable chat bots.', ],
 
             ['slug'           => 'dashboard_can_flush_chat', 'name' => 'Site Tools: Can Flush Chat',
-                'description' => '', ],
+                'description' => 'This allows the user to flush all messages from the chat. This command can be time consuming.', ],
 
             ['slug'           => 'dashboard_can_articles', 'name' => 'Site Tools: Can Manage Articles',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools articles/news panel. The user will be able to view, create, edit and delete articles.', ],
 
             ['slug'           => 'dashboard_can_applications', 'name' => 'Site Tools: Can Moderate Applications',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools user regisrtation applications panel. The user will be able to view, approve, and deny applications.', ],
 
             ['slug'           => 'dashboard_can_forums', 'name' => 'Site Tools: Can Manage Forums',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools forums panel. The user will be able to view, create, edit and delete forums and forum categories.', ],
 
             ['slug'           => 'dashboard_can_pages', 'name' => 'Site Tools: Can Manage Pages',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools pages panel. The user will be able to view, create, edit and delete pages.', ],
 
             ['slug'           => 'dashboard_can_polls', 'name' => 'Site Tools: Can Manage Polls',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools polls panel. The user will be able to view, create, edit and delete polls.', ],
 
             ['slug'           => 'dashboard_can_rss', 'name' => 'Site Tools: Can Manage RSS',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools RSS panel. The user will be able to view, create, edit and delete public RSS feeds.', ],
 
             ['slug'           => 'dashboard_can_torrent_moderation', 'name' => 'Site Tools: Can Access Torrent Moderation',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools torrent moderation panel. The user will be able to view, approve, postpone and reject torrents.', ],
 
             ['slug'           => 'dashboard_can_torrent_categories', 'name' => 'Site Tools: Can Manage Torrent Categories',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools torrent categories panel. The user will be able to view, create, edit and delete torrent categories.', ],
 
             ['slug'           => 'dashboard_can_torrent_type', 'name' => 'Site Tools: Can Manage Torrent Types',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools torrent types panel. The user will be able to view, create, edit and delete torrent types.', ],
 
             ['slug'           => 'dashboard_can_torrent_resolutions', 'name' => 'Site Tools: Can Manage Torrent Resolutions',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools torrent resolutions panel. The user will be able to view, create, edit and delete torrent resolutions.', ],
 
             ['slug'           => 'dashboard_can_media_languages', 'name' => 'Site Tools: Can Manage Media Languages',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools media languages panel. The user will be able to view, create, edit and delete media languages which are currently used for Subtitles System.', ],
 
             ['slug'           => 'dashboard_can_flush_ghost_peers', 'name' => 'Site Tools: Can Flush Ghost Peers',
-                'description' => '', ],
+                'description' => 'This allows the user to globally flush all stale ghost peers from the tracker.', ],
 
             ['slug'           => 'dashboard_can_user_search', 'name' => 'Site Tools: Can Search Users',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools user search panel. The user will be able to view and search for users.', ],
 
             ['slug'           => 'dashboard_can_user_watchlist', 'name' => 'Site Tools: Can Manage User Watchlist',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools user watchlist panel. The user will be able to view and unwatch currently watched users.', ],
 
             ['slug'           => 'dashboard_can_user_gift', 'name' => 'Site Tools: Can Give Gifts to Users',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools gifts panel. The user will be able to gift a single user via username with FL Tokens, BON and Invites.', ],
 
             ['slug'           => 'dashboard_can_mass_pm', 'name' => 'Site Tools: Can Sen A Mass Private Message',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools mass pm panel. The user will be able to send a mass pm to all users in the database.', ],
 
             ['slug'           => 'dashboard_can_mass_validate', 'name' => 'Site Tools: Can Mass Validate Users',
-                'description' => '', ],
+                'description' => 'This allows the user to mass validate all user currently stuck in the validatiing role.', ],
 
             ['slug'           => 'dashboard_can_cheaters', 'name' => 'Site Tools: Can Manage Possible Cheaters',
-                'description' => '', ],
+                'description' => 'This allows the user to access the Site Tools possible cheaters panel. The user will be able to view all possible users that are cheating the tracker.', ],
 
             ['slug'           => 'dashboard_can_seedboxes', 'name' => 'Site Tools: Can Manage Registered Seedboxes',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools registered seedboxes panel. The user will be able to view and delete all seedboxes registered on site by users.', ],
 
             ['slug'           => 'dashboard_can_audit_log', 'name' => 'Site Tools: Can Access Audit Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools audits panel. The user will be able to view and delete all model audits performed on site.', ],
 
             ['slug'           => 'dashboard_can_ban_log', 'name' => 'Site Tools: Can Access Ban Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools user ban log panel. The user will be able to view all users that have been banned and unbanned from site.', ],
 
             ['slug'           => 'dashboard_can_failed_login_log', 'name' => 'Site Tools: Can Access Failed Login Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools failed logins log panel. The user will be able to view all recorded failed login attemps agaist the site.', ],
 
             ['slug'           => 'dashboard_can_invites_log', 'name' => 'Site Tools: Can Access Invites Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools invites log panel. The user will be able to view all invites proccessed on site.', ],
 
             ['slug'           => 'dashboard_can_user_notes_log', 'name' => 'Site Tools: Can Access User Notes Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools user notes log panel. The user will be able to view and delete all user notes.', ],
 
             ['slug'           => 'dashboard_can_reports_log', 'name' => 'Site Tools: Can Access Reports Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools reports panel. The user will be able to view and resolve all reports.', ],
 
             ['slug'           => 'dashboard_can_warning_log', 'name' => 'Site Tools: Can Access Warning Log',
-                'description' => '', ],
+                'description' => 'This allow the user to access the Site Tools warning log panel. The user will be able to view all hit and run warnings in the database.', ],
 
             ['slug'           => 'torrent_can_view', 'name' => 'Torrents: Can Search & View',
                 'description' => 'Can Search and View Torrents on The Site', ],
@@ -131,124 +131,127 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => 'User can Approve, Postpone, or Reject Torrents - Both in Moderation Queue and On-Site', ],
 
             ['slug'           => 'torrent_can_update', 'name' => 'Torrents: Can Edit Torrents',
-                'description' => 'Can Edit the Fields which have been granted permission. This grants access to the necessary pages.', ],
+                'description' => 'Can edit the fields which have been granted permission. This grants access to the necessary pages.', ],
 
             ['slug'           => 'torrent_can_update_title', 'name' => 'Torrents: Can Edit Titles',
-                'description' => 'Can Edit Torrent Titles', ],
+                'description' => 'Can edit torrents title.', ],
 
             ['slug'           => 'torrent_can_update_description', 'name' => 'Torrents: Can Edit Descriptions',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents description.', ],
 
             ['slug'           => 'torrent_can_update_mediainfo', 'name' => 'Torrents: Can Edit MediaInfo',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents mediainfo.', ],
+
+            ['slug'           => 'torrent_can_update_bdinfo', 'name' => 'Torrents: Can Edit BDInfo',
+                'description' => 'Can edit torrents bdinfo.', ],
 
             ['slug'           => 'torrent_can_update_category', 'name' => 'Torrents: Can Edit Category',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents category.', ],
 
             ['slug'           => 'torrent_can_update_type', 'name' => 'Torrents: Can Edit Type',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents type.', ],
 
             ['slug'           => 'torrent_can_update_resolution', 'name' => 'Torrents: Can Edit Resolution',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents resolution..', ],
 
             ['slug'           => 'torrent_can_update_meta_ids', 'name' => 'Torrents: Can Edit Meta Id\'s',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents meta ids.', ],
 
             ['slug'           => 'torrent_can_update_special', 'name' => 'Torrents: Can Edit Special Attributes',
-                'description' => ' ', ],
+                'description' => 'Can edit torrents special attributes.', ],
 
             ['slug'           => 'torrent_can_delete', 'name' => 'Torrents: Can Delete',
-                'description' => ' ', ],
+                'description' => 'Can delete torrents.', ],
 
             ['slug'           => 'torrent_can_download', 'name' => 'Torrents: Can Download',
-                'description' => ' ', ],
+                'description' => 'Can download torrents.', ],
 
             ['slug'           => 'torrent_can_request_reseed', 'name' => 'Torrents: Can Request Reseed',
-                'description' => ' ', ],
+                'description' => 'Can request a reseed on torrents.', ],
 
             ['slug'           => 'torrent_can_bump', 'name' => 'Torrents: Can Bump',
-                'description' => ' ', ],
+                'description' => 'Can bump torrents to top of list.', ],
 
             ['slug'           => 'torrent_can_internal', 'name' => 'Torrents: Can Internal',
-                'description' => ' ', ],
+                'description' => 'Can mark torrents as internal.', ],
 
             ['slug'           => 'torrent_can_freeleech', 'name' => 'Torrents: Can Freeleech',
-                'description' => ' ', ],
+                'description' => 'Can mark torrents as freeleech.', ],
 
             ['slug'           => 'torrent_can_doubleupload', 'name' => 'Torrents: Can Double Upload',
-                'description' => ' ', ],
+                'description' => 'Can mark torrents as double upload.', ],
 
             ['slug'           => 'torrent_can_personal_release', 'name' => 'Torrents: Can Personal Release',
-                'description' => ' ', ],
+                'description' => 'Can mark torrents as personal release.', ],
 
             ['slug'           => 'torrent_can_sticky', 'name' => 'Torrents: Can Sticky',
-                'description' => ' ', ],
+                'description' => 'Can mark torrents as sticky.', ],
 
             ['slug'           => 'torrent_can_feature', 'name' => 'Torrents: Can Feature',
-                'description' => ' ', ],
+                'description' => 'Can feature torrents.', ],
 
             ['slug'           => 'torrent_can_revoke_feature', 'name' => 'Torrents: Can Revoke Feature',
-                'description' => ' ', ],
+                'description' => 'Can revoke featured torrents.', ],
 
             ['slug'           => 'request_can_view', 'name' => 'Requests: Can View',
-                'description' => ' ', ],
+                'description' => 'Can view torrent requests.', ],
 
             ['slug'           => 'request_can_create', 'name' => 'Requests: Can Create',
-                'description' => ' ', ],
+                'description' => 'Can create torrent requests.', ],
 
             ['slug'           => 'request_can_update', 'name' => 'Requests: Can Edit',
-                'description' => ' ', ],
+                'description' => 'Can edit the fields which have been granted permission. This grants access to the necessary pages.', ],
 
             ['slug'           => 'request_can_update_title', 'name' => 'Requests: Can Edit Title',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests title.', ],
 
             ['slug'           => 'request_can_update_description', 'name' => 'Requests: Can Edit Description',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests description.', ],
 
             ['slug'           => 'request_can_update_category', 'name' => 'Requests: Can Update Category',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests category.', ],
 
             ['slug'           => 'request_can_update_type', 'name' => 'Requests: Can Update Type',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests type.', ],
 
             ['slug'           => 'request_can_update_resolution', 'name' => 'Requests: Can Update Resolution',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests resolution.', ],
 
             ['slug'           => 'request_can_update_meta_ids', 'name' => 'Requests: Can Update Meta Id\'s',
-                'description' => ' ', ],
+                'description' => 'Can edit torrent requests meta ids.', ],
 
             ['slug'           => 'request_can_unclaim', 'name' => 'Requests: Can Remove Claiming User',
-                'description' => ' ', ],
+                'description' => 'Can force unclaim, claimed torrent requests.', ],
 
             ['slug'           => 'request_can_delete', 'name' => 'Requests: Can Delete',
-                'description' => ' ', ],
+                'description' => 'Can delete torrent requests.', ],
 
             ['slug'           => 'request_can_approve', 'name' => 'Requests: Can Approve',
-                'description' => ' ', ],
+                'description' => 'Can approve torrent requests.', ],
 
             ['slug'           => 'request_can_deny', 'name' => 'Requests: Can Deny',
-                'description' => ' ', ],
+                'description' => 'Can deny torrent requests.', ],
 
             ['slug'           => 'request_can_reset', 'name' => 'Requests: Can Reset',
-                'description' => ' ', ],
+                'description' => 'Can reset torrent requests.', ],
 
             ['slug'           => 'comment_can_view', 'name' => 'Comments: Can View',
-                'description' => ' ', ],
+                'description' => 'Can view comments.', ],
 
             ['slug'           => 'comment_can_create', 'name' => 'Comments: Can Create',
-                'description' => ' ', ],
+                'description' => 'Can create comments.', ],
 
             ['slug'           => 'comment_can_update', 'name' => 'Comments: Can Update',
-                'description' => ' ', ],
+                'description' => 'Can edit comments.', ],
 
             ['slug'           => 'comment_can_delete', 'name' => 'Comments: Can Delete',
-                'description' => ' ', ],
+                'description' => 'Can delete comments.', ],
 
             ['slug'           => 'chat_can_moderate', 'name' => 'Chat: Can Moderate',
-                'description' => ' ', ],
+                'description' => 'Can delete chat messages', ],
 
             ['slug'           => 'comments_can_moderate', 'name' => 'Comments: Can Moderate',
-                'description' => ' ', ],
+                'description' => 'Can edit and delete comments.', ],
 
             ['slug'           => 'forums_can_view', 'name' => 'Forums (Global): Can View',
                 'description' => ' ', ],
@@ -281,22 +284,22 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => ' ', ],
 
             ['slug'           => 'forums_sudo', 'name' => 'Forums: Sudo Forums',
-                'description' => 'Show Forum, Read Topic, Reply Topic, and Start Topic Privilege on All Forums', ],
+                'description' => 'Show Forum, Read Topic, Reply Topic, and Start Topic Privilege on All Forums.', ],
 
             ['slug'           => 'playlist_can_view', 'name' => 'Playlists: Can View',
-                'description' => ' ', ],
+                'description' => 'Can view torrent playlists.', ],
 
             ['slug'           => 'playlist_can_create', 'name' => 'Playlists: Can Create',
-                'description' => ' ', ],
+                'description' => 'Can create a torrent playlist.', ],
 
             ['slug'           => 'playlist_can_update', 'name' => 'Playlists: Can Update',
-                'description' => ' ', ],
+                'description' => 'Can edit a torrent playlist.', ],
 
             ['slug'           => 'playlist_can_delete', 'name' => 'Playlists: Can Delete',
-                'description' => ' ', ],
+                'description' => 'Can delete a torrent playlist.', ],
 
             ['slug'           => 'playlist_can_download_all', 'name' => 'Playlists: Can Download All',
-                'description' => ' ', ],
+                'description' => 'Can download all torrents in a playlist.', ],
 
             ['slug'           => 'polls_can_view', 'name' => 'Polls: Can View',
                 'description' => ' ', ],
