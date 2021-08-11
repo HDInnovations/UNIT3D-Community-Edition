@@ -210,7 +210,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if ($flag === false) {
+            if (!$flag) {
                 return \redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
