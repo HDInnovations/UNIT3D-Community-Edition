@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <div class="meta-general box container col-xs-12">
+        <div class="meta-general box container">
             <div class="panel panel-chat shoutbox torrent-general">
                 <div class="panel-heading">
                     <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
@@ -736,7 +736,7 @@
             @endif
 	    </div>
 
-        <div class="torrent box container col-xs-12" id="comments">
+        <div class="torrent box container" id="comments">
         	<div class="clearfix"></div>
         	<div class="row ">
         		<div class="col-md-12 col-sm-12">
