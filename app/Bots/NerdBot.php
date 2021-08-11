@@ -69,14 +69,15 @@ class NerdBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\str_contains($output, '{bots}')) {
-            $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
-            foreach ($bots as $bot) {
-                $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
-            }
-            $output = \str_replace('{bots}', $botHelp, $output);
+        if (! \str_contains($output, '{bots}')) {
+            return $output;
         }
+        $botHelp = '';
+        $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
+        foreach ($bots as $bot) {
+            $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
+        }
+        $output = \str_replace('{bots}', $botHelp, $output);
 
         return $output;
     }
@@ -381,30 +382,29 @@ class NerdBot
             'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',
         ]);
-        if ($v->passes()) {
-            $value = $amount;
-            $this->bot->seedbonus += $value;
-            $this->bot->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
-
-            $botTransaction = new BotTransaction();
-            $botTransaction->type = 'bon';
-            $botTransaction->cost = $value;
-            $botTransaction->user_id = $this->target->id;
-            $botTransaction->bot_id = $this->bot->id;
-            $botTransaction->to_bot = 1;
-            $botTransaction->comment = $output;
-            $botTransaction->save();
-
-            $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
-            \cache()->put('casinobot-donations', $donations, $this->expiresAt);
-
-            return 'Your donation to '.$this->bot->name.' for '.$amount.' BON has been sent!';
+        if (! $v->passes()) {
+            return 'Your donation to '.$output.' could not be sent.';
         }
+        $value = $amount;
+        $this->bot->seedbonus += $value;
+        $this->bot->save();
 
-        return 'Your donation to '.$output.' could not be sent.';
+        $this->target->seedbonus -= $value;
+        $this->target->save();
+
+        $botTransaction = new BotTransaction();
+        $botTransaction->type = 'bon';
+        $botTransaction->cost = $value;
+        $botTransaction->user_id = $this->target->id;
+        $botTransaction->bot_id = $this->bot->id;
+        $botTransaction->to_bot = 1;
+        $botTransaction->comment = $output;
+        $botTransaction->save();
+
+        $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
+        \cache()->put('casinobot-donations', $donations, $this->expiresAt);
+
+        return 'Your donation to '.$this->bot->name.' for '.$amount.' BON has been sent!';
     }
 
     /**
@@ -449,56 +449,63 @@ class NerdBot
             $wildcard = $clone;
         }
 
-        if (\array_key_exists($x, $command)) {
-            if ($command[$x] === 'banker') {
-                $log = $this->getBanker($params);
-            }
-            if ($command[$x] === 'bans') {
-                $log = $this->getBans($params);
-            }
-            if ($command[$x] === 'donations') {
-                $log = $this->getDonations($params);
-            }
-            if ($command[$x] === 'donate') {
-                $log = $this->putDonate($params, $wildcard);
-            }
-            if ($command[$x] === 'doubleupload') {
-                $log = $this->getDoubleUpload($params);
-            }
-            if ($command[$x] === 'freeleech') {
-                $log = $this->getFreeleech($params);
-            }
-            if ($command[$x] === 'help') {
-                $log = $this->getHelp();
-            }
-            if ($command[$x] === 'king') {
-                $log = $this->getKing();
-            }
-            if ($command[$x] === 'logins') {
-                $log = $this->getLogins($params);
-            }
-            if ($command[$x] === 'peers') {
-                $log = $this->getPeers($params);
-            }
-            if ($command[$x] === 'registrations') {
-                $log = $this->getRegistrations($params);
-            }
-            if ($command[$x] === 'uploads') {
-                $log = $this->getUploads($params);
-            }
-            if ($command[$x] === 'warnings') {
-                $log = $this->getWarnings($params);
-            }
-            if ($command[$x] === 'seeded') {
-                $log = $this->getSeeded($params);
-            }
-            if ($command[$x] === 'leeched') {
-                $log = $this->getLeeched($params);
-            }
-            if ($command[$x] === 'snatched') {
-                $log = $this->getSnatched($params);
-            }
+        if (! \array_key_exists($x, $command)) {
+            $this->targeted = $targeted;
+            $this->type = $type;
+            $this->message = $message;
+            $this->log = $log;
+
+            return $this->pm();
         }
+        if ($command[$x] === 'banker') {
+            $log = $this->getBanker($params);
+        }
+        if ($command[$x] === 'bans') {
+            $log = $this->getBans($params);
+        }
+        if ($command[$x] === 'donations') {
+            $log = $this->getDonations($params);
+        }
+        if ($command[$x] === 'donate') {
+            $log = $this->putDonate($params, $wildcard);
+        }
+        if ($command[$x] === 'doubleupload') {
+            $log = $this->getDoubleUpload($params);
+        }
+        if ($command[$x] === 'freeleech') {
+            $log = $this->getFreeleech($params);
+        }
+        if ($command[$x] === 'help') {
+            $log = $this->getHelp();
+        }
+        if ($command[$x] === 'king') {
+            $log = $this->getKing();
+        }
+        if ($command[$x] === 'logins') {
+            $log = $this->getLogins($params);
+        }
+        if ($command[$x] === 'peers') {
+            $log = $this->getPeers($params);
+        }
+        if ($command[$x] === 'registrations') {
+            $log = $this->getRegistrations($params);
+        }
+        if ($command[$x] === 'uploads') {
+            $log = $this->getUploads($params);
+        }
+        if ($command[$x] === 'warnings') {
+            $log = $this->getWarnings($params);
+        }
+        if ($command[$x] === 'seeded') {
+            $log = $this->getSeeded($params);
+        }
+        if ($command[$x] === 'leeched') {
+            $log = $this->getLeeched($params);
+        }
+        if ($command[$x] === 'snatched') {
+            $log = $this->getSnatched($params);
+        }
+
         $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
@@ -584,15 +591,14 @@ class NerdBot
             return \response('success');
         }
 
-        if ($type == 'public') {
-            if ($txt != '') {
-                $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
-            }
-
-            return \response('success');
+        if ($type != 'public') {
+            return true;
+        }
+        if ($txt != '') {
+            $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+            $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
         }
 
-        return true;
+        return \response('success');
     }
 }
