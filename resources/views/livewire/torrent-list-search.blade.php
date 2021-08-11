@@ -30,7 +30,7 @@
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-keywords">
 							<label for="keywords" class="label label-default">@lang('torrent.keywords')</label>
-							<input wire:model="description" type="text" class="form-control" placeholder="Keywords">
+							<input wire:model="keywords" type="text" class="form-control" placeholder="Keywords">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-uploader">
 							<label for="uploader" class="label label-default">@lang('torrent.uploader')</label>

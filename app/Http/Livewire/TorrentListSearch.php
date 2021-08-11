@@ -156,8 +156,8 @@ class TorrentListSearch extends Component
             })
             ->when($this->keywords, function ($query) {
                 $keywords = self::parseKeywords($this->keywords);
-                $keyword = Keyword::select(['torrent_id'])->whereIn('name', $keywords)->get();
-                $query->whereIn('id', $keyword->torrent_id);
+                $keyword = Keyword::whereIn('name', $keywords)->pluck('torrent_id');
+                $query->whereIn('id', $keyword);
             })
             ->when($this->startYear && $this->endYear, function ($query) {
                 $query->whereBetween('release_year', [$this->startYear, $this->endYear]);
