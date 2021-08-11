@@ -49,7 +49,7 @@ class BackupPanel extends Component
                 'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
                 'healthy'   => $backupDestinationStatus->isHealthy(),
                 'amount'    => $backupDestinationStatus->backupDestination()->backups()->count(),
-                'newest'    => $backupDestinationStatus->backupDestination()->newestBackup()
+                'newest'    => $backupDestinationStatus->backupDestination()->newestBackup() !== null
                     ? $backupDestinationStatus->backupDestination()->newestBackup()->date()->diffForHumans()
                     : 'No backups present',
                 'usedStorage' => Format::humanReadableSize($backupDestinationStatus->backupDestination()->usedStorage()),
@@ -74,7 +74,7 @@ class BackupPanel extends Component
      */
     final public function getFiles(string $disk = ''): void
     {
-        if ($disk) {
+        if ($disk !== '') {
             $this->activeDisk = $disk;
         }
 
