@@ -302,91 +302,91 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => 'Can download all torrents in a playlist.', ],
 
             ['slug'           => 'polls_can_view', 'name' => 'Polls: Can View',
-                'description' => ' ', ],
+                'description' => 'User can view active polls.', ],
 
             ['slug'           => 'polls_can_vote', 'name' => 'Polls: Can Vote',
-                'description' => ' ', ],
+                'description' => 'User can vote on a poll.', ],
 
             ['slug'           => 'polls_can_create', 'name' => 'Polls: Can Create',
-                'description' => ' ', ],
+                'description' => 'User can create a new poll.', ],
 
             ['slug'           => 'polls_can_delete', 'name' => 'Polls: Can Delete',
-                'description' => ' ', ],
+                'description' => 'User can delete a poll.', ],
 
-            ['slug'           => 'subtitle_can_view', 'name' => 'Subtitled: Can View',
-                'description' => ' ', ],
+            ['slug'           => 'subtitle_can_view', 'name' => 'Subtitle: Can View',
+                'description' => 'User can view subtitles.', ],
 
-            ['slug'           => 'subtitle_can_create', 'name' => 'Subtitled: Can Create',
-                'description' => ' ', ],
+            ['slug'           => 'subtitle_can_create', 'name' => 'Subtitle: Can Create',
+                'description' => 'User can create a subtitle.', ],
 
-            ['slug'           => 'subtitle_can_update', 'name' => 'Subtitled: Can Update',
-                'description' => ' ', ],
+            ['slug'           => 'subtitle_can_update', 'name' => 'Subtitle: Can Update',
+                'description' => 'User can edit a subtitle.', ],
 
-            ['slug'           => 'subtitle_can_delete', 'name' => 'Subtitled: Can Delete',
-                'description' => ' ', ],
+            ['slug'           => 'subtitle_can_delete', 'name' => 'Subtitle: Can Delete',
+                'description' => 'User can delete a subtitle.', ],
 
-            ['slug'           => 'subtitle_can_download', 'name' => 'Subtitled: Can Download',
-                'description' => ' ', ],
+            ['slug'           => 'subtitle_can_download', 'name' => 'Subtitle: Can Download',
+                'description' => 'User can download a subtitle.', ],
 
             ['slug'           => 'movie_can_create', 'name' => 'MediaHub - Movies: Can Create',
-                'description' => ' ', ],
+                'description' => 'User can create a new Movie entry.', ],
 
             ['slug'           => 'movie_can_update', 'name' => 'MediaHub - Movies: Can Update',
-                'description' => ' ', ],
+                'description' => 'User can edit a Movie.', ],
 
             ['slug'           => 'movie_can_update_title', 'name' => 'MediaHub - Movies: Can Update Title',
-                'description' => ' ', ],
+                'description' => 'User can edit the title of a Movie.', ],
 
             ['slug'           => 'movie_can_update_original_language', 'name' => 'MediaHub - Movies: Can Update Original Language',
-                'description' => ' ', ],
+                'description' => 'User can edit the original language of a Movie.', ],
 
             ['slug'           => 'movie_can_update_backdrop', 'name' => 'MediaHub - Movies: Can Update Backdrop',
-                'description' => ' ', ],
+                'description' => 'User can edit the backdrop image of a Movie.', ],
 
             ['slug'           => 'movie_can_update_poster', 'name' => 'MediaHub - Movies: Can Update Poster',
-                'description' => ' ', ],
+                'description' => 'User can edit the poster image of a Movie.', ],
 
             ['slug'           => 'movie_can_update_overview', 'name' => 'MediaHub - Movies: Can Update Overview',
-                'description' => ' ', ],
+                'description' => 'User can edit the overview of a Movie.', ],
 
-            ['slug'           => 'movie_can_update_tagline', 'name' => 'MediaHub - Movies: Can Update Yagline',
-                'description' => ' ', ],
+            ['slug'           => 'movie_can_update_tagline', 'name' => 'MediaHub - Movies: Can Update Tagline',
+                'description' => 'User can edit the tagline of a Movie.', ],
 
             ['slug'           => 'movie_can_update_runtime', 'name' => 'MediaHub - Movies: Can Update Runtime',
-                'description' => ' ', ],
+                'description' => 'User can edit the runtime of a Movie.', ],
 
             ['slug'           => 'movie_can_update_status', 'name' => 'MediaHub - Movies: Can Update Status',
-                'description' => ' ', ],
+                'description' => 'User can edit the status of a Movie.', ],
 
             ['slug'           => 'tv_can_create', 'name' => 'MediaHub - TV: Can Create',
-                'description' => ' ', ],
+                'description' => 'User can create new TV Show entries.', ],
 
             ['slug'           => 'tv_can_update', 'name' => 'MediaHub - TV: Can Update',
-                'description' => ' ', ],
+                'description' => 'User can edit meta data of a TV Show.', ],
 
-            ['slug'           => 'tv_can_update_title', 'name' => 'MediaHub - TV: Can UUpdate Title',
-                'description' => ' ', ],
+            ['slug'           => 'tv_can_update_title', 'name' => 'MediaHub - TV: Can Update Title',
+                'description' => 'User can edit the title of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_original_language', 'name' => 'MediaHub - TV: Can Update Original Language',
-                'description' => ' ', ],
+                'description' => 'User can edit the originnal language of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_backdrop', 'name' => 'MediaHub - TV: Can Update Backdrop',
-                'description' => ' ', ],
+                'description' => 'User can edit the backdrop image of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_poster', 'name' => 'MediaHub - TV: Can Update Poster',
-                'description' => ' ', ],
+                'description' => 'User can edit the poster image of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_overview', 'name' => 'MediaHub - TV: Can Update Overview',
-                'description' => ' ', ],
+                'description' => 'User can edit the overview of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_tagline', 'name' => 'MediaHub - TV: Can Update Tagline',
-                'description' => ' ', ],
+                'description' => 'User can edit the tagline of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_runtime', 'name' => 'MediaHub - TV: Can Update Runtime',
-                'description' => ' ', ],
+                'description' => 'User can edit the runtime of a TV Show.', ],
 
             ['slug'           => 'tv_can_update_status', 'name' => 'MediaHub - TV: Can Update Status',
-                'description' => ' ', ],
+                'description' => 'User can edit the status of a TV Show.', ],
 
             ['slug'           => 'users_view_private', 'name' => 'Users: View Private Profiles',
                 'description' => ' ', ],
@@ -422,64 +422,64 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => ' ', ],
 
             ['slug'           => 'users_view_requests', 'name' => 'Users: View Users Request History',
-                'description' => ' ', ],
+                'description' => '', ],
 
             ['slug'           => 'users_view_wishlist', 'name' => 'Users: View Users Wishlist',
-                'description' => ' ', ],
+                'description' => 'User has access to wishlist system.', ],
 
             ['slug'           => 'users_view_invites', 'name' => 'Users: View Users Invites',
                 'description' => ' ', ],
 
             ['slug'           => 'users_view_rss', 'name' => 'Users: View RSS Feeds',
-                'description' => ' ', ],
+                'description' => 'User can view private and public RSS feeds.', ],
 
             ['slug'           => 'users_edit_rss', 'name' => 'Users: Edit RSS Feeds',
-                'description' => ' ', ],
+                'description' => 'User can edit private RSS feed.', ],
 
             ['slug'           => 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences',
-                'description' => ' ', ],
+                'description' => 'User can bypass notification preferences.', ],
 
             ['slug'           => 'user_special_no_auto_role', 'name'=> 'User: Special No Auto Role',
-                'description' => ' ', ],
+                'description' => 'User is excempt from auto role command.', ],
 
             ['slug'           => 'user_special_no_auto_privilege', 'name'=> 'User: Special No Auto Privilege',
-                'description' => ' ', ],
+                'description' => 'User is excempt from auto privlige command.', ],
 
             ['slug'           => 'user_special_freeleech', 'name'=> 'User: Special Freeleech',
-                'description' => ' ', ],
+                'description' => 'User has global freeleech buff.', ],
 
             ['slug'           => 'user_special_double_upload', 'name'=> 'User: Special Double Upload',
-                'description' => ' ', ],
+                'description' => 'User has global double upload buff.', ],
 
             ['slug'           => 'user_special_immune', 'name'=> 'User: Special Immunity to Hit and Runs',
-                'description' => 'User is Immune to Hit and Runs', ],
+                'description' => 'User is immune to hit and runs.', ],
 
             ['slug'           => 'user_special_staff', 'name'=> 'User: Special Site Staff',
-                'description' => 'Marks User as Staff. Prevents User from being banned.', ],
+                'description' => 'Can mark users as Staff. Prevents user from being banned.', ],
 
             ['slug'           => 'user_can_invite', 'name'=> 'User: Can Invite Users',
-                'description' => ' ', ],
+                'description' => 'Can generate and send out invites.', ],
 
             ['slug'           => 'user_can_private_message', 'name'=> 'User: Can Send Private Messages',
-                'description' => ' ', ],
+                'description' => 'Can send private messages on site.', ],
 
             ['slug'           => 'user_can_report', 'name'=> 'User: Can Report Items on Site',
-                'description' => ' ', ],
+                'description' => 'Can create content reports on site.', ],
 
             ['slug'           => 'user_can_rss', 'name'=> 'User: Can Use RSS Feature',
-                'description' => ' ', ],
+                'description' => 'Can view public and private RSS feeds.', ],
 
             ['slug'           => 'helpdesk_can_submit', 'name'=> 'Helpdesk: Can Submit Ticket',
-                'description' => ' ', ],
+                'description' => 'Can create tickets in helpdesk.', ],
 
             ['slug'           => 'helpdesk_can_handle', 'name'=> 'Helpdesk: Can Handle Ticket',
-                'description' => ' ', ],
+                'description' => 'Can moderate tickets in helpdesk.', ],
 
             ['slug'           => 'helpdesk_can_edit', 'name'=> 'Helpdesk: Can Edit Ticket',
-                'description' => ' ', ],
+                'description' => 'Can edit tckets in helpdesk.', ],
 
             ['slug'           => 'helpdesk_can_delete', 'name'=> 'Helpdesk: Can Delete Ticket',
-                'description' => ' ', ],
+                'description' => 'Can delete tickets in helpdesk.', ],
 
             ['slug'           => 'can_login', 'name' => 'Global: Can Login',
                 'description' => ' ', ],
@@ -488,28 +488,28 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => ' ', ],
 
             ['slug'           => 'album_can_view', 'name' => 'Gallery Albums: Can View',
-                'description' => ' ', ],
+                'description' => 'Can view image gallery.', ],
 
             ['slug'           => 'album_can_create', 'name' => 'Gallery Albums: Can Create',
-                'description' => ' ', ],
+                'description' => 'Can create album in gallery.', ],
 
             ['slug'           => 'album_can_delete', 'name' => 'Gallery Albums: Can Delete',
-                'description' => ' ', ],
+                'description' => 'Can delete albums in gallary.', ],
 
             ['slug'           => 'graveyard_can_cancel', 'name' => 'Graveyard: Can Cancel Resurrection',
-                'description' => ' ', ],
+                'description' => 'Can cancel resurrections in torrent graveyard.', ],
 
             ['slug'           => 'stats_can_view', 'name' => 'Site Stats: Can View Site Stats Pages',
-                'description' => ' ', ],
+                'description' => 'Can view etra stats pages.', ],
 
             ['slug'           => 'store_can_buy_upload', 'name' => 'Store: Can Buy Upload',
-                'description' => ' ', ],
+                'description' => 'Can buy upload credit from store.', ],
 
             ['slug'           => 'store_can_buy_freeleech', 'name' => 'Store: Can Buy Freeleech',
-                'description' => ' ', ],
+                'description' => 'Can buy 24 hour freeleech from store.', ],
 
             ['slug'           => 'store_can_buy_invites', 'name' => 'Store: Can Buy Invites',
-                'description' => ' ', ],
+                'description' => 'Can buy invites from store.', ],
         ],
             ['slug'], ['name',
                 'description', ]);
