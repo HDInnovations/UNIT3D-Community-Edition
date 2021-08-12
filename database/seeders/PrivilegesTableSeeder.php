@@ -254,34 +254,34 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => 'Can edit and delete comments.', ],
 
             ['slug'           => 'forums_can_view', 'name' => 'Forums (Global): Can View',
-                'description' => ' ', ],
+                'description' => 'User can view forums.', ],
 
             ['slug'           => 'forums_can_sticky', 'name' => 'Forums (Global): Can Sticky/Pin',
-                'description' => ' ', ],
+                'description' => 'User can sticky/pin a forum topic.', ],
 
             ['slug'           => 'forums_can_bump', 'name' => 'Forums (Global): Can Bump',
-                'description' => ' ', ],
+                'description' => 'User can bump a forum topic.', ],
 
             ['slug'           => 'forums_can_create_topic', 'name' => 'Forums (Global): Can Create Topic',
-                'description' => ' ', ],
+                'description' => 'User can create a forum topic.', ],
 
             ['slug'           => 'forums_can_edit_topic', 'name' => 'Forums (Global): Can Edit Topic',
-                'description' => ' ', ],
+                'description' => 'User can edit a forum topic.', ],
 
             ['slug'           => 'forums_can_delete_topic', 'name' => 'Forums (Global): Can Delete Topic',
-                'description' => ' ', ],
+                'description' => 'User can delete a forum topic.', ],
 
             ['slug'           => 'forums_can_moderate', 'name' => 'Forums (Global): Can Moderate',
-                'description' => ' ', ],
+                'description' => 'User can moderate a forum topic.', ],
 
             ['slug'           => 'forums_can_comment', 'name' => 'Forums (Global): Can Comment',
-                'description' => ' ', ],
+                'description' => 'User can post on forum topics.', ],
 
             ['slug'           => 'forums_can_update_comment', 'name' => 'Forums (Global): Can Update Comment',
-                'description' => ' ', ],
+                'description' => 'User can edit forum topic posts.', ],
 
             ['slug'           => 'forums_can_delete_comment', 'name' => 'Forums (Global): Can Delete Comment',
-                'description' => ' ', ],
+                'description' => 'User can delete forum topic posts.', ],
 
             ['slug'           => 'forums_sudo', 'name' => 'Forums: Sudo Forums',
                 'description' => 'Show Forum, Read Topic, Reply Topic, and Start Topic Privilege on All Forums.', ],
@@ -389,55 +389,55 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => 'User can edit the status of a TV Show.', ],
 
             ['slug'           => 'users_view_private', 'name' => 'Users: View Private Profiles',
-                'description' => ' ', ],
+                'description' => 'User can view users private profiles.', ],
 
             ['slug'           => 'users_view_privileges', 'name' => 'Users: View Privileges',
-                'description' => ' ', ],
+                'description' => 'User can view users priviliges.', ],
 
             ['slug'           => 'users_edit_privileges', 'name' => 'Users: Edit Users Privileges',
-                'description' => ' ', ],
+                'description' => 'User can edit users privileges.', ],
 
             ['slug'           => 'users_view_infractions', 'name' => 'Users: View Bans and Warnings',
-                'description' => ' ', ],
+                'description' => 'User can view ban and warning logs of other users .', ],
 
             ['slug'           => 'users_edit_infractions', 'name' => 'Users: Edit Bans and Warnings',
-                'description' => ' ', ],
+                'description' => 'User can edit bans and warnings of other users.', ],
 
             ['slug'           => 'users_give_infractions', 'name' => 'Users: Ban Users and Handout Warnings',
-                'description' => ' ', ],
+                'description' => 'User can ban and manually warn other users.', ],
 
             ['slug'           => 'users_view_personal', 'name' => 'Users: View Users Personal Information',
-                'description' => ' ', ],
+                'description' => 'User can view users personal information.', ],
 
             ['slug'           => 'users_edit_personal', 'name' => 'Users: Edit Users Personal Information',
-                'description' => ' ', ],
+                'description' => 'User can edit users personal information.', ],
 
             ['slug'           => 'users_view_security', 'name' => 'Users: View Users Security Information',
-                'description' => ' ', ],
+                'description' => 'User can view users security information.', ],
 
             ['slug'           => 'users_edit_security', 'name' => 'Users: Edit Users Security Information',
-                'description' => ' ', ],
+                'description' => 'User can edit users security settings.', ],
 
             ['slug'           => 'users_view_torrents', 'name' => 'Users: View Users Torrent History',
-                'description' => ' ', ],
+                'description' => 'User can view users torrent history.', ],
 
             ['slug'           => 'users_view_requests', 'name' => 'Users: View Users Request History',
-                'description' => '', ],
+                'description' => 'User can view users torrent request history.', ],
 
             ['slug'           => 'users_view_wishlist', 'name' => 'Users: View Users Wishlist',
-                'description' => 'User has access to wishlist system.', ],
+                'description' => 'User can view users wishlists.', ],
 
             ['slug'           => 'users_view_invites', 'name' => 'Users: View Users Invites',
-                'description' => ' ', ],
+                'description' => 'User can view users invite logs.', ],
 
             ['slug'           => 'users_view_rss', 'name' => 'Users: View RSS Feeds',
-                'description' => 'User can view private and public RSS feeds.', ],
+                'description' => 'User can view users private RSS feeds.', ],
 
             ['slug'           => 'users_edit_rss', 'name' => 'Users: Edit RSS Feeds',
-                'description' => 'User can edit private RSS feed.', ],
+                'description' => 'User can edit users private RSS feeds.', ],
 
             ['slug'           => 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences',
-                'description' => 'User can bypass notification preferences.', ],
+                'description' => 'User can bypass users notification preferences.', ],
 
             ['slug'           => 'user_special_no_auto_role', 'name'=> 'User: Special No Auto Role',
                 'description' => 'User is excempt from auto role command.', ],
@@ -482,10 +482,10 @@ class PrivilegesTableSeeder extends Seeder
                 'description' => 'Can delete tickets in helpdesk.', ],
 
             ['slug'           => 'can_login', 'name' => 'Global: Can Login',
-                'description' => ' ', ],
+                'description' => 'User can login to site.', ],
 
             ['slug'           => 'active_user', 'name' => 'Global: Is Active User',
-                'description' => ' ', ],
+                'description' => 'Users account is active.', ],
 
             ['slug'           => 'album_can_view', 'name' => 'Gallery Albums: Can View',
                 'description' => 'Can view image gallery.', ],
