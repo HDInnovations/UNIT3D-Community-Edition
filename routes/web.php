@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 if (config('unit3d.proxy_scheme')) {
     URL::forceScheme(config('unit3d.proxy_scheme'));
 }
-if(config('unit3d.root_url_override')) {
+if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 Route::group(['middleware' => 'language'], function () {
