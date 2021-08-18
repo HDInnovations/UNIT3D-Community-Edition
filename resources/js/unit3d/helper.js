@@ -694,10 +694,6 @@ $(document).ready(function () {
     if($('#upload-form-description').length > 0) {
         $('#upload-form-description').wysibb({});
     }
-    if(document.getElementById('facetedSearch')) {
-      const facetedType = document.getElementById('facetedSearch').getAttribute('type')
-      facetedSearch.init(facetedType);
-    }
     if(document.getElementById('userFilter')) {
         userFilter.init();
     }
@@ -707,10 +703,6 @@ $(document).ready(function () {
     if(document.getElementById('userExtension')) {
         userExtension.init();
     }
-    if(document.getElementById('configExtension')) {
-        configExtension.init();
-    }
-    torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
 
@@ -763,14 +755,9 @@ if(document.getElementById('torrent')) {
     });
 }
 // Globals
-
-const facetedSearch = new facetedSearchBuilder();
-const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
 const userExtension = new userExtensionBuilder();
 const uploadExtension = new uploadExtensionBuilder();
 var userFilterXHR = null;
-var facetedSearchXHR = null;
-var torrentBookmarkXHR = null;
 var audioLoaded = 0;
