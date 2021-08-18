@@ -83,8 +83,7 @@ class SimilarTorrent extends Component
 
     final public function alertConfirm(): void
     {
-        $torrents = Torrent::whereKey($this->checked)->pluck('name');
-        $names = [];
+        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
