@@ -907,11 +907,11 @@ class User extends Authenticatable
      *
      * Formats the seebonus of the User
      *
-     * @return decimal
+     * @return string
      */
     public function getSeedbonus()
     {
-        return \number_format($this->seedbonus, 0, '.', ' ');
+        return \number_format($this->seedbonus, 0, '.', ',');
     }
 
     /**

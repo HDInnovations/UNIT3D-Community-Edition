@@ -463,17 +463,17 @@
                         <i class="{{ config('other.font-awesome') }} fa-badge text-success"></i>
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
-                            @if ($user->getSeeding() >= 150)
+                            @if ($user->getSeeding() >= '150')
                                 <span class="badge-user" style="background-color:#3fb618; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-seeder-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.certified-seeder')!</span>
                             @endif
-                            @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
+                            @if ($history->where('actual_downloaded', '>', 0)->count() >= '100')
                                 <span class="badge-user" style="background-color:#ff0039; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-downloader-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.certified-downloader')!</span>
                             @endif
-                            @if ($user->getSeedbonus() >= 50000)
+                            @if ($user->getSeedbonus() >= '50,000')
                                 <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('user.certified-banker')!</span>
