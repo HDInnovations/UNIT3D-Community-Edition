@@ -475,11 +475,11 @@
 	        @endif
 
 	        @if ($torrent->mediainfo != null)
-		        <div class="panel panel-chat shoutbox torrent-mediainfo">
-		    	    <div class="panel-heading show_hide">
+		        <div class="panel panel-chat shoutbox torrent-mediainfo" x-data="{ show: false }">
+		    	    <div class="panel-heading">
 		    		    <h4>
 		    			    <i class="{{ config("other.font-awesome") }} fa-info-square"></i> MediaInfo
-		    			    <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" style="cursor: pointer;"></i>
+		    			    <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" style="cursor: pointer;" @click="show = !show"></i>
 		    		    </h4>
 		    	    </div>
 		    	    <div class="table-responsive tabla-mediainfo">
@@ -555,7 +555,7 @@
 									            @endif
 								            </div>
 
-								            <div class="slidingDiv torrent-mediainfo-dump" style="opacity: 1; display: none;">
+								            <div class="torrent-mediainfo-dump" style="opacity: 1; display: none;" x-show="show">
 									            <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
 									        	    <span class="text-center text-bold">Full MediaInfo Dump</span>
 									        		<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
@@ -840,19 +840,6 @@
 <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   $(document).ready(function () {
 	$('#content').wysibb({});
-  })
-</script>
-
-<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-  $(document).ready(function () {
-
-	$('.slidingDiv').hide();
-	$('.show_hide').show();
-
-	$('.show_hide').click(function () {
-	  $('.slidingDiv').slideToggle()
-	})
-
   })
 </script>
 

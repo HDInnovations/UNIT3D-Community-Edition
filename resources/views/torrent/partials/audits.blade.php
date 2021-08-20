@@ -1,13 +1,12 @@
-<div class="panel panel-chat shoutbox torrent-audits">
-    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion2"
-         href="#collapseOne">
+<div class="panel panel-chat shoutbox torrent-audits" x-data="{ show: false }">
+    <div class="panel-heading">
         <h4>
             <i class="{{ config("other.font-awesome") }} fa-clipboard-list"></i> Audits
-            <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right"></i>
+            <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" @click="show = !show"></i>
         </h4>
     </div>
 
-    <div class="table-responsive panel-collapse collapse" id="collapseOne">
+    <div class="table-responsive" x-show="show">
         <table class="table table-condensed table-bordered table-striped">
             <tbody>
             @foreach(App\Models\Audit::where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get() as $audit)
