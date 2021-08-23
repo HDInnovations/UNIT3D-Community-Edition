@@ -38,6 +38,7 @@ class MediaInfo
     public function parse($string)
     {
         $string = \trim($string);
+        $string = \str_replace("\xc2\xa0", ' ', $string);
         $lines = \preg_split("/\r\n|\n|\r/", $string);
 
         $output = [];
