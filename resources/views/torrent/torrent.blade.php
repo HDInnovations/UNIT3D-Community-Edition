@@ -182,9 +182,7 @@
                                            role="button">@lang('torrent.use-fl-token')
                                         </a>
                                         <span class="small">
-                                        <em>{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}
-                                            !</strong>
-                                        </em>
+                                        <em>{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}</em>
                                     </span>
                                     </td>
                                 </tr>
@@ -512,7 +510,7 @@
 		    				    							    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? '' }}</div>
 		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> {{ $videoElement['frame_rate'] ?? '' }}</div>
 		    				    							    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? '' }}</div>
-		    				    						        @if($videoElement['format'] === 'HEVC')
+													            @if(isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
 		    				    								    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? '' }}</div>
 		    				    								    <div><u style="font-weight: bold;">Color Primaries:</u> {{ $videoElement['color_primaries'] ?? '' }}</div>
 		    				    								    <div><u style="font-weight: bold;">Transfer Characteristics:</u> {{ $videoElement['transfer_characteristics'] ?? '' }}</div>
