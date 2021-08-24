@@ -180,7 +180,7 @@ class Movie
 
     public function get_videos()
     {
-        if ($this->data['videos']['results']) {
+        if (isset($this->data['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'];
         }
 
