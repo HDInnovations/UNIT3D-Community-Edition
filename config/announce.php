@@ -48,13 +48,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Connectable check interval
+    | Client Connectable Check
     |--------------------------------------------------------------------------
     |
-    | Amount Of Time until the next connectable check
+    | This option enables/disables Client connectivity check
+    | !!! Attention: Will result in leaking the server IP! !!!
+    | It will result in higher disc / DB IO
     |
     */
 
-    'connectable_check_interval' => 60 * 20,
+    'connectable_check' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Connectable Check Interval
+    |--------------------------------------------------------------------------
+    |
+    | Amount Of Time until the next connectable check in seconds
+    |
+    */
+
+    'connectable_check_interval' => 60 * 30,
 
 ];
