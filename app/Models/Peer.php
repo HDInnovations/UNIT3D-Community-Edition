@@ -15,6 +15,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
@@ -124,14 +125,28 @@ class Peer extends Model
      */
     public function updateConnectableStateIfNeeded(): void
     {
-        if (! \cache()->has('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent)) {
-            $con = @fsockopen($this->ip, $this->port, $_, $_, 1);
+        if (\config('announce.connectable_check') == true) {
 
-            $this->connectable = \is_resource($con);
-            \cache()->put('peers:connectable:'.$this->ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addDay());
+            $tmp_ip = $this->ip;
 
-            if (\is_resource($con)) {
-                \fclose($con);
+            // IPv6 Check
+            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $tmp_ip = '['.$tmp_ip.']';
+            }
+
+            if (! \cache()->has('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent)) {
+
+                $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
+
+                $this->connectable = \is_resource($con);
+                \cache()->put('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addSeconds(config('announce.connectable_check_interval')));
+
+                if (\is_resource($con)) {
+                    \fclose($con);
+                }
+
+                // See https://laracasts.com/discuss/channels/eloquent/use-update-without-updating-timestamps?page=1&replyId=680133
+                Peer::where('ip', '=', $tmp_ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable, 'updated_at' => DB::raw('updated_at')]);
             }
         }
     }
