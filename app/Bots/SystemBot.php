@@ -60,14 +60,17 @@ class SystemBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\str_contains($output, '{bots}')) {
-            $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
-            foreach ($bots as $bot) {
-                $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
-            }
-            $output = \str_replace('{bots}', $botHelp, $output);
+        if (! \str_contains($output, '{bots}')) {
+            return $output;
         }
+
+        $botHelp = '';
+        $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
+        foreach ($bots as $bot) {
+            $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
+        }
+
+        $output = \str_replace('{bots}', $botHelp, $output);
 
         return $output;
     }
@@ -97,45 +100,44 @@ class SystemBot
             'amount'     => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'       => 'required|string',
         ]);
-        if ($v->passes()) {
-            $recipient = User::where('username', 'LIKE', $receiver)->first();
+        if (! $v->passes()) {
+            return 'Your BON gift could not be sent.';
+        }
+        $recipient = User::where('username', 'LIKE', $receiver)->first();
 
-            if (! $recipient || $recipient->id == $this->target->id) {
-                return 'Your BON gift could not be sent.';
-            }
-
-            $value = $amount;
-            $recipient->seedbonus += $value;
-            $recipient->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
-
-            $bonTransactions = new BonTransactions();
-            $bonTransactions->itemID = 0;
-            $bonTransactions->name = 'gift';
-            $bonTransactions->cost = $value;
-            $bonTransactions->sender = $this->target->id;
-            $bonTransactions->receiver = $recipient->id;
-            $bonTransactions->comment = $output;
-            $bonTransactions->torrent_id = null;
-            $bonTransactions->save();
-
-            if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
-                $recipient->notify(new NewBon('gift', $this->target->username, $bonTransactions));
-            }
-
-            $profileUrl = \href_profile($this->target);
-            $recipientUrl = \href_profile($recipient);
-
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
-            );
-
-            return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
+        if (! $recipient || $recipient->id == $this->target->id) {
+            return 'Your BON gift could not be sent.';
         }
 
-        return 'Your BON gift could not be sent.';
+        $value = $amount;
+        $recipient->seedbonus += $value;
+        $recipient->save();
+
+        $this->target->seedbonus -= $value;
+        $this->target->save();
+
+        $bonTransactions = new BonTransactions();
+        $bonTransactions->itemID = 0;
+        $bonTransactions->name = 'gift';
+        $bonTransactions->cost = $value;
+        $bonTransactions->sender = $this->target->id;
+        $bonTransactions->receiver = $recipient->id;
+        $bonTransactions->comment = $output;
+        $bonTransactions->torrent_id = null;
+        $bonTransactions->save();
+
+        if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
+            $recipient->notify(new NewBon('gift', $this->target->username, $bonTransactions));
+        }
+
+        $profileUrl = \href_profile($this->target);
+        $recipientUrl = \href_profile($recipient);
+
+        $this->chatRepository->systemMessage(
+            \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
+        );
+
+        return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
     }
 
     /**
@@ -161,19 +163,26 @@ class SystemBot
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
         $command = @\explode(' ', $message);
-        if (\array_key_exists($x, $command)) {
-            if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
-                $clone = $command;
-                \array_shift($clone);
-                \array_shift($clone);
-                \array_shift($clone);
-                \array_shift($clone);
-                $log = $this->putGift($command[$y], $command[$z], $clone);
-            }
-            if ($command[$x] === 'help') {
-                $log = $this->getHelp();
-            }
+        if (! \array_key_exists($x, $command)) {
+            $this->targeted = $targeted;
+            $this->type = $type;
+            $this->message = $message;
+            $this->log = $log;
+
+            return $this->pm();
         }
+        if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
+            $clone = $command;
+            \array_shift($clone);
+            \array_shift($clone);
+            \array_shift($clone);
+            \array_shift($clone);
+            $log = $this->putGift($command[$y], $command[$z], $clone);
+        }
+        if ($command[$x] === 'help') {
+            $log = $this->getHelp();
+        }
+
         $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
@@ -259,15 +268,14 @@ class SystemBot
             return \response('success');
         }
 
-        if ($type == 'public') {
-            if ($txt != '') {
-                $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
-            }
-
-            return \response('success');
+        if ($type != 'public') {
+            return true;
+        }
+        if ($txt != '') {
+            $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+            $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
         }
 
-        return true;
+        return \response('success');
     }
 }

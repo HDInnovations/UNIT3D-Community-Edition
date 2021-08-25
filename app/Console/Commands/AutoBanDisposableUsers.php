@@ -59,29 +59,30 @@ class AutoBanDisposableUsers extends Command
                     'email' => 'required|string|email|max:70|blacklist',
                 ]);
 
-                if ($v->fails()) {
-                    // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->group_id = $bannedGroup[0];
-                    $user->can_upload = 0;
-                    $user->can_download = 0;
-                    $user->can_comment = 0;
-                    $user->can_invite = 0;
-                    $user->can_request = 0;
-                    $user->can_chat = 0;
-                    $user->save();
-
-                    // Log The Ban To Ban Log
-                    $domain = \substr(\strrchr($user->email, '@'), 1);
-                    $logban = new Ban();
-                    $logban->owned_by = $user->id;
-                    $logban->created_by = 1;
-                    $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
-                    $logban->unban_reason = '';
-                    $logban->save();
-
-                    // Send Email
-                    Mail::to($user->email)->send(new BanUser($user->email, $logban));
+                if (! $v->fails()) {
+                    continue;
                 }
+                // If User Is Using A Disposable Email Set The Users Group To Banned
+                $user->group_id = $bannedGroup[0];
+                $user->can_upload = 0;
+                $user->can_download = 0;
+                $user->can_comment = 0;
+                $user->can_invite = 0;
+                $user->can_request = 0;
+                $user->can_chat = 0;
+                $user->save();
+
+                // Log The Ban To Ban Log
+                $domain = \substr(\strrchr($user->email, '@'), 1);
+                $logban = new Ban();
+                $logban->owned_by = $user->id;
+                $logban->created_by = 1;
+                $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
+                $logban->unban_reason = '';
+                $logban->save();
+
+                // Send Email
+                Mail::to($user->email)->send(new BanUser($user->email, $logban));
             }
         });
         $this->comment('Automated User Banning Command Complete');
