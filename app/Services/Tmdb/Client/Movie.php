@@ -171,7 +171,7 @@ class Movie
 
     public function get_trailer()
     {
-        if ($this->data['videos']['results']) {
+        if (! empty($this->data['videos']['results'])) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'][0]['key'];
         }
 
