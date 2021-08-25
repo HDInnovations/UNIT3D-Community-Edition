@@ -131,7 +131,7 @@ class Peer extends Model
 
             // IPv6 Check
             if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $tmp_ip = "[".$tmp_ip."]";
+                $tmp_ip = '['.$tmp_ip.']';
             }
 
             if (! \cache()->has('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent)) {
