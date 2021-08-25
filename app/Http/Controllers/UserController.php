@@ -173,7 +173,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         return \view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
     }
@@ -189,7 +189,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         // Avatar
         $maxUpload = \config('image.max_upload_size');
@@ -238,7 +238,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         return \view('user.settings', ['user' => $user, 'route' => 'settings']);
     }
@@ -254,7 +254,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         // General Settings
         $user->censor = $request->input('censor');
@@ -301,7 +301,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         return \view('user.security', ['user' => $user]);
     }
@@ -335,7 +335,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $v = \validator($request->all(), [
             'current_password'          => 'required',
@@ -369,7 +369,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         if (\config('email-blacklist.enabled') == true) {
             $v = \validator($request->all(), [
@@ -403,7 +403,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->private_profile = 1;
         $user->save();
@@ -423,7 +423,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->private_profile = 0;
         $user->save();
@@ -443,7 +443,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->block_notifications = 1;
         $user->save();
@@ -463,7 +463,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->block_notifications = 0;
         $user->save();
@@ -483,7 +483,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->hidden = 1;
         $user->save();
@@ -503,7 +503,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->hidden = 0;
         $user->save();
@@ -525,7 +525,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->passkey = \md5(\random_bytes(60).$user->password);
         $user->save();
@@ -547,7 +547,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -580,7 +580,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -613,7 +613,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -646,7 +646,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -680,7 +680,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -713,7 +713,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -751,7 +751,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -786,7 +786,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -820,7 +820,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -854,7 +854,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -889,7 +889,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -929,7 +929,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -965,7 +965,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -1003,7 +1003,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -1037,7 +1037,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -1084,7 +1084,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->rsskey = \md5(\random_bytes(60).$user->password);
         $user->save();
@@ -1104,7 +1104,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $user->api_token = Str::random(100);
         $user->save();
@@ -1122,7 +1122,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
@@ -1138,7 +1138,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
@@ -1934,7 +1934,7 @@ class UserController extends Controller
 
         // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         // Define Dir Folder
         $path = \getcwd().'/files/tmp_zip/';
@@ -2030,7 +2030,7 @@ class UserController extends Controller
     {
         // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($request->user()->id == $user->id, 403);
+        $this->isTheLoggedinUser($user);
 
         // Check if User can flush
         if ($request->user()->own_flushes == 0) {
@@ -2098,5 +2098,10 @@ class UserController extends Controller
             'his_downl'                             => $hisDownl,
             'his_downl_cre'                         => $hisDownlCre,
         ]);
+    }
+
+    private function isTheLoggedinUser($user)
+    {
+        \abort_unless(auth()->id() == $user->id, 403);
     }
 }
