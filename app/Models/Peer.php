@@ -130,7 +130,7 @@ class Peer extends Model
             $tmp_ip = $this->ip;
 
             // IPv6 Check
-            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)){
+            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $tmp_ip = "[".$tmp_ip."]";
             }
 
