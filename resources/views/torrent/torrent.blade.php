@@ -85,10 +85,12 @@
                     </button>
                     @endif
 
-                    @if ($torrent->seeders <= 2)
-                    <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
-                        <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
-                    </a>
+                    @if ($current = $user->history->where('info_hash', $torrent->info_hash)->first())
+                        @if ($current->seeder == 0 && $current->active == 1 && $torrent->seeders <= 2)
+                            <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
+                                <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
+                            </a>
+                        @endif
                     @endif
 
                     <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
