@@ -1,22 +1,15 @@
 <?php
 
-namespace Tests\Unit\Console\Commands;
-
 use Tests\TestCase;
+
+uses(TestCase::class);
 
 /**
  * @see \App\Console\Commands\AutoHighspeedTag
  */
-class AutoHighspeedTagTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
-    {
-        $this->artisan('auto:highspeed_tag')
-            ->expectsOutput('Automated High Speed Torrents Command Complete')
-            ->assertExitCode(0)
-            ->run();
-    }
-}
+it('runs successfully', function () {
+    $this->artisan('auto:highspeed_tag')
+        ->expectsOutput('Automated High Speed Torrents Command Complete')
+        ->assertExitCode(0)
+        ->run();
+});

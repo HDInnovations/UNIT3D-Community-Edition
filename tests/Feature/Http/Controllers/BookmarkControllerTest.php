@@ -1,66 +1,54 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers;
-
 use App\Models\Bookmark;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
+uses(TestCase::class);
+
 /**
  * @see \App\Http\Controllers\BookmarkController
  */
-class BookmarkControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->seed(GroupsTableSeeder::class);
+});
 
-        $this->seed(GroupsTableSeeder::class);
-    }
+test('destroy returns an ok response', function () {
+    $user = User::factory()->create();
 
-    /** @test */
-    public function destroy_returns_an_ok_response()
-    {
-        $user = User::factory()->create();
+    $bookmark = Bookmark::factory()->create([
+        'user_id' => $user->id,
+    ]);
 
-        $bookmark = Bookmark::factory()->create([
-            'user_id' => $user->id,
-        ]);
+    $response = $this->actingAs($user)->delete(route('bookmarks.destroy', ['id' => $bookmark->torrent_id]));
 
-        $response = $this->actingAs($user)->delete(route('bookmarks.destroy', ['id' => $bookmark->torrent_id]));
+    $response->assertRedirect(route('bookmarks.index', ['username' => $user->username]))
+        ->assertSessionHas('success', 'Torrent Has Been Unbookmarked Successfully!');
+});
 
-        $response->assertRedirect(route('bookmarks.index', ['username' => $user->username]))
-            ->assertSessionHas('success', 'Torrent Has Been Unbookmarked Successfully!');
-    }
+test('index returns an ok response', function () {
+    $user = User::factory()->create();
 
-    /** @test */
-    public function index_returns_an_ok_response()
-    {
-        $user = User::factory()->create();
+    Bookmark::factory()->create([
+        'user_id' => $user->id,
+    ]);
 
-        Bookmark::factory()->create([
-            'user_id' => $user->id,
-        ]);
+    $response = $this->actingAs($user)->get(route('bookmarks.index', ['username' => $user->username]));
 
-        $response = $this->actingAs($user)->get(route('bookmarks.index', ['username' => $user->username]));
+    $response->assertOk()
+        ->assertViewIs('bookmark.index')
+        ->assertViewHas('user');
+});
 
-        $response->assertOk()
-            ->assertViewIs('bookmark.index')
-            ->assertViewHas('user');
-    }
+test('store returns an ok response', function () {
+    $user = User::factory()->create();
 
-    /** @test */
-    public function store_returns_an_ok_response()
-    {
-        $user = User::factory()->create();
+    $bookmark = Bookmark::factory()->make([
+        'user_id' => $user->id,
+    ]);
 
-        $bookmark = Bookmark::factory()->make([
-            'user_id' => $user->id,
-        ]);
-
-        $this->actingAs($user)->post(route('bookmarks.store', ['id' => $bookmark->torrent_id]))
-            ->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
-            ->assertSessionHas('success', 'Torrent Has Been Bookmarked Successfully!');
-    }
-}
+    $this->actingAs($user)->post(route('bookmarks.store', ['id' => $bookmark->torrent_id]))
+        ->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
+        ->assertSessionHas('success', 'Torrent Has Been Bookmarked Successfully!');
+});

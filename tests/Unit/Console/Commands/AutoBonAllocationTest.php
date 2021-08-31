@@ -1,22 +1,15 @@
 <?php
 
-namespace Tests\Unit\Console\Commands;
-
 use Tests\TestCase;
+
+uses(TestCase::class);
 
 /**
  * @see \App\Console\Commands\AutoBonAllocation
  */
-class AutoBonAllocationTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
-    {
-        $this->artisan('auto:bon_allocation')
-            ->expectsOutput('Automated BON Allocation Command Complete')
-            ->assertExitCode(0)
-            ->run();
-    }
-}
+it('runs successfully', function () {
+    $this->artisan('auto:bon_allocation')
+        ->expectsOutput('Automated BON Allocation Command Complete')
+        ->assertExitCode(0)
+        ->run();
+});

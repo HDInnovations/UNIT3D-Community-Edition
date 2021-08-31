@@ -1,22 +1,15 @@
 <?php
 
-namespace Tests\Unit\Console\Commands;
-
 use Tests\TestCase;
+
+uses(TestCase::class);
 
 /**
  * @see \App\Console\Commands\AutoSoftDeleteDisabledUsers
  */
-class AutoSoftDeleteDisabledUsersTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
-    {
-        $this->artisan('auto:softdelete_disabled_users')
-            ->expectsOutput('Automated Soft Delete Disabled Users Command Complete')
-            ->assertExitCode(0)
-            ->run();
-    }
-}
+it('runs successfully', function () {
+    $this->artisan('auto:softdelete_disabled_users')
+        ->expectsOutput('Automated Soft Delete Disabled Users Command Complete')
+        ->assertExitCode(0)
+        ->run();
+});

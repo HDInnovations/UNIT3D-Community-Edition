@@ -1,50 +1,40 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers;
-
 use App\Models\Category;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
+uses(TestCase::class);
+
 /**
  * @see \App\Http\Controllers\CategoryController
  */
-class CategoryControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    $this->seed(GroupsTableSeeder::class);
+});
 
-        $this->seed(GroupsTableSeeder::class);
-    }
+test('index returns an ok response', function () {
+    $user = User::factory()->create();
 
-    /** @test */
-    public function index_returns_an_ok_response()
-    {
-        $user = User::factory()->create();
+    $response = $this->actingAs($user)->get(route('categories.index'));
 
-        $response = $this->actingAs($user)->get(route('categories.index'));
+    $response->assertOk()
+        ->assertViewIs('category.index')
+        ->assertViewHas('categories');
+});
 
-        $response->assertOk()
-            ->assertViewIs('category.index')
-            ->assertViewHas('categories');
-    }
+test('show returns an ok response', function () {
+    $category = Category::factory()->create();
 
-    /** @test */
-    public function show_returns_an_ok_response()
-    {
-        $category = Category::factory()->create();
+    $user = User::factory()->create();
 
-        $user = User::factory()->create();
+    $response = $this->actingAs($user)->get(route('categories.show', ['id' => $category->id]));
 
-        $response = $this->actingAs($user)->get(route('categories.show', ['id' => $category->id]));
-
-        $response->assertOk()
-            ->assertViewIs('category.show')
-            ->assertViewHas('torrents')
-            ->assertViewHas('user')
-            ->assertViewHas('category')
-            ->assertViewHas('personal_freeleech');
-    }
-}
+    $response->assertOk()
+        ->assertViewIs('category.show')
+        ->assertViewHas('torrents')
+        ->assertViewHas('user')
+        ->assertViewHas('category')
+        ->assertViewHas('personal_freeleech');
+});

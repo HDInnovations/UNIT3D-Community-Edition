@@ -1,83 +1,68 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Auth;
-
 use App\Models\TwoStepAuth;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
+uses(TestCase::class);
+
 /**
  * @see \App\Http\Controllers\Auth\TwoStepController
  */
-class TwoStepControllerTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function resend_returns_an_ok_response()
-    {
-        config(['auth.TwoStepEnabled' => true]);
+test('resend returns an ok response', function () {
+    config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create([
-            'twostep' => true,
-        ]);
+    $user = User::factory()->create([
+        'twostep' => true,
+    ]);
 
-        TwoStepAuth::factory()->create([
-            'userId' => $user->id,
-        ]);
+    TwoStepAuth::factory()->create([
+        'userId' => $user->id,
+    ]);
 
-        $this->actingAs($user)->post(route('resend'))
-            ->assertRedirect(route('verificationNeeded'));
-    }
+    $this->actingAs($user)->post(route('resend'))
+        ->assertRedirect(route('verificationNeeded'));
+});
 
-    /**
-     * @test
-     */
-    public function show_verification_returns_an_ok_response()
-    {
-        config(['auth.TwoStepEnabled' => true]);
+test('show verification returns an ok response', function () {
+    config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create([
-            'twostep' => true,
-        ]);
+    $user = User::factory()->create([
+        'twostep' => true,
+    ]);
 
-        TwoStepAuth::factory()->create([
-            'userId' => $user->id,
-        ]);
+    TwoStepAuth::factory()->create([
+        'userId' => $user->id,
+    ]);
 
-        $this->actingAs($user)->get(route('verificationNeeded'))
-            ->assertOk()
-            ->assertViewIs('auth.twostep-verification');
-    }
+    $this->actingAs($user)->get(route('verificationNeeded'))
+        ->assertOk()
+        ->assertViewIs('auth.twostep-verification');
+});
 
-    /**
-     * @test
-     */
-    public function verify_returns_an_ok_response()
-    {
-        config(['auth.TwoStepEnabled' => true]);
+test('verify returns an ok response', function () {
+    config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create([
-            'twostep' => true,
-        ]);
+    $user = User::factory()->create([
+        'twostep' => true,
+    ]);
 
-        $twoStep = TwoStepAuth::factory()->create([
-            'userId' => $user->id,
-        ]);
+    $twoStep = TwoStepAuth::factory()->create([
+        'userId' => $user->id,
+    ]);
 
-        $this->actingAs($user)->postJson(route('verify'), [
-            'v_input_1' => $twoStep->authCode[0],
-            'v_input_2' => $twoStep->authCode[1],
-            'v_input_3' => $twoStep->authCode[2],
-            'v_input_4' => $twoStep->authCode[3],
-        ], ['HTTP_X-Requested-With' => 'XMLHttpRequest'])
-            ->assertOk();
-    }
-}
+    $this->actingAs($user)->postJson(route('verify'), [
+        'v_input_1' => $twoStep->authCode[0],
+        'v_input_2' => $twoStep->authCode[1],
+        'v_input_3' => $twoStep->authCode[2],
+        'v_input_4' => $twoStep->authCode[3],
+    ], ['HTTP_X-Requested-With' => 'XMLHttpRequest'])
+        ->assertOk();
+});

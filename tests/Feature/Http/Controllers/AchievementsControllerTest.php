@@ -1,52 +1,41 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers;
-
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
+uses(TestCase::class);
+
 /**
  * @see \App\Http\Controllers\AchievementsController
  */
-class AchievementsControllerTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('index returns an ok response', function () {
+    $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create();
+    $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('achievements.index'));
+    $response = $this->actingAs($user)->get(route('achievements.index'));
 
-        $response->assertOk()
-            ->assertViewIs('achievement.index')
-            ->assertViewHas('route')
-            ->assertViewHas('user')
-            ->assertViewHas('achievements')
-            ->assertViewHas('pending');
-    }
+    $response->assertOk()
+        ->assertViewIs('achievement.index')
+        ->assertViewHas('route')
+        ->assertViewHas('user')
+        ->assertViewHas('achievements')
+        ->assertViewHas('pending');
+});
 
-    /**
-     * @test
-     */
-    public function show_returns_an_ok_response()
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('show returns an ok response', function () {
+    $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create();
+    $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('achievements.show', [
-            'username' => $user->username,
-        ]));
+    $response = $this->actingAs($user)->get(route('achievements.show', [
+        'username' => $user->username,
+    ]));
 
-        $response->assertOk()
-            ->assertViewIs('achievement.show')
-            ->assertViewHas('route')
-            ->assertViewHas('user')
-            ->assertViewHas('achievements');
-    }
-}
+    $response->assertOk()
+        ->assertViewIs('achievement.show')
+        ->assertViewHas('route')
+        ->assertViewHas('user')
+        ->assertViewHas('achievements');
+});
