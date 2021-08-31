@@ -10,5 +10,5 @@ uses(TestCase::class);
  * @return void
  */
 test('basic test', function () {
-    $this->assertTrue(true);
+    expect(true)->toBeTrue();
 });

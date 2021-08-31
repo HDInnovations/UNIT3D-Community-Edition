@@ -16,7 +16,7 @@ test('authorize', function () {
 
     $actual = $this->subject->authorize();
 
-    $this->assertTrue($actual);
+    expect($actual)->toBeTrue();
 });
 
 test('rules', function () {
@@ -24,7 +24,7 @@ test('rules', function () {
 
     $actual = $this->subject->rules();
 
-    $this->assertEquals([], $actual);
+    expect($actual)->toEqual([]);
 });
 
 test('messages', function () {
@@ -32,5 +32,5 @@ test('messages', function () {
 
     $actual = $this->subject->messages();
 
-    $this->assertEquals([], $actual);
+    expect($actual)->toEqual([]);
 });

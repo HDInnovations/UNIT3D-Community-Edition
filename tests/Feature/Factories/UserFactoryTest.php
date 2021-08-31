@@ -11,7 +11,7 @@ beforeEach(function () {
 test('factory returns correct values when created', function () {
     $user = User::factory()->create();
 
-    $this->assertInstanceOf(User::class, $user);
+    expect($user)->toBeInstanceOf(User::class);
 
     $this->assertArrayHasKey('username', $user);
     $this->assertArrayHasKey('email', $user);

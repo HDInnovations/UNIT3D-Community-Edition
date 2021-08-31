@@ -77,5 +77,5 @@ test('store returns an ok response', function () {
 
     $response->assertRedirect(route('albums.create'));
 
-    $this->assertEquals('Meta Data Not Found. Gallery System Is Being Refactored', session()->get('errors')->default->first());
+    expect(session()->get('errors')->default->first())->toEqual('Meta Data Not Found. Gallery System Is Being Refactored');
 });
