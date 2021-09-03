@@ -427,44 +427,44 @@
                         <tr class="torrent-peers">
                             <td class="col-sm-2"><strong>@lang('torrent.peers')</strong></td>
                             <td>
-                                <span class="badge-extra text-green">
+                                <a
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                    class="badge-extra text-green"
+                                    data-toggle="tooltip"
+                                    title="{{ $torrent->seeders }} {{ strtolower(trans('torrent.seeders')) }}"
+                                >
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}
-                                </span>
-                                <span class="badge-extra text-red">
+                                </a>
+                                <a
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                    class="badge-extra text-red"
+                                    data-toggle="tooltip"
+                                    title="{{ $torrent->leechers }} {{ strtolower(trans('torrent.leechers')) }}"
+                                >
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}
-                                </span>
-                                <span class="badge-extra text-info">
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}
-                                </span>
-                                <span class="badge-extra">
-                                    <a href="{{ route('peers', ['id' => $torrent->id]) }}"
-                                       title="@lang('common.view') @lang('torrent.peers')">@lang('common.view') @lang('torrent.peers')
-                                    </a>
-                                </span>
-                                <span class="badge-extra">
-                                    <a href="{{ route('history', ['id' => $torrent->id]) }}"
-                                       title="@lang('common.view') @lang('torrent.history')">@lang('common.view') @lang('torrent.history')
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
+                                </a>
+                                <a
+                                    href="{{ route('history', ['id' => $torrent->id]) }}"
+                                    class="badge-extra text-info"
+                                    data-toggle="tooltip"
+                                    title="{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}"
+                                >
+                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i> {{ $torrent->times_completed }}
+                                </a>
 
-                        @if ($torrent->seeders == 0)
-                            <tr class="torrent-last-seed-activity">
-                                <td class="col-sm-2"><strong>@lang('torrent.last-seed-activity')</strong></td>
-                                <td>
+                                @if ($torrent->seeders == 0)
                                     @if ($last_seed_activity)
-                                        <span class="badge-extra text-orange">
-                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> {{ $last_seed_activity->updated_at->diffForHumans() }}
+                                        <span class="badge-extra text-orange torrent-last-seed-activity">
+                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('torrent.last-seed-activity'): {{ $last_seed_activity->updated_at->diffForHumans() }}
                                         </span>
                                     @else
-                                        <span class="badge-extra text-orange">
-                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('common.unknown')
+                                        <span class="badge-extra text-orange torrent-last-seed-activity">
+                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('torrent.last-seed-activity'): @lang('common.unknown')
                                         </span>
                                     @endif
-                                </td>
-                            </tr>
-                        @endif
+                                @endif
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
