@@ -190,6 +190,48 @@
                                             <i class="{{ config('other.font-awesome') }} fa-certificate text-orange"></i>
                                         </span>
                                     @endif
+                        
+                                    @if ($torrent->internal == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.internal-release')">
+                                            <i class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></i>
+                                        </span>
+                                    @endif
+                
+                                    @if ($torrent->personal_release == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.stream-optimized')">
+                                            <i class="{{ config('other.font-awesome') }} fa-user-plus text-green" style="color: #865be9"></i>
+                                        </span>
+                                    @endif 
+                
+                                    @if ($torrent->stream == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.stream-optimized')">
+                                            <i class="{{ config('other.font-awesome') }} fa-play text-red"></i>
+                                        </span>
+                                    @endif
+                
+                                    @if ($torrent->leechers >= 5)
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('common.hot')">
+                                            <i class="{{ config('other.font-awesome') }} fa-fire text-orange" ></i>
+                                        </span>
+                                    @endif
+                
+                                    @if ($torrent->sticky == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.sticky')">
+                                            <i class="{{ config('other.font-awesome') }} fa-thumbtack text-black"></i>
+                                        </span>
+                                    @endif
+                
+                                    @if ($torrent->highspeed == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('common.high-speeds')">
+                                            <i class="{{ config('other.font-awesome') }} fa-tachometer text-red"></i>
+                                        </span>
+                                    @endif
+                
+                                    @if ($torrent->sd == '1')
+                                        <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.sd-content')">
+                                            <i class="{{ config('other.font-awesome') }} fa-ticket text-orange"></i>
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
 
@@ -403,13 +445,6 @@
                                 </td>
                             </tr>
                         @endif
-
-                        <tr class="torrent-stream-optimized">
-                            <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
-                            <td>
-                                @if ($torrent->stream == "1") @lang('common.yes') @else @lang('common.no') @endif
-                            </td>
-                        </tr>
 
                         <tr class="torrent-info-hash">
                             <td class="col-sm-2"><strong>@lang('torrent.info-hash')</strong></td>
