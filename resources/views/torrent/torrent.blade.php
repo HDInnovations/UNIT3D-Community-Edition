@@ -370,17 +370,23 @@
 
                         <tr class="torrent-uploaded-time">
                             <td class="col-sm-2"><strong>@lang('torrent.uploaded')</strong></td>
-                            <td>{{ $torrent->created_at }} ({{ $torrent->created_at->diffForHumans() }})</td>
+                            <td>
+                                <span data-toggle="tooltip" title="{{ $torrent->created_at }}">
+                                    {{ $torrent->created_at->diffForHumans() }}
+                                </span>
+                            </td>
                         </tr>
 
                         <tr class="torrent-size">
                             <td class="col-sm-2"><strong>@lang('torrent.size')</strong></td>
-                            <td>{{ $torrent->getSize() }}</td>
-                        </tr>
-
-                        <tr class="torrent-estimated-ratio">
-                            <td class="col-sm-2"><strong>@lang('torrent.estimated-ratio')</strong></td>
-                            <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}</td>
+                            <td>
+                                <span
+                                    data-toggle="tooltip"
+                                    title="@lang('torrent.estimated-ratio'): {{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}"
+                                >
+                                    {{ $torrent->getSize() }}
+                                </span>
+                            </td>
                         </tr>
 
                         <tr class="torrent-category">
