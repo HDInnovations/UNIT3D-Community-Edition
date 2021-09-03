@@ -54,6 +54,18 @@
                         <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="down btn btn-sm btn-success">
                             <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                         </a>
+
+                        @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
+                            <a href="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
+                                class="btn btn-default btn-sm torrent-freeleech-token"
+                                data-toggle=tooltip
+                                data-html="true"
+                                title='{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
+                                role="button"
+                            >
+                                @lang('torrent.use-fl-token')
+                            </a>
+                        @endif
                     @endif
                     @else
                         <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="down btn btn-sm btn-success">
@@ -174,21 +186,6 @@
                                     @endif
                                 </td>
                             </tr>
-
-                            @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
-                                <tr class="torrent-freeleech-token">
-                                    <td><strong>@lang('common.fl_token')</strong></td>
-                                    <td>
-                                        <a href="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
-                                           class="btn btn-default btn-xs"
-                                           role="button">@lang('torrent.use-fl-token')
-                                        </a>
-                                        <span class="small">
-                                        <em>{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}</em>
-                                    </span>
-                                    </td>
-                                </tr>
-                            @endif
                         @endif
 
                         @if ($torrent->featured == 1)
