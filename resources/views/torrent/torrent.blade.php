@@ -239,114 +239,8 @@
                             <td class="col-sm-2">
                                 <strong>@lang('torrent.name')</strong>
                             </td>
-                            <td>{{ $torrent->name }} &nbsp; &nbsp;
-                                @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
-                                    <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
-                                        <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
-                                    </a>
-                                @endif
-                                @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
-                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
-                                        <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.delete')
-                                    </button>
-                                @endif
-                            </td>
+                            <td>{{ $torrent->name }}</td>
                         </tr>
-
-                        @if (auth()->user()->group->is_modo)
-                            <tr class="torrent-moderation-controls">
-                                <td class="col-sm-2">
-                                    <strong>@lang('common.moderation')</strong>
-                                </td>
-                                <td>
-                                    <a href="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}" role='button'
-                                       class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
-                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
-                                    </a>
-
-                                    <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
-                                            class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
-                                        <i class="{{ config('other.font-awesome') }} fa-pause"></i> @lang('common.moderation-postpone')
-                                    </button>
-
-                                    <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
-                                            class="btn btn-labeled btn-danger btn-xs @if ($torrent->isRejected()) disabled @endif">
-                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> @lang('common.moderation-reject')
-                                    </button>
-
-                                    <span>
-                                        &nbsp;[ @lang('common.moderated-by')
-                                        <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
-                                           style="color:{{ $torrent->moderated->group->color }};">
-                                            <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip"
-                                               data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
-                                        </a>]
-                                    </span>
-                                </td>
-                            </tr>
-                        @endif
-
-
-                        @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
-                            <tr class="torrent-internal-controls">
-                                <td class="col-sm-2"><strong>@lang('common.staff-tools')</strong></td>
-                                <td>
-                                    @if ($torrent->free == 0)
-                                        <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
-                                           class="btn btn-success btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
-                                        </a>
-                                    @else
-                                        <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
-                                           class="btn btn-danger btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
-                                        </a>
-                                    @endif
-
-                                    @if ($torrent->doubleup == 0)
-                                        <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
-                                           class="btn btn-success btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')
-                                        </a>
-                                    @else
-                                        <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
-                                           class="btn btn-danger btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
-                                        </a>
-                                    @endif
-
-                                    @if ($torrent->sticky == 0)
-                                        <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
-                                           class="btn btn-success btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.sticky')
-                                        </a>
-                                    @else
-                                        <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
-                                           class="btn btn-danger btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
-                                        </a>
-                                    @endif
-
-                                    <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}"
-                                       class="btn btn-primary btn-xs" role="button">
-                                        <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> @lang('torrent.bump')
-                                    </a>
-
-                                    @if ($torrent->featured == 0)
-                                        <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                           class="btn btn-default btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
-                                        </a>
-                                    @else
-                                        <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
-                                           class="btn btn-danger btn-xs" role="button">
-                                            <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
-                                        </a>
-                                    @endif
-
-                                </td>
-                            </tr>
-                        @endif
 
                         <tr class="torrent-uploader">
                             <td class="col-sm-2"><strong>@lang('torrent.uploader')</strong></td>
@@ -496,6 +390,123 @@
                     </table>
                 </div>
             </div>
+
+            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id || auth()->user()->group->is_internal)
+                <div class="panel panel-chat shoutbox torrent-controls">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="{{ config("other.font-awesome") }} fa-hammer-war"></i> @lang('torrent.moderation')
+                        </h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td style="display: flex; justify-content: space-around; padding: 10px 0">
+                                        @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
+                                            <div class="torrent-editing-controls">
+                                                <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
+                                                    <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
+                                                </a>
+                                                @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
+                                                        <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.delete')
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        @endif
+
+                                        @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                                            <div class="torrent-internal-controls">
+                                                @if ($torrent->free == 0)
+                                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-success btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-danger btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
+                                                    </a>
+                                                @endif
+
+                                                @if ($torrent->doubleup == 0)
+                                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-success btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-danger btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
+                                                    </a>
+                                                @endif
+
+                                                @if ($torrent->sticky == 0)
+                                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-success btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.sticky')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-danger btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
+                                                    </a>
+                                                @endif
+
+                                                <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}"
+                                                class="btn btn-primary btn-xs" role="button">
+                                                    <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> @lang('torrent.bump')
+                                                </a>
+
+                                                @if ($torrent->featured == 0)
+                                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-default btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
+                                                    class="btn btn-danger btn-xs" role="button">
+                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        @endif
+
+                                        @if (auth()->user()->group->is_modo)
+                                            <div class="torrent-moderation-controls">
+                                                <a href="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}" role='button'
+                                                class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
+                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
+                                                </a>
+
+                                                <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
+                                                        class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
+                                                    <i class="{{ config('other.font-awesome') }} fa-pause"></i> @lang('common.moderation-postpone')
+                                                </button>
+
+                                                <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
+                                                        class="btn btn-labeled btn-danger btn-xs @if ($torrent->isRejected()) disabled @endif">
+                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> @lang('common.moderation-reject')
+                                                </button>
+
+                                                <span>
+                                                    &nbsp;[ @lang('common.moderated-by')
+                                                    <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
+                                                    style="color:{{ $torrent->moderated->group->color }};">
+                                                        <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip"
+                                                        data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                                                    </a>]
+                                                </span>
+                                            </div>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
 
 	        @if (auth()->user()->group->is_modo)
 		        @include('torrent.partials.audits')
