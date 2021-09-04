@@ -23,7 +23,7 @@
 						<img src="{{ $search_result->poster }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
 					<div class="col-xs-9 text-left">
-						<span>{{ $search_result->title }} ({{ substr($search_result->release_date, 0, 4) }})</span>
+						<div style="height: 60px;"><span style="line-height: 60px; height: 60px;">{{ $search_result->title }} ({{ substr($search_result->release_date, 0, 4) }})</span></div>
 					</div>
 				</div>
 			@elseif (strlen($series) > 2 )
@@ -33,7 +33,7 @@
 						<img src="{{ $search_result->poster }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
 					<div class="col-xs-9 text-left">
-						<span>{{ $search_result->name }} ({{ substr($search_result->first_air_date, 0, 4) }})</span>
+						<div style="height: 60px;"><span style="line-height: 60px; height: 60px;">{{ $search_result->name }} ({{ substr($search_result->first_air_date, 0, 4) }})</span>
 					</div>
 				</div>
 
@@ -43,7 +43,7 @@
 						<img src="{{ $search_result->still }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
 					<div class="col-xs-9 text-left">
-						<span>{{ $search_result->name }}</span>
+						<div style="height: 60px;"><span style="line-height: 60px; height: 60px;">{{ $search_result->name }}</span>
 					</div>
 				</div>
 			@endif
