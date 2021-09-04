@@ -70,8 +70,7 @@ class CommentController extends Controller
                 ->withErrors('Slow Down - Too Many Comments!');
         }
         RateLimiter::hit('collection-comment:'.$user->id);
-        
-        
+
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -173,7 +172,7 @@ class CommentController extends Controller
                 ->withErrors('Slow Down - Too Many Comments!');
         }
         RateLimiter::hit('article-comment:'.$user->id);
-        
+
         if ($user->can_comment == 0) {
             return \redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -271,7 +270,7 @@ class CommentController extends Controller
                 ->withErrors('Slow Down - Too Many Comments!');
         }
         RateLimiter::hit('playlist-comment:'.$user->id);
-        
+
         if ($user->can_comment == 0) {
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -361,7 +360,6 @@ class CommentController extends Controller
      */
     public function torrent(Request $request, $id)
     {
-
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
 
