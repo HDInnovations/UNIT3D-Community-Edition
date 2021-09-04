@@ -1,8 +1,8 @@
 <div class="text-center form-inline" style="height: 0;">
-	<div class="form-group">
+	<div class="form-group" wire:focusout ="$set('movie', '')">
 		<div>
 		<input wire:model.debounce.250ms="movie" type="text" class="form-control" placeholder="Movie"
-		       autocomplete="off" wire:blur="$set('movie', '')" style="width: 150px;">
+		       autocomplete="off" style="width: 150px;">
 		</div>
 		@if ($movie)
 			<div style="position: fixed; z-index: 2; background-color: #2b2b2b;">
@@ -20,10 +20,10 @@
 		@endif
 	</div>
 
-	<div class="form-group">
+	<div class="form-group" wire:focusout="$set('series', '')" >
 		<div>
 		<input wire:model.debounce.250ms="series" type="text" class="form-control" placeholder="Series"
-		       autocomplete="off" wire:blur="$set('series', '')" style="width: 150px;">
+		       autocomplete="off"style="width: 150px;">
 		</div>
 		@if ($series)
 			<div style="position: fixed; z-index: 2; background-color: #2b2b2b;">
@@ -41,10 +41,10 @@
 		@endif
 	</div>
 
-	<div class="form-group">
+	<div class="form-group" wire:focusout="$set('person', '')">
 		<div>
 		<input wire:model.debounce.250ms="person" type="text" class="form-control" placeholder="Person"
-		       autocomplete="off" wire:blur="$set('person', '')" style="width: 150px;">
+		       autocomplete="off" style="width: 150px;">
 		</div>
 		@if ($person)
 			<div style="position: fixed; z-index: 2; background-color: #2b2b2b;">
