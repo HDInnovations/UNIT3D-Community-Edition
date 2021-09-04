@@ -23,7 +23,7 @@
 	<div class="form-group" wire:focusout="$set('series', '')" >
 		<div>
 		<input wire:model.debounce.250ms="series" type="text" class="form-control" placeholder="Series"
-		       autocomplete="off"style="width: 150px;">
+		       autocomplete="off" style="width: 150px;">
 		</div>
 		@if ($series)
 			<div style="position: fixed; z-index: 2; background-color: #2b2b2b;">
