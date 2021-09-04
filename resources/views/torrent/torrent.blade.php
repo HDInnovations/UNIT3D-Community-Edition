@@ -125,7 +125,8 @@
                 <div class="panel-heading">
                     <h4 style="cursor: pointer;" @click="show = !show">
                         <i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')
-                        <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right"></i>
+                        <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" x-show="!show"></i>
+                        <i class="{{ config("other.font-awesome") }} fa-minus-circle fa-pull-right" x-show="show"></i>
                     </h4>
                 </div>
                 <div class="table-responsive" x-show="!show">
@@ -760,9 +761,10 @@
 	        @if ($torrent->mediainfo != null)
 		        <div class="panel panel-chat shoutbox torrent-mediainfo" x-data="{ show: false }">
 		    	    <div class="panel-heading">
-		    		    <h4>
+		    		    <h4 style="cursor: pointer;" @click="show = !show">
 		    			    <i class="{{ config("other.font-awesome") }} fa-info-square"></i> MediaInfo
-		    			    <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" style="cursor: pointer;" @click="show = !show"></i>
+                            <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" x-show="!show"></i>
+                            <i class="{{ config("other.font-awesome") }} fa-minus-circle fa-pull-right" x-show="show"></i>
 		    		    </h4>
 		    	    </div>
 		    	    <div class="table-responsive tabla-mediainfo">
