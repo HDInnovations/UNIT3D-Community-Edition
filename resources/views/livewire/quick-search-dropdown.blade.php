@@ -1,5 +1,5 @@
 <div class="text-center form-inline" style="height: 0;">
-	<div class="form-group" wire:focusout ="$set('movie', '')">
+	<div class="form-group" wire:blur ="$set('movie', '')">
 		<div>
 		<input wire:model.debounce.250ms="movie" type="text" class="form-control" placeholder="Movie"
 		       autocomplete="off" style="width: 150px;">
@@ -8,7 +8,7 @@
 			<div style="position: fixed; z-index: 2; background-color: #2b2b2b;">
 				@forelse ($search_results as $search_result)
 					<div class="box">
-						<a href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}" class="pull-left">
+						<a @click.prevent href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}" class="pull-left">
 							<img src="{{ $search_result->poster }}" style="width: 40px; height: 60px;">
 							<span class="text-bold">{{ $search_result->title }} ({{ substr($search_result->release_date, 0, 4) }})</span>
 						</a>
@@ -20,7 +20,7 @@
 		@endif
 	</div>
 
-	<div class="form-group" wire:focusout="$set('series', '')" >
+	<div class="form-group" wire:blur="$set('series', '')" >
 		<div>
 		<input wire:model.debounce.250ms="series" type="text" class="form-control" placeholder="Series"
 		       autocomplete="off" style="width: 150px;">
@@ -41,7 +41,7 @@
 		@endif
 	</div>
 
-	<div class="form-group" wire:focusout="$set('person', '')">
+	<div class="form-group" wire:blur="$set('person', '')">
 		<div>
 		<input wire:model.debounce.250ms="person" type="text" class="form-control" placeholder="Person"
 		       autocomplete="off" style="width: 150px;">
