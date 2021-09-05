@@ -91,28 +91,126 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">@lang('common.files')</h4>
+                <h4 class="modal-title" id="myModalLabel">
+                    @lang('common.files')
+                    <span
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ $torrent->size }}&nbsp;B"
+                        class="pull-right"
+                        style="display: inline-block; margin-right: 24px"
+                    >
+                        ({{ $torrent->files->count() }})
+                        {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
+                        </span>
+                </h4>
             </div>
             <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-condensed">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>@lang('common.name')</th>
-                                <th>@lang('torrent.size')</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($torrent->files as $k => $f)
-                                <tr>
-                                    <td>{{ $k + 1 }}</td>
-                                    <td>{{ $f->name }}</td>
-                                    <td>{{ $f->getSize() }}</td>
-                                </tr>
+                <ul class="nav nav-tabs mb-12">
+                    <li class="col-md-6 active">
+                        <a href="#file-hierarchy" role="tab" data-toggle="tab" aria-expanded="true">
+                            <i class="{{ config('other.font-awesome') }} fa-sitemap"></i> Hierarchy
+                        </a>
+                    </li>
+                    <li class="col-md-6">
+                        <a href="#file-list" role="tab" data-toggle="tab" aria-expanded="false">
+                            <i class="{{ config('other.font-awesome') }} fa-list"></i> List
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="file-hierarchy">
+                        @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn ($f) => \dirname($f->name)."/~~~", SORT_NATURAL)->values() as $file)
+                            @php $prevNodes = \explode("/", $files[$loop->index - 1]->name ?? " ") @endphp
+                            @foreach ($nodes = \explode("/", $file->name) as $node)
+                                @if (($prevNodes[$loop->index] ?? "") != $node)
+                                    @for ($depth = \count($prevNodes); $depth > $loop->index; $depth--)
+                                        </details>
+                                    @endfor
+                                    
+                                    @for ($depth = $loop->index; $depth < $loop->count; $depth++)
+                                        <details style="@if ($depth != 0) margin-left: 20px; @endif">
+                                            <summary style="padding: 8px; @if ($depth != $loop->count - 1) cursor: pointer; @endif">
+                                                <span style="display: grid; grid-template-areas: 'icon1 icon2 folder count . size';
+                                                    grid-template-columns: 24px 24px auto auto 1fr auto;">
+
+                                                    @if ($depth == $loop->count - 1)
+                                                        <i style="grid-area: icon1"></i>
+                                                        <i class="{{ config('other.font-awesome') }} fa-file" style="grid-area: icon2; padding-right: 4px"></i>
+                                                        <span style="padding-right: 4px">
+                                                            {{ $nodes[$depth] }}
+                                                        </span>
+                                                        <span
+                                                            data-toggle="tooltip"
+                                                            data-placement="left"
+                                                            style="grid-area: size; white-space: nowrap; text-align: right;"
+                                                            title="{{ $file->size }}&nbsp;B"
+                                                        >
+                                                            {{ $file->getSize() }}
+                                                        </span>
+                                                    @else
+                                                        <i class="{{ config('other.font-awesome') }} fa-caret-right" style="grid-area: icon1;"></i>
+                                                        <i class="{{ config('other.font-awesome') }} fa-folder" style="grid-area: icon2; padding-right: 4px;"></i>
+                                                        <span style="padding-right: 4px">
+                                                            {{ $nodes[$depth] }}
+                                                        </span>
+
+                                                        @php
+                                                            $filteredFiles = $files->filter(fn ($value) =>
+                                                                \str_starts_with(
+                                                                    $value->name,
+                                                                    \implode("/", \array_slice($nodes, 0, $depth + 1))."/"
+                                                                )
+                                                            )
+                                                        @endphp
+
+                                                        <span class="text-info" style="grid-area: count; padding-right: 4px;">
+                                                            ({{ $filteredFiles->count() }})
+                                                        </span>
+                                                        <span
+                                                            class="text-info"
+                                                            data-toggle="tooltip"
+                                                            data-placement="left"
+                                                            style="grid-area: size; white-space: nowrap; text-align: right;"
+                                                            title="{{ $filteredFiles->sum('size') }}&nbsp;B"
+                                                        >
+                                                            {{ App\Helpers\StringHelper::formatBytes($filteredFiles->sum('size'), 2) }}
+                                                        </span>
+                                                    @endif
+
+                                                </span>
+                                            </summary>
+                                    @endfor
+                                    @break
+                                @endif
                             @endforeach
-                        </tbody>
-                    </table>
+                        @endforeach
+                    </div>
+                    <div class="tab-pane fade" id="file-list">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>@lang('common.name')</th>
+                                        <th>@lang('torrent.size')</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($torrent->files as $k => $f)
+                                        <tr>
+                                            <td>{{ $k + 1 }}</td>
+                                            <td>{{ $f->name }}</td>
+                                            <td
+                                                data-toggle="tooltip"
+                                                data-placement="left"
+                                                title="{{ $f->size }}&nbsp;B">{{ $f->getSize() }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
