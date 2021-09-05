@@ -105,21 +105,21 @@
                         </span>
                 </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" x-data="{tab: 1}">
                 <ul class="nav nav-tabs mb-12">
-                    <li class="col-md-6 active">
-                        <a href="#file-hierarchy" role="tab" data-toggle="tab" aria-expanded="true">
+                    <li class="col-md-6" :class="{'active': tab === 1}">
+                        <a @click.prevent="tab = 1" style="cursor: pointer">
                             <i class="{{ config('other.font-awesome') }} fa-sitemap"></i> Hierarchy
                         </a>
                     </li>
-                    <li class="col-md-6">
-                        <a href="#file-list" role="tab" data-toggle="tab" aria-expanded="false">
+                    <li class="col-md-6" :class="{'active': tab === 2}">
+                        <a @click.prevent="tab = 2" style="cursor: pointer">
                             <i class="{{ config('other.font-awesome') }} fa-list"></i> List
                         </a>
                     </li>
                 </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade active in" id="file-hierarchy">
+                <div >
+                    <div x-show="tab === 1">
                         @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn ($f) => \dirname($f->name)."/~~~", SORT_NATURAL)->values() as $file)
                             @php $prevNodes = \explode("/", $files[$loop->index - 1]->name ?? " ") @endphp
                             @foreach ($nodes = \explode("/", $file->name) as $node)
@@ -186,7 +186,7 @@
                             @endforeach
                         @endforeach
                     </div>
-                    <div class="tab-pane fade" id="file-list">
+                    <div x-show="tab === 2">
                         <div class="table-responsive">
                             <table class="table table-striped table-condensed">
                                 <thead>
