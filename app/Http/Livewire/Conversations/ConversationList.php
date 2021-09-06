@@ -14,13 +14,13 @@
 namespace App\Http\Livewire\Conversations;
 
 use App\Models\Conversation;
-use Livewire\Component;
 use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class ConversationList extends Component
 {
     public $conversations;
-    
+
     public function mount(Collection $conversations)
     {
         $this->conversations = $conversations;
@@ -29,8 +29,8 @@ class ConversationList extends Component
     public function getListeners()
     {
         return [
-            'echo-private:users.' . auth()->id() . ',Conversations\\ConversationCreated' => 'prependConversationFromBroadcast',
-            'echo-private:users.' . auth()->id() . ',Conversations\\ConversationUpdated' => 'updateConversationFromBroadcast',
+            'echo-private:users.'.auth()->id().',Conversations\\ConversationCreated' => 'prependConversationFromBroadcast',
+            'echo-private:users.'.auth()->id().',Conversations\\ConversationUpdated' => 'updateConversationFromBroadcast',
         ];
     }
 

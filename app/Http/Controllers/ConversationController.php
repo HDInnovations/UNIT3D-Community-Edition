@@ -34,9 +34,9 @@ class ConversationController extends Controller
         \abort_unless($request->user()->inConversation($conversation->id), 403);
 
         $request->user()->conversations()->updateExistingPivot($conversation, [
-            'read_at' => now()
+            'read_at' => now(),
         ]);
-        
+
         return view('conversation.show', ['conversation' => $conversation]);
     }
 

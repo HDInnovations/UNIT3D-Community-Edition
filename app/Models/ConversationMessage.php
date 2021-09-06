@@ -19,12 +19,12 @@ class ConversationMessage extends Model
 {
     protected $fillable = [
         'user_id',
-        'body'
+        'body',
     ];
 
     public function isOwn()
     {
-        return $this->user_id === auth()->id();    
+        return $this->user_id === auth()->id();
     }
 
     public function conversation()

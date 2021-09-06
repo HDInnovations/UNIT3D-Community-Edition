@@ -13,15 +13,15 @@
 
 namespace App\Http\Livewire\Conversations;
 
+use App\Events\Conversations\ConversationUpdated;
+use App\Events\Conversations\MessageAdded;
 use App\Models\Conversation;
 use Livewire\Component;
-use App\Events\Conversations\MessageAdded;
-use App\Events\Conversations\ConversationUpdated;
 
 class ConversationReply extends Component
 {
     public $conversation;
-    
+
     public $body = '';
 
     public function mount(Conversation $conversation)
@@ -32,21 +32,21 @@ class ConversationReply extends Component
     public function reply()
     {
         $this->validate([
-            'body' => 'required'
+            'body' => 'required',
         ]);
-        
+
         $message = $this->conversation->messages()->create([
             'user_id' => auth()->id(),
-            'body' => $this->body
+            'body'    => $this->body,
         ]);
 
         $this->conversation->update([
-            'last_message_at' => now()
+            'last_message_at' => now(),
         ]);
 
         foreach ($this->conversation->others as $user) {
             $user->conversations()->updateExistingPivot($this->conversation, [
-                'read_at' => null
+                'read_at' => null,
             ]);
         }
 

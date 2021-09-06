@@ -14,17 +14,17 @@
 namespace App\Events\Conversations;
 
 use App\Models\ConversationMessage;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class MessageAdded implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $message;
 
@@ -42,8 +42,8 @@ class MessageAdded implements ShouldBroadcast
     {
         return [
             'message' => [
-                'id' => $this->message->id
-            ]
+                'id' => $this->message->id,
+            ],
         ];
     }
 
@@ -54,6 +54,6 @@ class MessageAdded implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('conversations.' . $this->message->conversation->id);
+        return new PrivateChannel('conversations.'.$this->message->conversation->id);
     }
 }

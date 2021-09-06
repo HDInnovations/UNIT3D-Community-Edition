@@ -13,12 +13,12 @@
 
 namespace App\Http\Livewire\Conversations;
 
-use App\Models\User;
-use App\Models\Conversation;
-use Livewire\Component;
-use Illuminate\Support\Collection;
-use App\Events\Conversations\UserAdded;
 use App\Events\Conversations\ConversationUpdated;
+use App\Events\Conversations\UserAdded;
+use App\Models\Conversation;
+use App\Models\User;
+use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class ConversationUsers extends Component
 {
@@ -27,7 +27,7 @@ class ConversationUsers extends Component
     public $conversation;
 
     public $conversationId;
-    
+
     public function mount(Collection $users, Conversation $conversation)
     {
         $this->users = $users;
@@ -38,7 +38,7 @@ class ConversationUsers extends Component
     public function getListeners()
     {
         return [
-            "echo-private:conversations.{$this->conversationId},Conversations\\UserAdded" => 'pushUserFromBroadcast'
+            "echo-private:conversations.{$this->conversationId},Conversations\\UserAdded" => 'pushUserFromBroadcast',
         ];
     }
 

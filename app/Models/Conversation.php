@@ -19,18 +19,18 @@ class Conversation extends Model
 {
     protected $fillable = [
         'last_message_at',
-        'uuid'
+        'uuid',
     ];
-    
+
     protected $dates = [
-        'last_message_at'
+        'last_message_at',
     ];
 
     public function getRouteKeyName()
     {
         return 'uuid';
     }
-    
+
     public function users()
     {
         return $this->belongsToMany(User::class)

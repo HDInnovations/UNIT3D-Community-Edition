@@ -13,10 +13,10 @@
 
 namespace App\Http\Livewire\Conversations;
 
-use App\Models\Conversation;
-use Livewire\Component;
-use Illuminate\Support\Str;
 use App\Events\Conversations\ConversationCreated;
+use App\Models\Conversation;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class ConversationCreate extends Component
 {
@@ -32,18 +32,18 @@ class ConversationCreate extends Component
     public function create()
     {
         $this->validate([
-            'body' => 'required',
+            'body'  => 'required',
             'users' => 'required',
         ]);
 
         $conversation = Conversation::create([
-            'uuid' => Str::uuid(),
+            'uuid'            => Str::uuid(),
             'last_message_at' => now(),
         ]);
 
         $conversation->messages()->create([
             'user_id' => auth()->id(),
-            'body' => $this->body,
+            'body'    => $this->body,
         ]);
 
         $conversation->users()->sync($this->collectUserIds());
