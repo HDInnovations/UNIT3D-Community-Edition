@@ -85,5 +85,12 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
         );
+
+        \view()->composer(['conversation.create', 'conversation.index', 'conversation.show'], function ($view) {
+            $view->with(
+                'conversations',
+                auth()->user()->conversations()->orderBy('last_message_at', 'desc')->get()
+            );
+        });
     }
 }

@@ -1,8 +1,4 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-
 /*
  * NOTICE OF LICENSE
  *
@@ -13,6 +9,9 @@ use Illuminate\Support\Facades\URL;
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +36,6 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents'], function () {
     Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
     Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
 });
+
+// User Search
+Route::get('/search/users', [App\Http\Controllers\API\UserSearchController::class, 'index']);

@@ -463,6 +463,15 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
             });
         });
+
+        // Cnversations System
+        Route::group(['prefix' => 'conversations'], function () {
+            Route::name('conversations.')->group(function () {
+                Route::get('/', [App\Http\Controllers\ConversationController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\ConversationController::class, 'create'])->name('create');
+                Route::get('/{conversation}', [App\Http\Controllers\ConversationController::class, 'show'])->name('show');
+            });
+        });
     });
 
     /*
