@@ -25,11 +25,10 @@ class CreateConversationUserTable extends Migration
     public function up()
     {
         Schema::create('conversation_user', function (Blueprint $table) {
-            $table->integer('conversation_id')->unsigned()->index();
-            $table->integer('user_id')->unsigned()->index();
+            $table->foreignId('conversation_id');
+            $table->integer('user_id')->index();
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
-
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

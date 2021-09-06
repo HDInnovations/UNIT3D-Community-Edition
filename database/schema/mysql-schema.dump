@@ -458,46 +458,6 @@ CREATE TABLE `company_tv` (
   PRIMARY KEY (`company_id`,`tv_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `conversation_messages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `conversation_messages` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `conversation_id` int unsigned NOT NULL,
-  `user_id` int unsigned NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `conversation_messages_conversation_id_index` (`conversation_id`),
-  KEY `conversation_messages_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `conversation_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `conversation_user` (
-  `conversation_id` int unsigned NOT NULL,
-  `user_id` int unsigned NOT NULL,
-  `read_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `conversation_user_conversation_id_index` (`conversation_id`),
-  KEY `conversation_user_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `conversations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `conversations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_message_at` timestamp NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `crew_episode`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2296,9 +2256,6 @@ INSERT INTO `migrations` VALUES (188,'2021_03_14_093812_add_read_column_tickets_
 INSERT INTO `migrations` VALUES (189,'2021_04_13_200421_update_about_column_on_users_table',1);
 INSERT INTO `migrations` VALUES (190,'2021_05_26_215430_create_recommendations_table',1);
 INSERT INTO `migrations` VALUES (191,'2021_06_28_123452_add_standalone_css_to_users_table',1);
-INSERT INTO `migrations` VALUES (192,'2021_07_04_200752_create_conversations_table',1);
-INSERT INTO `migrations` VALUES (193,'2021_07_04_202354_create_conversation_user_table',1);
-INSERT INTO `migrations` VALUES (194,'2021_07_04_205806_create_conversation_message_table',1);
 INSERT INTO `migrations` VALUES (195,'2021_07_08_135537_add_flush_own_peers_to_users_table',1);
 INSERT INTO `migrations` VALUES (196,'2021_07_27_140562_change_torrents_table',1);
 INSERT INTO `migrations` VALUES (197,'2021_07_27_185231_create_distributors_table',1);
