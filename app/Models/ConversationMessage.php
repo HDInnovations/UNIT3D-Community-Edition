@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Model;
 
 class ConversationMessage extends Model
@@ -35,5 +37,18 @@ class ConversationMessage extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Parse Body And Return Valid HTML.
+     *
+     * @return string Parsed BBCODE To HTML
+     */
+    public function getBodyHtml()
+    {
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
+
+        return $linkify->linky($bbcode->parse($this->body, true));
     }
 }
