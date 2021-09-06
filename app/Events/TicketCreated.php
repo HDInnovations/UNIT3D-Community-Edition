@@ -39,7 +39,7 @@ class TicketCreated
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\Channel | array
+    public function broadcastOn(): \Illuminate\Broadcasting\Channel|array
     {
         return new PrivateChannel('channel-name');
     }

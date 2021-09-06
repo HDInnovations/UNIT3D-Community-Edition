@@ -27,7 +27,7 @@ class ArticleController extends Controller
     /**
      * Display All Articles.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $articles = Article::latest()->paginate(25);
 
@@ -37,7 +37,7 @@ class ArticleController extends Controller
     /**
      * Article Add Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.article.create');
     }
@@ -89,7 +89,7 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $article = Article::findOrFail($id);
 

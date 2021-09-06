@@ -78,7 +78,7 @@ class BookmarkSearch extends Component
         return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-search', [
             'user'               => $this->user,

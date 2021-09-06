@@ -55,7 +55,7 @@ class RequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('torrent_request.index');
     }
@@ -65,7 +65,7 @@ class RequestController extends Controller
      *
      * @param \App\Models\TorrentRequest $id
      */
-    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -106,7 +106,7 @@ class RequestController extends Controller
      * @param int    $imdb
      * @param int    $tmdb
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -217,7 +217,7 @@ class RequestController extends Controller
      *
      * @param \App\Models\TorrentRequest $id
      */
-    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);

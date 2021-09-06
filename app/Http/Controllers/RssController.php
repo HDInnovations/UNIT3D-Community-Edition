@@ -34,7 +34,7 @@ class RssController extends Controller
      *
      * @param null $hash
      */
-    public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -52,7 +52,7 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -68,7 +68,7 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
 
@@ -313,7 +313,7 @@ class RssController extends Controller
      *
      * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
@@ -334,7 +334,7 @@ class RssController extends Controller
      *
      * @param int $id
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 

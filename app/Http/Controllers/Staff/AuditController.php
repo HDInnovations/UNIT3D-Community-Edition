@@ -25,7 +25,7 @@ class AuditController extends Controller
     /**
      * Display All Audits.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $audits = Audit::with('user')->latest()->paginate(50);
 

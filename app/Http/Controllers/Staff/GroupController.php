@@ -28,7 +28,7 @@ class GroupController extends Controller
     /**
      * Display All Groups.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -41,7 +41,7 @@ class GroupController extends Controller
     /**
      * Group Add Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -118,7 +118,7 @@ class GroupController extends Controller
      *
      * @param \App\Models\Group $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

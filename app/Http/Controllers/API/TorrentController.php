@@ -65,7 +65,7 @@ class TorrentController extends BaseController
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');

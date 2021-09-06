@@ -29,7 +29,7 @@ class WarningController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function show(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 

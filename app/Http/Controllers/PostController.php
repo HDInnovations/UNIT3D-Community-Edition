@@ -168,7 +168,7 @@ class PostController extends Controller
      * @param \App\Models\Topic $id
      * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;

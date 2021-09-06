@@ -131,7 +131,7 @@ class BackupPanel extends Component
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    final public function downloadFile(string $filePath): Response | StreamedResponse | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
+    final public function downloadFile(string $filePath): Response|StreamedResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->validateActiveDisk();
         $this->validateFilePath($filePath);
@@ -176,7 +176,7 @@ class BackupPanel extends Component
         dispatch(new ProcessBackup($option));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.backup-panel');
     }

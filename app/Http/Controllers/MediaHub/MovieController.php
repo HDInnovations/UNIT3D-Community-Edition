@@ -23,7 +23,7 @@ class MovieController extends Controller
     /**
      * Display All Movies.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('mediahub.movie.index');
     }
@@ -33,7 +33,7 @@ class MovieController extends Controller
      *
      * @param $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();

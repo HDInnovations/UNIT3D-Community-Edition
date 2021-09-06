@@ -31,7 +31,7 @@ class BanController extends Controller
     /**
      * Display All Bans.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $bans = Ban::latest()->paginate(25);
 

@@ -31,7 +31,7 @@ class InviteController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
@@ -45,7 +45,7 @@ class InviteController extends Controller
     /**
      * Invite Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 

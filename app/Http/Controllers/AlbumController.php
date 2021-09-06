@@ -28,7 +28,7 @@ class AlbumController extends Controller
     /**
      * Display All Albums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $albums = Album::withCount('images')->get();
 
@@ -38,7 +38,7 @@ class AlbumController extends Controller
     /**
      * Show Album Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('album.create');
     }
@@ -95,7 +95,7 @@ class AlbumController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();

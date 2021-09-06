@@ -63,7 +63,7 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection | array
+    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection|array
     {
         return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -106,19 +106,19 @@ class SimilarTorrent extends Component
             $names[] = $torrent->name;
             foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                 if (! in_array($pm->user_id, $users)) {
-                   array_push($users, $pm->user_id);
+                    array_push($users, $pm->user_id);
                 }
             }
             if (! in_array($torrent->tmdb, $titleids)) {
-                    array_push($titleids, $torrent->tmdb);
-                    $title = null;
-                    switch ($torrent->category_id) {
+                array_push($titleids, $torrent->tmdb);
+                $title = null;
+                switch ($torrent->category_id) {
                         case 1:
                             $title = Movie::find($torrent->tmdb);
-                            array_push($titles, $title->title. ' ('. substr($title->release_date, 0, 4) .')');
+                            array_push($titles, $title->title.' ('.substr($title->release_date, 0, 4).')');
                         case 2:
                             $title = Tv::find($torrent->tmdb);
-                            array_push($titles, $title->name. ' ('. substr($title->first_air_date, 0, 4) .')');
+                            array_push($titles, $title->name.' ('.substr($title->first_air_date, 0, 4).')');
                     }
             }
 
@@ -165,7 +165,6 @@ class SimilarTorrent extends Component
             $pmuser->save();
         }
 
-
         $this->checked = [];
         $this->selectAll = false;
         $this->selectPage = false;
@@ -195,7 +194,7 @@ class SimilarTorrent extends Component
         return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.similar-torrent', [
             'user'              => \auth()->user(),

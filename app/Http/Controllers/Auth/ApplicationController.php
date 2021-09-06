@@ -27,7 +27,7 @@ class ApplicationController extends Controller
     /**
      * Application Add Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('auth.application.create');
     }

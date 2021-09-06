@@ -68,7 +68,7 @@ class TorrentController extends Controller
     /**
      * Displays Torrent List View.
      */
-    public function torrents(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function torrents(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('torrent.torrents');
     }
@@ -81,7 +81,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::where('category_id', '=', $categoryId)
             ->where('tmdb', '=', $tmdbId)
@@ -161,7 +161,7 @@ class TorrentController extends Controller
      *
      * @param \App\Models\Torrent $id
      */
-    public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -223,7 +223,7 @@ class TorrentController extends Controller
      *
      * @param \App\Models\Torrent $id
      */
-    public function editForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function editForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -402,7 +402,7 @@ class TorrentController extends Controller
      *
      * @param \App\Models\Torrent $id
      */
-    public function peers($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function peers($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -415,7 +415,7 @@ class TorrentController extends Controller
      *
      * @param \App\Models\Torrent $id
      */
-    public function history($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function history($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
@@ -431,7 +431,7 @@ class TorrentController extends Controller
      * @param int    $imdb
      * @param int    $tmdb
      */
-    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -655,7 +655,7 @@ class TorrentController extends Controller
      *
      * @param \App\Models\Torrent $id
      */
-    public function downloadCheck(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function downloadCheck(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();

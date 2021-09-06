@@ -49,7 +49,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function show($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
@@ -118,7 +118,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function followers($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function followers($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
@@ -135,7 +135,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function topics($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function topics($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
@@ -152,7 +152,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function posts($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function posts($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
@@ -169,7 +169,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function editProfileForm(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function editProfileForm(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -234,7 +234,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function settings(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function settings(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -297,7 +297,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function security(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function security(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1118,7 +1118,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function privacy(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function privacy(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1134,7 +1134,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function notification(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function notification(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1618,7 +1618,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function downloads(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function downloads(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1684,7 +1684,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function requested(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function requested(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1713,7 +1713,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function unsatisfieds(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function unsatisfieds(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1757,7 +1757,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function torrents(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function torrents(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1787,7 +1787,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function resurrections(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function resurrections(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
@@ -1806,7 +1806,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function uploads(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploads(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
@@ -1844,7 +1844,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function active(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function active(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1877,7 +1877,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function seeds(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seeds(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1909,7 +1909,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function getBans(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function getBans(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
@@ -1927,7 +1927,7 @@ class UserController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function downloadHistoryTorrents(Request $request, $username): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadHistoryTorrents(Request $request, $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(1200);
@@ -2070,7 +2070,7 @@ class UserController extends Controller
      * @param \App\Models\Peer $ip
      * @param \App\Models\Peer $port
      */
-    public function activeByClient(Request $request, $username, $ip, $port): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function activeByClient(Request $request, $username, $ip, $port): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

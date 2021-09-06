@@ -26,7 +26,7 @@ class ForgotUsernameController extends Controller
     /**
      * Forgot Username Form.
      */
-    public function showForgotUsernameForm(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function showForgotUsernameForm(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('auth.username');
     }

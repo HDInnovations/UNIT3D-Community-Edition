@@ -32,7 +32,7 @@ class MassActionController extends Controller
     /**
      * Mass PM Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.masspm.index');
     }

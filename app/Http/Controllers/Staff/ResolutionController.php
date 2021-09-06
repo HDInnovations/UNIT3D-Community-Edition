@@ -23,7 +23,7 @@ class ResolutionController extends Controller
     /**
      * Display All Resolutions.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $resolutions = Resolution::all()->sortBy('position');
 
@@ -33,7 +33,7 @@ class ResolutionController extends Controller
     /**
      * Show Resolution Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.resolution.create');
     }
@@ -72,7 +72,7 @@ class ResolutionController extends Controller
      *
      * @param $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $resolution = Resolution::findOrFail($id);
 
