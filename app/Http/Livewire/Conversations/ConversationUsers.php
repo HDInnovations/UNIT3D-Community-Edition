@@ -23,38 +23,36 @@ use Livewire\Component;
 class ConversationUsers extends Component
 {
     public $users;
-
     public $conversation;
-
     public $conversationId;
 
-    public function mount(Collection $users, Conversation $conversation)
+    final public function mount(Collection $users, Conversation $conversation): void
     {
         $this->users = $users;
         $this->conversation = $conversation;
         $this->conversationId = $conversation->id;
     }
 
-    public function getListeners()
+    final public function getListeners(): array
     {
         return [
             "echo-private:conversations.{$this->conversationId},Conversations\\UserAdded" => 'pushUserFromBroadcast',
         ];
     }
 
-    public function pushUserFromBroadcast($payload)
+    final public function pushUserFromBroadcast($payload): void
     {
         $this->pushUser($payload['user']['id']);
     }
 
-    public function pushUser($id)
+    final public function pushUser($id)
     {
         $this->users->push($user = User::find($id));
 
         return $user;
     }
 
-    public function addUser($user)
+    final public function addUser($user): void
     {
         $this->conversation->users()->syncWithoutDetaching($user['id']);
 
@@ -64,7 +62,7 @@ class ConversationUsers extends Component
         broadcast(new ConversationUpdated($this->conversation));
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-users');
     }

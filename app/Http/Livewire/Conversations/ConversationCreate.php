@@ -21,15 +21,14 @@ use Livewire\Component;
 class ConversationCreate extends Component
 {
     public $users = [];
-
     public $body = '';
 
-    public function addUser($user)
+    final public function addUser($user): void
     {
         $this->users[] = $user;
     }
 
-    public function create()
+    final public function create(): \Illuminate\Http\RedirectResponse
     {
         $this->validate([
             'body'  => 'required',
@@ -53,12 +52,12 @@ class ConversationCreate extends Component
         return redirect()->route('conversations.show', $conversation);
     }
 
-    public function collectUserIds()
+    final public function collectUserIds(): \Illuminate\Support\Collection
     {
         return collect($this->users)->merge([auth()->user()])->pluck('id')->unique();
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-create');
     }

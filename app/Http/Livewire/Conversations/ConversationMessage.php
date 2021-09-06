@@ -20,12 +20,12 @@ class ConversationMessage extends Component
 {
     public $message;
 
-    public function mount(Message $message)
+    final public function mount(Message $message): void
     {
         $this->message = $message;
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-message');
     }

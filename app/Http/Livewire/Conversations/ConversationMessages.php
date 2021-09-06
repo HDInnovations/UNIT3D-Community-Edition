@@ -21,16 +21,15 @@ use Livewire\Component;
 class ConversationMessages extends Component
 {
     public $messages;
-
     public $conversationId;
 
-    public function mount(Conversation $conversation, Collection $messages)
+    final public function mount(Conversation $conversation, Collection $messages): void
     {
         $this->conversationId = $conversation->id;
         $this->messages = $messages;
     }
 
-    public function getListeners()
+    final public function getListeners(): array
     {
         return [
             'message.created'                                                                => 'prependMessage',
@@ -38,17 +37,17 @@ class ConversationMessages extends Component
         ];
     }
 
-    public function prependMessage($id)
+    final public function prependMessage($id): void
     {
         $this->messages->prepend(ConversationMessage::find($id));
     }
 
-    public function prependMessageFromBroadcast($payload)
+    final public function prependMessageFromBroadcast($payload): void
     {
         $this->prependMessage($payload['message']['id']);
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-messages');
     }

@@ -21,12 +21,12 @@ class ConversationList extends Component
 {
     public $conversations;
 
-    public function mount(Collection $conversations)
+    final public function mount(Collection $conversations): void
     {
         $this->conversations = $conversations;
     }
 
-    public function getListeners()
+    final public function getListeners(): array
     {
         return [
             'echo-private:users.'.auth()->id().',Conversations\\ConversationCreated' => 'prependConversationFromBroadcast',
@@ -34,22 +34,22 @@ class ConversationList extends Component
         ];
     }
 
-    public function prependConversation($id)
+    final public function prependConversation($id): void
     {
         $this->conversations->prepend(Conversation::find($id));
     }
 
-    public function updateConversationFromBroadcast($payload)
+    final public function updateConversationFromBroadcast($payload): void
     {
         $this->conversations->find($payload['conversation']['id'])->fresh();
     }
 
-    public function prependConversationFromBroadcast($payload)
+    final public function prependConversationFromBroadcast($payload): void
     {
         $this->prependConversation($payload['conversation']['id']);
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-list');
     }

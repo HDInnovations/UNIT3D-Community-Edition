@@ -21,15 +21,14 @@ use Livewire\Component;
 class ConversationReply extends Component
 {
     public $conversation;
-
     public $body = '';
 
-    public function mount(Conversation $conversation)
+    final public function mount(Conversation $conversation): void
     {
         $this->conversation = $conversation;
     }
 
-    public function reply()
+    final public function reply(): void
     {
         $this->validate([
             'body' => 'required',
@@ -58,7 +57,7 @@ class ConversationReply extends Component
         $this->body = '';
     }
 
-    public function render()
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.conversations.conversation-reply');
     }
