@@ -157,7 +157,7 @@ class SimilarTorrent extends Component
             $pmuser->subject = 'Bulk Torrents Deleted - '.\implode(', ', $titles).'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
-                [*]'.\implode('\r\n [*]', $names).'
+                [*]'.\implode(' [*]', $names).'
             [/list]
             Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
                                     [b]Removal Reason: [/b] '.$this->reason.'
