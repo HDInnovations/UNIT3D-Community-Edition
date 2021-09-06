@@ -28,7 +28,7 @@ class ConversationCreate extends Component
         $this->users[] = $user;
     }
 
-    final public function create(): \Illuminate\Http\RedirectResponse
+    final public function create(): \Illuminate\Http\RedirectResponse | \Livewire\Redirector
     {
         $this->validate([
             'body'  => 'required',
