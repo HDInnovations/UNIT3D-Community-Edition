@@ -23,7 +23,7 @@ class ArticleController extends Controller
     /**
      * Display All Articles.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $articles = Article::latest()->paginate(6);
 
@@ -35,7 +35,7 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 

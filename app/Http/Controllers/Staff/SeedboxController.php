@@ -25,7 +25,7 @@ class SeedboxController extends Controller
     /**
      * Display All Registered Seedboxes.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 

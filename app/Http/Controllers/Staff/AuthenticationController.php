@@ -24,7 +24,7 @@ class AuthenticationController extends Controller
     /**
      * Authentications Log.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 

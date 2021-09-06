@@ -34,7 +34,7 @@ class ChatRoomController extends Controller
     /**
      * Display All Chat Rooms.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $chatrooms = $this->chatRepository->rooms();
 

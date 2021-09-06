@@ -22,7 +22,7 @@ class CollectionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('mediahub.collection.index');
     }
@@ -53,7 +53,7 @@ class CollectionController extends Controller
      *
      * @param int $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $collection = Collection::with(['movie', 'comments'])->findOrFail($id);
 

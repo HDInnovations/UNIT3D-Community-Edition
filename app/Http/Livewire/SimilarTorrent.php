@@ -61,7 +61,7 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection | array
+    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection|array
     {
         return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -168,7 +168,7 @@ class SimilarTorrent extends Component
         return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.similar-torrent', [
             'user'              => \auth()->user(),

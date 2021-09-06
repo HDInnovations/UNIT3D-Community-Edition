@@ -26,7 +26,7 @@ class TypeController extends Controller
     /**
      * Display All Types.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $types = Type::all()->sortBy('position');
 
@@ -36,7 +36,7 @@ class TypeController extends Controller
     /**
      * Show Type Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.type.create');
     }
@@ -75,7 +75,7 @@ class TypeController extends Controller
      *
      * @param \App\Models\Type $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $type = Type::findOrFail($id);
 

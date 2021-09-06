@@ -36,7 +36,7 @@ class ModerationController extends Controller
     /**
      * Torrent Moderation Panel.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
         $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();

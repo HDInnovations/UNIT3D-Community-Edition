@@ -26,7 +26,7 @@ class NoteController extends Controller
     /**
      * Display All User Notes.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $notes = Note::latest()->paginate(25);
 

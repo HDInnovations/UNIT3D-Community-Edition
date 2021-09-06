@@ -74,7 +74,7 @@ class Language
      *
      * @param null $locale
      */
-    public static function allowed($locale = null): bool | array
+    public static function allowed($locale = null): bool|array
     {
         if ($locale) {
             return \array_key_exists($locale, self::allowed());

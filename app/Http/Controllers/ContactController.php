@@ -26,7 +26,7 @@ class ContactController extends Controller
     /**
      * Contact Form.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('contact.index');
     }

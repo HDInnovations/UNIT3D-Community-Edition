@@ -27,7 +27,7 @@ class ImageController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::find($id);
 

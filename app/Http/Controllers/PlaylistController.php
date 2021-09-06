@@ -40,7 +40,7 @@ class PlaylistController extends Controller
     /**
      * Display All Playlists.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
@@ -50,7 +50,7 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('playlist.create');
     }
@@ -112,7 +112,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -151,7 +151,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -234,7 +234,7 @@ class PlaylistController extends Controller
      *
      * @param $id
      */
-    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);

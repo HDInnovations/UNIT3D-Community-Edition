@@ -25,7 +25,7 @@ class WatchlistController extends Controller
     /**
      * Watchlist.
      */
-    final public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.watchlist.index');
     }

@@ -87,7 +87,7 @@ class TicketSearch extends Component
         $this->sortField = $field;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.ticket-search', [
             'tickets' => $this->tickets,

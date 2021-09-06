@@ -25,7 +25,7 @@ class CommandController extends Controller
     /**
      * Display All Commands.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -36,7 +36,7 @@ class CommandController extends Controller
     /**
      * Bring Site Into Maintenance Mode.
      */
-    public function maintanceEnable(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function maintanceEnable(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -50,7 +50,7 @@ class CommandController extends Controller
     /**
      * Bring Site Out Of Maintenance Mode.
      */
-    public function maintanceDisable(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function maintanceDisable(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -64,7 +64,7 @@ class CommandController extends Controller
     /**
      * Clear Site Cache.
      */
-    public function clearCache(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function clearCache(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -78,7 +78,7 @@ class CommandController extends Controller
     /**
      * Clear Site View Cache.
      */
-    public function clearView(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function clearView(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -92,7 +92,7 @@ class CommandController extends Controller
     /**
      * Clear Site Routes Cache.
      */
-    public function clearRoute(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function clearRoute(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -106,7 +106,7 @@ class CommandController extends Controller
     /**
      * Clear Site Config Cache.
      */
-    public function clearConfig(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function clearConfig(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -120,7 +120,7 @@ class CommandController extends Controller
     /**
      * Clear All Site Cache At Once.
      */
-    public function clearAllCache(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function clearAllCache(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -134,7 +134,7 @@ class CommandController extends Controller
     /**
      * Set All Site Cache At Once.
      */
-    public function setAllCache(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function setAllCache(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
@@ -148,7 +148,7 @@ class CommandController extends Controller
     /**
      * Send Test Email To Test Email Configuration.
      */
-    public function testEmail(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\Http\RedirectResponse
+    public function testEmail(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
