@@ -13,6 +13,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Graveyard;
 use App\Models\History;
@@ -63,14 +64,27 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection|array
+    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Builder | \Illuminate\Database\Eloquent\Collection
     {
-        return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->where('category_id', '=', $this->categoryId)
-            ->where('tmdb', '=', $this->tmdbId)
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->get();
+        $category = Category::findOrFail($this->categoryId);
+
+        $query = Torrent::query();
+        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+            ->withCount(['thanks', 'comments']);
+        if ($category->movie_meta == true) {
+            $query = $query->whereHas('category', function ($q) {
+                $q->where('movie_meta', '=', true);
+            });
+        }
+        if ($category->tv_meta == true) {
+            $query = $query->whereHas('category', function ($q) {
+                $q->where('tv_meta', '=', true);
+            });
+        }
+        $query = $query->where('tmdb', '=', $this->tmdbId);
+        $query = $query->orderBy($this->sortField, $this->sortDirection);
+
+        return $query->get();
     }
 
     final public function sortBy($field): void
