@@ -547,8 +547,8 @@ class TorrentController extends Controller
 
         //Require Resolution if Category is for Movies or TV
         $resRule = 'nullable|exists:resolutions,id';
-        if ($category->movie_meta ||  $category->tv_meta) {
-            $resRule =  'required|exists:resolutions,id';
+        if ($category->movie_meta || $category->tv_meta) {
+            $resRule = 'required|exists:resolutions,id';
         }
 
         // Validation
