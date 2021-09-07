@@ -545,6 +545,12 @@ class TorrentController extends Controller
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
 
+        //Require Resolution if Category is for Movies or TV
+        $resRule = 'nullable|exists:resolutions,id';
+        if ($category->slug === 'movies' ||  $category->slug === 'tv') {
+            $resRule =  'required|exists:resolutions,id';
+        }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
@@ -557,7 +563,7 @@ class TorrentController extends Controller
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => 'nullable|exists:resolutions,id',
+            'resolution_id'  => $resRule,
             'user_id'        => 'required|exists:users,id',
             'imdb'           => 'required|numeric',
             'tvdb'           => 'required|numeric',
