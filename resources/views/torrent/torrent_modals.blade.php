@@ -94,9 +94,6 @@
                 <h4 class="modal-title" id="myModalLabel">
                     @lang('common.files')
                     <span
-                        data-toggle="tooltip"
-                        data-placement="left"
-                        title="{{ $torrent->size }}&nbsp;B"
                         class="pull-right"
                         style="display: inline-block; margin-right: 24px"
                     >
@@ -127,7 +124,7 @@
                                     @for ($depth = \count($prevNodes); $depth > $loop->index; $depth--)
                                         </details>
                                     @endfor
-                                    
+
                                     @for ($depth = $loop->index; $depth < $loop->count; $depth++)
                                         <details style="@if ($depth != 0) margin-left: 20px; @endif">
                                             <summary style="padding: 8px; @if ($depth != $loop->count - 1) cursor: pointer; @endif">
@@ -141,10 +138,7 @@
                                                             {{ $nodes[$depth] }}
                                                         </span>
                                                         <span
-                                                            data-toggle="tooltip"
-                                                            data-placement="left"
                                                             style="grid-area: size; white-space: nowrap; text-align: right;"
-                                                            title="{{ $file->size }}&nbsp;B"
                                                         >
                                                             {{ $file->getSize() }}
                                                         </span>
@@ -169,10 +163,7 @@
                                                         </span>
                                                         <span
                                                             class="text-info"
-                                                            data-toggle="tooltip"
-                                                            data-placement="left"
                                                             style="grid-area: size; white-space: nowrap; text-align: right;"
-                                                            title="{{ $filteredFiles->sum('size') }}&nbsp;B"
                                                         >
                                                             {{ App\Helpers\StringHelper::formatBytes($filteredFiles->sum('size'), 2) }}
                                                         </span>
@@ -201,10 +192,7 @@
                                         <tr>
                                             <td>{{ $k + 1 }}</td>
                                             <td>{{ $f->name }}</td>
-                                            <td
-                                                data-toggle="tooltip"
-                                                data-placement="left"
-                                                title="{{ $f->size }}&nbsp;B">{{ $f->getSize() }}</td>
+                                            <td>{{ $f->getSize() }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
