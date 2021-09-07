@@ -271,13 +271,20 @@ class TorrentController extends Controller
         $torrent->internal = $request->input('internal');
         $torrent->personal_release = $request->input('personal_release');
 
+        $category = Category::findOrFail($request->input('category_id'));
+
+        $resRule = 'nullable|exists:resolutions,id';
+        if ($category->movie_meta || $category->tv_meta) {
+            $resRule = 'required|exists:resolutions,id';
+        }
+
         $v = \validator($torrent->toArray(), [
             'name'          => 'required',
             'slug'          => 'required',
             'description'   => 'required',
             'category_id'   => 'required|exists:categories,id',
             'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'nullable|exists:resolutions,id',
+            'resolution_id' => $resRule,
             'imdb'          => 'required|numeric',
             'tvdb'          => 'required|numeric',
             'tmdb'          => 'required|numeric',
