@@ -72,7 +72,7 @@
                                                 <form role="form" method="POST" action="{{ route('tickets.assign', ['id' => $ticket->id]) }}">
                                                     @csrf
                                                     <select name="user_id" class="form-control">
-                                                        @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', [10, 6, 4])->get() as $user)
+                                                        @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
                                                             <option value="{{ $user->id }}">{{ $user->username }}</option>
                                                         @endforeach
                                                     </select>
