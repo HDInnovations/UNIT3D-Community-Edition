@@ -57,11 +57,11 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
                 'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
             ];
         }
+
         return [
             'title' => 'An anonymous user has Approved Your Fill Of A Requested Torrent',
             'body'  => 'An anonymous user has approved your fill of Requested Torrent '.$this->torrentRequest->name,
             'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
-
     }
 }
