@@ -18,7 +18,11 @@
 		@forelse ($search_results as $search_result)
 			@if (strlen($movie) > 2 )
 				<div id="movie.{{$search_result->id}}" class="row" style="cursor: pointer; margin-bottom: 5px;"
-					 @click="window.location.href = '{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}'">
+					 @click="window.location.href = '{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}'"
+					 @contextmenu.prevent="window.open('{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}', '_blank').focus()"
+
+
+				>
 					<div class="col-xs-3 text-center">
 						<img src="{{ $search_result->poster }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
@@ -32,7 +36,9 @@
 				</div>
 			@elseif (strlen($series) > 2 )
 				<div id="series.{{$search_result->id}}" class="row" style="cursor: pointer; margin-bottom: 5px;"
-					 @click="window.location.href = '{{ route('torrents.similar', ['category_id' => '2', 'tmdb' => $search_result->id]) }}'">
+					 @click="window.location.href = '{{ route('torrents.similar', ['category_id' => '2', 'tmdb' => $search_result->id]) }}'"
+					 @contextmenu.prevent="window.open('{{ route('torrents.similar', ['category_id' => '2', 'tmdb' => $search_result->id]) }}', '_blank').focus()"
+				>
 					<div class="col-xs-3 text-center">
 						<img src="{{ $search_result->poster }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
@@ -45,7 +51,10 @@
 				</div>
 
 			@elseif (strlen($person) > 2 )
-				<div id="person.{{$search_result->id}}" class="row" style="cursor: pointer; margin-bottom: 5px;" @click="window.location.href = '{{ route('mediahub.persons.show', ['id' => $search_result->id]) }}'">
+				<div id="person.{{$search_result->id}}" class="row" style="cursor: pointer; margin-bottom: 5px;"
+					 @click="window.location.href = '{{ route('mediahub.persons.show', ['id' => $search_result->id]) }}'"
+					 @contextmenu.prevent="window.open('{{ route('mediahub.persons.show', ['id' => $search_result->id]) }}', '_blank').focus()"
+				>
 					<div class="col-xs-3 text-center">
 						<img src="{{ $search_result->still }}" style="height: 60px; padding: 0; margin: 0">
 					</div>
