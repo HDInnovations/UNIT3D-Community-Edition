@@ -138,6 +138,7 @@ return [
     'peers'                    => 'Peers',
     'pending'                  => 'Pending',
     'personal-freeleech'       => 'Personal Freeleech',
+    'personal-release'         => 'Personal Release',
     'poster'                   => 'Poster',
     'poster-view'              => 'Poster View',
     'posters'                  => 'Posters',

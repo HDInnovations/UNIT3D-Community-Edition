@@ -221,7 +221,7 @@
                                             @endif
                         
                                             @if ($torrent->personal_release == '1')
-                                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.stream-optimized')">
+                                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.personal-release')">
                                                     <i class="{{ config('other.font-awesome') }} fa-user-plus text-green" style="color: #865be9"></i>
                                                 </span>
                                             @endif 
