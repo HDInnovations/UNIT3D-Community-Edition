@@ -166,7 +166,8 @@ class AnnounceController extends Controller
         }
     }
 
-    /** Check Passkey Exist and Valid.
+    /**
+     * Check Passkey Exist and Valid.
      *
      * @param $passkey
      *
@@ -266,7 +267,8 @@ class AnnounceController extends Controller
         return $queries;
     }
 
-    /** Get User Via Validated Passkey.
+    /**
+     * Get User Via Validated Passkey.
      *
      * @param $passkey
      * @param $queries

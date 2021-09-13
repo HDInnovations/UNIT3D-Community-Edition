@@ -52,7 +52,8 @@ class Option extends Model
         'name',
     ];
 
-    /** Belongs To A Poll.
+    /**
+     * Belongs To A Poll.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
