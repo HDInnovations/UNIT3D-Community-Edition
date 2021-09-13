@@ -43,40 +43,44 @@
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-                CountDownTimer('{{ config('other.freeleech_until') }}', 'promotions');
-                function CountDownTimer(dt, id) {
-                  const end = new Date(dt)
-                  const _second = 1000
-                  const _minute = _second * 60
-                  const _hour = _minute * 60
-                  const _day = _hour * 24
-                  let timer
-
-                  function formatUnit(text, v) {
-                        let suffix = "@lang('common.plural-suffix')";
-                        if (v === 1) {
-                            suffix = "";
+                function timer() {
+                    return {
+                        seconds: '00',
+                        minutes: '00',
+                        hours: '00',
+                        days: '00',
+                        distance: 0,
+                        countdown: null,
+                        promoTime: new Date('{{ config('other.freeleech_until') }}').getTime(),
+                        now: new Date().getTime(),
+                        start: function() {
+                            this.countdown = setInterval(() => {
+                                // Calculate time
+                                this.now = new Date().getTime();
+                                this.distance = this.promoTime - this.now;
+                                // Set Times
+                                this.days = this.padNum( Math.floor(this.distance / (1000*60*60*24)) );
+                                this.hours = this.padNum( Math.floor((this.distance % (1000*60*60*24)) / (1000*60*60)) );
+                                this.minutes = this.padNum( Math.floor((this.distance % (1000*60*60)) / (1000*60)) );
+                                this.seconds = this.padNum( Math.floor((this.distance % (1000*60)) / 1000) );
+                                // Stop
+                                if (this.distance < 0) {
+                                    clearInterval(this.countdown);
+                                    this.days = '00';
+                                    this.hours = '00';
+                                    this.minutes = '00';
+                                    this.seconds = '00';
+                                }
+                            },100);
+                        },
+                        padNum: function(num) {
+                            var zero = '';
+                            for (var i = 0; i < 2; i++) {
+                                zero += '0';
+                            }
+                            return (zero + num).slice(-2);
                         }
-                        return v + " " + text + suffix;
                     }
-                    function showRemaining() {
-                      const now = new Date()
-                      const distance = end - now
-                      if (distance < 0) {
-                            clearInterval(timer);
-                            document.getElementById(id).innerHTML = '{{ strtoupper(trans('common.expired')) }}!';
-                            return;
-                        }
-                      const days = Math.floor(distance / _day)
-                      const hours = Math.floor((distance % _day) / _hour)
-                      const minutes = Math.floor((distance % _hour) / _minute)
-                      const seconds = Math.floor((distance % _minute) / _second)
-                      document.getElementById(id).innerHTML = formatUnit("{{ strtolower(trans('common.day')) }}", days) + ", ";
-                        document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.hour')) }}', hours) + ", ";
-                        document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.minute')) }}', minutes) + ", ";
-                        document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.second')) }}', seconds);
-                    }
-                    timer = setInterval(showRemaining, 1000);
                 }
             </script>
         @endif
