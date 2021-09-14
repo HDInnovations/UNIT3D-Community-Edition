@@ -8,27 +8,27 @@
     "production": "mix --production"
   },
   "devDependencies": {
-    "ajv": "^8.6.0",
+    "ajv": "^8.6.3",
     "axios": "^0.21",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0",
     "jquery": "^3.6.0",
-    "laravel-echo": "^1.11.0",
-    "laravel-mix": "^6.0.25",
+    "laravel-echo": "^1.11.2",
+    "laravel-mix": "^6.0.31",
     "lodash": "^4.17.21",
-    "postcss": "^8.3.5",
+    "postcss": "^8.3.6",
     "resolve-url-loader": "4.0.0",
-    "sass": "^1.35.1",
+    "sass": "^1.40.1",
     "sass-loader": "^12.1.0",
     "socket.io": "^2.4.0",
     "socket.io-client": "^2.3.1",
-    "sweetalert2": "^11.0.18",
+    "sweetalert2": "^11.1.5",
     "vue": "^2.6.14",
-    "vue-loader": "^15.9.7",
+    "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "dayjs": "^1.10.5",
+    "dayjs": "^1.10.7",
     "keen-slider": "^5.5.1",
     "node-vibrant": "^3.1.6"
   }
