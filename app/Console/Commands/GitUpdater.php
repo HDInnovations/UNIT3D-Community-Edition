@@ -153,6 +153,8 @@ class GitUpdater extends Command
                     $this->composer();
                 }
 
+                $this->clearComposerCache();
+
                 $this->updateUNIT3DConfig();
 
                 $this->setCache();
@@ -279,9 +281,16 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    private function clearComposerCache()
+    {
+        $this->header('Clearing Composer Cache');
+        $this->process('composer clear-cache --no-interaction --ansi --verbose');
+        $this->done();
+    }
+
     private function clearCache()
     {
-        $this->header('Clearing Cache');
+        $this->header('Clearing Application Cache');
         $this->call('optimize:clear');
         $this->done();
     }
