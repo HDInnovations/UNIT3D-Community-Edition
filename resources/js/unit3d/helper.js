@@ -156,7 +156,7 @@ class uploadExtensionBuilder {
     title = title.replace(/( \d{4})( +)(\d{2} )/, '$1-$3')
     title = title.replace(/(UHD)?( BluRay)(.*)( \d{3,4}[ip] )/i, '$4 $1 $2 $3 ')
     // Fix some remux ordering
-    title = title.replace(/( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i, '$8$1$2$3$4 REMUX $5$7')
+    title = title.replace(/( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i, '$8$1$2$3$4 REMUX $5$6$7')
     title = title.replace(/(.*)(NTSC|PAL)?( +DVD)(.*)(Hybrid)?( +REMUX)/i, '$1$2 $5 $3 REMUX $4 ')
     // Move the video codec to correct location in a remux.
     if (title.includes('REMUX')) {
