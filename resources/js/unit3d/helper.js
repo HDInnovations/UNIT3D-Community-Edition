@@ -79,40 +79,6 @@ class uploadExtensionBuilder {
     title = title.replace(/( +DoVi +)/i, ' DV ')
     title = title.replace(/ +(HDR10Plus|HDR10P|HDR\+|HDR10\+) +/i, ' HDR10+ ')
     title = title.replace(/( +HEVC +)(HDR|HDR10)( +)/i, ' HDR HEVC ')
-    // Fixing HDR ordering
-    if (title.includes('HEVC') && title.includes(' DV ') && title.includes(' HDR10+ ')) {
-      // Remove the two HDR formats and place in correct order.
-      // Replace with space to not ruin spacing.
-      title = title.replace(' DV ', ' ')
-      title = title.replace(' HDR10+ ', ' ')
-      // Replace them where HEVC is.
-      title = title.replace(' HEVC', ' DV HDR10+ HEVC')
-    } else if (title.includes('HEVC') && title.includes(' DV ') && title.includes(' HDR ')) {
-      // Remove the two HDR formats and place in correct order.
-      // Replace with space to not ruin spacing.
-      title = title.replace(' DV ', ' ')
-      title = title.replace(' HDR ', ' ')
-      // Replace them where HEVC is.
-      title = title.replace(' HEVC', ' DV HDR HEVC')
-    } else if (title.includes('HEVC') && title.includes(' DV ')) {
-      // Remove the DV and place in correct order.
-      // Replace with space to not ruin spacing.
-      title = title.replace(' DV ', ' ')
-      // Replace them where HEVC is.
-      title = title.replace(' HEVC', ' DV HEVC')
-    } else if (title.includes('HEVC') && title.includes(' HDR10+ ')) {
-      // Remove the HDR10+ place in correct order.
-      // Replace with space to not ruin spacing.
-      title = title.replace(' HDR10+ ', ' ')
-      // Replace them where HEVC is.
-      title = title.replace(' HEVC', ' HDR10+ HEVC')
-    } else if (title.includes('HEVC') && title.includes(' HDR ')) {
-      // Remove the HDR and place in correct order.
-      // Replace with space to not ruin spacing.
-      title = title.replace(' HDR ', ' ')
-      // Replace them where HEVC is.
-      title = title.replace(' HEVC', ' HDR HEVC')
-    }
     // WEB-DL fix
     title = title.replace(/ WEBDL /i, ' WEB-DL ')
     title = title.replace(/ WEB /i, ' WEB-DL ')
@@ -156,13 +122,49 @@ class uploadExtensionBuilder {
     title = title.replace(/( \d{4})( +)(\d{2} )/, '$1-$3')
     title = title.replace(/(UHD)?( BluRay)(.*)( \d{3,4}[ip] )/i, '$4 $1 $2 $3 ')
     // Fix some remux ordering
-    title = title.replace(/( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i, '$8$1$2$3$4 REMUX $5$7')
+    title = title.replace(/( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i, '$8$1$2$3$4 REMUX $5$6$7')
     title = title.replace(/(.*)(NTSC|PAL)?( +DVD)(.*)(Hybrid)?( +REMUX)/i, '$1$2 $5 $3 REMUX $4 ')
     // Move the video codec to correct location in a remux.
     if (title.includes('REMUX')) {
       // Move video codec where it should be
       title = title.replace(/(BluRay|DVD)( +REMUX +)(.*)(AVC|HEVC|MPEG-2|VC-1)/i, '$1$2 $4 $3')
     }
+	// Fixing HDR ordering
+	if (title.includes('HEVC') || title.includes('H.265') || title.includes('x265')){
+      if (title.includes(' DV ') && title.includes(' HDR10+ ')) {
+        // Remove the two HDR formats and place in correct order.
+        // Replace with space to not ruin spacing.
+        title = title.replace(' DV ', ' ')
+        title = title.replace(' HDR10+ ', ' ')
+        // Replace them where HEVC/H.265/x265 is.
+        title = title.replace(/( )(HEVC|H\.265|x265)/i, ' DV HDR10+ $2')
+      } else if (title.includes(' DV ') && title.includes(' HDR ')) {
+        // Remove the two HDR formats and place in correct order.
+        // Replace with space to not ruin spacing.
+        title = title.replace(' DV ', ' ')
+        title = title.replace(' HDR ', ' ')
+        // Replace them where HEVC/H.265/x265 is.
+        title = title.replace(/( )(HEVC|H\.265|x265)/i, ' DV HDR $2')
+      } else if (title.includes(' DV ')) {
+        // Remove the DV and place in correct order.
+        // Replace with space to not ruin spacing.
+        title = title.replace(' DV ', ' ')
+        // Replace them where HEVC/H.265/x265 is.
+        title = title.replace(/( )(HEVC|H\.265|x265)/, ' DV $2')
+      } else if (title.includes(' HDR10+ ')) {
+        // Remove the HDR10+ place in correct order.
+        // Replace with space to not ruin spacing.
+        title = title.replace(' HDR10+ ', ' ')
+        // Replace them where HEVC/H.265/x265 is.
+        title = title.replace(/( )(HEVC|H\.265|x265)/i, ' HDR10+ $2')
+      } else if (title.includes(' HDR ')) {
+        // Remove the HDR and place in correct order.
+        // Replace with space to not ruin spacing.
+        title = title.replace(' HDR ', ' ')
+        // Replace them where HEVC is.
+      title = title.replace(/( )(HEVC|H\.265|x265)/i, ' HDR $2')
+      }
+	}
     // Fixing UHD being missing in 2160p Blu-rays
     if (!title.includes('UHD')) {
       title = title.replace(/( +2160p)(.*)( Blu-?ray )/i, ' 2160p $2 UHD$3')
