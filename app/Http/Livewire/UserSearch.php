@@ -31,10 +31,8 @@ class UserSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
-    final public function setPage($page): void
+    final public function updatedPage(): void
     {
-        $this->page = $page;
-
         $this->emit('paginationChanged');
     }
 
