@@ -143,10 +143,6 @@ class GitUpdater extends Command
                     $this->migrations();
                 }
 
-                if ($this->io->confirm('Compile assets (npm run prod)', true)) {
-                    $this->compile();
-                }
-
                 $this->clearCache();
 
                 if ($this->io->confirm('Install new packages (composer install)', true)) {
@@ -158,6 +154,10 @@ class GitUpdater extends Command
                 $this->updateUNIT3DConfig();
 
                 $this->setCache();
+
+                if ($this->io->confirm('Compile assets (npx mix -p)', true)) {
+                    $this->compile();
+                }
 
                 $this->permissions();
 
