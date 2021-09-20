@@ -37,8 +37,8 @@
             </div>
         </div>
 
-        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous" defer></script>
-        <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous" defer></script>
+        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
@@ -87,7 +87,6 @@
         @if (Session::has('achievement'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
                 $('#modal-achievement').modal('show');
-
             </script>
         @endif
 
