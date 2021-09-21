@@ -90,21 +90,6 @@ class ProcessMovieJob implements ShouldQueue
             }
         }
 
-        if (isset($this->movie['recommendations'])) {
-            foreach ($this->movie['recommendations']['results'] as $recommendation) {
-                if (Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
-                    $new = new Recommendation();
-                    $new->recommendation_movie_id = $recommendation['id'];
-                    $new->movie_id = $this->movie['id'];
-                    $new->title = $recommendation['title'];
-                    $new->vote_average = $recommendation['vote_average'];
-                    $new->poster = $tmdb->image('poster', $recommendation);
-                    $new->release_date = $recommendation['release_date'];
-                    $new->save();
-                }
-            }
-        }
-
         if (isset($this->movie['credits']['cast'])) {
             foreach ($this->movie['credits']['cast'] as $cast) {
                 Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
@@ -115,6 +100,17 @@ class ProcessMovieJob implements ShouldQueue
         if (isset($this->movie['credits']['crew'])) {
             foreach ($this->movie['credits']['crew'] as $crew) {
                 Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
+            }
+        }
+
+        if (isset($this->movie['recommendations'])) {
+            foreach ($this->movie['recommendations']['results'] as $recommendation) {
+                if (Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    Recommendation::updateOrCreate(
+                        ['recommendation_movie_id' => $recommendation['id'], 'movie_id' => $this->movie['id']],
+                        ['title' => $recommendation['title'], 'vote_average' => $recommendation['vote_average'], 'poster' => $tmdb->image('poster', $recommendation), 'release_date' => $recommendation['release_date']]
+                    );
+                }
             }
         }
     }

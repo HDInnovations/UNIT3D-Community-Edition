@@ -94,21 +94,6 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        if (isset($this->tv['recommendations'])) {
-            foreach ($this->tv['recommendations']['results'] as $recommendation) {
-                if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
-                    $new = new Recommendation();
-                    $new->recommendation_tv_id = $recommendation['id'];
-                    $new->tv_id = $this->tv['id'];
-                    $new->title = $recommendation['name'];
-                    $new->vote_average = $recommendation['vote_average'];
-                    $new->poster = $tmdb->image('poster', $recommendation);
-                    $new->first_air_date = $recommendation['first_air_date'];
-                    $new->save();
-                }
-            }
-        }
-
         foreach ($this->tv['genres'] as $genre) {
             if (isset($genre['name'])) {
                 Genre::updateOrCreate(['id' => $genre['id']], $genre)->tv()->syncWithoutDetaching([$this->id]);
@@ -188,6 +173,16 @@ class ProcessTvJob implements ShouldQueue
                         Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->season()->syncWithoutDetaching([$season['id']]);
                         Person::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
                     }
+                }
+            }
+        }
+        if (isset($this->tv['recommendations'])) {
+            foreach ($this->tv['recommendations']['results'] as $recommendation) {
+                if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
+                    Recommendation::updateOrCreate(
+                        ['recommendation_tv_id' => $recommendation['id'], 'tv_id' => $this->tv['id']],
+                        ['title' => $recommendation['name'], 'vote_average' => $recommendation['vote_average'], 'poster' => $tmdb->image('poster', $recommendation), 'first_air_date' => $recommendation['first_air_date']]
+                    );
                 }
             }
         }
