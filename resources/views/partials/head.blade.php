@@ -14,8 +14,8 @@
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-<link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
-
+@if (auth()->user()->standalone_css === null)
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
 @if (auth()->user()->style == 1)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 2)
@@ -46,6 +46,10 @@
 
 @if (isset(auth()->user()->custom_css))
     <link rel="stylesheet" href="{{ auth()->user()->custom_css }}">
+@endif
+
+@else
+    <link rel="stylesheet" href="{{ auth()->user()->standalone_css }}">
 @endif
 
 @livewireStyles
