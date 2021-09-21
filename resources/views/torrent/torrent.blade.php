@@ -773,7 +773,7 @@
 		    				    							    <div><u style="font-weight: bold;">Format:</u> {{ $videoElement['format'] ?? trans('common.unknown') }} ({{ $videoElement['bit_depth'] ?? trans('common.unknown') }})</div>
 		    				    							    <div><u style="font-weight: bold;">Resolution:</u> {{ $videoElement['width'] ?? trans('common.unknown') }} x {{ $videoElement['height'] ?? trans('common.unknown') }}</div>
 		    				    							    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? trans('common.unknown') }}</div>
-		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> @if($videoElement['framerate_mode'] === 'Variable') VFR @else{{ $videoElement['frame_rate'] ?? trans('common.unknown') }}@endif</div>
+		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> @if((isset($videoElement['framerate_mode'])) && $videoElement['framerate_mode'] === 'Variable') VFR @else{{ $videoElement['frame_rate'] ?? trans('common.unknown') }}@endif</div>
 		    				    							    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? trans('common.unknown') }}</div>
 													            @if(isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
 		    				    								    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? trans('common.unknown') }}</div>
