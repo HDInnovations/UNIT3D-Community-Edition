@@ -188,6 +188,24 @@
 					</div>
 
 					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6 adv-search-misc">
+							<label for="misc" class="label label-default">Misc</label>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="bookmarked" type="checkbox" value="1">
+									Bookmarked
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="wished" type="checkbox" value="1">
+									Wished
+								</label>
+							</span>
+						</div>
+					</div>
+
+					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-health">
 							<label for="health" class="label label-default">@lang('torrent.health')</label>
 							<span class="badge-user">
@@ -206,6 +224,42 @@
 								<label class="inline">
 									<input wire:model="dead" type="checkbox" value="1">
 									@lang('torrent.dead-torrent')
+								</label>
+							</span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6 adv-search-history">
+							<label for="history" class="label label-default">@lang('torrent.history')</label>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="notDownloaded" type="checkbox" value="1">
+									Not Downloaded
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="downloaded" type="checkbox" value="1">
+									Downloaded
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="seeding" type="checkbox" value="1">
+									Seeding
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="leeching" type="checkbox" value="1">
+									Leeching
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="incomplete" type="checkbox" value="1">
+									Incomplete
 								</label>
 							</span>
 						</div>
