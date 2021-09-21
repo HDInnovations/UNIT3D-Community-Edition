@@ -28,7 +28,9 @@ class Tv extends Model
      */
     public function torrents()
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id');
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+            $q->where('tv_meta', '=', true);
+        });
     }
 
     /**
