@@ -33,8 +33,7 @@
         <div class="movie-overlay"></div>
 
         <div class="movie-poster">
-            @php $tmdb_poster = $collection->poster ? \tmdb_image('poster_big', $collection->poster) : 'https://via.placeholder.com/400x600'; @endphp
-            <img src="{{ $tmdb_poster }}" class="img-responsive" id="meta-poster">
+            <img src="{{ $collection->poster ? \tmdb_image('poster_big', $collection->poster) : 'https://via.placeholder.com/400x600' }}" class="img-responsive" id="meta-poster">
         </div>
 
         <div class="meta-info">
@@ -42,8 +41,7 @@
                 @lang('mediahub.collections')
             </div>
 
-            @php $tmdb_backdrop = $collection->backdrop ? \tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
-            <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
+            <div class="movie-backdrop" style="background-image: url('{{ $collection->backdrop ? \tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/960x540' }}');"></div>
 
             <div class="movie-top">
                 <h1 class="movie-heading">
@@ -72,7 +70,12 @@
                         @foreach($collection->movie as $movie)
                             <div class="item mini backdrop mini_card col-md-3">
                                 <div class="image_content">
-                                    @php $torrent_temp = App\Models\Torrent::where('tmdb', '=', $movie->id)->first();  @endphp
+                                    @php
+                                        $torrent_temp = App\Models\Torrent::where('tmdb', '=', $movie->id)
+                                        ->whereIn('category_id', function ($query) {
+                                        $query->select('id')->from('categories')->where('movie_meta', '=', true);
+                                        })->first();
+                                    @endphp
                                     <a href="{{ route('torrents.similar', ['category_id' => $torrent_temp->category_id, 'tmdb' => $movie->id]) }}">
                                         <div>
                                             <img class="backdrop" src="{{ \tmdb_image('poster_mid', $movie->poster) }}">

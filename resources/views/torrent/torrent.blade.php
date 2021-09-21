@@ -136,11 +136,14 @@
                                 <td>
                                     <div style="margin: 4px 0">
                                         <div class="torrent-format" style="display: inline-block">
+                                            <span class="torrent-category badge-extra text-info text-bold" style="line-height: 14px">
+                                                {{ $torrent->category->name }}
+                                            </span>
                                             <span class="torrent-resolution badge-extra text-info text-bold" style="line-height: 14px">
                                                 {{ $torrent->resolution->name ?? 'No Res' }}
                                             </span>
                                             <span class="torrent-type badge-extra text-info text-bold" style="line-height: 14px">
-                                                {{ strtoupper($torrent->type->name) }}
+                                                {{ $torrent->type->name }}
                                             </span>
                                             <span
                                                 class="torrent-size badge-extra text-info text-bold"
@@ -221,7 +224,7 @@
                                             @endif
                         
                                             @if ($torrent->personal_release == '1')
-                                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.stream-optimized')">
+                                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.personal-release')">
                                                     <i class="{{ config('other.font-awesome') }} fa-user-plus text-green" style="color: #865be9"></i>
                                                 </span>
                                             @endif 
@@ -276,25 +279,25 @@
     
                                             @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
                                                 @if (auth()->user()->isFollowing($uploader->id))
-                                                    <form class="form-inline" role="form" action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
+                                                    <form class="form-inline" style="line-height: 0; display: inline-block;" role="form" action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
                                                         style="display: inline-block;" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <div class="form-group">
                                                         <button type="submit" id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
                                                                 title="@lang('user.unfollow')">
-                                                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
+                                                            @lang('user.unfollow')
                                                         </button>
                                                         </div>
                                                     </form>
                                                 @else
-                                                    <form class="form-inline" role="form" action="{{ route('follow.store', ['username' => $uploader->username]) }}"
+                                                    <form class="form-inline" style="line-height: 0; display: inline-block;" role="form" action="{{ route('follow.store', ['username' => $uploader->username]) }}"
                                                         style="display: inline-block;" method="POST">
                                                         @csrf
                                                         <div class="form-group">
                                                         <button type="submit" id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
                                                                 title="@lang('user.follow')">
-                                                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
+                                                            @lang('user.follow')
                                                         </button>
                                                         </div>
                                                     </form>
@@ -526,17 +529,6 @@
                             <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
                         </tr>
 
-                        @if ($torrent->keywords->isNotEmpty())
-                            <tr class="torrent-keywords">
-                                <td class="col-sm-2"><strong>@lang('torrent.keywords')</strong></td>
-                                <td>
-                                    @foreach($torrent->keywords as $keyword)
-                                        <span class="badge-user text-bold">{{ $keyword->name }}</span>
-                                    @endforeach
-                                </td>
-                            </tr>
-                        @endif
-
                         <tr class="torrent-stream-optimized">
                             <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
                             <td>
@@ -554,21 +546,7 @@
                         <tr class="torrent-personal-release">
                             <td class="col-sm-2"><strong>Personal Release?</strong></td>
                             <td>
-                                @if ($torrent->internal == "1") @lang('common.yes') @else @lang('common.no') @endif
-                            </td>
-                        </tr>
-
-                        <tr class="torrent-hot">
-                            <td class="col-sm-2"><strong>@lang('common.hot')?</strong></td>
-                            <td>
-                                @if ($torrent->leechers >= 5) @lang('common.yes') @else @lang('common.no') @endif
-                            </td>
-                        </tr>
-
-                        <tr class="torrent-sticky">
-                            <td class="col-sm-2"><strong>@lang('torrent.sticky')?</strong></td>
-                            <td>
-                                @if ($torrent->sticky == '1') @lang('common.yes') @else @lang('common.no') @endif
+                                @if ($torrent->personal_release == "1") @lang('common.yes') @else @lang('common.no') @endif
                             </td>
                         </tr>
 
@@ -776,15 +754,15 @@
 		    				    		    <div class="slidingDiv2">
 		    				    			    <div class="text-left text-main mediainfo-filename" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
 		    				    				    @if ($mediaInfo !== null && isset($mediaInfo['general']['file_name']))
-		    				    					    <span class="text-bold text-main">{{ $mediaInfo['general']['file_name'] ?? '' }}</span>
+		    				    					    <span class="text-bold text-main">{{ $mediaInfo['general']['file_name'] ?? trans('common.unknown') }}</span>
 		    				    				    @endif
 		    				    			    </div>
 		    				    			    <div class="mediainfo-main" style="width: 100%; display:table;">
 		    				    				    <div class="mediainfo-general" style="width: 20%; display:table-cell; text-align: left;">
 		    				    					    <div class="text-bold">@joypixels(':information_source:') General:</div>
-		    				    					    <div><u style="font-weight: bold;">Format:</u> {{ $mediaInfo['general']['format'] ?? '' }}</div>
-		    				    					    <div><u style="font-weight: bold;">Duration:</u> {{ $mediaInfo['general']['duration'] ?? '' }}</div>
-		    				    					    <div><u style="font-weight: bold;">Global Bit Rate:</u> {{ $mediaInfo['general']['bit_rate'] ?? '' }}</div>
+		    				    					    <div><u style="font-weight: bold;">Format:</u> {{ $mediaInfo['general']['format'] ?? trans('common.unknown') }}</div>
+		    				    					    <div><u style="font-weight: bold;">Duration:</u> {{ $mediaInfo['general']['duration'] ?? trans('common.unknown') }}</div>
+		    				    					    <div><u style="font-weight: bold;">Global Bit Rate:</u> {{ $mediaInfo['general']['bit_rate'] ?? trans('common.unknown') }}</div>
 		    				    					    <div><u style="font-weight: bold;">Overall Size:</u> {{ App\Helpers\StringHelper::formatBytes($mediaInfo['general']['file_size'] ?? 0, 2) }}</div>
 		    				    				    </div>
 		    				    				    <div class="mediainfo-video" style="width: 30%; display:table-cell; text-align: left;">
@@ -792,15 +770,15 @@
 		    				    					    @if ($mediaInfo !== null && isset($mediaInfo['video']))
 		    				    						    @foreach ($mediaInfo['video'] as $key => $videoElement)
 		    				    							    <div>Track {{ ++$key }}:</div>
-		    				    							    <div><u style="font-weight: bold;">Format:</u> {{ $videoElement['format'] ?? '' }} ({{ $videoElement['bit_depth'] ?? '' }})</div>
-		    				    							    <div><u style="font-weight: bold;">Resolution:</u> {{ $videoElement['width'] ?? '' }} x {{ $videoElement['height'] ?? '' }}</div>
-		    				    							    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? '' }}</div>
-		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> {{ $videoElement['frame_rate'] ?? '' }}</div>
-		    				    							    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? '' }}</div>
+		    				    							    <div><u style="font-weight: bold;">Format:</u> {{ $videoElement['format'] ?? trans('common.unknown') }} ({{ $videoElement['bit_depth'] ?? trans('common.unknown') }})</div>
+		    				    							    <div><u style="font-weight: bold;">Resolution:</u> {{ $videoElement['width'] ?? trans('common.unknown') }} x {{ $videoElement['height'] ?? trans('common.unknown') }}</div>
+		    				    							    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? trans('common.unknown') }}</div>
+		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> @if($videoElement['framerate_mode'] === 'Variable') VFR @else{{ $videoElement['frame_rate'] ?? trans('common.unknown') }}@endif</div>
+		    				    							    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? trans('common.unknown') }}</div>
 													            @if(isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
-		    				    								    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? '' }}</div>
-		    				    								    <div><u style="font-weight: bold;">Color Primaries:</u> {{ $videoElement['color_primaries'] ?? '' }}</div>
-		    				    								    <div><u style="font-weight: bold;">Transfer Characteristics:</u> {{ $videoElement['transfer_characteristics'] ?? '' }}</div>
+		    				    								    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? trans('common.unknown') }}</div>
+		    				    								    <div><u style="font-weight: bold;">Color Primaries:</u> {{ $videoElement['color_primaries'] ?? trans('common.unknown') }}</div>
+		    				    								    <div><u style="font-weight: bold;">Transfer Characteristics:</u> {{ $videoElement['transfer_characteristics'] ?? trans('common.unknown') }}</div>
 		    				    							    @endif
 		    				    							    @if(count($mediaInfo['video']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
 		    				    						    @endforeach
@@ -811,7 +789,7 @@
 		    				    					    @if ($mediaInfo !== null && isset($mediaInfo['audio']))
 		    				    						    @foreach ($mediaInfo['audio'] as $key => $audioElement)
 		    				    							    <div>Track {{ ++$key }}:</div>
-		    				    						        <div>{{ $audioElement['language'] ?? '' }} | {{ $audioElement['format'] ?? '' }} | {{ $audioElement['channels'] ?? '' }} | {{ $audioElement['bit_rate'] ?? '' }} | {{ $audioElement['title'] ?? '' }}</div>
+		    				    						        <div>{{ $audioElement['language'] ?? trans('common.unknown') }} | {{ $audioElement['format'] ?? trans('common.unknown') }} | {{ $audioElement['channels'] ?? trans('common.unknown') }} | {{ $audioElement['bit_rate'] ?? trans('common.unknown') }} | {{ $audioElement['title'] ?? trans('common.unknown') }}</div>
 		    				    							    @if(count($mediaInfo['audio']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
 		    				    						    @endforeach
 		    				    					    @endif
@@ -822,7 +800,7 @@
 								    		        <span class="text-bold">@joypixels(':speech_balloon:') Subtitles:</span>
 								    		    	@if ($mediaInfo !== null && isset($mediaInfo['text']))
 								    		    		@foreach ($mediaInfo['text'] as $key => $textElement)
-								    		    		    <span><img src="{{ \language_flag($textElement['language'] ?? '') }}" alt="{{ $textElement['language'] ?? '' }}" width="20" height="13" data-toggle="tooltip" data-original-title="{{ $textElement['language'] ?? '' }} | {{ $textElement['format'] ?? '' }} | {{ $textElement['title'] ?? '' }}">&nbsp;</span>
+								    		    		    <span><img src="{{ \language_flag($textElement['language'] ?? trans('common.unknown')) }}" alt="{{ $textElement['language'] ?? trans('common.unknown') }}" width="20" height="13" data-toggle="tooltip" data-original-title="{{ $textElement['language'] ?? trans('common.unknown') }} | {{ $textElement['format'] ?? trans('common.unknown') }} | {{ $textElement['title'] ?? trans('common.unknown') }}">&nbsp;</span>
 								    		    		@endforeach
 								    		    	@endif
 								    	        </div>
@@ -833,7 +811,7 @@
 									    	    		    <div class="text-left text-main mediainfo-encode-settings" style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
 									    	    			    <span class="text-bold">@joypixels(':information_source:') Encode Settings:</span>
 									    	    			    <br>
-									    	    			    <pre class="decoda-code"><code>{{ $videoElement['encoding_settings'] ?? '' }}</code></pre>
+									    	    			    <pre class="decoda-code"><code>{{ $videoElement['encoding_settings'] ?? trans('common.unknown') }}</code></pre>
 									    	    		    </div>
 									    	    	    @endif
 									    	        @endforeach

@@ -16,7 +16,8 @@ namespace App\Helpers;
 
 class Nfo
 {
-    /** Code for Viewing NFO file.
+    /**
+     * Code for Viewing NFO file.
      *
      * @param $nfo
      *

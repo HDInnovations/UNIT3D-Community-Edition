@@ -73,7 +73,6 @@ UNIT3D currently offers the following features:
 - A Redis server
 - MySQL 5.7 + or MariaDB 10.2 +
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
-- OMDB API Key: http://www.omdbapi.com/
 - A decent dedicated server. Dont try running this on some crappy server!
 <pre>
 Processor: Intel  Xeon E3-1245v2 -
@@ -196,7 +195,7 @@ Username: UNIT3D
 
 Password: UNIT3D
 
-Demo is reset every 48 hours!
+Demo is reset every 72 hours!
 
 ## <a name="chat"></a>  💬 Sponsors Can Chat With Us
 
@@ -337,5 +336,5 @@ Thanks goes to these wonderful people who have contributed alot of code:
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
 <a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
+<a href="https://alpinejs.dev"><img src="https://i.postimg.cc/28pWk0M1/alpinejs-logo.png" height="50px;"></a>
 <a href="https://styleci.io"><img src="https://i.postimg.cc/0y4XN4yW/og.png" height="50px;"></a>
-<a href="https://travis-ci.org"><img src="https://i.postimg.cc/Wz96HDDW/travis-ci-logo-png-transparent.png" height="50px;"></a>

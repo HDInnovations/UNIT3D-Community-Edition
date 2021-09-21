@@ -271,13 +271,20 @@ class TorrentController extends Controller
         $torrent->internal = $request->input('internal');
         $torrent->personal_release = $request->input('personal_release');
 
+        $category = Category::findOrFail($request->input('category_id'));
+
+        $resRule = 'nullable|exists:resolutions,id';
+        if ($category->movie_meta || $category->tv_meta) {
+            $resRule = 'required|exists:resolutions,id';
+        }
+
         $v = \validator($torrent->toArray(), [
             'name'          => 'required',
             'slug'          => 'required',
             'description'   => 'required',
             'category_id'   => 'required|exists:categories,id',
             'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'nullable|exists:resolutions,id',
+            'resolution_id' => $resRule,
             'imdb'          => 'required|numeric',
             'tvdb'          => 'required|numeric',
             'tmdb'          => 'required|numeric',
@@ -545,6 +552,12 @@ class TorrentController extends Controller
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
 
+        //Require Resolution if Category is for Movies or TV
+        $resRule = 'nullable|exists:resolutions,id';
+        if ($category->movie_meta || $category->tv_meta) {
+            $resRule = 'required|exists:resolutions,id';
+        }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
@@ -557,7 +570,7 @@ class TorrentController extends Controller
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => 'nullable|exists:resolutions,id',
+            'resolution_id'  => $resRule,
             'user_id'        => 'required|exists:users,id',
             'imdb'           => 'required|numeric',
             'tvdb'           => 'required|numeric',

@@ -450,10 +450,10 @@ return [
      */
 
     'csp' => [
-        'enable' => true,
+        'enable' => env('CSP_ENABLED', true),
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-        'report-only' => false,
+        'report-only' => env('CSP_REPORT_ONLY', false),
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to
         'report-to' => '',

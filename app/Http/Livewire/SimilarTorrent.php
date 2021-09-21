@@ -13,9 +13,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Graveyard;
 use App\Models\History;
+use App\Models\Movie;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
@@ -24,6 +26,7 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\TorrentRequest;
+use App\Models\Tv;
 use App\Models\Warning;
 use Livewire\Component;
 
@@ -61,14 +64,28 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Collection|array
+
+    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection
     {
-        return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->where('category_id', '=', $this->categoryId)
-            ->where('tmdb', '=', $this->tmdbId)
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->get();
+        $category = Category::findOrFail($this->categoryId);
+
+        $query = Torrent::query();
+        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+            ->withCount(['thanks', 'comments']);
+        if ($category->movie_meta == true) {
+            $query = $query->whereHas('category', function ($q) {
+                $q->where('movie_meta', '=', true);
+            });
+        }
+        if ($category->tv_meta == true) {
+            $query = $query->whereHas('category', function ($q) {
+                $q->where('tv_meta', '=', true);
+            });
+        }
+        $query = $query->where('tmdb', '=', $this->tmdbId);
+        $query = $query->orderBy($this->sortField, $this->sortDirection);
+
+        return $query->get();
     }
 
     final public function sortBy($field): void
@@ -97,17 +114,27 @@ class SimilarTorrent extends Component
     {
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
+        $users = [];
+        $titleids = [];
+        $titles = [];
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
             foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
-                $pmuser = new PrivateMessage();
-                $pmuser->sender_id = 1;
-                $pmuser->receiver_id = $pm->user_id;
-                $pmuser->subject = 'Bulk Torrents Deleted!';
-                $pmuser->message = '[b]Attention: [/b] The following torrents '.\implode(', ', $names).' have been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                    [b]Removal Reason: [/b] '.$this->reason.'
-                                    [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                $pmuser->save();
+                if (! in_array($pm->user_id, $users)) {
+                    array_push($users, $pm->user_id);
+                }
+            }
+            if (! in_array($torrent->tmdb, $titleids)) {
+                array_push($titleids, $torrent->tmdb);
+                $title = null;
+                switch ($torrent->category_id) {
+                        case 1:
+                            $title = Movie::find($torrent->tmdb);
+                            array_push($titles, $title->title.' ('.substr($title->release_date, 0, 4).')');
+                        case 2:
+                            $title = Tv::find($torrent->tmdb);
+                            array_push($titles, $title->name.' ('.substr($title->first_air_date, 0, 4).')');
+                    }
             }
 
             // Reset Requests
@@ -137,6 +164,20 @@ class SimilarTorrent extends Component
             }
 
             $torrent->delete();
+        }
+        foreach ($users as $user) {
+            $pmuser = new PrivateMessage();
+            $pmuser->sender_id = 1;
+            $pmuser->receiver_id = $user;
+            $pmuser->subject = 'Bulk Torrents Deleted - '.\implode(', ', $titles).'! ';
+            $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
+            [list]
+                [*]'.\implode(' [*]', $names).'
+            [/list]
+            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                                    [b]Removal Reason: [/b] '.$this->reason.'
+                                    [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+            $pmuser->save();
         }
 
         $this->checked = [];
