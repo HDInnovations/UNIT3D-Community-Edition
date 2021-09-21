@@ -64,7 +64,6 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-
     final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection
     {
         $category = Category::findOrFail($this->categoryId);
