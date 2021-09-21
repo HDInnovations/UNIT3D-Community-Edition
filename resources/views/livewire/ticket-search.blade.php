@@ -4,7 +4,7 @@
 	</div>
 	<div class="mb-10 form-inline pull-left">
 		<div class="form-group" style="padding-top: 8px; padding-left: 15px;">
-			<input type="checkbox" wire:model="show">
+			<input type="checkbox" wire:click="toggleProperties('show')">
 			Show Closed Tickets
 		</div>
 	</div>
