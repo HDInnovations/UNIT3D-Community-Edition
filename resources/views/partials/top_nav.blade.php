@@ -131,7 +131,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('torrents') }}?bookmarked=1">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
