@@ -9,7 +9,7 @@
         <a href="{{ route('user_requested', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.requested')
         </a>
-        <a href="{{ route('bookmarks.index', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('torrents') }}?bookmarked=1" class="btn btn-sm btn-primary">
             @lang('user.bookmarks')
         </a>
         <a href="{{ route('wishes.index', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">

@@ -312,7 +312,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');
-            Route::get('/{username}/bookmarks', [App\Http\Controllers\BookmarkController::class, 'index'])->name('bookmarks.index');
 
             Route::get('/{username}/settings', [App\Http\Controllers\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');

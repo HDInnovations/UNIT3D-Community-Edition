@@ -629,29 +629,32 @@
 								@endif
 							</td>
 							<td class="torrent-listings-download" style="vertical-align: middle;">
-							@if (config('torrent.download_check_page') == 1)
+								@if (config('torrent.download_check_page') == 1)
 								<a href="{{ route('download_check', ['id' => $torrent->id]) }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.download')">
 										<i class="{{ config('other.font-awesome') }} fa-download"></i>
 									</button>
 								</a>
-							@else
+								@else
 								<a href="{{ route('download', ['id' => $torrent->id]) }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.download')">
 										<i class="{{ config('other.font-awesome') }} fa-download"></i>
 									</button>
 								</a>
-							@endif
-							@if (config('torrent.magnet') == 1)
+								@endif
+								@if (config('torrent.magnet') == 1)
 								<a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.magnet')">
 										<i class="{{ config('other.font-awesome') }} fa-magnet"></i>
 									</button>
 								</a>
-							@endif
+								@endif
+								<div>
+									@livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+								</div>
 							</td>
 							<td class="torrent-listings-tmdb" style="vertical-align: middle;">
                             <span class='badge-extra'>
