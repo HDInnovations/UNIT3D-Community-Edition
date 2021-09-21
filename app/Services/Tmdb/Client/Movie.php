@@ -36,7 +36,7 @@ class Movie
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
                     'language'           => \config('app.locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations',
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
                 ],
             ]
         );
@@ -98,6 +98,11 @@ class Movie
     public function get_original_title()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
+    }
+
+    public function get_alternative_titles()
+    {
+        return $this->data['alternative_titles'];
     }
 
     public function get_overview()
