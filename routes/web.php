@@ -324,7 +324,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/change_rid', [App\Http\Controllers\UserController::class, 'changeRID'])->name('change_rid');
             Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\UserController::class, 'changeApiToken'])->name('change_api_token');
             Route::get('/{username}/settings/notification/disable', [App\Http\Controllers\UserController::class, 'disableNotifications'])->name('notification_disable');
-            Route::get('/{username}/settings/notification/enable', [App\Http\Controllers\UserController::class, 'enableNotifications'])->name('notification_enable');
+            Route::post('/{username}/settings/notification/enable', [App\Http\Controllers\UserController::class, 'enableNotifications'])->name('notification_enable');
             Route::post('/{username}/settings/notification/account', [App\Http\Controllers\UserController::class, 'changeAccountNotification'])->name('notification_account');
             Route::post('/{username}/settings/notification/following', [App\Http\Controllers\UserController::class, 'changeFollowingNotification'])->name('notification_following');
             Route::post('/{username}/settings/notification/forum', [App\Http\Controllers\UserController::class, 'changeForumNotification'])->name('notification_forum');

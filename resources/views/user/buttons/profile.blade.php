@@ -36,9 +36,12 @@
                     <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i> @lang('user.disable-notifications')
                 </a>
             @else
-                <a href="{{ route('notification_enable', ['username' => $user->username]) }}" class="btn btn-sm btn-success">
-                    <i class='{{ config('other.font-awesome') }} fa-bell'></i> @lang('user.enable-notifications')
-                </a>
+                <form role="form" method="POST" action="{{ route('notification_enable', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class='{{ config('other.font-awesome') }} fa-bell'></i> @lang('user.enable-notifications')
+                    </button>
+                </form>
             @endif
         @endif
     </div>
