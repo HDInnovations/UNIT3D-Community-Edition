@@ -2,9 +2,12 @@
     <div class="button-left">
         @if(auth()->user()->id == $user->id)
             @if((!auth()->user()->hidden || auth()->user()->hidden == 0))
-                <a href="{{ route('user_hidden', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
-                    <i class='{{ config('other.font-awesome') }} fa-eye-slash'></i> @lang('user.become-hidden')
-                </a>
+                <form role="form" method="POST" action="{{ route('user_hidden', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class='{{ config('other.font-awesome') }} fa-eye-slash'></i> @lang('user.become-hidden')
+                    </button>
+                </form>
             @else
                 <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}" style="display: inline-block;">
                     @csrf
