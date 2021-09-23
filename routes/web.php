@@ -273,7 +273,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/bumpTorrent', [App\Http\Controllers\TorrentController::class, 'bumpTorrent'])->name('bumpTorrent');
             Route::get('/{id}/torrent_sticky', [App\Http\Controllers\TorrentController::class, 'sticky'])->name('torrent_sticky');
             Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentController::class, 'grantFeatured'])->name('torrent_feature');
-            Route::get('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
             Route::get('/{id}/reseed', [App\Http\Controllers\TorrentController::class, 'reseedTorrent'])->name('reseed');
             Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
             Route::get('/{id}/freeleech_token', [App\Http\Controllers\TorrentController::class, 'freeleechToken'])->name('freeleech_token');

@@ -691,10 +691,12 @@
                                                        </button>
                                                    </form>
                                                 @else
-                                                    <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-danger btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
-                                                    </a>
+                                                    <form role="form" method="POST" action="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}" style="display: inline-block;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class='{{ config('other.font-awesome') }} fa-certificate'></i> @lang('torrent.revokefeatured')
+                                                        </button>
+                                                    </form>
                                                 @endif
                                             </div>
                                         @endif
