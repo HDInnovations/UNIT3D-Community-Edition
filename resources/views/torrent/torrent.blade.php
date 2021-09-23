@@ -684,10 +684,12 @@
                                                 </a>
 
                                                 @if ($torrent->featured == 0)
-                                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-default btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
-                                                    </a>
+                                                   <form role="form" method="POST" action="{{ route('torrent_feature', ['id' => $torrent->id]) }}" style="display: inline-block;">
+                                                       @csrf
+                                                       <button type="submit" class="btn btn-xs btn-default">
+                                                           <i class='{{ config('other.font-awesome') }} fa-certificate'></i> @lang('torrent.feature')
+                                                       </button>
+                                                   </form>
                                                 @else
                                                     <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
                                                     class="btn btn-danger btn-xs" role="button">
