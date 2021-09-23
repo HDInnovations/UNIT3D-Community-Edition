@@ -6,9 +6,12 @@
                     <i class='{{ config('other.font-awesome') }} fa-eye-slash'></i> @lang('user.become-hidden')
                 </a>
             @else
-                <a href="{{ route('user_visible', ['username' => $user->username]) }}" class="btn btn-sm btn-success">
-                    <i class='{{ config('other.font-awesome') }} fa-eye'></i> @lang('user.become-visible')
-                </a>
+                <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class='{{ config('other.font-awesome') }} fa-eye'></i> @lang('user.become-visible')
+                    </button>
+                </form>
             @endif
             @if((auth()->user()->private_profile == 0 || auth()->user()->private_profile == 0))
                 <a href="{{ route('user_private', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">

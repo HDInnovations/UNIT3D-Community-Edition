@@ -342,7 +342,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\UserController::class, 'changeOther'])->name('privacy_other');
             Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep'])->name('change_twostep');
             Route::get('/{username}/settings/hidden', [App\Http\Controllers\UserController::class, 'makeHidden'])->name('user_hidden');
-            Route::get('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
+            Route::post('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
             Route::get('/{username}/settings/private', [App\Http\Controllers\UserController::class, 'makePrivate'])->name('user_private');
             Route::get('/{username}/settings/public', [App\Http\Controllers\UserController::class, 'makePublic'])->name('user_public');
             Route::post('/accept-rules', [App\Http\Controllers\UserController::class, 'acceptRules'])->name('accept.rules');
