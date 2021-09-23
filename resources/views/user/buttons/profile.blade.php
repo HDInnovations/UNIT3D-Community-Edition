@@ -32,9 +32,12 @@
                 </form>
             @endif
             @if((auth()->user()->block_notifications == 0 || auth()->user()->block_notifications == 0))
-                <a href="{{ route('notification_disable', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
-                    <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i> @lang('user.disable-notifications')
-                </a>
+                <form role="form" method="POST" action="{{ route('notification_disable', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i> @lang('user.disable-notifications')
+                    </button>
+                </form>
             @else
                 <form role="form" method="POST" action="{{ route('notification_enable', ['username' => $user->username]) }}" style="display: inline-block;">
                     @csrf
