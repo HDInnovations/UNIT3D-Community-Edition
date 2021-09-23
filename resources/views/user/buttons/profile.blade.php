@@ -21,9 +21,12 @@
                     <i class='{{ config('other.font-awesome') }} fa-lock'></i> @lang('user.go-private')
                 </a>
             @else
-                <a href="{{ route('user_public', ['username' => $user->username]) }}" class="btn btn-sm btn-success">
-                    <i class='{{ config('other.font-awesome') }} fa-lock-open'></i> @lang('user.go-public')
-                </a>
+                <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class='{{ config('other.font-awesome') }} fa-lock-open'></i> @lang('user.go-public')
+                    </button>
+                </form>
             @endif
             @if((auth()->user()->block_notifications == 0 || auth()->user()->block_notifications == 0))
                 <a href="{{ route('notification_disable', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
