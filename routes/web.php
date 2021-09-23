@@ -85,7 +85,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
 
         // General
-        Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+        Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
         // Achievements System
