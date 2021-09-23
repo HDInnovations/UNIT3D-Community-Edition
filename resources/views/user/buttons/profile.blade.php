@@ -17,9 +17,12 @@
                 </form>
             @endif
             @if((auth()->user()->private_profile == 0 || auth()->user()->private_profile == 0))
-                <a href="{{ route('user_private', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
-                    <i class='{{ config('other.font-awesome') }} fa-lock'></i> @lang('user.go-private')
-                </a>
+                <form role="form" method="POST" action="{{ route('user_private', ['username' => $user->username]) }}" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class='{{ config('other.font-awesome') }} fa-lock'></i> @lang('user.go-private')
+                    </button>
+                </form>
             @else
                 <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}" style="display: inline-block;">
                     @csrf
