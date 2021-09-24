@@ -733,16 +733,16 @@ Route::group(['middleware' => 'language'], function () {
         // Commands
         Route::group(['prefix' => 'commands'], function () {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
-            Route::get('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
-            Route::get('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
-            Route::get('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
-            Route::get('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
-            Route::get('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
-            Route::get('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
-            Route::get('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
-            Route::get('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
-            Route::get('/clear-compiled', [App\Http\Controllers\Staff\CommandController::class, 'clearCompiled']);
-            Route::get('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
+            Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
+            Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
+            Route::post('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
+            Route::post('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
+            Route::post('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
+            Route::post('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
+            Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
+            Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
+            Route::post('/clear-compiled', [App\Http\Controllers\Staff\CommandController::class, 'clearCompiled']);
+            Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
         });
 
         // Flush System
