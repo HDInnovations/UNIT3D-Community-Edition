@@ -1047,14 +1047,20 @@
         																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
         										<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
         										@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-        											<a title="@lang('common.delete-comment')"
-        											   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-        														class="pull-right {{ config('other.font-awesome') }} fa fa-times"
-        														aria-hidden="true"></i></a>
-        											<a title="@lang('common.edit-comment')" data-toggle="modal"
-        											   data-target="#modal-comment-edit-{{ $comment->id }}"><i
-        														class="pull-right {{ config('other.font-awesome') }} fa-pencil"
-        														aria-hidden="true"></i></a>
+                                                        <div class="pull-right" style="display: inline-block;">
+                                                            <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                                <button class="btn btn-circle btn-info">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                                </button>
+                                                            </a>
+                                                            <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-circle btn-danger">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
         										@endif
         										<div class="pt-5">
         											@joypixels($comment->getContentHtml())

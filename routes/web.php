@@ -188,7 +188,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/collection/{id}', [App\Http\Controllers\CommentController::class, 'collection'])->name('comment_collection');
             Route::post('/ticket/{id}', [App\Http\Controllers\CommentController::class, 'ticket'])->name('comment_ticket');
             Route::post('/edit/{comment_id}', [App\Http\Controllers\CommentController::class, 'editComment'])->name('comment_edit');
-            Route::get('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
+            Route::delete('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
         });
 
         // Extra-Stats System
