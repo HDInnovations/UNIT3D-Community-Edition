@@ -748,7 +748,7 @@ Route::group(['middleware' => 'language'], function () {
         // Flush System
         Route::group(['prefix' => 'flush'], function () {
             Route::name('staff.flush.')->group(function () {
-                Route::get('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
+                Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
                 Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
         });
