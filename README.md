@@ -13,6 +13,7 @@
 <a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
+<a href="https://huntr.dev"><img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg"></a>    
 </p>
 
 
