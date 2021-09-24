@@ -54,11 +54,19 @@
             
                                         @else
                                             @if($bot->active)
-                                                <a href="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
-                                                    class="btn btn-danger">@lang('common.disable')</a>
+                                                <form role="form" method="POST" action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}" style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-xs btn-warning">
+                                                        <i class='{{ config('other.font-awesome') }} fa-times-circle'></i> @lang('common.disable')
+                                                    </button>
+                                                </form>
                                             @else
-                                                <a href="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
-                                                    class="btn btn-success">@lang('common.enable')</a>
+                                                <form role="form" method="POST" action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}" style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-xs btn-success">
+                                                        <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> @lang('common.enable')
+                                                    </button>
+                                                </form>
                                             @endif
                                         @endif
                                     </form>

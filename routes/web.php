@@ -693,8 +693,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/bots/{id}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
                 Route::patch('/bots/{id}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
                 Route::delete('/bots/{id}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
-                Route::get('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
-                Route::get('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
+                Route::post('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
+                Route::post('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
             });
         });
 
@@ -749,7 +749,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'flush'], function () {
             Route::name('staff.flush.')->group(function () {
                 Route::get('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
-                Route::get('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
+                Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
         });
 
