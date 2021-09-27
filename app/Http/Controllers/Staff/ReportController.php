@@ -56,13 +56,7 @@ class ReportController extends Controller
     {
         $user = \auth()->user();
 
-        $v = \validator($request->all(), [
-            'verdict'  => 'required|min:3',
-            'staff_id' => 'required',
-        ]);
-
         $report = Report::findOrFail($id);
-
         if ($report->solved == 1) {
             return \redirect()->route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
@@ -71,6 +65,16 @@ class ReportController extends Controller
         $report->verdict = $request->input('verdict');
         $report->staff_id = $user->id;
         $report->solved = 1;
+
+        $v = \validator($report->toArray(), [
+            'verdict'  => 'required|min:3',
+            'staff_id' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return \redirect()->route('staff.reports.show', ['id' => $report->id])
+                ->withErrors($v->errors());
+        }
         $report->save();
 
         // Send Private Message
