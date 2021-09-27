@@ -135,7 +135,7 @@ Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 `php artisan git:update`
  
 ## <a name="packages"></a> 📦 Packages
-Here are some packages that are built for UNIT3D.
+Here are some packages that are built for UNIT3D. (Not Maintained)
 - [An artisan package to import a xbtitFM database into UNIT3D](https://github.com/HDInnovations/xbtitfm-to-unit3d).
 - [An artisan package to import a TemplateShares database into UNIT3D](https://github.com/HDInnovations/templateshares-to-unit3d).
 - [An artisan package to import a Luminance database into UNIT3D](https://github.com/HDInnovations/luminance-to-unit3d).
