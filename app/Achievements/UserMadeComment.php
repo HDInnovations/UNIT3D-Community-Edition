@@ -18,14 +18,14 @@ use Assada\Achievements\Achievement;
 class UserMadeComment extends Achievement
 {
     /**
-     * The achievement name
+     * The achievement name.
      *
      * @var string
      */
     public $name = 'FirstComment';
 
     /**
-     * A small description for the achievement
+     * A small description for the achievement.
      *
      * @var string
      */

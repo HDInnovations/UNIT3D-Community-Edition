@@ -18,14 +18,14 @@ use Assada\Achievements\Achievement;
 class UserMadeUpload extends Achievement
 {
     /**
-     * The achievement name
+     * The achievement name.
      *
      * @var string
      */
     public $name = 'FirstUpload';
 
     /**
-     * A small description for the achievement
+     * A small description for the achievement.
      *
      * @var string
      */

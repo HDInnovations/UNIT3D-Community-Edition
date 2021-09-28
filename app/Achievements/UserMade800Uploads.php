@@ -18,21 +18,21 @@ use Assada\Achievements\Achievement;
 class UserMade800Uploads extends Achievement
 {
     /**
-     * The achievement name
+     * The achievement name.
      *
      * @var string
      */
     public $name = '800Uploads';
 
     /**
-     * A small description for the achievement
+     * A small description for the achievement.
      *
      * @var string
      */
     public $description = 'You have made 800 torrent uploads!';
 
     /**
-     * The amount of "points" this user need to obtain in order to complete this achievement
+     * The amount of "points" this user need to obtain in order to complete this achievement.
      *
      * @var int
      */
