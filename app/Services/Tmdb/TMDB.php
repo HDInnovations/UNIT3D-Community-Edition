@@ -41,7 +41,7 @@ class TMDB
     /**
      * @return mixed|null
      */
-    public function ifExists($type, $array)
+    public function ifExists($type, $array): mixed
     {
         if (isset($array[$type]) && ! empty($array[$type])) {
             return $array[$type];

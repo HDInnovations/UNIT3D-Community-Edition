@@ -75,7 +75,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_budget()
+    public function get_budget(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['budget']);
     }
@@ -88,7 +88,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_homepage()
+    public function get_homepage(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
     }
@@ -101,7 +101,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_imdb_id()
+    public function get_imdb_id(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
     }
@@ -109,7 +109,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_original_title()
+    public function get_original_title(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
     }
@@ -122,7 +122,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_overview()
+    public function get_overview(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
@@ -174,7 +174,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_tagline()
+    public function get_tagline(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
     }
@@ -182,7 +182,7 @@ class Movie
     /**
      * @return mixed[]|string|null
      */
-    public function get_title()
+    public function get_title(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['title']);
     }

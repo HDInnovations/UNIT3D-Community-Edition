@@ -48,7 +48,7 @@ class TaggedUserRepository
      *
      * @return mixed
      */
-    public function getTags($content)
+    public function getTags($content): mixed
     {
         \preg_match_all($this->regex, $content, $tagged);
 

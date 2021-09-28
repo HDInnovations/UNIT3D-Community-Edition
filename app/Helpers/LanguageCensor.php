@@ -59,7 +59,7 @@ class LanguageCensor
      *
      * @return mixed
      */
-    public static function censor($source)
+    public static function censor($source): mixed
     {
         foreach (\config('censor.redact', []) as $word) {
             $result = '';

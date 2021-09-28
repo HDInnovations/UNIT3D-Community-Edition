@@ -99,7 +99,7 @@ trait ConsoleTools
         }
     }
 
-    private function process($command, $silent = false)
+    private function process($command, $silent = false): Process
     {
         if (! $silent) {
             $this->cyan($command);
@@ -141,7 +141,7 @@ trait ConsoleTools
     /**
      * @return ProgressBar
      */
-    protected function progressStart()
+    protected function progressStart(): ProgressBar
     {
         $bar = $this->io->createProgressBar();
         $bar->setBarCharacter('<fg=magenta>=</>');

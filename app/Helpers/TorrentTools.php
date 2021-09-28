@@ -90,7 +90,7 @@ class TorrentTools
      *
      * @return int|mixed
      */
-    public static function getTorrentSize($decodedTorrent)
+    public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -114,7 +114,7 @@ class TorrentTools
      *
      * @return mixed
      */
-    public static function getTorrentFiles($decodedTorrent)
+    public static function getTorrentFiles($decodedTorrent): mixed
     {
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
@@ -198,7 +198,7 @@ class TorrentTools
      *
      * @return string|bool|null
      */
-    public static function getNfo($inputFile)
+    public static function getNfo($inputFile): bool|string|null
     {
         $fileName = \uniqid('', true).'.nfo';
         $inputFile->move(\getcwd().'/files/tmp/', $fileName);

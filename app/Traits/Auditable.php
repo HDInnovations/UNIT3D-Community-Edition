@@ -41,7 +41,7 @@ trait Auditable
      *
      * @return array
      */
-    protected static function strip($model, $data)
+    protected static function strip($model, $data): array
     {
         // Initialize an instance of $model
         $instance = new $model();
@@ -137,7 +137,7 @@ trait Auditable
      *
      * @return mixed|null
      */
-    public static function getUserId()
+    public static function getUserId(): mixed
     {
         if (\auth()->guest()) {
             return;

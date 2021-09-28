@@ -129,7 +129,7 @@ class SystemInformation
     /**
      * @return string|mixed
      */
-    private function getDatabase()
+    private function getDatabase(): mixed
     {
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';

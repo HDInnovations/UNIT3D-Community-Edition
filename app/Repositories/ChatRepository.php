@@ -44,7 +44,7 @@ class ChatRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Bot[]
      */
-    public function bots()
+    public function bots(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->bot->all();
     }
@@ -66,7 +66,7 @@ class ChatRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection&\Illuminate\Database\Eloquent\Builder[]
      */
-    public function audibles($userId)
+    public function audibles($userId): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->userAudible->with([
             'bot',
@@ -83,7 +83,7 @@ class ChatRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Chatroom[]
      */
-    public function rooms()
+    public function rooms(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->chatroom->all();
     }
@@ -156,7 +156,7 @@ class ChatRepository
         $message->delete();
     }
 
-    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null)
+    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Builder|array|null
     {
         if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
@@ -322,7 +322,7 @@ class ChatRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection&\App\Models\ChatStatus[]
      */
-    public function statuses()
+    public function statuses(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->chatStatus->all();
     }

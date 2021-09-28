@@ -67,7 +67,7 @@ class Company
     /**
      * @return mixed[]|string|null
      */
-    public function get_known_for_department()
+    public function get_known_for_department(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
@@ -75,7 +75,7 @@ class Company
     /**
      * @return mixed[]|string|null
      */
-    public function get_deathday()
+    public function get_deathday(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
     }
@@ -93,7 +93,7 @@ class Company
     /**
      * @return mixed[]|string|null
      */
-    public function get_name()
+    public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }

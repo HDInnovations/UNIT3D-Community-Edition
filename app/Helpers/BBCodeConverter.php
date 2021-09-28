@@ -408,7 +408,7 @@ class BBCodeConverter
      *
      * @return mixed[]|string|null
      */
-    public function toMarkdown()
+    public function toMarkdown(): array|string|null
     {
         $this->replaceCenter();
         $this->replaceSize();

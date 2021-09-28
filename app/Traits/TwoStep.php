@@ -26,7 +26,7 @@ trait TwoStep
      *
      * @return bool
      */
-    private function twoStepVerification()
+    private function twoStepVerification(): bool
     {
         $user = \auth()->user();
         if ($user) {
@@ -50,7 +50,7 @@ trait TwoStep
      *
      * @return bool
      */
-    private function checkTimeSinceVerified($twoStepAuth)
+    private function checkTimeSinceVerified($twoStepAuth): bool
     {
         $expireMinutes = \config('auth.TwoStepVerifiedLifetimeMinutes');
         $now = Carbon::now();
@@ -75,7 +75,7 @@ trait TwoStep
      *
      * @return collection
      */
-    private function resetAuthStatus($twoStepAuth)
+    private function resetAuthStatus($twoStepAuth): collection
     {
         $twoStepAuth->authCode = $this->generateCode();
         $twoStepAuth->authCount = 0;
@@ -96,7 +96,7 @@ trait TwoStep
      *
      * @return string
      */
-    private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
+    private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
         for ($i = 0; $i < $length; $i++) {
             $prefix .= \random_int(0, 1) ? \chr(\random_int(65, 90)) : \random_int(0, 9);
@@ -142,7 +142,7 @@ trait TwoStep
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function exceededTimeParser(string $time)
+    protected function exceededTimeParser(string $time): \Illuminate\Support\Collection
     {
         $tomorrow = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
@@ -161,7 +161,7 @@ trait TwoStep
      *
      * @return bool
      */
-    protected function checkExceededTime(\DateTimeInterface $time)
+    protected function checkExceededTime(\DateTimeInterface $time): bool
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'));
@@ -178,7 +178,7 @@ trait TwoStep
      *
      * @return collection
      */
-    protected function resetExceededTime($twoStepEntry)
+    protected function resetExceededTime($twoStepEntry): collection
     {
         $twoStepEntry->authCount = 0;
         $twoStepEntry->authCode = $this->generateCode();

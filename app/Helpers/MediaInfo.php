@@ -84,7 +84,7 @@ class MediaInfo
         return $output;
     }
 
-    private function parseProperty($sections, $section)
+    private function parseProperty($sections, $section): array
     {
         $output = [];
         foreach ($sections as $info) {
