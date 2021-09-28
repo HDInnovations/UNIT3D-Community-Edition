@@ -19,10 +19,6 @@ class TorrentsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array<string, \Illuminate\Http\Resources\Json\AnonymousResourceCollection>
      */
     public function toArray($request): array
     {
@@ -31,9 +27,6 @@ class TorrentsResource extends ResourceCollection
         ];
     }
 
-    /**
-     * @return array<string, array<string, string>>
-     */
     public function with($request): array
     {
         return [
