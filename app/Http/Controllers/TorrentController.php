@@ -78,8 +78,6 @@ class TorrentController extends Controller
      *
      * @param $categoryId
      * @param $tmdbId
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {

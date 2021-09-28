@@ -231,8 +231,6 @@ class BonusController extends Controller
      *
      * @param \App\Models\User        $userID
      * @param \App\Models\BonExchange $itemID
-     *
-     * @return bool
      */
     public function doItemExchange($userID, $itemID): bool
     {

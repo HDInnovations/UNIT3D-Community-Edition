@@ -26,11 +26,9 @@ class InternalController extends Controller
     /**
      * Display All Internal Groups.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
@@ -43,9 +41,7 @@ class InternalController extends Controller
     /**
      * Edit A group.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\UsersVIP     $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $id)
@@ -62,9 +58,7 @@ class InternalController extends Controller
     /**
      * Save a group change.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\UsersVIP     $id
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -96,10 +90,8 @@ class InternalController extends Controller
 
     /**
      * Internal Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.internals.create');
     }
@@ -107,7 +99,6 @@ class InternalController extends Controller
     /**
      * Store A New Internal Group.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -140,9 +131,7 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      *
-     * @param \Illuminate\Http\Request $request
      * @param                          $commentId
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
