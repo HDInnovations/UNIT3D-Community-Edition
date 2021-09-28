@@ -104,14 +104,6 @@ class TicketController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    final public function edit(int $id): void
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     final public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse

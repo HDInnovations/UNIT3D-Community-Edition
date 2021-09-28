@@ -92,7 +92,7 @@ class ForumController extends Controller
     /**
      * Forum Edit Form.
      */
-    public function edit(\App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -108,7 +108,7 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      */
-    public function update(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -151,10 +151,9 @@ class ForumController extends Controller
     /**
      * Delete A Forum.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Forum $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);

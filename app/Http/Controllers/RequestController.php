@@ -63,7 +63,7 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      */
-    public function request(Request $request, \App\Models\TorrentRequest $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function request(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -212,7 +212,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      */
-    public function editRequestForm(Request $request, \App\Models\TorrentRequest $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editRequestForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -619,7 +619,7 @@ class RequestController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      */
-    public function resetRequest(Request $request, \App\Models\TorrentRequest $id): \Illuminate\Http\RedirectResponse
+    public function resetRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);

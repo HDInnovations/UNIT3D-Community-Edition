@@ -44,7 +44,7 @@ class PollController extends Controller
     /**
      * Show A Poll.
      */
-    public function show(\App\Models\Poll $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -84,7 +84,7 @@ class PollController extends Controller
     /**
      * Poll Edit Form.
      */
-    public function edit(\App\Models\Poll $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 

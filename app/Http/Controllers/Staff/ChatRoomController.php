@@ -98,10 +98,9 @@ class ChatRoomController extends Controller
     /**
      * Delete A Chatroom.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Chatroom $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();

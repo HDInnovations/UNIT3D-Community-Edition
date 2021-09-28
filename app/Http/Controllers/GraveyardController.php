@@ -77,7 +77,6 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     *
      * @throws \Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse

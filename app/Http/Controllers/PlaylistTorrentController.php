@@ -58,7 +58,6 @@ class PlaylistTorrentController extends Controller
     /**
      * Detach A Torrent From A Playlist.
      *
-     *
      * @throws \Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse

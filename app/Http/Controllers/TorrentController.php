@@ -159,7 +159,7 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      */
-    public function torrent(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrent(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -220,7 +220,7 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      */
-    public function editForm(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -407,7 +407,7 @@ class TorrentController extends Controller
     /**
      * Display Peers Of A Torrent.
      */
-    public function peers(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function peers(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -418,7 +418,7 @@ class TorrentController extends Controller
     /**
      * Display History Of A Torrent.
      */
-    public function history(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function history(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
@@ -655,7 +655,7 @@ class TorrentController extends Controller
     /**
      * Download Check.
      */
-    public function downloadCheck(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function downloadCheck(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();

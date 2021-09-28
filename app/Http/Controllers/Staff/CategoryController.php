@@ -97,7 +97,7 @@ class CategoryController extends Controller
     /**
      * Category Edit Form.
      */
-    public function edit(\App\Models\Category $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $category = Category::findOrFail($id);
 
@@ -157,10 +157,9 @@ class CategoryController extends Controller
     /**
      * Destroy A Category.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Category $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();

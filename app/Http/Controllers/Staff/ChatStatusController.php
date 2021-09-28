@@ -105,10 +105,9 @@ class ChatStatusController extends Controller
     /**
      * Delete A Chat Status.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(\App\Models\ChatStatus $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();

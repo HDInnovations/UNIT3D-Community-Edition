@@ -311,7 +311,7 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      */
-    public function show(\App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

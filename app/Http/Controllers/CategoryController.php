@@ -37,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Show A Category.
      */
-    public function show(Request $request, \App\Models\Category $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $category = Category::select(['id', 'name'])->findOrFail($id);

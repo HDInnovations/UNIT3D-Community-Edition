@@ -44,7 +44,7 @@ class ApplicationController extends Controller
     /**
      * Get A Application.
      */
-    public function show(\App\Models\Application $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 

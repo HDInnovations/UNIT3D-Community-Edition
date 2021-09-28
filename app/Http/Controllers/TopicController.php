@@ -94,7 +94,7 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      */
-    public function addForm(Request $request, \App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
@@ -223,7 +223,7 @@ class TopicController extends Controller
     /**
      * Topic Edit Form.
      */
-    public function editForm(\App\Models\Topic $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();

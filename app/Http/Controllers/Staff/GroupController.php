@@ -117,7 +117,7 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      */
-    public function edit(Request $request, \App\Models\Group $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

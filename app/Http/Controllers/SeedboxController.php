@@ -70,15 +70,14 @@ class SeedboxController extends Controller
     /**
      * Delete A Seedbox.
      *
-     *
      * @throws \Exception
      */
-    protected function destroy(Request $request, \App\Models\Seedbox $id): \Illuminate\Http\RedirectResponse
+    protected function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        \abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
+        \abort_unless(($user->group->is_modo || $user->id === $seedbox->user_id), 403);
 
         $seedbox->delete();
 

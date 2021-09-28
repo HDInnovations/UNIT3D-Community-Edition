@@ -74,7 +74,7 @@ class TypeController extends Controller
     /**
      * Type Edit Form.
      */
-    public function edit(\App\Models\Type $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $type = Type::findOrFail($id);
 

@@ -45,11 +45,8 @@ class AlbumController extends Controller
 
     /**
      * Store A New Album.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
@@ -94,7 +91,7 @@ class AlbumController extends Controller
     /**
      * Show A Album.
      */
-    public function show(\App\Models\Album $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -105,10 +102,9 @@ class AlbumController extends Controller
     /**
      * Delete A Album.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(Request $request, \App\Models\Album $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);

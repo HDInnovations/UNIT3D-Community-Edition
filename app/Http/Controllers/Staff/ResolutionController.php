@@ -70,10 +70,8 @@ class ResolutionController extends Controller
 
     /**
      * Resolution Edit Form.
-     *
-     * @param $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $resolution = Resolution::findOrFail($id);
 

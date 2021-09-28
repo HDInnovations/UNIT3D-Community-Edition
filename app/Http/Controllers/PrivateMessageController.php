@@ -73,7 +73,7 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      */
-    public function getPrivateMessageById(Request $request, \App\Models\PrivateMessage $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function getPrivateMessageById(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
