@@ -34,10 +34,6 @@ class UsernameReminder extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
-     *
-     * @return string[]
      */
     public function via($notifiable): array
     {

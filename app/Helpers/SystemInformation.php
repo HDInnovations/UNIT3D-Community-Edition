@@ -33,19 +33,13 @@ class SystemInformation
         'sqlsrv',
     ];
 
-    /**
-     * @return float|void
-     */
-    public function avg()
+    public function avg(): ?float
     {
         if (\is_readable('/proc/loadavg')) {
             return (float) \file_get_contents('/proc/loadavg');
         }
     }
 
-    /**
-     * @return array<string, mixed>|array<string, int>
-     */
     public function memory(): array
     {
         if (\is_readable('/proc/meminfo')) {
@@ -83,9 +77,6 @@ class SystemInformation
         return \round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function disk(): array
     {
         $total = \disk_total_space(\base_path());
@@ -98,10 +89,7 @@ class SystemInformation
         ];
     }
 
-    /**
-     * @return float|void
-     */
-    public function uptime()
+    public function uptime(): ?float
     {
         if (\is_readable('/proc/uptime')) {
             return (float) \file_get_contents('/proc/uptime');
@@ -113,9 +101,6 @@ class SystemInformation
         return Carbon::now();
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function basic(): array
     {
         return [
@@ -126,9 +111,6 @@ class SystemInformation
         ];
     }
 
-    /**
-     * @return string|mixed
-     */
     private function getDatabase(): mixed
     {
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {

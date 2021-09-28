@@ -30,9 +30,6 @@ class LanguageCensor
         return \str_contains(self::SPECIAL_CHARS, $c);
     }
 
-    /**
-     * @return int[]
-     */
     protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
@@ -56,8 +53,7 @@ class LanguageCensor
      * Censor a text.
      *
      * @param $source
-     *
-     * @return mixed
+
      */
     public static function censor($source): mixed
     {

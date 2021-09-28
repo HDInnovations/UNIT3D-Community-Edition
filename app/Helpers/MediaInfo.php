@@ -35,9 +35,6 @@ class MediaInfo
      */
     private const FACTORS = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
-    /**
-     * @return array<string, mixed>
-     */
     public function parse($string): array
     {
         $string = \trim($string);
@@ -64,9 +61,6 @@ class MediaInfo
         return $this->formatOutput($output);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     private function parseSections(array $sections): array
     {
         $output = [];
@@ -350,9 +344,6 @@ class MediaInfo
         return \str_ireplace(\array_keys(self::REPLACE), self::REPLACE, $string);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     private function formatOutput($data): array
     {
         $output = [];

@@ -27,9 +27,6 @@ class TicketClosed
 
     /**
      * Create a new event instance.
-     *
-     *
-     * @return mixed
      */
     public function __construct(public Ticket $ticket)
     {

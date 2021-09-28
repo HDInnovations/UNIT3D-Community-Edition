@@ -176,9 +176,6 @@ class GitUpdater extends Command
         }
     }
 
-    /**
-     * @return string[]
-     */
     private function checkForUpdates(): array
     {
         $this->header('Checking For Updates');
@@ -356,9 +353,6 @@ class GitUpdater extends Command
         }
     }
 
-    /**
-     * @return string[]
-     */
     private function paths(): array
     {
         $p = $this->process('git diff master --name-only');

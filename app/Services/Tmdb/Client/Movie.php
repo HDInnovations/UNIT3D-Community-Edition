@@ -72,9 +72,6 @@ class Movie
         return $this->data['belongs_to_collection'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_budget(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['budget']);
@@ -85,9 +82,6 @@ class Movie
         return $this->data['genres'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_homepage(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
@@ -98,17 +92,11 @@ class Movie
         return $this->data['id'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_imdb_id(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_original_title(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
@@ -119,9 +107,6 @@ class Movie
         return $this->data['alternative_titles'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_overview(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
@@ -171,17 +156,11 @@ class Movie
         return $this->data['status'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_tagline(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_title(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['title']);

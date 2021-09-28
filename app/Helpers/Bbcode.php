@@ -306,9 +306,6 @@ class Bbcode
 
     /**
      * Remove all BBCode.
-     *
-     *
-     * @return string Parsed text
      */
     public function stripBBCodeTags(string $source): ?string
     {
@@ -321,12 +318,6 @@ class Bbcode
 
     /**
      * Searches after a specified pattern and replaces it with provided structure.
-     *
-     * @param string $pattern Search pattern
-     * @param string $replace Replacement structure
-     * @param string $source  Text to search in
-     *
-     * @return string Parsed text
      */
     protected function searchAndReplace(string $pattern, string $replace, string $source): ?string
     {
@@ -339,10 +330,6 @@ class Bbcode
 
     /**
      * Helper function to parse case sensitive.
-     *
-     * @param string $source String containing the BBCode
-     *
-     * @return string Parsed text
      */
     public function parseCaseSensitive(string $source): string
     {
@@ -351,10 +338,6 @@ class Bbcode
 
     /**
      * Helper function to parse case insensitive.
-     *
-     * @param string $source String containing the BBCode
-     *
-     * @return string Parsed text
      */
     public function parseCaseInsensitive(string $source): string
     {
@@ -363,8 +346,6 @@ class Bbcode
 
     /**
      * List of chosen parsers.
-     *
-     * @return array array of parsers
      */
     public function getParsers(): array
     {

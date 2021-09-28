@@ -84,8 +84,7 @@ class NerdBot
      * Replace Vars.
      *
      * @param $output
-     *
-     * @return mixed
+
      */
     public function replaceVars($output): array|string
     {

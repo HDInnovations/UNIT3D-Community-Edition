@@ -63,17 +63,11 @@ class Season
         return $this->data['air_date'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_overview(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);

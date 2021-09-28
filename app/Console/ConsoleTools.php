@@ -138,9 +138,6 @@ trait ConsoleTools
         return $process;
     }
 
-    /**
-     * @return ProgressBar
-     */
     protected function progressStart(): ProgressBar
     {
         $bar = $this->io->createProgressBar();

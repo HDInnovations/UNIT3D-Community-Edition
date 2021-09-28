@@ -38,9 +38,6 @@ class TMDB
         return $array[$type][0] ?? null;
     }
 
-    /**
-     * @return mixed|null
-     */
     public function ifExists($type, $array): mixed
     {
         if (isset($array[$type]) && ! empty($array[$type])) {
@@ -50,9 +47,6 @@ class TMDB
         return null;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function cast_array($cast): array
     {
         return [
@@ -65,9 +59,6 @@ class TMDB
         ];
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function person_array($person): array
     {
         return [

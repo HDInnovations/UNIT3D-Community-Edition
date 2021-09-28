@@ -39,8 +39,6 @@ class DemoSeed extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle(): void
     {
@@ -275,9 +273,6 @@ Menu
         return (new Movie($id))->getData();
     }
 
-    /**
-     * @return string[]
-     */
     private function ids(): array
     {
         return [

@@ -57,17 +57,11 @@ class Genre
         return $this->data['birthday'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_known_for_department(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_deathday(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
@@ -83,9 +77,6 @@ class Genre
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);

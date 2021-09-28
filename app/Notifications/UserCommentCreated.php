@@ -24,9 +24,6 @@ class UserCommentCreated extends Notification
 
     /**
      * Create a new notification instance.
-     *
-     *
-     * @return mixed
      */
     public function __construct(private Comment $comment)
     {
@@ -34,10 +31,6 @@ class UserCommentCreated extends Notification
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
-     *
-     * @return string[]
      */
     public function via($notifiable): array
     {
@@ -59,15 +52,10 @@ class UserCommentCreated extends Notification
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return mixed[]
      */
     public function toArray($notifiable): array
     {
         return [
-            //
         ];
     }
 }

@@ -41,9 +41,6 @@ class ChatRepository
         return \config('chat');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Bot[]
-     */
     public function bots(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->bot->all();
@@ -63,9 +60,6 @@ class ChatRepository
             ->get();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection&\Illuminate\Database\Eloquent\Builder[]
-     */
     public function audibles($userId): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->userAudible->with([
@@ -80,9 +74,6 @@ class ChatRepository
             ->get();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Chatroom[]
-     */
     public function rooms(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->chatroom->all();
@@ -193,10 +184,7 @@ class ChatRepository
         return $message;
     }
 
-    /**
-     * @return mixed|void
-     */
-    public function deleteMessage($id)
+    public function deleteMessage($id): Message
     {
         $message = $this->message->find($id);
 
@@ -319,9 +307,6 @@ class ChatRepository
         return $room;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\ChatStatus[]
-     */
     public function statuses(): \Illuminate\Database\Eloquent\Collection|array
     {
         return $this->chatStatus->all();

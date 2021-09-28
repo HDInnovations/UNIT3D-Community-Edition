@@ -37,9 +37,6 @@ class WishRepository implements WishInterface
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }
 
-    /**
-     * @return mixed
-     */
     public function create(array $data): mixed
     {
         return $this->wish->create($data);
@@ -47,8 +44,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-     *
-     * @return mixed
+
      */
     public function findById($id): mixed
     {
@@ -57,8 +53,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $title
-     *
-     * @return mixed
+
      */
     public function findByTitle($title): mixed
     {
@@ -111,8 +106,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $uid
-     *
-     * @return mixed
+
      */
     public function getUserWishes($uid): mixed
     {
@@ -121,8 +115,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-     *
-     * @return mixed
+
      */
     public function delete($id): mixed
     {

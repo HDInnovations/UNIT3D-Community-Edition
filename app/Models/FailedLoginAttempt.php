@@ -35,8 +35,7 @@ class FailedLoginAttempt extends Model
      * @param $user
      * @param $username
      * @param $ip
-     *
-     * @return mixed
+
      */
     public static function record($user, $username, $ip): mixed
     {

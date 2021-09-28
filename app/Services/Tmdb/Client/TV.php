@@ -107,9 +107,6 @@ class TV
         return $this->data['last_episode_to_air'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
@@ -145,17 +142,11 @@ class TV
         return $this->data['original_language'];
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_original_name(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
     }
 
-    /**
-     * @return mixed[]|string|null
-     */
     public function get_overview(): array|string|null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);

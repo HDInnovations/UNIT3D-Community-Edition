@@ -42,8 +42,7 @@ class AutoPreWarning extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
+
      */
     public function handle(): void
     {

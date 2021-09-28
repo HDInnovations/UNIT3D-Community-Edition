@@ -97,8 +97,7 @@ class VendorCleanup extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
+
      */
     public function handle(): void
     {
@@ -150,9 +149,7 @@ class VendorCleanup extends Command
 
     /**
      * Recursively traverses the directory tree.
-     *
-     *
-     * @return mixed[]
+
      */
     protected function expandDirectoryTree(string $dir): array
     {
