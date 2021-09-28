@@ -17,26 +17,23 @@ use Assada\Achievements\Achievement;
 
 class UserFilled25Requests extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public $name = 'Filled25Requests';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public $description = 'Congrats! You have already filled 25 requests!';
 
-    /*
-     * The amount of "points" this user need to obtain in order to complete this achievement
-     */
     /**
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     *
      * @var int
      */
     public $points = 25;

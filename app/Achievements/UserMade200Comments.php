@@ -17,26 +17,23 @@ use Assada\Achievements\Achievement;
 
 class UserMade200Comments extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public $name = '200Comments';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public $description = 'Wow! You have already made 200 comments!';
 
-    /*
-     * The amount of "points" this user need to obtain in order to complete this achievement
-     */
     /**
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     *
      * @var int
      */
     public $points = 200;

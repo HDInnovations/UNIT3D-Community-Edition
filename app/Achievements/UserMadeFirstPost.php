@@ -17,18 +17,16 @@ use Assada\Achievements\Achievement;
 
 class UserMadeFirstPost extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public $name = 'FirstPost';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public $description = 'Congratulations! You have made your first post!';
