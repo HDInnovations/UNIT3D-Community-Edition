@@ -151,7 +151,7 @@ class TorrentRequest extends Model
     public function notifyRequester($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(\auth()->user(), $user, 'request', (bool)'show_request_comment')) {
+        if ($user->acceptsNotification(\auth()->user(), $user, 'request', (bool) 'show_request_comment')) {
             $user->notify(new NewComment('request', $payload));
 
             return true;
