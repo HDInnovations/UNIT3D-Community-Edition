@@ -35,7 +35,6 @@ class NoteController extends Controller
 
     /**
      * Store A New User Note.
-
      */
     public function store(Request $request, string $username)
     {

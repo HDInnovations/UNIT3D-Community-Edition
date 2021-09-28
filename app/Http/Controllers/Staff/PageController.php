@@ -43,7 +43,6 @@ class PageController extends Controller
 
     /**
      * Store A New Page.
-
      */
     public function store(Request $request)
     {
@@ -81,7 +80,6 @@ class PageController extends Controller
 
     /**
      * Edit A Page.
-
      */
     public function update(Request $request, int $id)
     {

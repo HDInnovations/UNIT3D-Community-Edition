@@ -34,7 +34,6 @@ class ImageController extends Controller
 
     /**
      * Store A New Image.
-
      */
     public function store(Request $request)
     {

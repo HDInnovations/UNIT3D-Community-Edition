@@ -53,7 +53,6 @@ class ChatBotController extends Controller
 
     /**
      * Update the specified Bot resource in storage.
-
      */
     public function update(Request $request, int $id)
     {

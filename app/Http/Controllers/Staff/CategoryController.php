@@ -44,7 +44,6 @@ class CategoryController extends Controller
 
     /**
      * Store A Category.
-
      */
     public function store(Request $request)
     {
@@ -104,7 +103,6 @@ class CategoryController extends Controller
 
     /**
      * Update A Category.
-
      */
     public function update(Request $request, int $id)
     {

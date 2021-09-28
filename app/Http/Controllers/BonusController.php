@@ -417,7 +417,6 @@ class BonusController extends Controller
 
     /**
      * Tip Points To A Poster.
-
      */
     public function tipPoster(Request $request)
     {

@@ -91,7 +91,6 @@ class InternalController extends Controller
 
     /**
      * Store A New Internal Group.
-
      */
     public function store(Request $request)
     {

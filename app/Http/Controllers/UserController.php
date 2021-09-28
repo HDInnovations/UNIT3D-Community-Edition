@@ -170,7 +170,6 @@ class UserController extends Controller
 
     /**
      * Edit User Profile.
-
      */
     public function editProfile(Request $request, string $username)
     {
@@ -232,7 +231,6 @@ class UserController extends Controller
 
     /**
      * Change User Account Settings.
-
      */
     public function changeSettings(Request $request, string $username)
     {
@@ -337,7 +335,6 @@ class UserController extends Controller
 
     /**
      * User Email Change.
-
      */
     protected function changeEmail(Request $request, string $username)
     {

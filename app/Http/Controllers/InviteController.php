@@ -128,7 +128,6 @@ class InviteController extends Controller
 
     /**
      * Resend Invite.
-
      */
     public function send(Request $request, int $id)
     {

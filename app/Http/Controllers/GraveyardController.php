@@ -32,7 +32,6 @@ class GraveyardController extends Controller
 
     /**
      * Resurrect A Torrent.
-
      */
     public function store(Request $request, int $id)
     {

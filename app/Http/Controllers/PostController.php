@@ -45,7 +45,6 @@ class PostController extends Controller
 
     /**
      * Store A New Post To A Topic.
-
      */
     public function reply(Request $request, int $id)
     {

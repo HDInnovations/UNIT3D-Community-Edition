@@ -26,7 +26,6 @@ class FollowController extends Controller
 {
     /**
      * Follow A User.
-
      */
     public function store(Request $request, string $username)
     {

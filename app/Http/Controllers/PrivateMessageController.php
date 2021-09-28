@@ -103,7 +103,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Create A Message.
-
      */
     public function sendPrivateMessage(Request $request)
     {
@@ -158,7 +157,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Reply To A Message.
-
      */
     public function replyPrivateMessage(Request $request, int $id)
     {

@@ -33,7 +33,6 @@ class ReportController extends Controller
 
     /**
      * Create A Request Report.
-
      */
     public function request(Request $request, int $id)
     {
@@ -67,7 +66,6 @@ class ReportController extends Controller
 
     /**
      * Create A Torrent Report.
-
      */
     public function torrent(Request $request, int $id)
     {
@@ -101,7 +99,6 @@ class ReportController extends Controller
 
     /**
      * Create A User Report.
-
      */
     public function user(Request $request, int $username)
     {

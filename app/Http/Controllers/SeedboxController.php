@@ -38,7 +38,6 @@ class SeedboxController extends Controller
 
     /**
      * Store A Seedbox.
-
      */
     protected function store(Request $request)
     {

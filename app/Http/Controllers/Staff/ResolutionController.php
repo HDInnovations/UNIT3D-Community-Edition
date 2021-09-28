@@ -40,7 +40,6 @@ class ResolutionController extends Controller
 
     /**
      * Store A New Resolution.
-
      */
     public function store(Request $request)
     {

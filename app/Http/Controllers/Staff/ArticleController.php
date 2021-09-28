@@ -44,7 +44,6 @@ class ArticleController extends Controller
 
     /**
      * Store A New Article.
-
      */
     public function store(Request $request)
     {
@@ -95,7 +94,6 @@ class ArticleController extends Controller
 
     /**
      * Edit A Article.
-
      */
     public function update(Request $request, int $id)
     {

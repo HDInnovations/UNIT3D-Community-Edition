@@ -73,7 +73,6 @@ class UserController extends Controller
 
     /**
      * Edit A User.
-
      */
     public function edit(Request $request, string $username)
     {

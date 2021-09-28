@@ -44,7 +44,6 @@ class ChatStatusController extends Controller
 
     /**
      * Store A New Chat Status.
-
      */
     public function store(Request $request)
     {
@@ -72,7 +71,6 @@ class ChatStatusController extends Controller
 
     /**
      * Update A Chat Status.
-
      */
     public function update(Request $request, int $id)
     {

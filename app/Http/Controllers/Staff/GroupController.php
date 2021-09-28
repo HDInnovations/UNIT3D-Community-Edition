@@ -51,7 +51,6 @@ class GroupController extends Controller
 
     /**
      * Store A New Group.
-
      */
     public function store(Request $request)
     {

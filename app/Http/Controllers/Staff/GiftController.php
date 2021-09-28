@@ -33,7 +33,6 @@ class GiftController extends Controller
 
     /**
      * Send The Gift.
-
      */
     public function store(Request $request)
     {

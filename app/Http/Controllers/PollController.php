@@ -61,7 +61,6 @@ class PollController extends Controller
 
     /**
      * Vote On A Poll.
-
      */
     public function vote(VoteOnPoll $voteOnPoll)
     {

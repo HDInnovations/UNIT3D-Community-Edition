@@ -43,7 +43,6 @@ class TypeController extends Controller
 
     /**
      * Store A New Type.
-
      */
     public function store(Request $request)
     {
@@ -81,7 +80,6 @@ class TypeController extends Controller
 
     /**
      * Edit A Type.
-
      */
     public function update(Request $request, int $id)
     {

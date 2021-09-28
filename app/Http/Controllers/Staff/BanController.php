@@ -84,7 +84,6 @@ class BanController extends Controller
 
     /**
      * Unban A User (banned -> new_group).
-
      */
     public function update(Request $request, string $username)
     {

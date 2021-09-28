@@ -45,7 +45,6 @@ class ChatRoomController extends Controller
 
     /**
      * Store A New Chatroom.
-
      */
     public function store(Request $request)
     {
@@ -69,7 +68,6 @@ class ChatRoomController extends Controller
 
     /**
      * Update A Chatroom.
-
      */
     public function update(Request $request, int $id)
     {

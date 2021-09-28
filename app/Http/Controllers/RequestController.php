@@ -119,7 +119,6 @@ class RequestController extends Controller
 
     /**
      * Store A New Torrent Request.
-
      */
     public function addrequest(Request $request)
     {
@@ -225,7 +224,6 @@ class RequestController extends Controller
 
     /**
      * Edit A Torrent Request.
-
      */
     public function editrequest(Request $request, int $id)
     {
@@ -294,7 +292,6 @@ class RequestController extends Controller
 
     /**
      * Add Bounty To A Torrent Request.
-
      */
     public function addBonus(Request $request, int $id)
     {
@@ -356,7 +353,6 @@ class RequestController extends Controller
 
     /**
      * Fill A Torrent Request.
-
      */
     public function fillRequest(Request $request, int $id)
     {
@@ -399,7 +395,6 @@ class RequestController extends Controller
 
     /**
      * Approve A Torrent Request.
-
      */
     public function approveRequest(Request $request, int $id)
     {
@@ -473,7 +468,6 @@ class RequestController extends Controller
 
     /**
      * Reject A Torrent Request.
-
      */
     public function rejectRequest(Request $request, int $id)
     {

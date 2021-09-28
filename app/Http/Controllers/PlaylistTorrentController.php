@@ -24,7 +24,6 @@ class PlaylistTorrentController extends Controller
 {
     /**
      * Attach A Torrent To A Playlist.
-
      */
     public function store(Request $request)
     {

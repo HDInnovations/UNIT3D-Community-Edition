@@ -155,7 +155,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Article.
-
      */
     public function article(Request $request, int $id)
     {
@@ -254,7 +253,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Playlist.
-
      */
     public function playlist(Request $request, int $id)
     {
@@ -353,7 +351,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent.
-
      */
     public function torrent(Request $request, int $id)
     {
@@ -457,7 +454,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-
      */
     public function request(Request $request, int $id)
     {
@@ -561,7 +557,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-
      */
     public function ticket(Request $request, int $id)
     {
@@ -610,7 +605,6 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
-
      */
     public function quickthanks(Request $request, int $id)
     {

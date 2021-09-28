@@ -114,7 +114,6 @@ class TopicController extends Controller
 
     /**
      * Create A New Topic In The Forum.
-
      */
     public function newTopic(Request $request, int $id)
     {
