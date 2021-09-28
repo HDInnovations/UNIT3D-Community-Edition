@@ -17,27 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Type.
- *
- * @property int    $id
- * @property string $name
- * @property string $slug
- * @property int    $position
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
- * @property-read int|null $requests_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
- * @property-read int|null $torrents_count
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type wherePosition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereSlug($value)
- * @mixin \Eloquent
- */
 class Type extends Model
 {
     use HasFactory;

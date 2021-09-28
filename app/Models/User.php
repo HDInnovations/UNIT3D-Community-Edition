@@ -115,9 +115,9 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $torrentId
+     * User Bookmarked Torrent.
      */
-    public function isBookmarked($torrentId): bool
+    public function isBookmarked(int $torrentId): bool
     {
         return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
     }
@@ -504,7 +504,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->block_notifications && $target->block_notifications == 1) {
+        if ($target->block_notifications && $target->block_notifications === 1) {
             return false;
         }
 
@@ -514,7 +514,7 @@ class User extends Authenticatable
 
         if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
+                return $target->notification->$targetGroup['default_groups'][$sender->group->id] === 1;
             }
 
             return true;
@@ -530,7 +530,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
-        if ($sender->id == $target->id) {
+        if ($sender->id === $target->id) {
             return true;
         }
 
@@ -538,17 +538,17 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden && $target->hidden == 1) {
+        if ($target->hidden && $target->hidden === 1) {
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type === 0)) {
             return false;
         }
 
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] === 1;
             }
 
             return true;
@@ -564,7 +564,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
-        if ($sender->id == $target->id) {
+        if ($sender->id === $target->id) {
             return true;
         }
 
@@ -572,17 +572,17 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->private_profile && $target->private_profile == 1) {
+        if ($target->private_profile && $target->private_profile === 1) {
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type === 0)) {
             return false;
         }
 
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] === 1;
             }
 
             return true;
@@ -593,10 +593,8 @@ class User extends Authenticatable
 
     /**
      * Does Subscription Exist.
-     *
-     * @param $topicId
      */
-    public function isSubscribed(string $type, $topicId): bool
+    public function isSubscribed(string $type, int $topicId): bool
     {
         if ($type === 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
@@ -607,20 +605,16 @@ class User extends Authenticatable
 
     /**
      * Get All Followers Of A User.
-     *
-     * @param $targetId
      */
-    public function isFollowing($targetId): bool
+    public function isFollowing(int $targetId): bool
     {
         return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
 
     /**
      * Return Upload In Human Format.
-     *
-     * @param null $bytes
      */
-    public function getUploaded($bytes = null, int $precision = 2): string
+    public function getUploaded(int $precision = 2): string
     {
         $bytes = $this->uploaded;
 
@@ -633,10 +627,8 @@ class User extends Authenticatable
 
     /**
      * Return Download In Human Format.
-     *
-     * @param null $bytes
      */
-    public function getDownloaded($bytes = null, int $precision = 2): string
+    public function getDownloaded(int $precision = 2): string
     {
         $bytes = $this->downloaded;
 
@@ -669,9 +661,8 @@ class User extends Authenticatable
         return (string) $ratio;
     }
 
-    // Return the ratio after $size bytes would be downloaded.
     /**
-     * @param $size
+     * Return the ratio after $size bytes would be downloaded.
      */
     public function ratioAfterSize($size): float
     {
@@ -682,10 +673,8 @@ class User extends Authenticatable
         return \round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
-    // Return the ratio after $size bytes would be downloaded, pretty formatted
-    // as a string.
     /**
-     * @param $size
+     * Return the ratio after $size bytes would be downloaded, pretty formatted as a string.
      */
     public function ratioAfterSizeString($size, bool $freeleech = false): string
     {
@@ -701,12 +690,8 @@ class User extends Authenticatable
         return (string) $ratio;
     }
 
-    // Return the size (pretty formated) which can be safely downloaded
-    // without falling under the minimum ratio.
     /**
-     * @param $ratio
-     *
-     * @return string|mixed
+     * Return the size (pretty formated) which can be safely downloaded without falling under the minimum ratio.
      */
     public function untilRatio($ratio): string
     {
@@ -729,8 +714,6 @@ class User extends Authenticatable
 
     /**
      * Returns the HTML of the user's signature.
-     *
-     * @return string html
      */
     public function getSignature(): string
     {
@@ -750,8 +733,6 @@ class User extends Authenticatable
 
     /**
      * Parse About Me And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml(): string
     {

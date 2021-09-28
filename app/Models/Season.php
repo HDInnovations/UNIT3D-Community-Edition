@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     /**
-     * @var mixed[]
+     * @var array
      */
     protected $guarded = [];
 
@@ -45,7 +45,7 @@ class Season extends Model
         return $this->belongsTo(Tv::class);
     }
 
-    public function episodes(): \Illuminate\Database\Query\Builder
+    public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episode::class)
             ->orderBy('episode_number');

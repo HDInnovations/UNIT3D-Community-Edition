@@ -20,33 +20,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
-/**
- * App\Models\Post.
- *
- * @property int                             $id
- * @property string                          $content
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int                             $user_id
- * @property int                             $topic_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
- * @property-read int|null $likes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
- * @property-read int|null $tips_count
- * @property-read \App\Models\Topic $topic
- * @property-read \App\Models\User $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereTopicId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
- * @mixin \Eloquent
- */
 class Post extends Model
 {
     use HasFactory;
@@ -74,7 +47,7 @@ class Post extends Model
     /**
      * A Post Has Many Likes.
      */
-    public function likes(): \Illuminate\Database\Eloquent\Builder
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('like', '=', 1);
     }
@@ -82,7 +55,7 @@ class Post extends Model
     /**
      * A Post Has Many Dislikes.
      */
-    public function dislikes(): \Illuminate\Database\Eloquent\Builder
+    public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('dislike', '=', 1);
     }
@@ -105,8 +78,6 @@ class Post extends Model
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml(): string
     {
@@ -118,9 +89,6 @@ class Post extends Model
 
     /**
      * Post Trimming.
-     *
-     *
-     * @return string Formatted And Trimmed Content
      */
     public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {

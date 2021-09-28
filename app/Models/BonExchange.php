@@ -17,31 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\BonExchange.
- *
- * @property int         $id
- * @property string|null $description
- * @property int         $value
- * @property int         $cost
- * @property bool        $upload
- * @property bool        $download
- * @property bool        $personal_freeleech
- * @property bool        $invite
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereCost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDownload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereInvite($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange wherePersonalFreeleech($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereUpload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
- * @mixin \Eloquent
- */
 class BonExchange extends Model
 {
     use HasFactory;
@@ -75,8 +50,6 @@ class BonExchange extends Model
 
     /**
      * @method getDownloadOptions
-     *
-     * @return mixed[]
      */
     public function getDownloadOptions(): array
     {
@@ -87,8 +60,6 @@ class BonExchange extends Model
 
     /**
      * @method getUploadOptions
-     *
-     * @return mixed[]
      */
     public function getUploadOptions(): array
     {
@@ -99,8 +70,6 @@ class BonExchange extends Model
 
     /**
      * @method getPersonalFreeleechOption
-     *
-     * @return mixed[]
      */
     public function getPersonalFreeleechOption(): array
     {
@@ -111,8 +80,6 @@ class BonExchange extends Model
 
     /**
      * @method getInviteOption
-     *
-     * @return mixed[]
      */
     public function getInviteOption(): array
     {
@@ -123,10 +90,8 @@ class BonExchange extends Model
 
     /**
      * @method getItemCost
-     *
-     * @param $id
      */
-    public function getItemCost($id): int
+    public function getItemCost(int $id): int
     {
         return self::where('id', '=', $id)
             ->get()

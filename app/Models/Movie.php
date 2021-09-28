@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     /**
-     * @var mixed[]
+     * @var array
      */
     protected $guarded = [];
 
@@ -52,7 +52,7 @@ class Movie extends Model
         return $this->belongsToMany(Company::class);
     }
 
-    public function collection(): \Illuminate\Database\Query\Builder
+    public function collection(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Collection::class)->take(1);
     }

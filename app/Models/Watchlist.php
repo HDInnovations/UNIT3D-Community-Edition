@@ -25,8 +25,6 @@ class Watchlist extends Model
      */
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        // Not needed yet but may use this soon.
-
         return $this->belongsTo(User::class, 'staff_id', 'id')->withDefault([
             'username' => 'System',
             'id'       => '1',

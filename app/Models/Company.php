@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     /**
-     * @var mixed[]
+     * @var array
      */
     protected $guarded = [];
 

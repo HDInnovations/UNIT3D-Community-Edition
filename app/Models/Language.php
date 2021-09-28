@@ -21,9 +21,6 @@ class Language
 
     /**
      * Get single flags view.
-     *
-     *
-     * @return mixed
      */
     public static function flag(string $code = 'default'): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
@@ -39,9 +36,6 @@ class Language
 
     /**
      * Get country code based on locale.
-     *
-     *
-     * @return mixed
      */
     public static function country(string $locale = 'default'): string
     {
@@ -49,7 +43,7 @@ class Language
             $locale = \app()->getLocale();
         }
 
-        if (\config('language.mode.code', 'short') == 'short') {
+        if (\config('language.mode.code', 'short') === 'short') {
             return \strtolower(\substr(self::getLongCode($locale), 3));
         }
 
@@ -58,8 +52,6 @@ class Language
 
     /**
      * Get all flags view.
-     *
-     * @return mixed
      */
     public static function flags(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
@@ -69,8 +61,6 @@ class Language
     /**
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
-     *
-     * @param null $locale
      */
     public static function allowed($locale = null): bool|array
     {
@@ -87,11 +77,6 @@ class Language
 
     /**
      * Add names to an array of language codes as [$code => $language].
-     *
-     *
-     * @param mixed[] $codes
-     *
-     * @return array<int|string, mixed>
      */
     public static function names(array $codes): array
     {
@@ -121,11 +106,6 @@ class Language
 
     /**
      * Add names to an array of language codes as [$language => $code].
-     *
-     *
-     * @param mixed[] $langs
-     *
-     * @return array<int|string, mixed>
      */
     public static function codes(array $langs): array
     {

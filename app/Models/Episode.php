@@ -18,26 +18,26 @@ use Illuminate\Database\Eloquent\Model;
 class Episode extends Model
 {
     /**
-     * @var mixed[]
+     * @var array
      */
     protected $guarded = [];
 
     /**
      * @var string
      */
-    protected $orderBy = 'order';
+    protected string $orderBy = 'order';
 
     /**
      * @var string
      */
-    protected $orderDirection = 'ASC';
+    protected string $orderDirection = 'ASC';
 
     /**
      * @var string
      */
     public $table = 'episodes';
 
-    public function season(): \Illuminate\Database\Query\Builder
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class)
             ->orderBy('season_id')
@@ -49,7 +49,7 @@ class Episode extends Model
         return $this->belongsToMany(Person::class);
     }
 
-    public function cast(): \Illuminate\Database\Query\Builder
+    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cast::class)
             ->orderBy('order');
