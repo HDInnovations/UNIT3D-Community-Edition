@@ -16,6 +16,7 @@ namespace App\Http\Middleware;
 use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class SetLanguage
@@ -81,11 +82,8 @@ class SetLanguage
 
     /**
      * Handle an incoming request.
-     *
-     *
-     * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

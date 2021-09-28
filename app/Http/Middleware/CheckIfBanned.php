@@ -15,24 +15,21 @@ namespace App\Http\Middleware;
 
 use App\Models\Group;
 use Closure;
+use Illuminate\Http\Request;
 
 class CheckIfBanned
 {
     /**
      * Handle an incoming request.
      *
-     * @param string|null $guard
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, string|null $guard = null)
     {
         $user = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->group_id == $bannedGroup[0]) {
+        if ($user && $user->group_id === $bannedGroup[0]) {
             \auth()->logout();
             $request->session()->flush();
 

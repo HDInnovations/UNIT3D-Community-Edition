@@ -393,9 +393,6 @@ class TorrentListSearch extends Component
             ->paginate($this->perPage);
     }
 
-    /**
-     * @return string[]
-     */
     private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);

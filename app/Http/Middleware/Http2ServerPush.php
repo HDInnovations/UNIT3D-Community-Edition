@@ -38,14 +38,8 @@ class Http2ServerPush
 
     /**
      * Handle an incoming request.
-     *
-     * @param null $limit
-     * @param null $sizeLimit
-     * @param null $excludeKeywords
-     *
-     * @return mixed|\Illuminate\Http\Response
      */
-    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null): mixed
     {
         $response = $next($request);
 
@@ -58,10 +52,7 @@ class Http2ServerPush
         return $response;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getConfig($key, $default = false)
+    public function getConfig($key, $default = false): mixed
     {
         if (! \function_exists('config')) { // for tests..
             return $default;
@@ -70,13 +61,6 @@ class Http2ServerPush
         return \config('http2serverpush.'.$key, $default);
     }
 
-    /**
-     * @param null $limit
-     * @param null $sizeLimit
-     * @param null $excludeKeywords
-     *
-     * @return $this
-     */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null): static
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
@@ -114,11 +98,8 @@ class Http2ServerPush
 
     /**
      * Get the DomCrawler instance.
-     *
-     *
-     * @return \Symfony\Component\DomCrawler\Crawler|mixed
      */
-    protected function getCrawler(Response $response)
+    protected function getCrawler(Response $response): Crawler
     {
         if ($this->crawler) {
             return $this->crawler;

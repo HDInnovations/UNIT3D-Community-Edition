@@ -14,16 +14,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class CheckForOwner
 {
     /**
      * Handle an incoming request.
-     *
-     *
-     * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         \abort_unless($request->user()->group->is_owner, 403);
 
