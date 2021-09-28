@@ -57,6 +57,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 

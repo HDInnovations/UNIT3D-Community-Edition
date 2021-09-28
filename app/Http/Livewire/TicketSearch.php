@@ -22,10 +22,15 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
+
     public $show = false;
+
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'updated_at';
+
     public $sortDirection = 'desc';
 
     protected $queryString = [
@@ -94,6 +99,7 @@ class TicketSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

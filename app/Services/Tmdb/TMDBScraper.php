@@ -33,6 +33,7 @@ class TMDBScraper implements ShouldQueue
      * @var mixed|mixed[]|string|null
      */
     public $id;
+
     use SerializesModels;
 
     public function __construct(Request $request = null)

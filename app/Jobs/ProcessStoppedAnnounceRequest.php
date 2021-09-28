@@ -71,6 +71,7 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
                 $ghost = true;
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 
@@ -147,6 +148,7 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
             $diff = $newUpdate - $oldUpdate;
             $history->seedtime += $diff;
         }
+
         $history->save();
         // End History Update
 

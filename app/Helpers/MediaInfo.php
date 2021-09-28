@@ -48,6 +48,7 @@ class MediaInfo
                 $section = $line;
                 $output[$section] = [];
             }
+
             if (isset($section)) {
                 $output[$section][] = $line;
             }
@@ -88,6 +89,7 @@ class MediaInfo
                 $property = \strtolower(\trim($info[0]));
                 $value = \trim($info[1]);
             }
+
             if ($property && $value) {
                 switch (\strtolower($section)) {
                     case 'general':

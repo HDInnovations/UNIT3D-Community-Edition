@@ -34,11 +34,14 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
+
     protected const REJECTED = 2;
+
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 2_400;
+
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -507,6 +510,7 @@ class AnnounceController extends Controller
 
             return $pcomp;
         }
+
         if ($noPeerId) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);

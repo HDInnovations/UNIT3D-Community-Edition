@@ -62,6 +62,7 @@ class AutoHighspeedTag extends Command
                 unset($torrent);
             }
         }
+
         $this->comment('Automated High Speed Torrents Command Complete');
     }
 }

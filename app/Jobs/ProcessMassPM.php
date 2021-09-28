@@ -26,10 +26,12 @@ class ProcessMassPM implements ShouldQueue
      * @var mixed
      */
     public $sender_id;
+
     /**
      * @var mixed
      */
     public $receiver_id;
+
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;

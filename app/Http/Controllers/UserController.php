@@ -212,6 +212,7 @@ class UserController extends Controller
                                 ->withErrors('Because you are uploading a GIF, your avatar must be square!');
                         }
                     }
+
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
                     return \redirect()->route('users.show', ['username' => $user->username])
@@ -219,6 +220,7 @@ class UserController extends Controller
                 }
             }
         }
+
         // Define data
         $user->title = $request->input('title');
         $user->about = $request->input('about');
@@ -271,6 +273,7 @@ class UserController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
+
         $user->custom_css = $customCss;
 
         $standaloneCss = $request->input('standalone_css');
@@ -278,6 +281,7 @@ class UserController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
+
         $user->standalone_css = $standaloneCss;
 
         $user->nav = $request->input('sidenav');
@@ -385,6 +389,7 @@ class UserController extends Controller
             return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
         }
+
         $user->email = $request->input('email');
         $user->save();
 
@@ -555,12 +560,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_other_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
@@ -588,12 +595,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_request_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
@@ -621,12 +630,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_achievement_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
@@ -654,12 +665,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_forum_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
@@ -688,12 +701,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_follower_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
@@ -721,12 +736,14 @@ class UserController extends Controller
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
         }
+
         $approved = $request->input('approved');
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_torrent_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
         $privacy->show_download = ($request->input('show_download') && $request->input('show_download') == 1 ? 1 : 0);
@@ -766,6 +783,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_account_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
@@ -801,6 +819,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_following_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
@@ -835,6 +854,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_bon_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
@@ -869,6 +889,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_subscription_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
@@ -904,6 +925,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_request_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
         $notification->show_request_bounty = ($request->input('show_request_bounty') && $request->input('show_request_bounty') == 1 ? 1 : 0);
@@ -944,6 +966,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_torrent_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
         $notification->show_torrent_thank = ($request->input('show_torrent_thank') && $request->input('show_torrent_thank') == 1 ? 1 : 0);
@@ -980,6 +1003,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_mention_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
         $notification->show_mention_request_comment = ($request->input('show_mention_request_comment') && $request->input('show_mention_request_comment') == 1 ? 1 : 0);
@@ -1018,6 +1042,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $notification->json_forum_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
@@ -1052,6 +1077,7 @@ class UserController extends Controller
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
+
         $privacy->json_profile_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
         $privacy->show_profile_torrent_ratio = ($request->input('show_profile_torrent_ratio') && $request->input('show_profile_torrent_ratio') == 1 ? 1 : 0);
@@ -1170,33 +1196,43 @@ class UserController extends Controller
                 if ($request->has('dying') && $request->input('dying') != null) {
                     $query->orWhereRaw('(torrents.seeders = ? AND torrents.times_completed > ?)', [1, 2]);
                 }
+
                 if ($request->has('legendary') && $request->input('legendary') != null) {
                     $query->orWhereRaw('(torrents.created_at < date_sub(now(), interval 12 month))', []);
                 }
+
                 if ($request->has('old') && $request->input('old') != null) {
                     $query->orWhereRaw('(torrents.created_at < date_sub(now(), Interval 6 month) and torrents.created_at > date_sub(now(), interval 12 month))', []);
                 }
+
                 if ($request->has('huge') && $request->input('huge') != null) {
                     $query->orWhereRaw('(torrents.size > (1073741824 * 100))', []);
                 }
+
                 if ($request->has('large') && $request->input('large') != null) {
                     $query->orWhereRaw('(torrents.size > (1073741824 * 25) and torrents.size < (1073741824 * 100))', []);
                 }
+
                 if ($request->has('everyday') && $request->input('everyday') != null) {
                     $query->orWhereRaw('(torrents.size > (1073741824) and torrents.size < (1073741824 * 25))', []);
                 }
+
                 if ($request->has('participant_seeder') && $request->input('participant_seeder') != null) {
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000) and history.seedtime < (2592000 * 2))', []);
                 }
+
                 if ($request->has('teamplayer_seeder') && $request->input('teamplayer_seeder') != null) {
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 2) and history.seedtime < (2592000 * 3))', []);
                 }
+
                 if ($request->has('committed_seeder') && $request->input('committed_seeder') != null) {
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 3) and history.seedtime < (2592000 * 6))', []);
                 }
+
                 if ($request->has('mvp_seeder') && $request->input('mvp_seeder') != null) {
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 6) and history.seedtime < (2592000 * 12))', []);
                 }
+
                 if ($request->has('legendary_seeder') && $request->input('legendary_seeder') != null) {
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 12))', []);
                 }
@@ -1204,17 +1240,21 @@ class UserController extends Controller
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'seedtime') {
@@ -1233,6 +1273,7 @@ class UserController extends Controller
                 'seeds' => $table,
             ])->render();
         }
+
         if ($request->has('view') && $request->input('view') == 'requests') {
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
@@ -1240,6 +1281,7 @@ class UserController extends Controller
             if ($request->has('name') && $request->input('name') != null) {
                 $torrentRequests->where('name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('filled') && $request->input('filled') != null) {
                 $torrentRequests->whereNotNull('filled_by')
                     ->whereNotNull('filled_hash')
@@ -1247,6 +1289,7 @@ class UserController extends Controller
                     ->whereNotNull('approved_by')
                     ->whereNotNull('approved_when');
             }
+
             if ($request->has('pending') && $request->input('pending') != null) {
                 $torrentRequests->whereNotNull('filled_by')
                     ->whereNotNull('filled_hash')
@@ -1254,25 +1297,31 @@ class UserController extends Controller
                     ->whereNull('approved_by')
                     ->whereNull('approved_when');
             }
+
             if ($request->has('claimed') && $request->input('claimed') != null) {
                 $torrentRequests->where('claimed', '=', 1);
             }
+
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
                 $torrentRequests->where(function ($query) {
                     $query->whereNull('filled_by')->orWhereNull('filled_hash')->orWhereNull('approved_by');
                 });
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
             if ($sorting == 'date') {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
@@ -1293,23 +1342,29 @@ class UserController extends Controller
             if ($request->has('rewarded') && $request->input('rewarded') != null) {
                 $history->where('graveyard.rewarded', '=', 1);
             }
+
             if ($request->has('notrewarded') && $request->input('notrewarded') != null) {
                 $history->where('graveyard.rewarded', '=', 0);
             }
+
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'goal') {
@@ -1338,23 +1393,29 @@ class UserController extends Controller
             if ($request->has('seeding') && $request->input('seeding') != null) {
                 $history->where('peers.seeder', '=', 1);
             }
+
             if ($request->has('leeching') && $request->input('leeching') != null) {
                 $history->where('peers.seeder', '=', 0)->where('peers.left', '>', 0);
             }
+
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
@@ -1381,6 +1442,7 @@ class UserController extends Controller
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
                     ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.enabled') == true ? (\config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
             }
+
             $order = null;
             $sorting = null;
 
@@ -1389,17 +1451,21 @@ class UserController extends Controller
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('error') && $request->input('error') != null) {
@@ -1418,6 +1484,7 @@ class UserController extends Controller
                 } elseif ($order == 'asc') {
                     $order = 'desc';
                 }
+
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             } else {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
@@ -1441,6 +1508,7 @@ class UserController extends Controller
                 if ($request->has('satisfied') && $request->input('satisfied') != null) {
                     $query->orWhereRaw('(history.seedtime >= ? or history.immune = 1)', [\config('hitrun.seedtime')]);
                 }
+
                 if ($request->has('notsatisfied') && $request->input('notsatisfied') != null) {
                     $query->orWhereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')]);
                 }
@@ -1448,17 +1516,21 @@ class UserController extends Controller
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('completed') && $request->input('completed') != null) {
@@ -1506,9 +1578,11 @@ class UserController extends Controller
             if ($request->has('pending') && $request->input('pending') != null) {
                 $history->whereRaw('(torrents.status) = ?', [0]);
             }
+
             if ($request->has('approved') && $request->input('approved') != null) {
                 $history->whereRaw('(torrents.status) = ?', [1]);
             }
+
             if ($request->has('rejected') && $request->input('rejected') != null) {
                 $history->whereRaw('(torrents.status) = ?', [2]);
             }
@@ -1517,12 +1591,15 @@ class UserController extends Controller
                 if ($request->has('dead') && $request->input('dead') != null) {
                     $query->orWhereRaw('(torrents.seeders+torrents.leechers) = ?', [0]);
                 }
+
                 if ($request->has('alive') && $request->input('alive') != null) {
                     $query->orWhereRaw('torrents.seeders >= ?', [1]);
                 }
+
                 if ($request->has('reseed') && $request->input('reseed') != null) {
                     $query->orWhereRaw('(torrents.seeders = ?) AND (torrents.leechers >= ?)', [0, 1]);
                 }
+
                 if ($request->has('error') && $request->input('error') != null) {
                     $query->orWhereRaw('(torrents.seeders = ?) AND (torrents.leechers = ?)', [0, 0]);
                 }
@@ -1531,17 +1608,21 @@ class UserController extends Controller
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
+
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting == 'tipped' || $sorting == 'thanked') {
@@ -1564,14 +1645,17 @@ class UserController extends Controller
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
+
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
+
             if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
+
             $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('name') && $request->input('name') != null) {
@@ -1654,6 +1738,7 @@ class UserController extends Controller
                 'his_downl_cre' => $hisDownlCre,
             ]);
         }
+
         $logger = 'user.downloads';
         if (\config('hitrun.enabled') == true) {
             $downloads = History::with(['torrent' => function ($query) {
@@ -1698,6 +1783,7 @@ class UserController extends Controller
                 'torrentRequests' => $torrentRequests,
             ]);
         }
+
         $logger = 'user.requests';
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
@@ -1829,6 +1915,7 @@ class UserController extends Controller
                 'his_downl_cre' => $hisDownlCre,
             ]);
         }
+
         $logger = 'user.uploads';
         $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
 
@@ -1990,11 +2077,13 @@ class UserController extends Controller
                     $zipArchive->addFile(\getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
+
             if ($failCount > 0) {
                 $CSVtmpName = \sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
                 \file_put_contents(\getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
                 $zipArchive->addFile(\getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
+
             // Close ZipArchive
             $zipArchive->close();
         }
@@ -2057,6 +2146,7 @@ class UserController extends Controller
                 $history->active = false;
                 $history->save();
             }
+
             $peer->delete();
         }
 

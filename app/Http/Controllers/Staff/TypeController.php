@@ -64,6 +64,7 @@ class TypeController extends Controller
             return \redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
         }
+
         $type->save();
 
         return \redirect()->route('staff.types.index')
@@ -106,6 +107,7 @@ class TypeController extends Controller
             return \redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
         }
+
         $type->save();
 
         return \redirect()->route('staff.types.index')

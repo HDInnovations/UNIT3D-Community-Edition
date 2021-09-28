@@ -20,6 +20,7 @@ use Livewire\Component;
 class ThankButton extends Component
 {
     public $torrent;
+
     public $user;
 
     final public function mount($torrent): void

@@ -52,6 +52,7 @@ class StringHelper
             $minus = true;
             $bytes *= -1;
         }
+
         $suffix = 'B';
         $value = $bytes;
         if ($bytes >= self::PIB) {
@@ -100,30 +101,37 @@ class StringHelper
         if ($seconds == 0) {
             return 'N/A';
         }
+
         while ($seconds >= 31_536_000) {
             $years++;
             $seconds -= 31_536_000;
         }
+
         while ($seconds >= 2_592_000) {
             $months++;
             $seconds -= 2_592_000;
         }
+
         while ($seconds >= 604_800) {
             $weeks++;
             $seconds -= 604_800;
         }
+
         while ($seconds >= 86_400) {
             $days++;
             $seconds -= 86_400;
         }
+
         while ($seconds >= 3_600) {
             $hours++;
             $seconds -= 3_600;
         }
+
         while ($seconds >= 60) {
             $minutes++;
             $seconds -= 60;
         }
+
         $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
         $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
         $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');
@@ -154,30 +162,37 @@ class StringHelper
         if ($seconds == 0) {
             return 'N/A';
         }
+
         while ($seconds >= 31_536_000) {
             $years++;
             $seconds -= 31_536_000;
         }
+
         while ($seconds >= 2_592_000) {
             $months++;
             $seconds -= 2_592_000;
         }
+
         while ($seconds >= 604_800) {
             $weeks++;
             $seconds -= 604_800;
         }
+
         while ($seconds >= 86_400) {
             $days++;
             $seconds -= 86_400;
         }
+
         while ($seconds >= 3_600) {
             $hours++;
             $seconds -= 3_600;
         }
+
         while ($seconds >= 60) {
             $minutes++;
             $seconds -= 60;
         }
+
         $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
         $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
         $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');

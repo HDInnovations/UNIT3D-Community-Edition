@@ -68,6 +68,7 @@ class GraveyardController extends Controller
             return \redirect()->route('graveyard.index')
                 ->withErrors($v->errors());
         }
+
         $graveyard->save();
 
         return \redirect()->route('graveyard.index')

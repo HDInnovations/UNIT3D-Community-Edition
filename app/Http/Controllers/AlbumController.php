@@ -84,6 +84,7 @@ class AlbumController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $album->save();
 
         return \redirect()->route('albums.show', ['id' => $album->id])

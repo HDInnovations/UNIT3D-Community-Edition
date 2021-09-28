@@ -152,6 +152,7 @@ class PrivateMessageController extends Controller
             return \redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
         }
+
         $privateMessage->save();
         if ($dest == 'profile') {
             return \redirect()->route('users.show', ['username' => $recipient->username])
@@ -196,6 +197,7 @@ class PrivateMessageController extends Controller
             return \redirect()->route('inbox')
                 ->withErrors($v->errors());
         }
+
         $privateMessage->save();
 
         return \redirect()->route('inbox')

@@ -91,6 +91,7 @@ class TicketController extends Controller
             $ticket->user_read = 1;
             $ticket->save();
         }
+
         if ($user->id == $ticket->staff_id) {
             $ticket->staff_read = 1;
             $ticket->save();

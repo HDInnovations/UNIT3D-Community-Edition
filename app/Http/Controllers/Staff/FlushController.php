@@ -51,6 +51,7 @@ class FlushController extends Controller
                 $history->active = false;
                 $history->save();
             }
+
             $peer->delete();
         }
 

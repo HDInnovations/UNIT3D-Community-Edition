@@ -18,7 +18,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tv extends Model
 {
     protected $guarded = [];
+
     public $table = 'tv';
+
     protected $hidden = ['created_at', 'updated_at'];
 
     /**

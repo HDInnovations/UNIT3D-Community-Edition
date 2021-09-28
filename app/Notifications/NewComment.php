@@ -64,6 +64,7 @@ class NewComment extends Notification
                 'url'   => '/torrents/'.$this->comment->torrent->id,
             ];
         }
+
         if ($this->comment->anon == 0) {
             return [
                 'title' => 'New Request Comment Received',

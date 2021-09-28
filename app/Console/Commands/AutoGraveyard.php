@@ -91,6 +91,7 @@ class AutoGraveyard extends Command
                 $pm->save();
             }
         }
+
         $this->comment('Automated Graveyard Rewards Command Complete');
     }
 }

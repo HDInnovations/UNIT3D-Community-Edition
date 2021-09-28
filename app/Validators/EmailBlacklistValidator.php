@@ -96,6 +96,7 @@ class EmailBlacklistValidator
         if ($appendList === null) {
             return;
         }
+
         $appendDomains = \explode('|', \strtolower($appendList));
         $this->domains = \array_merge($this->domains, $appendDomains);
     }

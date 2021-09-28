@@ -87,66 +87,80 @@ class AutoSoftDeleteDisabledUsers extends Command
                     $tor->user_id = 1;
                     $tor->save();
                 }
+
                 // Removes UserID from Comments if any and replaces with System UserID (1)
                 foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
                     $com->user_id = 1;
                     $com->save();
                 }
+
                 // Removes UserID from Posts if any and replaces with System UserID (1)
                 foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
                     $post->user_id = 1;
                     $post->save();
                 }
+
                 // Removes UserID from Topic Creators if any and replaces with System UserID (1)
                 foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
                     $topic->first_post_user_id = 1;
                     $topic->save();
                 }
+
                 // Removes UserID from Topic if any and replaces with System UserID (1)
                 foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
                     $topic->last_post_user_id = 1;
                     $topic->save();
                 }
+
                 // Removes UserID from PM if any and replaces with System UserID (1)
                 foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
                     $sent->sender_id = 1;
                     $sent->save();
                 }
+
                 // Removes UserID from PM if any and replaces with System UserID (1)
                 foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
                     $received->receiver_id = 1;
                     $received->save();
                 }
+
                 // Removes all Posts made by User from the shoutbox
                 foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
                     $shout->delete();
                 }
+
                 // Removes all notes for user
                 foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
                     $note->delete();
                 }
+
                 // Removes all likes for user
                 foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
                     $like->delete();
                 }
+
                 // Removes all thanks for user
                 foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
                     $thank->delete();
                 }
+
                 // Removes all follows for user
                 foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
                     $follow->delete();
                 }
+
                 // Removes UserID from Sent Invites if any and replaces with System UserID (1)
                 foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
                     $sentInvite->user_id = 1;
                     $sentInvite->save();
                 }
+
                 // Removes UserID from Received Invite if any and replaces with System UserID (1)
                 foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
                     $receivedInvite->accepted_by = 1;
                     $receivedInvite->save();
                 }
+
                 // Removes all Peers for user
                 foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
                     $peer->delete();
@@ -155,6 +169,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->delete();
             }
         }
+
         $this->comment('Automated Soft Delete Disabled Users Command Complete');
     }
 }

@@ -16,6 +16,7 @@ if (! function_exists('appurl')) {
         return config('app.url');
     }
 }
+
 if (! function_exists('href_profile')) {
     function href_profile($user)
     {
@@ -24,6 +25,7 @@ if (! function_exists('href_profile')) {
         return sprintf('%s/users/%s', $appurl, $user->username);
     }
 }
+
 if (! function_exists('href_article')) {
     function href_article($article)
     {
@@ -32,6 +34,7 @@ if (! function_exists('href_article')) {
         return sprintf('%s/articles/%s', $appurl, $article->id);
     }
 }
+
 if (! function_exists('href_torrent')) {
     function href_torrent($torrent)
     {
@@ -40,6 +43,7 @@ if (! function_exists('href_torrent')) {
         return sprintf('%s/torrents/%s', $appurl, $torrent->id);
     }
 }
+
 if (! function_exists('href_request')) {
     function href_request($torrentRequest)
     {
@@ -48,6 +52,7 @@ if (! function_exists('href_request')) {
         return sprintf('%s/requests/%s', $appurl, $torrentRequest->id);
     }
 }
+
 if (! function_exists('href_poll')) {
     function href_poll($poll)
     {
@@ -56,6 +61,7 @@ if (! function_exists('href_poll')) {
         return sprintf('%s/polls/%s', $appurl, $poll->id);
     }
 }
+
 if (! function_exists('href_playlist')) {
     function href_playlist($playlist)
     {
@@ -64,6 +70,7 @@ if (! function_exists('href_playlist')) {
         return sprintf('%s/playlists/%s', $appurl, $playlist->id);
     }
 }
+
 if (! function_exists('href_collection')) {
     function href_collection($collection)
     {
@@ -72,6 +79,7 @@ if (! function_exists('href_collection')) {
         return sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
     }
 }
+
 if (! function_exists('tmdb_image')) {
     function tmdb_image($type, $original)
     {
@@ -93,12 +101,14 @@ if (! function_exists('tmdb_image')) {
         return \str_replace('/original/', '/'.$new.'/', $original);
     }
 }
+
 if (! function_exists('modal_style')) {
     function modal_style()
     {
         return (auth()->user()->style == 0) ? '' : ' modal-dark';
     }
 }
+
 if (! function_exists('rating_color')) {
     function rating_color($number)
     {
@@ -115,6 +125,7 @@ if (! function_exists('rating_color')) {
         }
     }
 }
+
 if (! function_exists('language_flag')) {
     function language_flag($language)
     {

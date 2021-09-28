@@ -55,11 +55,13 @@ trait Auditable
             if (\in_array($key, $modelDiscards, true)) {
                 unset($data[$key]);
             }
+
             // Check global discards
             if (! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
                 unset($data[$key]);
             }
         }
+
         // Return
         return $data;
     }
@@ -84,6 +86,7 @@ trait Auditable
                 if (empty($new)) {
                     throw new \ArgumentCountError('Action `create` expects new data.');
                 }
+
                 // Process
                 foreach ($new as $key => $value) {
                     $data[$key] = [
@@ -91,6 +94,7 @@ trait Auditable
                         'new' => $value,
                     ];
                 }
+
                 break;
             case 'update':
                 // Expect old and new data to be filled
@@ -104,12 +108,14 @@ trait Auditable
                         'new' => $value,
                     ];
                 }
+
                 break;
             case 'delete':
                 // Expect new data to be filled
                 if (empty($old)) {
                     throw new \ArgumentCountError('Action `delete` expects new data.');
                 }
+
                 // Process
                 foreach ($old as $key => $value) {
                     $data[$key] = [
@@ -117,6 +123,7 @@ trait Auditable
                         'new' => null,
                     ];
                 }
+
                 break;
         }
 

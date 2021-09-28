@@ -124,6 +124,7 @@ class ChatRepository
         if ($user->censor) {
             $message = $this->censorMessage($message);
         }
+
         $message = $this->htmlifyMessage($message);
         $save = $this->message->create([
             'bot_id'      => $botId,
@@ -151,6 +152,7 @@ class ChatRepository
         if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
         }
+
         $message = $this->htmlifyMessage($message);
 
         $save = $this->message->create([
@@ -172,6 +174,7 @@ class ChatRepository
         if ($ignore != null) {
             \event(new Chatter('new.message', $userId, new ChatMessageResource($message)));
         }
+
         \event(new Chatter('new.message', $receiver, new ChatMessageResource($message)));
 
         if ($receiver != 1) {
