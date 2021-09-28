@@ -34,7 +34,6 @@ class AutoResetUserFlushes extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(): void
     {

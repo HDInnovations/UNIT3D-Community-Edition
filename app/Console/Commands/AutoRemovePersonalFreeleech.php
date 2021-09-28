@@ -39,7 +39,6 @@ class AutoRemovePersonalFreeleech extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(): void
     {

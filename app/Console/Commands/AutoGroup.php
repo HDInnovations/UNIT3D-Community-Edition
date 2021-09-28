@@ -41,7 +41,6 @@ class AutoGroup extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(ByteUnits $byteUnits): void
     {

@@ -34,7 +34,6 @@ class CheckForStaleTickets extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(): void
     {

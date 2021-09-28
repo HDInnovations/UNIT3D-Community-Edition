@@ -40,7 +40,6 @@ class AutoHighspeedTag extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(): void
     {

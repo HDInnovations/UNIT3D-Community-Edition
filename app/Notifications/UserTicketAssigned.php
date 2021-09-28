@@ -24,7 +24,6 @@ class UserTicketAssigned extends Notification
 
     /**
      * Create a new notification instance.
-
      */
     public function __construct(private Ticket $ticket)
     {
@@ -59,7 +58,7 @@ class UserTicketAssigned extends Notification
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-[]
+     *                          []
      */
     public function toArray($notifiable): array
     {

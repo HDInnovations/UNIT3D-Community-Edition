@@ -111,7 +111,6 @@ class TorrentTools
      * Returns the torrent file list.
      *
      * @param $decodedTorrent
-
      */
     public static function getTorrentFiles($decodedTorrent): mixed
     {
@@ -143,7 +142,7 @@ class TorrentTools
      * Returns file and folder names from the torrent.
      *
      * @param $decodedTorrent
-[]
+     * []
      */
     public static function getFilenameArray($decodedTorrent): array
     {

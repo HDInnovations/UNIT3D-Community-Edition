@@ -45,7 +45,6 @@ class TaggedUserRepository
 
     /**
      * @param $content
-
      */
     public function getTags($content): mixed
     {

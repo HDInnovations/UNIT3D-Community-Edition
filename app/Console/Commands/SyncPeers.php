@@ -37,7 +37,6 @@ class SyncPeers extends Command
 
     /**
      * Execute the console command.
-
      */
     public function handle(): void
     {

@@ -53,7 +53,6 @@ class LanguageCensor
      * Censor a text.
      *
      * @param $source
-
      */
     public static function censor($source): mixed
     {

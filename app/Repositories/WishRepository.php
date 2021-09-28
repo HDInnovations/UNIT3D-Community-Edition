@@ -44,7 +44,6 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-
      */
     public function findById($id): mixed
     {
@@ -53,7 +52,6 @@ class WishRepository implements WishInterface
 
     /**
      * @param $title
-
      */
     public function findByTitle($title): mixed
     {
@@ -106,7 +104,6 @@ class WishRepository implements WishInterface
 
     /**
      * @param $uid
-
      */
     public function getUserWishes($uid): mixed
     {
@@ -115,7 +112,6 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-
      */
     public function delete($id): mixed
     {

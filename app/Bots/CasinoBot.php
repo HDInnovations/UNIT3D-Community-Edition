@@ -80,7 +80,6 @@ class CasinoBot
      * Replace Vars.
      *
      * @param $output
-
      */
     public function replaceVars($output): array|string
     {

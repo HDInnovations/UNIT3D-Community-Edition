@@ -405,7 +405,7 @@ class BBCodeConverter
 
     /**
      * @brief Converts the provided BBCode text to an equivalent Markdown text.
-[]|string|null
+     * []|string|null
      */
     public function toMarkdown(): array|string|null
     {
