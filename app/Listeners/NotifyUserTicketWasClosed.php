@@ -29,7 +29,6 @@ class NotifyUserTicketWasClosed
 
     /**
      * Handle the event.
-     *
      */
     public function handle(TicketClosed $event): void
     {

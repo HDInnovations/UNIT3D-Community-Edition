@@ -116,7 +116,6 @@ class PageController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Page $id): \Illuminate\Http\RedirectResponse
     {

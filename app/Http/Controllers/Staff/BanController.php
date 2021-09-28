@@ -43,6 +43,7 @@ class BanController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, \App\Models\User $username)

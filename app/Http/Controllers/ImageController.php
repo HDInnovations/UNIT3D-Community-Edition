@@ -75,8 +75,6 @@ class ImageController extends Controller
 
     /**
      * Download A Image.
-     *
-     *
      */
     public function download(\App\Models\Image $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
@@ -99,7 +97,6 @@ class ImageController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(Request $request, \App\Models\Image $id): \Illuminate\Http\RedirectResponse
     {

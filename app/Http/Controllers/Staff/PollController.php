@@ -61,7 +61,6 @@ class PollController extends Controller
 
     /**
      * Store A New Poll.
-     *
      */
     public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
     {
@@ -152,7 +151,6 @@ class PollController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Poll $id): \Illuminate\Http\RedirectResponse
     {

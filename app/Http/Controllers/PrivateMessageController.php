@@ -203,6 +203,7 @@ class PrivateMessageController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage(Request $request, \App\Models\PrivateMessage $id)
@@ -232,7 +233,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Empty Private Message Inbox.
-     *
      */
     public function emptyInbox(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -245,7 +245,6 @@ class PrivateMessageController extends Controller
 
     /**
      * Mark All Messages As Read.
-     *
      */
     public function markAllAsRead(Request $request): \Illuminate\Http\RedirectResponse
     {

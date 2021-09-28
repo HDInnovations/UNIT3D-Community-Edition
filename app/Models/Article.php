@@ -105,8 +105,6 @@ class Article extends Model
 
     /**
      * Set The Articles Content After Its Been Purified.
-     *
-     *
      */
     public function setContentAttribute(string $value): void
     {

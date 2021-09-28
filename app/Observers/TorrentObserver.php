@@ -19,7 +19,6 @@ class TorrentObserver
 {
     /**
      * Handle the Torrent "created" event.
-     *
      */
     public function created(Torrent $torrent): void
     {
@@ -28,7 +27,6 @@ class TorrentObserver
 
     /**
      * Handle the Torrent "updated" event.
-     *
      */
     public function updated(Torrent $torrent): void
     {
@@ -37,7 +35,6 @@ class TorrentObserver
 
     /**
      * Handle the Torrent "retrieved" event.
-     *
      */
     public function retrieved(Torrent $torrent): void
     {
@@ -46,7 +43,6 @@ class TorrentObserver
 
     /**
      * Handle the Torrent "deleted" event.
-     *
      */
     public function deleted(Torrent $torrent): void
     {
@@ -55,7 +51,6 @@ class TorrentObserver
 
     /**
      * Handle the Torrent "restored" event.
-     *
      */
     public function restored(Torrent $torrent): void
     {

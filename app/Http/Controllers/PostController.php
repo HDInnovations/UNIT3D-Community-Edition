@@ -185,8 +185,6 @@ class PostController extends Controller
 
     /**
      * Edit A Post In A Topic.
-     *
-     *
      */
     public function postEdit(Request $request, \App\Models\Post $postId): \Illuminate\Http\RedirectResponse
     {
@@ -207,7 +205,6 @@ class PostController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function postDelete(Request $request, \App\Models\Post $postId): \Illuminate\Http\RedirectResponse
     {

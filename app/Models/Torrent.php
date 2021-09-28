@@ -313,8 +313,6 @@ class Torrent extends Model
 
     /**
      * Set The Torrents Description After Its Been Purified.
-     *
-     *
      */
     public function setDescriptionAttribute(string $value): void
     {
@@ -336,8 +334,6 @@ class Torrent extends Model
 
     /**
      * Set The Torrents MediaInfo After Its Been Purified.
-     *
-     *
      */
     public function setMediaInfoAttribute(string $value): void
     {
@@ -358,7 +354,6 @@ class Torrent extends Model
      * Returns The Size In Human Format.
      *
      * @param null $bytes
-     *
      */
     public function getSize($bytes = null, int $precision = 2): string
     {

@@ -29,7 +29,6 @@ class NotifyUserCommentWasCreated
 
     /**
      * Handle the event.
-     *
      */
     public function handle(CommentCreated $event): void
     {

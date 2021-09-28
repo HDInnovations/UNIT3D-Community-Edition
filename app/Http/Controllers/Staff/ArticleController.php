@@ -141,7 +141,6 @@ class ArticleController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Article $id): \Illuminate\Http\RedirectResponse
     {

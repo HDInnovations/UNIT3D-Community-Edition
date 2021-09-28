@@ -142,7 +142,6 @@ class RssController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
@@ -401,7 +400,6 @@ class RssController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(int $id): \Illuminate\Http\Response
     {

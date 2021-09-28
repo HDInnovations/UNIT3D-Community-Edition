@@ -21,8 +21,6 @@ class HiddenCaptcha
 {
     /**
      * Set the hidden captcha tags to put in your form.
-     *
-     *
      */
     public static function render(string $mustBeEmptyField = '_username'): string
     {
@@ -47,8 +45,6 @@ class HiddenCaptcha
 
     /**
      * Check the hidden captcha values.
-     *
-     *
      */
     public static function check(Validator $validator, int $minLimit = 0, int $maxLimit = 1_200): bool
     {

@@ -272,8 +272,6 @@ class TorrentController extends BaseController
 
     /**
      * Display the specified resource.
-     *
-     *
      */
     public function show(int $id): \App\Http\Resources\TorrentResource
     {
@@ -286,8 +284,6 @@ class TorrentController extends BaseController
 
     /**
      * Update the specified resource in storage.
-     *
-     *
      */
     public function update(Request $request, int $id): void
     {
@@ -296,8 +292,6 @@ class TorrentController extends BaseController
 
     /**
      * Remove the specified resource from storage.
-     *
-     *
      */
     public function destroy(int $id): void
     {

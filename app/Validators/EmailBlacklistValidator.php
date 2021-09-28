@@ -21,6 +21,7 @@ class EmailBlacklistValidator
 {
     /**
      * Array of blacklisted domains.
+     *
      * @var mixed|mixed[]
      */
     private $domains = [];
@@ -42,10 +43,12 @@ class EmailBlacklistValidator
      * Execute the validation routine.
      *
      *
+     *
+     * @param mixed[] $parameters
+     *
      * @throws \Exception
      *
      * @return bool.
-     * @param mixed[] $parameters
      */
     public function validate(string $attribute, string $value, array $parameters): bool
     {

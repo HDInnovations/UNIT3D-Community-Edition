@@ -405,6 +405,7 @@ class BBCodeConverter
 
     /**
      * @brief Converts the provided BBCode text to an equivalent Markdown text.
+     *
      * @return mixed[]|string|null
      */
     public function toMarkdown()

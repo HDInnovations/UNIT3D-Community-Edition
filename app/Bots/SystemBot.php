@@ -98,8 +98,6 @@ class SystemBot
 
     /**
      * Send Gift.
-     *
-     *
      */
     public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
@@ -153,8 +151,7 @@ class SystemBot
     /**
      * Process Message.
      *
-     * @param        $type
-     *
+     * @param $type
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {

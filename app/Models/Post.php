@@ -97,8 +97,6 @@ class Post extends Model
 
     /**
      * Set The Posts Content After Its Been Purified.
-     *
-     *
      */
     public function setContentAttribute(string $value): void
     {

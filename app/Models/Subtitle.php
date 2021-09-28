@@ -98,7 +98,6 @@ class Subtitle extends Model
      * Returns The Size In Human Format.
      *
      * @param null $bytes
-     *
      */
     public function getSize($bytes = null, int $precision = 2): string
     {

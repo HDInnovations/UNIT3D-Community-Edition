@@ -159,7 +159,6 @@ class CategoryController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Category $id): \Illuminate\Http\RedirectResponse
     {

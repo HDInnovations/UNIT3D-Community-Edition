@@ -492,8 +492,6 @@ class User extends Authenticatable
 
     /**
      * Get the Users accepts notification as bool.
-     *
-     *
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool $type = false): bool
     {
@@ -527,8 +525,6 @@ class User extends Authenticatable
 
     /**
      * Get the Users allowed answer as bool.
-     *
-     *
      */
     public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -563,8 +559,6 @@ class User extends Authenticatable
 
     /**
      * Get the Users allowed answer as bool.
-     *
-     *
      */
     public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -625,7 +619,6 @@ class User extends Authenticatable
      * Return Upload In Human Format.
      *
      * @param null $bytes
-     *
      */
     public function getUploaded($bytes = null, int $precision = 2): string
     {
@@ -642,7 +635,6 @@ class User extends Authenticatable
      * Return Download In Human Format.
      *
      * @param null $bytes
-     *
      */
     public function getDownloaded($bytes = null, int $precision = 2): string
     {
@@ -693,8 +685,7 @@ class User extends Authenticatable
     // Return the ratio after $size bytes would be downloaded, pretty formatted
     // as a string.
     /**
-     * @param      $size
-     *
+     * @param $size
      */
     public function ratioAfterSizeString($size, bool $freeleech = false): string
     {
@@ -730,8 +721,6 @@ class User extends Authenticatable
 
     /**
      * Set The Users Signature After Its Been Purified.
-     *
-     *
      */
     public function setSignatureAttribute(string $value): void
     {
@@ -753,8 +742,6 @@ class User extends Authenticatable
 
     /**
      * Set The Users About Me After Its Been Purified.
-     *
-     *
      */
     public function setAboutAttribute(string $value): void
     {

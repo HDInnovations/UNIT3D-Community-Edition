@@ -296,7 +296,6 @@ class UserController extends Controller
 
     /**
      * User TwoStep Auth.
-     *
      */
     protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -379,8 +378,6 @@ class UserController extends Controller
 
     /**
      * Change User Privacy Level.
-     *
-     *
      */
     public function makePrivate(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -397,8 +394,6 @@ class UserController extends Controller
 
     /**
      * Change User Privacy Level.
-     *
-     *
      */
     public function makePublic(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -415,8 +410,6 @@ class UserController extends Controller
 
     /**
      * Change User Notification Setting.
-     *
-     *
      */
     public function disableNotifications(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -433,8 +426,6 @@ class UserController extends Controller
 
     /**
      * Change User Notification Setting.
-     *
-     *
      */
     public function enableNotifications(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -451,8 +442,6 @@ class UserController extends Controller
 
     /**
      * Change User Hidden Value.
-     *
-     *
      */
     public function makeHidden(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -469,8 +458,6 @@ class UserController extends Controller
 
     /**
      * Change User Hidden Value.
-     *
-     *
      */
     public function makeVisible(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -490,7 +477,6 @@ class UserController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function changePID(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -509,8 +495,6 @@ class UserController extends Controller
 
     /**
      * User Other Privacy Change.
-     *
-     *
      */
     protected function changeOther(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -542,8 +526,6 @@ class UserController extends Controller
 
     /**
      * User Request Privacy Change.
-     *
-     *
      */
     protected function changeRequest(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -575,8 +557,6 @@ class UserController extends Controller
 
     /**
      * User Achievement Privacy Change.
-     *
-     *
      */
     protected function changeAchievement(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -608,8 +588,6 @@ class UserController extends Controller
 
     /**
      * User Forum Privacy Change.
-     *
-     *
      */
     protected function changeForum(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -642,8 +620,6 @@ class UserController extends Controller
 
     /**
      * User Follower Privacy Change.
-     *
-     *
      */
     protected function changeFollower(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -675,8 +651,6 @@ class UserController extends Controller
 
     /**
      * User Torrent Privacy Change.
-     *
-     *
      */
     protected function changeTorrent(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -713,8 +687,6 @@ class UserController extends Controller
 
     /**
      * User Account Notification Change.
-     *
-     *
      */
     protected function changeAccountNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -747,8 +719,6 @@ class UserController extends Controller
 
     /**
      * User Following Notification Change.
-     *
-     *
      */
     protected function changeFollowingNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -780,8 +750,6 @@ class UserController extends Controller
 
     /**
      * User BON Notification Change.
-     *
-     *
      */
     protected function changeBonNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -813,8 +781,6 @@ class UserController extends Controller
 
     /**
      * User Subscription Notification Change.
-     *
-     *
      */
     protected function changeSubscriptionNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -847,8 +813,6 @@ class UserController extends Controller
 
     /**
      * User Request Notification Change.
-     *
-     *
      */
     protected function changeRequestNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -886,8 +850,6 @@ class UserController extends Controller
 
     /**
      * User Torrent Notification Change.
-     *
-     *
      */
     protected function changeTorrentNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -921,8 +883,6 @@ class UserController extends Controller
 
     /**
      * User Mention Notification Change.
-     *
-     *
      */
     protected function changeMentionNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -958,8 +918,6 @@ class UserController extends Controller
 
     /**
      * User Forum Notification Change.
-     *
-     *
      */
     protected function changeForumNotification(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -991,8 +949,6 @@ class UserController extends Controller
 
     /**
      * User Profile Privacy Change.
-     *
-     *
      */
     protected function changeProfile(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -1037,8 +993,6 @@ class UserController extends Controller
 
     /**
      * Change User RID.
-     *
-     *
      */
     public function changeRID(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -1055,8 +1009,6 @@ class UserController extends Controller
 
     /**
      * Change User API Token.
-     *
-     *
      */
     public function changeApiToken(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -1104,7 +1056,6 @@ class UserController extends Controller
      *
      *
      * @throws \Throwable
-     *
      */
     public function myFilter(Request $request, \App\Models\User $username): string|bool
     {
@@ -2005,7 +1956,6 @@ class UserController extends Controller
 
     /**
      * Accept Site Rules.
-     *
      */
     public function acceptRules(Request $request): void
     {

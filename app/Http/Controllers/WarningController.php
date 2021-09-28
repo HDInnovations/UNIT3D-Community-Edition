@@ -50,8 +50,6 @@ class WarningController extends Controller
 
     /**
      * Deactivate A Warning.
-     *
-     *
      */
     public function deactivate(Request $request, \App\Models\Warning $id): \Illuminate\Http\RedirectResponse
     {
@@ -76,8 +74,6 @@ class WarningController extends Controller
 
     /**
      * Deactivate All Warnings.
-     *
-     *
      */
     public function deactivateAllWarnings(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -108,7 +104,6 @@ class WarningController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function deleteWarning(Request $request, \App\Models\Warning $id): \Illuminate\Http\RedirectResponse
     {
@@ -135,8 +130,6 @@ class WarningController extends Controller
 
     /**
      * Delete All Warnings.
-     *
-     *
      */
     public function deleteAllWarnings(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -165,8 +158,6 @@ class WarningController extends Controller
 
     /**
      * Restore A Soft Deleted Warning.
-     *
-     *
      */
     public function restoreWarning(Request $request, \App\Models\Warning $id): \Illuminate\Http\RedirectResponse
     {

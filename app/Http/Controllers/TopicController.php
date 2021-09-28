@@ -233,8 +233,6 @@ class TopicController extends Controller
 
     /**
      * Edit Topic In The Forum.
-     *
-     *
      */
     public function editTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -254,8 +252,6 @@ class TopicController extends Controller
 
     /**
      * Close The Topic.
-     *
-     *
      */
     public function closeTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -272,8 +268,6 @@ class TopicController extends Controller
 
     /**
      * Open The Topic.
-     *
-     *
      */
     public function openTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -293,7 +287,6 @@ class TopicController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function deleteTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -311,8 +304,6 @@ class TopicController extends Controller
 
     /**
      * Pin The Topic.
-     *
-     *
      */
     public function pinTopic(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -326,8 +317,6 @@ class TopicController extends Controller
 
     /**
      * Unpin The Topic.
-     *
-     *
      */
     public function unpinTopic(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {

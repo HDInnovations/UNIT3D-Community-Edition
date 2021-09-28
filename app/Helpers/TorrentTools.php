@@ -17,12 +17,14 @@ class TorrentTools
 {
     /**
      * Name of the file to be saved.
+     *
      * @var string
      */
     public static $fileName = '';
 
     /**
      * Representative table of the decoded torrent.
+     *
      * @var mixed[]
      */
     public static $decodedTorrent = [];

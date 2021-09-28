@@ -176,7 +176,6 @@ class SubtitleController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(Request $request, \App\Models\Subtitle $id): \Illuminate\Http\RedirectResponse
     {

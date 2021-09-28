@@ -22,8 +22,6 @@ class TopicLabelController extends Controller
 {
     /**
      * Apply/Remove Approved Label.
-     *
-     *
      */
     public function approve(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -37,8 +35,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Denied Label.
-     *
-     *
      */
     public function deny(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -52,8 +48,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Solved Label.
-     *
-     *
      */
     public function solve(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -67,8 +61,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Invalid Label.
-     *
-     *
      */
     public function invalid(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -82,8 +74,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Bug Label.
-     *
-     *
      */
     public function bug(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -97,8 +87,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Suggestion Label.
-     *
-     *
      */
     public function suggest(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {
@@ -112,8 +100,6 @@ class TopicLabelController extends Controller
 
     /**
      * Apply/Remove Implemented Label.
-     *
-     *
      */
     public function implement(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
     {

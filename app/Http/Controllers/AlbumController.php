@@ -107,7 +107,6 @@ class AlbumController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(Request $request, \App\Models\Album $id): \Illuminate\Http\RedirectResponse
     {

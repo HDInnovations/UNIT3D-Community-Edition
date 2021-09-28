@@ -127,8 +127,6 @@ class UserController extends Controller
 
     /**
      * Edit A Users Permissions.
-     *
-     *
      */
     public function permissions(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
@@ -147,8 +145,6 @@ class UserController extends Controller
 
     /**
      * Edit A Users Password.
-     *
-     *
      */
     protected function password(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {

@@ -129,8 +129,6 @@ class NotificationController extends Controller
 
     /**
      * Show A Notification And Mark As Read.
-     *
-     *
      */
     public function show(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
@@ -184,8 +182,6 @@ class NotificationController extends Controller
 
     /**
      * Delete A Notification.
-     *
-     *
      */
     public function destroy(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
@@ -197,7 +193,6 @@ class NotificationController extends Controller
 
     /**
      * Mass Delete All Notification's.
-     *
      */
     public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {

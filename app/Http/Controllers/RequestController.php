@@ -521,6 +521,7 @@ class RequestController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, \App\Models\TorrentRequest $id)
@@ -581,6 +582,7 @@ class RequestController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, \App\Models\TorrentRequest $id)
@@ -616,8 +618,6 @@ class RequestController extends Controller
 
     /**
      * Resets the filled and approved attributes on a given request.
-     *
-     *
      */
     public function resetRequest(Request $request, \App\Models\TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {

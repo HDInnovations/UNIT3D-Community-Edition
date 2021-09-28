@@ -98,8 +98,6 @@ class WishController extends Controller
 
     /**
      * Delete A Wish.
-     *
-     *
      */
     public function destroy(Request $request, \App\Models\Wish $id): \Illuminate\Http\RedirectResponse
     {

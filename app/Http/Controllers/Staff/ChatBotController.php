@@ -126,7 +126,6 @@ class ChatBotController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(int $id): \Illuminate\Http\Response
     {
@@ -139,8 +138,6 @@ class ChatBotController extends Controller
 
     /**
      * Disable the specified Bot resource in storage.
-     *
-     *
      */
     public function disable(int $id): \Illuminate\Http\Response
     {
@@ -154,8 +151,6 @@ class ChatBotController extends Controller
 
     /**
      * Enable the specified Bot resource in storage.
-     *
-     *
      */
     public function enable(int $id): \Illuminate\Http\Response
     {

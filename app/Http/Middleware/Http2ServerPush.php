@@ -129,8 +129,6 @@ class Http2ServerPush
 
     /**
      * Get all nodes we are interested in pushing.
-     *
-     *
      */
     protected function fetchLinkableNodes(\Illuminate\Http\Response $response): \Illuminate\Support\Collection
     {
@@ -141,8 +139,6 @@ class Http2ServerPush
 
     /**
      * Build out header string based on asset extension.
-     *
-     *
      */
     private function buildLinkHeaderString(string $url): ?string
     {

@@ -21,9 +21,10 @@ class CheckIfBanned
     /**
      * Handle an incoming request.
      *
-     * @param string|null              $guard
+     * @param string|null $guard
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next, $guard = null)

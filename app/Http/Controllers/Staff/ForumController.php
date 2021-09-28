@@ -48,7 +48,6 @@ class ForumController extends Controller
 
     /**
      * Store A New Forum.
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -108,8 +107,6 @@ class ForumController extends Controller
 
     /**
      * Edit A Forum.
-     *
-     *
      */
     public function update(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {
@@ -156,7 +153,6 @@ class ForumController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {

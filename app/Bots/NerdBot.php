@@ -108,7 +108,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getBanker(string $duration = 'default'): string
     {
@@ -126,7 +125,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getSnatched(string $duration = 'default'): string
     {
@@ -144,7 +142,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getLeeched(string $duration = 'default'): string
     {
@@ -162,7 +159,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getSeeded(string $duration = 'default'): string
     {
@@ -180,7 +176,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getFreeleech(string $duration = 'default'): string
     {
@@ -198,7 +193,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getDoubleUpload(string $duration = 'default'): string
     {
@@ -216,7 +210,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getPeers(string $duration = 'default'): string
     {
@@ -234,7 +227,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getBans(string $duration = 'default'): string
     {
@@ -252,7 +244,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getWarnings(string $duration = 'default'): string
     {
@@ -270,7 +261,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getUploads(string $duration = 'default'): string
     {
@@ -288,7 +278,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getLogins(string $duration = 'default'): string
     {
@@ -306,7 +295,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getRegistrations(string $duration = 'default'): string
     {
@@ -324,7 +312,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getDonations(string $duration = 'default'): string
     {
@@ -365,7 +352,6 @@ class NerdBot
      *
      *
      * @throws \Exception
-     *
      */
     public function putDonate(int $amount = 0, string $note = ''): string
     {
@@ -404,10 +390,9 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @param        $type
+     * @param $type
      *
      * @throws \Exception
-     *
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {

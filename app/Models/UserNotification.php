@@ -152,8 +152,6 @@ class UserNotification extends Model
 
     /**
      * Set the base vars on object creation without touching boot.
-     *
-     *
      */
     public function setDefaultValues(string $type = 'default'): void
     {

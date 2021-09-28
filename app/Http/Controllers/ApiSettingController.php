@@ -35,7 +35,6 @@ class ApiSettingController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      */
     public function store(Request $request): void
     {
@@ -44,8 +43,6 @@ class ApiSettingController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     *
      */
     public function show(int $id): void
     {
@@ -54,8 +51,6 @@ class ApiSettingController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     *
      */
     public function edit(int $id): void
     {
@@ -64,8 +59,6 @@ class ApiSettingController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
      */
     public function update(Request $request, int $id): void
     {
@@ -74,8 +67,6 @@ class ApiSettingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     *
      */
     public function destroy(int $id): void
     {

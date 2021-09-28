@@ -116,7 +116,6 @@ class TypeController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(\App\Models\Type $id): \Illuminate\Http\RedirectResponse
     {

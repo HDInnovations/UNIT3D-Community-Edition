@@ -447,7 +447,6 @@ class TorrentController extends Controller
 
     /**
      * Preview torrent description.
-     *
      */
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -667,8 +666,7 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
-     * @param null                $rsskey
-     *
+     * @param null $rsskey
      */
     public function download(Request $request, \App\Models\Torrent $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
@@ -730,8 +728,6 @@ class TorrentController extends Controller
 
     /**
      * Bump A Torrent.
-     *
-     *
      */
     public function bumpTorrent(Request $request, \App\Models\Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -765,8 +761,6 @@ class TorrentController extends Controller
 
     /**
      * Sticky A Torrent.
-     *
-     *
      */
     public function sticky(Request $request, \App\Models\Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -783,8 +777,6 @@ class TorrentController extends Controller
 
     /**
      * 100% Freeleech A Torrent.
-     *
-     *
      */
     public function grantFL(Request $request, \App\Models\Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -856,7 +848,6 @@ class TorrentController extends Controller
      * UnFeature A Torrent.
      *
      * @param \App\Models\FeaturedTorrent torrent_id
-     *
      */
     public function revokeFeatured(Request $request, \App\Models\Torrent $id): \Illuminate\Http\RedirectResponse
     {
@@ -889,8 +880,6 @@ class TorrentController extends Controller
 
     /**
      * Double Upload A Torrent.
-     *
-     *
      */
     public function grantDoubleUp(Request $request, \App\Models\Torrent $id): \Illuminate\Http\RedirectResponse
     {
