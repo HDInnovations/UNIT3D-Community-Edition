@@ -40,12 +40,18 @@ class IRCAnnounceBot
      */
     public $joinchannel;
 
+    /**
+     * @var null|resource|bool
+     */
     protected $socket = null;
 
     private $channel;
 
     private $username;
 
+    /**
+     * @var bool
+     */
     private $registered = false;
 
     public function __construct()
@@ -72,7 +78,7 @@ class IRCAnnounceBot
         }
     }
 
-    private function connect()
+    private function connect(): void
     {
         while ($data = \fgets($this->socket)) {
             \flush();
@@ -89,22 +95,22 @@ class IRCAnnounceBot
         }
     }
 
-    private function send_data($data)
+    private function send_data($data): void
     {
         \fwrite($this->socket, \sprintf('%s', $data));
     }
 
-    private function say($channel, $string)
+    private function say($channel, $string): void
     {
         $this->send_data(\sprintf('PRIVMSG %s %s', $channel, $string));
     }
 
-    private function join($channel)
+    private function join($channel): void
     {
         $this->send_data(\sprintf('JOIN %s', $channel));
     }
 
-    public function message($channel, $message)
+    public function message($channel, $message): void
     {
         // Messages an specific IRC Channel
         if ($this->joinchannel && \preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {

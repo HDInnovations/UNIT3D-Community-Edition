@@ -27,11 +27,10 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function store(Request $request, $username)
+    public function store(Request $request, \App\Models\User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -60,11 +59,10 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $username)
+    public function destroy(Request $request, \App\Models\User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

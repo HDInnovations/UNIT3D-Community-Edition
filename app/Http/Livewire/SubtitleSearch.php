@@ -22,16 +22,34 @@ class SubtitleSearch extends Component
 {
     use WithPagination;
 
+    /**
+     * @var int
+     */
     public $perPage = 25;
 
+    /**
+     * @var string
+     */
     public $search = '';
 
+    /**
+     * @var mixed[]
+     */
     public $categories = [];
 
+    /**
+     * @var string
+     */
     public $language = '';
 
+    /**
+     * @var string
+     */
     public $sortField = 'created_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
     final public function paginationView(): string
@@ -63,7 +81,7 @@ class SubtitleSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

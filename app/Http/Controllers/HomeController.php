@@ -100,7 +100,7 @@ class HomeController extends Controller
         // Online Block
         $users = \cache()->remember('online_users', $expiresAt, fn () => User::with('group', 'privacy')
             ->withCount([
-                'warnings' => function (Builder $query) {
+                'warnings' => function (Builder $query): void {
                     $query->whereNotNull('torrent')->where('active', '1');
                 },
             ])

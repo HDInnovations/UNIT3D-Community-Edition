@@ -44,7 +44,7 @@ class AutoFlushPeers extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $carbon = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();

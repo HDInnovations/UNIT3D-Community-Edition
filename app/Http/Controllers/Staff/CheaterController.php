@@ -31,7 +31,7 @@ class CheaterController extends Controller
             ->select(['*'])
             ->join(
                 DB::raw('(SELECT MAX(id) AS id FROM history GROUP BY history.user_id) AS unique_history'),
-                function ($join) {
+                function ($join): void {
                     $join->on('history.id', '=', 'unique_history.id');
                 }
             )

@@ -39,5 +39,8 @@ class GitUpdate extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 }

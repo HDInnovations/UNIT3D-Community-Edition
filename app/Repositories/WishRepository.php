@@ -68,10 +68,8 @@ class WishRepository implements WishInterface
     /**
      * @param $uid
      * @param $id
-     *
-     * @return bool
      */
-    public function exists($uid, $id)
+    public function exists($uid, $id): bool
     {
         return (bool) $this->user->find($uid)
             ->wishes()
@@ -81,10 +79,8 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-     *
-     * @return bool
      */
-    public function isGranted($id)
+    public function isGranted($id): bool
     {
         return (bool) $this->torrent
             ->where('tmdb', '=', $id)
@@ -96,7 +92,7 @@ class WishRepository implements WishInterface
     /**
      * @param $id
      *
-     * @return null|string
+     * @return string|mixed
      */
     public function getSource($id)
     {

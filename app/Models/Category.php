@@ -68,20 +68,16 @@ class Category extends Model
 
     /**
      * Has Many Torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class);
     }
 
     /**
      * Has Many Requests.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requests()
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }

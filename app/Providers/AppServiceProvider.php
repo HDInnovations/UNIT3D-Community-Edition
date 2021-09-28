@@ -31,10 +31,8 @@ class AppServiceProvider extends ServiceProvider
      * This service provider is a great spot to register your various container
      * bindings with the application. As you can see, we are registering our
      * "Registrar" implementation here. You can add your own bindings too!
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Wish
         $this->app->bind(WishInterface::class, WishRepository::class);
@@ -48,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @return void
+     * @return mixed
      */
     public function boot()
     {
@@ -59,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
         //Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
-        \view()->composer('*', function (View $view) {
+        \view()->composer('*', function (View $view): void {
             $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
             $view->with(['footer_pages' => $footerPages]);
@@ -73,7 +71,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
-            function ($attribute, $value, $parameters, $validator) {
+            function ($attribute, $value, $parameters, $validator): bool {
                 $minLimit = (isset($parameters[0]) && \is_numeric($parameters[0])) ? $parameters[0] : 0;
                 $maxLimit = (isset($parameters[1]) && \is_numeric($parameters[1])) ? $parameters[1] : 1_200;
                 if (! HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {

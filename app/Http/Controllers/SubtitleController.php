@@ -52,10 +52,8 @@ class SubtitleController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Torrent $torrentId
      */
-    public function create($torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(\App\Models\Torrent $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::findOrFail($torrentId);
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
@@ -67,7 +65,7 @@ class SubtitleController extends Controller
      * Store a newly created resource in storage.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -145,11 +143,10 @@ class SubtitleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Models\Subtitle $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Subtitle $id)
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -177,13 +174,11 @@ class SubtitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Subtitle $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, \App\Models\Subtitle $id): \Illuminate\Http\RedirectResponse
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -202,10 +197,8 @@ class SubtitleController extends Controller
 
     /**
      * Download the specified resource from storage.
-     *
-     * @param \App\Models\Subtitle $id
      */
-    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
+    public function download(Request $request, \App\Models\Subtitle $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

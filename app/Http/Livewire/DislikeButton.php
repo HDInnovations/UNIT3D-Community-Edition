@@ -19,8 +19,14 @@ use Livewire\Component;
 
 class DislikeButton extends Component
 {
+    /**
+     * @var mixed|null
+     */
     public $post;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public $user;
 
     final public function mount($post): void

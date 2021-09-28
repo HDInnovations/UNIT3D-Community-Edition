@@ -292,11 +292,9 @@ class Bbcode
      * Parses the BBCode string.
      *
      * @param      $source
-     * @param bool $caseInsensitive
      *
-     * @return string
      */
-    public function parse($source, $caseInsensitive = false)
+    public function parse(string $source, bool $caseInsensitive = false): ?string
     {
         foreach ($this->enabledParsers as $name => $parser) {
             $pattern = ($caseInsensitive) ? $parser['pattern'].'i' : $parser['pattern'];
@@ -310,11 +308,10 @@ class Bbcode
     /**
      * Remove all BBCode.
      *
-     * @param string $source
      *
      * @return string Parsed text
      */
-    public function stripBBCodeTags($source)
+    public function stripBBCodeTags(string $source): ?string
     {
         foreach ($this->parsers as $name => $parser) {
             $source = $this->searchAndReplace($parser['pattern'].'i', $parser['content'], $source);
@@ -332,7 +329,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    protected function searchAndReplace($pattern, $replace, $source)
+    protected function searchAndReplace(string $pattern, string $replace, string $source): ?string
     {
         while (\preg_match($pattern, $source)) {
             $source = \preg_replace($pattern, $replace, $source);
@@ -348,7 +345,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    public function parseCaseSensitive($source)
+    public function parseCaseSensitive(string $source): string
     {
         return $this->parse($source, false);
     }
@@ -360,7 +357,7 @@ class Bbcode
      *
      * @return string Parsed text
      */
-    public function parseCaseInsensitive($source)
+    public function parseCaseInsensitive(string $source): string
     {
         return $this->parse($source, true);
     }
@@ -370,7 +367,7 @@ class Bbcode
      *
      * @return array array of parsers
      */
-    public function getParsers()
+    public function getParsers(): array
     {
         return $this->enabledParsers;
     }
@@ -383,10 +380,8 @@ class Bbcode
      * @param string $pattern Pattern
      * @param string $replace Replace pattern
      * @param string $content Parsed text pattern
-     *
-     * @return void
      */
-    public function setParser($name, $pattern, $replace, $content)
+    public function setParser(string $name, string $pattern, string $replace, string $content): void
     {
         $this->parsers[$name] = [
             'pattern' => $pattern,

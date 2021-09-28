@@ -64,10 +64,8 @@ class Poll extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -77,20 +75,16 @@ class Poll extends Model
 
     /**
      * A Poll Has Many Options.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function options()
+    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Option::class);
     }
 
     /**
      * A Poll Has Many Voters.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function voters()
+    public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Voter::class);
     }
@@ -99,10 +93,8 @@ class Poll extends Model
      * Set The Poll's Title.
      *
      * @param $title
-     *
-     * @return string
      */
-    public function setTitleAttribute($title)
+    public function setTitleAttribute($title): string
     {
         return $this->attributes['title'] = $title;
     }
@@ -111,10 +103,8 @@ class Poll extends Model
      * Create A Poll Title Slug.
      *
      * @param $title
-     *
-     * @return string
      */
-    public function makeSlugFromTitle($title)
+    public function makeSlugFromTitle($title): string
     {
         $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', '%'.$slug.'%')->count();
@@ -124,10 +114,8 @@ class Poll extends Model
 
     /**
      * Get Total Votes On A Poll Option.
-     *
-     * @return string
      */
-    public function totalVotes()
+    public function totalVotes(): int
     {
         $result = 0;
         foreach ($this->options as $option) {
@@ -140,7 +128,7 @@ class Poll extends Model
     protected static function boot()
     {
         parent::boot();
-        self::creating(function ($poll) {
+        self::creating(function ($poll): bool {
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }

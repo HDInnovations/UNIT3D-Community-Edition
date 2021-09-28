@@ -9,13 +9,22 @@ use Livewire\Component;
 
 class QuickSearchDropdown extends Component
 {
+    /**
+     * @var string
+     */
     public $movie = '';
 
+    /**
+     * @var string
+     */
     public $series = '';
 
+    /**
+     * @var string
+     */
     public $person = '';
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $search_results = [];
 

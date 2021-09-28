@@ -58,11 +58,17 @@ class Episode
         return $this->data['first_air_date'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_name()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_overview()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
@@ -73,12 +79,12 @@ class Episode
         return $this->data['id'];
     }
 
-    public function get_poster()
+    public function get_poster(): string
     {
         return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
     }
 
-    public function get_season_number()
+    public function get_season_number(): string
     {
         return \sprintf('%02d', $this->data['seasons']);
     }

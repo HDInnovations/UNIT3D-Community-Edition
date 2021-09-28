@@ -17,6 +17,9 @@ use function theodorejb\polycast\safe_int;
 
 class Bencode
 {
+    /**
+     * @return void|int
+     */
     public static function parse_integer($s, &$pos)
     {
         $len = \strlen($s);
@@ -50,6 +53,9 @@ class Bencode
         }
     }
 
+    /**
+     * @return void|string
+     */
     public static function parse_string($s, &$pos)
     {
         $len = \strlen($s);
@@ -154,6 +160,9 @@ class Bencode
         }
     }
 
+    /**
+     * @return string|void
+     */
     public static function bencode($d)
     {
         if (\is_array($d)) {
@@ -211,12 +220,15 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function get_infohash($t)
+    public static function get_infohash($t): string
     {
         return \sha1(self::bencode($t['info']));
     }
 
-    public static function get_meta($t)
+    /**
+     * @return array<string, mixed>
+     */
+    public static function get_meta($t): array
     {
         $result = [];
         $size = 0;

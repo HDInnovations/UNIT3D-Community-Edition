@@ -20,15 +20,24 @@ class UserMade900Posts extends Achievement
     /*
      * The achievement name
      */
+    /**
+     * @var string
+     */
     public $name = '900Posts';
 
     /*
      * A small description for the achievement
      */
+    /**
+     * @var string
+     */
     public $description = 'Wow! You have already made 900 posts!';
 
     /*
      * The amount of "points" this user need to obtain in order to complete this achievement
+     */
+    /**
+     * @var int
      */
     public $points = 900;
 }

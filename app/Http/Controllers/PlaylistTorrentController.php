@@ -26,7 +26,7 @@ class PlaylistTorrentController extends Controller
      * Attach A Torrent To A Playlist.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -58,13 +58,11 @@ class PlaylistTorrentController extends Controller
     /**
      * Detach A Torrent From A Playlist.
      *
-     * @param int $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlistTorrent = PlaylistTorrent::findOrFail($id);

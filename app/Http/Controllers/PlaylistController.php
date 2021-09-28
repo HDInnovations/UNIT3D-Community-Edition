@@ -59,7 +59,7 @@ class PlaylistController extends Controller
      * Store A New Playlist.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -136,7 +136,7 @@ class PlaylistController extends Controller
 
         $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon'])
             ->where('playlist_id', '=', $playlist->id)
-            ->orderBy(function ($query) {
+            ->orderBy(function ($query): void {
                 $query->select('name')
                     ->from('torrents')
                     ->whereColumn('id', 'playlist_torrents.torrent_id')
@@ -168,7 +168,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -216,10 +216,8 @@ class PlaylistController extends Controller
      * @param \App\Playlist $id
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);

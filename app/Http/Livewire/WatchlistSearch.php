@@ -21,14 +21,29 @@ class WatchlistSearch extends Component
 {
     use WithPagination;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public $user;
 
+    /**
+     * @var int
+     */
     public $perPage = 25;
 
+    /**
+     * @var string
+     */
     public $search = '';
 
+    /**
+     * @var string
+     */
     public $sortField = 'created_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
     final public function mount(): void
@@ -60,7 +75,7 @@ class WatchlistSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

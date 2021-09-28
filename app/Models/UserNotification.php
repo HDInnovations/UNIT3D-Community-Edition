@@ -121,10 +121,8 @@ class UserNotification extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
             'username' => 'System',
@@ -135,9 +133,9 @@ class UserNotification extends Model
     /**
      * Get the Expected groups for form validation.
      *
-     * @return array
+     * @return array<string, int[]>
      */
-    public function getExpectedGroupsAttribute()
+    public function getExpectedGroupsAttribute(): array
     {
         return ['default_groups' => ['1' => 0]];
     }
@@ -145,9 +143,9 @@ class UserNotification extends Model
     /**
      * Get the Expected fields for form validation.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getExpectedFieldsAttribute()
+    public function getExpectedFieldsAttribute(): array
     {
         return [];
     }
@@ -155,11 +153,9 @@ class UserNotification extends Model
     /**
      * Set the base vars on object creation without touching boot.
      *
-     * @param string $type
      *
-     * @return void
      */
-    public function setDefaultValues($type = 'default')
+    public function setDefaultValues(string $type = 'default'): void
     {
         foreach ($this->casts as $k => $v) {
             if ($v == 'array') {

@@ -53,7 +53,7 @@ class Movie
         return $this->data;
     }
 
-    public function get_background()
+    public function get_background(): ?string
     {
         if (isset($this->data['backdrop_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -72,6 +72,9 @@ class Movie
         return $this->data['belongs_to_collection'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_budget()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['budget']);
@@ -82,6 +85,9 @@ class Movie
         return $this->data['genres'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_homepage()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
@@ -92,11 +98,17 @@ class Movie
         return $this->data['id'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_imdb_id()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_original_title()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
@@ -107,6 +119,9 @@ class Movie
         return $this->data['alternative_titles'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_overview()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
@@ -117,7 +132,7 @@ class Movie
         return $this->data['popularity'];
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if (isset($this->data['poster_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
@@ -156,11 +171,17 @@ class Movie
         return $this->data['status'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_tagline()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_title()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['title']);
@@ -176,7 +197,7 @@ class Movie
         return $this->data['vote_count'];
     }
 
-    public function get_trailer()
+    public function get_trailer(): ?string
     {
         if (! empty($this->data['videos']['results'])) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'][0]['key'];
@@ -185,7 +206,7 @@ class Movie
         return null;
     }
 
-    public function get_videos()
+    public function get_videos(): ?string
     {
         if (isset($this->data['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'];

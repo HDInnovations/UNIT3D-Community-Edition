@@ -21,10 +21,8 @@ class TvSeasonController extends Controller
 {
     /**
      * Display All TV Seasons.
-     *
-     * @return void
      */
-    public function index()
+    public function index(): void
     {
         //
     }

@@ -29,6 +29,7 @@ class GitUpdater extends Command
 
     /**
      * The copy command.
+     * @var string
      */
     private $copyCommand = 'cp -Rfp';
 
@@ -56,10 +57,8 @@ class GitUpdater extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->input = new ArgvInput();
         $this->output = new ConsoleOutput();
@@ -103,7 +102,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function update()
+    private function update(): void
     {
         $updating = $this->checkForUpdates();
 
@@ -176,7 +175,10 @@ class GitUpdater extends Command
         }
     }
 
-    private function checkForUpdates()
+    /**
+     * @return string[]
+     */
+    private function checkForUpdates(): array
     {
         $this->header('Checking For Updates');
 
@@ -189,7 +191,7 @@ class GitUpdater extends Command
         return $updating;
     }
 
-    private function manualUpdate($updating)
+    private function manualUpdate($updating): void
     {
         $this->alertInfo('Manual Update');
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
@@ -203,12 +205,12 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateFile($file)
+    private function updateFile($file): void
     {
         $this->process(\sprintf('git checkout origin/master -- %s', $file));
     }
 
-    private function backup(array $paths)
+    private function backup(array $paths): void
     {
         $this->header('Backing Up Files');
 
@@ -226,7 +228,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function restore(array $paths)
+    private function restore(array $paths): void
     {
         $this->header('Restoring Backups');
 
@@ -249,7 +251,7 @@ class GitUpdater extends Command
         ]);
     }
 
-    private function composer()
+    private function composer(): void
     {
         $this->header('Installing Composer Packages');
 
@@ -260,7 +262,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function compile()
+    private function compile(): void
     {
         $this->header('Compiling Assets ...');
 
@@ -274,49 +276,49 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateUNIT3DConfig()
+    private function updateUNIT3DConfig(): void
     {
         $this->header('Updating UNIT3D Configuration File');
         $this->process('git fetch origin && git checkout origin/master -- config/unit3d.php');
         $this->done();
     }
 
-    private function clearComposerCache()
+    private function clearComposerCache(): void
     {
         $this->header('Clearing Composer Cache');
         $this->process('composer clear-cache --no-interaction --ansi --verbose');
         $this->done();
     }
 
-    private function clearCache()
+    private function clearCache(): void
     {
         $this->header('Clearing Application Cache');
         $this->call('optimize:clear');
         $this->done();
     }
 
-    private function setCache()
+    private function setCache(): void
     {
         $this->header('Setting Cache');
         $this->call('optimize');
         $this->done();
     }
 
-    private function migrations()
+    private function migrations(): void
     {
         $this->header('Running New Migrations');
         $this->call('migrate');
         $this->done();
     }
 
-    private function permissions()
+    private function permissions(): void
     {
         $this->header('Refreshing Permissions');
         $this->process('chown -R www-data: storage bootstrap public config');
         $this->done();
     }
 
-    private function supervisor()
+    private function supervisor(): void
     {
         $this->header('Restarting Supervisor');
         $this->call('queue:restart');
@@ -324,21 +326,21 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function php()
+    private function php(): void
     {
         $this->header('Restarting PHP');
         $this->process('systemctl restart php8.0-fpm');
         $this->done();
     }
 
-    private function validatePath($path)
+    private function validatePath($path): void
     {
         if (! \is_file(\base_path($path)) && ! \is_dir(\base_path($path))) {
             $this->red(\sprintf("The path '%s' is invalid", $path));
         }
     }
 
-    private function createBackupPath($path)
+    private function createBackupPath($path): void
     {
         if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \is_file(\base_path($path))) {
             if (! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
@@ -354,9 +356,9 @@ class GitUpdater extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
-    private function paths()
+    private function paths(): array
     {
         $p = $this->process('git diff master --name-only');
         $paths = \array_filter(\explode("\n", $p->getOutput()), 'strlen');

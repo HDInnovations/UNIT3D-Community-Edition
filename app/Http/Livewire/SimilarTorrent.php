@@ -38,16 +38,34 @@ class SimilarTorrent extends Component
 
     public $reason;
 
+    /**
+     * @var mixed|mixed[]
+     */
     public $checked = [];
 
+    /**
+     * @var bool
+     */
     public $selectPage = false;
 
+    /**
+     * @var bool
+     */
     public $selectAll = false;
 
+    /**
+     * @var string
+     */
     public $sortField = 'bumped_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
+    /**
+     * @var array<string, string>
+     */
     protected $listeners = ['destroy' => 'deleteRecords'];
 
     final public function updatedSelectPage($value): void
@@ -71,7 +89,7 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection
+    final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
         $category = Category::findOrFail($this->categoryId);
 
@@ -79,13 +97,13 @@ class SimilarTorrent extends Component
         $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments']);
         if ($category->movie_meta == true) {
-            $query = $query->whereHas('category', function ($q) {
+            $query = $query->whereHas('category', function ($q): void {
                 $q->where('movie_meta', '=', true);
             });
         }
 
         if ($category->tv_meta == true) {
-            $query = $query->whereHas('category', function ($q) {
+            $query = $query->whereHas('category', function ($q): void {
                 $q->where('tv_meta', '=', true);
             });
         }
@@ -96,7 +114,7 @@ class SimilarTorrent extends Component
         return $query->get();
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

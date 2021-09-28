@@ -30,10 +30,8 @@ class NotifyUserTicketWasAssigned
     /**
      * Handle the event.
      *
-     *
-     * @return void
      */
-    public function handle(TicketAssigned $event)
+    public function handle(TicketAssigned $event): void
     {
         //
     }

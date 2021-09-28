@@ -18,8 +18,14 @@ use Livewire\Component;
 
 class SmallBookmarkButton extends Component
 {
+    /**
+     * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection&\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Model|null
+     */
     public $torrent;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public $user;
 
     final public function mount($torrent): void

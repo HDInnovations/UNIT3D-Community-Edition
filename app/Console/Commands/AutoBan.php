@@ -47,7 +47,7 @@ class AutoBan extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 

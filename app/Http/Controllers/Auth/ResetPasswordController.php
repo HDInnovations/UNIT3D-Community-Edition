@@ -23,6 +23,9 @@ class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
+    /**
+     * @var string
+     */
     protected $redirectTo = '/';
 
     public function __construct()
@@ -30,7 +33,7 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    protected function resetPassword($user, $password)
+    protected function resetPassword($user, $password): void
     {
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));

@@ -53,7 +53,7 @@ class TV
         return $this->data;
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -107,6 +107,9 @@ class TV
         return $this->data['last_episode_to_air'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_name()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
@@ -142,17 +145,23 @@ class TV
         return $this->data['original_language'];
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_original_name()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_overview()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
@@ -191,7 +200,7 @@ class TV
         return $this->data['vote_count'];
     }
 
-    public function get_trailer()
+    public function get_trailer(): ?string
     {
         if (! empty($this->data['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'][0]['key'];
@@ -200,7 +209,7 @@ class TV
         return null;
     }
 
-    public function get_videos()
+    public function get_videos(): ?string
     {
         if ($this->data['videos']['results']) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'];
@@ -209,7 +218,7 @@ class TV
         return null;
     }
 
-    public function get_images()
+    public function get_images(): ?string
     {
         if ($this->data['images']['results']) {
             return 'https://www.youtube.com/embed/'.$this->data['images']['results'];

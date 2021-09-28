@@ -43,7 +43,7 @@ class Http2ServerPush
      * @param null $sizeLimit
      * @param null $excludeKeywords
      *
-     * @return mixed
+     * @return mixed|\Illuminate\Http\Response
      */
     public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
     {
@@ -58,6 +58,9 @@ class Http2ServerPush
         return $response;
     }
 
+    /**
+     * @return mixed
+     */
     public function getConfig($key, $default = false)
     {
         if (! \function_exists('config')) { // for tests..
@@ -74,14 +77,14 @@ class Http2ServerPush
      *
      * @return $this
      */
-    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null): static
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
             ->map(fn ($url) => $this->buildLinkHeaderString($url))
             ->unique()
-            ->filter(function ($value, $key) use ($excludeKeywords) {
+            ->filter(function ($value, $key) use ($excludeKeywords): bool {
                 if (! $value) {
                     return false;
                 }
@@ -113,7 +116,7 @@ class Http2ServerPush
      * Get the DomCrawler instance.
      *
      *
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @return \Symfony\Component\DomCrawler\Crawler|mixed
      */
     protected function getCrawler(Response $response)
     {
@@ -127,11 +130,9 @@ class Http2ServerPush
     /**
      * Get all nodes we are interested in pushing.
      *
-     * @param \Illuminate\Http\Response $response
      *
-     * @return \Illuminate\Support\Collection
      */
-    protected function fetchLinkableNodes($response)
+    protected function fetchLinkableNodes(\Illuminate\Http\Response $response): \Illuminate\Support\Collection
     {
         $crawler = $this->getCrawler($response);
 
@@ -141,11 +142,9 @@ class Http2ServerPush
     /**
      * Build out header string based on asset extension.
      *
-     * @param string $url
      *
-     * @return string
      */
-    private function buildLinkHeaderString($url)
+    private function buildLinkHeaderString(string $url): ?string
     {
         $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {
@@ -161,7 +160,7 @@ class Http2ServerPush
      *
      * @param $link
      */
-    private function addLinkHeader(Response $response, $link)
+    private function addLinkHeader(Response $response, $link): void
     {
         if ($response->headers->get('Link')) {
             $link = $response->headers->get('Link').','.$link;

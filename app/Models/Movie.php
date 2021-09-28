@@ -17,72 +17,54 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
+    /**
+     * @var mixed[]
+     */
     protected $guarded = [];
 
+    /**
+     * @var string
+     */
     public $table = 'movie';
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function genres()
+    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function cast()
+    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function crew()
+    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Crew::class, 'crew_movie', 'person_id', 'movie_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function companies()
+    public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Company::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function countries()
+    public function countries(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Company::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function collection()
+    public function collection(): \Illuminate\Database\Query\Builder
     {
         return $this->belongsToMany(Collection::class)->take(1);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function recommendations()
+    public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Recommendation::class, 'movie_id', 'id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Builder
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
             $q->where('movie_meta', '=', true);
         });
     }

@@ -19,20 +19,16 @@ class ApiSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return void
      */
-    public function index()
+    public function index(): void
     {
         //
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -40,10 +36,8 @@ class ApiSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     *
-     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -51,11 +45,9 @@ class ApiSettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function show($id)
+    public function show(int $id): void
     {
         //
     }
@@ -63,11 +55,9 @@ class ApiSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function edit($id)
+    public function edit(int $id): void
     {
         //
     }
@@ -75,11 +65,9 @@ class ApiSettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -87,11 +75,9 @@ class ApiSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }

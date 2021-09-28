@@ -53,11 +53,17 @@ class Collection
         return $this->data;
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_name()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
+    /**
+     * @return mixed[]|string|null
+     */
     public function get_overview()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
@@ -68,7 +74,7 @@ class Collection
         return $this->data['id'];
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -77,7 +83,7 @@ class Collection
         return null;
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];

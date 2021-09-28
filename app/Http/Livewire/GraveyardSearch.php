@@ -22,20 +22,44 @@ class GraveyardSearch extends Component
 {
     use WithPagination;
 
+    /**
+     * @var string
+     */
     public $name = '';
 
+    /**
+     * @var mixed[]
+     */
     public $categories = [];
 
+    /**
+     * @var mixed[]
+     */
     public $types = [];
 
+    /**
+     * @var mixed[]
+     */
     public $resolutions = [];
 
+    /**
+     * @var string
+     */
     public $tmdbId = '';
 
+    /**
+     * @var string
+     */
     public $imdbId = '';
 
+    /**
+     * @var string
+     */
     public $tvdbId = '';
 
+    /**
+     * @var string
+     */
     public $malId = '';
 
     public $free;
@@ -52,14 +76,29 @@ class GraveyardSearch extends Component
 
     public $internal;
 
+    /**
+     * @var int
+     */
     public $perPage = 25;
 
+    /**
+     * @var string
+     */
     public $sortField = 'created_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
+    /**
+     * @var bool
+     */
     public $showFilters = false;
 
+    /**
+     * @var array<string, array<string, int|string|mixed[]|false>>
+     */
     protected $queryString = [
         'name'          => ['except' => ''],
         'categories'    => ['except' => []],
@@ -108,56 +147,56 @@ class GraveyardSearch extends Component
         return Torrent::with('category', 'type', 'resolution')
             ->where('created_at', '<', Carbon::now()->copy()->subDays(30)->toDateTimeString())
             ->where('seeders', '=', 0)
-            ->when($this->name, function ($query) {
+            ->when($this->name, function ($query): void {
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
-            ->when($this->categories, function ($query) {
+            ->when($this->categories, function ($query): void {
                 $query->whereIn('category_id', $this->categories);
             })
-            ->when($this->types, function ($query) {
+            ->when($this->types, function ($query): void {
                 $query->whereIn('type_id', $this->types);
             })
-            ->when($this->resolutions, function ($query) {
+            ->when($this->resolutions, function ($query): void {
                 $query->whereIn('resolution_id', $this->resolutions);
             })
-            ->when($this->tmdbId, function ($query) {
+            ->when($this->tmdbId, function ($query): void {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
-            ->when($this->imdbId, function ($query) {
+            ->when($this->imdbId, function ($query): void {
                 $query->where('imdb', '=', $this->imdbId);
             })
-            ->when($this->tvdbId, function ($query) {
+            ->when($this->tvdbId, function ($query): void {
                 $query->where('tvdb', '=', $this->tvdbId);
             })
-            ->when($this->malId, function ($query) {
+            ->when($this->malId, function ($query): void {
                 $query->where('mal', '=', $this->malId);
             })
-            ->when($this->free, function ($query) {
+            ->when($this->free, function ($query): void {
                 $query->where('free', '=', 1);
             })
-            ->when($this->doubleup, function ($query) {
+            ->when($this->doubleup, function ($query): void {
                 $query->where('doubleup', '=', 1);
             })
-            ->when($this->featured, function ($query) {
+            ->when($this->featured, function ($query): void {
                 $query->where('featured', '=', 1);
             })
-            ->when($this->stream, function ($query) {
+            ->when($this->stream, function ($query): void {
                 $query->where('stream', '=', 1);
             })
-            ->when($this->sd, function ($query) {
+            ->when($this->sd, function ($query): void {
                 $query->where('sd', '=', 1);
             })
-            ->when($this->highspeed, function ($query) {
+            ->when($this->highspeed, function ($query): void {
                 $query->where('highspeed', '=', 1);
             })
-            ->when($this->internal, function ($query) {
+            ->when($this->internal, function ($query): void {
                 $query->where('internal', '=', 1);
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

@@ -26,9 +26,9 @@ class ChatMessageResource extends JsonResource
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $emojiOne = \app()->make(LaravelJoyPixels::class);
 

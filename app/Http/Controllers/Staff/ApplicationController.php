@@ -43,10 +43,8 @@ class ApplicationController extends Controller
 
     /**
      * Get A Application.
-     *
-     * @param \App\Models\Application $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(\App\Models\Application $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
@@ -56,13 +54,11 @@ class ApplicationController extends Controller
     /**
      * Approve A Application.
      *
-     * @param \App\Models\Application $id
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function approve(Request $request, $id)
+    public function approve(Request $request, \App\Models\Application $id)
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
@@ -110,11 +106,10 @@ class ApplicationController extends Controller
     /**
      * Reject A Application.
      *
-     * @param \App\Models\Application $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request, $id)
+    public function reject(Request $request, \App\Models\Application $id)
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 

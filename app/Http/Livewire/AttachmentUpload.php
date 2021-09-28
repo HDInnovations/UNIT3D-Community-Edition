@@ -21,8 +21,14 @@ class AttachmentUpload extends Component
 {
     use WithFileUploads;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public $user;
 
+    /**
+     * @var int|null
+     */
     public $ticket;
 
     public $attachment;

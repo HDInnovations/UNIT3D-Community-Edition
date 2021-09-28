@@ -22,16 +22,19 @@ class TorrentsResource extends ResourceCollection
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return array<string, \Illuminate\Http\Resources\Json\AnonymousResourceCollection>
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'data' => TorrentResource::collection($this->collection),
         ];
     }
 
-    public function with($request)
+    /**
+     * @return array<string, array<string, string>>
+     */
+    public function with($request): array
     {
         return [
             'links'    => [

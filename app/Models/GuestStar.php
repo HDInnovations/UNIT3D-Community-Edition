@@ -17,16 +17,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class GuestStar extends Model
 {
+    /**
+     * @var mixed[]
+     */
     protected $guarded = [];
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var string
+     */
     public $table = 'person';
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function episode()
+    public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Episode::class, 'episode_guest_star', 'episode_id', 'person_id');
     }

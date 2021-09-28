@@ -21,18 +21,39 @@ class TicketSearch extends Component
 {
     use WithPagination;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public $user;
 
+    /**
+     * @var bool
+     */
     public $show = false;
 
+    /**
+     * @var int
+     */
     public $perPage = 25;
 
+    /**
+     * @var string
+     */
     public $search = '';
 
+    /**
+     * @var string
+     */
     public $sortField = 'updated_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
+    /**
+     * @var array<string, array<string, string|false>>
+     */
     protected $queryString = [
         'search' => ['except' => ''],
         'show'   => ['except' => false],
@@ -92,7 +113,7 @@ class TicketSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

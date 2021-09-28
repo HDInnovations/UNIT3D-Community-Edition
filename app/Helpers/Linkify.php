@@ -22,7 +22,7 @@ class Linkify
     /**
      * @var string
      */
-    public function linky($text)
+    public function linky(string $text): string
     {
         $validator = new Validator(
             false, // bool - if should use top level domain to match urls without scheme

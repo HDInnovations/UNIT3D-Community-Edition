@@ -39,7 +39,7 @@ class CommentCreated
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\Channel|array
+    public function broadcastOn(): \Illuminate\Broadcasting\PrivateChannel
     {
         return new PrivateChannel('channel-name');
     }

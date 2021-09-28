@@ -53,7 +53,7 @@ class GroupController extends Controller
      * Store A New Group.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -116,10 +116,8 @@ class GroupController extends Controller
 
     /**
      * Group Edit Form.
-     *
-     * @param \App\Models\Group $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, \App\Models\Group $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -132,11 +130,10 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param \App\Models\Group $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Group $id)
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

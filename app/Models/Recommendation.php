@@ -17,8 +17,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recommendation extends Model
 {
+    /**
+     * @var mixed[]
+     */
     protected $guarded = [];
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo

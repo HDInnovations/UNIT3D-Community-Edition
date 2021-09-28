@@ -58,7 +58,7 @@ class CommentController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function collection(Request $request, $id)
     {
@@ -115,7 +115,7 @@ class CommentController extends Controller
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = \collect([]);
 
-                $collection->comments()->get()->each(function ($c, $v) use ($users) {
+                $collection->comments()->get()->each(function ($c, $v) use ($users): void {
                     $users->push($c->user);
                 });
                 $this->tag->messageCommentUsers(
@@ -160,11 +160,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param \App\Models\Article $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function article(Request $request, $id)
+    public function article(Request $request, \App\Models\Article $id)
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -217,7 +216,7 @@ class CommentController extends Controller
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = \collect([]);
 
-                $article->comments()->get()->each(function ($c) use ($users) {
+                $article->comments()->get()->each(function ($c) use ($users): void {
                     $users->push($c->user);
                 });
                 $this->taggedUserRepository->messageCommentUsers(
@@ -262,11 +261,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      *
-     * @param \App\Models\Playlist $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function playlist(Request $request, $id)
+    public function playlist(Request $request, \App\Models\Playlist $id)
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -319,7 +317,7 @@ class CommentController extends Controller
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = \collect([]);
 
-                $playlist->comments()->get()->each(function ($c) use ($users) {
+                $playlist->comments()->get()->each(function ($c) use ($users): void {
                     $users->push($c->user);
                 });
                 $this->taggedUserRepository->messageCommentUsers(
@@ -364,11 +362,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, \App\Models\Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -426,7 +423,7 @@ class CommentController extends Controller
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = \collect([]);
 
-                $torrent->comments()->get()->each(function ($c) use ($users) {
+                $torrent->comments()->get()->each(function ($c) use ($users): void {
                     $users->push($c->user);
                 });
                 $this->taggedUserRepository->messageCommentUsers(
@@ -471,11 +468,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, \App\Models\TorrentRequest $id)
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -533,7 +529,7 @@ class CommentController extends Controller
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = \collect([]);
 
-                $tr->comments()->get()->each(function ($c) use ($users) {
+                $tr->comments()->get()->each(function ($c) use ($users): void {
                     $users->push($c->user);
                 });
                 $this->taggedUserRepository->messageCommentUsers(
@@ -578,11 +574,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function ticket(Request $request, $id)
+    public function ticket(Request $request, \App\Models\TorrentRequest $id)
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -630,11 +625,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param \App\Models\Torrent $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function quickthanks(Request $request, $id)
+    public function quickthanks(Request $request, \App\Models\Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -725,7 +719,7 @@ class CommentController extends Controller
      *
      * @param $commentId
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function editComment(Request $request, $commentId)
     {
@@ -753,10 +747,8 @@ class CommentController extends Controller
      * Delete A Comment.
      *
      * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $commentId)
+    public function deleteComment(Request $request, $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);

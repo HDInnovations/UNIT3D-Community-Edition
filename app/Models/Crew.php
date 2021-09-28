@@ -17,40 +17,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Crew extends Model
 {
+    /**
+     * @var mixed[]
+     */
     protected $guarded = [];
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var string
+     */
     public $table = 'person';
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tv()
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'crew_tv', 'tv_id', 'person_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function season()
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Season::class, 'crew_season', 'season_id', 'person_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function episode()
+    public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Episode::class, 'crew_episode', 'episode_id', 'person_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function movie()
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'crew_movie', 'movie_id', 'person_id');
     }

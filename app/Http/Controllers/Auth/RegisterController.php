@@ -59,6 +59,9 @@ class RegisterController extends Controller
         return \view('auth.register', ['code' => $code]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     */
     public function register(Request $request, $code = null)
     {
         // Make sure open reg is off and invite code exist and has not been used already

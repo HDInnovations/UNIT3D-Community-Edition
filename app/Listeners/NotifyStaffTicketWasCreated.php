@@ -30,10 +30,8 @@ class NotifyStaffTicketWasCreated
     /**
      * Handle the event.
      *
-     *
-     * @return void
      */
-    public function handle(TicketCreated $event)
+    public function handle(TicketCreated $event): void
     {
         //
     }

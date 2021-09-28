@@ -41,25 +41,31 @@ class ChatRepository
         return \config('chat');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Bot[]
+     */
     public function bots()
     {
         return $this->bot->all();
     }
 
-    public function echoes($userId)
+    public function echoes($userId): \Illuminate\Support\Collection
     {
         return $this->userEcho->with([
             'bot',
             'user',
             'target',
             'room',
-        ])->where(function ($query) use ($userId) {
+        ])->where(function ($query) use ($userId): void {
             $query->where('user_id', '=', $userId);
         })
             ->orderBy('id', 'asc')
             ->get();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection&\Illuminate\Database\Eloquent\Builder[]
+     */
     public function audibles($userId)
     {
         return $this->userAudible->with([
@@ -67,13 +73,16 @@ class ChatRepository
             'user',
             'target',
             'room',
-        ])->where(function ($query) use ($userId) {
+        ])->where(function ($query) use ($userId): void {
             $query->where('user_id', '=', $userId);
         })
             ->latest()
             ->get();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\Chatroom[]
+     */
     public function rooms()
     {
         return $this->chatroom->all();
@@ -84,7 +93,7 @@ class ChatRepository
         return $this->chatroom->findOrFail($id);
     }
 
-    public function ping($type, $id)
+    public function ping($type, $id): bool
     {
         if ($type == 'room') {
             foreach (Chatroom::where('id', '>', 0)->get() as $room) {
@@ -118,7 +127,7 @@ class ChatRepository
         return $message;
     }
 
-    public function botMessage($botId, $roomId, $message, $receiver = null)
+    public function botMessage($botId, $roomId, $message, $receiver = null): void
     {
         $user = $this->user->find($receiver);
         if ($user->censor) {
@@ -184,6 +193,9 @@ class ChatRepository
         return $message;
     }
 
+    /**
+     * @return mixed|void
+     */
     public function deleteMessage($id)
     {
         $message = $this->message->find($id);
@@ -195,7 +207,7 @@ class ChatRepository
         }
     }
 
-    public function messages($roomId)
+    public function messages($roomId): \Illuminate\Support\Collection
     {
         return $this->message->with([
             'bot',
@@ -204,7 +216,7 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($roomId) {
+        ])->where(function ($query) use ($roomId): void {
             $query->where('chatroom_id', '=', $roomId);
         })
             ->orderBy('id', 'desc')
@@ -212,7 +224,7 @@ class ChatRepository
             ->get();
     }
 
-    public function botMessages($senderId, $botId)
+    public function botMessages($senderId, $botId): \Illuminate\Support\Collection
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
@@ -223,7 +235,7 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($senderId, $systemUserId) {
+        ])->where(function ($query) use ($senderId, $systemUserId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
         })->where('bot_id', '=', $botId)
             ->orderBy('id', 'desc')
@@ -231,7 +243,7 @@ class ChatRepository
             ->get();
     }
 
-    public function privateMessages($senderId, $targetId)
+    public function privateMessages($senderId, $targetId): \Illuminate\Support\Collection
     {
         return $this->message->with([
             'bot',
@@ -240,7 +252,7 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($senderId, $targetId) {
+        ])->where(function ($query) use ($senderId, $targetId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
         })
             ->orderBy('id', 'desc')
@@ -248,7 +260,7 @@ class ChatRepository
             ->get();
     }
 
-    public function checkMessageLimits($roomId)
+    public function checkMessageLimits($roomId): void
     {
         $messages = $this->messages($roomId)->toArray();
         $limit = \config('chat.message_limit');
@@ -269,7 +281,7 @@ class ChatRepository
         }
     }
 
-    public function systemMessage($message, $bot = null)
+    public function systemMessage($message, $bot = null): static
     {
         $systemUserId = User::where('username', 'System')->first()->id;
 
@@ -307,6 +319,9 @@ class ChatRepository
         return $room;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection&\App\Models\ChatStatus[]
+     */
     public function statuses()
     {
         return $this->chatStatus->all();
@@ -332,10 +347,8 @@ class ChatRepository
 
     /**
      * @param $message
-     *
-     * @return string
      */
-    protected function censorMessage($message)
+    protected function censorMessage($message): string
     {
         foreach (\config('censor.redact') as $word) {
             if (\preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {

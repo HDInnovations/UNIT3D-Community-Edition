@@ -73,30 +73,24 @@ class Report extends Model
 
     /**
      * Belongs To A Request.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function request()
+    public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'request_id');
     }
 
     /**
      * Belongs To A Torrent.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'torrent_id');
     }
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function reporter()
+    public function reporter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
             'username' => 'System',
@@ -106,10 +100,8 @@ class Report extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function reported()
+    public function reported(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
             'username' => 'System',
@@ -119,10 +111,8 @@ class Report extends Model
 
     /**
      * Belongs To A Staff Member.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staff()
+    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',

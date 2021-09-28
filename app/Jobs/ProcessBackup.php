@@ -25,13 +25,16 @@ class ProcessBackup implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
 
+    /**
+     * @var int
+     */
     public $timeout = 0;
 
     public function __construct(protected $option = '')
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $backupJob = BackupJobFactory::createFromArray(config('backup'));
 

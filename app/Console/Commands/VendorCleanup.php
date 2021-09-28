@@ -23,6 +23,9 @@ use RecursiveIteratorIterator;
  */
 class VendorCleanup extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'vendor:cleanup {--check : Runs in dry mode without deleting files.}';
 
     /**
@@ -32,6 +35,9 @@ class VendorCleanup extends Command
      */
     protected $description = 'Cleans up useless files from  vendor folder.';
 
+    /**
+     * @var string[]
+     */
     protected $patterns =
         [
             'test',
@@ -74,6 +80,7 @@ class VendorCleanup extends Command
      * List of File and Folders Patters Going To Be Excluded.
      *
      * @return void
+     * @var string[]
      */
     protected $excluded =
         [
@@ -92,7 +99,7 @@ class VendorCleanup extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $patterns = \array_diff($this->patterns, $this->excluded);
 
@@ -143,11 +150,10 @@ class VendorCleanup extends Command
     /**
      * Recursively traverses the directory tree.
      *
-     * @param string $dir
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function expandDirectoryTree($dir)
+    protected function expandDirectoryTree(string $dir): array
     {
         $directories = [];
         foreach (\array_diff(\scandir($dir), ['.', '..']) as $file) {
@@ -164,11 +170,10 @@ class VendorCleanup extends Command
     /**
      * Recursively deletes the directory.
      *
-     * @param string $dir
      *
-     * @return bool
+     * @return bool|void
      */
-    protected function delTree($dir)
+    protected function delTree(string $dir)
     {
         if (! \file_exists($dir) || ! \is_dir($dir)) {
             return false;
@@ -192,16 +197,14 @@ class VendorCleanup extends Command
     /**
      * Prepare word.
      *
-     * @param string $matches
      *
-     * @return string
      */
-    protected function prepareWord($matches)
+    protected function prepareWord(string $matches): string
     {
         return '['.\strtolower($matches[1]).\strtoupper($matches[1]).']';
     }
 
-    protected function arrayFind($needle, array $haystack)
+    protected function arrayFind($needle, array $haystack): int|string|bool
     {
         foreach ($haystack as $key => $value) {
             if (false !== \stripos($value, $needle)) {
@@ -212,7 +215,7 @@ class VendorCleanup extends Command
         return false;
     }
 
-    protected function out($message)
+    protected function out($message): void
     {
         if ($this->option('check')) {
             echo $message.PHP_EOL;

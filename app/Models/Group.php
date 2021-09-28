@@ -89,20 +89,16 @@ class Group extends Model
 
     /**
      * Has Many Users.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);
     }
 
     /**
      * Has Many Permissions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function permissions()
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -126,10 +122,8 @@ class Group extends Model
      *
      * @param $object
      * @param $groupId
-     *
-     * @return int
      */
-    public function isAllowed($object, $groupId)
+    public function isAllowed($object, $groupId): bool
     {
         if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
             return $object['default_groups'][$groupId] == 1;

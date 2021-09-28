@@ -34,9 +34,9 @@ class NewRequestClaim extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -46,9 +46,9 @@ class NewRequestClaim extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',

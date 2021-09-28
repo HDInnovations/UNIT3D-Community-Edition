@@ -20,15 +20,24 @@ class UserFilled75Requests extends Achievement
     /*
      * The achievement name
      */
+    /**
+     * @var string
+     */
     public $name = 'Filled75Requests';
 
     /*
      * A small description for the achievement
      */
+    /**
+     * @var string
+     */
     public $description = 'Woot! You have already filled 75 requests!';
 
     /*
      * The amount of "points" this user need to obtain in order to complete this achievement
+     */
+    /**
+     * @var int
      */
     public $points = 75;
 }

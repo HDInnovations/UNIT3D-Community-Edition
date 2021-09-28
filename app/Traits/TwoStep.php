@@ -139,11 +139,10 @@ trait TwoStep
     /**
      * Format verification exceeded timings with Carbon.
      *
-     * @param string $time
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function exceededTimeParser($time)
+    protected function exceededTimeParser(string $time)
     {
         $tomorrow = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);

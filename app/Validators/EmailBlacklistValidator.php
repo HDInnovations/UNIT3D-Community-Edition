@@ -21,6 +21,7 @@ class EmailBlacklistValidator
 {
     /**
      * Array of blacklisted domains.
+     * @var mixed|mixed[]
      */
     private $domains = [];
 
@@ -31,10 +32,8 @@ class EmailBlacklistValidator
      * @param $attribute
      * @param $rule
      * @param $parameters
-     *
-     * @return string
      */
-    public function message($message, $attribute, $rule, $parameters)
+    public function message($message, $attribute, $rule, $parameters): string
     {
         return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
     }
@@ -42,15 +41,13 @@ class EmailBlacklistValidator
     /**
      * Execute the validation routine.
      *
-     * @param string $attribute
-     * @param string $value
-     * @param array  $parameters
      *
      * @throws \Exception
      *
      * @return bool.
+     * @param mixed[] $parameters
      */
-    public function validate($attribute, $value, $parameters)
+    public function validate(string $attribute, string $value, array $parameters): bool
     {
         // Load blacklisted domains
         $this->refresh();
@@ -68,17 +65,15 @@ class EmailBlacklistValidator
      * @param null
      *
      * @throws \Exception
-     *
-     * @return void
      */
-    public function refresh()
+    public function refresh(): void
     {
         $this->shouldUpdate();
         $this->domains = \cache()->get(\config('email-blacklist.cache-key'));
         $this->appendCustomDomains();
     }
 
-    protected function shouldUpdate()
+    protected function shouldUpdate(): void
     {
         $autoupdate = \config('email-blacklist.auto-update');
 
@@ -90,7 +85,7 @@ class EmailBlacklistValidator
         }
     }
 
-    protected function appendCustomDomains()
+    protected function appendCustomDomains(): void
     {
         $appendList = \config('email-blacklist.append');
         if ($appendList === null) {

@@ -21,14 +21,12 @@ class CheckIfBanned
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
      * @param string|null              $guard
      *
      * @throws \Exception
-     *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(\Illuminate\Http\Request $request, Closure $next, $guard = null)
     {
         $user = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));

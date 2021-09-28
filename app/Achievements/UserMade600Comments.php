@@ -20,15 +20,24 @@ class UserMade600Comments extends Achievement
     /*
      * The achievement name
      */
+    /**
+     * @var string
+     */
     public $name = '600Comments';
 
     /*
      * A small description for the achievement
      */
+    /**
+     * @var string
+     */
     public $description = 'Wow! You have already made 600 comments!';
 
     /*
      * The amount of "points" this user need to obtain in order to complete this achievement
+     */
+    /**
+     * @var int
      */
     public $points = 600;
 }

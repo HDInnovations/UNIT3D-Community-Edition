@@ -33,6 +33,9 @@ class SystemInformation
         'sqlsrv',
     ];
 
+    /**
+     * @return float|void
+     */
     public function avg()
     {
         if (\is_readable('/proc/loadavg')) {
@@ -40,7 +43,10 @@ class SystemInformation
         }
     }
 
-    public function memory()
+    /**
+     * @return array<string, mixed>|array<string, int>
+     */
+    public function memory(): array
     {
         if (\is_readable('/proc/meminfo')) {
             $content = \file_get_contents('/proc/meminfo');
@@ -65,7 +71,7 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    protected function formatBytes($bytes, $precision = 2): string
     {
         $bytes = \max($bytes, 0);
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
@@ -77,7 +83,10 @@ class SystemInformation
         return \round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
-    public function disk()
+    /**
+     * @return array<string, mixed>
+     */
+    public function disk(): array
     {
         $total = \disk_total_space(\base_path());
         $free = \disk_free_space(\base_path());
@@ -89,6 +98,9 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @return float|void
+     */
     public function uptime()
     {
         if (\is_readable('/proc/uptime')) {
@@ -101,7 +113,10 @@ class SystemInformation
         return Carbon::now();
     }
 
-    public function basic()
+    /**
+     * @return array<string, mixed>
+     */
+    public function basic(): array
     {
         return [
             'os'       => PHP_OS,
@@ -111,6 +126,9 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @return string|mixed
+     */
     private function getDatabase()
     {
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
@@ -125,9 +143,9 @@ class SystemInformation
     /**
      * Get all the directory permissions as well as the recommended ones.
      *
-     * @return array
+     * @return array<int, array<string, string|\Symfony\Component\Translation\TranslatorInterface>>
      */
-    public function directoryPermissions()
+    public function directoryPermissions(): array
     {
         return [
             [

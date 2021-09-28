@@ -41,7 +41,7 @@ class TestMailSettings extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $owner = \config('other.email');
 

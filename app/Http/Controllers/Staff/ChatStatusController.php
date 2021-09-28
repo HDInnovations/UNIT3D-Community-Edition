@@ -46,7 +46,7 @@ class ChatStatusController extends Controller
      * Store A New Chat Status.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -75,11 +75,10 @@ class ChatStatusController extends Controller
     /**
      * Update A Chat Status.
      *
-     * @param \App\Models\ChatStatus $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\ChatStatus $id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->name = $request->input('name');
@@ -106,13 +105,11 @@ class ChatStatusController extends Controller
     /**
      * Delete A Chat Status.
      *
-     * @param \App\Models\ChatStatus $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(\App\Models\ChatStatus $id): \Illuminate\Http\RedirectResponse
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();

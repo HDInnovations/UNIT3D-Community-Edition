@@ -25,24 +25,54 @@ class TorrentRequestSearch extends Component
 {
     use WithPagination;
 
+    /**
+     * @var string
+     */
     public $name = '';
 
+    /**
+     * @var string
+     */
     public $requestor = '';
 
+    /**
+     * @var mixed[]
+     */
     public $categories = [];
 
+    /**
+     * @var mixed[]
+     */
     public $types = [];
 
+    /**
+     * @var mixed[]
+     */
     public $resolutions = [];
 
+    /**
+     * @var mixed[]
+     */
     public $genres = [];
 
+    /**
+     * @var string
+     */
     public $tmdbId = '';
 
+    /**
+     * @var string
+     */
     public $imdbId = '';
 
+    /**
+     * @var string
+     */
     public $tvdbId = '';
 
+    /**
+     * @var string
+     */
     public $malId = '';
 
     public $unfilled;
@@ -61,14 +91,29 @@ class TorrentRequestSearch extends Component
 
     public $myFilled;
 
+    /**
+     * @var int
+     */
     public $perPage = 25;
 
+    /**
+     * @var string
+     */
     public $sortField = 'created_at';
 
+    /**
+     * @var string
+     */
     public $sortDirection = 'desc';
 
+    /**
+     * @var bool
+     */
     public $showFilters = false;
 
+    /**
+     * @var array<string, array<string, int|string|mixed[]|false>>
+     */
     protected $queryString = [
         'name'          => ['except' => ''],
         'requestor'     => ['except' => ''],
@@ -108,7 +153,7 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty()
+    final public function getTorrentRequestStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -117,7 +162,7 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty()
+    final public function getTorrentRequestBountyStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -130,67 +175,67 @@ class TorrentRequestSearch extends Component
     {
         return TorrentRequest::with(['category', 'type', 'resolution'])
             ->withCount(['comments'])
-            ->when($this->name, function ($query) {
+            ->when($this->name, function ($query): void {
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
-            ->when($this->requestor, function ($query) {
+            ->when($this->requestor, function ($query): void {
                 $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username', 'ASC')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
             })
-            ->when($this->categories, function ($query) {
+            ->when($this->categories, function ($query): void {
                 $query->whereIn('category_id', $this->categories);
             })
-            ->when($this->types, function ($query) {
+            ->when($this->types, function ($query): void {
                 $query->whereIn('type_id', $this->types);
             })
-            ->when($this->resolutions, function ($query) {
+            ->when($this->resolutions, function ($query): void {
                 $query->whereIn('resolution_id', $this->resolutions);
             })
-            ->when($this->tmdbId, function ($query) {
+            ->when($this->tmdbId, function ($query): void {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
-            ->when($this->imdbId, function ($query) {
+            ->when($this->imdbId, function ($query): void {
                 $query->where('imdb', '=', $this->imdbId);
             })
-            ->when($this->tvdbId, function ($query) {
+            ->when($this->tvdbId, function ($query): void {
                 $query->where('tvdb', '=', $this->tvdbId);
             })
-            ->when($this->malId, function ($query) {
+            ->when($this->malId, function ($query): void {
                 $query->where('mal', '=', $this->malId);
             })
-            ->when($this->unfilled, function ($query) {
+            ->when($this->unfilled, function ($query): void {
                 $query->whereNull('filled_hash')->whereNull('claimed');
             })
-            ->when($this->claimed, function ($query) {
+            ->when($this->claimed, function ($query): void {
                 $query->whereNotNull('claimed')->whereNull('filled_hash')->whereNull('approved_by');
             })
-            ->when($this->pending, function ($query) {
+            ->when($this->pending, function ($query): void {
                 $query->whereNotNull('filled_hash')->whereNull('approved_by');
             })
-            ->when($this->filled, function ($query) {
+            ->when($this->filled, function ($query): void {
                 $query->whereNotNull('filled_hash')->whereNotNull('approved_by');
             })
-            ->when($this->myRequests, function ($query) {
+            ->when($this->myRequests, function ($query): void {
                 $query->where('user_id', '=', \auth()->user()->id);
             })
-            ->when($this->myClaims, function ($query) {
+            ->when($this->myClaims, function ($query): void {
                 $requestCliams = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
                 $query->whereIn('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
             })
-            ->when($this->myVoted, function ($query) {
+            ->when($this->myVoted, function ($query): void {
                 $requestVotes = TorrentRequestBounty::where('user_id', '=', \auth()->user()->id)->pluck('requests_id');
                 $query->whereIn('id', $requestVotes);
             })
-            ->when($this->myFilled, function ($query) {
+            ->when($this->myFilled, function ($query): void {
                 $query->where('filled_by', '=', \auth()->user()->id);
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

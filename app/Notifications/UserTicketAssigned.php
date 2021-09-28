@@ -37,9 +37,9 @@ class UserTicketAssigned extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -48,10 +48,8 @@ class UserTicketAssigned extends Notification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
             ->subject('Your ticket was assigned (Ticket # '.$this->ticket->id.')')
@@ -64,9 +62,9 @@ class UserTicketAssigned extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return mixed[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

@@ -37,9 +37,9 @@ class UserTicketStale extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -48,10 +48,8 @@ class UserTicketStale extends Notification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
                     ->cc($this->ticket->staff->email)
@@ -65,9 +63,9 @@ class UserTicketStale extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return mixed[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

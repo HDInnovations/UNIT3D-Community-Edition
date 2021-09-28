@@ -35,9 +35,9 @@ class NewFollow extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -47,9 +47,9 @@ class NewFollow extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'title' => $this->sender->username.' Has Followed You!',

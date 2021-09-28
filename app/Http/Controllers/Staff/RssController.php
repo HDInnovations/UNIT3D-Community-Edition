@@ -31,7 +31,7 @@ class RssController extends Controller
      *
      * @param null $hash
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
@@ -111,10 +111,8 @@ class RssController extends Controller
 
     /**
      * Show the form for editing the specified RSS resource.
-     *
-     * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
@@ -131,10 +129,8 @@ class RssController extends Controller
 
     /**
      * Update the specified RSS resource in storage.
-     *
-     * @param int $id
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
@@ -185,13 +181,11 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @param int $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();

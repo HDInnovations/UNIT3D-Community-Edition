@@ -45,10 +45,8 @@ class SendDisableUserMail implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(\min(30 * $this->attempts(), 300));

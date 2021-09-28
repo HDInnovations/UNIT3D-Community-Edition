@@ -25,12 +25,24 @@ class Chatter implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
+    /**
+     * @var mixed|null
+     */
     public $echoes;
 
+    /**
+     * @var mixed|null
+     */
     public $message;
 
+    /**
+     * @var mixed|null
+     */
     public $ping;
 
+    /**
+     * @var mixed|null
+     */
     public $audibles;
 
     /**
@@ -57,10 +69,8 @@ class Chatter implements ShouldBroadcastNow
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PrivateChannel
     {
         return new PrivateChannel('chatter.'.$this->target);
     }

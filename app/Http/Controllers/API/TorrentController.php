@@ -48,10 +48,8 @@ class TorrentController extends BaseController
 
     /**
      * Display a listing of the resource.
-     *
-     * @return TorrentsResource
      */
-    public function index()
+    public function index(): \App\Http\Resources\TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
             ->orderBy('sticky', 'desc')
@@ -65,7 +63,7 @@ class TorrentController extends BaseController
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -275,11 +273,9 @@ class TorrentController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param int $id
      *
-     * @return TorrentResource
      */
-    public function show($id)
+    public function show(int $id): \App\Http\Resources\TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -291,11 +287,9 @@ class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -303,11 +297,9 @@ class TorrentController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
      *
-     * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }
@@ -319,7 +311,7 @@ class TorrentController extends BaseController
     {
         $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
-            ->when($request->has('name'), function ($query) use ($request) {
+            ->when($request->has('name'), function ($query) use ($request): void {
                 $terms = \explode(' ', $request->input('name'));
                 $search = '';
                 foreach ($terms as $term) {
@@ -328,99 +320,99 @@ class TorrentController extends BaseController
 
                 $query->where('name', 'LIKE', $search);
             })
-            ->when($request->has('description'), function ($query) use ($request) {
+            ->when($request->has('description'), function ($query) use ($request): void {
                 $query->where('description', 'LIKE', '%'.$request->input('description').'%');
             })
-            ->when($request->has('mediainfo'), function ($query) use ($request) {
+            ->when($request->has('mediainfo'), function ($query) use ($request): void {
                 $query->where('mediainfo', 'LIKE', '%'.$request->input('mediainfo').'%');
             })
-            ->when($request->has('file_name'), function ($query) use ($request) {
-                $query->whereHas('files', function ($q) use ($request) {
+            ->when($request->has('file_name'), function ($query) use ($request): void {
+                $query->whereHas('files', function ($q) use ($request): void {
                     $q->where('name', $request->input('file_name'));
                 });
             })
-            ->when($request->has('uploader'), function ($query) use ($request) {
+            ->when($request->has('uploader'), function ($query) use ($request): void {
                 $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->orderBy('username', 'ASC')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
             })
-            ->when($request->has('keywords'), function ($query) use ($request) {
+            ->when($request->has('keywords'), function ($query) use ($request): void {
                 $keywords = self::parseKeywords($request->input('keywords'));
                 $keyword = Keyword::select(['torrent_id'])->whereIn('name', $keywords)->get();
                 $query->whereIn('id', $keyword->torrent_id);
             })
-            ->when($request->has('startYear') && $request->has('endYear'), function ($query) use ($request) {
+            ->when($request->has('startYear') && $request->has('endYear'), function ($query) use ($request): void {
                 $query->whereBetween('release_year', [$request->input('startYear'), $request->input('endYear')]);
             })
-            ->when($request->has('categories'), function ($query) use ($request) {
+            ->when($request->has('categories'), function ($query) use ($request): void {
                 $query->whereIn('category_id', $request->input('categories'));
             })
-            ->when($request->has('types'), function ($query) use ($request) {
+            ->when($request->has('types'), function ($query) use ($request): void {
                 $query->whereIn('type_id', $request->input('types'));
             })
-            ->when($request->has('resolutions'), function ($query) use ($request) {
+            ->when($request->has('resolutions'), function ($query) use ($request): void {
                 $query->whereIn('resolution_id', $request->input('resolutions'));
             })
-            ->when($request->has('genres'), function ($query) use ($request) {
+            ->when($request->has('genres'), function ($query) use ($request): void {
                 $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $request->input('genres'))->pluck('tv_id');
                 $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $request->input('genres'))->pluck('movie_id');
                 $mergedCollection = $tvCollection->merge($movieCollection);
 
                 $query->whereIn('tmdb', $mergedCollection);
             })
-            ->when($request->has('tmdbId'), function ($query) use ($request) {
+            ->when($request->has('tmdbId'), function ($query) use ($request): void {
                 $query->where('tmdb', '=', $request->input('tmdbId'));
             })
-            ->when($request->has('imdbId'), function ($query) use ($request) {
+            ->when($request->has('imdbId'), function ($query) use ($request): void {
                 $query->where('imdb', '=', $request->input('imdbId'));
             })
-            ->when($request->has('tvdbId'), function ($query) use ($request) {
+            ->when($request->has('tvdbId'), function ($query) use ($request): void {
                 $query->where('tvdb', '=', $request->input('tvdbId'));
             })
-            ->when($request->has('malId'), function ($query) use ($request) {
+            ->when($request->has('malId'), function ($query) use ($request): void {
                 $query->where('mal', '=', $request->input('malId'));
             })
-            ->when($request->has('playlistId'), function ($query) use ($request) {
+            ->when($request->has('playlistId'), function ($query) use ($request): void {
                 $playlist = PlaylistTorrent::where('playlist_id', '=', $request->input('playlistId'))->pluck('torrent_id');
                 $query->whereIn('id', $playlist);
             })
-            ->when($request->has('collectionId'), function ($query) use ($request) {
+            ->when($request->has('collectionId'), function ($query) use ($request): void {
                 $categories = Category::where('movie_meta', '=', 1)->pluck('id');
                 $collection = DB::table('collection_movie')->where('collection_id', '=', $request->input('collectionId'))->pluck('movie_id');
                 $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
             })
-            ->when($request->has('free'), function ($query) {
+            ->when($request->has('free'), function ($query): void {
                 $query->where('free', '=', 1);
             })
-            ->when($request->has('doubleup'), function ($query) {
+            ->when($request->has('doubleup'), function ($query): void {
                 $query->where('doubleup', '=', 1);
             })
-            ->when($request->has('featured'), function ($query) {
+            ->when($request->has('featured'), function ($query): void {
                 $query->where('featured', '=', 1);
             })
-            ->when($request->has('stream'), function ($query) {
+            ->when($request->has('stream'), function ($query): void {
                 $query->where('stream', '=', 1);
             })
-            ->when($request->has('sd'), function ($query) {
+            ->when($request->has('sd'), function ($query): void {
                 $query->where('sd', '=', 1);
             })
-            ->when($request->has('highspeed'), function ($query) {
+            ->when($request->has('highspeed'), function ($query): void {
                 $query->where('highspeed', '=', 1);
             })
-            ->when($request->has('internal'), function ($query) {
+            ->when($request->has('internal'), function ($query): void {
                 $query->where('internal', '=', 1);
             })
-            ->when($request->has('personalRelease'), function ($query) {
+            ->when($request->has('personalRelease'), function ($query): void {
                 $query->where('personal_release', '=', 1);
             })
-            ->when($request->has('alive'), function ($query) {
+            ->when($request->has('alive'), function ($query): void {
                 $query->orWhere('seeders', '>=', 1);
             })
-            ->when($request->has('dying'), function ($query) {
+            ->when($request->has('dying'), function ($query): void {
                 $query->orWhere('seeders', '=', 1)->where('times_completed', '>=', 3);
             })
-            ->when($request->has('dead'), function ($query) {
+            ->when($request->has('dead'), function ($query): void {
                 $query->orWhere('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
@@ -468,9 +460,9 @@ class TorrentController extends BaseController
      *
      * @param $text
      *
-     * @return array
+     * @return string[]
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];

@@ -30,14 +30,29 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupPanel extends Component
 {
+    /**
+     * @var mixed[]
+     */
     public $backupStatuses = [];
 
+    /**
+     * @var null|mixed|string
+     */
     public $activeDisk = null;
 
+    /**
+     * @var mixed[]
+     */
     public $disks = [];
 
+    /**
+     * @var mixed|mixed[]
+     */
     public $files = [];
 
+    /**
+     * @var null|mixed
+     */
     public $deletingFile = null;
 
     final public function updateBackupStatuses(): void
@@ -84,7 +99,7 @@ class BackupPanel extends Component
 
         $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), fn () => $backupDestination
             ->backups()
-            ->map(function (Backup $backup) {
+            ->map(function (Backup $backup): array {
                 $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
                 return [
@@ -160,7 +175,7 @@ class BackupPanel extends Component
             'Pragma'              => 'public',
         ];
 
-        return response()->stream(function () use ($backup) {
+        return response()->stream(function () use ($backup): void {
             $stream = $backup->stream();
 
             fpassthru($stream);

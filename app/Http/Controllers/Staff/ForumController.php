@@ -49,10 +49,8 @@ class ForumController extends Controller
     /**
      * Store A New Forum.
      *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $groups = Group::all();
 
@@ -94,10 +92,8 @@ class ForumController extends Controller
 
     /**
      * Forum Edit Form.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(\App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -113,11 +109,9 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      *
-     * @param \App\Models\Forum $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -160,13 +154,11 @@ class ForumController extends Controller
     /**
      * Delete A Forum.
      *
-     * @param \App\Models\Forum $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(\App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);

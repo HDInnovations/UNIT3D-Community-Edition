@@ -62,13 +62,9 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     // Bad name to not conflict with sender (not sender_id)
-
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -78,13 +74,9 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A Bot.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     // Bad name to not conflict with sender (not sender_id)
-
-    public function bot()
+    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class)->withDefault([
             'username' => 'System',
@@ -94,10 +86,8 @@ class BotTransaction extends Model
 
     /**
      * Get the Bot transaction type answer as string.
-     *
-     * @return int
      */
-    public function forHumans()
+    public function forHumans(): string
     {
         if ($this->type == 'bon') {
             return 'BON';

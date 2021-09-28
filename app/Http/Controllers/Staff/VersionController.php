@@ -36,10 +36,8 @@ class VersionController extends Controller
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \JsonException
-     *
-     * @return string
      */
-    public function checkVersion()
+    public function checkVersion(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $client = new Client();
         $response = \json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), true, 512, JSON_THROW_ON_ERROR);

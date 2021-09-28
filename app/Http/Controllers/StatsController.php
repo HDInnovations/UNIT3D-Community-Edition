@@ -70,7 +70,7 @@ class StatsController extends Controller
         });
 
         // Total Pruned Members Count
-        $prunedUser = \cache()->remember('pruned_user', $this->carbon, function () {
+        $prunedUser = \cache()->remember('pruned_user', $this->carbon, function (): int {
             $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             return User::onlyTrashed()->where('group_id', '=', $prunedGroup[0])->count();
@@ -336,10 +336,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Groups.
-     *
-     * @param \App\Models\Group $id
      */
-    public function group($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function group(\App\Models\Group $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);

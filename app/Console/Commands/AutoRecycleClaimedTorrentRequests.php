@@ -53,7 +53,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)
