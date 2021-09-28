@@ -23,6 +23,7 @@ class EmailBlacklistUpdater
         if ($url === null) {
             return false;
         }
+
         // Define parameters for the cache
         $key = \config('email-blacklist.cache-key');
         $duration = Carbon::now()->addMonth();

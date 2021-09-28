@@ -33,12 +33,19 @@ use Livewire\Component;
 class SimilarTorrent extends Component
 {
     public $categoryId;
+
     public $tmdbId;
+
     public $reason;
+
     public $checked = [];
+
     public $selectPage = false;
+
     public $selectAll = false;
+
     public $sortField = 'bumped_at';
+
     public $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
@@ -76,11 +83,13 @@ class SimilarTorrent extends Component
                 $q->where('movie_meta', '=', true);
             });
         }
+
         if ($category->tv_meta == true) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('tv_meta', '=', true);
             });
         }
+
         $query = $query->where('tmdb', '=', $this->tmdbId);
         $query = $query->orderBy($this->sortField, $this->sortDirection);
 
@@ -94,6 +103,7 @@ class SimilarTorrent extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 
@@ -123,6 +133,7 @@ class SimilarTorrent extends Component
                     $users[] = $pm->user_id;
                 }
             }
+
             if (! in_array($torrent->tmdb, $titleids)) {
                 $titleids[] = $torrent->tmdb;
                 $title = null;
@@ -164,6 +175,7 @@ class SimilarTorrent extends Component
 
             $torrent->delete();
         }
+
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = 1;

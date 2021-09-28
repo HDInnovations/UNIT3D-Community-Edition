@@ -95,6 +95,7 @@ class ApplicationController extends Controller
             return \redirect()->route('application.create')
                 ->withErrors($v->errors());
         }
+
         $application->save();
         // Map And Save IMG Proofs
         $imgs = \collect($request->input('images'))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));

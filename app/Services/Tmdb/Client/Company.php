@@ -19,11 +19,14 @@ class Company
      * @var \GuzzleHttp\Client|mixed
      */
     public $client;
+
     /**
      * @var int|mixed
      */
     public $page;
+
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+
     public $data;
 
     public function __construct($id, $page = null)

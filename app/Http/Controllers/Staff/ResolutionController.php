@@ -61,6 +61,7 @@ class ResolutionController extends Controller
             return \redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
+
         $resolution->save();
 
         return \redirect()->route('staff.resolutions.index')
@@ -103,6 +104,7 @@ class ResolutionController extends Controller
             return \redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
+
         $resolution->save();
 
         return \redirect()->route('staff.resolutions.index')

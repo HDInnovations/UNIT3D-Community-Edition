@@ -83,6 +83,7 @@ class ProcessTvJob implements ShouldQueue
                 } else {
                     $logo = null;
                 }
+
                 $networkArray = [
                     'headquarters'   => $tmdb->ifExists('headquarters', $network),
                     'homepage'       => $tmdb->ifExists('homepage', $network),
@@ -176,6 +177,7 @@ class ProcessTvJob implements ShouldQueue
                 }
             }
         }
+
         if (isset($this->tv['recommendations'])) {
             foreach ($this->tv['recommendations']['results'] as $recommendation) {
                 if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {

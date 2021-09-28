@@ -107,6 +107,7 @@ class ModerationController extends Controller
             return \redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
+
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markPostponed();
@@ -143,6 +144,7 @@ class ModerationController extends Controller
             return \redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
+
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markRejected();

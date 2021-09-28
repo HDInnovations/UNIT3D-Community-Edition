@@ -122,6 +122,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
@@ -156,9 +157,11 @@ class RssController extends Controller
         if ($user->group->id == $bannedGroup[0]) {
             \abort(404);
         }
+
         if ($user->group->id == $disabledGroup[0]) {
             \abort(404);
         }
+
         if ($user->active == 0) {
             \abort(404);
         }
@@ -224,6 +227,7 @@ class RssController extends Controller
             if (null === $match) {
                 return ['result' => [], 'count' => 0];
             }
+
             $builder->where('user_id', '=', $match->id)->where('anon', '=', 0);
         }
 
@@ -384,6 +388,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {

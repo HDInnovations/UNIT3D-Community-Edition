@@ -116,6 +116,7 @@ class BBCodeConverter
                 if (\is_null($list)) {
                     throw new \RuntimeException('Text has malformed BBCode lists');
                 }
+
                 $items = \preg_split('#\[\*\]#u', $list);
 
                 $counter = \is_countable($items) ? \count($items) : 0;

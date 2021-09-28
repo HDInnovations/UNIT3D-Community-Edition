@@ -52,6 +52,7 @@ class AutoCorrectHistory extends Command
             $h->active = false;
             $h->save();
         }
+
         $this->comment('Automated History Record Correction Command Complete');
     }
 }

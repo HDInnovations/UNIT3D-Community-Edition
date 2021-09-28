@@ -60,6 +60,7 @@ class NoteController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $note->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])

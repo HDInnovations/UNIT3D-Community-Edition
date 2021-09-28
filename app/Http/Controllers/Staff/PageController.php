@@ -64,6 +64,7 @@ class PageController extends Controller
             return \redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
+
         $page->save();
 
         return \redirect()->route('staff.pages.index')
@@ -106,6 +107,7 @@ class PageController extends Controller
             return \redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
+
         $page->save();
 
         return \redirect()->route('staff.pages.index')

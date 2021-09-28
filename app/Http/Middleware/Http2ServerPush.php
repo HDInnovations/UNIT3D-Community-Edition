@@ -85,6 +85,7 @@ class Http2ServerPush
                 if (! $value) {
                     return false;
                 }
+
                 $excludeKeywords = \collect($excludeKeywords)->map(fn ($keyword) => \preg_quote($keyword));
                 if ($excludeKeywords->count() <= 0) {
                     return true;

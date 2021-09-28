@@ -19,7 +19,9 @@ class Movie
      * @var \GuzzleHttp\Client|mixed
      */
     public $client;
+
     public const API_BASE_URI = 'https://api.themoviedb.org/3/';
+
     public $data;
 
     public function __construct($id)

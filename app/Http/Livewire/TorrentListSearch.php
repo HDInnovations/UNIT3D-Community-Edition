@@ -31,43 +31,79 @@ class TorrentListSearch extends Component
     use WithPagination;
 
     public $name = '';
+
     public $description = '';
+
     public $mediainfo = '';
+
     public $uploader = '';
+
     public $keywords = [];
+
     public $startYear = '';
+
     public $endYear = '';
+
     public $categories = [];
+
     public $types = [];
+
     public $resolutions = [];
+
     public $genres = [];
+
     public $tmdbId = '';
+
     public $imdbId = '';
+
     public $tvdbId = '';
+
     public $malId = '';
+
     public $playlistId = '';
+
     public $collectionId = '';
+
     public $free;
+
     public $doubleup;
+
     public $featured;
+
     public $stream;
+
     public $sd;
+
     public $highspeed;
+
     public $bookmarked;
+
     public $wished;
+
     public $internal;
+
     public $personalRelease;
+
     public $alive;
+
     public $dying;
+
     public $dead;
+
     public $notDownloaded;
+
     public $downloaded;
+
     public $seeding;
+
     public $leeching;
+
     public $incomplete;
 
     public $perPage = 25;
+
     public $sortField = 'bumped_at';
+
     public $sortDirection = 'desc';
 
     protected $queryString = [
@@ -154,6 +190,7 @@ class TorrentListSearch extends Component
                 foreach ($terms as $term) {
                     $search .= '%'.$term.'%';
                 }
+
                 $query->where('name', 'LIKE', $search);
             })
             ->when($this->description, function ($query) {
@@ -262,6 +299,7 @@ class TorrentListSearch extends Component
                 if (! $history || ! \is_array($history)) {
                     $history = [];
                 }
+
                 $query->whereNotIn('info_hash', $history);
             })
             ->when($this->downloaded, function ($query) {
@@ -310,6 +348,7 @@ class TorrentListSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

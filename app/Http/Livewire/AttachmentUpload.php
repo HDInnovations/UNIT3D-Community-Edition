@@ -22,8 +22,11 @@ class AttachmentUpload extends Component
     use WithFileUploads;
 
     public $user;
+
     public $ticket;
+
     public $attachment;
+
     public $storedImage;
 
     final public function mount(int $id): void

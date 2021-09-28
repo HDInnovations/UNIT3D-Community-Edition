@@ -94,6 +94,7 @@ class ApplicationController extends Controller
                 return \redirect()->route('staff.applications.index')
                     ->withErrors($v->errors());
             }
+
             Mail::to($application->email)->send(new InviteUser($invite));
             $invite->save();
             $application->markApproved();

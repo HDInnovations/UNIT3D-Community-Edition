@@ -22,8 +22,11 @@ class UserSearch extends Component
     use WithPagination;
 
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
 
     final public function paginationView(): string
@@ -57,6 +60,7 @@ class UserSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

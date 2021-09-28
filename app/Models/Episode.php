@@ -18,8 +18,11 @@ use Illuminate\Database\Eloquent\Model;
 class Episode extends Model
 {
     protected $guarded = [];
+
     protected $orderBy = 'order';
+
     protected $orderDirection = 'ASC';
+
     public $table = 'episodes';
 
     /**

@@ -78,6 +78,7 @@ class ArticleController extends Controller
             return \redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         }
+
         $article->save();
 
         return \redirect()->route('staff.articles.index')
@@ -131,6 +132,7 @@ class ArticleController extends Controller
             return \redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         }
+
         $article->save();
 
         return \redirect()->route('staff.articles.index')

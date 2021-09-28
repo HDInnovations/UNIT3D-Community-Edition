@@ -22,9 +22,13 @@ class WatchlistSearch extends Component
     use WithPagination;
 
     public $user;
+
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
 
     final public function mount(): void
@@ -63,6 +67,7 @@ class WatchlistSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

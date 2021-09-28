@@ -20,6 +20,7 @@ use Livewire\Component;
 class LikeButton extends Component
 {
     public $post;
+
     public $user;
 
     final public function mount($post): void

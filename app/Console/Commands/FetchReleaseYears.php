@@ -75,6 +75,7 @@ class FetchReleaseYears extends Command
                     $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
+
             if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Movie::where('id', '=', $torrent->tmdb)->first();
                 if (isset($meta->release_date) && \substr($meta->release_date, 0, 4) > '1900') {
@@ -86,6 +87,7 @@ class FetchReleaseYears extends Command
                 }
             }
         }
+
         $this->comment('Torrent Release Year Command Complete');
     }
 }

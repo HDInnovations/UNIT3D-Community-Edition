@@ -120,6 +120,7 @@ class VendorCleanup extends Command
                         unset($files[$key]);
                     }
                 }
+
                 foreach ($files as $file) {
                     if (\is_dir($file)) {
                         $this->out('DELETING DIR: '.$file);
@@ -135,6 +136,7 @@ class VendorCleanup extends Command
                 }
             }
         }
+
         $this->out('Vendor Cleanup Done!');
     }
 
@@ -171,6 +173,7 @@ class VendorCleanup extends Command
         if (! \file_exists($dir) || ! \is_dir($dir)) {
             return false;
         }
+
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
@@ -182,6 +185,7 @@ class VendorCleanup extends Command
                 @\unlink($filename);
             }
         }
+
         @\rmdir($dir);
     }
 

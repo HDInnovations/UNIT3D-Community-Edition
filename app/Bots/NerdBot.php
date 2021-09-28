@@ -75,6 +75,7 @@ class NerdBot
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
+
             $output = \str_replace('{bots}', $botHelp, $output);
         }
 
@@ -337,6 +338,7 @@ class NerdBot
             $donations = BotTransaction::with('user', 'bot')->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('nerdbot-donations', $donations, $this->expiresAt);
         }
+
         $donationDump = '';
         $i = 1;
         foreach ($donations as $donation) {
@@ -436,6 +438,7 @@ class NerdBot
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
+
         $command = @\explode(' ', $message);
 
         $wildcard = null;
@@ -453,52 +456,68 @@ class NerdBot
             if ($command[$x] === 'banker') {
                 $log = $this->getBanker($params);
             }
+
             if ($command[$x] === 'bans') {
                 $log = $this->getBans($params);
             }
+
             if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
+
             if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
+
             if ($command[$x] === 'doubleupload') {
                 $log = $this->getDoubleUpload($params);
             }
+
             if ($command[$x] === 'freeleech') {
                 $log = $this->getFreeleech($params);
             }
+
             if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
+
             if ($command[$x] === 'king') {
                 $log = $this->getKing();
             }
+
             if ($command[$x] === 'logins') {
                 $log = $this->getLogins($params);
             }
+
             if ($command[$x] === 'peers') {
                 $log = $this->getPeers($params);
             }
+
             if ($command[$x] === 'registrations') {
                 $log = $this->getRegistrations($params);
             }
+
             if ($command[$x] === 'uploads') {
                 $log = $this->getUploads($params);
             }
+
             if ($command[$x] === 'warnings') {
                 $log = $this->getWarnings($params);
             }
+
             if ($command[$x] === 'seeded') {
                 $log = $this->getSeeded($params);
             }
+
             if ($command[$x] === 'leeched') {
                 $log = $this->getLeeched($params);
             }
+
             if ($command[$x] === 'snatched') {
                 $log = $this->getSnatched($params);
             }
         }
+
         $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
@@ -524,12 +543,14 @@ class NerdBot
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
+
             $receiverListening = false;
             foreach ($receiverEchoes as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
             }
+
             if (! $receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
@@ -538,22 +559,26 @@ class NerdBot
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
                 $receiverDirty = 1;
             }
+
             if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 \cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
                 \event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
             }
+
             $receiverDirty = 0;
             $receiverAudibles = \cache()->get('user-audibles'.$target->id);
             if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
+
             $receiverListening = false;
             foreach ($receiverAudibles as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
             }
+
             if (! $receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
@@ -562,11 +587,13 @@ class NerdBot
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
                 $receiverDirty = 1;
             }
+
             if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 \cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
                 \event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
             }
+
             if ($txt != '') {
                 $roomId = 0;
                 $message = $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
@@ -575,6 +602,7 @@ class NerdBot
 
             return \response('success');
         }
+
         if ($type == 'echo') {
             if ($txt != '') {
                 $roomId = 0;

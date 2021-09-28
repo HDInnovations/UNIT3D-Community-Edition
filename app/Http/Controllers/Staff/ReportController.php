@@ -75,6 +75,7 @@ class ReportController extends Controller
             return \redirect()->route('staff.reports.show', ['id' => $report->id])
                 ->withErrors($v->errors());
         }
+
         $report->save();
 
         // Send Private Message
@@ -83,9 +84,9 @@ class ReportController extends Controller
         $privateMessage->receiver_id = $report->reporter_id;
         $privateMessage->subject = 'Your Report Has A New Verdict';
         $privateMessage->message = \sprintf('[b]REPORT TITLE:[/b] %s
-        
+
                         [b]ORIGINAL MESSAGE:[/b] %s
-                        
+
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $privateMessage->save();
 

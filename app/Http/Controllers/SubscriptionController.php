@@ -35,6 +35,7 @@ class SubscriptionController extends Controller
             $logger = 'forum_subscriptions';
             $params = [];
         }
+
         if (! isset($logger)) {
             $logger = 'forum_topic';
             $params = ['id' => $topic->id];
@@ -66,6 +67,7 @@ class SubscriptionController extends Controller
             $logger = 'forum_subscriptions';
             $params = [];
         }
+
         if (! isset($logger)) {
             $logger = 'forum_topic';
             $params = ['id' => $topic->id];
@@ -95,6 +97,7 @@ class SubscriptionController extends Controller
             $logger = 'forum_subscriptions';
             $params = [];
         }
+
         if (! isset($logger)) {
             $logger = 'forums.show';
             $params = ['id' => $forum->id];
@@ -126,6 +129,7 @@ class SubscriptionController extends Controller
             $logger = 'forum_subscriptions';
             $params = [];
         }
+
         if (! isset($logger)) {
             $logger = 'forums.show';
             $params = ['id' => $forum->id];

@@ -42,6 +42,7 @@ class LanguageCensor
             if (self::isSpecial($prev) && self::isSpecial($last)) {
                 $result[] = $pos;
             }
+
             $pos = \stripos($string, $word, $pos + $length);
         }
 
@@ -75,6 +76,7 @@ class LanguageCensor
                     $result .= $source[$i];
                 }
             }
+
             $source = $result;
         }
 

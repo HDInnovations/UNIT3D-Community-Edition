@@ -82,6 +82,7 @@ class InternalController extends Controller
             return \redirect()->route('staff.internals.index')
                 ->withErrors($v->errors());
         }
+
         $internal->save();
 
         return \redirect()->route('staff.internals.index')
@@ -122,6 +123,7 @@ class InternalController extends Controller
             return \redirect()->route('staff.internals.index')
                 ->withErrors($v->errors());
         }
+
         $internal->save();
 
         return \redirect()->route('staff.internals.index')

@@ -70,6 +70,7 @@ class ForumController extends Controller
             if ($perm == null) {
                 $perm = new Permission();
             }
+
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (\array_key_exists($group->id, $request->input('permissions'))) {
@@ -83,6 +84,7 @@ class ForumController extends Controller
                 $perm->reply_topic = false;
                 $perm->start_topic = false;
             }
+
             $perm->save();
         }
 
@@ -133,6 +135,7 @@ class ForumController extends Controller
             if ($perm == null) {
                 $perm = new Permission();
             }
+
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (\array_key_exists($group->id, $request->input('permissions'))) {
@@ -146,6 +149,7 @@ class ForumController extends Controller
                 $perm->reply_topic = false;
                 $perm->start_topic = false;
             }
+
             $perm->save();
         }
 
@@ -171,6 +175,7 @@ class ForumController extends Controller
         foreach ($permissions as $p) {
             $p->delete();
         }
+
         unset($permissions);
 
         if ($forum->parent_id == 0) {
@@ -190,22 +195,28 @@ class ForumController extends Controller
                     foreach ($t->posts as $p) {
                         $p->delete();
                     }
+
                     $t->delete();
                 }
+
                 $forum->delete();
             }
+
             $category->delete();
         } else {
             $permissions = Permission::where('forum_id', '=', $forum->id)->get();
             foreach ($permissions as $p) {
                 $p->delete();
             }
+
             foreach ($forum->topics as $t) {
                 foreach ($t->posts as $p) {
                     $p->delete();
                 }
+
                 $t->delete();
             }
+
             $forum->delete();
         }
 

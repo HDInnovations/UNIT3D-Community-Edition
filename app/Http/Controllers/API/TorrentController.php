@@ -143,6 +143,7 @@ class TorrentController extends BaseController
         if ($category->movie_meta || $category->tv_meta) {
             $resRule = 'required|exists:resolutions,id';
         }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
@@ -180,6 +181,7 @@ class TorrentController extends BaseController
 
             return $this->sendError('Validation Error.', $v->errors());
         }
+
         // Save The Torrent
         $torrent->save();
         // Set torrent to featured
@@ -189,6 +191,7 @@ class TorrentController extends BaseController
             $featuredTorrent->torrent_id = $torrent->id;
             $featuredTorrent->save();
         }
+
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
@@ -206,6 +209,7 @@ class TorrentController extends BaseController
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
+
         if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->movie($torrent->tmdb);
         }
@@ -321,6 +325,7 @@ class TorrentController extends BaseController
                 foreach ($terms as $term) {
                     $search .= '%'.$term.'%';
                 }
+
                 $query->where('name', 'LIKE', $search);
             })
             ->when($request->has('description'), function ($query) use ($request) {
@@ -441,6 +446,7 @@ class TorrentController extends BaseController
         if ($mediainfo === null) {
             return;
         }
+
         $completeNameI = \strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
             $pathI = \strpos($mediainfo, ': ', $completeNameI);
