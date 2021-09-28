@@ -25,8 +25,6 @@ class InternalController extends Controller
 {
     /**
      * Display All Internal Groups.
-     *
-     *
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -41,7 +39,8 @@ class InternalController extends Controller
     /**
      * Edit A group.
      *
-     * @param \App\Models\UsersVIP     $id
+     * @param \App\Models\UsersVIP $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $id)
@@ -58,7 +57,8 @@ class InternalController extends Controller
     /**
      * Save a group change.
      *
-     * @param \App\Models\UsersVIP     $id
+     * @param \App\Models\UsersVIP $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -131,7 +131,8 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      *
-     * @param                          $commentId
+     * @param $commentId
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
