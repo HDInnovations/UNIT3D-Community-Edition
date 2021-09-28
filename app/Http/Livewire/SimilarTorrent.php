@@ -120,19 +120,19 @@ class SimilarTorrent extends Component
             $names[] = $torrent->name;
             foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                 if (! in_array($pm->user_id, $users)) {
-                    array_push($users, $pm->user_id);
+                    $users[] = $pm->user_id;
                 }
             }
             if (! in_array($torrent->tmdb, $titleids)) {
-                array_push($titleids, $torrent->tmdb);
+                $titleids[] = $torrent->tmdb;
                 $title = null;
                 switch ($torrent->category_id) {
                         case 1:
                             $title = Movie::find($torrent->tmdb);
-                            array_push($titles, $title->title.' ('.substr($title->release_date, 0, 4).')');
+                            $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
                         case 2:
                             $title = Tv::find($torrent->tmdb);
-                            array_push($titles, $title->name.' ('.substr($title->first_air_date, 0, 4).')');
+                            $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
                     }
             }
 
