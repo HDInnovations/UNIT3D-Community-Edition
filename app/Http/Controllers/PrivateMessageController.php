@@ -103,9 +103,7 @@ class PrivateMessageController extends Controller
 
     /**
      * Create A Message.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function sendPrivateMessage(Request $request)
     {
@@ -160,11 +158,9 @@ class PrivateMessageController extends Controller
 
     /**
      * Reply To A Message.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function replyPrivateMessage(Request $request, \App\Models\PrivateMessage $id)
+    public function replyPrivateMessage(Request $request, int $id)
     {
         $user = $request->user();
 
@@ -201,12 +197,9 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     *
      * @throws \Exception
-     *
-     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function deletePrivateMessage(Request $request, \App\Models\PrivateMessage $id)
+    public function deletePrivateMessage(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();

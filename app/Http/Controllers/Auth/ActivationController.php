@@ -22,10 +22,7 @@ use App\Models\UserActivation;
  */
 class ActivationController extends Controller
 {
-    /**
-     * @return mixed|\Illuminate\Http\RedirectResponse
-     */
-    public function activate($token)
+    public function activate($token): \Illuminate\Http\RedirectResponse
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));

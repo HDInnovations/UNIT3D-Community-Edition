@@ -152,7 +152,7 @@ class PollController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Poll $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();

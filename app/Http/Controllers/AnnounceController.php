@@ -61,13 +61,9 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \App\Models\User $passkey
-     *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function index(Request $request, $passkey)
+    public function index(Request $request, string $passkey): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
             /**

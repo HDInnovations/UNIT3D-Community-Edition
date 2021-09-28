@@ -193,11 +193,8 @@ class BonusController extends Controller
 
     /**
      * Exchange Points For A Item.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function exchange(Request $request, \App\Models\BonExchange $id)
+    public function exchange(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -226,7 +223,7 @@ class BonusController extends Controller
     /**
      * Do Item Exchange.
      */
-    public function doItemExchange(\App\Models\User $userID, \App\Models\BonExchange $itemID): bool
+    public function doItemExchange(int $userID, int $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
@@ -284,11 +281,8 @@ class BonusController extends Controller
 
     /**
      * Gift Points To A User.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function sendGift(Request $request)
+    public function sendGift(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -374,11 +368,8 @@ class BonusController extends Controller
 
     /**
      * Tip Points To A Uploader.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function tipUploader(Request $request, \App\Models\Torrent $id)
+    public function tipUploader(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -426,9 +417,7 @@ class BonusController extends Controller
 
     /**
      * Tip Points To A Poster.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function tipPoster(Request $request)
     {

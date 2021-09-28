@@ -39,9 +39,7 @@ class MediaLanguageController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -77,9 +75,7 @@ class MediaLanguageController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function update(Request $request, int $id)
     {

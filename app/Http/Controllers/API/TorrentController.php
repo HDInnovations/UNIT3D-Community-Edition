@@ -422,17 +422,9 @@ class TorrentController extends BaseController
 
     /**
      * Anonymize A Torrent Media Info.
-     *
-     * @param $mediainfo
-     *
-     * @return array
      */
-    private static function anonymizeMediainfo($mediainfo)
+    private static function anonymizeMediainfo($mediainfo): array
     {
-        if ($mediainfo === null) {
-            return;
-        }
-
         $completeNameI = \strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
             $pathI = \strpos($mediainfo, ': ', $completeNameI);
@@ -451,10 +443,6 @@ class TorrentController extends BaseController
 
     /**
      * Parse Torrent Keywords.
-     *
-     * @param $text
-     *
-     * @return string[]
      */
     private static function parseKeywords($text): array
     {
@@ -462,7 +450,7 @@ class TorrentController extends BaseController
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);
-            if ($part != '') {
+            if ($part !== '') {
                 $result[] = $part;
             }
         }

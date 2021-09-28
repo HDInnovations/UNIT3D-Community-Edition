@@ -33,9 +33,7 @@ class GiftController extends Controller
 
     /**
      * Send The Gift.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {

@@ -61,9 +61,7 @@ class PollController extends Controller
 
     /**
      * Vote On A Poll.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function vote(VoteOnPoll $voteOnPoll)
     {

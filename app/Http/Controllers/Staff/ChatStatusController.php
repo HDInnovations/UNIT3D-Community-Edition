@@ -44,9 +44,7 @@ class ChatStatusController extends Controller
 
     /**
      * Store A New Chat Status.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -74,11 +72,9 @@ class ChatStatusController extends Controller
 
     /**
      * Update A Chat Status.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function update(Request $request, \App\Models\ChatStatus $id)
+    public function update(Request $request, int $id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->name = $request->input('name');

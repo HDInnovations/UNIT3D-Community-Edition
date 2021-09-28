@@ -141,11 +141,8 @@ class NotificationController extends Controller
 
     /**
      * Set A Notification To Read.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, \App\Models\Notification $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 

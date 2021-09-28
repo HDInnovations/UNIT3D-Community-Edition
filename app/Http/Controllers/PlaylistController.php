@@ -57,9 +57,7 @@ class PlaylistController extends Controller
 
     /**
      * Store A New Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -161,12 +159,8 @@ class PlaylistController extends Controller
 
     /**
      * Update A Playlist.
-     *
-     * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);

@@ -56,7 +56,7 @@ class UserController extends Controller
     /**
      * User Edit Form.
      */
-    public function settings(\App\Models\User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -73,11 +73,9 @@ class UserController extends Controller
 
     /**
      * Edit A User.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function edit(Request $request, \App\Models\User $username)
+    public function edit(Request $request, string $username)
     {
         $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -128,7 +126,7 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      */
-    public function permissions(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
+    public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->can_upload = $request->input('can_upload');
@@ -146,7 +144,7 @@ class UserController extends Controller
     /**
      * Edit A Users Password.
      */
-    protected function password(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
+    protected function password(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->password = Hash::make($request->input('new_password'));
@@ -158,11 +156,8 @@ class UserController extends Controller
 
     /**
      * Delete A User.
-     *
-     *
-     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    protected function destroy(\App\Models\User $username)
+    protected function destroy(string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

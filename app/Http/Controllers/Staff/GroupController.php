@@ -51,9 +51,7 @@ class GroupController extends Controller
 
     /**
      * Store A New Group.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -129,11 +127,8 @@ class GroupController extends Controller
 
     /**
      * Edit A Group.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, \App\Models\Group $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

@@ -52,8 +52,6 @@ class TwoStepController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -83,10 +81,6 @@ class TwoStepController extends Controller
 
     /**
      * Validation and Invalid code failed actions and return message.
-     *
-     * @param null $errors (optional)
-     *
-     * @return array<string, mixed>
      */
     private function invalidCodeReturnData($errors = null): array
     {
@@ -164,12 +158,9 @@ class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\JsonResponse|void
      */
-    public function verify(Request $request)
+    public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);

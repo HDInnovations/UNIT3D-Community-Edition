@@ -34,9 +34,7 @@ class ImageController extends Controller
 
     /**
      * Store A New Image.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {

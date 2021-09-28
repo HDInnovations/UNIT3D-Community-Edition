@@ -44,9 +44,7 @@ class CategoryController extends Controller
 
     /**
      * Store A Category.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -106,11 +104,9 @@ class CategoryController extends Controller
 
     /**
      * Update A Category.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function update(Request $request, \App\Models\Category $id)
+    public function update(Request $request, int $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');

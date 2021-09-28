@@ -40,9 +40,7 @@ class ResolutionController extends Controller
 
     /**
      * Store A New Resolution.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -80,12 +78,8 @@ class ResolutionController extends Controller
 
     /**
      * Edit A Resolution.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');
@@ -112,11 +106,9 @@ class ResolutionController extends Controller
     /**
      * Delete A Resolution.
      *
-     * @param $id
-     *
      * @throws \Exception
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();

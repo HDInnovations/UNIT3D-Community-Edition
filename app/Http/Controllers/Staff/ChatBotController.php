@@ -53,9 +53,7 @@ class ChatBotController extends Controller
 
     /**
      * Update the specified Bot resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function update(Request $request, int $id)
     {

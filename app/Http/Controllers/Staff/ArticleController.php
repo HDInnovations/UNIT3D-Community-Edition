@@ -44,9 +44,7 @@ class ArticleController extends Controller
 
     /**
      * Store A New Article.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -97,11 +95,9 @@ class ArticleController extends Controller
 
     /**
      * Edit A Article.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function update(Request $request, \App\Models\Article $id)
+    public function update(Request $request, int $id)
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');

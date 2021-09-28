@@ -43,9 +43,7 @@ class TypeController extends Controller
 
     /**
      * Store A New Type.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -83,11 +81,9 @@ class TypeController extends Controller
 
     /**
      * Edit A Type.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function update(Request $request, \App\Models\Type $id)
+    public function update(Request $request, int $id)
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
@@ -117,7 +113,7 @@ class TypeController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Type $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $type = Type::findOrFail($id);
         $type->delete();

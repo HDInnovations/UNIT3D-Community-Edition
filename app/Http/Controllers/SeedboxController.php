@@ -25,7 +25,7 @@ class SeedboxController extends Controller
     /**
      * Get A Users Registered Seedboxes.
      */
-    public function index(Request $request, \App\Models\User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -38,9 +38,7 @@ class SeedboxController extends Controller
 
     /**
      * Store A Seedbox.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     protected function store(Request $request)
     {

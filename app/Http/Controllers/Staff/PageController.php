@@ -43,9 +43,7 @@ class PageController extends Controller
 
     /**
      * Store A New Page.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
     public function store(Request $request)
     {
@@ -83,11 +81,9 @@ class PageController extends Controller
 
     /**
      * Edit A Page.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function update(Request $request, \App\Models\Page $id)
+    public function update(Request $request, int $id)
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
@@ -117,7 +113,7 @@ class PageController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(\App\Models\Page $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         Page::findOrFail($id)->delete();
 

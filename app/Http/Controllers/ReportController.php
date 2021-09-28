@@ -33,11 +33,9 @@ class ReportController extends Controller
 
     /**
      * Create A Request Report.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function request(Request $request, \App\Models\TorrentRequest $id)
+    public function request(Request $request, int $id)
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $reportedBy = $request->user();
@@ -69,11 +67,9 @@ class ReportController extends Controller
 
     /**
      * Create A Torrent Report.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function torrent(Request $request, \App\Models\Torrent $id)
+    public function torrent(Request $request, int $id)
     {
         $torrent = Torrent::findOrFail($id);
         $reportedBy = $request->user();
@@ -105,11 +101,9 @@ class ReportController extends Controller
 
     /**
      * Create A User Report.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
+
      */
-    public function user(Request $request, \App\Models\User $username)
+    public function user(Request $request, int $username)
     {
         $reportedUser = User::where('username', '=', $username)->firstOrFail();
         $reportedBy = $request->user();
