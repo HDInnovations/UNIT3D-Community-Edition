@@ -27,7 +27,7 @@ class FollowController extends Controller
     /**
      * Follow A User.
      */
-    public function store(Request $request, string $username)
+    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

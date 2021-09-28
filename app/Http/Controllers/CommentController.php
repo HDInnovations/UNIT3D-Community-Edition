@@ -156,7 +156,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      */
-    public function article(Request $request, int $id)
+    public function article(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -254,7 +254,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      */
-    public function playlist(Request $request, int $id)
+    public function playlist(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -352,7 +352,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      */
-    public function torrent(Request $request, int $id)
+    public function torrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -455,7 +455,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      */
-    public function request(Request $request, int $id)
+    public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -558,7 +558,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      */
-    public function ticket(Request $request, int $id)
+    public function ticket(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -606,7 +606,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      */
-    public function quickthanks(Request $request, int $id)
+    public function quickthanks(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();

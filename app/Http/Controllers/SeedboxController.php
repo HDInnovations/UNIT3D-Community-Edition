@@ -39,7 +39,7 @@ class SeedboxController extends Controller
     /**
      * Store A Seedbox.
      */
-    protected function store(Request $request)
+    protected function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

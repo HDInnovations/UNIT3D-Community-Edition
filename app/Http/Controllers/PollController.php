@@ -62,7 +62,7 @@ class PollController extends Controller
     /**
      * Vote On A Poll.
      */
-    public function vote(VoteOnPoll $voteOnPoll)
+    public function vote(VoteOnPoll $voteOnPoll): \Illuminate\Http\RedirectResponse
     {
         $user = $voteOnPoll->user();
         $poll = Option::findOrFail($voteOnPoll->input('option.0'))->poll;

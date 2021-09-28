@@ -171,7 +171,7 @@ class UserController extends Controller
     /**
      * Edit User Profile.
      */
-    public function editProfile(Request $request, string $username)
+    public function editProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -232,7 +232,7 @@ class UserController extends Controller
     /**
      * Change User Account Settings.
      */
-    public function changeSettings(Request $request, string $username)
+    public function changeSettings(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -336,7 +336,7 @@ class UserController extends Controller
     /**
      * User Email Change.
      */
-    protected function changeEmail(Request $request, string $username)
+    protected function changeEmail(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

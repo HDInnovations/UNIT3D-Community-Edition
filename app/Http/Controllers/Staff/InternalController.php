@@ -92,7 +92,7 @@ class InternalController extends Controller
     /**
      * Store A New Internal Group.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

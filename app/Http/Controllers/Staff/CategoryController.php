@@ -45,7 +45,7 @@ class CategoryController extends Controller
     /**
      * Store A Category.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -104,7 +104,7 @@ class CategoryController extends Controller
     /**
      * Update A Category.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');

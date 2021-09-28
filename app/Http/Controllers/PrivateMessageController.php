@@ -104,7 +104,7 @@ class PrivateMessageController extends Controller
     /**
      * Create A Message.
      */
-    public function sendPrivateMessage(Request $request)
+    public function sendPrivateMessage(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -158,7 +158,7 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message.
      */
-    public function replyPrivateMessage(Request $request, int $id)
+    public function replyPrivateMessage(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

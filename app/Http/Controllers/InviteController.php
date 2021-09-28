@@ -129,7 +129,7 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      */
-    public function send(Request $request, int $id)
+    public function send(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);

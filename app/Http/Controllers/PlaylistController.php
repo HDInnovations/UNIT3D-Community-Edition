@@ -58,7 +58,7 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 

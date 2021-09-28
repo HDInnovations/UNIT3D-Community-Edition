@@ -418,7 +418,7 @@ class BonusController extends Controller
     /**
      * Tip Points To A Poster.
      */
-    public function tipPoster(Request $request)
+    public function tipPoster(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

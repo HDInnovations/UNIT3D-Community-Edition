@@ -85,7 +85,7 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      */
-    public function update(Request $request, string $username)
+    public function update(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();

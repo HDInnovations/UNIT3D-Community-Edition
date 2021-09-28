@@ -74,7 +74,7 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function edit(Request $request, string $username)
+    public function edit(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();

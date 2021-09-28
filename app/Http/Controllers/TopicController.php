@@ -115,7 +115,7 @@ class TopicController extends Controller
     /**
      * Create A New Topic In The Forum.
      */
-    public function newTopic(Request $request, int $id)
+    public function newTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);

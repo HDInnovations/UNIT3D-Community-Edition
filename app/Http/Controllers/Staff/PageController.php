@@ -44,7 +44,7 @@ class PageController extends Controller
     /**
      * Store A New Page.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $page = new Page();
         $page->name = $request->input('name');
@@ -81,7 +81,7 @@ class PageController extends Controller
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');

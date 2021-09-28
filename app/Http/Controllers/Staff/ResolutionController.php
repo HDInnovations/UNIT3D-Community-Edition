@@ -41,7 +41,7 @@ class ResolutionController extends Controller
     /**
      * Store A New Resolution.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $resolution = new Resolution();
         $resolution->name = $request->input('name');

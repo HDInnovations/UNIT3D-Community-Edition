@@ -35,7 +35,7 @@ class ImageController extends Controller
     /**
      * Store A New Image.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $image = new Image();
         $image->user_id = $request->user()->id;

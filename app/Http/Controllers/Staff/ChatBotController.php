@@ -54,7 +54,7 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);

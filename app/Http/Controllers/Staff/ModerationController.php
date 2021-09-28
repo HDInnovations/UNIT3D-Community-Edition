@@ -88,7 +88,7 @@ class ModerationController extends Controller
     /**
      * Postpone A Torrent.
      */
-    public function postpone(Request $request)
+    public function postpone(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
@@ -122,7 +122,7 @@ class ModerationController extends Controller
     /**
      * Reject A Torrent.
      */
-    public function reject(Request $request)
+    public function reject(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
