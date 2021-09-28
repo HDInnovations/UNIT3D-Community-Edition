@@ -180,10 +180,10 @@ class BBCodeConverter
             }
 
             $headerSeparator = '';
-            if (\count($rows) > 0) {
+            if ($rows !== []) {
                 $columnCount = \substr_count($rows[0], '|');
 
-                if (\count($headers) === 0) {
+                if ($headers === []) {
                     $headers[] = \implode(' ', \array_fill(0, $columnCount, '|'));
                 }
 
