@@ -357,7 +357,7 @@
                                                 @foreach ($meta->genres as $genre)
                                                     <span class="badge-extra text-bold">
                                             <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
-                                               data-original-title='@lang('torrent.genre')'></i> {{ $genre->name }}
+                                               data-original-title='@lang('torrent.genre')'></i> {{ $genre['name'] }}
                                         </span>
                                                 @endforeach
                                             @endif
@@ -368,7 +368,7 @@
                                                 @foreach($meta->genres as $genre)
                                                     <span class="badge-extra text-bold">
                                             <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
-                                               data-original-title='@lang('torrent.genre')'></i> {{ $genre->name }}
+                                               data-original-title='@lang('torrent.genre')'></i> {{ $genre['name'] }}
                                         </span>
                                                 @endforeach
                                             @endif
