@@ -34,6 +34,13 @@ class CreateAutoRolesTable extends Migration
             $table->float('ratioMax')->nullable();
             $table->boolean('accountAge')->default(false);
             $table->float('accountAgeMin')->nullable();
+            $table->float('accountAgeMax')->nullable();
+            $table->boolean('leechingCount')->default(false);
+            $table->float('leechingCountMin')->nullable();
+            $table->float('leechingCountMax')->nullable();
+            $table->boolean('seedingCount')->default(false);
+            $table->float('seedingCountMin')->nullable();
+            $table->float('seedingCountMax')->nullable();
             $table->boolean('uploadCount')->default(false);
             $table->float('uploadCountMin')->nullable();
             $table->float('uploadCountMax')->nullable();
