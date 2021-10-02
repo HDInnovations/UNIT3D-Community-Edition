@@ -57,6 +57,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 
@@ -86,7 +87,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
+        //$peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 

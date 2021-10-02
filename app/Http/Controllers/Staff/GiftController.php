@@ -26,7 +26,7 @@ class GiftController extends Controller
     /**
      * Send Gift Form.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.gift.index');
     }
@@ -57,11 +57,13 @@ class GiftController extends Controller
             return \redirect()->route('staff.gifts.index')
                 ->withErrors($v->errors());
         }
+
         $recipient = User::where('username', '=', $username)->first();
         if (! $recipient) {
             return \redirect()->route('staff.gifts.index')
                 ->withErrors('Unable To Find Specified User');
         }
+
         $recipient->seedbonus += $seedbonus;
         $recipient->invites += $invites;
         $recipient->fl_tokens += $flTokens;

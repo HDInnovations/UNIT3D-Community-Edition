@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Graveyard;
 use App\Models\Torrent;
-use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -24,16 +23,9 @@ use Illuminate\Http\Request;
 class GraveyardController extends Controller
 {
     /**
-     * GraveyardController Constructor.
-     */
-    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
-    {
-    }
-
-    /**
      * Display a listing of the resource.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('graveyard.index');
     }
@@ -76,6 +68,7 @@ class GraveyardController extends Controller
             return \redirect()->route('graveyard.index')
                 ->withErrors($v->errors());
         }
+
         $graveyard->save();
 
         return \redirect()->route('graveyard.index')

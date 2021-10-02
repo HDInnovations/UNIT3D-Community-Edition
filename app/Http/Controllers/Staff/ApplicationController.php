@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     /**
      * Display All Applications.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $applications = Application::withAnyStatus()
             ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
@@ -46,7 +46,7 @@ class ApplicationController extends Controller
      *
      * @param \App\Models\Application $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
@@ -94,6 +94,7 @@ class ApplicationController extends Controller
                 return \redirect()->route('staff.applications.index')
                     ->withErrors($v->errors());
             }
+
             Mail::to($application->email)->send(new InviteUser($invite));
             $invite->save();
             $application->markApproved();

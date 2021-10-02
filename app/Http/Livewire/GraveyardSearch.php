@@ -23,24 +23,41 @@ class GraveyardSearch extends Component
     use WithPagination;
 
     public $name = '';
+
     public $categories = [];
+
     public $types = [];
+
     public $resolutions = [];
+
     public $tmdbId = '';
+
     public $imdbId = '';
+
     public $tvdbId = '';
+
     public $malId = '';
+
     public $free;
+
     public $doubleup;
+
     public $featured;
+
     public $stream;
+
     public $sd;
+
     public $highspeed;
+
     public $internal;
 
     public $perPage = 25;
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
+
     public $showFilters = false;
 
     protected $queryString = [
@@ -67,6 +84,11 @@ class GraveyardSearch extends Component
     final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
+    }
+
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
     }
 
     final public function toggleShowFilters(): void
@@ -142,10 +164,11 @@ class GraveyardSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.graveyard-search', [
             'user'         => \auth()->user(),

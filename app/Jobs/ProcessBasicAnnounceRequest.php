@@ -13,7 +13,6 @@
 
 namespace App\Jobs;
 
-use App\Exceptions\TrackerException;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -61,7 +60,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
         if ($peer === null && \strtolower($this->queries['event']) === 'completed') {
-            throw new TrackerException(151);
+            $this->delete();
         }
 
         // Creates a new peer if not existing
@@ -70,6 +69,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
                 $ghost = true;
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 
@@ -126,7 +126,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
+        //$peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 
@@ -146,6 +146,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
             $diff = $newUpdate - $oldUpdate;
             $history->seedtime += $diff;
         }
+
         $history->save();
         // End History Update
 

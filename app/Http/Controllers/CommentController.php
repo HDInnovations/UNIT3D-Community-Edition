@@ -37,6 +37,7 @@ use App\Notifications\NewComment;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
 /**
  * @see \Tests\Feature\Http\Controllers\CommentControllerTest
@@ -62,7 +63,14 @@ class CommentController extends Controller
     public function collection(Request $request, $id)
     {
         $collection = Collection::findOrFail($id);
-        $user = \auth()->user();
+        $user = $request->user();
+
+        if (RateLimiter::tooManyAttempts('collection-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('collection.show', ['id' => $id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('collection-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
@@ -86,6 +94,7 @@ class CommentController extends Controller
             return \redirect()->route('collection.show', ['id' => $collection->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
 
         $collectionUrl = \href_collection($collection);
@@ -161,6 +170,13 @@ class CommentController extends Controller
         $article = Article::findOrFail($id);
         $user = $request->user();
 
+        if (RateLimiter::tooManyAttempts('article-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('articles.show', ['id' => $id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('article-comment:'.$user->id);
+
         if ($user->can_comment == 0) {
             return \redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -183,6 +199,7 @@ class CommentController extends Controller
             return \redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
         $articleUrl = \href_article($article);
         $profileUrl = \href_profile($user);
@@ -196,6 +213,7 @@ class CommentController extends Controller
                 \sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $articleUrl, $article->title)
             );
         }
+
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
@@ -221,6 +239,7 @@ class CommentController extends Controller
                 );
             }
         }
+
         // Achievements
         if ($comment->anon == 0) {
             $user->unlock(new UserMadeComment(), 1);
@@ -251,7 +270,14 @@ class CommentController extends Controller
     public function playlist(Request $request, $id)
     {
         $playlist = Playlist::findOrFail($id);
-        $user = \auth()->user();
+        $user = $request->user();
+
+        if (RateLimiter::tooManyAttempts('playlist-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('playlists.show', ['id' => $id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('playlist-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
@@ -275,6 +301,7 @@ class CommentController extends Controller
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
         $playlistUrl = \href_playlist($playlist);
         $profileUrl = \href_profile($user);
@@ -288,6 +315,7 @@ class CommentController extends Controller
                 \sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlistUrl, $playlist->name)
             );
         }
+
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
@@ -313,6 +341,7 @@ class CommentController extends Controller
                 );
             }
         }
+
         // Achievements
         if ($comment->anon == 0) {
             $user->unlock(new UserMadeComment(), 1);
@@ -345,6 +374,13 @@ class CommentController extends Controller
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
 
+        if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('torrent', ['id' => $torrent->id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('torrent-comment:'.$user->id);
+
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -367,11 +403,13 @@ class CommentController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
         //Notification
         if ($user->id != $torrent->user_id) {
             $torrent->notifyUploader('comment', $comment);
         }
+
         $torrentUrl = \href_torrent($torrent);
         $profileUrl = \href_profile($user);
         // Auto Shout
@@ -384,6 +422,7 @@ class CommentController extends Controller
                 \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $torrent->name)
             );
         }
+
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
@@ -409,6 +448,7 @@ class CommentController extends Controller
                 );
             }
         }
+
         // Achievements
         if ($comment->anon == 0) {
             $user->unlock(new UserMadeComment(), 1);
@@ -441,6 +481,13 @@ class CommentController extends Controller
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
 
+        if (RateLimiter::tooManyAttempts('request-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('request', ['id' => $id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('request-comment:'.$user->id);
+
         if ($user->can_comment == 0) {
             return \redirect()->route('request', ['id' => $tr->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
@@ -463,6 +510,7 @@ class CommentController extends Controller
             return \redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
         $trUrl = \href_request($tr);
         $profileUrl = \href_profile($user);
@@ -476,10 +524,12 @@ class CommentController extends Controller
                 \sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $trUrl, $tr->name)
             );
         }
+
         //Notification
         if ($user->id != $tr->user_id) {
             $tr->notifyRequester('comment', $comment);
         }
+
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasPrivilegeTo('users_view_private')) {
                 $users = \collect([]);
@@ -505,6 +555,7 @@ class CommentController extends Controller
                 );
             }
         }
+
         // Achievements
         if ($comment->anon == 0) {
             $user->unlock(new UserMadeComment(), 1);
@@ -537,6 +588,13 @@ class CommentController extends Controller
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
 
+        if (RateLimiter::tooManyAttempts('ticket-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('tickets.show', ['id' => $id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('ticket-comment:'.$user->id);
+
         $comment = new Comment();
         $comment->content = $request->input('content');
         $comment->anon = 0;
@@ -551,16 +609,18 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $tr->id])
+            return \redirect()->route('tickets.show', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
         if ($user->id != $ticket->user_id) {
             $ticket->user_read = 0;
         }
+
         if ($user->id == $ticket->user_id) {
             $ticket->staff_read = 0;
         }
+
         $comment->save();
         $ticket->save();
 
@@ -579,6 +639,13 @@ class CommentController extends Controller
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
+
+        if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
+            return \redirect()->route('torrent', ['id' => $torrent->id])
+                ->withErrors('Slow Down - Too Many Comments!');
+        }
+
+        RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -619,6 +686,7 @@ class CommentController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
+
         $comment->save();
 
         // Achievements

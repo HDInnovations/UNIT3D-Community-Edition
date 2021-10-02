@@ -35,7 +35,7 @@ class WishController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 

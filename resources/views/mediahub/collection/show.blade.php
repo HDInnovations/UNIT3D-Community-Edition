@@ -33,8 +33,7 @@
         <div class="movie-overlay"></div>
 
         <div class="movie-poster">
-            @php $tmdb_poster = $collection->poster ? \tmdb_image('poster_big', $collection->poster) : 'https://via.placeholder.com/400x600'; @endphp
-            <img src="{{ $tmdb_poster }}" class="img-responsive" id="meta-poster">
+            <img src="{{ $collection->poster ? \tmdb_image('poster_big', $collection->poster) : 'https://via.placeholder.com/400x600' }}" class="img-responsive" id="meta-poster">
         </div>
 
         <div class="meta-info">
@@ -42,8 +41,7 @@
                 @lang('mediahub.collections')
             </div>
 
-            @php $tmdb_backdrop = $collection->backdrop ? \tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
-            <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
+            <div class="movie-backdrop" style="background-image: url('{{ $collection->backdrop ? \tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/960x540' }}');"></div>
 
             <div class="movie-top">
                 <h1 class="movie-heading">
@@ -72,7 +70,13 @@
                         @foreach($collection->movie as $movie)
                             <div class="item mini backdrop mini_card col-md-3">
                                 <div class="image_content">
-                                    <a href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $movie->id]) }}">
+                                    @php
+                                        $torrent_temp = App\Models\Torrent::where('tmdb', '=', $movie->id)
+                                        ->whereIn('category_id', function ($query) {
+                                        $query->select('id')->from('categories')->where('movie_meta', '=', true);
+                                        })->first();
+                                    @endphp
+                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent_temp->category_id, 'tmdb' => $movie->id]) }}">
                                         <div>
                                             <img class="backdrop" src="{{ \tmdb_image('poster_mid', $movie->poster) }}">
                                         </div>
@@ -133,13 +137,20 @@
                                                         href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                         <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                         @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                            <a title="@lang('common.delete-comment')"
-                                               href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                        class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
-                                            <a title="@lang('common.edit-comment')" data-toggle="modal"
-                                               data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                        class="pull-right {{ config('other.font-awesome') }} fa-pencil"
-                                                        aria-hidden="true"></i></a>
+                                            <div class="pull-right" style="display: inline-block;">
+                                                <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                    <button class="btn btn-circle btn-info">
+                                                        <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                    </button>
+                                                </a>
+                                                <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-circle btn-danger">
+                                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         @endif
                                         <div class="pt-5">
                                             @joypixels($comment->getContentHtml())

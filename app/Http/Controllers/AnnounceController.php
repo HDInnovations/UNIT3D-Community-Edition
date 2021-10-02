@@ -34,11 +34,14 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
+
     protected const REJECTED = 2;
+
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 2_400;
+
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -166,7 +169,8 @@ class AnnounceController extends Controller
         }
     }
 
-    /** Check Passkey Exist and Valid.
+    /**
+     * Check Passkey Exist and Valid.
      *
      * @param $passkey
      *
@@ -246,7 +250,7 @@ class AnnounceController extends Controller
             throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
         }
 
-        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS,
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF || \in_array($queries['port'], self::BLACK_PORTS,
                 true)) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
@@ -266,7 +270,8 @@ class AnnounceController extends Controller
         return $queries;
     }
 
-    /** Get User Via Validated Passkey.
+    /**
+     * Get User Via Validated Passkey.
      *
      * @param $passkey
      * @param $queries
@@ -478,7 +483,7 @@ class AnnounceController extends Controller
     /**
      * @param $repDict
      */
-    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory | \Illuminate\Http\Response
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -492,7 +497,7 @@ class AnnounceController extends Controller
      * @param     $noPeerId
      * @param int $filterFlag
      */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string | array
+    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string|array
     {
         if ($compact) {
             $pcomp = '';
@@ -505,6 +510,7 @@ class AnnounceController extends Controller
 
             return $pcomp;
         }
+
         if ($noPeerId) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);

@@ -71,6 +71,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
                 $ghost = true;
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 
@@ -127,7 +128,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $peer->left = 0;
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
+        //$peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 
@@ -148,6 +149,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
             $diff = $newUpdate - $oldUpdate;
             $history->seedtime += $diff;
         }
+
         $history->save();
         // End History Update
 

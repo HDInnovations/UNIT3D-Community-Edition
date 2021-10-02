@@ -15,10 +15,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
-use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -27,18 +27,11 @@ use Illuminate\Http\Request;
 class RssController extends Controller
 {
     /**
-     * RssController Constructor.
-     */
-    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
-    {
-    }
-
-    /**
      * Display a listing of the RSS resource.
      *
      * @param null $hash
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory | \Illuminate\Http\Response | \Illuminate\View\View
+    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
     {
         $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
@@ -51,23 +44,23 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('Staff.rss.create', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
-            'user'               => $user, ]);
+            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'      => Genre::all()->sortBy('name'),
+            'user'        => $user,
+        ]);
     }
 
     /**
      * Store a newly created RSS resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
 
@@ -79,7 +72,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres'      => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
@@ -101,6 +94,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Created';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
@@ -120,19 +114,18 @@ class RssController extends Controller
      *
      * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
-        $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('Staff.rss.edit', [
-            'torrent_repository' => $torrentRepository,
-            'categories'         => Category::all()->sortBy('position'),
-            'types'              => Type::all()->sortBy('position'),
-            'resolutions'        => Resolution::all()->sortBy('position'),
-            'user'               => $user,
-            'rss'                => $rss,
+            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres'      => Genre::all()->sortBy('name'),
+            'user'        => $user,
+            'rss'         => $rss,
         ]);
     }
 
@@ -141,7 +134,7 @@ class RssController extends Controller
      *
      * @param int $id
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse | \Illuminate\Http\Response
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
@@ -153,7 +146,7 @@ class RssController extends Controller
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'sometimes|array|max:999',
+            'genres'      => 'exists:genres,id|sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
@@ -174,6 +167,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Updated';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {

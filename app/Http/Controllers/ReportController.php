@@ -54,6 +54,7 @@ class ReportController extends Controller
             return \redirect()->route('request', ['id' => $id])
                 ->withErrors($v->errors());
         }
+
         $this->report->create([
             'type'          => 'Request',
             'request_id'    => $torrentRequest->id,
@@ -92,6 +93,7 @@ class ReportController extends Controller
             return \redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         }
+
         $this->report->create([
             'type'          => 'Torrent',
             'torrent_id'    => $torrent->id,
@@ -129,6 +131,7 @@ class ReportController extends Controller
             return \redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         }
+
         $this->report->create([
             'type'          => 'User',
             'torrent_id'    => 0,

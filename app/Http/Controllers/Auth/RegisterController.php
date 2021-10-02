@@ -42,7 +42,7 @@ class RegisterController extends Controller
      *
      * @param $code
      */
-    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {
@@ -116,6 +116,7 @@ class RegisterController extends Controller
             return \redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $user->roles()->attach($validatingGroup[0]);
         $userPrivacy = new UserPrivacy();
@@ -132,6 +133,7 @@ class RegisterController extends Controller
             $key->accepted_at = new Carbon();
             $key->save();
         }
+
         // Handle The Activation System
         $token = \hash_hmac('sha256', $user->username.$user->email.Str::random(16), \config('app.key'));
         $userActivation = new UserActivation();

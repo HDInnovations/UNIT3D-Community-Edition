@@ -172,6 +172,7 @@ class TopicController extends Controller
             return \redirect()->route('forums.index')
                 ->withErrors($v->errors());
         }
+
         $topic->save();
         $post = new Post();
         $post->content = $request->input('content');
@@ -186,6 +187,7 @@ class TopicController extends Controller
             return \redirect()->route('forums.index')
                 ->withErrors($v->errors());
         }
+
         $post->save();
         $topic->num_post = 1;
         $topic->last_reply_at = $post->created_at;
@@ -210,6 +212,7 @@ class TopicController extends Controller
             $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
             $forum->notifySubscribers($user, $topic);
         }
+
         //Achievements
         $user->unlock(new UserMadeFirstPost(), 1);
         $user->addProgress(new UserMade25Posts(), 1);
@@ -233,7 +236,7 @@ class TopicController extends Controller
      *
      * @param \App\Models\Topic $id
      */
-    public function editForm($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function editForm($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();

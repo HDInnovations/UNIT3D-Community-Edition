@@ -26,7 +26,7 @@ class NoteController extends Controller
     /**
      * Display All User Notes.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $notes = Note::latest()->paginate(25);
 
@@ -60,6 +60,7 @@ class NoteController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $note->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])

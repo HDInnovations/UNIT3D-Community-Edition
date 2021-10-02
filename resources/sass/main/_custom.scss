@@ -10792,3 +10792,68 @@ div.single_column {
         --s: .5;
     }
 }
+
+/* Chat Message Bubbles
+============================================================================
+
+/* Message avatar */
+.sent > a {
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.sent > a > img {
+    display: block !important;
+    height: 100%;
+    position: absolute;
+    bottom: 4px;
+}
+/* Avatar */
+#frame .content .messages ul li.sent img.chat-user-image {
+    height: 40px;
+    width: 40px;
+    border: 2px !important;
+}
+/* Message header */
+.sent > h4 {
+    display: block !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #FFFFFF;
+    padding: 4px 12px 0 8px;
+    margin: 4px 12px 0 48px;
+}
+/* Message text */
+.sent > div {
+    display: block !important;
+    border-bottom-right-radius: 15px;
+    background-color: #FFFFFF;
+    padding: 0 12px 4px 8px !important;
+    margin: 0 12px 4px 48px !important;
+}
+/* Bot messages */
+.sent > .system {
+    border-bottom-left-radius: 15px;
+}
+/* Message triangle tip */
+.sent > div:not(.system):before {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 38px;
+    width: 0;
+    border-right: 10px solid #FFFFFF;
+    border-top: 10px solid transparent;
+    /* border-bottom: 10px solid transparent; */
+}
+/* Entire Message */
+#frame .content .messages ul li.sent {
+    border: 0;
+    display: table;
+    max-width: 85%;
+    width: auto;
+}
+/* Timestamp */
+#frame .content .messages ul li.sent h4 .text-muted {
+    float: none;
+}

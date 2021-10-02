@@ -48,7 +48,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $poll = Poll::findOrFail($id);

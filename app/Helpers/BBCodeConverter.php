@@ -116,6 +116,7 @@ class BBCodeConverter
                 if (\is_null($list)) {
                     throw new \RuntimeException('Text has malformed BBCode lists');
                 }
+
                 $items = \preg_split('#\[\*\]#u', $list);
 
                 $counter = \is_countable($items) ? \count($items) : 0;
@@ -180,10 +181,10 @@ class BBCodeConverter
             }
 
             $headerSeparator = '';
-            if (\count($rows) > 0) {
+            if ($rows !== []) {
                 $columnCount = \substr_count($rows[0], '|');
 
-                if (\count($headers) === 0) {
+                if ($headers === []) {
                     $headers[] = \implode(' ', \array_fill(0, $columnCount, '|'));
                 }
 

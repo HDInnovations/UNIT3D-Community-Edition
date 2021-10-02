@@ -35,7 +35,7 @@ class ForumController extends Controller
     /**
      * Search For Topics.
      */
-    public function search(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -74,9 +74,11 @@ class ForumController extends Controller
         if ($request->has('body') && $request->input('body') != '') {
             $result->where([['posts.content', 'like', '%'.$request->input('body').'%']]);
         }
+
         if ($request->has('name')) {
             $result->where([['topics.name', 'like', '%'.$request->input('name').'%']]);
         }
+
         if ($request->has('subscribed') && $request->input('subscribed') == 1) {
             $result->where(function ($query) use ($topicNeos, $forumNeos) {
                 $query->whereIn('topics.id', $topicNeos)->orWhereIn('topics.forum_id', $forumNeos);
@@ -88,21 +90,27 @@ class ForumController extends Controller
         if ($request->has('implemented') && $request->input('implemented') == 1) {
             $result->where('topics.implemented', '=', 1);
         }
+
         if ($request->has('approved') && $request->input('approved') == 1) {
             $result->where('topics.approved', '=', 1);
         }
+
         if ($request->has('denied') && $request->input('denied') == 1) {
             $result->where('topics.denied', '=', 1);
         }
+
         if ($request->has('solved') && $request->input('solved') == 1) {
             $result->where('topics.solved', '=', 1);
         }
+
         if ($request->has('invalid') && $request->input('invalid') == 1) {
             $result->where('topics.invalid', '=', 1);
         }
+
         if ($request->has('bug') && $request->input('bug') == 1) {
             $result->where('topics.bug', '=', 1);
         }
+
         if ($request->has('suggestion') && $request->input('suggestion') == 1) {
             $result->where('topics.suggestion', '=', 1);
         }
@@ -110,6 +118,7 @@ class ForumController extends Controller
         if ($request->has('closed') && $request->input('closed') == 1) {
             $result->where('topics.state', '=', 'close');
         }
+
         if ($request->has('open') && $request->input('open') == 1) {
             $result->where('topics.state', '=', 'open');
         }
@@ -134,6 +143,7 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
+
             $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
@@ -143,6 +153,7 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
+
             $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
 
@@ -171,7 +182,7 @@ class ForumController extends Controller
     /**
      * Search For Subscribed Forums & Topics.
      */
-    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -191,6 +202,7 @@ class ForumController extends Controller
         if (! \is_array($forumNeos)) {
             $forumNeos = [];
         }
+
         $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
             $query->whereIn('topics.id', $topicNeos)->orWhereIn('forums.id', $forumNeos);
         })->groupBy('forums.id');
@@ -224,7 +236,7 @@ class ForumController extends Controller
     /**
      * Latest Topics.
      */
-    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -254,7 +266,7 @@ class ForumController extends Controller
     /**
      * Latest Posts.
      */
-    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 

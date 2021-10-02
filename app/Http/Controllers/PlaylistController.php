@@ -98,6 +98,7 @@ class PlaylistController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $playlist->save();
         // Announce To Shoutbox
         $appurl = \config('app.url');
@@ -133,6 +134,7 @@ class PlaylistController extends Controller
             if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
                 $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
             }
+
             if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
                 $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
             }
@@ -207,6 +209,7 @@ class PlaylistController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $playlist->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])

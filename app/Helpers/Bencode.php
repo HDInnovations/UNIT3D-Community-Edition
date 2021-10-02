@@ -23,6 +23,7 @@ class Bencode
         if ($len === 0 || $s[$pos] != 'i') {
             return;
         }
+
         $pos++;
 
         $result = '';
@@ -33,6 +34,7 @@ class Bencode
                 // We have an invalid character in the string.
                 return;
             }
+
             $pos++;
         }
 
@@ -60,6 +62,7 @@ class Bencode
                 // Non-numeric character, we return null in this case.
                 return;
             }
+
             $pos++;
         }
 
@@ -100,9 +103,11 @@ class Bencode
         if ($c == 'i') {
             return self::parse_integer($s, $pos);
         }
+
         if (\is_numeric($c)) {
             return self::parse_string($s, $pos);
         }
+
         if ($c == 'd') {
             $dict = [];
             $pos++;
@@ -112,12 +117,15 @@ class Bencode
                 if (\is_null($key) || \is_null($value)) {
                     return;
                 }
+
                 $dict[$key] = $value;
             }
+
             if ($pos >= $len) {
                 // We need a end marker here
                 return;
             }
+
             $pos++;
 
             return $dict;
@@ -139,6 +147,7 @@ class Bencode
                 // We need a end marker here
                 return;
             }
+
             $pos++;
 
             return $list;
@@ -162,11 +171,13 @@ class Bencode
                 $isDict = (bool) $d['isDct'];
                 unset($d['isDct']);
             }
+
             if ($isDict) {
                 $ret = 'd';
                 // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
                 \ksort($d, SORT_STRING);
             }
+
             foreach ($d as $key => $value) {
                 if ($isDict) {
                     $ret .= \strlen($key).':'.$key;
@@ -183,9 +194,11 @@ class Bencode
 
             return $ret.'e';
         }
+
         if (\is_string($d)) {
             return \strlen($d).':'.$d;
         }
+
         if (\is_int($d) || \is_float($d)) {
             return \sprintf('i%de', $d);
         }

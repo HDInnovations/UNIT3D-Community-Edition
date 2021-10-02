@@ -48,9 +48,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.flush.chat') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
-                </a>
+                <form role="form" method="POST" action="{{ route('staff.flush.chat') }}" style="padding: 10px 15px;">
+                    @csrf
+                    <i class="{{ config('other.font-awesome') }} fa-broom"></i>
+                    <button type="submit" class="btn btn-xs btn-info" style="margin-bottom: 5px;">
+                        @lang('staff.flush-chat')
+                    </button>
+                </form>
             </li>
 
             <li class="nav-header head">
@@ -128,9 +132,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.flush.peers') }}">
-                    <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
-                </a>
+                <form role="form" method="POST" action="{{ route('staff.flush.peers') }}" style="padding: 10px 15px;">
+                    @csrf
+                    <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
+                    <button type="submit" class="btn btn-xs btn-info" style="margin-bottom: 5px;">
+                        @lang('staff.flush-ghost-peers')
+                    </button>
+                </form>
             </li>
 
             <li class="nav-header head">

@@ -30,7 +30,6 @@ class NotifyUserCommentWasCreated
     /**
      * Handle the event.
      *
-     * @param CommentCreated $event
      *
      * @return void
      */

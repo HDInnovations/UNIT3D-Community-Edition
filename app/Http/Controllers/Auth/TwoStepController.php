@@ -98,7 +98,7 @@ class TwoStepController extends Controller
      *
      * @throws \Exception
      */
-    public function showVerification(): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function showVerification(): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);
@@ -194,6 +194,7 @@ class TwoStepController extends Controller
 
             return \response()->json($returnData, 200);
         }
+
         \abort(404);
     }
 

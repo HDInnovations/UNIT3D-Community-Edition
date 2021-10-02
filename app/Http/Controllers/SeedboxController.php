@@ -27,7 +27,7 @@ class SeedboxController extends Controller
      *
      * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -62,6 +62,7 @@ class SeedboxController extends Controller
             return \redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $seedbox->save();
 
         return \redirect()->route('seedboxes.index', ['username' => $user->username])

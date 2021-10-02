@@ -24,7 +24,7 @@ class NotificationController extends Controller
     /**
      * Show All Notifications.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $notifications = $request->user()->notifications()->paginate(25);
 

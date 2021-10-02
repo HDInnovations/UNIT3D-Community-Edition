@@ -43,7 +43,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Gifts System.
      */
-    public function gifts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function gifts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -66,7 +66,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Tips System.
      */
-    public function tips(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function tips(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -89,7 +89,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Store System.
      */
-    public function store(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function store(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -115,7 +115,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Gift System.
      */
-    public function gift(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function gift(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -129,7 +129,7 @@ class BonusController extends Controller
      *
      * @param string $username
      */
-    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -210,7 +210,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if ($flag === false) {
+            if (! $flag) {
                 return \redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
@@ -231,8 +231,6 @@ class BonusController extends Controller
      *
      * @param \App\Models\User        $userID
      * @param \App\Models\BonExchange $itemID
-     *
-     * @return bool
      */
     public function doItemExchange($userID, $itemID): bool
     {
@@ -355,6 +353,7 @@ class BonusController extends Controller
             return \redirect()->route('bonus_gift')
                 ->withSuccess('Gift Sent');
         }
+
         $v = \validator($request->all(), [
             'to_username' => 'required|exists:users,username|max:180',
         ]);
@@ -397,14 +396,17 @@ class BonusController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
+
         if ($user->id == $torrent->user_id) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
+
         if ($tipAmount <= 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
+
         $uploader->seedbonus += $tipAmount;
         $uploader->save();
 
@@ -451,14 +453,17 @@ class BonusController extends Controller
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
+
         if ($user->id == $poster->id) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
+
         if ($tipAmount <= 0) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
+
         $poster->seedbonus += $tipAmount;
         $poster->save();
 

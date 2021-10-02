@@ -19,6 +19,7 @@ use Livewire\Component;
 class BookmarkButton extends Component
 {
     public $torrent;
+
     public $user;
 
     final public function mount($torrent): void
@@ -50,7 +51,7 @@ class BookmarkButton extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-button');
     }

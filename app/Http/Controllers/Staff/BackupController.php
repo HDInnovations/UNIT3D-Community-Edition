@@ -24,7 +24,7 @@ class BackupController extends Controller
     /**
      * Display All Backups.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasRole('root'), 403);
 

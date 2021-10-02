@@ -130,7 +130,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('torrents') }}?bookmarked=1">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
@@ -141,9 +141,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}">
-                            <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> @lang('auth.logout')
-                        </a>
+                        <form role="form" method="POST" action="{{ route('logout') }}" style="background-color: #272634; clear: both; display: block; font-family: lato,sans-serif; font-weight: 400; line-height: 1.42857; padding: 6px 10px; white-space: nowrap; ">
+                            @csrf
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-xs btn-danger">
+                                    <i class='{{ config('other.font-awesome') }} fa-sign-out'></i> @lang('auth.logout')
+                                </button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </li>

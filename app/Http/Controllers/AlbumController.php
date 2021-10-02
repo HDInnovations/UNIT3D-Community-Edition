@@ -89,6 +89,7 @@ class AlbumController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $album->save();
 
         return \redirect()->route('albums.show', ['id' => $album->id])
@@ -100,7 +101,7 @@ class AlbumController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();

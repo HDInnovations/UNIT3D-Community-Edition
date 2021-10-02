@@ -95,6 +95,7 @@ class AutoWarning extends Command
                 }
             }
         }
+
         $this->comment('Automated User Warning Command Complete');
     }
 }

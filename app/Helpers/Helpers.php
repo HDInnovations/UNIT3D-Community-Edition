@@ -126,7 +126,7 @@ if (! function_exists('rating_color')) {
     }
 }
 
-if (! function_exists('languageFlag')) {
+if (! function_exists('language_flag')) {
     function language_flag($language)
     {
         $flag = match ($language) {
@@ -175,12 +175,7 @@ if (! function_exists('languageFlag')) {
             'Vietnamese' => 'vn',
             default      => null,
         };
-        if ($flag !== null) {
-            $flagUrl = '/img/flags/'.$flag.'.png';
-        } else {
-            $flagUrl = null;
-        }
 
-        return $flagUrl;
+        return $flag !== null ? '/img/flags/'.$flag.'.png' : null;
     }
 }

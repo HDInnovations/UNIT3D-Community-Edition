@@ -116,6 +116,7 @@ class SystemInformation
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';
         }
+
         $results = DB::select(DB::raw('select version()'));
 
         return $results[0]->{'version()'};
@@ -157,7 +158,7 @@ class SystemInformation
      *
      * @param $path
      */
-    public function getDirectoryPermission($path): string | \Symfony\Component\Translation\TranslatorInterface
+    public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
     {
         try {
             return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);

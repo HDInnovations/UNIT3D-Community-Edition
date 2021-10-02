@@ -36,7 +36,7 @@ class ModerationController extends Controller
     /**
      * Torrent Moderation Panel.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
         $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();
@@ -107,6 +107,7 @@ class ModerationController extends Controller
             return \redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
+
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markPostponed();
@@ -143,6 +144,7 @@ class ModerationController extends Controller
             return \redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
+
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markRejected();

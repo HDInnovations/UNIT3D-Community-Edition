@@ -65,7 +65,7 @@ class TorrentController extends BaseController
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -138,6 +138,11 @@ class TorrentController extends BaseController
             $torrent->doubleup = '1';
         }
 
+        $resRule = 'nullable|exists:resolutions,id';
+        if ($category->movie_meta || $category->tv_meta) {
+            $resRule = 'required|exists:resolutions,id';
+        }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
@@ -150,7 +155,7 @@ class TorrentController extends BaseController
             'size'              => 'required',
             'category_id'       => 'required|exists:categories,id',
             'type_id'           => 'required|exists:types,id',
-            'resolution_id'     => 'nullable|exists:resolutions,id',
+            'resolution_id'     => $resRule,
             'user_id'           => 'required|exists:users,id',
             'imdb'              => 'required|numeric',
             'tvdb'              => 'required|numeric',
@@ -175,6 +180,7 @@ class TorrentController extends BaseController
 
             return $this->sendError('Validation Error.', $v->errors());
         }
+
         // Save The Torrent
         $torrent->save();
         // Set torrent to featured
@@ -184,6 +190,7 @@ class TorrentController extends BaseController
             $featuredTorrent->torrent_id = $torrent->id;
             $featuredTorrent->save();
         }
+
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
@@ -201,6 +208,7 @@ class TorrentController extends BaseController
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
+
         if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->movie($torrent->tmdb);
         }
@@ -305,10 +313,8 @@ class TorrentController extends BaseController
 
     /**
      * Uses Input's To Put Together A Search.
-     *
-     * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
-    public function filter(Request $request)
+    public function filter(Request $request): \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
     {
         $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -318,6 +324,7 @@ class TorrentController extends BaseController
                 foreach ($terms as $term) {
                     $search .= '%'.$term.'%';
                 }
+
                 $query->where('name', 'LIKE', $search);
             })
             ->when($request->has('description'), function ($query) use ($request) {
@@ -438,6 +445,7 @@ class TorrentController extends BaseController
         if ($mediainfo === null) {
             return;
         }
+
         $completeNameI = \strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
             $pathI = \strpos($mediainfo, ': ', $completeNameI);

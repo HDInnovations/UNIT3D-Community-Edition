@@ -27,7 +27,7 @@ class CategoryController extends Controller
     /**
      * Display All Categories.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Category::all()->sortBy('position');
 
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Show Form For Creating A New Category.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('Staff.category.create');
     }
@@ -89,6 +89,7 @@ class CategoryController extends Controller
             return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
+
         $category->save();
 
         return \redirect()->route('staff.categories.index')
@@ -100,7 +101,7 @@ class CategoryController extends Controller
      *
      * @param \App\Models\Category $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $category = Category::findOrFail($id);
 
@@ -151,6 +152,7 @@ class CategoryController extends Controller
             return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
+
         $category->save();
 
         return \redirect()->route('staff.categories.index')

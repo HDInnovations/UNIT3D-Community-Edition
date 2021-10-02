@@ -63,4 +63,6 @@ return [
     'proxy_scheme'      => env('PROXY_SCHEME', false),
     'root_url_override' => env('FORCE_ROOT_URL', false),
 
+    //Global Rate Limit for Comments - X Per Minute
+    'comment-rate-limit' => env('COMMENTS_PER_MINUTE', 2),
 ];

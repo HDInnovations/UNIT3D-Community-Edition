@@ -49,7 +49,7 @@ class AutoHighspeedTag extends Command
 
         $seedboxUsers = Seedbox::select(['user_id'])->get()->toArray();
 
-        if (\is_array($seedboxUsers) && \count($seedboxUsers) > 0) {
+        if (\is_array($seedboxUsers) && $seedboxUsers !== []) {
             $torid = Peer::select(['torrent_id'])->whereIn('user_id', $seedboxUsers)->where('seeder', '=', 1)->get()->toArray();
 
             foreach ($torid as $id) {
@@ -62,6 +62,7 @@ class AutoHighspeedTag extends Command
                 unset($torrent);
             }
         }
+
         $this->comment('Automated High Speed Torrents Command Complete');
     }
 }

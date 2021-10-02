@@ -18,7 +18,9 @@ use Illuminate\Database\Eloquent\Model;
 class Crew extends Model
 {
     protected $guarded = [];
+
     public $timestamps = false;
+
     public $table = 'person';
 
     /**

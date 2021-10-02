@@ -25,7 +25,7 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    final public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('ticket.index');
     }
@@ -33,7 +33,7 @@ class TicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    final public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
@@ -81,7 +81,7 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
@@ -91,6 +91,7 @@ class TicketController extends Controller
             $ticket->user_read = 1;
             $ticket->save();
         }
+
         if ($user->id == $ticket->staff_id) {
             $ticket->staff_read = 1;
             $ticket->save();

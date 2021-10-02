@@ -86,6 +86,7 @@ class AutoPreWarning extends Command
                 }
             }
         }
+
         $this->comment('Automated User Pre-Warning Command Complete');
     }
 }

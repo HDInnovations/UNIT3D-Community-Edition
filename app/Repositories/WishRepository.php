@@ -32,7 +32,7 @@ class WishRepository implements WishInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($paginate = null): \Illuminate\Database\Eloquent\Collection | array
+    public function all($paginate = null): \Illuminate\Database\Eloquent\Collection|array
     {
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }

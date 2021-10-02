@@ -20,6 +20,7 @@ use Livewire\Component;
 class DislikeButton extends Component
 {
     public $post;
+
     public $user;
 
     final public function mount($post): void
@@ -52,7 +53,7 @@ class DislikeButton extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Dislike Was Successfully Applied!']);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.dislike-button');
     }

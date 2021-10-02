@@ -28,6 +28,11 @@ class PersonSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
@@ -41,7 +46,7 @@ class PersonSearch extends Component
             ->paginate(30);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.person-search', [
             'persons' => $this->persons,

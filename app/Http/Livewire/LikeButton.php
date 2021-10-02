@@ -20,6 +20,7 @@ use Livewire\Component;
 class LikeButton extends Component
 {
     public $post;
+
     public $user;
 
     final public function mount($post): void
@@ -52,7 +53,7 @@ class LikeButton extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Like Was Successfully Applied!']);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.like-button');
     }

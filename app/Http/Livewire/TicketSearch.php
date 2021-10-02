@@ -22,10 +22,21 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
+
+    public $show = false;
+
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'updated_at';
+
     public $sortDirection = 'desc';
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'show'   => ['except' => false],
+    ];
 
     final public function mount(): void
     {
@@ -37,9 +48,26 @@ class TicketSearch extends Component
         return 'vendor.pagination.livewire-pagination';
     }
 
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
+    }
+
+    final public function updatingShow(): void
+    {
+        $this->resetPage();
+    }
+
+    final public function toggleProperties($property): void
+    {
+        if ($property === 'show') {
+            $this->show = ! $this->show;
+        }
     }
 
     final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -47,6 +75,8 @@ class TicketSearch extends Component
         if ($this->user->hasPrivilegeTo('helpdesk_can_handle')) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
+                ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
+                ->when($this->show, fn ($query) => $query->whereNotNull('closed_at')->orWhereNull('closed_at'))
                 ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
@@ -55,6 +85,8 @@ class TicketSearch extends Component
         return Ticket::query()
             ->with(['user', 'category', 'priority'])
             ->where('user_id', '=', $this->user->id)
+            ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
+            ->when($this->show, fn ($query) => $query->whereNotNull('closed_at'))
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -67,10 +99,11 @@ class TicketSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.ticket-search', [
             'tickets' => $this->tickets,

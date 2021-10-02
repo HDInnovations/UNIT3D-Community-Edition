@@ -410,18 +410,26 @@
                                                     <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_delete'))
-                                                    <a title="@lang('common.delete-your-comment')"
-                                                       href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                                class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times"
-                                                                aria-hidden="true"></i></a>
-                                                @endif
-                                                @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_update'))
-                                                    <a title="@lang('common.edit-your-comment')"
-                                                       data-toggle="modal"
-                                                       data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                                class="pull-right {{ config('other.font-awesome') }} fa-lg fa-pencil"
-                                                                aria-hidden="true"></i></a>
+                                                        <div class="pull-right" style="display: inline-block;">
+                                                            @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_update'))
+                                                            <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                                </button>
+                                                            </a>
+                                                            @endif
+                                                            @if ($comment->user_id == $user->id || $user->hasPrivilegeTo('comment_can_delete'))
+                                                            <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-circle btn-danger">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                            @endif
+                                                        </div>
+                                                
+                                                
+                                            
                                                 @endif
                                                 <div class="pt-5">
                                                     @joypixels($comment->getContentHtml())

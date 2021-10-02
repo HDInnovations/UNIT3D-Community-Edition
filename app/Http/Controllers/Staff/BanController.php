@@ -33,7 +33,7 @@ class BanController extends Controller
     /**
      * Display All Bans.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $bans = Ban::latest()->paginate(25);
 
@@ -77,6 +77,7 @@ class BanController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $ban->save();
         // Send Email
@@ -124,6 +125,7 @@ class BanController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $ban->save();
         // Send Email

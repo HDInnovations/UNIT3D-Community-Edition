@@ -472,17 +472,17 @@
                         <i class="{{ config('other.font-awesome') }} fa-badge text-success"></i>
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
-                            @if ($user->getSeeding() >= 150)
+                            @if ($user->getSeeding() >= '150')
                                 <span class="badge-user" style="background-color:#3fb618; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-seeder-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.certified-seeder')!</span>
                             @endif
-                            @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
+                            @if ($history->where('actual_downloaded', '>', 0)->count() >= '100')
                                 <span class="badge-user" style="background-color:#ff0039; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-downloader-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.certified-downloader')!</span>
                             @endif
-                            @if ($user->getSeedbonus() >= 50000)
+                            @if ($user->getSeedbonus() >= '50,000')
                                 <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('user.certified-banker')!</span>
@@ -556,37 +556,28 @@
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('torrent.torrents')</th>
-                            <th>Connectable</th>
+                            {{--<th>Connectable</th>--}}
                         </tr>
                     </thead>
                     <tbody>
                     @php $peer_array = []; @endphp
                     @foreach ($peers as $p)
 			            @if (!in_array([$p->ip, $p->port], $peer_array))
-                            @php $count = App\Models\Peer::with(['user'])->where('user_id', '=', $user->id)->latest('seeder')->where('ip', '=', $p->ip)->where('port', '=', $p->port)->count(); @endphp
+                            @php $count = App\Models\Peer::where('user_id', '=', $user->id)->where('ip', '=', $p->ip)->where('port', '=', $p->port)->count(); @endphp
                             <tr>
                                 <td>
                                     <span class="badge-extra text-purple text-bold">{{ $p->agent }}</span>
                                 </td>
-                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
-                                    <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
-                                    <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
-                                @else
-                                    <td> ---</td>
-                                    <td> ---</td>
-                                @endif
+                                <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
+                                <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
                                 <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
-                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
-			                        <td>
-				                        <a href="{{ route('user_active_by_client', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            				                        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $count }}</span>
-        			                    </a>
-			                        </td>
-                                @else
-                                    <td> ---</td>
-                                @endif
-                                <td>@choice('user.client-connectable-state', $p->connectable)</td>
+                                <td>
+                                    <a href="{{ route('user_active_by_client', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port]) }}" itemprop="url" class="l-breadcrumb-item-link">
+                                        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $count }}</span>
+                                    </a>
+                                </td>
+                                {{--<td>@choice('user.client-connectable-state', $p->connectable)</td>--}}
                             </tr>
 			                @php array_push($peer_array, [$p->ip, $p->port]); @endphp
 			            @endif

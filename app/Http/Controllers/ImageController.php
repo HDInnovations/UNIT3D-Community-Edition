@@ -71,6 +71,7 @@ class ImageController extends Controller
             return \redirect()->route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
         }
+
         $image->save();
 
         return \redirect()->route('albums.show', ['id' => $request->input('album_id')])

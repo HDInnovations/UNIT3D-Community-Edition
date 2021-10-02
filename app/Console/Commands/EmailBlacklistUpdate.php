@@ -48,11 +48,13 @@ class EmailBlacklistUpdate extends Command
 
             return;
         }
+
         if ($count === 0) {
             $this->info('Advice: Blacklist was retrieved from source but 0 domains were listed.');
 
             return;
         }
+
         $this->info(\sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
     }
 }

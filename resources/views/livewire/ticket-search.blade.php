@@ -2,6 +2,12 @@
 	<div class="mb-10 form-inline pull-left">
 		<a href="{{ route('tickets.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> @lang('ticket.create-ticket')</a>
 	</div>
+	<div class="mb-10 form-inline pull-left">
+		<div class="form-group" style="padding-top: 8px; padding-left: 15px;">
+			<input type="checkbox" wire:click="toggleProperties('show')">
+			Show Closed Tickets
+		</div>
+	</div>
 	<div class="mb-10 form-inline pull-right">
 		<div class="form-group">
 			@lang('common.quantity')

@@ -126,11 +126,7 @@
                                 <hr>
                                 <label for="torrent_layout" class="control-label">Default Torrent Layout?</label>
                                 <select class="form-control" id="torrent_layout" name="torrent_layout">
-                                <option @if ($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
-                                <option @if ($user->torrent_layout == 1) selected @endif value="1">Torrent Grouping
-                                    </option>
-                                <option @if ($user->torrent_layout == 2) selected @endif value="2">Torrent Cards
-                                    </option>
+                                    <option @if ($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
                                 </select>
                                 <br>
                                 <label for="poster" class="control-label">Show Posters On Torrent List View?</label>

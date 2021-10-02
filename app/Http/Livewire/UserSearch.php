@@ -22,13 +22,21 @@ class UserSearch extends Component
     use WithPagination;
 
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
 
     final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
+    }
+
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -52,10 +60,11 @@ class UserSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.user-search', [
             'users' => User::query()

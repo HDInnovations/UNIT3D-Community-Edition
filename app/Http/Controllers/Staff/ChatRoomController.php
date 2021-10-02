@@ -34,7 +34,7 @@ class ChatRoomController extends Controller
     /**
      * Display All Chat Rooms.
      */
-    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $chatrooms = $this->chatRepository->rooms();
 
@@ -62,6 +62,7 @@ class ChatRoomController extends Controller
             return \redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
+
         $chatroom->save();
 
         return \redirect()->route('staff.rooms.index')
@@ -88,6 +89,7 @@ class ChatRoomController extends Controller
             return \redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
+
         $chatroom->save();
 
         return \redirect()->route('staff.rooms.index')
@@ -112,6 +114,7 @@ class ChatRoomController extends Controller
             $user->chatroom_id = $default[0];
             $user->save();
         }
+
         $chatroom->delete();
 
         return \redirect()->route('staff.rooms.index')

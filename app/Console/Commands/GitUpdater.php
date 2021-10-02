@@ -132,7 +132,7 @@ class GitUpdater extends Command
                 $this->restore($paths);
 
                 $conflicts = \array_intersect($updating, $paths);
-                if (\count($conflicts) > 0) {
+                if ($conflicts !== []) {
                     $this->red('There are some files that was not updated because because of conflicts.');
                     $this->red('We will walk you through updating these files now.');
 
@@ -143,19 +143,21 @@ class GitUpdater extends Command
                     $this->migrations();
                 }
 
-                if ($this->io->confirm('Compile assets (npm run prod)', true)) {
-                    $this->compile();
-                }
-
                 $this->clearCache();
 
                 if ($this->io->confirm('Install new packages (composer install)', true)) {
                     $this->composer();
                 }
 
+                $this->clearComposerCache();
+
                 $this->updateUNIT3DConfig();
 
                 $this->setCache();
+
+                if ($this->io->confirm('Compile assets (npx mix -p)', true)) {
+                    $this->compile();
+                }
 
                 $this->permissions();
 
@@ -279,9 +281,16 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    private function clearComposerCache()
+    {
+        $this->header('Clearing Composer Cache');
+        $this->process('composer clear-cache --no-interaction --ansi --verbose');
+        $this->done();
+    }
+
     private function clearCache()
     {
-        $this->header('Clearing Cache');
+        $this->header('Clearing Application Cache');
         $this->call('optimize:clear');
         $this->done();
     }

@@ -589,12 +589,15 @@ class User extends Authenticatable
         if ($sender->hasPrivilegeTo('users_bypass_notification_preferences')) {
             return true;
         }
+
         if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
+
         if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
+
         if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
                 return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -624,12 +627,15 @@ class User extends Authenticatable
         if ($sender->hasPrivilegeTo('users_view_private')) {
             return true;
         }
+
         if ($target->hidden && $target->hidden == 1) {
             return false;
         }
+
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
+
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
                 return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -659,12 +665,15 @@ class User extends Authenticatable
         if ($sender->hasPrivilegeTo('users_view_private')) {
             return true;
         }
+
         if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
+
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
+
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
                 return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -874,6 +883,7 @@ class User extends Authenticatable
         if (empty($this->about)) {
             return 'N/A';
         }
+
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
@@ -885,11 +895,11 @@ class User extends Authenticatable
      *
      * Formats the seebonus of the User
      *
-     * @return decimal
+     * @return string
      */
     public function getSeedbonus()
     {
-        return \number_format($this->seedbonus, 0, '.', ' ');
+        return \number_format($this->seedbonus, 0, '.', ',');
     }
 
     /**

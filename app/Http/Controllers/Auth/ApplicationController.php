@@ -27,7 +27,7 @@ class ApplicationController extends Controller
     /**
      * Application Add Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('auth.application.create');
     }
@@ -95,6 +95,7 @@ class ApplicationController extends Controller
             return \redirect()->route('application.create')
                 ->withErrors($v->errors());
         }
+
         $application->save();
         // Map And Save IMG Proofs
         $imgs = \collect($request->input('images'))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));

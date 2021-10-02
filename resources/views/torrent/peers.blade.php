@@ -42,6 +42,7 @@
                             <th>@lang('torrent.client')</th>
                             <th>@lang('common.ip')</th>
                             <th>@lang('common.port')</th>
+                            {{--<th>Connectable</th>--}}
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('common.status')</th>
@@ -116,6 +117,7 @@
                                     <td> ---</td>
                                     <td> ---</td>
                                 @endif
+                                {{--<td><span class="badge-extra text-bold {{ $p->connectable ? 'text-success' : 'text-danger' }}">{{ $p->connectable ? 'Yes' : 'No' }}</span></td>--}}
                                 <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                                 <td> @if ($p->seeder == 0)
