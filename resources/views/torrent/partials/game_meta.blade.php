@@ -1,7 +1,7 @@
 <div class="movie-wrapper game">
     <div class="movie-overlay"></div>
     <div class="movie-poster">
-        @php $igdb_poster = (isset($meta) && $meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover->image_id.'.jpg' : 'https://via.placeholder.com/400x600'; @endphp
+        @php $igdb_poster = (isset($meta) && $meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover['image_id'].'.jpg' : 'https://via.placeholder.com/400x600'; @endphp
         <img src="{{ $igdb_poster }}" class="img-responsive" id="meta-poster">
     </div>
 
@@ -39,10 +39,10 @@
                     </span>
                 @endif
 
-                @if (isset($meta) && $meta->genres->isNotEmpty())
+                @if (isset($meta) && $meta->genres)
                     @foreach ($meta->genres as $genre)
                         <span class="badge-user text-bold text-green">
-                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre->name }}
+                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre['name'] }}
                         </span>
                     @endforeach
                 @endif
