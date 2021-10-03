@@ -13,15 +13,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Type;
 use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\History;
 use App\Models\Keyword;
-use App\Models\Resolution;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
+use App\Models\Resolution;
 use App\Models\Torrent;
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Wish;
 use Illuminate\Support\Facades\DB;

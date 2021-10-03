@@ -17,7 +17,6 @@ class AddIndexesToTables extends Migration
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('articles');
 
-
             if (! $doctrineTable->hasIndex('created_at')) {
                 $table->index('created_at');
             }
@@ -61,7 +60,6 @@ class AddIndexesToTables extends Migration
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('posts');
 
-
             if (! $doctrineTable->hasIndex('created_at')) {
                 $table->index('created_at');
             }
@@ -70,7 +68,6 @@ class AddIndexesToTables extends Migration
         Schema::table('topics', function (Blueprint $table) {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('topics');
-
 
             if (! $doctrineTable->hasIndex('created_at')) {
                 $table->index('created_at');
