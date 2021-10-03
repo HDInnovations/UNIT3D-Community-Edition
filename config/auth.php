@@ -67,7 +67,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'cache-user',
             'model'  => App\Models\User::class,
         ],
 
@@ -112,20 +112,20 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    'password_timeout'                => 10800,
 
-    'TwoStepEnabled' => true,
+    'TwoStepEnabled'                  => true,
 
-    'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+    'verificationEmailFrom'           => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
 
-    'verificationEmailFromName' => ' 2-Step Verification',
+    'verificationEmailFromName'       => ' 2-Step Verification',
 
-    'TwoStepExceededCount'             => 3,
+    'TwoStepExceededCount'            => 3,
 
-    'TwoStepExceededCountdownMinutes'  => 60 * 24,
+    'TwoStepExceededCountdownMinutes' => 60 * 24,
 
-    'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
+    'TwoStepVerifiedLifetimeMinutes'  => 6 * 60,
 
-    'TwoStepTimeResetBufferSeconds'    => 6 * 60,
+    'TwoStepTimeResetBufferSeconds'   => 6 * 60,
 
 ];
