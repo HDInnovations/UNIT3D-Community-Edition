@@ -13,13 +13,13 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
-use App\Observers\UserObserver;
 use App\Interfaces\ByteUnitsInterface;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Models\User;
+use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;

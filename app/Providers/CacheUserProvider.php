@@ -13,10 +13,10 @@
 
 namespace App\Providers;
 
+use App\Helpers\CacheUser;
 use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
-use App\Helpers\CacheUser;
 
 class CacheUserProvider extends EloquentUserProvider
 {

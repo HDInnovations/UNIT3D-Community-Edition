@@ -32,8 +32,9 @@ class UserObserver
      * Handle the User "saved" event.
      *
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function saved(User $user)
     {

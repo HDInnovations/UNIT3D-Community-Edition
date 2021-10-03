@@ -15,13 +15,15 @@ namespace App\Helpers;
 
 use App\Models\User;
 
-class CacheUser {
-    public static function user($id){
-        if(! $id || $id<=0 || ! is_numeric($id)) {
+class CacheUser
+{
+    public static function user($id)
+    {
+        if (! $id || $id <= 0 || ! is_numeric($id)) {
             return;
         }
 
-        return \cache()->remember('cachedUser.'.$id, 30, function() use($id) {
+        return \cache()->remember('cachedUser.'.$id, 30, function () use ($id) {
             return User::find($id);
         });
     }
