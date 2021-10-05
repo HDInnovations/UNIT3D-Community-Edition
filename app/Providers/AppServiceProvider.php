@@ -18,6 +18,8 @@ use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Models\User;
+use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -53,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // User Observer For Cache
-        //User::observe(UserObserver::class);
+        User::observe(UserObserver::class);
 
         // Torrent Observer For Cache
         //Torrent::observe(TorrentObserver::class);

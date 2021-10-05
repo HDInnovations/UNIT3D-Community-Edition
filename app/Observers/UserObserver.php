@@ -29,14 +29,17 @@ class UserObserver
     }
 
     /**
-     * Handle the User "updated" event.
+     * Handle the User "saved" event.
      *
+     *
+     * @throws \Exception
      *
      * @return void
      */
-    public function updated(User $user)
+    public function saved(User $user)
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
+        \cache()->forget('cachedUser.'.$user->id);
     }
 
     /**
