@@ -222,7 +222,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/outbox', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
             Route::get('/create', [App\Http\Controllers\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
             Route::get('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
-            Route::get('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
+            Route::delete('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
             Route::post('/send', [App\Http\Controllers\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
             Route::post('/{id}/reply', [App\Http\Controllers\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
             Route::post('/{id}/destroy', [App\Http\Controllers\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
