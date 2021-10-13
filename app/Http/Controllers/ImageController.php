@@ -27,7 +27,7 @@ class ImageController extends Controller
      *
      * @param \App\Models\Album $id
      */
-    public function create(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
         $album = Album::find($id);

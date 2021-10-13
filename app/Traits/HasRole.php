@@ -15,7 +15,7 @@ trait HasRole
      *
      * @return bool
      */
-    public function hasRole(array | string $roles): bool
+    public function hasRole(array|string $roles): bool
     {
         if (is_array($roles)) {
             $count = $this->roles()->whereIn('slug', $roles)->count();

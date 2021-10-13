@@ -28,7 +28,7 @@ class ForumCategoryController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         // Find the topic

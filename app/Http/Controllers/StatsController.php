@@ -68,7 +68,7 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Total Members Count (All Groups)
@@ -170,7 +170,7 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function uploaded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploaded(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $uploaded = User::latest('uploaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
@@ -183,7 +183,7 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function downloaded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function downloaded(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $downloaded = User::latest('downloaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
@@ -194,7 +194,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seeders(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seeders(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Seeders
@@ -206,7 +206,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function leechers(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function leechers(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Leechers
@@ -218,7 +218,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function uploaders(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function uploaders(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Uploaders
         $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
@@ -231,7 +231,7 @@ class StatsController extends Controller
      *
      * @throws \Exception
      */
-    public function bankers(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bankers(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
@@ -248,7 +248,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seedtime(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seedtime(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Total Seedtime
@@ -260,7 +260,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      */
-    public function seedsize(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seedsize(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         /// Fetch Top Total Seedsize Users
@@ -272,7 +272,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function seeded(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function seeded(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Seeded
@@ -284,7 +284,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function leeched(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function leeched(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Leeched
@@ -296,7 +296,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function completed(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function completed(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Completed
@@ -308,7 +308,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function dying(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function dying(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Dying
@@ -320,7 +320,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      */
-    public function dead(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function dead(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Dead
@@ -332,7 +332,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrent Requests.
      */
-    public function bountied(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function bountied(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Bountied
@@ -344,7 +344,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Groups.
      */
-    public function roles(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function roles(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Groups User Counts
@@ -371,7 +371,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Languages.
      */
-    public function languages(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function languages(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch All Languages

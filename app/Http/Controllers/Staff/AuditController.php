@@ -25,7 +25,7 @@ class AuditController extends Controller
     /**
      * Display All Audits.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->hasPrivilegeTo('dashboard_can_audit_log'), 403);

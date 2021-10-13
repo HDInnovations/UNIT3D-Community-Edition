@@ -40,7 +40,7 @@ class PlaylistController extends Controller
     /**
      * Display All Playlists.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('playlist_can_view'), 403);
 
@@ -52,7 +52,7 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Create Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('playlist_can_create'), 403);
 
@@ -117,7 +117,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('playlist_can_create'), 403);
 
@@ -159,7 +159,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $playlist = Playlist::findOrFail($id);
@@ -244,7 +244,7 @@ class PlaylistController extends Controller
      *
      * @param $id
      */
-    public function downloadPlaylist(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadPlaylist(Request $request, $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         // Authorized User
         $user = $request->user();

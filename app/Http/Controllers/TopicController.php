@@ -53,7 +53,7 @@ class TopicController extends Controller
      * @param string            $page
      * @param string            $post
      */
-    public function topic(Request $request, $id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function topic(Request $request, $id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->hasPrivilegeTo('forums_can_view'), 403);
@@ -102,7 +102,7 @@ class TopicController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $user = $request->user();
 

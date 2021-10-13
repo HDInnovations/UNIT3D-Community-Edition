@@ -35,7 +35,7 @@ class PollController extends Controller
     /**
      * Show All Polls.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $polls = Poll::latest()->paginate(15);
@@ -109,7 +109,7 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      */
-    public function result(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function result(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $poll = Poll::findOrFail($id);

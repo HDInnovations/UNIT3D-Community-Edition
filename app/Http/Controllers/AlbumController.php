@@ -28,7 +28,7 @@ class AlbumController extends Controller
     /**
      * Display All Albums.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
         $albums = Album::withCount('images')->get();
@@ -39,7 +39,7 @@ class AlbumController extends Controller
     /**
      * Show Album Create Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
 

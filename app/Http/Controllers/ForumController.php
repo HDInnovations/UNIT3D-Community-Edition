@@ -296,7 +296,7 @@ class ForumController extends Controller
     /**
      * Show All Forums.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
         $user = $request->user();
@@ -333,7 +333,7 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         // Find the topic
