@@ -148,12 +148,12 @@ class TorrentController extends Controller
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);
-            if ($part != '') {
+            if ($part !== '') {
                 $result[] = $part;
             }
         }
 
-        return $result;
+        return array_unique($result);
     }
 
     /**

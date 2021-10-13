@@ -45,8 +45,13 @@
                 <label for="forum_type">Forum Type</label>
                 <label>
                     <select name="forum_type" class="form-control">
-                        <option value="category">Category</option>
-                        <option value="forum">Forum</option>
+                        @if ($forum->getCategory() == null)
+                            <option value="category" selected>Category (Current)</option>
+                            <option value="forum">Forum</option>
+                        @else
+                            <option value="category">Category</option>
+                            <option value="forum" selected>Forum (Current)</option>
+                        @endif
                     </select>
                 </label>
             </div>
@@ -56,7 +61,7 @@
                 <label>
                     <select name="parent_id" class="form-control">
                         @if ($forum->getCategory() != null)
-                            <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Current)</option>
+                            <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }} (Current)</option>
                         @endif
                         @foreach ($categories as $c)
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
