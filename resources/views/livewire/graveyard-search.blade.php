@@ -40,7 +40,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6">
 							<label for="categories" class="label label-default">@lang('common.category')</label>
-							@foreach (App\Models\Category::select(['id', 'name', 'position'])->get()->sortBy('position') as $category)
+							@foreach ($categories as $category)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="categories" value="{{ $category->id }}"> {{ $category->name }}
@@ -52,7 +52,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6">
 							<label for="types" class="label label-default">@lang('common.type')</label>
-							@foreach (App\Models\Type::select(['id', 'name', 'position'])->get()->sortBy('position') as $type)
+							@foreach ($types as $type)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="types" value="{{ $type->id }}"> {{ $type->name }}
@@ -64,7 +64,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6">
 							<label for="resolutions" class="label label-default">@lang('common.resolution')</label>
-							@foreach (App\Models\Resolution::select(['id', 'name', 'position'])->get()->sortBy('position') as $resolution)
+							@foreach ($resolutions as $resolution)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="resolutions" value="{{ $resolution->id }}"> {{ $resolution->name }}
