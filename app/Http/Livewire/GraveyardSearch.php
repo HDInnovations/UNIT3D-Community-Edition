@@ -13,12 +13,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Type;
-use App\Models\Torrent;
-use Carbon\Carbon;
-use Livewire\Component;
 use App\Models\Category;
 use App\Models\Resolution;
+use App\Models\Torrent;
+use App\Models\Type;
+use Carbon\Carbon;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class GraveyardSearch extends Component
