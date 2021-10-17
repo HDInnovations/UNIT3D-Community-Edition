@@ -13,10 +13,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
-use App\Models\Resolution;
 use App\Models\Torrent;
-use App\Models\Type;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -99,21 +96,6 @@ class GraveyardSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getCategoriesProperty()
-    {
-        return \cache()->remember('categories', 3_600, fn () => Category::all()->sortBy('position'));
-    }
-
-    final public function getTypesProperty()
-    {
-        return \cache()->remember('types', 3_600, fn () => Type::all()->sortBy('position'));
-    }
-
-    final public function getResolutionsProperty()
-    {
-        return \cache()->remember('resolutions', 3_600, fn () => Resolution::all()->sortBy('position'));
-    }
-
     final public function getTorrentsStatProperty()
     {
         return Torrent::where('seeders', '=', 0)
@@ -190,9 +172,6 @@ class GraveyardSearch extends Component
     {
         return \view('livewire.graveyard-search', [
             'user'         => \auth()->user(),
-            'categories'   => $this->categories,
-            'types'        => $this->types,
-            'resoolutions' => $this->resolutions,
             'torrents'     => $this->torrents,
             'torrentsStat' => $this->torrentsStat,
         ]);
