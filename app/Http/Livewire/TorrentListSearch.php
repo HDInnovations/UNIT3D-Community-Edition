@@ -19,9 +19,7 @@ use App\Models\History;
 use App\Models\Keyword;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
-use App\Models\Resolution;
 use App\Models\Torrent;
-use App\Models\Type;
 use App\Models\User;
 use App\Models\Wish;
 use Illuminate\Support\Facades\DB;
@@ -166,21 +164,6 @@ class TorrentListSearch extends Component
     final public function updatingName(): void
     {
         $this->resetPage();
-    }
-
-    final public function getCategoriesProperty()
-    {
-        return \cache()->remember('categories', 3_600, fn () => Category::all()->sortBy('position'));
-    }
-
-    final public function getTypesProperty()
-    {
-        return \cache()->remember('types', 3_600, fn () => Type::all()->sortBy('position'));
-    }
-
-    final public function getResolutionsProperty()
-    {
-        return \cache()->remember('resolutions', 3_600, fn () => Resolution::all()->sortBy('position'));
     }
 
     final public function getTorrentsStatProperty()
@@ -373,9 +356,6 @@ class TorrentListSearch extends Component
     {
         return \view('livewire.torrent-list-search', [
             'user'              => User::with('history')->findOrFail(\auth()->user()->id),
-            'categories'        => $this->categories,
-            'types'             => $this->types,
-            'resoolutions'      => $this->resolutions,
             'torrents'          => $this->torrents,
             'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,

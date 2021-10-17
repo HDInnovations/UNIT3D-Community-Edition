@@ -76,6 +76,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-categories">
 							<label for="categories" class="label label-default">@lang('common.category')</label>
+							@php $categories = \cache()->remember('categories', 3_600, fn () => \App\Models\Category::all()->sortBy('position')); @endphp
 							@foreach ($categories as $category)
 								<span class="badge-user">
 									<label class="inline">
@@ -88,6 +89,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-types">
 							<label for="types" class="label label-default">@lang('common.type')</label>
+							@php $types = \cache()->remember('types', 3_600, fn () => \App\Models\Type::all()->sortBy('position')); @endphp
 							@foreach ($types as $type)
 								<span class="badge-user">
 									<label class="inline">
@@ -100,6 +102,7 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
 							<label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+							@php $resolutions = \cache()->remember('resolutions', 3_600, fn () => \App\Models\Resolution::all()->sortBy('position')); @endphp
 							@foreach ($resolutions as $resolution)
 								<span class="badge-user">
 									<label class="inline">
