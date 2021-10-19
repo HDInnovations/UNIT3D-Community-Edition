@@ -1,7 +1,7 @@
 <div class="movie-wrapper game">
     <div class="movie-overlay"></div>
     <div class="movie-poster">
-        @php $igdb_poster = (isset($meta) && $meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover->image_id.'.jpg' : 'https://via.placeholder.com/400x600'; @endphp
+        @php $igdb_poster = (isset($meta) && $meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover['image_id'].'.jpg' : 'https://via.placeholder.com/400x600'; @endphp
         <img src="{{ $igdb_poster }}" class="img-responsive" id="meta-poster">
     </div>
 
@@ -29,24 +29,47 @@
             </div>
         </div>
 
+
+
         <div class="movie-bottom">
             <div class="movie-details">
                 @if (isset($meta) && $meta->url && $torrent->igdb != 0 && $torrent->igdb != null)
                     <span class="badge-user text-bold text-orange">
-                        <a href="{{ $meta->url }}" title="IMDB" target="_blank">
+                        <a href="{{ $meta->url }}" title="IGDB" target="_blank">
                             <i class="{{ config('other.font-awesome') }} fa-gamepad"></i> IGDB: {{ $torrent->igdb }}
                         </a>
                     </span>
                 @endif
 
-                @if (isset($meta) && $meta->genres->isNotEmpty())
+				@if (isset($meta) && $meta->videos)
+                    <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
+                        <a class="text-pink" title="@lang('torrent.trailerL')">@lang('torrent.trailer')<a href="{{ 'https://www.youtube-nocookie.com/embed/'.$meta->videos[0]['video_id'] }}" title="Yuotube" target="_blank">
+                            <i class="{{ config('other.font-awesome') }} fa-external-link"></i> 
+                        </a>
+                    </span>
+                @endif
+				<div class="movie-details">
+                @if (isset($meta) && $meta->genres)
+					Genre:
                     @foreach ($meta->genres as $genre)
                         <span class="badge-user text-bold text-green">
-                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre->name }}
+                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre['name'] }}
                         </span>
                     @endforeach
                 @endif
             </div>
+			</div>
+			<div class="movie-details">
+			@if (isset($meta) && $meta->game_modes)
+				Game Mode:
+                    @foreach ($meta->game_modes as $game_mode)
+                        <span class="badge-user text-bold text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $game_mode['name'] }}
+                        </span>
+                    @endforeach
+                @endif
+            </div>
+			
 
             <div class="movie-details">
                 @if (isset($meta) && $meta->rating && $meta->rating_count)
@@ -59,6 +82,17 @@
                 @endif
             </div>
 
+			<div class="movie-details">
+			@if (isset($meta) && $meta->platforms)
+				Platforms:
+                    @foreach ($meta->platforms as $platform)
+                        <span class="badge-user text-bold text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $platform['name'] }}
+                        </span>
+                    @endforeach
+                @endif
+            </div>
+			
             <div class="cast-list">
                 @if (isset($characters))
                     @foreach($characters as $character)
