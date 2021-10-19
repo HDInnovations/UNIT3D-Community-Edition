@@ -60,19 +60,25 @@
                             <div class="button-holder">
                                 <div class="button-left"></div>
                                 <div class="button-right">
-                                    @if ($category->getPermission()->start_topic == true)
+                                    @if ($category->getPermission()->start_topic === true)
                                         <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}"
                                             class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
                                     @endif
-                                    @if ($category->getPermission()->show_forum == true)
+                                    @if ($category->getPermission()->show_forum === true)
                                         @if (auth()->user()->isSubscribed('forum',$forum->id))
-                                            <a href="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
-                                                class="btn btn-sm btn-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                            <form action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-xs btn-danger">
+                                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                                                </button>
+                                            </form>
                                         @else
-                                            <a href="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
-                                                class="btn btn-sm btn-success">
-                                                <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                            <form action="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-xs btn-success">
+                                                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                                                </button>
+                                            </form>
                                         @endif
                                     @endif
                                 </div>
