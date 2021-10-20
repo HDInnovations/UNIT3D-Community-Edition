@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PlaylistException;
 use App\Helpers\Bencode;
 use App\Models\Movie;
 use App\Models\Playlist;
@@ -124,8 +125,7 @@ class PlaylistController extends Controller
 
         if($playlist->is_private && $playlist->user->id != auth()->id())
         {
-            echo "Private Playlist Not Accessible!";
-            return view('home.index');
+            throw new PlaylistException(100);
         }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
