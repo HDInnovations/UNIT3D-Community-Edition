@@ -123,7 +123,7 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::findOrFail($id);
 
-        if($playlist->is_private && $playlist->user->id != auth()->id()) {
+        if ($playlist->is_private && $playlist->user->id != auth()->id()) {
             throw new PlaylistException(100);
         }
 
