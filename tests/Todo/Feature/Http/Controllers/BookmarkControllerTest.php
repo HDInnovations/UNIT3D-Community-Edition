@@ -58,7 +58,7 @@ class BookmarkControllerTest extends TestCase
     public function store_returns_an_ok_response()
     {
         $this->markTestIncomplete('This test is incomplete');
-        
+
         $user = User::factory()->create();
 
         $bookmark = Bookmark::factory()->make([
