@@ -47,6 +47,7 @@
         "vstelmakh/url-highlight": "^3.0"
     },
     "require-dev": {
+        "brianium/paratest": "^6.3",
         "facade/ignition": "^2.3.6",
         "fakerphp/faker": "^1.16",
         "jasonmccreary/laravel-test-assertions": "^2.0",
