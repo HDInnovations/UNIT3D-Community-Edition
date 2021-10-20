@@ -37,7 +37,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/clear-all-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/clear-all-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -51,7 +51,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/clear-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/clear-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -65,7 +65,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/clear-config-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/clear-config-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -79,7 +79,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/clear-route-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/clear-route-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -93,7 +93,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/clear-view-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/clear-view-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -122,7 +122,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/maintance-disable');
+        $response = $this->actingAs($user)->post('dashboard/commands/maintance-disable');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -136,7 +136,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/set-all-cache');
+        $response = $this->actingAs($user)->post('dashboard/commands/set-all-cache');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
@@ -150,7 +150,7 @@ class CommandControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get('dashboard/commands/test-email');
+        $response = $this->actingAs($user)->post('dashboard/commands/test-email');
 
         $response->assertRedirect(route('staff.commands.index'));
     }
