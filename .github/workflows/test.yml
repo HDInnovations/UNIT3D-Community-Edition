@@ -55,7 +55,7 @@ jobs:
       - name: Generate application key
         run: php artisan key:generate --env=testing
       - name: Run tests
-        run: php artisan test
+        run: php artisan test --parallel
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
