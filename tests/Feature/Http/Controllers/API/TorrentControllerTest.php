@@ -73,7 +73,7 @@ class TorrentControllerTest extends TestCase
                     'from'         => null,
                     'last_page'    => 1,
                     'path'         => sprintf('%s/api/torrents', appurl()),
-                    'per_page'     => 15,
+                    'per_page'     => 25,
                     'to'           => null,
                     'total'        => 0,
                 ],
