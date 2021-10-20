@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\API;
+namespace Tests\Todo\Feature\Http\Controllers\API;
 
 use App\Models\Bot;
 use App\Models\Chatroom;
