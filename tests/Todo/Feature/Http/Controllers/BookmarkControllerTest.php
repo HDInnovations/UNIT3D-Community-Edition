@@ -22,6 +22,8 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function destroy_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
+
         $user = User::factory()->create();
 
         $bookmark = Bookmark::factory()->create([
@@ -37,6 +39,8 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
+
         $user = User::factory()->create();
 
         Bookmark::factory()->create([
@@ -53,6 +57,8 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function store_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
+
         $user = User::factory()->create();
 
         $bookmark = Bookmark::factory()->make([

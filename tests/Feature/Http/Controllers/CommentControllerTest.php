@@ -64,7 +64,7 @@ class CommentControllerTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($user)->get(route('comment_delete', ['comment_id' => $comment->id]));
+        $response = $this->actingAs($user)->delete(route('comment_delete', ['comment_id' => $comment->id]));
 
         $response->assertRedirect(route('home.index'))
             ->assertSessionHas('success', 'Comment Has Been Deleted.');
