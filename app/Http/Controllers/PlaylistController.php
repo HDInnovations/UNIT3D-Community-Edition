@@ -48,7 +48,7 @@ class PlaylistController extends Controller
                 ->orWhere(function ($query) {
                     $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
                 });
-            })->orderBy('name', 'ASC')->paginate(24);
+        })->orderBy('name', 'ASC')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -123,8 +123,7 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::findOrFail($id);
 
-        if($playlist->is_private && $playlist->user->id != auth()->id())
-        {
+        if($playlist->is_private && $playlist->user->id != auth()->id()) {
             throw new PlaylistException(100);
         }
 
