@@ -115,7 +115,7 @@ class ForumControllerTest extends TestCase
     public function show_category_returns_an_ok_response()
     {
         $this->markTestIncomplete('This test is incomplete');
-        
+
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
