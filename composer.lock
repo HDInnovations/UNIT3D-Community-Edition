@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0619062c6e5ed873cd6e75216348fbcc",
+    "content-hash": "649c79b92c3a6afac1be153b468ffd09",
     "packages": [
         {
             "name": "andkab/laravel-joypixels",
@@ -2183,16 +2183,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.65.0",
+            "version": "v8.66.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6db59afadca28dfdb2f719e7d79f93885ede17e4"
+                "reference": "b757fe143a3ab802a08a191032fc7046b582f107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6db59afadca28dfdb2f719e7d79f93885ede17e4",
-                "reference": "6db59afadca28dfdb2f719e7d79f93885ede17e4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b757fe143a3ab802a08a191032fc7046b582f107",
+                "reference": "b757fe143a3ab802a08a191032fc7046b582f107",
                 "shasum": ""
             },
             "require": {
@@ -2350,7 +2350,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-10-19T13:59:41+00:00"
+            "time": "2021-10-21T14:20:46+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -4796,16 +4796,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "7.7.1",
+            "version": "7.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "dbaffbf266f5bdcc706af381dbfe9780d2a6a3d2"
+                "reference": "8844f2953b18e770cf9e8bbed79fe41e1d83b9bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/dbaffbf266f5bdcc706af381dbfe9780d2a6a3d2",
-                "reference": "dbaffbf266f5bdcc706af381dbfe9780d2a6a3d2",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/8844f2953b18e770cf9e8bbed79fe41e1d83b9bb",
+                "reference": "8844f2953b18e770cf9e8bbed79fe41e1d83b9bb",
                 "shasum": ""
             },
             "require": {
@@ -4874,7 +4874,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-backup/issues",
-                "source": "https://github.com/spatie/laravel-backup/tree/7.7.1"
+                "source": "https://github.com/spatie/laravel-backup/tree/7.7.2"
             },
             "funding": [
                 {
@@ -4886,7 +4886,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-10-07T22:04:57+00:00"
+            "time": "2021-10-21T13:38:29+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -11753,6 +11753,51 @@
                 }
             ],
             "time": "2020-11-11T09:19:24+00:00"
+        },
+        {
+            "name": "styleci/cli",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/StyleCI/CLI.git",
+                "reference": "5fd905953d368f8a9f4d525d57885ba4d309c18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/StyleCI/CLI/zipball/5fd905953d368f8a9f4d525d57885ba4d309c18c",
+                "reference": "5fd905953d368f8a9f4d525d57885ba4d309c18c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zlib": "*",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "suggest": {
+                "ext-curl": "Required for high performance HTTP transport"
+            },
+            "bin": [
+                "bin/styleci"
+            ],
+            "type": "library",
+            "extra": {
+                "bin-dir": "bin"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "StyleCI",
+                    "email": "support@styleci.io"
+                }
+            ],
+            "description": "The CLI tool for StyleCI",
+            "support": {
+                "source": "https://github.com/StyleCI/CLI/tree/v1.2.0"
+            },
+            "time": "2021-09-06T22:43:50+00:00"
         },
         {
             "name": "symfony/config",

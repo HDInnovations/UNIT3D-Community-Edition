@@ -42,7 +42,12 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
+        $playlists = Playlist::with('user')->withCount('torrents')->where(function ($query) {
+            $query->where('is_private', '=', 0)
+                ->orWhere(function ($query) {
+                    $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
+                });
+        })->orderBy('name', 'ASC')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -116,6 +121,10 @@ class PlaylistController extends Controller
     public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
+
+        if ($playlist->is_private) {
+            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
+        }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
         if (isset($random)) {
