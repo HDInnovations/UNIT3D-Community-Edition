@@ -17,11 +17,11 @@
 }
 
 .carousel-control.left {
-    background-image: linear-gradient(90deg,rgba(0,0,0,.2) 0,rgba(0,0,0,.0001));
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.0001));
 }
 
 .carousel-control.right {
-    background-image: linear-gradient(90deg,rgba(0,0,0,.0001) 0,rgba(0,0,0,.2));
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.2));
 }
 
 .carousel-control:hover {
@@ -32,7 +32,8 @@
     display: flex;
 }
 
-.movie-image, .movie-card {
+.movie-image,
+.movie-card {
     position: absolute;
     top: 0;
 }
@@ -41,7 +42,8 @@
     left: 0;
 }
 
-.fade-img, .fade-card {
+.fade-img,
+.fade-card {
     position: absolute;
     width: 100px;
     height: 100%;
@@ -129,7 +131,7 @@
     max-width: 700px;
     font-weight: 300;
     margin-bottom: 20px;
-    color: rgba(255,255,255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .movie-badges .badge-extra,

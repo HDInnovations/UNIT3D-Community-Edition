@@ -4,8 +4,7 @@
     max-height: 590px;
 }
 
-#frameFooter{
-    
+#frameFooter {
     .wysibb .wysibb-body img {
         max-width: 400px !important;
         max-height: 400px !important;
@@ -13,7 +12,7 @@
 }
 #frame {
     height: 100%;
-    background: #E6EAEA;
+    background: #e6eaea;
     #sidepanel {
         float: left;
         min-width: 280px;
@@ -38,8 +37,8 @@
                     -o-transform: scaleY(-1);
                     -webkit-transform: scaleY(-1);
                     transform: scaleY(-1);
-                    filter: "FlipH";
-                    -ms-filter: "FlipH";
+                    filter: 'FlipH';
+                    -ms-filter: 'FlipH';
                 }
             }
             .wrap {
@@ -220,7 +219,7 @@
                 margin: 10px 0 0 20px;
             }
             input {
-                font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+                font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
                 padding: 10px 0 10px 46px;
                 width: calc(100% - 25px);
                 border: none;
@@ -230,7 +229,10 @@
                     outline: none;
                     background: #435f7a;
                 }
-                &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &:-moz-placeholder {
+                &::-webkit-input-placeholder,
+                &::-moz-placeholder,
+                &:-ms-input-placeholder,
+                &:-moz-placeholder {
                     color: #f5f5f5;
                 }
             }
@@ -316,7 +318,7 @@
                                 border: none;
                                 padding: 0 2px 0 0;
                                 margin: 0 0 0 1px;
-                                opacity: .5;
+                                opacity: 0.5;
                             }
                         }
                     }
@@ -336,7 +338,7 @@
                 color: #f5f5f5;
                 cursor: pointer;
                 font-size: 0.85em;
-                font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+                font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
                 &:focus {
                     outline: none;
                 }
@@ -429,7 +431,6 @@
                     }
 
                     &.sent {
-
                         &.pm {
                             border-top: 1px #383e42 dashed !important;
                             border-bottom: 1px #383e42 dashed !important;
@@ -477,7 +478,7 @@
                             }
                         }
 
-                        color: #2C4151;
+                        color: #2c4151;
                         width: 100%;
                         max-width: 100%;
                         line-height: 130%;
@@ -489,11 +490,9 @@
                             padding: 0;
                             margin: 0;
                         }
-
                     }
                 }
             }
-
         }
         .message-input {
             position: absolute;
@@ -510,7 +509,7 @@
                 }
 
                 input {
-                    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+                    font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
                     float: left;
                     border: none;
                     width: calc(100% - 90px);
@@ -528,7 +527,7 @@
                     margin-top: 10px;
                     font-size: 1.1em;
                     color: #435f7a;
-                    opacity: .5;
+                    opacity: 0.5;
                     cursor: pointer;
                     &:hover {
                         opacity: 1;
@@ -554,4 +553,4 @@
     }
 }
 
-@import "./_media-querys";
+@import './_media-querys';
