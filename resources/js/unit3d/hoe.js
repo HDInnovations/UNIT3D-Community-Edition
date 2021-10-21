@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     HoeDatapp = {
-        appinit: function() {
+        appinit: function () {
             HoeDatapp.HandleSidebartoggle();
             HoeDatapp.Handlelpanel();
             HoeDatapp.Handlelpanelmenu();
@@ -15,17 +15,17 @@ $(document).ready(function() {
             HoeDatapp.Handlethemelayout();
             HoeDatapp.Handlethemebackground();
         },
-        Handlethemebackground: function() {
+        Handlethemebackground: function () {
             function setthemebgcolor() {
-                $('#theme-color > a.theme-bg').on('click', function() {
+                $('#theme-color > a.theme-bg').on('click', function () {
                     $('body').attr('theme-bg', $(this).attr('hoe-themebg-type'));
                 });
             }
 
             setthemebgcolor();
         },
-        Handlethemelayout: function() {
-            $('#theme-layout').on('change', function() {
+        Handlethemelayout: function () {
+            $('#theme-layout').on('change', function () {
                 if ($(this).val() == 'box-layout') {
                     $('body').attr('theme-layout', 'box-layout');
                 } else {
@@ -33,51 +33,28 @@ $(document).ready(function() {
                 }
             });
         },
-        Handleactivestatemenu: function() {
-            $(".panel-list li:not('.hoe-has-menu') > a").on('click', function() {
+        Handleactivestatemenu: function () {
+            $(".panel-list li:not('.hoe-has-menu') > a").on('click', function () {
                 if (
                     $('body').attr('hoe-navigation-type') == 'vertical' ||
                     $('body').attr('hoe-navigation-type') == 'vertical-compact'
                 ) {
                     if ($(this).closest('li.hoe-has-menu').length === 1) {
-                        $(this)
-                            .closest('.panel-list')
-                            .find('li.active')
-                            .removeClass('active');
-                        $(this)
-                            .parent()
-                            .addClass('active');
-                        $(this)
-                            .parent()
-                            .closest('.hoe-has-menu')
-                            .addClass('active');
-                        $(this)
-                            .parent('li')
-                            .closest('li')
-                            .closest('.hoe-has-menu')
-                            .addClass('active');
+                        $(this).closest('.panel-list').find('li.active').removeClass('active');
+                        $(this).parent().addClass('active');
+                        $(this).parent().closest('.hoe-has-menu').addClass('active');
+                        $(this).parent('li').closest('li').closest('.hoe-has-menu').addClass('active');
                     } else {
-                        $(this)
-                            .closest('.panel-list')
-                            .find('li.active')
-                            .removeClass('active');
-                        $(this)
-                            .closest('.panel-list')
-                            .find('li.opened')
-                            .removeClass('opened');
-                        $(this)
-                            .closest('.panel-list')
-                            .find('ul:visible')
-                            .slideUp('fast');
-                        $(this)
-                            .parent()
-                            .addClass('active');
+                        $(this).closest('.panel-list').find('li.active').removeClass('active');
+                        $(this).closest('.panel-list').find('li.opened').removeClass('opened');
+                        $(this).closest('.panel-list').find('ul:visible').slideUp('fast');
+                        $(this).parent().addClass('active');
                     }
                 }
             });
         },
-        Handlesidebarside: function() {
-            $('#navigation-side').on('change', function() {
+        Handlesidebarside: function () {
+            $('#navigation-side').on('change', function () {
                 if ($(this).val() == 'rightside') {
                     $('body').attr('hoe-nav-placement', 'right');
                     $('body').attr('hoe-navigation-type', 'vertical');
@@ -89,8 +66,8 @@ $(document).ready(function() {
                 }
             });
         },
-        Handlenavigationtype: function() {
-            $('#navigation-type').on('change', function() {
+        Handlenavigationtype: function () {
+            $('#navigation-type').on('change', function () {
                 if ($(this).val() == 'horizontal') {
                     $('body').attr('hoe-navigation-type', 'horizontal');
                     $('#hoeapp-wrapper').removeClass('compact-hmenu');
@@ -117,21 +94,21 @@ $(document).ready(function() {
             });
         },
 
-        Handlethemecolor: function() {
+        Handlethemecolor: function () {
             function setheadercolor() {
-                $('#theme-color > a.header-bg').on('click', function() {
+                $('#theme-color > a.header-bg').on('click', function () {
                     $('#hoe-header > .hoe-right-header').attr('hoe-color-type', $(this).attr('hoe-color-type'));
                 });
             }
 
             function setlpanelcolor() {
-                $('#theme-color > a.lpanel-bg').on('click', function() {
+                $('#theme-color > a.lpanel-bg').on('click', function () {
                     $('#hoeapp-container').attr('hoe-color-type', $(this).attr('hoe-color-type'));
                 });
             }
 
             function setllogocolor() {
-                $('#theme-color > a.logo-bg').on('click', function() {
+                $('#theme-color > a.logo-bg').on('click', function () {
                     $('#hoe-header').attr('hoe-color-type', $(this).attr('hoe-color-type'));
                 });
             }
@@ -140,25 +117,25 @@ $(document).ready(function() {
             setlpanelcolor();
             setllogocolor();
         },
-        Handlecontentheight: function() {
+        Handlecontentheight: function () {
             function setHeight() {
-              const WH = $(window).height()
-              const HH = $('#hoe-header').innerHeight()
-              const FH = $('#footer').innerHeight()
-              const contentH = WH - HH - FH - 2
-              const lpanelH = WH - HH - 2
-              $('#main-content ').css('min-height', contentH);
+                const WH = $(window).height();
+                const HH = $('#hoe-header').innerHeight();
+                const FH = $('#footer').innerHeight();
+                const contentH = WH - HH - FH - 2;
+                const lpanelH = WH - HH - 2;
+                $('#main-content ').css('min-height', contentH);
                 $('.inner-left-panel ').css('height', lpanelH);
             }
 
             setHeight();
 
-            $(window).resize(function() {
+            $(window).resize(function () {
                 setHeight();
             });
         },
-        Handlesidebarposition: function() {
-            $('#sidebar-position').on('change', function() {
+        Handlesidebarposition: function () {
+            $('#sidebar-position').on('change', function () {
                 if ($(this).val() == 'fixed') {
                     $('#hoe-left-panel,.hoe-left-header').attr('hoe-position-type', 'fixed');
                 } else {
@@ -166,8 +143,8 @@ $(document).ready(function() {
                 }
             });
         },
-        Handlesidebareffect: function() {
-            $('#leftpanel-effect').on('change', function() {
+        Handlesidebareffect: function () {
+            $('#leftpanel-effect').on('change', function () {
                 if ($(this).val() == 'overlay') {
                     $('#hoe-header, #hoeapp-container').attr('hoe-lpanel-effect', 'overlay');
                 } else if ($(this).val() == 'push') {
@@ -178,48 +155,30 @@ $(document).ready(function() {
             });
         },
 
-        Handlethemeoption: function() {
-            $('.selector-toggle > a').on('click', function() {
+        Handlethemeoption: function () {
+            $('.selector-toggle > a').on('click', function () {
                 $('#styleSelector').toggleClass('open');
             });
         },
-        Handlelpanelmenu: function() {
-            $('.hoe-has-menu > a').on('click', function() {
-              const compactMenu = $(this).closest('.hoe-minimized-lpanel').length
-              if (compactMenu === 0) {
-                    $(this)
-                        .parent('.hoe-has-menu')
-                        .parent('ul')
-                        .find('ul:visible')
-                        .slideUp('fast');
-                    $(this)
-                        .parent('.hoe-has-menu')
-                        .parent('ul')
-                        .find('.opened')
-                        .removeClass('opened');
-                  const submenu = $(this)
-                    .parent('.hoe-has-menu')
-                    .find('>.hoe-sub-menu')
-                  if (submenu.is(':hidden')) {
+        Handlelpanelmenu: function () {
+            $('.hoe-has-menu > a').on('click', function () {
+                const compactMenu = $(this).closest('.hoe-minimized-lpanel').length;
+                if (compactMenu === 0) {
+                    $(this).parent('.hoe-has-menu').parent('ul').find('ul:visible').slideUp('fast');
+                    $(this).parent('.hoe-has-menu').parent('ul').find('.opened').removeClass('opened');
+                    const submenu = $(this).parent('.hoe-has-menu').find('>.hoe-sub-menu');
+                    if (submenu.is(':hidden')) {
                         submenu.slideDown('fast');
-                        $(this)
-                            .parent('.hoe-has-menu')
-                            .addClass('opened');
+                        $(this).parent('.hoe-has-menu').addClass('opened');
                     } else {
-                        $(this)
-                            .parent('.hoe-has-menu')
-                            .parent('ul')
-                            .find('ul:visible')
-                            .slideUp('fast');
-                        $(this)
-                            .parent('.hoe-has-menu')
-                            .removeClass('opened');
+                        $(this).parent('.hoe-has-menu').parent('ul').find('ul:visible').slideUp('fast');
+                        $(this).parent('.hoe-has-menu').removeClass('opened');
                     }
                 }
             });
         },
-        HandleSidebartoggle: function() {
-            $('.hoe-sidebar-toggle a').on('click', function() {
+        HandleSidebartoggle: function () {
+            $('.hoe-sidebar-toggle a').on('click', function () {
                 if ($('#hoeapp-wrapper').attr('hoe-device-type') === 'phone') {
                     if ($('#hoeapp-wrapper').hasClass('hoe-hide-lpanel')) {
                         $('#hoeapp-wrapper').removeClass('hoe-hide-lpanel');
@@ -237,10 +196,10 @@ $(document).ready(function() {
                 }
             });
         },
-        Handlelpanel: function() {
+        Handlelpanel: function () {
             function Responsivelpanel() {
-              const totalwidth = $(window)[0].innerWidth
-              if (totalwidth >= 768 && totalwidth <= 1024) {
+                const totalwidth = $(window)[0].innerWidth;
+                if (totalwidth >= 768 && totalwidth <= 1024) {
                     $('#hoeapp-wrapper').attr('hoe-device-type', 'tablet');
                     $('#hoe-header, #hoeapp-container').addClass('hoe-minimized-lpanel');
                     $('li.theme-option select').attr('disabled', false);
