@@ -104,6 +104,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'bookmark',
             'alive',
             'dying',
             'dead',
@@ -186,6 +187,7 @@ class RssController extends Controller
         $highspeed = $rss->object_torrent->highspeed;
         $sd = $rss->object_torrent->sd;
         $internal = $rss->object_torrent->internal;
+        $bookmark = $rss->object_torrent->bookmark;
         $alive = $rss->object_torrent->alive;
         $dying = $rss->object_torrent->dying;
         $dead = $rss->object_torrent->dead;
@@ -295,6 +297,10 @@ class RssController extends Controller
             $builder->where('internal', '=', $internal);
         }
 
+        if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
+            $builder->whereIn('id', $user->bookmarks->pluck('id'));
+        }
+
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
             $builder->where('seeders', '>=', $alive);
         }
@@ -372,6 +378,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'bookmark',
             'alive',
             'dying',
             'dead',
