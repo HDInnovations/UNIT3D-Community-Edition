@@ -33,7 +33,7 @@ class CheckIfBanned
         $user = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->group_id == $bannedGroup[0]) {
+        if ($user && count($bannedGroup) > 0 && $user->group_id == $bannedGroup[0]) {
             \auth()->logout();
             $request->session()->flush();
 
