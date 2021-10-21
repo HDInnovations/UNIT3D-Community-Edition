@@ -31,6 +31,13 @@ class TorrentsResource extends ResourceCollection
         ];
     }
 
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
     public function with($request)
     {
         return [
@@ -38,5 +45,18 @@ class TorrentsResource extends ResourceCollection
                 'self' => \route('torrents.index'),
             ],
         ];
+    }
+
+    /**
+     * Customize the outgoing response for the resource.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Response $response
+     *
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        $response->setEncodingOptions(JSON_UNESCAPED_SLASHES);
     }
 }
