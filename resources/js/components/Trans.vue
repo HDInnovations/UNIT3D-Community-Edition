@@ -16,10 +16,10 @@ export default {
         getTranslation() {
             axios
                 .get(`/api/lang/${this.path}`)
-                .then(response => {
+                .then((response) => {
                     this.result = response.data.results;
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(`Something went wrong fetching ${this.path}`);
                 });
         },

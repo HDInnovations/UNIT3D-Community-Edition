@@ -21,7 +21,7 @@ export default {
             this.loading = true;
             axios
                 .get('/dashboard/UNIT3D')
-                .then(response => {
+                .then((response) => {
                     if (response.data.updated === false) {
                         this.loading = false;
                         Swal.fire({
@@ -31,10 +31,8 @@ export default {
                             showCancelButton: true,
                             showConfirmButton: true,
                             confirmButtonText: '<i class="fa fa-github"></i> Download from Github',
-                            html: `New version <a href="github.com/HDInnovations/UNIT3D-Community-Edition/releases">${
-                                response.data.latestversion
-                            } </a> is available`,
-                        }).then(result => {
+                            html: `New version <a href="github.com/HDInnovations/UNIT3D-Community-Edition/releases">${response.data.latestversion} </a> is available`,
+                        }).then((result) => {
                             if (result.value) {
                                 window.location.assign('//github.com/HDInnovations/UNIT3D-Community-Edition/releases');
                             }
@@ -50,7 +48,7 @@ export default {
                         });
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     Swal.fire('Oops...', error.response.data, 'error');
                 });
         },

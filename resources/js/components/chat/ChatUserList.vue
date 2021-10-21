@@ -5,29 +5,30 @@
                 <div class="button-holder">
                     <div class="button-center">
                         <div class="text-left">
-                <a v-if="user.id !== 1" target="_blank"
-                   :href="`/users/${user.username}`">
-                    <img class="chat-user-image"
-                         :style="user && user.hasOwnProperty('chat_status') && user.chat_status.hasOwnProperty('color') ? `border: 3px solid ${user.chat_status.color};` : ``"
-                         :src="user.image ? `/files/img/${user.image}` : '/img/profile.png'"
-                         alt=""/>
-                </a>
-                <h4 class="list-group-item-heading">
-                    <span class="badge-user text-bold" :style="userStyles(user)">
+                            <a v-if="user.id !== 1" target="_blank" :href="`/users/${user.username}`">
+                                <img
+                                    class="chat-user-image"
+                                    :style="
+                                        user &&
+                                        user.hasOwnProperty('chat_status') &&
+                                        user.chat_status.hasOwnProperty('color')
+                                            ? `border: 3px solid ${user.chat_status.color};`
+                                            : ``
+                                    "
+                                    :src="user.image ? `/files/img/${user.image}` : '/img/profile.png'"
+                                    alt=""
+                                />
+                            </a>
+                            <h4 class="list-group-item-heading">
+                                <span class="badge-user text-bold" :style="userStyles(user)">
+                                    <i :class="user.group.icon"> </i>
 
-                        <i :class="user.group.icon">
-                        </i>
-
-                        <a :style="groupColor(user)"
-                           @click="pmUser(user)">
-					        {{ user.username }}
-                        </a>
-
-					</span>
-                </h4>
-                <div :class="(user.id === 1 ? 'system text-bright' : 'text-bright')">
-
-                </div>
+                                    <a :style="groupColor(user)" @click="pmUser(user)">
+                                        {{ user.username }}
+                                    </a>
+                                </span>
+                            </h4>
+                            <div :class="user.id === 1 ? 'system text-bright' : 'text-bright'"></div>
                         </div>
                     </div>
                 </div>
@@ -36,22 +37,24 @@
     </div>
 </template>
 <script>
-  import pmMethods from './mixins/pmMethods'
+import pmMethods from './mixins/pmMethods';
 
-  export default {
+export default {
     props: {
-      users: {required: true},
+        users: { required: true },
     },
-    mixins: [
-      pmMethods
-    ],
+    mixins: [pmMethods],
     methods: {
-      userStyles (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};` : `cursor: pointer;`
-      },
-      groupColor (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
-      }
-    }
-  }
+        userStyles(user) {
+            return user && user.group && user.group.hasOwnProperty('color')
+                ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+                : `cursor: pointer;`;
+        },
+        groupColor(user) {
+            return user && user.group && user.group.hasOwnProperty('color')
+                ? `color: ${user.group.color};`
+                : `cursor: pointer;`;
+        },
+    },
+};
 </script>
