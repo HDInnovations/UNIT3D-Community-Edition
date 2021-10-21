@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PlaylistException;
 use App\Helpers\Bencode;
 use App\Models\Movie;
 use App\Models\Playlist;
@@ -123,8 +122,8 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::findOrFail($id);
 
-        if($playlist->is_private && $playlist->user->id != auth()->id()) {
-            throw new PlaylistException(100);
+        if ($playlist->is_private) {
+            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
         }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
