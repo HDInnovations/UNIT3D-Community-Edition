@@ -68,7 +68,7 @@ class TorrentResource extends JsonResource
                 'igdb_id'         => $this->igdb,
                 'created_at'      => $this->created_at,
                 'download_link'   => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
-                'magnet_link'     => $this->when(\config('torrent.magnet') === true, "magnet:?dn=".$this->name."&xt=urn:btih:".$this->info_hash."&as=".route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey])."&tr=".route('announce', ['passkey' => \auth('api')->user()->passkey])."&xl=".$this->size),
+                'magnet_link'     => $this->when(\config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => \auth('api')->user()->passkey]).'&xl='.$this->size),
                 'details_link'    => \route('torrent', ['id' => $this->id]),
             ],
         ];
