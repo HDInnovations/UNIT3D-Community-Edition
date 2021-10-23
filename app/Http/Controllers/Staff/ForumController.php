@@ -28,8 +28,11 @@ class ForumController extends Controller
     /**
      * Display All Forums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
         return \view('Staff.forum.index', ['categories' => $categories]);
@@ -38,8 +41,11 @@ class ForumController extends Controller
     /**
      * Show Forum Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
@@ -54,6 +60,9 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $groups = Group::all();
 
         $forum = new Forum();
@@ -97,8 +106,11 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
@@ -119,6 +131,9 @@ class ForumController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
 
@@ -166,9 +181,11 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        // Forum to delete
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
 
         $permissions = Permission::where('forum_id', '=', $forum->id)->get();
