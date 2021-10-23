@@ -966,7 +966,11 @@ class TorrentController extends Controller
         if ($torrent->seeders <= 2) {
             // Send Notification
             foreach ($reseed as $r) {
-                User::find($r->user_id)->notify(new NewReseedRequest($torrent));
+            // Check if user is not deleted
+                $result = User::where('id', $r->user_id)->whereNull('deleted_at')->get();
+                if (!$result->isEmpty()) {
+                    User::find($r->user_id)->notify(new NewReseedRequest($torrent));
+                }
             }
 
             $torrentUrl = \href_torrent($torrent);
