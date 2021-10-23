@@ -234,6 +234,19 @@
                                     @endif
                                 </label>
                             </span>
+                            <span class="badge-user">
+                                <label class="inline">
+                                    @if($rss->object_torrent->bookmark)
+                                        <input type="checkbox" id="bookmark" name="bookmark" value="1" CHECKED><span
+                                            class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
+                                        @lang('torrent.bookmark')
+                                    @else
+                                        <input type="checkbox" id="bookmark" name="bookmark" value="1"><span
+                                            class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
+                                        @lang('torrent.bookmark')
+                                    @endif
+                                </label>
+                            </span>
                         </div>
                     </div>
 
