@@ -139,9 +139,11 @@
               z-index: 10;
               box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
               text-decoration: underline;
+              position: relative;
             }
             .ppNotSelected {
-              opacity: 0.75;
+              position: relative;
+              background-color: rgb(26, 26, 26);
               font-weight: 400;
               z-index: 1;
             }
@@ -267,7 +269,10 @@
   }
   [pp-tooltip] {
     position: relative;
-    cursor: help
+    cursor: help;
+    &:hover{
+      z-index: 999;
+    }
   }
 
   [pp-tooltip]::after {
@@ -276,16 +281,17 @@
     pointer-events: none;
     content: attr(pp-tooltip);
     left: 0;
-    top: 0;
+    bottom: -10px;
     border-radius: 3px;
     box-shadow: 0 0 2px 2px rgba(100, 100, 100, 0.6);
-    background-color: rgba(51, 51, 51, 0.90);
-    z-index: 50;
+    background-color: rgba(51, 51, 51, 1) !important;
+    z-index: 999;
     padding: 8px;
     transform: translateY(0);
     transition: all 150ms cubic-bezier(.25, .8, .25, 1);
     width: 200px;
-    font-size: 10px;
+    font-size: 10px !important;
+    font-weight: 700 !important;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
@@ -294,6 +300,7 @@
     opacity: 1;
     transform: translateY(-40px);
     transition-duration: 300ms;
+    z-index: 999;
   }
 
 }

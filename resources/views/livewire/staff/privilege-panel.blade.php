@@ -143,7 +143,7 @@
                 <div class="ppTHead">
                     <div class="ppTHeadings">Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></div>
                     <div class="ppTHeadings">Description</div>
-                    <div class="ppTHeadings">Status</div>
+                    <div class="ppTHeadings">Give Role Privilege?</div>
                 </div>
                 <div class="ppTBody">
                 @foreach($privileges as $privilege)
@@ -177,7 +177,7 @@
                 </div>
                 <div class="ppTHeadRoles">
                     <div class="ppTHeadings">Role</div>
-                    <div class="ppTHeadings">Assigned</div>
+                    <div class="ppTHeadings">Give User Role?</div>
                     <div class="ppTHeadings4">Privileges</div>
                 </div>
                 <div class="ppTBodyRoles">
@@ -222,11 +222,11 @@
                     <div class="ppTHead">
                         <div class="ppTHeadings">Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></div>
                         <div class="ppTHeadings">Description</div>
-                        <div class="ppTHeadings">Actions</div>
+                        <div class="ppTHeadings">Give User Privilege?</div>
                     </div>
                     <div class="ppTBody">
                     @foreach($privileges as $privilege)
-                        <div class="ppPrivilege" wire:key="{{$privilege->id}}" @UpdatedUserPrivileges="$wire.refresh">
+                        <div class="ppPrivilege" @UpdatedUserPrivileges="$wire.refresh">
                             <span wire:target="ActiveUser">
                                 {!! $ActiveUser->hasPrivilegeTo($privilege->slug) ?
                                 '<i class="fas fa-check-square" style="color: #0ba360" pp-tooltip="Privilege Granted"></i>'
@@ -238,15 +238,15 @@
                         </div>
                         <div class="ppDescription">{{$privilege->description}}</div>
                         <div class="ppPermToggles" wire:key="{{$privilege->id}}">
-                            <div
+                            <div pp-tooltip="Provides the Privilege to the User"
                                     @click.prevent="$wire.GiveUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
                                     class="ppYes {{ $ActiveUser->privileges->contains($privilege) ? 'ppSelected' : 'ppNotSelected' }}">Yes
                             </div>
-                            <div
+                            <div pp-tooltip="Does not provide the Privilege to the User"
                                     @click.prevent="$wire.RemoveUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
                                     class="ppNo {{ $ActiveUser->privileges->contains($privilege) ? 'ppNotSelected' : ($ActiveUser->UserRestrictedPrivileges->contains($privilege) ? 'ppNotSelected' : 'ppSelected' ) }}">No
                             </div>
-                            <div
+                            <div pp-tooltip="Restricts the User from being Provided this Privilege By a Role."
                                     @click.prevent="$wire.RestrictUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
                                     class="ppNever {{ ($ActiveUser->UserRestrictedPrivileges->contains($privilege) ? 'ppSelected' : 'ppNotSelected' ) }}">Never
                             </div>
