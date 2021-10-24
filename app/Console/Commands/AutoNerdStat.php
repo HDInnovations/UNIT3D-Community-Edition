@@ -81,13 +81,13 @@ class AutoNerdStat extends Command
             ]);
 
             // Most Seeded Torrent
-            $seeded = Torrent::latest('seeders')->first(OrNew([
+            $seeded = Torrent::latest('seeders')->firstOrNew([
                 'id' => null,
                 'name' => 'No torrent found',
             ]);
 
             // Most Leeched Torrent
-            $leeched = Torrent::latest('leechers')->first(OrNew([
+            $leeched = Torrent::latest('leechers')->firstOrNew([
                 'id' => null,
                 'name' => 'No torrent found',
             ]);
