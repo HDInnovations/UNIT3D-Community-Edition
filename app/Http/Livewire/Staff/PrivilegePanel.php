@@ -16,6 +16,7 @@ class PrivilegePanel extends Component
     public $sortField;
     public $sortDirection;
     public $RolesPrivileges = null;
+    public $RolesRestrictions = null;
     public $role;
     public User $ActiveUser;
 
@@ -39,7 +40,9 @@ class PrivilegePanel extends Component
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
-            'rolesprivileges' => $this->RolesPrivileges,
+            'RolesPrivileges' => $this->RolesPrivileges,
+            'RolesRestrictions' => $this->RolesRestrictions,
+            'Role' => $this->role
 
         ]);
     }
@@ -66,9 +69,10 @@ class PrivilegePanel extends Component
 
     final public function GetRolesPrivileges($roleSlug)
     {
-        $role = Role::where('slug', '=', $roleSlug)->with('privileges')->first();
+        $role = Role::where('slug', '=', $roleSlug)->with(['privileges', 'RoleRestrictedPrivileges'])->first();
         $this->role = $role;
-        $this->RolesPrivileges = $role->privileges;
+        $this->RolesRestrictions = $role->RoleRestrictedPrivileges;
+        $this->RolesPrivileges = $role->privileges->whereNotIn('id', $role->RoleRestrictedPrivileges->pluck('privilege_id')->toArray());
     }
 
     public function GiveRolePrivilege($roleSlug, $privSlug)
@@ -76,6 +80,25 @@ class PrivilegePanel extends Component
         $role = Role::where('slug', '=', $roleSlug)->first();
         $priv = Privilege::where('slug', '=', $privSlug)->first();
         $role->privileges()->attach($priv);
+        $role->RoleRestrictedPrivileges()->detach($priv);
+        $this->GetRolesPrivileges($roleSlug);
+    }
+
+    public function RemoveRolePrivilege($roleSlug, $privSlug)
+    {
+        $role = Role::where('slug', '=', $roleSlug)->first();
+        $priv = Privilege::where('slug', '=', $privSlug)->first();
+        $role->privileges()->detach($priv);
+        $role->RoleRestrictedPrivileges()->detach($priv);
+        $this->GetRolesPrivileges($roleSlug);
+    }
+
+    public function RestrictRolePrivilege($roleSlug, $privSlug)
+    {
+        $role = Role::where('slug', '=', $roleSlug)->first();
+        $priv = Privilege::where('slug', '=', $privSlug)->first();
+        $role->privileges()->detach($priv);
+        $role->RoleRestrictedPrivileges()->toggle($priv);
         $this->GetRolesPrivileges($roleSlug);
     }
 
@@ -90,4 +113,6 @@ class PrivilegePanel extends Component
         $user->privileges()->attach($priv);
         $this->GetUser($user);
     }
+
+
 }

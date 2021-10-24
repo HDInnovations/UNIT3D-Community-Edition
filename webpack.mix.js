@@ -41,10 +41,17 @@ mix.options({
      *
      * We compile each of these separately since they should only be loaded with the certain views
      *
-     * Note: These will likely be reworked into VueJS component(s)
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
+
+    /*
+     * Roles & Privilege Manager
+     *
+     * We compile each of these separately since they should only be loaded with the certain views
+     *
+     */
+    .sass('resources/sass/privilege-panel/main.scss', 'public/css/privilege-panel.css')
 
     /*
      * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'

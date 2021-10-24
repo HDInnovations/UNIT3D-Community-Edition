@@ -9,6 +9,10 @@
     <meta name="description" content="@lang('user.roles and privileges') Panel - @lang('staff.staff-dashboard')">
 @endsection
 
+@section('stylesheets')
+    <link href="{{ mix('css/privilege-panel.css') }}" rel="stylesheet">
+@endsection
+
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -23,22 +27,6 @@
 @endsection
 
 @section('content')
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
-    </style>
-    <div class="container">
-        <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <div class="page-title">
-                        <h1 style="margin: 0;">@lang('user.roles and privileges')</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @livewire(App\Http\Livewire\Staff\PrivilegePanel::class)
 
