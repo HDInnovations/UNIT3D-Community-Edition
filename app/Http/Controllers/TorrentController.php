@@ -193,13 +193,13 @@ class TorrentController extends Controller
 
         if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
             $meta = Game::with([
-                'cover' => ['url', 'image_id'],
+                'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
-                'genres' => ['name'],
-                'videos' => ['video_id', 'name'],
+                'genres'   => ['name'],
+                'videos'   => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
-                'platforms'])
+                'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
             $trailer = 'https://www.youtube.com/embed/'.$link;
