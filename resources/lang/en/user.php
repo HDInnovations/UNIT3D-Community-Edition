@@ -287,7 +287,7 @@ return [
     'resurrections'                       => 'Resurrections',
     'restore'                             => 'Restore',
     'roles and privileges'                => 'Roles & Privileges',
-    'satisfied-immune'		              => 'Satisfied / Immune',
+    'satisfied-immune'		                  => 'Satisfied / Immune',
     'search'                              => 'Quick Search by Username/Email',
     'security'                            => 'Security',
     'security-settings'                   => 'Security Settings',

@@ -12,5 +12,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // register single rule
     $services = $containerConfigurator->services();
-    $services->set(Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector ::class);
+    $services->set(Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class);
 };

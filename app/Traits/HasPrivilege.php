@@ -42,6 +42,7 @@ trait HasPrivilege
 
         return false;
     }
+
     public function hasRestrictedPrivilegeThroughRole(Privilege $privilege): bool
     {
         foreach ($privilege->RestrictedRoles as $role) {
@@ -49,6 +50,7 @@ trait HasPrivilege
                 return true;
             }
         }
+
         return false;
     }
 }

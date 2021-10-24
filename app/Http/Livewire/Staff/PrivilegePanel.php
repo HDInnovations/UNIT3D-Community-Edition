@@ -41,9 +41,9 @@ class PrivilegePanel extends Component
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
-            'RolesPrivileges' => $this->RolesPrivileges,
+            'RolesPrivileges'   => $this->RolesPrivileges,
             'RolesRestrictions' => $this->RolesRestrictions,
-            'Role' => $this->role
+            'Role'              => $this->role,
 
         ]);
     }
@@ -116,6 +116,7 @@ class PrivilegePanel extends Component
         Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
         $this->GetUser($ActiveUser);
     }
+
     public function RemoveUserPrivilege(User $ActiveUser, $privSlug)
     {
         $priv = Privilege::where('slug', '=', $privSlug)->first();
@@ -124,6 +125,7 @@ class PrivilegePanel extends Component
         Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
         $this->GetUser($ActiveUser);
     }
+
     public function RestrictUserPrivilege(User $ActiveUser, $privSlug)
     {
         $priv = Privilege::where('slug', '=', $privSlug)->first();
@@ -131,14 +133,15 @@ class PrivilegePanel extends Component
         $ActiveUser->UserRestrictedPrivileges()->attach($priv);
         Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
         $this->GetUser($ActiveUser);
-
     }
+
     public function GiveUserRole(User $ActiveUser, $roleSlug)
     {
         $role = Role::where('slug', '=', $roleSlug)->first();
         $ActiveUser->roles()->attach($role);
         $this->GetUser($ActiveUser);
     }
+
     public function RemoveUserRole(User $ActiveUser, $roleSlug)
     {
         $role = Role::where('slug', '=', $roleSlug)->first();
