@@ -76,19 +76,19 @@ class AutoNerdStat extends Command
 
             // Most Snatched Torrent
             $snatched = Torrent::latest('times_completed')->firstOrNew([
-                'id' => null,
+                'id'   => null,
                 'name' => 'No torrent found',
             ]);
 
             // Most Seeded Torrent
             $seeded = Torrent::latest('seeders')->firstOrNew([
-                'id' => null,
+                'id'   => null,
                 'name' => 'No torrent found',
             ]);
 
             // Most Leeched Torrent
             $leeched = Torrent::latest('leechers')->firstOrNew([
-                'id' => null,
+                'id'   => null,
                 'name' => 'No torrent found',
             ]);
 
