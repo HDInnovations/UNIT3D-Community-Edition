@@ -55,7 +55,8 @@
         "nunomaduro/collision": "^5.0",
         "phpro/grumphp": "^1.2.0",
         "phpunit/phpunit": "^9.3",
-        "styleci/cli": "^1.2"
+        "styleci/cli": "^1.2",
+        "symplify/changelog-linker": "^8.0"
     },
     "config": {
         "preferred-install": "dist",
