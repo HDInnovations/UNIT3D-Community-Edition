@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72ca7985df39d8775ca92d1d6be838da",
+    "content-hash": "2cdb93faee4c22dfdd7ae1fca66d07e6",
     "packages": [
         {
             "name": "andkab/laravel-joypixels",
@@ -3047,26 +3047,27 @@
         },
         {
             "name": "marcreichel/igdb-laravel",
-            "version": "2.4.6",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/marcreichel/igdb-laravel.git",
-                "reference": "aaaf7da764553f4318688266db0850c5164b25f2"
+                "reference": "2d12908bf9f18d11e74094256fb3cd41f03d1517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marcreichel/igdb-laravel/zipball/aaaf7da764553f4318688266db0850c5164b25f2",
-                "reference": "aaaf7da764553f4318688266db0850c5164b25f2",
+                "url": "https://api.github.com/repos/marcreichel/igdb-laravel/zipball/2d12908bf9f18d11e74094256fb3cd41f03d1517",
+                "reference": "2d12908bf9f18d11e74094256fb3cd41f03d1517",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "~6.0|~7.0",
                 "laravel/framework": "^8.40.0",
-                "php": "^7.3 | ^7.4 | ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "nunomaduro/collision": "^5.3",
+                "nunomaduro/larastan": "^0.7.13",
                 "orchestra/testbench": "^6.0",
                 "phpunit/phpunit": "^9.5.4",
                 "roave/security-advisories": "dev-latest"
@@ -3105,7 +3106,7 @@
             ],
             "support": {
                 "issues": "https://github.com/marcreichel/igdb-laravel/issues",
-                "source": "https://github.com/marcreichel/igdb-laravel/tree/2.4.6"
+                "source": "https://github.com/marcreichel/igdb-laravel/tree/3.1.2"
             },
             "funding": [
                 {
@@ -3113,7 +3114,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-27T09:36:13+00:00"
+            "time": "2021-10-23T07:45:35+00:00"
         },
         {
             "name": "mews/purifier",

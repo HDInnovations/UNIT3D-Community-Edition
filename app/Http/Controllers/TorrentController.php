@@ -50,8 +50,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -159,7 +159,12 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \App\Models\Torrent $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
+     *
+     * @throws \JsonException
+     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
+     * @throws \ReflectionException
      */
     public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -175,6 +180,7 @@ class TorrentController extends Controller
 
         $meta = null;
         $trailer = null;
+        $platforms = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
             $meta = Tv::with('genres', 'cast', 'companies', 'networks', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
@@ -185,10 +191,19 @@ class TorrentController extends Controller
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
-        $characters = null;
         if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
-            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
-            $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
+            $meta = Game::with([
+                'cover' => ['url', 'image_id'],
+                'artworks' => ['url', 'image_id'],
+                'genres' => ['name'],
+                'videos' => ['video_id', 'name'],
+                'involved_companies.company',
+                'involved_companies.company.logo',
+                'platforms'])
+                ->find($torrent->igdb);
+            $link = collect($meta->videos)->take(1)->pluck('video_id');
+            $trailer = 'https://www.youtube.com/embed/'.$link;
+            $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
         $featured = $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null;
@@ -208,7 +223,7 @@ class TorrentController extends Controller
             'freeleech_token'    => $freeleechToken,
             'meta'               => $meta,
             'trailer'            => $trailer,
-            'characters'         => $characters,
+            'platforms'          => $platforms,
             'total_tips'         => $totalTips,
             'user_tips'          => $userTips,
             'featured'           => $featured,
