@@ -137,14 +137,27 @@ class SimilarTorrent extends Component
             if (! in_array($torrent->tmdb, $titleids)) {
                 $titleids[] = $torrent->tmdb;
                 $title = null;
-                switch ($torrent->category_id) {
-                        case 1:
-                            $title = Movie::find($torrent->tmdb);
-                            $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
-                        case 2:
-                            $title = Tv::find($torrent->tmdb);
-                            $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
-                    }
+                $cat = $torrent->category;
+                $meta = 'none';
+
+                if($cat->tv_meta === 1) {
+                    $meta = 'tv';
+                } elseif ($cat->movie_meta === 1) {
+                    $meta = 'movie';
+                }
+
+                switch ($meta) {
+                    case 'movie':
+                        $title = Movie::find($torrent->tmdb);
+                        $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
+                        break;
+                    case 'tv':
+                        $title = Tv::find($torrent->tmdb);
+                        $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
+                        break;
+                    default:
+                        break;
+                }
             }
 
             // Reset Requests
