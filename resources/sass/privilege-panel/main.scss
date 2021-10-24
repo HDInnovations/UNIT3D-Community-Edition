@@ -44,10 +44,10 @@
       width: 100%;
       padding: 0;
       margin: 0;
-      .ppTHead, .ppTBody{
+      .ppTHead, .ppTBody, .ppTHeadUsers, .ppTBodyUsers{
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+
         gap: 0.25rem;
         div {
           text-align: left;
@@ -55,7 +55,7 @@
         .ppTHeadings {
           padding: 5px 15px;
         }
-        .ppRole, .ppBadge, .ppDescription, .ppPrivilege {
+        .ppRole, .ppBadge, .ppDescription, .ppPrivilege, .ppValue {
           padding: 5px 15px;
           font-size: 14px;
           span {
@@ -135,19 +135,38 @@
         }
 
       }
+      .ppTHead, .ppTBody {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .ppTHeadUsers, .ppTBodyUsers {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
       .ppTInfo{
         background-color: #0d0d0d;
         border: none;
-
         border-bottom: 2px solid #333333;
         padding: 15px 25px 5px 25px;
         display: flex;
+        gap: 10px;
         .ppTTitle {
           flex: 1 1 auto;
           font-size: 24px;
         }
-        .ppTBack{
+        .ppTBack, .ppTInput{
           flex: none;
+          input {
+            padding: 3px 10px;
+            font-size: 12px;
+            line-height: 13px;
+            background: transparent;
+            color: white;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255, 0.5);
+            &:active, &:focus {
+              border-bottom: 2px solid rgba(255,255,255, 0.8);
+              outline: none;
+            }
+          }
           > div, > a {
            font-size: 12px;
            display: inline-block;
@@ -170,10 +189,10 @@
 
         }
       }
-      .ppTHead {
+      .ppTHead, .ppTHeadUsers {
         background-color: #0f0f0f;
       }
-      .ppTBody {
+      .ppTBody, .ppTBodyUsers {
         div{
           background-color: rgba(0, 0, 0, 0.2);
         }
