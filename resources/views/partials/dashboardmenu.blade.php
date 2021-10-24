@@ -15,19 +15,17 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @role('root')
-                <li>
-                    <a href="{{ route('staff.backups.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup')
-                        @lang('backup.manager')
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('staff.commands.index') }}">
-                        <i class="fab fa-laravel"></i> Commands
-                    </a>
-                </li>
-            @endrole
+            <li>
+                <a href="{{ route('staff.backups.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup')
+                    @lang('backup.manager')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('staff.commands.index') }}">
+                    <i class="fab fa-laravel"></i> Commands
+                </a>
+            </li>
 
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.chat-tools')
@@ -71,18 +69,11 @@
                     <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
-            @privilege('dashboard_can_view')
-                <li>
-                    <a href="{{ route('staff.forums.index') }}">
-                        <i class="fab fa-wpforms"></i> @lang('staff.forums')
-                    </a>
-                </li>
-              <!--  <li>
-                    <a href="">
-                        <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.groups')
-                    </a>
-                </li> -->
-            @endprivilege
+            <li>
+                <a href="{{ route('staff.forums.index') }}">
+                    <i class="fab fa-wpforms"></i> @lang('staff.forums')
+                </a>
+            </li>
             <li>
                 <a href="{{ route('staff.internals.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-magic"></i> Internals
@@ -145,8 +136,8 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.user-tools')
             </li>
             <li>
-                <a href="{{ route('user_search') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.user-search')
+                <a href="{{ route('staff.privileges.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-user-lock"></i> @lang('user.users-roles-privileges')
                 </a>
             </li>
             <li>

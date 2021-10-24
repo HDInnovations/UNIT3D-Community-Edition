@@ -42,4 +42,13 @@ trait HasPrivilege
 
         return false;
     }
+    public function hasRestrictedPrivilegeThroughRole(Privilege $privilege): bool
+    {
+        foreach ($privilege->RestrictedRoles as $role) {
+            if ($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
