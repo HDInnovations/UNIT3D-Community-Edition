@@ -755,6 +755,12 @@
 		    			        <tr>
 		    				        <td>
 		    				    	    <div class="panel-body">
+                                            <div class="torrent-mediainfo-dump" style="opacity: 1; display: none;" x-show="show">
+                                                <div>
+                                                    <span class="text-center text-bold">Full MediaInfo Dump</span>
+                                                    <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
+                                                </div>
+                                            </div>
 		    				    		    <div class="slidingDiv2">
 		    				    			    <div class="text-left text-main mediainfo-filename" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
 		    				    				    @if ($mediaInfo !== null && isset($mediaInfo['general']['file_name']))
@@ -820,13 +826,6 @@
 									    	    	    @endif
 									    	        @endforeach
 									            @endif
-								            </div>
-
-								            <div class="torrent-mediainfo-dump" style="opacity: 1; display: none;" x-show="show">
-									            <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
-									        	    <span class="text-center text-bold">Full MediaInfo Dump</span>
-									        		<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
-									            </div>
 								            </div>
 						    	        </div>
 						            </td>
