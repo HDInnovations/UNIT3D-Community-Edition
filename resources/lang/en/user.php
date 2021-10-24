@@ -287,7 +287,7 @@ return [
     'resurrections'                       => 'Resurrections',
     'restore'                             => 'Restore',
     'roles and privileges'                => 'Roles & Privileges',
-    'satisfied-immune'		                  => 'Satisfied / Immune',
+    'satisfied-immune'		              => 'Satisfied / Immune',
     'search'                              => 'Quick Search by Username/Email',
     'security'                            => 'Security',
     'security-settings'                   => 'Security Settings',
@@ -358,6 +358,7 @@ return [
     'user'                                  => 'User',
     'user-id'                               => 'User ID',
     'username-seedbox'                      => 'Username Seedbox',
+    'users-roles-privileges'                => 'Users, Roles & Privileges',
     'visible-to-achievement'                => 'Achievements Visible To',
     'visible-to-achievement-help'           => 'Your achievements will only be visible to staff and the following groups.
     These settings are overridden if you <strong>Go Private</strong>',

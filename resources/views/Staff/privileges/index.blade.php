@@ -2,11 +2,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('user.roles and privileges') Panel - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('user.users-roles-privileges') Manager - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('user.roles and privileges') Panel - @lang('staff.staff-dashboard')">
+    <meta name="description" content="@lang('user.users-roles-privileges') Manager - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('stylesheets')
@@ -21,7 +21,7 @@
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.roles and privileges')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.users-roles-privileges')</span>
         </a>
     </li>
 @endsection

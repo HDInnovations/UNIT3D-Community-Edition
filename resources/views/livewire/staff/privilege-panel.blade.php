@@ -1,12 +1,12 @@
 <div id="PrivilegePanel" xmlns:wire="http://www.w3.org/1999/xhtml"
-     x-data="{ tab: 1, panel: 0, query: '', roleSlug: '',  activeUser: @entangle('activeUser') }">
+     x-data="{ tab: 3, panel: 0, query: '', roleSlug: '',  activeUser: @entangle('activeUser') }">
     <div class="ppNav">
+             <div :class="{ 'active': tab === 3 }" @click.prevent="tab = 3; panel = 0;"><i
+                        class="fas fa-users"></i> Users</div>
             <div :class="{ 'active': tab === 1 }" @click.prevent="tab = 1; panel = 0;"><i
                         class="fas fa-users-class"></i> Roles</div>
             <div :class="{ 'active': tab === 2 }"@click.prevent="tab = 2; panel = 0;"><i
-                            class="fas fa-key"></i> Privileges</div>
-            <div :class="{ 'active': tab === 3 }" @click.prevent="tab = 3; panel = 0;"><i
-                            class="fas fa-user-lock"></i> Users</div>
+                        class="fas fa-key"></i> Privileges</div>
     </div>
     <div class="ppBody">
         <section x-show="tab === 1 && panel == 0">
@@ -24,7 +24,7 @@
                 @foreach($roles as $role)
                         <div class="ppRole">{{$role->name}} <small style="font-family: monospace; font-size: 10px;">[{{$role->slug}}]</small></div>
                         <div class="ppBadge"><span class="text-bold"
-                                  style="color:{{ $role->color }}; background-image:{{ $role->effects }}; margin-bottom: 2px;">
+                                  style="color:{{ $role->color }}; background-image: {{ $role->effect }}; margin-bottom: 2px;">
                             <i class="{{ $role->icon }}" data-toggle="tooltip"
                                data-original-title="{{ $role->name }}"></i> {{$role->name}} </span></div>
                         <div class="ppActions">
@@ -95,34 +95,37 @@
                     </div>
                 </div>
                 <div class="ppTBodyUsers">
-
                 @foreach ($users as $user)
-
-                        <div class="ppValue">
-						<span class="badge-user text-bold">
-                            {{ $user->username }}
+                        <div class="ppBadge">
+						<span class="text-bold"
+                           style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
+                            <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->username }}
                         </span>
                         </div>
-                        <div class="ppValue">
+                        <div class="ppBadge">
                             @foreach($user->roles as $role)
                                 @if($role->slug === $user->primaryRole->slug)
-                                    <span class="badge text-bold"
+                                    <span class="text-bold"
                                           style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
-                                                    <i class="{{ $user->primaryRole->icon }}"></i>{{ $user->primaryRole->name }}</span>
+                                                    <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->primaryRole->name }}</span>
                                 @else
-                                    <span class="badge">{{$role->name}}</span>
+                                    <span class="text-bold">{{$role->name}}</span>
                                 @endif
                             @endforeach
                         </div>
                         <div class="ppValue">{{ $user->email }}</div>
                         <div class="ppValue">{{ \Illuminate\Support\Carbon::make($user->created_at)->toFormattedDateString() }}</div>
                         <div class="ppActions">
+                            <a href="{{route('users.show', ['username' => $user->username])}}"><i class="far fa-id-card"></i> Profile</a>
+                            <a href="{{route('user_edit', ['username' => $user->username])}}"><i class="fas fa-user-edit"></i> Edit</a>
                             <a href="#"
                                @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 2; } );"><i class="fas fa-key"></i> Privilges</a>
                             <a href="#"><i class="fas fa-users-class"></i> Roles</a>
                         </div>
-
                 @endforeach
+                </div>
+                <div class="ppPaginate">
+                    {{ $users->links() }}
                 </div>
             </div>
         </section>

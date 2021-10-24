@@ -47,7 +47,6 @@
       .ppTHead, .ppTBody, .ppTHeadUsers, .ppTBodyUsers{
         width: 100%;
         display: grid;
-
         gap: 0.25rem;
         div {
           text-align: left;
@@ -67,6 +66,7 @@
             box-shadow: 2px 2px 2px #000;
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            background-blend-mode: color-dodge;
           }
         }
         .ppDescription{
@@ -75,7 +75,6 @@
         }
         .ppActions {
           padding: 5px 15px;
-
           a {
             font-size: 12px;
             display: inline-block;
@@ -139,7 +138,10 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .ppTHeadUsers, .ppTBodyUsers {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        .ppActions {
+          grid-column: span 2 / span 2;
+        }
       }
       .ppTInfo{
         background-color: #0d0d0d;
@@ -147,7 +149,7 @@
         border-bottom: 2px solid #333333;
         padding: 15px 25px 5px 25px;
         display: flex;
-        gap: 10px;
+        gap: 25px;
         .ppTTitle {
           flex: 1 1 auto;
           font-size: 24px;
@@ -200,6 +202,29 @@
 
     }
   }
+  .ppPaginate{
+    .pagination > li > a, .pagination > li > span {
+      font-size: 14px;
+      line-height: 14px;
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #0f0f0f;
+      cursor: pointer;
+      border-radius: 5px 0 5px 0;
+      color: white;
+      font-weight: 700;
+      margin-inline: 3px;
+      &:hover, &:active {
+        border: 1px solid #FFFFFF;
+      }
+    }
+    .pagination > .active > a, .pagination > .active > span {
+      background-color: #FFFFFF !important;
+      color: #0f0f0f;
+      border: 1px solid #0f0f0f;
+      margin-top: 0;
+    }
 
+  }
 
 }
