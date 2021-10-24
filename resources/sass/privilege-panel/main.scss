@@ -1,97 +1,270 @@
 #PrivilegePanel {
-  position: relative;
-  width: 90vw;
-  margin: 10px auto;
-  background-color: rgba(38, 38, 38, 0.7);
-  .ppNav {
-    display: flex;
-    padding: 5px 8px 0 8px;
-    width: 100%;
-    flex-wrap: wrap;
-    flex: auto;
-    justify-items: center;
-    background-color: #0f0f0f;
-    > div {
-      margin: 5px 2px 0 2px;
-      padding: 7px 25px;
-      background-color: #efefef;
-      cursor: pointer;
-      flex: 1 1 0%;
-      text-align: center;
-      border-radius: 5px 5px 0 0;;
-      &:hover{
-        background-color: rgba(239, 239, 239, 0.85);
-      }
-      &:active{
-        background-color: rgba(239, 239, 239, 0.5);
-        transform: scale(1.02);
-        transform-origin: bottom center;
-      }
-
-      &.active {
-        background-color: rgb(153, 153, 153);
-        color: #0f0f0f;
-        transform: scaleY(1.1);
-        transform-origin: bottom center;
-        z-index: 10;
-      }
-    }
-  }
-  .ppBody{
-    color: white;
-
-    div.ppTable {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      min-height: 60vh;
-      .ppTHead, .ppTBody, .ppTHeadUsers, .ppTBodyUsers, .ppTBodyRoles, .ppTHeadRoles{
+    position: relative;
+    width: 90vw;
+    margin: 10px auto;
+    background-color: rgba(38, 38, 38, 0.7);
+    .ppNav {
+        display: flex;
+        padding: 5px 8px 0 8px;
         width: 100%;
-        display: grid;
-        gap: 0.25rem;
-        div {
-          text-align: left;
-        }
-        .ppTHeadings {
-          padding: 5px 15px;
-        }
-        .ppRole, .ppBadge, .ppDescription, .ppPrivilege, .ppValue {
-          padding: 5px 15px;
-          font-size: 14px;
-          span {
-            background-color: rgba(24, 24, 24, 0.75);
-            display: inline-block;
-            padding: 2px 10px;
-            font-size: 12px;
-            border-radius: 5px 0 5px 0;
-            box-shadow: 2px 2px 2px #000;
-            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-blend-mode: color-dodge;
-            margin-right: 2px;
-            margin-bottom: 3px;
-
-            &.ppBadgeSmall {
-            padding: 4px 5px;
-            font-size: 10px;
+        flex-wrap: wrap;
+        flex: auto;
+        justify-items: center;
+        background-color: #0f0f0f;
+        > div {
+            margin: 5px 2px 0 2px;
+            padding: 7px 25px;
+            background-color: #efefef;
+            cursor: pointer;
+            flex: 1 1 0%;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+            &:hover {
+                background-color: rgba(239, 239, 239, 0.85);
             }
-          }
+            &:active {
+                background-color: rgba(239, 239, 239, 0.5);
+                transform: scale(1.02);
+                transform-origin: bottom center;
+            }
 
+            &.active {
+                background-color: rgb(153, 153, 153);
+                color: #0f0f0f;
+                transform: scaleY(1.1);
+                transform-origin: bottom center;
+                z-index: 10;
+            }
         }
-        .ppDescription{
-          font-size: 0.8em;
-          max-height: 70px;
-          overflow-y: scroll;
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;
-          &::-webkit-scrollbar {
-            display: none;
-          }
+    }
+    .ppBody {
+        color: white;
+
+        div.ppTable {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            min-height: 60vh;
+            .ppTHead,
+            .ppTBody,
+            .ppTHeadUsers,
+            .ppTBodyUsers,
+            .ppTBodyRoles,
+            .ppTHeadRoles {
+                width: 100%;
+                display: grid;
+                gap: 0.25rem;
+                div {
+                    text-align: left;
+                }
+                .ppTHeadings {
+                    padding: 5px 15px;
+                }
+                .ppRole,
+                .ppBadge,
+                .ppDescription,
+                .ppPrivilege,
+                .ppValue {
+                    padding: 5px 15px;
+                    font-size: 14px;
+                    span {
+                        background-color: rgba(24, 24, 24, 0.75);
+                        display: inline-block;
+                        padding: 2px 10px;
+                        font-size: 12px;
+                        border-radius: 5px 0 5px 0;
+                        box-shadow: 2px 2px 2px #000;
+                        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        background-blend-mode: color-dodge;
+                        margin-right: 2px;
+                        margin-bottom: 3px;
+
+                        &.ppBadgeSmall {
+                            padding: 4px 5px;
+                            font-size: 10px;
+                        }
+                    }
+                }
+                .ppDescription {
+                    font-size: 0.8em;
+                    max-height: 70px;
+                    overflow-y: scroll;
+                    -ms-overflow-style: none; /* IE and Edge */
+                    scrollbar-width: none;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                }
+                .ppActions {
+                    padding: 5px 15px;
+                    a {
+                        font-size: 12px;
+                        display: inline-block;
+                        padding: 5px 10px;
+                        background-color: #0f0f0f;
+                        cursor: pointer;
+                        border-radius: 5px 0 5px 0;
+                        color: white;
+                        font-weight: 700;
+
+                        &:hover {
+                            background-color: rgba(15, 15, 15, 0.7);
+                        }
+
+                        &:active {
+                            background-color: rgba(15, 15, 15, 0.85);
+                            transform: scale(1.05);
+                        }
+                    }
+                }
+                .ppPermToggles {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding-inline: 25px;
+                    padding-block: 10px;
+                    div {
+                        margin: 5px 0;
+                        font-size: 11px;
+                        position: initial;
+                        padding: 5px 20px;
+                        cursor: pointer;
+                        color: #ffffff;
+                        flex: 1 1 auto;
+                        line-height: 12px;
+                        text-align: center;
+                        height: 22px;
+                        max-width: 80px;
+                        background-color: #131313;
+                    }
+                    .ppSelected {
+                        background-color: rgb(45, 45, 45);
+                        opacity: 1;
+                        font-size: 12px;
+                        font-weight: 700;
+                        transform: scaleY(1.2) scaleX(1.1);
+                        border-radius: 1px;
+                        z-index: 10;
+                        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+                        text-decoration: underline;
+                        position: relative;
+                    }
+                    .ppNotSelected {
+                        position: relative;
+                        background-color: rgb(26, 26, 26);
+                        font-weight: 400;
+                        z-index: 1;
+                    }
+                    .ppByRole {
+                        margin-left: 10px;
+                        padding: 5px 5px !important;
+                        max-width: 40px;
+                        cursor: unset;
+                        &.ppSelected {
+                            display: initial;
+                            transform: scaleY(1) scaleX(1);
+                            color: #0ba360;
+                        }
+                        &.ppRestricted {
+                            display: initial;
+                            transform: scaleY(1) scaleX(1);
+                            color: #ef1c1c;
+                        }
+                        &.ppNotSelected {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .ppTHead,
+            .ppTBody {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .ppTHeadUsers,
+            .ppTBodyUsers {
+                grid-template-columns: repeat(7, minmax(0, 1fr));
+                .ppActions,
+                .ppBadgeRoles {
+                    grid-column: span 2 / span 2;
+                }
+            }
+            .ppTBodyRoles,
+            .ppTHeadRoles {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                .ppDescription,
+                .ppTHeadings4 {
+                    grid-column: span 4 / span 4;
+                }
+            }
+            .ppTInfo {
+                background-color: #0d0d0d;
+                border: none;
+                border-bottom: 2px solid #333333;
+                padding: 15px 25px 5px 25px;
+                display: flex;
+                gap: 25px;
+                .ppTTitle {
+                    flex: 1 1 auto;
+                    font-size: 24px;
+                }
+                .ppTBack,
+                .ppTInput {
+                    flex: none;
+                    input {
+                        padding: 3px 10px;
+                        font-size: 12px;
+                        line-height: 13px;
+                        background: transparent;
+                        color: white;
+                        border: none;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                        &:active,
+                        &:focus {
+                            border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+                            outline: none;
+                        }
+                    }
+                    > div,
+                    > a {
+                        font-size: 12px;
+                        display: inline-block;
+                        padding: 5px 10px;
+                        background-color: #dcdcdc;
+                        cursor: pointer;
+                        border-radius: 5px 0 5px 0;
+                        color: #000000 !important;
+                        font-weight: 700;
+                        &:hover {
+                            background-color: rgba(220, 220, 220, 0.7);
+                            color: #000000 !important;
+                        }
+                        &:active {
+                            background-color: rgba(219, 219, 219, 0.85);
+                            transform: scale(1.05);
+                            color: #000000 !important;
+                        }
+                    }
+                }
+            }
+            .ppTHead,
+            .ppTHeadUsers,
+            .ppTHeadRoles {
+                background-color: #0f0f0f;
+            }
+            .ppTBody,
+            .ppTBodyUsers,
+            .ppTBodyRoles {
+                div {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+            }
         }
-        .ppActions {
-          padding: 5px 15px;
-          a {
-            font-size: 12px;
+    }
+    .ppPaginate {
+        .pagination > li > a,
+        .pagination > li > span {
+            font-size: 14px;
+            line-height: 14px;
             display: inline-block;
             padding: 5px 10px;
             background-color: #0f0f0f;
@@ -99,208 +272,53 @@
             border-radius: 5px 0 5px 0;
             color: white;
             font-weight: 700;
-
-            &:hover {
-              background-color: rgba(15, 15, 15, 0.7);
-            }
-
+            margin-inline: 3px;
+            &:hover,
             &:active {
-              background-color: rgba(15, 15, 15, 0.85);
-              transform: scale(1.05);
-            }
-          }
-        }
-        .ppPermToggles {
-            display: flex;
-            flex-wrap: wrap;
-            padding-inline: 25px;
-            padding-block: 10px;
-            div {
-              margin: 5px 0;
-              font-size: 11px;
-              position: initial;
-              padding: 5px 20px;
-              cursor: pointer;
-              color: #FFFFFF;
-              flex: 1 1 auto;
-              line-height: 12px;
-              text-align: center;
-              height: 22px;
-              max-width: 80px;
-              background-color: #131313;
-            }
-            .ppSelected {
-              background-color: rgb(45, 45, 45);
-              opacity: 1.0;
-              font-size: 12px;
-              font-weight: 700;
-              transform: scaleY(1.2) scaleX(1.1);
-              border-radius: 1px;
-              z-index: 10;
-              box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-              text-decoration: underline;
-              position: relative;
-            }
-            .ppNotSelected {
-              position: relative;
-              background-color: rgb(26, 26, 26);
-              font-weight: 400;
-              z-index: 1;
-            }
-            .ppByRole {
-              margin-left: 10px;
-              padding: 5px 5px !important;
-              max-width: 40px;
-              cursor: unset;
-              &.ppSelected {
-                display: initial;
-                transform: scaleY(1.0) scaleX(1.0);
-                color: #0ba360;
-              }
-              &.ppRestricted{
-                display: initial;
-                transform: scaleY(1.0) scaleX(1.0);
-                color: #ef1c1c;
-              }
-              &.ppNotSelected {
-                display: none;
-              }
+                border: 1px solid #ffffff;
             }
         }
-
-      }
-      .ppTHead, .ppTBody {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-      .ppTHeadUsers, .ppTBodyUsers {
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-        .ppActions, .ppBadgeRoles {
-          grid-column: span 2 / span 2;
+        .pagination > .active > a,
+        .pagination > .active > span {
+            background-color: #ffffff !important;
+            color: #0f0f0f;
+            border: 1px solid #0f0f0f;
+            margin-top: 0;
         }
-      }
-      .ppTBodyRoles, .ppTHeadRoles{
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        .ppDescription,.ppTHeadings4{
-          grid-column: span 4 / span 4;
-        }
-      }
-      .ppTInfo{
-        background-color: #0d0d0d;
-        border: none;
-        border-bottom: 2px solid #333333;
-        padding: 15px 25px 5px 25px;
-        display: flex;
-        gap: 25px;
-        .ppTTitle {
-          flex: 1 1 auto;
-          font-size: 24px;
-        }
-        .ppTBack, .ppTInput{
-          flex: none;
-          input {
-            padding: 3px 10px;
-            font-size: 12px;
-            line-height: 13px;
-            background: transparent;
-            color: white;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255, 0.5);
-            &:active, &:focus {
-              border-bottom: 2px solid rgba(255,255,255, 0.8);
-              outline: none;
-            }
-          }
-          > div, > a {
-           font-size: 12px;
-           display: inline-block;
-           padding: 5px 10px;
-           background-color: #dcdcdc;
-           cursor: pointer;
-           border-radius: 5px 0 5px 0;
-           color: #000000 !important;
-           font-weight: 700;
-           &:hover {
-             background-color: rgba(220, 220, 220, 0.7);
-             color: #000000 !important;
-           }
-           &:active {
-             background-color: rgba(219, 219, 219, 0.85);
-             transform: scale(1.05);
-             color: #000000 !important;
-           }
-         }
-
-        }
-      }
-      .ppTHead, .ppTHeadUsers, .ppTHeadRoles {
-        background-color: #0f0f0f;
-      }
-      .ppTBody, .ppTBodyUsers, .ppTBodyRoles {
-        div{
-          background-color: rgba(0, 0, 0, 0.2);
-        }
-      }
-
     }
-  }
-  .ppPaginate{
-    .pagination > li > a, .pagination > li > span {
-      font-size: 14px;
-      line-height: 14px;
-      display: inline-block;
-      padding: 5px 10px;
-      background-color: #0f0f0f;
-      cursor: pointer;
-      border-radius: 5px 0 5px 0;
-      color: white;
-      font-weight: 700;
-      margin-inline: 3px;
-      &:hover, &:active {
-        border: 1px solid #FFFFFF;
-      }
-    }
-    .pagination > .active > a, .pagination > .active > span {
-      background-color: #FFFFFF !important;
-      color: #0f0f0f;
-      border: 1px solid #0f0f0f;
-      margin-top: 0;
+    [pp-tooltip] {
+        position: relative;
+        cursor: help;
+        &:hover {
+            z-index: 999;
+        }
     }
 
-  }
-  [pp-tooltip] {
-    position: relative;
-    cursor: help;
-    &:hover{
-      z-index: 999;
+    [pp-tooltip]::after {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        content: attr(pp-tooltip);
+        left: 0;
+        bottom: -10px;
+        border-radius: 3px;
+        box-shadow: 0 0 2px 2px rgba(100, 100, 100, 0.6);
+        background-color: rgba(51, 51, 51, 1) !important;
+        z-index: 999;
+        padding: 8px;
+        transform: translateY(0);
+        transition: all 150ms cubic-bezier(0.25, 0.8, 0.25, 1);
+        width: 200px;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
-  }
 
-  [pp-tooltip]::after {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    content: attr(pp-tooltip);
-    left: 0;
-    bottom: -10px;
-    border-radius: 3px;
-    box-shadow: 0 0 2px 2px rgba(100, 100, 100, 0.6);
-    background-color: rgba(51, 51, 51, 1) !important;
-    z-index: 999;
-    padding: 8px;
-    transform: translateY(0);
-    transition: all 150ms cubic-bezier(.25, .8, .25, 1);
-    width: 200px;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-
-  [pp-tooltip]:hover::after {
-    opacity: 1;
-    transform: translateY(-40px);
-    transition-duration: 300ms;
-    z-index: 999;
-  }
-
+    [pp-tooltip]:hover::after {
+        opacity: 1;
+        transform: translateY(-40px);
+        transition-duration: 300ms;
+        z-index: 999;
+    }
 }
