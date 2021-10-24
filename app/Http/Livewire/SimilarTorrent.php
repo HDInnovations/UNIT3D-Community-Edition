@@ -140,7 +140,7 @@ class SimilarTorrent extends Component
                 $cat = $torrent->category;
                 $meta = 'none';
 
-                if($cat->tv_meta === 1) {
+                if ($cat->tv_meta === 1) {
                     $meta = 'tv';
                 } elseif ($cat->movie_meta === 1) {
                     $meta = 'movie';
