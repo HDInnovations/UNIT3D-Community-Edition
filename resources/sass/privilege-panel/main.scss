@@ -44,7 +44,8 @@
       width: 100%;
       padding: 0;
       margin: 0;
-      .ppTHead, .ppTBody, .ppTHeadUsers, .ppTBodyUsers{
+      min-height: 60vh;
+      .ppTHead, .ppTBody, .ppTHeadUsers, .ppTBodyUsers, .ppTBodyRoles, .ppTHeadRoles{
         width: 100%;
         display: grid;
         gap: 0.25rem;
@@ -67,11 +68,25 @@
             text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
             background-blend-mode: color-dodge;
+            margin-right: 2px;
+            margin-bottom: 3px;
+
+            &.ppBadgeSmall {
+            padding: 4px 5px;
+            font-size: 10px;
+            }
           }
+
         }
         .ppDescription{
           font-size: 0.8em;
-
+          max-height: 70px;
+          overflow-y: scroll;
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;
+          &::-webkit-scrollbar {
+            display: none;
+          }
         }
         .ppActions {
           padding: 5px 15px;
@@ -125,11 +140,29 @@
               box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
               text-decoration: underline;
             }
-
             .ppNotSelected {
               opacity: 0.75;
               font-weight: 400;
               z-index: 1;
+            }
+            .ppByRole {
+              margin-left: 10px;
+              padding: 5px 5px !important;
+              max-width: 40px;
+              cursor: unset;
+              &.ppSelected {
+                display: initial;
+                transform: scaleY(1.0) scaleX(1.0);
+                color: #0ba360;
+              }
+              &.ppRestricted{
+                display: initial;
+                transform: scaleY(1.0) scaleX(1.0);
+                color: #ef1c1c;
+              }
+              &.ppNotSelected {
+                display: none;
+              }
             }
         }
 
@@ -138,9 +171,15 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .ppTHeadUsers, .ppTBodyUsers {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        .ppActions {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        .ppActions, .ppBadgeRoles {
           grid-column: span 2 / span 2;
+        }
+      }
+      .ppTBodyRoles, .ppTHeadRoles{
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        .ppDescription,.ppTHeadings4{
+          grid-column: span 4 / span 4;
         }
       }
       .ppTInfo{
@@ -191,10 +230,10 @@
 
         }
       }
-      .ppTHead, .ppTHeadUsers {
+      .ppTHead, .ppTHeadUsers, .ppTHeadRoles {
         background-color: #0f0f0f;
       }
-      .ppTBody, .ppTBodyUsers {
+      .ppTBody, .ppTBodyUsers, .ppTBodyRoles {
         div{
           background-color: rgba(0, 0, 0, 0.2);
         }
@@ -225,6 +264,36 @@
       margin-top: 0;
     }
 
+  }
+  [pp-tooltip] {
+    position: relative;
+    cursor: help
+  }
+
+  [pp-tooltip]::after {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    content: attr(pp-tooltip);
+    left: 0;
+    top: 0;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(100, 100, 100, 0.6);
+    background-color: rgba(51, 51, 51, 0.90);
+    z-index: 50;
+    padding: 8px;
+    transform: translateY(0);
+    transition: all 150ms cubic-bezier(.25, .8, .25, 1);
+    width: 200px;
+    font-size: 10px;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  [pp-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateY(-40px);
+    transition-duration: 300ms;
   }
 
 }

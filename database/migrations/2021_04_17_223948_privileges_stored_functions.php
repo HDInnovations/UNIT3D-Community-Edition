@@ -24,19 +24,18 @@ class PrivilegesStoredFunctions extends Migration
         SELECT COUNT(*) INTO countU FROM user_privilege WHERE user_id = USER AND privilege_id = privilege;
         IF countU >= 1 THEN
             SET result = 1;
-        ELSE
-            OPEN roles; SET bDone = 0;
-            REPEAT
-                FETCH roles INTO role; SET countR = 0;
-                SELECT COUNT(*) INTO countR FROM role_privilege WHERE role_id = role AND privilege_id = privilege;
-                SELECT COUNT(*) INTO countRR FROM role_restricted_privilege WHERE role_id = role AND privilege_id = privilege;
-                IF countRR < 1 THEN
-                    IF countR >= 1 THEN SET result = 1; END IF;
-                ELSE 
-                    SET result = 0; SET bDone = 1;
-                END IF;                
-            UNTIL bDone END REPEAT;
         END IF;
+        OPEN roles; SET bDone = 0;
+        REPEAT
+            FETCH roles INTO role; SET countR = 0;
+            SELECT COUNT(*) INTO countR FROM role_privilege WHERE role_id = role AND privilege_id = privilege;
+            SELECT COUNT(*) INTO countRR FROM role_restricted_privilege WHERE role_id = role AND privilege_id = privilege;
+            IF countRR < 1 THEN
+                IF countR >= 1 THEN SET result = 1; END IF;
+            ELSE 
+                SET result = 0; SET bDone = 1;
+            END IF;                
+        UNTIL bDone END REPEAT;
     END IF;
     RETURN (result); END;');
         DB::unprepared('drop PROCEDURE if exists UsersWithPrivilege;');

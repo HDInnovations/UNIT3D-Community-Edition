@@ -48,6 +48,7 @@
         "vstelmakh/url-highlight": "^3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.3.6",
         "fakerphp/faker": "^1.16",
         "jasonmccreary/laravel-test-assertions": "^1.0",

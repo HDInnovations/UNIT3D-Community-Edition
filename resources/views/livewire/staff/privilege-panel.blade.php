@@ -75,9 +75,9 @@
                         @lang('common.username')
                         @include('livewire.includes._sort-icon', ['field' => 'username'])
                     </div>
-                    <div class="ppTHeadings" sortable wire:click="sortBy('role_id')"
+                    <div class="ppTHeadings ppBadgeRoles" sortable wire:click="sortBy('role_id')"
                          :direction="$wire.sortField === 'role_id' ? $wire.sortDirection : null" role="button">
-                        Role
+                        Role(s)
                         @include('livewire.includes._sort-icon', ['field' => 'role_id'])</div>
                     <div class="ppTHeadings" sortable wire:click="sortBy('email')"
                          :direction="$wire.sortField === 'email' ? $wire.sortDirection : null"
@@ -102,14 +102,14 @@
                             <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->username }}
                         </span>
                         </div>
-                        <div class="ppBadge">
+                        <div class="ppBadge ppBadgeRoles">
                             @foreach($user->roles as $role)
                                 @if($role->slug === $user->primaryRole->slug)
                                     <span class="text-bold"
                                           style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
                                                     <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->primaryRole->name }}</span>
                                 @else
-                                    <span class="text-bold">{{$role->name}}</span>
+                                    <span class="ppBadgeSmall">{{$role->name}}</span>
                                 @endif
                             @endforeach
                         </div>
@@ -119,8 +119,10 @@
                             <a href="{{route('users.show', ['username' => $user->username])}}"><i class="far fa-id-card"></i> Profile</a>
                             <a href="{{route('user_edit', ['username' => $user->username])}}"><i class="fas fa-user-edit"></i> Edit</a>
                             <a href="#"
+                               @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 1; } );"><i class="fas fa-users-class"></i> Roles</a>
+                            <a href="#"
                                @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 2; } );"><i class="fas fa-key"></i> Privilges</a>
-                            <a href="#"><i class="fas fa-users-class"></i> Roles</a>
+
                         </div>
                 @endforeach
                 </div>
@@ -145,8 +147,9 @@
                 </div>
                 <div class="ppTBody">
                 @foreach($privileges as $privilege)
-                        <div class="ppPrivilege">{{$privilege->name}}<small
-                                    style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small></div>
+                        <div class="ppPrivilege">
+                            {{$privilege->name}}<small style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small>
+                        </div>
                         <div class="ppDescription">{{$privilege->description}}</div>
                         <div class="ppPermToggles" wire:key="{{$privilege->id}}">
                             <div
@@ -163,43 +166,104 @@
                 </div>
             </div>
         </section>
-        <section x-show="tab === 3 && panel === 2">
-            @if(isset($ActiveUser) && !empty($ActiveUser))
-                <div>
-                    <p>Username: {{ $ActiveUser->username }} User ID: {{ $ActiveUser->id }} </p>
-                </div>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></th>
-                        <th>Description</th>
-                        <th style="min-width: 250px;">Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($privileges as $privilege)
-                        <tr>
-                            <td>{{$privilege->name}}<small
-                                        style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small>
-                            </td>
-                            <td>{{$privilege->description}}</td>
-                            <td>
-                                <a href="#" style="margin-right: 10px;"
-                                   @click.prevent="$wire.GiveUserPrivilege({{$ActiveUser->id}}, '{{$privilege->slug}}')"
-                                   class="btn btn-xs {{ $ActiveUser->hasPrivilegeTo($privilege->slug) && !$ActiveUser->hasPrivilegeThroughRole($privilege) ? 'btn-success selected' : 'btn-primary not-selected'}}" {{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'disabled' : '' }}>User
-                                    Level</a>
-                                <a href="#" style="margin-right: 10px;"
-                                   class="btn btn-xs {{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'btn-success selected' : 'btn-primary not-selected'}}">By
-                                    Role</a>
-                                <a href="#" style="margin-right: 10px;" class="btn btn-xs btn-primary not-selected">Never</a>
-                            </td>
-                        </tr>
+        <section x-show="tab === 3 && panel === 1">
+            @if(isset($ActiveUser) && !empty($ActiveUser))
+            <div class="ppTable">
+                <div class="ppTInfo">
+                    <div class="ppTTitle"><strong>Configure Roles for User: <span class="text-bold" style="color:{{ $ActiveUser->primaryRole->color }};">
+                            <i class="{{ $ActiveUser->primaryRole->icon }}"></i> {{ $ActiveUser->username }}</span></strong></div>
+                    <div class="ppTBack"><a href="#" @click.prevent="tab = 3; panel = 0;"><i class="fas fa-arrow-circle-left"></i> Back to Users</a></div>
+                </div>
+                <div class="ppTHeadRoles">
+                    <div class="ppTHeadings">Role</div>
+                    <div class="ppTHeadings">Assigned</div>
+                    <div class="ppTHeadings4">Privileges</div>
+                </div>
+                <div class="ppTBodyRoles">
+                    @foreach($roles as $role)
+                        <div class="ppBadge">
+                            <span wire:target="ActiveUser" style="background-image:{{ $role->effect }}; background-color: #1e1e1e">
+                                <i style="color: {{$role->color}}" class="{{ $role->icon }}"></i>
+                             {{$role->name}}
+                            </span>
+                        </div>
+                        <div class="ppPermToggles" wire:key="{{$role->id}}">
+                            <div
+                                    @click.prevent="$wire.GiveUserRole( {{$ActiveUser->id}} ,'{{$role?->slug}}')"
+                                    class="ppYes {{ $ActiveUser->roles->contains($role) ? 'ppSelected' : 'ppNotSelected' }}">Yes
+                            </div>
+                            <div
+                                    @click.prevent="$wire.RemoveUserRole( {{$ActiveUser->id}} ,'{{$role?->slug}}')"
+                                    class="ppNo {{ $ActiveUser->roles->contains($role) ? 'ppNotSelected' : 'ppSelected'  }}">No
+                            </div>
+                        </div>
+                        <div class="ppDescription" style="font-family: monospace; font-size: 9px;">
+                            @foreach($role->privileges as $priv)
+                            {{$priv->slug}},
+                            @endforeach
+                        </div>
                     @endforeach
-                    </tbody>
-                </table>
+                </div>
+            </div>
             @endif
         </section>
+        <section x-show="tab === 3 && panel === 2">
+            @if(isset($ActiveUser) && !empty($ActiveUser))
+                <div class="ppTable">
+                    <div class="ppTInfo">
+                        <div class="ppTTitle">
+                            <strong>Configure Privileges for User: <span class="text-bold" style="color:{{ $ActiveUser->primaryRole->color }};">
+                            <i class="{{ $ActiveUser->primaryRole->icon }}"></i> {{ $ActiveUser->username }}</span>
+                            </strong>
+                        </div>
+                        <div class="ppTBack"><a href="#" @click.prevent="tab = 3; panel = 0;"><i class="fas fa-arrow-circle-left"></i> Back to Users</a></div>
+                    </div>
+                    <div class="ppTHead">
+                        <div class="ppTHeadings">Privilege <small style="font-family: monospace; font-size: 9px;">[slug]</small></div>
+                        <div class="ppTHeadings">Description</div>
+                        <div class="ppTHeadings">Actions</div>
+                    </div>
+                    <div class="ppTBody">
+                    @foreach($privileges as $privilege)
+                        <div class="ppPrivilege" wire:key="{{$privilege->id}}" @UpdatedUserPrivileges="$wire.refresh">
+                            <span wire:target="ActiveUser">
+                                {!! $ActiveUser->hasPrivilegeTo($privilege->slug) ?
+                                '<i class="fas fa-check-square" style="color: #0ba360" pp-tooltip="Privilege Granted"></i>'
+                                : '<i class="fas fa-times-square" style="color: #ef1c1c" pp-tooltip="Privilege Denied"></i>'
+                                !!} {{$privilege->name}}
+                            </span>
+                            <small style="font-family: monospace; font-size: 9px;">[{{$privilege->slug}}]</small>
+
+                        </div>
+                        <div class="ppDescription">{{$privilege->description}}</div>
+                        <div class="ppPermToggles" wire:key="{{$privilege->id}}">
+                            <div
+                                    @click.prevent="$wire.GiveUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
+                                    class="ppYes {{ $ActiveUser->privileges->contains($privilege) ? 'ppSelected' : 'ppNotSelected' }}">Yes
+                            </div>
+                            <div
+                                    @click.prevent="$wire.RemoveUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
+                                    class="ppNo {{ $ActiveUser->privileges->contains($privilege) ? 'ppNotSelected' : ($ActiveUser->UserRestrictedPrivileges->contains($privilege) ? 'ppNotSelected' : 'ppSelected' ) }}">No
+                            </div>
+                            <div
+                                    @click.prevent="$wire.RestrictUserPrivilege( {{$ActiveUser->id}} ,'{{$privilege?->slug}}')"
+                                    class="ppNever {{ ($ActiveUser->UserRestrictedPrivileges->contains($privilege) ? 'ppSelected' : 'ppNotSelected' ) }}">Never
+                            </div>
+                            <div class="ppByRole
+                                {{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'ppSelected' :
+                                ($ActiveUser->hasRestrictedPrivilegeThroughRole($privilege) ? 'ppRestricted' : 'ppNotSelected') }}"
+                                 pp-tooltip="{{ $ActiveUser->hasPrivilegeThroughRole($privilege) ? 'Has Privilege Through Role' :
+                                ($ActiveUser->hasRestrictedPrivilegeThroughRole($privilege) ? 'Privilege is Restricted by a Role' : '') }}"
+                            ><i class="fas fa-users-class"></i>
+                            </div>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
+            @endif
+        </section>
+
     </div>
 
 

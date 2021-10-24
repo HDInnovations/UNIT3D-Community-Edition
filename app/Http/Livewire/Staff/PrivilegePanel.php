@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Staff;
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -98,7 +99,7 @@ class PrivilegePanel extends Component
         $role = Role::where('slug', '=', $roleSlug)->first();
         $priv = Privilege::where('slug', '=', $privSlug)->first();
         $role->privileges()->detach($priv);
-        $role->RoleRestrictedPrivileges()->toggle($priv);
+        $role->RoleRestrictedPrivileges()->attach($priv);
         $this->GetRolesPrivileges($roleSlug);
     }
 
@@ -107,12 +108,41 @@ class PrivilegePanel extends Component
         $this->ActiveUser = $user;
     }
 
-    public function GiveUserPrivilege(User $user, $privSlug)
+    public function GiveUserPrivilege(User $ActiveUser, $privSlug)
     {
         $priv = Privilege::where('slug', '=', $privSlug)->first();
-        $user->privileges()->attach($priv);
-        $this->GetUser($user);
+        $ActiveUser->privileges()->attach($priv);
+        $ActiveUser->UserRestrictedPrivileges()->detach($priv);
+        Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
+        $this->GetUser($ActiveUser);
     }
+    public function RemoveUserPrivilege(User $ActiveUser, $privSlug)
+    {
+        $priv = Privilege::where('slug', '=', $privSlug)->first();
+        $ActiveUser->privileges()->detach($priv);
+        $ActiveUser->UserRestrictedPrivileges()->detach($priv);
+        Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
+        $this->GetUser($ActiveUser);
+    }
+    public function RestrictUserPrivilege(User $ActiveUser, $privSlug)
+    {
+        $priv = Privilege::where('slug', '=', $privSlug)->first();
+        $ActiveUser->privileges()->detach($priv);
+        $ActiveUser->UserRestrictedPrivileges()->attach($priv);
+        Cache::forget('priv-'.$ActiveUser->id.'-'.$priv->slug);
+        $this->GetUser($ActiveUser);
 
-
+    }
+    public function GiveUserRole(User $ActiveUser, $roleSlug)
+    {
+        $role = Role::where('slug', '=', $roleSlug)->first();
+        $ActiveUser->roles()->attach($role);
+        $this->GetUser($ActiveUser);
+    }
+    public function RemoveUserRole(User $ActiveUser, $roleSlug)
+    {
+        $role = Role::where('slug', '=', $roleSlug)->first();
+        $ActiveUser->roles()->detach($role);
+        $this->GetUser($ActiveUser);
+    }
 }

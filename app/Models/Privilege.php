@@ -43,4 +43,8 @@ class Privilege extends Model
 
         return $ByPrivilege->merge($ByRole)->unique();
     }
+    public function RestrictedRoles()
+    {
+        return $this->belongsToMany(Role::class, 'role_restricted_privilege', 'privilege_id', 'role_id');
+    }
 }
