@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\API;
+namespace Tests\Todo\Feature\Http\Controllers\API;
 
 use App\Models\Bot;
 use App\Models\Chatroom;
@@ -29,6 +29,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function audibles_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $userAudible = UserAudible::factory()->create();
 
         $response = $this->actingAs($userAudible->user)->get('api/chat/audibles');
@@ -44,6 +46,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function bot_messages_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $this->seed(UsersTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
 
@@ -78,6 +82,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function bots_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $this->seed(BotsTableSeeder::class);
 
         $user = User::factory()->create();
@@ -97,6 +103,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function config_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('api/chat/config');
@@ -112,6 +120,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function create_message_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $this->seed(UsersTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
 
@@ -140,6 +150,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function delete_bot_echo_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userEcho = UserEcho::factory()->create([
@@ -161,6 +173,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function delete_message_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $message = Message::factory()->create();
@@ -174,6 +188,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function delete_room_echo_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userEcho = UserEcho::factory()->create([
@@ -194,6 +210,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function delete_target_echo_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userEcho = UserEcho::factory()->create([
@@ -214,6 +232,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function echoes_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('api/chat/echoes');
@@ -231,6 +251,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function messages_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $message = Message::factory()->create();
@@ -250,6 +272,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function private_messages_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $message = Message::factory()->create([
@@ -271,6 +295,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function rooms_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('api/chat/rooms');
@@ -287,6 +313,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function statuses_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('api/chat/statuses');
@@ -305,6 +333,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function toggle_bot_audible_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userAudible = UserAudible::factory()->create([
@@ -325,6 +355,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function toggle_room_audible_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userAudible = UserAudible::factory()->create([
@@ -345,6 +377,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function toggle_target_audible_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $userAudible = UserAudible::factory()->create([
@@ -365,6 +399,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function update_user_chat_status_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $this->seed(UsersTableSeeder::class);
 
         $user = User::factory()->create();
@@ -383,6 +419,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function update_user_room_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(sprintf('api/chat/user/%s/chatroom', $user->id), [
@@ -399,6 +437,8 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function update_user_target_returns_an_ok_response()
     {
+        $this->markTestIncomplete('This test is incomplete');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(sprintf('api/chat/user/%s/target', $user->id));

@@ -55,7 +55,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.bots.disable', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->post(route('staff.bots.disable', ['id' => $bot->id]));
         $response->assertRedirect(route('staff.bots.index'));
     }
 
@@ -86,7 +86,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.bots.enable', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->post(route('staff.bots.enable', ['id' => $bot->id]));
         $response->assertRedirect(route('staff.bots.index'));
     }
 

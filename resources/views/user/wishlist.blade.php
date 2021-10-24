@@ -85,10 +85,15 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
-                                                    class="btn btn-xs btn-danger">
-                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                </a>
+                                                <form action="{{ route('wishes.destroy', ['id' => $wish->id]) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="{{ route('mark-all-read') }}">
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                        </button>
+                                                    </a>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

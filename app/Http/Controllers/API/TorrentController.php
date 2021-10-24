@@ -39,6 +39,12 @@ use Illuminate\Support\Str;
  */
 class TorrentController extends BaseController
 {
+    public $perPage = 25;
+
+    public $sortField = 'bumped_at';
+
+    public $sortDirection = 'desc';
+
     /**
      * TorrentController Constructor.
      */
@@ -288,35 +294,11 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Uses Input's To Put Together A Search.
      */
     public function filter(Request $request): \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
     {
-        $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->has('name'), function ($query) use ($request) {
                 $terms = \explode(' ', $request->input('name'));
@@ -423,11 +405,11 @@ class TorrentController extends BaseController
                 $query->orWhere('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
-            ->orderBy('bumped_at', 'desc')
-            ->paginate(25);
+            ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
+            ->paginate($request->input('perPage') ?? $this->perPage);
 
-        if ($torrent !== null) {
-            return new TorrentsResource($torrent);
+        if ($torrents !== null) {
+            return new TorrentsResource($torrents);
         }
 
         return $this->sendResponse('404', 'No Torrents Found');
@@ -443,7 +425,7 @@ class TorrentController extends BaseController
     private static function anonymizeMediainfo($mediainfo)
     {
         if ($mediainfo === null) {
-            return;
+            return null;
         }
 
         $completeNameI = \strpos($mediainfo, 'Complete name');

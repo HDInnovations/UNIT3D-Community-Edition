@@ -48,6 +48,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Client Connectable Check
+    |--------------------------------------------------------------------------
+    |
+    | This option toggles Client connectivity check
+    | !!! Attention: Will result in leaking the server IP !!!
+    | It will result in higher disc / DB IO
+    |
+    */
+
+    'connectable_check' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Connectable check interval
     |--------------------------------------------------------------------------
     |
@@ -55,6 +68,6 @@ return [
     |
     */
 
-    'connectable_check_interval' => 60 * 20,
+    'connectable_check_interval' => 60 * 30,
 
 ];

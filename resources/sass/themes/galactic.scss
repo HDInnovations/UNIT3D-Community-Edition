@@ -331,7 +331,7 @@ a:hover {
 .btn-info:active,
 .btn-warning:active,
 .btn-danger:active {
-  margin-top: 0 !important;
+    margin-top: 0 !important;
 }
 
 .label-default {
@@ -462,7 +462,7 @@ a.view-torrent:hover {
 }
 
 a.view-torrent:visited {
-    color: #A295FE;
+    color: #a295fe;
 }
 
 .form-control {
@@ -902,7 +902,7 @@ div.topic-new-post {
 
 //Mobile by Peter
 @media only screen and (max-width: 613px) {
-  ul.nav.nav-tabs.mb-5 {
+    ul.nav.nav-tabs.mb-5 {
         float: left;
         display: inline-block;
     }
@@ -934,11 +934,11 @@ div.topic-new-post {
     font-size: 1.2em;
 }
 
-a>strong {
+a > strong {
     color: var(--color-blue);
 }
 
-a>strong:hover {
+a > strong:hover {
     color: var(--color-light-blue);
 }
 
@@ -953,22 +953,25 @@ a>strong:hover {
 pre {
     color: var(--text-color);
     background-color: #232323;
-    border: 1px solid rgba(255, 255, 255, .2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 3px;
 }
 
-.page-content>pre>code {
+.page-content > pre > code {
     border: none;
 }
 
-.page-content li, ul {
+.page-content li,
+ul {
     color: var(--text-color);
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] {
-    background-color:hsla(0, 0%, 100%, .16);
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] {
+    background-color: hsla(0, 0%, 100%, 0.16);
     color: #fff;
-    border: 2px solid rgba(0,0,0,.56)
+    border: 2px solid rgba(0, 0, 0, 0.56);
 }
 
 .dark-th {
@@ -1018,7 +1021,7 @@ pre {
 }
 /* Message triangle tip */
 .sent > div:not(.system):before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 4px;
     left: 38px;

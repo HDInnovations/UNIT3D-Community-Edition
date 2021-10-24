@@ -18,6 +18,6 @@ import chatbox from './components/chat/Chatbox';
 if (document.getElementById('vue')) {
     new Vue({
         el: '#vue',
-        components: { version: version, chatbox: chatbox }
+        components: { version: version, chatbox: chatbox },
     });
 }

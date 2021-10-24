@@ -139,6 +139,6 @@ class Rss extends Model
         return ['search'             => null, 'description' => null, 'uploader' => null, 'imdb' => null,
             'mal'                    => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null,
             'freeleech'              => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null,
-            'internal'               => null, 'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
+            'sd'                     => null, 'internal' => null, 'bookmark' => null, 'alive' => null, 'dying' => null, 'dead' => null, ];
     }
 }

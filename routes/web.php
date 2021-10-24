@@ -221,7 +221,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/message/{id}', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
             Route::get('/outbox', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
             Route::get('/create', [App\Http\Controllers\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
-            Route::get('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
+            Route::post('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
             Route::delete('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
             Route::post('/send', [App\Http\Controllers\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
             Route::post('/{id}/reply', [App\Http\Controllers\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
@@ -356,7 +356,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('wishes.')->group(function () {
                 Route::get('/{username}', [App\Http\Controllers\WishController::class, 'index'])->name('index');
                 Route::post('/store', [App\Http\Controllers\WishController::class, 'store'])->name('store');
-                Route::get('/{id}/destroy', [App\Http\Controllers\WishController::class, 'destroy'])->name('destroy');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\WishController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -556,7 +556,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/topic/{id}/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('forum_reply');
             Route::get('/posts/{id}/post-{postId}/edit', [App\Http\Controllers\PostController::class, 'postEditForm'])->name('forum_post_edit_form');
             Route::post('/posts/{postId}/edit', [App\Http\Controllers\PostController::class, 'postEdit'])->name('forum_post_edit');
-            Route::get('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
+            Route::delete('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
         });
 
         // Search Forums
@@ -566,47 +566,37 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/search', [App\Http\Controllers\ForumController::class, 'search'])->name('forum_search_form');
 
         Route::group(['prefix' => 'topics'], function () {
-            // Create New Topic
             Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
-            // View Topic
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
-            // Close Topic
-            Route::get('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
-            // Open Topic
-            Route::get('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
-            // Tip Poster
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
             Route::post('/posts/tip_poster', [App\Http\Controllers\BonusController::class, 'tipPoster'])->name('tip_poster');
-
-            // Edit Topic
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
-            // Delete Topic
-            Route::get('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
-            // Pin Topic
-            Route::get('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic');
-            // Unpin Topic
-            Route::get('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic');
+            Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic');
         });
 
         // Topic Label System
         Route::group(['prefix' => 'topics', 'middleware' => 'privilege:forum_can_edit_label'], function () {
             Route::name('topics.')->group(function () {
-                Route::get('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
-                Route::get('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
-                Route::get('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
-                Route::get('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
-                Route::get('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
-                Route::get('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
-                Route::get('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
+                Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
+                Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
+                Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
+                Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
+                Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
+                Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
+                Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
             });
         });
 
         // Subscription System
-        Route::get('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
-        Route::get('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
-        Route::get('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
-        Route::get('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
+        Route::post('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
+        Route::post('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
+        Route::post('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
+        Route::post('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
     });
 
     /*

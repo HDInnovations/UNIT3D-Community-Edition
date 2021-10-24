@@ -28,19 +28,27 @@
         <h2>{{ $topic->name }}</h2>
 
         <div class="topic-info">
-            @lang('forum.author') <a
-                href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">{{ $topic->first_post_user_username }}</a>,
+            @lang('forum.author')
+            <a href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">
+                {{ $topic->first_post_user_username }}
+            </a>,
             {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
-                <a href="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
-                    class="label label-sm label-danger">
-                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
+                <form action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-danger">
+                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                    </button>
+                </form>
             @else
-                <a href="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
-                    class="label label-sm label-success">
-                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
+                <form action="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-success">
+                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                    </button>
+                </form>
             @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
@@ -197,12 +205,20 @@
                     <div class="text-center">
                         @if (auth()->user()->hasPrivilegeTo('forums_can_moderate') || $topic->first_post_user_id == auth()->user()->id)
                             <h3>@lang('forum.moderation')</h3>
-                            @if ($topic->state == "close")
-                                <a href="{{ route('forum_open', ['id' => $topic->id]) }}"
-                                    class="btn btn-success">@lang('forum.open-topic')</a>
+                            @if ($topic->state === 'close')
+                                <form action="{{ route('forum_open', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">
+                                        @lang('forum.open-topic')
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('forum_close', ['id' => $topic->id]) }}"
-                                    class="btn btn-info">@lang('forum.close-topic')</a>
+                                <form action="{{ route('forum_close', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">
+                                        @lang('forum.close-topic')
+                                    </button>
+                                </form>
                             @endif
                         @endif
                         @if (auth()->user()->hasPrivilegeTo('forums_can_edit_topic') || $topic->first_post_user_id == auth()->user()->id)
@@ -219,8 +235,12 @@
                                 <a href="{{ route('forum_pin_topic', ['id' => $topic->id]) }}"
                                     class="btn btn-primary">@lang('forum.pin') {{ strtolower(trans('forum.topic')) }}</a>
                             @else
-                                <a href="{{ route('forum_unpin_topic', ['id' => $topic->id]) }}"
-                                    class="btn btn-default">@lang('forum.unpin') {{ strtolower(trans('forum.topic')) }}</a>
+                                <form action="{{ route('forum_unpin_topic', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-default">
+                                        @lang('forum.unpin') @lang('forum.topic')
+                                    </button>
+                                </form>
                             @endif
                         @endif
 
@@ -228,67 +248,110 @@
 
                         @if (auth()->user()->hasPrivilegeTo('forums_can_moderate') )
                             <h3>@lang('forum.label-system')</h3>
-                            @if ($topic->approved == "0")
-                                <a href="{{ route('topics.approve', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-success'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.approved')) }}</a>
+                            @if ($topic->approved === 0)
+                                <form action="{{ route('topics.approve', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.approved')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.approve', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-success'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.approved')) }}</a>
+                                <form action="{{ route('topics.approve', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.approved')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->denied == "0")
-                                <a href="{{ route('topics.deny', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-danger'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.denied')) }}</a>
+                            @if ($topic->denied === 0)
+                                <form action="{{ route('topics.deny', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.denied')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.deny', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-danger'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.denied')) }}</a>
+                                <form action="{{ route('topics.deny', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.denied')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->solved == "0")
-                                <a href="{{ route('topics.solve', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-info'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.solved')) }}</a>
+                            @if ($topic->solved === 0)
+                                <form action="{{ route('topics.solve', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.solved')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.solve', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-info'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.solved')) }}</a>
+                                <form action="{{ route('topics.solve', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.solved')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->invalid == "0")
-                                <a href="{{ route('topics.invalid', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-warning'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.invalid')) }}</a>
+                            @if ($topic->invalid === 0)
+                                <form action="{{ route('topics.invalid', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.invalid')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.invalid', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-warning'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.invalid')) }}</a>
+                                <form action="{{ route('topics.invalid', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.invalid')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->bug == "0")
-                                <a href="{{ route('topics.bug', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-danger'>@lang('common.add') {{ strtoupper(trans('forum.bug')) }}</a>
+                            @if ($topic->bug === 0)
+                                <form action="{{ route('topics.bug', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.bug')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.bug', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-danger'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.bug')) }}</a>
+                                <form action="{{ route('topics.bug', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.bug')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->suggestion == "0")
-                                <a href="{{ route('topics.suggest', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-primary'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.suggestion')) }}</a>
+                            @if ($topic->suggestion === 0)
+                                <form action="{{ route('topics.suggest', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.suggestion')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.suggest', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-primary'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.suggestion')) }}</a>
+                                <form action="{{ route('topics.suggest', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.suggestion')) }}
+                                    </button>
+                                </form>
                             @endif
-                            @if ($topic->implemented == "0")
-                                <a href="{{ route('topics.implement', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-success'>@lang('common.add')
-                                    {{ strtoupper(trans('forum.implemented')) }}</a>
+                            @if ($topic->implemented === 0)
+                                <form action="{{ route('topics.implement', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        @lang('common.add') {{ strtoupper(trans('forum.implemented')) }}
+                                    </button>
+                                </form>
                             @else
-                                <a href="{{ route('topics.implement', ['id' => $topic->id]) }}"
-                                    class='label label-sm label-success'>@lang('common.remove')
-                                    {{ strtoupper(trans('forum.implemented')) }}</a>
+                                <form action="{{ route('topics.implement', ['id' => $topic->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-danger">
+                                        @lang('common.remove') {{ strtoupper(trans('forum.implemented')) }}
+                                    </button>
+                                </form>
                             @endif
                         @endif
                     </div>

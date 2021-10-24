@@ -556,7 +556,9 @@
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('torrent.torrents')</th>
-                            {{--<th>Connectable</th>--}}
+                            @if (\config('announce.connectable_check') == true)
+                            <th>Connectable</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -577,7 +579,9 @@
                                         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $count }}</span>
                                     </a>
                                 </td>
-                                {{--<td>@choice('user.client-connectable-state', $p->connectable)</td>--}}
+                                @if (\config('announce.connectable_check') == true)
+                                <td>@choice('user.client-connectable-state', $p->connectable)</td>
+                                @endif
                             </tr>
 			                @php array_push($peer_array, [$p->ip, $p->port]); @endphp
 			            @endif
