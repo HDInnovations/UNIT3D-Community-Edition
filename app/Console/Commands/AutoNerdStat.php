@@ -75,13 +75,22 @@ class AutoNerdStat extends Command
             $banker = User::latest('seedbonus')->first();
 
             // Most Snatched Torrent
-            $snatched = Torrent::latest('times_completed')->first();
+            $snatched = Torrent::latest('times_completed')->firstOrNew([
+                'id' => null,
+                'name' => 'No torrent found',
+            ]);
 
             // Most Seeded Torrent
-            $seeded = Torrent::latest('seeders')->first();
+            $seeded = Torrent::latest('seeders')->first(OrNew([
+                'id' => null,
+                'name' => 'No torrent found',
+            ]);
 
             // Most Leeched Torrent
-            $leeched = Torrent::latest('leechers')->first();
+            $leeched = Torrent::latest('leechers')->first(OrNew([
+                'id' => null,
+                'name' => 'No torrent found',
+            ]);
 
             // FL Torrents
             $fl = Torrent::where('free', '=', 1)->count();
