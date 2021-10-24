@@ -126,7 +126,6 @@ class Peer extends Model
     public function updateConnectableStateIfNeeded(): void
     {
         if (\config('announce.connectable_check') == true) {
-
             $tmp_ip = $this->ip;
 
             // IPv6 Check
@@ -135,7 +134,6 @@ class Peer extends Model
             }
 
             if (! \cache()->has('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent)) {
-
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
 
                 $this->connectable = \is_resource($con);
@@ -146,7 +144,7 @@ class Peer extends Model
                 }
 
                 // See https://laracasts.com/discuss/channels/eloquent/use-update-without-updating-timestamps?page=1&replyId=680133
-                Peer::where('ip', '=', $tmp_ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable, 'updated_at' => DB::raw('updated_at')]);
+                self::where('ip', '=', $tmp_ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable, 'updated_at' => DB::raw('updated_at')]);
             }
         }
     }
