@@ -13,7 +13,6 @@
 
 namespace App\Jobs;
 
-use App\Exceptions\TrackerException;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
