@@ -55,6 +55,7 @@ class TrackerException extends \Exception
         // Error message about Torrent
         150 => 'Torrent not registered with this tracker.',
         151 => 'You do not have permission to access a :status torrent.',
+        152 => 'Torrent being announced as complete but no record found.',
 
         // Error message about Download Session
         160 => 'You cannot seed the same torrent from more than :count locations.',

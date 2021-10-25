@@ -61,9 +61,6 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
-        if ($peer === null && \strtolower($this->queries['event']) === 'completed') {
-            throw new TrackerException(151);
-        }
 
         // Creates a new peer if not existing
         if ($peer === null) {

@@ -96,6 +96,11 @@ class AnnounceController extends Controller
             $torrent = $this->checkTorrent($queries['info_hash']);
 
             /**
+             * Check if a user is announcing a torrent as completed but no peer is in db.
+             */
+            $this->checkPeer($torrent, $queries, $user);
+
+            /**
              * Lock Min Announce Interval.
              */
             $this->checkMinInterval($queries, $user);
@@ -349,6 +354,21 @@ class AnnounceController extends Controller
         }
 
         return $torrent;
+    }
+
+    /**
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkPeer($torrent, $queries, $user): void
+    {
+        $peer = Peer::where('torrent_id', '=', $torrent->id)
+            ->where('peer_id', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        if ($peer === null && \strtolower($queries['event']) === 'completed') {
+            throw new TrackerException(152);
+        }
     }
 
     /**
