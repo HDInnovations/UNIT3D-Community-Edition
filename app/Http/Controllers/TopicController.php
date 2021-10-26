@@ -53,7 +53,7 @@ class TopicController extends Controller
      * @param string            $page
      * @param string            $post
      */
-    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -100,7 +100,7 @@ class TopicController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();

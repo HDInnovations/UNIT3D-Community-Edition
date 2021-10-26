@@ -313,7 +313,7 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);
