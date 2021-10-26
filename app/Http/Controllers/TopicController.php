@@ -62,7 +62,7 @@ class TopicController extends Controller
         $forum = $topic->forum;
 
         // Get The category of the forum
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($forum->id);
 
         // Get all posts
         $posts = $topic->posts()->with(['user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips'])
@@ -103,7 +103,7 @@ class TopicController extends Controller
     public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
@@ -129,7 +129,7 @@ class TopicController extends Controller
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {

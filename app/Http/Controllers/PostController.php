@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Forum;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -55,7 +56,7 @@ class PostController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($forum->id);
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
