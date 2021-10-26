@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Forum;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -26,6 +25,7 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
