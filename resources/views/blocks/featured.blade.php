@@ -43,7 +43,7 @@
                         @endif
                     @endif
                     @if ($feature->torrent->category->game_meta)
-                        @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($feature->torrent->igdb); @endphp
+                        @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $feature->torrent->igdb); @endphp
                     @endif
                     <div class="keen-slider__slide">
                         <div class="movie-image">
@@ -67,12 +67,13 @@
                                         <h1 class="movie-title">{{ $feature->torrent->name }}</h1>
                                     </a>
                                     <h4 class="movie-info">
-                                        @if (isset($meta) && isset($meta->genres) && $meta->genres->isNotEmpty())
+                                        @if (isset($meta) && isset($meta->genres))
                                             @foreach ($meta->genres as $genre)
-                                                @if ($feature->torrent->category->tv_meta ||
-                                                    $feature->torrent->category->movie_meta ||
-                                                    $feature->torrent->category->game_meta)
+                                                @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
                                                     | {{ $genre->name }}
+                                                @endif
+                                                @if ($feature->torrent->category->game_meta)
+                                                    | {{ $genre['name'] }}
                                                 @endif
                                             @endforeach
                                             |
