@@ -317,6 +317,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\UserController::class, 'notification'])->name('user_notification');
+            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep']);
             Route::post('/{username}/settings/change_settings', [App\Http\Controllers\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change_password');
             Route::post('/{username}/settings/change_email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change_email');
