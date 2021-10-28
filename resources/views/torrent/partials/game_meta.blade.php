@@ -79,7 +79,7 @@
                     <span class="movie-rating-stars">
                         <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     </span>
-                    {{ round($meta->rating) ?? 0 }}/100 ({{ $meta->rating_count ?? 0 }} @lang('torrent.votes'))
+                    {{ round($meta->rating ?? 0) }}/100 ({{ $meta->rating_count ?? 0 }} @lang('torrent.votes'))
                 </span>
             </div>
 
