@@ -318,6 +318,10 @@ class UserController extends Controller
      */
     protected function changeTwoStep(Request $request)
     {
+        if ($request->getMethod() == 'GET') {
+            return \redirect()->route('user_security', ['username' => $request->user()->username]);
+        }
+
         $user = \auth()->user();
 
         \abort_unless(\config('auth.TwoStepEnabled') == true, 403);
