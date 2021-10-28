@@ -12,9 +12,9 @@
             @if(isset($meta->involved_companies))
                 <div class="badge-user">
                     <a href="{{ $meta->involved_companies[0]['company']['url'] }}" target="_blank">
-						@if(array_key_exists("logo", $meta->involved_companies[0]['company']))
-                        <img class="img-responsive" src="{{ $meta->involved_companies[0]['company']['logo']['image_id'] ? 'https://images.igdb.com/igdb/image/upload/t_logo_med/'.$meta->involved_companies[0]['company']['logo']['image_id'].'.png' : 'https://via.placeholder.com/138x175' }}">
-						@endif
+			@if(array_key_exists("logo", $meta->involved_companies[0]['company']))
+                            <img class="img-responsive" src="{{ $meta->involved_companies[0]['company']['logo']['image_id'] ? 'https://images.igdb.com/igdb/image/upload/t_logo_med/'.$meta->involved_companies[0]['company']['logo']['image_id'].'.png' : 'https://via.placeholder.com/138x175' }}">
+			@endif
                     </a>
                 </div>
             @endif
