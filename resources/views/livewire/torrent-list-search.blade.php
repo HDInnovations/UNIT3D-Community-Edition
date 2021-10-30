@@ -668,7 +668,7 @@
 									<span class='badge-extra'>
 										<img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;" width="24px" height="24px"> {{ $torrent->igdb }}
 	                                    <br>
-										<span class="{{ \rating_color(round($meta->rating) ?? 'text-white') }}"><i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ $meta->rating_count ?? 0 }}/100 </span>
+										<span class="{{ \rating_color($meta->rating ?? 'text-white') }}"><i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ round($meta->rating ?? 0) }}/100 </span>
                                     </span>
 								@endif
 								@if ($torrent->category->movie_meta || $torrent->category->tv_meta)
