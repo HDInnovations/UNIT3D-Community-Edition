@@ -87,10 +87,8 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <label>
-                                        <textarea name="referrer" cols="30" rows="10" class="form-control"
+                                    <textarea name="referrer" cols="30" rows="10" class="form-control"
                                             disabled="">{{ $application->referrer }}</textarea>
-                                    </label>
                                 </div>
                             </td>
                         </tr>

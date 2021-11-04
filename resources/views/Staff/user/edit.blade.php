@@ -1,7 +1,8 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') @lang('common.edit') - @lang('staff.staff-dashboard') - {{ config('other.title') }}
+    <title>
+        @lang('common.user') @lang('common.edit') - @lang('staff.staff-dashboard') - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -13,12 +14,16 @@
     <li>
         <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                {{ $user->username }}
+            </span>
         </a>
     </li>
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.edit')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.user') @lang('common.edit')
+            </span>
         </a>
     </li>
 @endsection
@@ -31,14 +36,22 @@
             <a href="{{ route('users.show', ['username' => $user->username]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab" data-toggle="tab"
-                    aria-expanded="true">@lang('common.account')</a></li>
-            <li role="presentation" class=""><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab"
-                    aria-expanded="false">@lang('user.id-permissions')</a></li>
-            <li role="presentation" class=""><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"
-                    aria-expanded="false">@lang('staff.user-notes')</a></li>
-            <li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
-                    aria-expanded="false">@lang('user.change-password')</a></li>
+            <li role="presentation" class="active">
+                <a href="#account" aria-controls="account" role="tab" data-toggle="tab"
+                    aria-expanded="true">@lang('common.account')</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab"
+                    aria-expanded="false">@lang('user.id-permissions')</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"
+                    aria-expanded="false">@lang('staff.user-notes')</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
+                    aria-expanded="false">@lang('user.change-password')</a>
+            </li>
         </ul>
 
         <div class="tab-content block block-titled">
@@ -49,81 +62,62 @@
                     @csrf
                     <div class="form-group">
                         <label for="username">@lang('common.username')</label>
-                        <label>
-                            <input name="username" type="text" value="{{ $user->username }}" class="form-control">
-                        </label>
+                        <input id="username" name="username" type="text" value="{{ $user->username }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="email">@lang('common.email')</label>
-                        <label>
-                            <input name="email" type="email" value="{{ $user->email }}" class="form-control">
-                        </label>
+                        <input id="email" name="email" type="email" value="{{ $user->email }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="uploaded">@lang('user.total-upload') (Bytes)</label>
-                        <label>
-                            <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
-                        </label>
+                        <input id="uploaded" name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="downloaded">@lang('user.total-download') (Bytes)</label>
-                        <label>
-                            <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
-                        </label>
+                        <input id="downloaded" name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="join-date">@lang('user.member-since')</label>
-                        <label>
-                            <input name="join-date" type="join-date"
-                                value="{{ date('d/m/Y', strtotime($user->created_at)) }}" class="form-control">
-                        </label>
+                        <input id="join-date" name="join-date" type="date"
+                               value="{{ date('d/m/Y', strtotime($user->created_at)) }}" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="downloaded">@lang('user.title')</label>
-                        <label>
-                            <input name="title" type="text" value="{{ $user->title }}" class="form-control">
-                        </label>
+                        <label for="title">@lang('user.title')</label>
+                        <input id="title" name="title" type="text" value="{{ $user->title }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="about">@lang('user.about-me')</label>
-                        <label>
-                            <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
-                        </label>
+                        <textarea id="about" name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="about">@lang('common.group')</label>
-                        <label>
-                            <select name="group_id" class="form-control">
-                                <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                                @foreach ($groups as $g)
-                                    <option value="{{ $g->id }}">{{ $g->name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
+                        <label for="group_id">@lang('common.group')</label>
+                        <select id="join-group_id" name="group_id" class="form-control">
+                            <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
+                            @foreach ($groups as $g)
+                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
-                    @if ($user->group->name == 'Internal')
+                    @if ($user->group->name === 'Internal')
                         <div class="form-group">
-                            <label for="about">Internal Group:</label>
-                            <label>
-                                <select name="internal_id" class="form-control">
-                                    @if ($user->internal != null)
-                                        <option value="{{ $user->internal->id }}">{{ $user->internal->name }}
-                                            (Default)</option>
-                                    @endif
-                                    <option value="i0">None</option>
+                            <label for="internal_id">Internal Group:</label>
+                            <select id="internal_id" name="internal_id" class="form-control">
+                                @if ($user->internal != null)
+                                    <option value="{{ $user->internal->id }}">{{ $user->internal->name }}(Default)</option>
+                                @endif
+                                <option value="i0">None</option>
                                     @foreach ($internals as $i)
                                         <option value="{{ $i->id }}">{{ $i->name }}</option>
                                     @endforeach
-                                </select>
-                            </label>
+                            </select>
                         </div>
                     @endif
 
@@ -137,21 +131,25 @@
                 <form role="form" method="POST"
                     action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf
-                    <label for="hidden" class="control-label">@lang('user.can-upload')?</label>
+                    <label for="can_upload">@lang('user.can-upload')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif value="1">@lang('common.yes')</label>
+                        <input type="radio" id="can_upload" name="can_upload"
+                               @if ($user->can_upload == 1) checked @endif value="1">@lang('common.yes')
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif value="0">@lang('common.no')</label>
+                        <input type="radio" id="can_upload" name="can_upload"
+                               @if ($user->can_upload == 0) checked @endif value="0">@lang('common.no')
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-download')?</label>
+                    <label for="can_download">@lang('user.can-download')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked @endif value="1">@lang('common.yes')</label>
+                        <input type="radio" id="can_download" name="can_download"
+                               @if ($user->can_download == 1) checked @endif value="1">@lang('common.yes')
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked @endif value="0">@lang('common.no')</label>
+                        <input type="radio" id="can_download" name="can_download"
+                               @if ($user->can_download == 0) checked @endif value="0">@lang('common.no')
                     </div>
                     <br>
                     <br>

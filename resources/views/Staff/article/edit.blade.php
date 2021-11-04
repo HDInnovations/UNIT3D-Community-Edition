@@ -31,14 +31,12 @@
             @csrf
             <div class="form-group">
                 <label for="title">@lang('common.title')</label>
-                <label>
-                    <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
-                </label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $article->title }}" required>
             </div>
 
             <div class="form-group">
                 <label for="image">@lang('common.image')</label>
-                <input type="file" name="image">
+                <input type="file" id="image" name="image">
             </div>
 
             <div class="form-group">

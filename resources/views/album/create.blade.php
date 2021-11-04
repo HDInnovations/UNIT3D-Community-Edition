@@ -11,12 +11,16 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.gallery')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.gallery')
+            </span>
         </a>
     </li>
     <li>
         <a href="{{ route('albums.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.create') @lang('common.album')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.create') @lang('common.album')
+            </span>
         </a>
     </li>
 @endsection
@@ -26,7 +30,9 @@
         <div class="block">
             <form name="createnewalbum" method="POST" action="{{ route('albums.store') }}" enctype="multipart/form-data">
                 @csrf
-                <h2 class="text-center">@lang('gallery.create-an-album')</h2>
+                <h2 class="text-center">
+                    @lang('gallery.create-an-album')
+                </h2>
                 <h4 class="text-red text-center">
                     @lang('gallery.create-an-album-tip')
                 </h4>

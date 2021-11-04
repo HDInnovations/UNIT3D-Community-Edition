@@ -12,24 +12,18 @@
     @csrf
 
     <div class="form-group">
-        <label for="stitle">@lang('common.title'):</label>
-        <label>
-            <input type="text" name="title" class="form-control" value="" required>
-        </label>
+        <label for="title">@lang('common.title'):</label>
+        <input type="text" id="title" name="title" class="form-control" value="" required>
     </div>
 
     <div class="form-group">
         <label for="option1">@lang('poll.option') 1:</label>
-        <label>
-            <input type="text" name="options[]" class="form-control" value="">
-        </label>
+        <input type="text" id="option1" name="options[]" class="form-control" value="">
     </div>
 
     <div class="form-group">
         <label for="option2">@lang('poll.option') 2:</label>
-        <label>
-            <input type="text" name="options[]" class="form-control" value="">
-        </label>
+        <input type="text" id="option2" name="options[]" class="form-control" value="">
     </div>
 
     <div class="more-options"></div>
@@ -42,9 +36,7 @@
     <hr>
 
     <div class="checkbox">
-        <label>
-            <input type="checkbox" name="multiple_choice" value="1">@lang('poll.multiple-choice')
-        </label>
+        <input type="checkbox" name="multiple_choice" value="1">@lang('poll.multiple-choice')
     </div>
 
     <div class="form-group">

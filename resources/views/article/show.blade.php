@@ -132,14 +132,9 @@
                     <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
-                        :</strong></label>
-                <label>
-                    <input type="radio" value="1" name="anonymous">
-                </label> @lang('common.yes')
-                <label>
-                    <input type="radio" value="0" checked="checked" name="anonymous">
-                </label> @lang('common.no')
+                <strong>@lang('common.anonymous') @lang('common.comment'):</strong>
+                <input type="radio" value="1" name="anonymous"> @lang('common.yes')
+                <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
             </form>
         </div>
     </div>

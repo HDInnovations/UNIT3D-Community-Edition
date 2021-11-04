@@ -3,12 +3,16 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('staff.staff-dashboard')
+            </span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-types')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('staff.torrent-types')
+            </span>
         </a>
     </li>
     <li class="active">
@@ -35,16 +39,12 @@
             @csrf
             <div class="form-group">
                 <label for="name">@lang('common.name')</label>
-                <label>
-                    <input type="text" class="form-control" name="name" value="{{ $type->name }}">
-                </label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $type->name }}">
             </div>
 
             <div class="form-group">
-                <label for="name">@lang('common.position')</label>
-                <label>
-                    <input type="text" class="form-control" name="position" value="{{ $type->position }}">
-                </label>
+                <label for="position">@lang('common.position')</label>
+                <input type="text" class="form-control" id="position" name="position" value="{{ $type->position }}">
             </div>
 
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>

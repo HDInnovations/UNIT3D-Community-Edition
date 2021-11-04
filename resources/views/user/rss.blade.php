@@ -7,7 +7,9 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">RSS Configuration</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                RSS Configuration
+            </span>
         </a>
     </li>
 @endsection
@@ -16,9 +18,8 @@
     <div class="contrainer">
         @foreach ($labourTypes as $id => $name)
             <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="labour_types[]" value="{{ $id }}"> {{ $name }}
-                </label>
-                <div>
+                <input type="checkbox" name="labour_types[]" value="{{ $id }}"> {{ $name }}
+            </div>
         @endforeach
-    @endsection
+    </div>
+@endsection

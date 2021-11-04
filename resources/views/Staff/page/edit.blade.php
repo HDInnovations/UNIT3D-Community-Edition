@@ -3,17 +3,23 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('staff.staff-dashboard')
+            </span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.pages')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('staff.pages')
+            </span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') @lang('staff.page')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.edit') @lang('staff.page')
+            </span>
         </a>
     </li>
 @endsection
@@ -29,14 +35,12 @@
             @csrf
             <div class="form-group">
                 <label for="name">@lang('staff.page') @lang('common.name')</label>
-                <label>
-                    <input type="text" name="name" class="form-control" value="{{ $page->name }}">
-                </label>
+                <input type="text" id="name" name="name" class="form-control" value="{{ $page->name }}">
             </div>
 
             <div class="form-group">
                 <label for="content">@lang('common.content')</label>
-                <textarea name="content" id="content" cols="30" rows="10"
+                <textarea id="content" name="content" id="content" cols="30" rows="10"
                     class="form-control">{{ $page->content }}</textarea>
             </div>
 

@@ -33,22 +33,16 @@
             @csrf
             <div class="form-group">
                 <label for="name">@lang('common.name')</label>
-                <label>
-                    <input type="text" class="form-control" name="name">
-                </label>
+                <input type="text" class="form-control" name="name">
             </div>
             <div class="form-group">
-                <label for="name">@lang('common.position')</label>
-                <label>
-                    <input type="text" class="form-control" name="position">
-                </label>
+                <label for="position">@lang('common.position')</label>
+                <input type="text" class="form-control" id="position" name="position">
             </div>
             <div class="form-group">
-                <label for="name">Icon (FontAwesome)</label>
-                <label>
-                    <input type="text" class="form-control" name="icon"
-                        placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
-                </label>
+                <label for="icon">Icon (FontAwesome)</label>
+                <input type="text" class="form-control" id="icon" name="icon"
+                       placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
             </div>
             <div class="form-group">
                 <label for="image">
@@ -57,55 +51,55 @@
                     @lang('common.image')
                     (If Not Using A FontAwesome Icon)
                 </label>
-                <input type="file" name="image">
+                <input type="file" id="image" name="image">
             </div>
 
             <label for="movie_meta" class="control-label">Movie Meta Data?</label>
             <div class="radio-inline">
-                <label><input type="radio" name="movie_meta" value="1">@lang('common.yes')</label>
+                <input type="radio" id="movie_meta" name="movie_meta" value="1">@lang('common.yes')
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="movie_meta" value="0" checked>@lang('common.no')</label>
+                <input type="radio" id="movie_meta" name="movie_meta" value="0" checked>@lang('common.no')
             </div>
             <br>
             <br>
 
             <label for="tv_meta" class="control-label">TV Meta Data?</label>
             <div class="radio-inline">
-                <label><input type="radio" name="tv_meta" value="1">@lang('common.yes')</label>
+                <input type="radio" id="tv_meta" name="tv_meta" value="1">@lang('common.yes')
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="tv_meta" value="0" checked>@lang('common.no')</label>
+                <input type="radio" id="tv_meta" name="tv_meta" value="0" checked>@lang('common.no')
             </div>
             <br>
             <br>
 
             <label for="game_meta" class="control-label">Game Meta Data?</label>
             <div class="radio-inline">
-                <label><input type="radio" name="game_meta" value="1">@lang('common.yes')</label>
+                <input type="radio" id="game_meta" name="game_meta" value="1">@lang('common.yes')
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="game_meta" value="0" checked>@lang('common.no')</label>
+                <input type="radio" id="game_meta" name="game_meta" value="0" checked>@lang('common.no')
             </div>
             <br>
             <br>
 
             <label for="music_meta" class="control-label">Music Meta Data?</label>
             <div class="radio-inline">
-                <label><input type="radio" name="music_meta" value="1">@lang('common.yes')</label>
+                <input type="radio" id="music_meta" name="music_meta" value="1">@lang('common.yes')
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="music_meta" value="0" checked>@lang('common.no')</label>
+                <input type="radio" id="music_meta" name="music_meta" value="0" checked>@lang('common.no')
             </div>
             <br>
             <br>
 
             <label for="no_meta" class="control-label">No Meta Data?</label>
             <div class="radio-inline">
-                <label><input type="radio" name="no_meta" value="1">@lang('common.yes')</label>
+                <input type="radio" id="no_meta" name="no_meta" value="1">@lang('common.yes')
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="no_meta" value="0" checked>@lang('common.no')</label>
+                <input type="radio" id="no_meta" name="no_meta" value="0" checked>@lang('common.no')
             </div>
             <br>
             <br>

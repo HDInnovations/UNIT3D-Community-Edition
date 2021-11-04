@@ -12,23 +12,17 @@
     @csrf
 
     <div class="form-group">
-        <label for="stitle">@lang('poll.title'):</label>
-        <label>
-            <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{ $poll->id }}">
-            <input type="text" name="title" class="form-control" value="{{ $poll->title }}" required>
-        </label>
+        <label for="title">@lang('poll.title'):</label>
+        <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{ $poll->id }}">
+        <input type="text" id="title" name="title" class="form-control" value="{{ $poll->title }}" required>
     </div>
 
     @foreach ($poll->options as $key => $option)
         <div class="form-group <?php echo ++$key >= 3 ? 'extra-option' : ''; ?>">
             <label for="{{ 'option' . $key }}">@lang('poll.option') {{ $key }}:</label>
-            <label>
-                <input readonly type="number" name="option-id[]" style="visibility: hidden;"
-                    value="{{ $option->id }}">
-                <input type="text" name="option-content[]" class="form-control" value="{{ $option->name }}">
-            </label>
+            <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{ $option->id }}">
+            <input type="text" name="option-content[]" class="form-control" value="{{ $option->name }}">
         </div>
-
     @endforeach
 
     <div class="more-options"></div>
@@ -41,10 +35,8 @@
     <hr>
 
     <div class="checkbox">
-        <label>
-            <input type="checkbox" name="multiple_choice" @if ($poll->multiple_choice) checked @endif>
-            @lang('poll.multiple-choice')
-        </label>
+        <input type="checkbox" name="multiple_choice" @if ($poll->multiple_choice) checked @endif>
+        @lang('poll.multiple-choice')
     </div>
 
     <div class="form-group">

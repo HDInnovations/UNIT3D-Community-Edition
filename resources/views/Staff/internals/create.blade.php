@@ -37,21 +37,15 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="name" required>
-                                    </label>
+                                    <input type="text" class="form-control" name="name" required>
                                 </td>
 
                                 <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="icon" value="fa-magic">
-                                    </label>
+                                    <input type="text" class="form-control" name="icon" value="fa-magic">
                                 </td>
 
                                 <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="effect" value="none">
-                                    </label>
+                                    <input type="text" class="form-control" name="effect" value="none">
                                 </td>
                             </tr>
                         </tbody>
