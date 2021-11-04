@@ -114,10 +114,12 @@
                                 {{ $t->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $t->views }} @lang('forum.views')
                             </td>
-                            @php$last_post = DB::table('posts')
+                            @php
+                                $last_post = DB::table('posts')
                                     ->where('topic_id', '=', $t->id)
                                     ->orderBy('id', 'desc')
-                                ->first(); @endphp
+                                    ->first();
+                            @endphp
                             <td class="f-display-topic-last-post">
                                 <a
                                     href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>

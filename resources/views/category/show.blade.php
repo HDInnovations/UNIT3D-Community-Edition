@@ -76,20 +76,28 @@
 
                     <tbody>
                         @foreach ($torrents as $torrent)
-                            @php $meta = null; @endphp
+                            @php
+                                $meta = null;
+                            @endphp
                             @if ($torrent->category->tv_meta)
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
-                                    @php $meta = App\Models\Tv::where('id', '=', $torrent->tmdb)->first(); @endphp
+                                    @php
+                                        $meta = App\Models\Tv::where('id', '=', $torrent->tmdb)->first();
+                                    @endphp
                                 @endif
                             @endif
                             @if ($torrent->category->movie_meta)
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
-                                    @php $meta = App\Models\Movie::where('id', '=', $torrent->tmdb)->first(); @endphp
+                                    @php
+                                        $meta = App\Models\Movie::where('id', '=', $torrent->tmdb)->first();
+                                    @endphp
                                 @endif
                             @endif
                             @if ($torrent->category->game_meta)
                                 @if ($torrent->igdb || $torrent->igdb != 0)
-                                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb); @endphp
+                                    @php
+                                        $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb);
+                                    @endphp
                                 @endif
                             @endif
 

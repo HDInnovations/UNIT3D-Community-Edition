@@ -66,7 +66,9 @@
                         <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
                     </div>
 
-                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
+                    @php
+                        $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();
+                    @endphp
                     @if ($data->no_meta)
                         <div class="form-group">
                             <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
@@ -114,7 +116,6 @@
                         </label>
                     </div>
 
-                    @php $data = App\Models\Category::where('id', '=', !empty($category_id) ? $category_id : old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
                             <label for="resolution_ids">@lang('torrent.resolution')</label>
@@ -171,13 +172,15 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                @php$imdb_val = 0;
+                                @php
+                                    $imdb_val = 0;
                                     if (!empty($imdb)) {
                                         $imdb_val = $imdb;
                                     }
                                     if (!empty(old('imdb'))) {
                                         $imdb_val = old('imdb');
-                                } @endphp
+                                    }
+                                @endphp
                                 <input type="number" name="imdb" id="autoimdb" class="form-control"
                                     value="{{ $imdb_val }}">
                             </label>

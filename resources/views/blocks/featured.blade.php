@@ -30,7 +30,9 @@
                         </div>
                     </div>
                 </div>
-                @php $meta = null; @endphp
+                @php
+                    $meta = null;
+                @endphp
                 @foreach ($featured as $key => $feature)
                     @if ($feature->torrent->category->tv_meta)
                         @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
@@ -51,7 +53,9 @@
                         @endif
                     @endif
                     @if ($feature->torrent->category->game_meta)
-                        @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $feature->torrent->igdb); @endphp
+                        @php
+                            $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $feature->torrent->igdb);
+                        @endphp
                     @endif
                     <div class="keen-slider__slide">
                         <div class="movie-image">

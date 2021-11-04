@@ -65,104 +65,115 @@
                     </thead>
                 <tbody>
                     @foreach ($results as $r)
-                        @php
-                        if(in_array($r->id, $forum_neos, true)) {
-                        @endphp
-                        <tr>
-                            <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span
-                                        class="badge-extra text-bold">{{ $r->name }}</span></a></td>
-                            <td class="f-display-topic-title">
-                                --
-                            </td>
-                            <td class="f-display-topic-started">
-                                --
-                            </td>
-                            <td class="f-display-topic-stats">
-                                --
-                            </td>
-                            <td class="f-display-topic-last-post">
-                                --
-                            </td>
-                            <td class="f-display-topic-stats">
-                                @if (auth()->user()->isSubscribed('forum', $r->id))
-                                    <form action="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-xs btn-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
-                                        </button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-xs btn-success">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
-                                        </button>
-                                    </form>
-                                @endif
-                            </td>
-                        </tr>
-                        @php
-                        }
-                        if($r->subscription_topics) {
-                        @endphp
-                        @foreach($r->subscription_topics as $t)
+                        @if (in_array($r->id, $forum_neos, true))
                             <tr>
-                                <td class="f-display-topic-icon"><span class="badge-extra text-bold">{{ $t->forum->name }}</span>
-                                </td>
+                                <td class="f-display-topic-icon"><a
+                                        href="{{ route('forums.show', ['id' => $r->id]) }}"><span
+                                            class="badge-extra text-bold">{{ $r->name }}</span></a></td>
                                 <td class="f-display-topic-title">
-                                    <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
-                                    @if ($t->state == "close") <span
-                                        class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
-                                    @if ($t->approved == "1") <span
-                                        class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
-                                    @if ($t->denied == "1") <span
-                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
-                                    @if ($t->solved == "1") <span
-                                        class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                                    @if ($t->invalid == "1") <span
-                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
-                                    @if ($t->bug == "1") <span
-                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                                    @if ($t->suggestion == "1") <span
-                                            class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
-                                    @endif
+                                    --
                                 </td>
-                                <td class="f-display-topic-started"><a
-                                        href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
+                                <td class="f-display-topic-started">
+                                    --
                                 </td>
                                 <td class="f-display-topic-stats">
-                                    {{ $t->num_post - 1 }} @lang('forum.replies')
-                                    \ {{ $t->views }} @lang('forum.views')
+                                    --
                                 </td>
                                 <td class="f-display-topic-last-post">
-                                    <a
-                                        href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>,
-                                    @if($t->last_reply_at && $t->last_reply_at != null)
-                                        <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
-                                            {{ date('M d Y', strtotime($t->last_reply_at)) }}
-                                        </time>
-                                    @else
-                                        <time datetime="N/A">
-                                            N/A
-                                        </time>
-                                    @endif
+                                    --
                                 </td>
                                 <td class="f-display-topic-stats">
-                                    @if (auth()->user()->isSubscribed('topic',$t->id))
-                                        <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
-                                            class="label label-sm label-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
+                                    @if (auth()->user()->isSubscribed('forum', $r->id))
+                                        <form
+                                            action="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
+                                            method="POST" style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
+                                                @lang('forum.unsubscribe')
+                                            </button>
+                                        </form>
                                     @else
-                                        <a href="{{ route('subscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
-                                            class="label label-sm label-success">
-                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
+                                        <form
+                                            action="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
+                                            method="POST" style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-success">
+                                                <i class="{{ config('other.font-awesome') }} fa-bell"></i>
+                                                @lang('forum.subscribe')
+                                            </button>
+                                        </form>
                                     @endif
                                 </td>
                             </tr>
-                        @endforeach
-                        @php
-                        }
-                        @endphp
+                        @endif
+                        @if ($r->subscription_topics) {
+                            @foreach ($r->subscription_topics as $t)
+                                <tr>
+                                    <td class="f-display-topic-icon"><span
+                                            class="badge-extra text-bold">{{ $t->forum->name }}</span>
+                                    </td>
+                                    <td class="f-display-topic-title">
+                                        <strong><a
+                                                href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
+                                        @if ($t->state == 'close') <span
+                                                class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span>
+                                        @endif
+                                        @if ($t->approved == '1') <span
+                                                class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span>
+                                        @endif
+                                        @if ($t->denied == '1') <span
+                                                class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span>
+                                        @endif
+                                        @if ($t->solved == '1') <span
+                                                class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span>
+                                        @endif
+                                        @if ($t->invalid == '1') <span
+                                                class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span>
+                                        @endif
+                                        @if ($t->bug == '1') <span
+                                                class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span>
+                                        @endif
+                                        @if ($t->suggestion == '1') <span
+                                                class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="f-display-topic-started"><a
+                                            href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
+                                    </td>
+                                    <td class="f-display-topic-stats">
+                                        {{ $t->num_post - 1 }} @lang('forum.replies')
+                                        \ {{ $t->views }} @lang('forum.views')
+                                    </td>
+                                    <td class="f-display-topic-last-post">
+                                        <a
+                                            href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>,
+                                        @if ($t->last_reply_at && $t->last_reply_at != null)
+                                            <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
+                                                {{ date('M d Y', strtotime($t->last_reply_at)) }}
+                                            </time>
+                                        @else
+                                            <time datetime="N/A">
+                                                N/A
+                                            </time>
+                                        @endif
+                                    </td>
+                                    <td class="f-display-topic-stats">
+                                        @if (auth()->user()->isSubscribed('topic', $t->id))
+                                            <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
+                                                class="label label-sm label-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
+                                                @lang('forum.unsubscribe')</a>
+                                        @else
+                                            <a href="{{ route('subscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
+                                                class="label label-sm label-success">
+                                                <i class="{{ config('other.font-awesome') }} fa-bell"></i>
+                                                @lang('forum.subscribe')</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     @endforeach
                 </tbody>
             </table>

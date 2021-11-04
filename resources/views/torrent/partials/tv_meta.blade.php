@@ -13,7 +13,9 @@
 
         <div class="movie-right">
             @if (isset($meta->networks) && $meta->networks->isNotEmpty())
-                @php $network = $meta->networks->first(); @endphp
+                @php
+                    $network = $meta->networks->first();
+                @endphp
                 <div class="badge-user">
                     <a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}">
                         @if (isset($network->logo))
@@ -27,7 +29,9 @@
             @endif
 
             @if (isset($meta->companies) && $meta->companies->isNotEmpty())
-                @php $company = $meta->companies->first(); @endphp
+                @php
+                    $company = $meta->companies->first();
+                @endphp
                 <div class="badge-user">
                     <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">
                         @if (isset($company->logo))

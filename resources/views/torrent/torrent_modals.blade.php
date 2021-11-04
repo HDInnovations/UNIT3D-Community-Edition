@@ -116,7 +116,9 @@
                     <div x-show="tab === 1">
                         @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn($f) => \dirname($f->name) . '/~~~', SORT_NATURAL)->values()
     as $file)
-                            @php $prevNodes = \explode("/", $files[$loop->index - 1]->name ?? " ") @endphp
+                            @php
+                                $prevNodes = \explode("/", $files[$loop->index - 1]->name ?? " ");
+                            @endphp
                             @foreach ($nodes = \explode('/', $file->name) as $node)
                                 @if (($prevNodes[$loop->index] ?? '') != $node)
                                     @for ($depth = \count($prevNodes); $depth > $loop->index; $depth--)

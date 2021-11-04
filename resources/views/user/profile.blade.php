@@ -82,7 +82,9 @@
                                             </i>
                                         </a>
                                     @endif
-                                    @php $watched = App\Models\Watchlist::whereUserId($user->id)->first(); @endphp
+                                    @php
+                                        $watched = App\Models\Watchlist::whereUserId($user->id)->first();
+                                    @endphp
                                     @if ($watched && auth()->user()->group->is_modo)
                                         <i class="{{ config('other.font-awesome') }} fa-eye fa-beat text-danger"
                                             aria-hidden="true" data-toggle="tooltip" title=""
@@ -649,7 +651,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $peer_array = []; @endphp
+                                @php
+                                    $peer_array = [];
+                                @endphp
                                 @foreach ($peers as $p)
                                     @if (!in_array([$p->ip, $p->port], $peer_array))
                                         @php
@@ -677,7 +681,9 @@
                                                 <td>@choice('user.client-connectable-state', $p->connectable)</td>
                                             @endif
                                         </tr>
-                                        @php array_push($peer_array, [$p->ip, $p->port]); @endphp
+                                        @php
+                                            \array_push($peer_array, [$p->ip, $p->port]);
+                                        @endphp
                                     @endif
                                 @endforeach
                             </tbody>

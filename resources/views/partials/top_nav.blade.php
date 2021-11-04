@@ -45,7 +45,8 @@
                     <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
                     <!-- Notifications for Mods -->
                     @if (auth()->user()->group->is_modo)
-                        @php$tickets = DB::table('tickets')
+                        @php
+                            $tickets = DB::table('tickets')
                                 ->whereNull('closed_at')
                                 ->whereNull('staff_id')
                                 ->orwhere(function ($query) {
@@ -58,7 +59,8 @@
                         @endif
                         <!-- Notification for Users -->
                     @else
-                        @php$ticket_unread = DB::table('tickets')
+                        @php
+                            $ticket_unread = DB::table('tickets')
                                 ->where('user_id', '=', auth()->user()->id)
                                 ->where('user_read', '=', '0')
                                 ->count();

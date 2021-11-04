@@ -42,12 +42,15 @@
                         {{ $resurrection->created_at->diffForHumans() }}
                     </td>
                     <td>
-                        @php$torrent = App\Models\Torrent::where('id', '=', $resurrection->torrent_id)->pluck('info_hash');
+                        @php
+                            $torrent = App\Models\Torrent::where('id', '=', $resurrection->torrent_id)->pluck('info_hash');
                         @endphp
-                        @php$history = App\Models\History::select(['seedtime'])
+                        @php
+                            $history = App\Models\History::select(['seedtime'])
                                 ->where('user_id', '=', $user->id)
                                 ->where('info_hash', '=', $torrent)
-                            ->first(); @endphp
+                            ->first();
+                        @endphp
                         {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                     </td>
                     <td>

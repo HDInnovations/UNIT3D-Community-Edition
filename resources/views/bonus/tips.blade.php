@@ -52,7 +52,9 @@
                                             </td>
                                             <td>
                                                 @if ($b->whereNotNull('torrent_id'))
-                                                    @php $torrent = \App\Models\Torrent::select(['anon'])->find($b->torrent_id); @endphp
+                                                    @php
+                                                        $torrent = \App\Models\Torrent::select(['anon'])->find($b->torrent_id);
+                                                    @endphp
                                                 @endif
                                                 @if (isset($torrent) && $torrent->anon === 1 && $b->receiver !== $user->id)
                                                     <span class="badge-user text-bold">@lang('common.anonymous')</span>

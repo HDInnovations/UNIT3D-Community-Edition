@@ -12,7 +12,9 @@
             <tbody>
                 @foreach (App\Models\Audit::where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get()
     as $audit)
-                    @php $values = json_decode($audit->record, true); @endphp
+                    @php
+                        $values = json_decode($audit->record, true);
+                    @endphp
                     <tr>
                         <td>
                             <span>

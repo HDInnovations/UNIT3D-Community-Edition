@@ -21,24 +21,7 @@
 @endsection
 
 @php
-switch ($remainingAttempts) {
-    case 0:
-    case 1:
-        $remainingAttemptsClass = 'danger';
-        break;
-
-    case 2:
-        $remainingAttemptsClass = 'warning';
-        break;
-
-    case 3:
-        $remainingAttemptsClass = 'info';
-        break;
-
-    default:
-        $remainingAttemptsClass = 'success';
-        break;
-}
+    $remainingAttemptsClass = match($remainingAttempts) {0, 1=>'danger', 2=>'warning', 3=>'info', default=>'success',};
 @endphp
 
 @section('content')
@@ -152,8 +135,8 @@ switch ($remainingAttempts) {
         </div>
     </div>
     @php
-    $minutesToExpire = config('auth.TwoStepExceededCountdownMinutes');
-    $hoursToExpire = $minutesToExpire / 60;
+        $minutesToExpire = config('auth.TwoStepExceededCountdownMinutes');
+        $hoursToExpire = $minutesToExpire / 60;
     @endphp
 @endsection
 

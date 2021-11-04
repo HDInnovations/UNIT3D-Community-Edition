@@ -23,7 +23,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            @php $user = $owner; @endphp
+            @php
+                $user = $owner;
+            @endphp
             @include('user.buttons.invite')
             <div class="header gradient red">
                 <div class="inner_content">

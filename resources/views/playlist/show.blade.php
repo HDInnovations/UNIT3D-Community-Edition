@@ -16,8 +16,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            @php $tmdb_backdrop = isset($meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350'; @endphp
-            <section class="inner_content header" style="background-image: url('{{ $tmdb_backdrop }}')">
+            <section class="inner_content header" style="background-image: url('{{ isset($meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' }}')">
                 <div class="bg_filter">
                     <div class="single_column">
                         <h2>{{ $playlist->name }}</h2>
@@ -86,7 +85,9 @@
                         </span>
                     </a>
                 </div>
-                @php $meta = null; @endphp
+                @php
+                    $meta = null;
+                @endphp
                 @foreach ($torrents as $t)
                     @if ($t->torrent->category->tv_meta)
                         @if ($t->torrent->tmdb || $t->torrent->tmdb != 0)

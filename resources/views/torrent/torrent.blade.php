@@ -873,8 +873,7 @@
 			    					    <hr>
 			    					    <div id="collection_waypoint" class="collection">
 			    						    <div class="header collection"
-			    						         @php $backdrop = $meta->collection['0']->backdrop; @endphp
-			    						         style=" background-image: url({{ isset($backdrop) ? \tmdb_image('back_big', $backdrop) : 'https://via.placeholder.com/1280x300' }}); background-size: cover; background-position: 50% 50%;">
+			    						         style=" background-image: url({{ isset($meta->collection['0']->backdrop) ? \tmdb_image('back_big', $meta->collection['0']->backdrop) : 'https://via.placeholder.com/1280x300' }}); background-size: cover; background-position: 50% 50%;">
 			    							    <div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
 			    							    <section class="collection">
 			    								    <h2>Part of the {{ $meta->collection['0']->name }}</h2>

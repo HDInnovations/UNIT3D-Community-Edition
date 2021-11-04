@@ -414,7 +414,7 @@
                 let author = $(this).closest('.profil').find('.post-info-username').first().text();
                 let text = $(this).closest('.profil').find('.post-content').data('bbcode');
                 $("#topic-response").wysibb().insertAtCursor('[quote=@' + author.trim() + ']' + text
-                .trim() + '[/quote]\r\n', true);
+                    .trim() + '[/quote]\r\n', true);
             });
         });
     </script>

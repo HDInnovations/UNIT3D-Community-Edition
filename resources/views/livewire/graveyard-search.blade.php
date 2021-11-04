@@ -217,7 +217,9 @@
                                 ->where('user_id', '=', $user->id)
                                 ->first();
                         @endphp
-                        @php $meta = null; @endphp
+                        @php
+                            $meta = null;
+                        @endphp
                         @if ($torrent->category->tv_meta)
                             @if ($torrent->tmdb || $torrent->tmdb != 0)
                                 @php
