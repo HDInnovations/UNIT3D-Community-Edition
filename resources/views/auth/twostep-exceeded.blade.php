@@ -51,9 +51,9 @@
                                 tabindex="6">
                                 <i class="glyphicon glyphicon-home" aria-hidden="true"></i> @lang('auth.returnButton')
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                         </p>
                     </div>
                 </div>

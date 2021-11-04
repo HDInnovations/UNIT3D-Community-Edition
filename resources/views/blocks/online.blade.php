@@ -17,8 +17,9 @@
                             <a href="{{ route('users.show', ['username' => $user->username]) }}">
                                 {{ $user->username }}
                                 @if ($user->warnings_count > 0)
-                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                        data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                        aria-hidden="true" data-toggle="tooltip"
+                                        data-original-title="@lang('common.active-warning')"></i>
                                 @endif
                             </a>
                         @endif
@@ -31,8 +32,9 @@
                                 data-original-title="{{ $user->group->name }}"></i>
                             {{ $user->username }}
                             @if ($user->warnings_count > 0)
-                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                    data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                    aria-hidden="true" data-toggle="tooltip"
+                                    data-original-title="@lang('common.active-warning')"></i>
                             @endif
                         </span>
                     </a>

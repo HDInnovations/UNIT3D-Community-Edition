@@ -26,11 +26,11 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
             @include('partials.dashboardmenu')
-    
+
             <div class="col-sm-5 col-lg-5">
                 <div class="block" id="vue">
                     <div class="panel-body">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
@@ -55,9 +55,11 @@
                                 {{ config('app.url') }}
                             </h3>
                             <div class="text-center" style="padding-top: 15px;">
-                                <span class="text-red">Issued By: {{ (!is_string($certificate)) ? $certificate->getIssuer() : "No Certificate Info Found" }}</span>
+                                <span class="text-red">Issued By:
+                                    {{ !is_string($certificate) ? $certificate->getIssuer() : 'No Certificate Info Found' }}</span>
                                 <br>
-                                <span class="text-red">Expires: {{ (!is_string($certificate)) ? $certificate->expirationDate()->diffForHumans() : "No Certificate Info Found" }}</span>
+                                <span class="text-red">Expires:
+                                    {{ !is_string($certificate) ? $certificate->expirationDate()->diffForHumans() : 'No Certificate Info Found' }}</span>
                             </div>
                         @else
                             <h2 class="text-bold text-center text-red">
@@ -74,7 +76,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -83,7 +85,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -95,7 +97,7 @@
                                     <i class="fal fa-magnet black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Peers</h1>
@@ -106,7 +108,7 @@
                                     <i class="fal fa-wifi black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Users</h1>
@@ -118,11 +120,11 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -131,7 +133,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
@@ -142,7 +144,7 @@
                                     <i class="fal fa-desktop black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">PHP</h1>
@@ -152,7 +154,7 @@
                                     <i class="fal fa-terminal black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DATABASE</h1>
@@ -162,7 +164,7 @@
                                     <i class="fal fa-database black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LARAVEL</h1>
@@ -173,7 +175,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -185,7 +187,7 @@
                                     <i class="fal fa-memory black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DISK</h1>
@@ -196,7 +198,7 @@
                                     <i class="fal fa-hdd black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LOAD</h1>
@@ -207,11 +209,11 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -220,7 +222,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -251,11 +253,11 @@
                                 @endforeach
                             </tbody>
                         </table>
-    
+
                     </div>
                 </div>
             </div>
-    
+
         </div>
     </div>
 @endsection

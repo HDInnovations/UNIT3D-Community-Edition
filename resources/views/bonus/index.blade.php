@@ -101,8 +101,11 @@
                                         <td>
                                             <strong>@lang('common.large') @lang('torrent.torrents')</strong><br>
                                             <small>@lang('torrent.torrent') @lang('torrent.size')<span
-                                                    class="text-bold">>=</span> 25GiB {{ strtolower(trans('common.but')) }}
-                                                < 100GiB </small> </td> <td><strong>{{ $large }} x 0.50</strong></td>
+                                                    class="text-bold">>=</span> 25GiB
+                                                {{ strtolower(trans('common.but')) }}
+                                                < 100GiB </small>
+                                        </td>
+                                        <td><strong>{{ $large }} x 0.50</strong></td>
                                         <td>
                                             {{ $large * 0.5 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -117,7 +120,9 @@
                                             <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
                                             <small>@lang('torrent.torrent') @lang('torrent.size')<span class="text-bold">
                                                     >=</span> 1GiB {{ strtolower(trans('common.but')) }}
-                                                < 25GiB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
+                                                < 25GiB </small>
+                                        </td>
+                                        <td><strong>{{ $regular }} x 0.25</strong></td>
                                         <td>
                                             {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -150,8 +155,11 @@
                                             <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                                 6 {{ strtolower(trans('common.months')) }}
                                                 {{ strtolower(trans('common.but')) }}
-                                                < 1 {{ strtolower(trans('common.year')) }}</small> </td> <td>
-                                                    <strong>{{ $mvp }} x 1</strong></td>
+                                                < 1 {{ strtolower(trans('common.year')) }}</small>
+                                        </td>
+                                        <td>
+                                            <strong>{{ $mvp }} x 1</strong>
+                                        </td>
                                         <td>
                                             {{ $mvp * 1 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -167,8 +175,11 @@
                                             <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                                 3 {{ strtolower(trans('common.months')) }}
                                                 {{ strtolower(trans('common.but')) }}
-                                                < 6 {{ strtolower(trans('common.months')) }}</small> </td> <td>
-                                                    <strong>{{ $committed }} x 0.75</strong></td>
+                                                < 6 {{ strtolower(trans('common.months')) }}</small>
+                                        </td>
+                                        <td>
+                                            <strong>{{ $committed }} x 0.75</strong>
+                                        </td>
                                         <td>
                                             {{ $committed * 0.75 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -184,8 +195,11 @@
                                             <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                                 2 {{ strtolower(trans('common.months')) }}
                                                 {{ strtolower(trans('common.but')) }}
-                                                < 3 {{ strtolower(trans('common.months')) }}</small> </td> <td>
-                                                    <strong>{{ $teamplayer }} x 0.50</strong></td>
+                                                < 3 {{ strtolower(trans('common.months')) }}</small>
+                                        </td>
+                                        <td>
+                                            <strong>{{ $teamplayer }} x 0.50</strong>
+                                        </td>
                                         <td>
                                             {{ $teamplayer * 0.5 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -201,8 +215,11 @@
                                             <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                                 1 {{ strtolower(trans('common.month')) }}
                                                 {{ strtolower(trans('common.but')) }}
-                                                < 2 {{ strtolower(trans('common.months')) }}</small> </td> <td>
-                                                    <strong>{{ $participant }} x 0.25</strong></td>
+                                                < 2 {{ strtolower(trans('common.months')) }}</small>
+                                        </td>
+                                        <td>
+                                            <strong>{{ $participant }} x 0.25</strong>
+                                        </td>
                                         <td>
                                             {{ $participant * 0.25 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">

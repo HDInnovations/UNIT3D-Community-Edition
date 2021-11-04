@@ -16,8 +16,8 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff.polls.edit', ['id'=> $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.edit-poll') {{$poll->title}}</span>
+        <a href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.edit-poll') {{ $poll->title }}</span>
         </a>
     </li>
 @endsection
@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="panel panel-chat">
                     <div class="panel-heading">
-                        @lang('poll.edit-poll') {{$poll->title}}
+                        @lang('poll.edit-poll') {{ $poll->title }}
                     </div>
                     <div class="panel-body">
                         @include('Staff.poll.forms.update')
@@ -40,5 +40,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

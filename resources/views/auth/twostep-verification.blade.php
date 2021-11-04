@@ -22,22 +22,22 @@
 
 @php
 switch ($remainingAttempts) {
-case 0:
-case 1:
-$remainingAttemptsClass = 'danger';
-break;
+    case 0:
+    case 1:
+        $remainingAttemptsClass = 'danger';
+        break;
 
-case 2:
-$remainingAttemptsClass = 'warning';
-break;
+    case 2:
+        $remainingAttemptsClass = 'warning';
+        break;
 
-case 3:
-$remainingAttemptsClass = 'info';
-break;
+    case 3:
+        $remainingAttemptsClass = 'info';
+        break;
 
-default:
-$remainingAttemptsClass = 'success';
-break;
+    default:
+        $remainingAttemptsClass = 'success';
+        break;
 }
 @endphp
 
@@ -124,7 +124,8 @@ break;
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-8 col-xs-offset-2 text-center submit-container">
-                                        <button type="submit" class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
+                                        <button type="submit"
+                                            class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
                                             id="submit_verification" tabindex="5">
                                             @lang('auth.verifyButton')
                                         </button>
@@ -161,18 +162,19 @@ break;
         $(function() {
             // Check for on keypress
             $("input").on("keyup", function(event) {
-              const self = $(this)
-              // Keyboard Controls
-              const controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127,
-                27, 32
-              ]
-              // Special Chars
-              const specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222]
-              // Numbers
-              const numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-              const preCombined = controls.concat(numbers)
-              const combined = preCombined
-              // Allow Letter
+                const self = $(this)
+                // Keyboard Controls
+                const controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13,
+                    127,
+                    27, 32
+                ]
+                // Special Chars
+                const specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222]
+                // Numbers
+                const numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+                const preCombined = controls.concat(numbers)
+                const combined = preCombined
+                // Allow Letter
                 for (let i = 65; i <= 90; i++) {
                     combined.push(i);
                 }
@@ -193,15 +195,14 @@ break;
             });
             // Check for cop and paste
             $("input").on("input", function() {
-              const regexp = /[^a-zA-Z0-9]/g
-              if ($(this).val().match(regexp)) {
+                const regexp = /[^a-zA-Z0-9]/g
+                if ($(this).val().match(regexp)) {
                     $(this).val($(this).val().replace(regexp, ''));
                 }
             });
         });
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
         $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) {
             $('.code-inputs').delay(200).removeClass('invalid-shake');
@@ -213,8 +214,8 @@ break;
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-          const formData = $('#verification_form').serialize()
-          $.ajax({
+            const formData = $('#verification_form').serialize()
+            $.ajax({
                 url: '/twostep/verify',
                 type: "post",
                 dataType: 'json',
@@ -224,10 +225,10 @@ break;
                 },
                 error: function(response, status, error) {
                     if (response.status === 418) {
-                      const remainingAttempts = response.responseJSON.remainingAttempts
-                      const submitTrigger = $('#submit_verification')
-                      const varificationForm = $('#verification_form')
-                      $('.code-inputs').addClass('invalid-shake');
+                        const remainingAttempts = response.responseJSON.remainingAttempts
+                        const submitTrigger = $('#submit_verification')
+                        const varificationForm = $('#verification_form')
+                        $('.code-inputs').addClass('invalid-shake');
                         varificationForm[0].reset();
                         $('#remaining_attempts').text(remainingAttempts);
                         switch (remainingAttempts) {
@@ -258,7 +259,8 @@ break;
                                 break;
                         }
                         if (remainingAttempts === 0) {
-                            $('#verification_status_title').html('<h3>{{ trans('auth.titleFailed ') }}</h3>');
+                            $('#verification_status_title').html(
+                                '<h3>{{ trans('auth.titleFailed ') }}</h3>');
                             varificationForm.fadeOut(100, function() {
                                 $('#failed_login_alert').show();
                                 setTimeout(function() {
@@ -277,9 +279,8 @@ break;
                 'X-CSRF-Token': $('meta[name=_token]').attr('content')
             }
         });
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
         $("#resend_code_trigger").click(function(event) {
             event.preventDefault();
@@ -288,11 +289,11 @@ break;
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-          const self = $(this)
-          let resultStatus
-          let resultData
-          const endpoint = '/twostep/resend'
-          self.addClass('disabled')
+            const self = $(this)
+            let resultStatus
+            let resultData
+            const endpoint = '/twostep/resend'
+            self.addClass('disabled')
                 .attr("disabled", true);
             Swal.fire({
                 text: 'Sending verification code ...',
@@ -313,7 +314,7 @@ break;
                     })
                 }
             });
-    
+
             function swalCallback(title, message, status) {
                 Swal.fire({
                     text: title,
@@ -329,6 +330,5 @@ break;
                 self.removeClass('disabled').attr("disabled", false);
             }
         });
-    
     </script>
 @endsection

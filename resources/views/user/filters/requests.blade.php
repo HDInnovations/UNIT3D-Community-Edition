@@ -52,19 +52,23 @@
                     <td>
                         @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
                             <button class="btn btn-xs btn-primary">
-                                <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> @lang('request.claimed')
+                                <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
+                                @lang('request.claimed')
                             </button>
                         @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                             <button class="btn btn-xs btn-info">
-                                <i class="{{ config('other.font-awesome') }} fa-question-circle"></i> @lang('request.pending')
+                                <i class="{{ config('other.font-awesome') }} fa-question-circle"></i>
+                                @lang('request.pending')
                             </button>
                         @elseif ($torrentRequest->filled_hash == null)
                             <button class="btn btn-xs btn-danger">
-                                <i class="{{ config('other.font-awesome') }} fa-times-circle"></i> @lang('request.unfilled')
+                                <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
+                                @lang('request.unfilled')
                             </button>
                         @else
                             <button class="btn btn-xs btn-success">
-                                <i class="{{ config('other.font-awesome') }} fa-check-circle"></i> @lang('request.filled')
+                                <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                @lang('request.filled')
                             </button>
                         @endif
                     </td>

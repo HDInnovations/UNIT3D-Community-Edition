@@ -30,37 +30,39 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-red"><strong><i
-                                    class="{{ $group->icon }}"></i> {{ $group->name }} @lang('stat.group')
+                    <p class="text-red"><strong><i class="{{ $group->icon }}"></i> {{ $group->name }}
+                            @lang('stat.group')
                         </strong> (@lang('stat.users-in-group'))</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <tr>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('stat.registration-date')</th>
-                        </tr>
+                            <tr>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('stat.registration-date')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($users as $u)
-                            <tr>
-                                <td>
-                                    @if ($u->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
+                            @foreach ($users as $u)
+                                <tr>
+                                    <td>
+                                        @if ($u->private_profile == 1)
+                                            <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
-                                                    )</a></span>
-                                    @endif
+                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
+                                                @if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
+                                                    <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
+                                                        )</a>
+                                            </span>
+                                        @endif
                                     @else
                                         <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $u->username]) }}">{{ $u->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span>{{ date('d M Y', strtotime($u->created_at)) }}</span>
-                                </td>
+                                                href="{{ route('users.show', ['username' => $u->username]) }}">{{ $u->username }}</a></span>
+                            @endif
+                            </td>
+                            <td>
+                                <span>{{ date('d M Y', strtotime($u->created_at)) }}</span>
+                            </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                     {{ $users->links() }}

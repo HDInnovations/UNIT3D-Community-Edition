@@ -31,17 +31,19 @@
                         <span class="badge-extra text-orange text-bold"> {{ $p->torrent->times_completed }}
                             @lang('common.times')</span>
                     </td>
-                    @if ($p->seedtime < config('hitrun.seedtime')) <td>
-                            <span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
-                            </td>
-                        @else
-                            <td>
-                                <span
-                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
-                            </td>
-                        @endif
-                        <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : 'N/A' }}
+                    @if ($p->seedtime < config('hitrun.seedtime'))
+                        <td>
+                            <span
+                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
                         </td>
+                    @else
+                        <td>
+                            <span
+                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
+                        </td>
+                    @endif
+                    <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : 'N/A' }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>

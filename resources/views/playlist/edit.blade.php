@@ -43,12 +43,10 @@
                 </div>
                 <label for="is_private" class="control-label">@lang('playlist.is-private')</label>
                 <div class="radio-inline">
-                <label><input type="radio" name="is_private" @if ($playlist->is_private == 1) checked @endif
-                        value="1">@lang('common.yes')</label>
+                    <label><input type="radio" name="is_private" @if ($playlist->is_private == 1) checked @endif value="1">@lang('common.yes')</label>
                 </div>
                 <div class="radio-inline">
-                <label><input type="radio" name="is_private" @if ($playlist->is_private == 0) checked @endif
-                        value="0">@lang('common.no')</label>
+                    <label><input type="radio" name="is_private" @if ($playlist->is_private == 0) checked @endif value="0">@lang('common.no')</label>
                 </div>
                 <br>
                 <div class="text-center">

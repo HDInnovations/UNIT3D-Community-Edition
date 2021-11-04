@@ -23,33 +23,29 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                    @lang('common.upload') : {{ auth()
-                        ->user()
-                        ->getUploaded() }}
+                    @lang('common.upload') :
+                    {{ auth()->user()->getUploaded() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                    @lang('common.download') : {{ auth()
-                        ->user()
-                        ->getDownloaded() }}
+                    @lang('common.download') :
+                    {{ auth()->user()->getDownloaded() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                    @lang('common.ratio') : {{ auth()
-                        ->user()
-                        ->getRatioString() }}
+                    @lang('common.ratio') :
+                    {{ auth()->user()->getRatioString() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-exchange text-orange"></i>
-                    @lang('common.buffer') : {{ auth()
-                        ->user()
-                        ->untilRatio(config('other.ratio')) }}
+                    @lang('common.buffer') :
+                    {{ auth()->user()->untilRatio(config('other.ratio')) }}
                 </span>
             </li>
             <li>
@@ -59,9 +55,7 @@
                         title="@lang('torrent.my-active-torrents')">
                         <span class="text-blue"> @lang('torrent.seeding'):</span>
                     </a>
-                    {{ auth()
-                        ->user()
-                        ->getSeeding() }}
+                    {{ auth()->user()->getSeeding() }}
                 </span>
             </li>
             <li>
@@ -71,9 +65,7 @@
                         title="@lang('torrent.my-active-torrents')">
                         <span class="text-blue"> @lang('torrent.leeching'):</span>
                     </a>
-                    {{ auth()
-                        ->user()
-                        ->getLeeching() }}
+                    {{ auth()->user()->getLeeching() }}
                 </span>
             </li>
             <li>
@@ -82,9 +74,7 @@
                     <a href="#" title="@lang('torrent.hit-and-runs')">
                         <span class="text-blue"> @lang('common.warnings'):</span>
                     </a>
-                    {{ auth()
-                        ->user()
-                        ->getWarning() }}
+                    {{ auth()->user()->getWarning() }}
                 </span>
             </li>
             <li>
@@ -93,9 +83,7 @@
                     <a href="{{ route('bonus') }}" title="@lang('user.my-bonus-points')">
                         <span class="text-blue"> @lang('bon.bon'):</span>
                     </a>
-                    {{ auth()
-                        ->user()
-                        ->getSeedbonus() }}
+                    {{ auth()->user()->getSeedbonus() }}
                 </span>
             </li>
             <li>

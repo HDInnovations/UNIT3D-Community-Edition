@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i>
-                        @lang('user.bans')
+                            @lang('user.bans')
                         </strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">

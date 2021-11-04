@@ -42,7 +42,7 @@
                             <th>@lang('torrent.client')</th>
                             <th>@lang('common.ip')</th>
                             <th>@lang('common.port')</th>
-                            {{--<th>Connectable</th>--}}
+                            {{-- <th>Connectable</th> --}}
                             <th>@lang('torrent.started')</th>
                             <th>@lang('torrent.last-update')</th>
                             <th>@lang('common.status')</th>
@@ -51,8 +51,9 @@
                     <tbody>
                         @foreach ($peers as $p)
                             <tr>
-                                @if ($p->user->hidden == 1 || $p->user->peer_hidden == 1 ||
-                                    !auth()->user()->isAllowed($p->user,'torrent','show_peer'))
+                                @if ($p->user->hidden == 1 ||
+        $p->user->peer_hidden == 1 ||
+        !auth()->user()->isAllowed($p->user, 'torrent', 'show_peer'))
                                     <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye-slash"
@@ -61,10 +62,12 @@
                                             <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                     class="badge-user text-bold"
                                                     style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
-                                                )</span></a>@endif</td>
+                                                    )</span></a>
+                                        @endif
+                                    </td>
                                 @else
                                     <td>
-                                        @if($p->user->privacy && $p->user->privacy->show_peer != 1)
+                                        @if ($p->user->privacy && $p->user->privacy->show_peer != 1)
                                             <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                     aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
@@ -81,8 +84,9 @@
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                                aria-valuenow="{{ ($p->downloaded / $torrent->size) * 100 }}" aria-valuemin="0"
-                                                aria-valuemax="100" style="width: {{ ($p->downloaded / $torrent->size) * 100 }}%;">
+                                                aria-valuenow="{{ ($p->downloaded / $torrent->size) * 100 }}"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                style="width: {{ ($p->downloaded / $torrent->size) * 100 }}%;">
                                                 {{ round(($p->downloaded / $torrent->size) * 100) }}%
                                             </div>
                                         </div>
@@ -91,7 +95,8 @@
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: 100%;">
                                                 100%
                                             </div>
                                         </div>
@@ -117,13 +122,16 @@
                                     <td> ---</td>
                                     <td> ---</td>
                                 @endif
-                                {{--<td><span class="badge-extra text-bold {{ $p->connectable ? 'text-success' : 'text-danger' }}">{{ $p->connectable ? 'Yes' : 'No' }}</span></td>--}}
+                                {{-- <td><span class="badge-extra text-bold {{ $p->connectable ? 'text-success' : 'text-danger' }}">{{ $p->connectable ? 'Yes' : 'No' }}</span></td> --}}
                                 <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
-                                <td> @if ($p->seeder == 0)
-                                        <span class='label label-danger'>{{ strtoupper(trans('torrent.leecher')) }}</span>
+                                <td>
+                                    @if ($p->seeder == 0)
+                                        <span
+                                            class='label label-danger'>{{ strtoupper(trans('torrent.leecher')) }}</span>
                                     @elseif ($p->seeder == 1)
-                                        <span class='label label-success'>{{ strtoupper(trans('torrent.seeder')) }}</span>
+                                        <span
+                                            class='label label-success'>{{ strtoupper(trans('torrent.seeder')) }}</span>
                                     @else
                                         <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
                                     @endif

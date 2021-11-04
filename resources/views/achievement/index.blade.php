@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -57,7 +58,8 @@
                                                         <td><span class="label label-success">@lang('user.unlocked')</span>
                                                     </td> @else
                                                         <td><span class="label label-warning">@lang('common.progress'):
-                                                                {{ $item->points }}/{{ $item->details->points }}</span></td>
+                                                                {{ $item->points }}/{{ $item->details->points }}</span>
+                                                        </td>
                                                     @endif
                                                 </tr>
                                             @endforeach
@@ -67,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-heading">@lang('user.pending-achievements')</div>
@@ -101,28 +103,22 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="col-sm-2 text-center">
                         <div class="text-green well well-sm">
                             <h3>
                                 <strong>@lang('user.unlocked-achievements')
-                                    :</strong>{{ auth()
-                                            ->user()
-                                            ->unlockedAchievements()
-                                            ->count() }}
+                                    :</strong>{{ auth()->user()->unlockedAchievements()->count() }}
                             </h3>
                         </div>
                         <div class="text-red well well-sm">
                             <h3>
                                 <strong>@lang('user.locked-achievements')
-                                    :</strong>{{ auth()
-                                            ->user()
-                                            ->lockedAchievements()
-                                            ->count() }}
+                                    :</strong>{{ auth()->user()->lockedAchievements()->count() }}
                             </h3>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
         </div>

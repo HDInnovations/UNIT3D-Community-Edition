@@ -23,11 +23,13 @@
                 <div class="mediahub_content">
                     <div class="content">
 
-                        <h1 style=" height: 150px; font-family: Shrikhand, cursive; font-size: 7em; font-weight: 400; margin: 0;">@lang('mediahub.title')</h1>
+                        <h1
+                            style=" height: 150px; font-family: Shrikhand, cursive; font-size: 7em; font-weight: 400; margin: 0;">
+                            @lang('mediahub.title')</h1>
                         <h3>@lang('mediahub.select-hub')</h3>
 
                         <div class="blocks text-center" style=" justify-content: center;">
-                            {{--TV Shows--}}
+                            {{-- TV Shows --}}
                             <a href="{{ route('mediahub.shows.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.shows') Hub</h2>
@@ -36,7 +38,7 @@
                                 </div>
                             </a>
 
-                            {{--Movies--}}
+                            {{-- Movies --}}
                             <a href="{{ route('mediahub.movies.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.movies') Hub</h2>
@@ -45,7 +47,7 @@
                                 </div>
                             </a>
 
-                            {{--Collections--}}
+                            {{-- Collections --}}
                             <a href="{{ route('mediahub.collections.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.collections') Hub</h2>
@@ -54,7 +56,7 @@
                                 </div>
                             </a>
 
-                            {{--People--}}
+                            {{-- People --}}
                             <a href="{{ route('mediahub.persons.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.persons') Hub</h2>
@@ -63,7 +65,7 @@
                                 </div>
                             </a>
 
-                            {{--Genres--}}
+                            {{-- Genres --}}
                             <a href="{{ route('mediahub.genres.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.genres') Hub</h2>
@@ -72,7 +74,7 @@
                                 </div>
                             </a>
 
-                            {{--Networks--}}
+                            {{-- Networks --}}
                             <a href="{{ route('mediahub.networks.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.networks') Hub</h2>
@@ -81,7 +83,7 @@
                                 </div>
                             </a>
 
-                            {{--Companies--}}
+                            {{-- Companies --}}
                             <a href="{{ route('mediahub.companies.index') }}" class="">
                                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                                     <h2>@lang('mediahub.companies') Hub</h2>

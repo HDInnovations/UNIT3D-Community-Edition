@@ -33,17 +33,17 @@
                     <input type="text" class="form-control" name="title" required>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="image">@lang('common.image')</label>
                 <input type="file" name="image">
             </div>
-    
+
             <div class="form-group">
                 <label for="content">@lang('staff.article-content')</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
@@ -54,6 +54,5 @@
         $(document).ready(function() {
             $('#content').wysibb({});
         })
-    
     </script>
 @endsection

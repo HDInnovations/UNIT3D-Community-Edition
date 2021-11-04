@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }}) - {{ config('other.title') }}</title>
+    <title>@lang('common.similar') - {{ $meta->title ?? $meta->name }}
+        ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }}) - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})">
+    <meta name="description"
+        content="@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})">
 @endsection
 
 @section('breadcrumb')
@@ -15,9 +17,11 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('torrents.similar', ['category_id' => $categoryId, 'tmdb' => $tmdbId]) }}"
-            itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.similar') - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})</span>
+        <a href="{{ route('torrents.similar', ['category_id' => $categoryId, 'tmdb' => $tmdbId]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.similar') -
+                {{ $meta->title ?? $meta->name }}
+                ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})</span>
         </a>
     </li>
 @endsection

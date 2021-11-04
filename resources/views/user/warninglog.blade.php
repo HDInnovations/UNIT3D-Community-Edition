@@ -29,7 +29,8 @@
                             <strong>@lang('user.warnings') {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
-                            <form action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}" method="POST">
+                            <form action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}">
@@ -71,7 +72,8 @@
                                     @foreach ($warnings as $warning)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
+                                                <a
+                                                    href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
                                                     {{ $warning->staffuser->username }}
                                                 </a>
                                             </td>
@@ -98,12 +100,13 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
-                                        class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
+                                                    class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
                                                     <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                <form action="{{ route('deleteWarning', ['id' => $warning->id]) }}" method="POST">
+                                                <form action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-xs btn-danger">
@@ -122,7 +125,7 @@
             {{ $warnings->links() }}
         </div>
     </div>
-    
+
     <div class="container">
         <div class="block">
             <h2>
@@ -163,7 +166,8 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
+                                                <a
+                                                    href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
                                                     {{ $softDeletedWarning->torrenttitle->name }}
                                                 </a>
                                             </td>

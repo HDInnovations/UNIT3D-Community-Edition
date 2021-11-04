@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -135,10 +136,11 @@
                                         {{ $resurrection->created_at->diffForHumans() }}
                                     </td>
                                     <td>
-                                        @php $torrent = App\Models\Torrent::where('id', '=',
-                                        $resurrection->torrent_id)->pluck('info_hash'); @endphp
-                                        @php $history = App\Models\History::select(['seedtime'])->where('user_id', '=',
-                                        $user->id)->where('info_hash', '=', $torrent)->first(); @endphp
+                                        @php $torrent = App\Models\Torrent::where('id', '=', $resurrection->torrent_id)->pluck('info_hash'); @endphp
+                                        @php$history = App\Models\History::select(['seedtime'])
+                                                ->where('user_id', '=', $user->id)
+                                                ->where('info_hash', '=', $torrent)
+                                            ->first(); @endphp
                                         {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                                     </td>
                                     <td>
@@ -156,8 +158,7 @@
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" @if ($resurrection->rewarded ==
-                                                1) disabled @endif>
+                                            <button type="submit" class="btn btn-sm btn-danger" @if ($resurrection->rewarded == 1) disabled @endif>
                                                 <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                             </button>
                                         </form>

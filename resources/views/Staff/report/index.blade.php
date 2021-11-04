@@ -85,11 +85,15 @@
                                             <td>
                                                 @if ($report->solved == 0)
                                                     <span class="text-red">
-                                                        <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.no')</strong>
+                                                        <strong><i
+                                                                class="{{ config('other.font-awesome') }} fa-times"></i>
+                                                            @lang('common.no')</strong>
                                                     </span>
                                                 @else
                                                     <span class="text-green">
-                                                        <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('common.yes')</strong>
+                                                        <strong><i
+                                                                class="{{ config('other.font-awesome') }} fa-check"></i>
+                                                            @lang('common.yes')</strong>
                                                     </span>
                                                 @endif
                                             </td>

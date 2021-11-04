@@ -15,7 +15,8 @@
 
         <li class="hoe-has-menu">
             <a>
-                <i class="{{ config('other.font-awesome') }} fa-download" style=" font-size: 18px; color: #ffffff;"></i>
+                <i class="{{ config('other.font-awesome') }} fa-download"
+                    style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('torrent.torrents')</span>
                 <span class="selected"></span>
             </a>
@@ -62,7 +63,7 @@
             </a>
             <ul class="hoe-sub-menu">
                 @php $categories = App\Models\Category::all(); @endphp
-                @foreach($categories as $category)
+                @foreach ($categories as $category)
                     <li>
                         <a href="{{ route('upload_form', ['category_id' => $category->id]) }}">
                             <span class="menu-text">{{ $category->name }}</span>
@@ -149,7 +150,8 @@
         @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff.dashboard.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-cogs" style=" font-size: 18px; color: #ffffff;"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-cogs"
+                        style=" font-size: 18px; color: #ffffff;"></i>
                     <span class="menu-text">@lang('staff.staff-dashboard')</span>
                     <span class="selected"></span>
                 </a>

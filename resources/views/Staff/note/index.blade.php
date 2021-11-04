@@ -28,7 +28,8 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>@lang('user.note') <span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
+                    <h2>@lang('user.note') <span class="text-blue"><strong><i
+                                    class="{{ config('other.font-awesome') }} fa-note"></i>
                                 {{ $notes->count() }} </strong></span>
                     </h2>
                     <div class="table-responsive">

@@ -20,7 +20,7 @@
 @section('content')
     <div class="container">
         @include('partials.statsrequestmenu')
-    
+
         <div class="block">
             <h2>@lang('stat.top-bountied')</h2>
             <hr>
@@ -54,17 +54,20 @@
                                         @if ($b->filled_hash == null)
                                             <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="@lang('stat.request-not-fulfilled')">
-                                                <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i>
+                                                <i
+                                                    class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i>
                                             </span>
                                         @elseif ($b->filled_hash != null && $b->approved_by == null)
                                             <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="@lang('stat.request-pending-aproval')">
-                                                <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
+                                                <i
+                                                    class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
                                             </span>
                                         @else
                                             <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="@lang('stat.request-fulfilled')">
-                                                <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
+                                                <i
+                                                    class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
                                             </span>
                                         @endif
                                     </td>

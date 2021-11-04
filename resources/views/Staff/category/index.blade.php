@@ -21,7 +21,7 @@
             @lang(trans_choice('common.a-an-art',false))
             @lang('torrent.category')
         </a>
-    
+
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -94,7 +94,8 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}" method="POST">
+                                <form action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}"

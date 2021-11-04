@@ -56,7 +56,7 @@
                             {{ $report->reporter->username }}
                         </a>
                     </p>
-    
+
                     @if ($report->torrent)
                         <h3>@lang('torrent.torrent') @lang('torrent.title'):</h3>
                         <p class="well well-sm">
@@ -65,7 +65,7 @@
                             </a>
                         </p>
                     @endif
-    
+
                     @if ($report->request)
                         <h3>@lang('torrent.torrent-request') @lang('request.title'):</h3>
                         <p class="well well-sm">
@@ -74,12 +74,12 @@
                             </a>
                         </p>
                     @endif
-    
+
                     <h3>@lang('common.message'):</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
-    
+
                     @if (count($urls) > 0)
                         <h3>Referenced Links:</h3>
                         <p class="well">
@@ -90,7 +90,7 @@
                     @endif
                 </div>
             </div>
-    
+
             <h2>Resolve @lang('common.report')</h2>
             <hr>
             <div class="row">

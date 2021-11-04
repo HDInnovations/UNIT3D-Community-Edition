@@ -20,7 +20,7 @@
 @section('content')
     <div class="container">
         @include('partials.statstorrentmenu')
-    
+
         <div class="block">
             <h2>@lang('stat.top-completed')</h2>
             <hr>

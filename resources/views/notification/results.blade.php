@@ -27,14 +27,14 @@
                         <form action="{{ route('notifications.update', ['id' => $notification->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-xxs btn-success" data-toggle="tooltip"
-                                data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null)
-                                disabled @endif>
+                                data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null) disabled @endif>
                                 <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                             </button>
                         </form>
                     </td>
                     <td>
-                        <form action="{{ route('notifications.destroy', ['id' => $notification->id]) }}" method="POST">
+                        <form action="{{ route('notifications.destroy', ['id' => $notification->id]) }}"
+                            method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-xxs btn-danger" data-toggle="tooltip"

@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -21,12 +22,13 @@
 
 @section('content')
     <div class="container-fluid">
-        @if (!auth()->user()->isAllowed($user,'achievement','show_achievement'))
+        @if (!auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">@lang('user.not-authorized')</p>
@@ -35,7 +37,7 @@
             </div>
         @else
             <div class="block">
-                @if(auth()->user()->group && auth()->user()->group->is_modo == 1)
+                @if (auth()->user()->group && auth()->user()->group->is_modo == 1)
                     @include('user.buttons.achievement')
                 @else
                     @include('user.buttons.public')
@@ -69,13 +71,18 @@
                                                         <tr>
                                                             <td><img src="/img/badges/{{ $item->details->name }}.png"
                                                                     alt="{{ $item->details->name }}" data-toggle="tooltip"
-                                                                    data-original-title="{{ $item->details->name }}"></td>
+                                                                    data-original-title="{{ $item->details->name }}">
+                                                            </td>
                                                             <td>{{ $item->details->description }}</td>
                                                             @if ($item->isUnlocked())
-                                                                <td><span class="label label-success">@lang('user.unlocked')</span></td>
+                                                                <td><span
+                                                                        class="label label-success">@lang('user.unlocked')</span>
+                                                                </td>
                                                             @else
-                                                                <td><span class="label label-warning">@lang('common.progress'):
-                                                                        {{ $item->points }}/{{ $item->details->points }}</span></td>
+                                                                <td><span
+                                                                        class="label label-warning">@lang('common.progress'):
+                                                                        {{ $item->points }}/{{ $item->details->points }}</span>
+                                                                </td>
                                                             @endif
                                                         </tr>
                                                     @endforeach

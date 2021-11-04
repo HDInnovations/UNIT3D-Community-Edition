@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>@lang('common.edit'): {{ $forum->name }}</h2>
-    
+
         <form role="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
             @csrf
             <div class="form-group">
@@ -33,14 +33,15 @@
                     <input type="text" name="title" class="form-control" value="{{ $forum->name }}">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="description">Description</label>
                 <label>
-                    <textarea name="description" class="form-control" cols="30" rows="10">{{ $forum->description }}</textarea>
+                    <textarea name="description" class="form-control" cols="30"
+                        rows="10">{{ $forum->description }}</textarea>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="forum_type">Forum Type</label>
                 <label>
@@ -55,13 +56,14 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="parent_id">Parent forum</label>
                 <label>
                     <select name="parent_id" class="form-control">
                         @if ($forum->getCategory() != null)
-                            <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }} (Current)</option>
+                            <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }} (Current)
+                            </option>
                         @endif
                         @foreach ($categories as $c)
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
@@ -69,7 +71,7 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="position">@lang('common.position')</label>
                 <label>
@@ -77,7 +79,7 @@
                         value="{{ $forum->position }}">
                 </label>
             </div>
-    
+
             <h3>Permissions</h3>
             <table class="table table-striped">
                 <thead>
@@ -96,44 +98,52 @@
                             <td>
                                 @if ($g->getPermissionsByForum($forum)->show_forum == true)
                                     <label>
-                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]" value="1">
+                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]"
+                                            value="1">
                                     </label>
                                 @else
                                     <label>
-                                        <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
+                                        <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]"
+                                            value="1">
                                     </label>
                                 @endif
                             </td>
                             <td>
                                 @if ($g->getPermissionsByForum($forum)->read_topic == true)
                                     <label>
-                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]" value="1">
+                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]"
+                                            value="1">
                                     </label>
                                 @else
                                     <label>
-                                        <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
+                                        <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]"
+                                            value="1">
                                     </label>
                                 @endif
                             </td>
                             <td>
                                 @if ($g->getPermissionsByForum($forum)->start_topic == true)
                                     <label>
-                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]" value="1">
+                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]"
+                                            value="1">
                                     </label>
                                 @else
                                     <label>
-                                        <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
+                                        <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]"
+                                            value="1">
                                     </label>
                                 @endif
                             </td>
                             <td>
                                 @if ($g->getPermissionsByForum($forum)->reply_topic == true)
                                     <label>
-                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                                        <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]"
+                                            value="1">
                                     </label>
                                 @else
                                     <label>
-                                        <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                                        <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]"
+                                            value="1">
                                     </label>
                                 @endif
                             </td>
@@ -141,7 +151,7 @@
                     @endforeach
                 </tbody>
             </table>
-    
+
             <button type="submit" class="btn btn-default">Save Forum</button>
         </form>
     </div>

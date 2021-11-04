@@ -50,7 +50,7 @@
                 <input type="text" class="form-control" id="uploader" name="uploader"
                     placeholder="@lang('torrent.torrent') @lang('torrent.uploader')">
             </div>
-    
+
             <div class="form-group">
                 <label for="imdb">ID</label>
                 <input type="text" class="form-control" id="imdb" name="imdb" placeholder="IMDB #">
@@ -67,7 +67,8 @@
                     @foreach ($categories as $category)
                         <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}" class="category">
+                                <input type="checkbox" id="{{ $category->name }}" name="categories[]"
+                                    value="{{ $category->id }}" class="category">
                                 {{ $category->name }}
                             </label>
                         </span>
@@ -80,7 +81,8 @@
                     @foreach ($types as $type)
                         <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type">
+                                <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}"
+                                    class="type">
                                 {{ $type->name }}
                             </label>
                         </span>
@@ -93,7 +95,8 @@
                     @foreach ($resolutions as $resolution)
                         <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="{{ $resolution->name }}" value="{{ $resolution->id }}" class="resolution" name="resolutions[]">
+                                <input type="checkbox" id="{{ $resolution->name }}" value="{{ $resolution->id }}"
+                                    class="resolution" name="resolutions[]">
                                 {{ $resolution->name }}
                             </label>
                         </span>
@@ -106,7 +109,8 @@
                     @foreach ($genres as $genre)
                         <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}" class="genre">
+                                <input type="checkbox" id="{{ $genre->name }}" name="genres[]"
+                                    value="{{ $genre->id }}" class="genre">
                                 {{ $genre->name }}
                             </label>
                         </span>
@@ -139,7 +143,7 @@
                     </span>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="type">@lang('torrent.special')</label>
                 <div>
@@ -180,7 +184,7 @@
                     </span>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="type">@lang('torrent.health')</label>
                 <div>

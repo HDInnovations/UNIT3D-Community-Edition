@@ -30,7 +30,8 @@
                 <div class="col-sm-12">
                     <h2>
                         <span class="text-blue"> @lang('common.warnings')
-                            <strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $warningcount }} </strong>
+                            <strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $warningcount }}
+                            </strong>
                         </span>
                     </h2>
                     <div class="table-responsive">

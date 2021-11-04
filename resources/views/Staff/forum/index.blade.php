@@ -39,7 +39,8 @@
                     @foreach ($categories as $category)
                         <tr class="success">
                             <td>
-                                <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                <a
+                                    href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
                             </td>
                             <td>
                                 Category
@@ -58,7 +59,8 @@
                         @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
                             <tr>
                                 <td>
-                                    <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">---- {{ $forum->name }}</a>
+                                    <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">----
+                                        {{ $forum->name }}</a>
                                 </td>
                                 <td>
                                     Forum
@@ -67,7 +69,8 @@
                                     {{ $forum->position }}
                                 </td>
                                 <td>
-                                    <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}" method="POST">
+                                    <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}"
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">@lang('common.delete')</button>

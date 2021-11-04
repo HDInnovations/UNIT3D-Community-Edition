@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -57,7 +58,7 @@
                                             @lang('user.other-privacy-online').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_online == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_online == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_online" value="1" CHECKED />
                                                 </label>
@@ -73,23 +74,23 @@
                                     <div class="help-block">@lang('user.visible-to-other-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_other_groups ||
-                                                            $group->isAllowed($user->privacy->json_other_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_other_groups || $group->isAllowed($user->privacy->json_other_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -122,7 +123,7 @@
                                             @lang('user.request-privacy-requested').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_requested == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_requested == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_requested" value="1" CHECKED />
                                                 </label>
@@ -138,23 +139,23 @@
                                     <div class="help-block">@lang('user.visible-to-request-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_request_groups ||
-                                                            $group->isAllowed($user->privacy->json_request_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_request_groups || $group->isAllowed($user->privacy->json_request_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -187,7 +188,7 @@
                                             @lang('user.torrent-privacy-upload').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_upload == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_upload == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_upload" value="1" CHECKED />
                                                 </label>
@@ -204,7 +205,7 @@
                                             @lang('user.torrent-privacy-download').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_download == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_download == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_download" value="1" CHECKED />
                                                 </label>
@@ -221,7 +222,7 @@
                                             @lang('user.torrent-privacy-peer').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_peer == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_peer == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_peer" value="1" CHECKED />
                                                 </label>
@@ -237,23 +238,23 @@
                                     <div class="help-block">@lang('user.visible-to-torrent-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_torrent_groups ||
-                                                            $group->isAllowed($user->privacy->json_torrent_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_torrent_groups || $group->isAllowed($user->privacy->json_torrent_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -286,8 +287,7 @@
                                             @lang('user.profile-privacy-torrent-count').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_torrent_count == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_torrent_count == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_count" value="1"
                                                         CHECKED />
@@ -305,8 +305,7 @@
                                             @lang('user.profile-privacy-title').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_title ==
-                                                1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_title == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_title" value="1" CHECKED />
                                                 </label>
@@ -323,8 +322,7 @@
                                             @lang('user.profile-privacy-about').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_about ==
-                                                1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_about == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_about" value="1" CHECKED />
                                                 </label>
@@ -341,8 +339,7 @@
                                             @lang('user.profile-privacy-torrent-ratio').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_torrent_ratio == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_torrent_ratio == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_ratio" value="1"
                                                         CHECKED />
@@ -360,10 +357,10 @@
                                             @lang('user.profile-privacy-torrent-seed').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_torrent_seed == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_torrent_seed == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1"
+                                                        CHECKED />
                                                 </label>
                                             @else
                                                 <label>
@@ -378,10 +375,10 @@
                                             @lang('user.profile-privacy-bon-extra').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_bon_extra
-                                                == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_bon_extra == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_bon_extra" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_bon_extra" value="1"
+                                                        CHECKED />
                                                 </label>
                                             @else
                                                 <label>
@@ -396,8 +393,7 @@
                                             @lang('user.profile-privacy-torrent-extra').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_torrent_extra == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_torrent_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_extra" value="1"
                                                         CHECKED />
@@ -415,8 +411,7 @@
                                             @lang('user.profile-privacy-comment-extra').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_comment_extra == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_comment_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_comment_extra" value="1"
                                                         CHECKED />
@@ -434,8 +429,7 @@
                                             @lang('user.profile-privacy-request-extra').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_request_extra == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_request_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_request_extra" value="1"
                                                         CHECKED />
@@ -453,10 +447,10 @@
                                             @lang('user.profile-privacy-forum-extra').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_forum_extra == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_forum_extra == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_forum_extra" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_forum_extra" value="1"
+                                                        CHECKED />
                                                 </label>
                                             @else
                                                 <label>
@@ -471,8 +465,7 @@
                                             @lang('user.profile-privacy-warning').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_warning
-                                                == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_warning == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_warning" value="1" CHECKED />
                                                 </label>
@@ -489,8 +482,7 @@
                                             @lang('user.profile-privacy-badge').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_badge ==
-                                                1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_badge == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_badge" value="1" CHECKED />
                                                 </label>
@@ -507,10 +499,10 @@
                                             @lang('user.profile-privacy-achievement').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy &&
-                                                $user->privacy->show_profile_achievement == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_achievement == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_achievement" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_achievement" value="1"
+                                                        CHECKED />
                                                 </label>
                                             @else
                                                 <label>
@@ -525,8 +517,7 @@
                                             @lang('user.profile-privacy-follower').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_follower
-                                                == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_profile_follower == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_follower" value="1" CHECKED />
                                                 </label>
@@ -543,22 +534,23 @@
                                 <div class="help-block">@lang('user.visible-to-profile-help').</div>
                                 <hr>
                                 <div class="form-group">
-                                    @foreach($groups as $group)
-                                        @if($group->is_modo || $group->is_admin)
+                                    @foreach ($groups as $group)
+                                        @if ($group->is_modo || $group->is_admin)
                                         @else
                                             <div class="button-holder">
                                                 <div class="button-left">
                                                     {{ $group->name }}
                                                 </div>
                                                 <div class="button-right">
-                                                    @if(!$user->privacy || !$user->privacy->json_profile_groups ||
-                                                        $group->isAllowed($user->privacy->json_profile_groups,$group->id))
+                                                    @if (!$user->privacy || !$user->privacy->json_profile_groups || $group->isAllowed($user->privacy->json_profile_groups, $group->id))
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <input type="checkbox" name="approved[]"
+                                                                value="{{ $group->id }}" CHECKED />
                                                         </label>
                                                     @else
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <input type="checkbox" name="approved[]"
+                                                                value="{{ $group->id }}" />
                                                         </label>
                                                     @endif
                                                 </div>
@@ -589,7 +581,7 @@
                                             @lang('user.forum-privacy-topic').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_topic == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_topic == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_topic" value="1" CHECKED />
                                                 </label>
@@ -606,7 +598,7 @@
                                             @lang('user.forum-privacy-post').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_post == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_post == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_post" value="1" CHECKED />
                                                 </label>
@@ -622,23 +614,23 @@
                                     <div class="help-block">@lang('user.visible-to-forum-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_forum_groups ||
-                                                            $group->isAllowed($user->privacy->json_forum_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_forum_groups || $group->isAllowed($user->privacy->json_forum_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -670,7 +662,7 @@
                                             @lang('user.follower-privacy-list').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_follower == 1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_follower == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_follower" value="1" CHECKED />
                                                 </label>
@@ -686,23 +678,23 @@
                                     <div class="help-block">@lang('user.visible-to-follower-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_follower_groups ||
-                                                            $group->isAllowed($user->privacy->json_follower_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_follower_groups || $group->isAllowed($user->privacy->json_follower_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -734,8 +726,7 @@
                                             @lang('user.achievement-privacy-list').
                                         </div>
                                         <div class="button-right">
-                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_achievement ==
-                                                1))
+                                            @if (!$user->privacy || ($user->privacy && $user->privacy->show_achievement == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_achievement" value="1" CHECKED />
                                                 </label>
@@ -751,23 +742,23 @@
                                     <div class="help-block">@lang('user.visible-to-achievement-help').</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach($groups as $group)
-                                            @if($group->is_modo || $group->is_admin)
+                                        @foreach ($groups as $group)
+                                            @if ($group->is_modo || $group->is_admin)
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
                                                         {{ $group->name }}
                                                     </div>
                                                     <div class="button-right">
-                                                        @if(!$user->privacy || !$user->privacy->json_achievement_groups ||
-                                                            $group->isAllowed($user->privacy->json_achievement_groups,$group->id))
+                                                        @if (!$user->privacy || !$user->privacy->json_achievement_groups || $group->isAllowed($user->privacy->json_achievement_groups, $group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" CHECKED />
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                    value="{{ $group->id }}" />
                                                             </label>
                                                         @endif
                                                     </div>
@@ -822,6 +813,5 @@
                 $('#basetabs a[href="#other_tab"]').tab('show');
             }
         }
-
     </script>
 @endsection

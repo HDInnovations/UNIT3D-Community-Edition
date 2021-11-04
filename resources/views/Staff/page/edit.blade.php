@@ -33,12 +33,13 @@
                     <input type="text" name="name" class="form-control" value="{{ $page->name }}">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="content">@lang('common.content')</label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{ $page->content }}</textarea>
+                <textarea name="content" id="content" cols="30" rows="10"
+                    class="form-control">{{ $page->content }}</textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.save')</button>
         </form>
     </div>
@@ -49,6 +50,5 @@
         $(document).ready(function() {
             $('#content').wysibb({});
         })
-    
     </script>
 @endsection

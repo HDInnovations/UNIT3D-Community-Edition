@@ -37,7 +37,8 @@
                     @foreach ($articles as $article)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                                <a
+                                    href="{{ route('staff.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
                             </td>
                             <td>
                                 <a
@@ -45,7 +46,8 @@
                             </td>
                             <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                             <td>
-                                <form action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}" method="POST">
+                                <form action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}"

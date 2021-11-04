@@ -53,7 +53,8 @@
                                         </td>
                                         <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
                                         <td class="col-sm-2">
-                                            <form role="form" method="POST" action="{{ route('delete-pm', ['id' => $p->id]) }}">
+                                            <form role="form" method="POST"
+                                                action="{{ route('delete-pm', ['id' => $p->id]) }}">
                                                 @csrf
                                                 <input type="hidden" name="dest" value="outbox" />
                                                 <div class="col-sm-1">

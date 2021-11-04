@@ -41,7 +41,8 @@
                                             <td>{{ $uu['description'] }}</td>
                                             <td>{{ $uu['cost'] }}</td>
                                             <td>
-                                                <form method="POST" action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
+                                                <form method="POST"
+                                                    action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
                                                     @csrf
                                                     <button type="sumbit"
                                                         class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
@@ -56,11 +57,13 @@
                                             <td>{{ $pf['cost'] }}</td>
                                             <td>
                                                 @if ($activefl)
-                                                    <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-success btn-exchange disabled">
                                                         @lang('bon.activated')!
                                                     </button>
                                                 @else
-                                                    <form method="POST" action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
+                                                    <form method="POST"
+                                                        action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-info btn-exchange">
                                                             @lang('bon.exchange')
@@ -76,7 +79,8 @@
                                             <td>{{ $in['description'] }}</td>
                                             <td>{{ $in['cost'] }}</td>
                                             <td>
-                                                <form method="POST" action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
+                                                <form method="POST"
+                                                    action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
                                                     @csrf
                                                     <button class="btn btn-sm btn-info btn-exchange"
                                                         type="submit">@lang('bon.exchange')</button>

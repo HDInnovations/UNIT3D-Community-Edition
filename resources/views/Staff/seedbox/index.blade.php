@@ -54,7 +54,8 @@
                                         ({{ $seedbox->created_at->diffForHumans() }})
                                     </td>
                                     <td>
-                                        <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}" method="POST">
+                                        <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-xs btn-danger"><i

@@ -122,7 +122,8 @@
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="thanks" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i> @lang('torrent.thanks')
+                            <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i>
+                            @lang('torrent.thanks')
                         </label>
                     </span>
                     <span class="badge-user">
@@ -148,13 +149,14 @@
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="uploads" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i> @lang('user.uploads')
+                            <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i>
+                            @lang('user.uploads')
                         </label>
                     </span>
                 </div>
             </div>
         </form>
-    
+
         <br>
         <br>
         <div class="text-center">
@@ -165,7 +167,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')
                 </button>
             </form>
-    
+
             <form action="{{ route('notifications.destroyall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 @method('DELETE')
@@ -175,9 +177,9 @@
                 </button>
             </form>
         </div>
-    
+
     </div>
-    
+
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient silver">
@@ -197,111 +199,110 @@
         $('.filter-checkbox').on('change', function() {
             $('.filter-checkbox').not(this).prop('checked', false);
         });
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      let xhr = new XMLHttpRequest()
+        let xhr = new XMLHttpRequest()
 
-      function faceted(page) {
-          const csrf = "{{ csrf_token() }}"
-          const bon_gifts = (function () {
-            if ($('#bon_gifts').is(':checked')) {
-              return $('#bon_gifts').val()
-            }
-          })()
-          const comment = (function () {
-            if ($('#comment').is(':checked')) {
-              return $('#comment').val()
-            }
-          })()
-          const comment_tags = (function () {
-            if ($('#comment_tags').is(':checked')) {
-              return $('#comment_tags').val()
-            }
-          })()
-          const followers = (function () {
-            if ($('#followers').is(':checked')) {
-              return $('#followers').val()
-            }
-          })()
-          const posts = (function () {
-            if ($('#posts').is(':checked')) {
-              return $('#posts').val()
-            }
-          })()
-          const post_tags = (function () {
-            if ($('#post_tags').is(':checked')) {
-              return $('#post_tags').val()
-            }
-          })()
-          const post_tips = (function () {
-            if ($('#post_tips').is(':checked')) {
-              return $('#post_tips').val()
-            }
-          })()
-          const request_bounties = (function () {
-            if ($('#request_bounties').is(':checked')) {
-              return $('#request_bounties').val()
-            }
-          })()
-          const request_claims = (function () {
-            if ($('#request_claims').is(':checked')) {
-              return $('#request_claims').val()
-            }
-          })()
-          const request_fills = (function () {
-            if ($('#request_fills').is(':checked')) {
-              return $('#request_fills').val()
-            }
-          })()
-          const request_approvals = (function () {
-            if ($('#request_approvals').is(':checked')) {
-              return $('#request_approvals').val()
-            }
-          })()
-          const request_rejections = (function () {
-            if ($('#request_rejections').is(':checked')) {
-              return $('#request_rejections').val()
-            }
-          })()
-          const request_unclaims = (function () {
-            if ($('#request_unclaims').is(':checked')) {
-              return $('#request_unclaims').val()
-            }
-          })()
-          const reseed_requests = (function () {
-            if ($('#reseed_requests').is(':checked')) {
-              return $('#reseed_requests').val()
-            }
-          })()
-          const thanks = (function () {
-            if ($('#thanks').is(':checked')) {
-              return $('#thanks').val()
-            }
-          })()
-          const upload_tips = (function () {
-            if ($('#upload_tips').is(':checked')) {
-              return $('#upload_tips').val()
-            }
-          })()
-          const topics = (function () {
-            if ($('#topics').is(':checked')) {
-              return $('#topics').val()
-            }
-          })()
-          const unfollows = (function () {
-            if ($('#unfollows').is(':checked')) {
-              return $('#unfollows').val()
-            }
-          })()
-          const uploads = (function () {
-            if ($('#uploads').is(':checked')) {
-              return $('#uploads').val()
-            }
-          })()
+        function faceted(page) {
+            const csrf = "{{ csrf_token() }}"
+            const bon_gifts = (function() {
+                if ($('#bon_gifts').is(':checked')) {
+                    return $('#bon_gifts').val()
+                }
+            })()
+            const comment = (function() {
+                if ($('#comment').is(':checked')) {
+                    return $('#comment').val()
+                }
+            })()
+            const comment_tags = (function() {
+                if ($('#comment_tags').is(':checked')) {
+                    return $('#comment_tags').val()
+                }
+            })()
+            const followers = (function() {
+                if ($('#followers').is(':checked')) {
+                    return $('#followers').val()
+                }
+            })()
+            const posts = (function() {
+                if ($('#posts').is(':checked')) {
+                    return $('#posts').val()
+                }
+            })()
+            const post_tags = (function() {
+                if ($('#post_tags').is(':checked')) {
+                    return $('#post_tags').val()
+                }
+            })()
+            const post_tips = (function() {
+                if ($('#post_tips').is(':checked')) {
+                    return $('#post_tips').val()
+                }
+            })()
+            const request_bounties = (function() {
+                if ($('#request_bounties').is(':checked')) {
+                    return $('#request_bounties').val()
+                }
+            })()
+            const request_claims = (function() {
+                if ($('#request_claims').is(':checked')) {
+                    return $('#request_claims').val()
+                }
+            })()
+            const request_fills = (function() {
+                if ($('#request_fills').is(':checked')) {
+                    return $('#request_fills').val()
+                }
+            })()
+            const request_approvals = (function() {
+                if ($('#request_approvals').is(':checked')) {
+                    return $('#request_approvals').val()
+                }
+            })()
+            const request_rejections = (function() {
+                if ($('#request_rejections').is(':checked')) {
+                    return $('#request_rejections').val()
+                }
+            })()
+            const request_unclaims = (function() {
+                if ($('#request_unclaims').is(':checked')) {
+                    return $('#request_unclaims').val()
+                }
+            })()
+            const reseed_requests = (function() {
+                if ($('#reseed_requests').is(':checked')) {
+                    return $('#reseed_requests').val()
+                }
+            })()
+            const thanks = (function() {
+                if ($('#thanks').is(':checked')) {
+                    return $('#thanks').val()
+                }
+            })()
+            const upload_tips = (function() {
+                if ($('#upload_tips').is(':checked')) {
+                    return $('#upload_tips').val()
+                }
+            })()
+            const topics = (function() {
+                if ($('#topics').is(':checked')) {
+                    return $('#topics').val()
+                }
+            })()
+            const unfollows = (function() {
+                if ($('#unfollows').is(':checked')) {
+                    return $('#unfollows').val()
+                }
+            })()
+            const uploads = (function() {
+                if ($('#uploads').is(':checked')) {
+                    return $('#uploads').val()
+                }
+            })()
 
-          if (xhr !== 'undefined') {
+            if (xhr !== 'undefined') {
                 xhr.abort();
             }
             xhr = $.ajax({
@@ -331,44 +332,41 @@
                 },
                 type: 'get',
                 beforeSend: function() {
-                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html(
+                        '<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>'
+                        )
                 }
             }).done(function(e) {
                 $data = $(e);
                 $("#result").html($data);
             });
         }
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(window).on("load", faceted())
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $("#bon_gifts, #comment, #comment_tags, #followers, #posts, #post_tags, #post_tips, #request_bounties, #request_claims, #request_fills, #request_approvals, #request_rejections, #request_unclaims, #reseed_requests, #thanks, #upload_tips, #topics, #unfollows, #uploads")
             .on("click", function() {
                 faceted();
             });
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
-          const url = $(this).attr('href')
-          const page = url.split('page=')[1]
-          window.history.pushState("", "", url);
+            const url = $(this).attr('href')
+            const page = url.split('page=')[1]
+            window.history.pushState("", "", url);
             faceted(page);
         })
-    
     </script>
-    
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).ajaxComplete(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
-    
     </script>
 @endsection

@@ -23,13 +23,13 @@
                                         {{ $topic->forum->name }}
                                     </a>
                                 </td>
-        
+
                                 <td>
                                     <a href="{{ route('forum_topic', ['id' => $topic->id]) }}">
                                         {{ $topic->name }}
                                     </a>
                                 </td>
-        
+
                                 <td>{{ $topic->first_post_user_username }}</td>
                                 <td>{{ $topic->created_at->diffForHumans() }}</td>
                             </tr>

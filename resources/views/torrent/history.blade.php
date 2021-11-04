@@ -27,8 +27,10 @@
         <div class="block">
             <p class="lead">@lang('torrent.history') @lang('common.for')
                 <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
-                <span class="badge-extra pull-right">Total Up: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_uploaded'), 2) }}</span>
-                <span class="badge-extra pull-right">Total Down: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_downloaded'), 2) }}</span>
+                <span class="badge-extra pull-right">Total Up:
+                    {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_uploaded'), 2) }}</span>
+                <span class="badge-extra pull-right">Total Down:
+                    {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_downloaded'), 2) }}</span>
             </p>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
@@ -47,8 +49,9 @@
                     <tbody>
                         @foreach ($history as $hpeers)
                             <tr>
-                                @if ($hpeers->user->hidden == 1 || $hpeers->user->peer_hidden == 1 ||
-                                    !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer'))
+                                @if ($hpeers->user->hidden == 1 ||
+        $hpeers->user->peer_hidden == 1 ||
+        !auth()->user()->isAllowed($hpeers->user, 'torrent', 'show_peer'))
                                     <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye-slash"
@@ -61,8 +64,8 @@
                                     </td>
                                 @else
                                     <td>
-            
-                                        @if($hpeers->user->privacy && $hpeers->user->privacy->show_peer != 1)
+
+                                        @if ($hpeers->user->privacy && $hpeers->user->privacy->show_peer != 1)
                                             <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                     aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
@@ -77,10 +80,12 @@
                                 @endif
                                 @if ($hpeers->active == 1)
                                 <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
+                                    <td class="text-red">{{ strtolower(trans('common.no')) }}</td>
+                                @endif
                                 @if ($hpeers->seeder == 1)
                                 <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
+                                    <td class="text-red">{{ strtolower(trans('common.no')) }}</td>
+                                @endif
                                 <td>
                                     <span
                                         class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded, 2) }}</span>
@@ -95,16 +100,17 @@
                                 </td>
                                 <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
-                                @if ($hpeers->seedtime < config('hitrun.seedtime')) <td>
+                                @if ($hpeers->seedtime < config('hitrun.seedtime'))
+                                    <td>
                                         <span
                                             class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
-                                        </td>
-                                    @else
-                                        <td>
-                                            <span
-                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
-                                        </td>
-                                    @endif
+                                    </td>
+                                @else
+                                    <td>
+                                        <span
+                                            class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

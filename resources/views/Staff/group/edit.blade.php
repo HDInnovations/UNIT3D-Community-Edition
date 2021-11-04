@@ -49,7 +49,7 @@
                                 <th>Autogroup</th>
                             </tr>
                         </thead>
-    
+
                         <tbody>
                             <tr>
                                 <td><label>
@@ -61,11 +61,13 @@
                                     </label>
                                 </td>
                                 <td><label>
-                                        <input type="text" name="level" value="{{ $group->level }}" class="form-control" />
+                                        <input type="text" name="level" value="{{ $group->level }}"
+                                            class="form-control" />
                                     </label>
                                 </td>
                                 <td><label>
-                                        <input type="text" name="color" value="{{ $group->color }}" class="form-control" />
+                                        <input type="text" name="color" value="{{ $group->color }}"
+                                            class="form-control" />
                                     </label>
                                 </td>
                                 <td><label>

@@ -26,13 +26,13 @@
 @endsection
 
 @section('javascripts')
-    @if(request()->url() === config('other.rules_url') && auth()->user()->read_rules == 0)
+    @if (request()->url() === config('other.rules_url') && auth()->user()->read_rules == 0)
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
             window.onscroll = function() {
                 let scrollHeight, totalHeight;
                 scrollHeight = document.body.scrollHeight;
                 totalHeight = window.scrollY + window.innerHeight;
-        
+
                 if (totalHeight >= scrollHeight) {
                     Swal.fire({
                         title: '<strong>Read The <u>Rules?</u></strong>',
@@ -53,7 +53,7 @@
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
-        
+
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'Thanks For Accepting Our Rules!'
@@ -66,7 +66,7 @@
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
-        
+
                                 Toast.fire({
                                     icon: 'error',
                                     title: 'Something Went Wrong!'
@@ -76,7 +76,6 @@
                     })
                 }
             }
-        
         </script>
     @endif
 @endsection

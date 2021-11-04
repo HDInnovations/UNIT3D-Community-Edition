@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Add a new Forum</h2>
-    
+
         <form role="form" method="POST" action="{{ route('staff.forums.store') }}">
             @csrf
             <div class="form-group">
@@ -36,21 +36,21 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <label>
                     <input type="text" name="title" class="form-control">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="description">Description</label>
                 <label>
                     <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="parent_id">Parent forum</label>
                 <label>
@@ -62,14 +62,14 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="position">@lang('common.position')</label>
                 <label>
                     <input type="text" name="position" class="form-control" placeholder="The position number">
                 </label>
             </div>
-    
+
             <h3>Permissions</h3>
             <table class="table table-striped">
                 <thead>
@@ -86,22 +86,26 @@
                         <tr>
                             <td>{{ $g->name }}</td>
                             <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked>
+                                    <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"
+                                        checked>
                                 </label></td>
                             <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked>
+                                    <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"
+                                        checked>
                                 </label></td>
                             <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked>
+                                    <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"
+                                        checked>
                                 </label></td>
                             <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked>
+                                    <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"
+                                        checked>
                                 </label></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-    
+
             <button type="submit" class="btn btn-default">Save Forum</button>
         </form>
     </div>

@@ -40,7 +40,8 @@
                     <div class="form-group">
                         <label for="name">@lang('request.title')</label>
                         <label>
-                            <input type="text" name="name" class="form-control" value="{{ $torrentRequest->name }}" required>
+                            <input type="text" name="name" class="form-control" value="{{ $torrentRequest->name }}"
+                                required>
                         </label>
                     </div>
 
@@ -48,7 +49,8 @@
                         <div class="form-group">
                             <label for="name">TMDB ID <b>(@lang('common.required'))</b></label>
                             <label>
-                                <input type="number" name="tmdb" value="{{ $torrentRequest->tmdb }}" class="form-control" required>
+                                <input type="number" name="tmdb" value="{{ $torrentRequest->tmdb }}" class="form-control"
+                                    required>
                             </label>
                         </div>
                     @else
@@ -59,7 +61,8 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="imdb" value="{{ $torrentRequest->imdb }}" class="form-control" required>
+                                <input type="number" name="imdb" value="{{ $torrentRequest->imdb }}" class="form-control"
+                                    required>
                             </label>
                         </div>
                     @else
@@ -70,7 +73,8 @@
                         <div class="form-group">
                             <label for="name">TVDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="tvdb" value="{{ $torrentRequest->tvdb }}" class="form-control" required>
+                                <input type="number" name="tvdb" value="{{ $torrentRequest->tvdb }}" class="form-control"
+                                    required>
                             </label>
                         </div>
                     @else
@@ -81,7 +85,8 @@
                         <div class="form-group">
                             <label for="name">MAL ID <b>(@lang('request.required') For Anime)</b></label>
                             <label>
-                                <input type="number" name="mal" value="{{ $torrentRequest->mal }}" class="form-control" required>
+                                <input type="number" name="mal" value="{{ $torrentRequest->mal }}" class="form-control"
+                                    required>
                             </label>
                         </div>
                     @else
@@ -92,13 +97,14 @@
                         <div class="form-group">
                             <label for="name">IGDB ID <b>@lang('request.required') For Games)</b></label>
                             <label>
-                                <input type="number" name="igdb" value="{{ $torrentRequest->igdb }}" class="form-control" required>
+                                <input type="number" name="igdb" value="{{ $torrentRequest->igdb }}" class="form-control"
+                                    required>
                             </label>
                         </div>
                     @else
                         <input type="hidden" name="igdb" value="0">
                     @endif
-        
+
                     <div class="form-group">
                         <label for="category_id">@lang('request.category')</label>
                         <label>
@@ -112,12 +118,13 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="type">@lang('request.type')</label>
                         <label>
                             <select name="type_id" class="form-control">
-                                <option value="{{ $torrentRequest->type->id }}" selected>{{ $torrentRequest->type->name }}
+                                <option value="{{ $torrentRequest->type->id }}" selected>
+                                    {{ $torrentRequest->type->name }}
                                     (@lang('request.current'))
                                 </option>
                                 @foreach ($types as $type)
@@ -132,10 +139,12 @@
                             <label for="resolution_id">@lang('torrent.resolution')</label>
                             <label>
                                 <select name="resolution_id" class="form-control">
-                                    @if (! $torrentRequest->resolution)
-                                        <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>)
+                                    @if (!$torrentRequest->resolution)
+                                        <option hidden="" disabled="disabled" selected="selected" value="">--Select
+                                            Resolution--</option>)
                                     @else
-                                        <option value="{{ $torrentRequest->resolution->id }}" selected>{{ $torrentRequest->resolution->name }}
+                                        <option value="{{ $torrentRequest->resolution->id }}" selected>
+                                            {{ $torrentRequest->resolution->name }}
                                             (@lang('request.current'))
                                         </option>
                                     @endif
@@ -146,37 +155,36 @@
                             </label>
                         </div>
                     @endif
-        
+
                     <div class="form-group">
                         <label for="description">@lang('request.description')</label>
                         <label for="request-form-description"></label>
-                        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control">{{ $torrentRequest->description }}</textarea>
+                        <textarea id="request-form-description" name="description" cols="30" rows="10"
+                            class="form-control">{{ $torrentRequest->description }}</textarea>
                     </div>
-        
+
                     <br>
-        
+
                     <label for="anon" class="control-label">Anonymous Request?</label>
                     <div class="radio-inline">
                         <label>
-                    <input type="radio" name="anon" @if ($torrentRequest->anon == 1) checked @endif
-                            value="1">@lang('common.yes')
+                            <input type="radio" name="anon" @if ($torrentRequest->anon == 1) checked @endif value="1">@lang('common.yes')
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                    <input type="radio" name="anon" @if ($torrentRequest->anon == 0) checked @endif
-                            value="0">@lang('common.no')
+                            <input type="radio" name="anon" @if ($torrentRequest->anon == 0) checked @endif value="0">@lang('common.no')
                         </label>
                     </div>
-        
+
                     <br>
-        
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                     </div>
                 </div>
             </form>
-        </div>
+    </div>
     @endif
 @endsection
 
@@ -185,6 +193,5 @@
         $(document).ready(function() {
             $('#request-form-description').wysibb({});
         })
-    
     </script>
 @endsection

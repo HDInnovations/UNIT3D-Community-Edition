@@ -63,9 +63,10 @@
                                 <strong>@lang('staff.application-image-proofs')</strong>
                             </td>
                             <td>
-                                @foreach($application->imageProofs as $key => $img_proof)
+                                @foreach ($application->imageProofs as $key => $img_proof)
                                     <a href="{{ $img_proof->image }}" target="_blank"><button type="button"
-                                            class="btn btn-sm btn-info">@lang('staff.application-image-proofs') {{ ++$key }}</button></a>
+                                            class="btn btn-sm btn-info">@lang('staff.application-image-proofs')
+                                            {{ ++$key }}</button></a>
                                 @endforeach
                             </td>
                         </tr>
@@ -74,8 +75,9 @@
                                 <strong>@lang('user.profile') @lang('staff.links')</strong>
                             </td>
                             <td>
-                                @foreach($application->urlProofs as $key => $url_proof)
-                                    <li><a href="{{ $url_proof->url }}" target="_blank">@lang('user.profile') @lang('staff.links') {{ ++$key }}</a></li>
+                                @foreach ($application->urlProofs as $key => $url_proof)
+                                    <li><a href="{{ $url_proof->url }}" target="_blank">@lang('user.profile')
+                                            @lang('staff.links') {{ ++$key }}</a></li>
                                 @endforeach
                             </td>
                         </tr>
@@ -86,7 +88,8 @@
                             <td>
                                 <div class="form-group">
                                     <label>
-                                        <textarea name="referrer" cols="30" rows="10" class="form-control" disabled="">{{ $application->referrer }}</textarea>
+                                        <textarea name="referrer" cols="30" rows="10" class="form-control"
+                                            disabled="">{{ $application->referrer }}</textarea>
                                     </label>
                                 </div>
                             </td>
@@ -105,7 +108,7 @@
                                 @endif
                             </td>
                         </tr>
-                        @if($application->status != 0)
+                        @if ($application->status != 0)
                             <tr>
                                 <td>
                                     <strong>@lang('common.moderated-by')</strong>
@@ -120,7 +123,8 @@
                                 <td>
                                     <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
                                         data-target="#approve-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-check"></i> @lang('request.approve')</button>
+                                            class="{{ config('other.font-awesome') }} fa-check"></i>
+                                        @lang('request.approve')</button>
 
                                     <div id="approve-application" class="modal fade" role="dialog">
                                         <form method="POST"
@@ -145,7 +149,8 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="approve"></label>
-                                                            <textarea class="form-control" rows="5" cols="50" name="approve" id="approve">Application Approved!</textarea>
+                                                            <textarea class="form-control" rows="5" cols="50" name="approve"
+                                                                id="approve">Application Approved!</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -161,7 +166,8 @@
 
                                     <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
                                         data-target="#deny-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.reject')</button>
+                                            class="{{ config('other.font-awesome') }} fa-times"></i>
+                                        @lang('request.reject')</button>
 
                                     <div id="deny-application" class="modal fade" role="dialog">
                                         <form method="POST"
@@ -186,7 +192,8 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="deny"></label>
-                                                            <textarea class="form-control" rows="5" cols="50" name="deny" id="deny">Insufficient Proofs.</textarea>
+                                                            <textarea class="form-control" rows="5" cols="50" name="deny"
+                                                                id="deny">Insufficient Proofs.</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

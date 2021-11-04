@@ -20,7 +20,8 @@
         </a>
     </div>
     <div class="button-right">
-        <a href="{{ route('user_settings', ['username' => auth()->user()->username]) }}" class="btn btn-sm btn-danger">
+        <a href="{{ route('user_settings', ['username' => auth()->user()->username]) }}"
+            class="btn btn-sm btn-danger">
             @lang('user.settings')
         </a>
         <a href="{{ route('user_edit_profile_form', ['username' => auth()->user()->username]) }}">

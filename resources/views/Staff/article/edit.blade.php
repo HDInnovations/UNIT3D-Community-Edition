@@ -35,17 +35,18 @@
                     <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="image">@lang('common.image')</label>
                 <input type="file" name="image">
             </div>
-    
+
             <div class="form-group">
                 <label for="content">@lang('staff.article-content')</label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{ $article->content }}</textarea>
+                <textarea name="content" id="content" cols="30" rows="10"
+                    class="form-control">{{ $article->content }}</textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.save')</button>
         </form>
     </div>
@@ -56,6 +57,5 @@
         $(document).ready(function() {
             $('#content').wysibb({});
         })
-    
     </script>
 @endsection

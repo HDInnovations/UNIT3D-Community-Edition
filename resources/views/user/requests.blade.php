@@ -6,26 +6,29 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_requested', ['username' => $user->username]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.requested')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
+                @lang('user.requested')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container-fluid">
-        @if (!auth()->user()->isAllowed($user,'request','show_requested'))
+        @if (!auth()->user()->isAllowed($user, 'request', 'show_requested'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">@lang('user.not-authorized')</p>
@@ -42,8 +45,8 @@
                         </h1>
                     </div>
                 </div>
-        
-                @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
+
+                @if ($user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo)
                     <div class="container">
                         <div class="jumbotron shadowed">
                             <div class="container">
@@ -75,7 +78,8 @@
                                         <tr>
                                             <td>
                                                 <div class="text-center">
-                                                    <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
+                                                    <i class="{{ $torrentRequest->category->icon }} torrent-icon"
+                                                        data-toggle="tooltip"
                                                         data-original-title="{{ $torrentRequest->category->name }} @lang('request.request')"></i>
                                                 </div>
                                             </td>
@@ -85,7 +89,8 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a class="view-torrent" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                                                <a class="view-torrent"
+                                                    href="{{ route('request', ['id' => $torrentRequest->id]) }}">
                                                     {{ $torrentRequest->name }}
                                                 </a>
                                             </td>
@@ -115,19 +120,23 @@
                                                         <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
                                                         @lang('request.claimed')
                                                     </button>
-                                                @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+                                                @elseif ($torrentRequest->filled_hash != null &&
+                                                    $torrentRequest->approved_by == null)
                                                     <button class="btn btn-xs btn-info">
-                                                        <i class="{{ config('other.font-awesome') }} fa-question-circle"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-question-circle"></i>
                                                         @lang('request.pending')
                                                     </button>
                                                 @elseif ($torrentRequest->filled_hash == null)
                                                     <button class="btn btn-xs btn-danger">
-                                                        <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-times-circle"></i>
                                                         @lang('request.unfilled')
                                                     </button>
                                                 @else
                                                     <button class="btn btn-xs btn-success">
-                                                        <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check-circle"></i>
                                                         @lang('request.filled')
                                                     </button>
                                                 @endif

@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -39,7 +40,8 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('user.invites-banned')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
+                            @lang('user.invites-banned')
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">@lang('user.invites-banned-desc')</p>
@@ -73,7 +75,9 @@
                                         size="10" required></div>
                                 <div class="form-group"><label for="message">@lang('common.message')</label></div>
                                 <div class="form-group">
-                                    <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea></div>
+                                    <textarea class="form-control" name="message" cols="50" rows="10"
+                                        id="message"></textarea>
+                                </div>
                                 <div class="form-group"><button type="submit"
                                         class="btn btn-primary">@lang('common.submit')</button></div>
                             </form>
@@ -81,6 +85,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     @endif
 @endsection

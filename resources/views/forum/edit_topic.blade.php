@@ -37,7 +37,7 @@
                     <label for="name"></label><input id="name" type="text" name="name" maxlength="75" class="form-control"
                         placeholder="@lang('forum.topic-title')" value="{{ $topic->name }}" required>
                 </div>
-    
+
                 <div class="form-group">
                     <label for="forum_id">@lang('forum.forum')</label>
                     <label>
@@ -51,7 +51,7 @@
                         </select>
                     </label>
                 </div>
-    
+
                 <button type="submit" name="post" value="true" id="post"
                     class="btn btn-primary">@lang('forum.edit-topic')</button>
             </form>

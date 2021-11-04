@@ -36,12 +36,12 @@
                     <label for="input-thread-title"></label><input id="input-thread-title" type="text" name="title"
                         maxlength="75" class="form-control" placeholder="@lang('forum.topic-title')">
                 </div>
-    
+
                 <div class="form-group">
                     <label for="new-thread-content"></label>
                     <textarea id="new-thread-content" name="content" cols="30" rows="10" class="form-control"></textarea>
                 </div>
-    
+
                 <button type="submit" class="btn btn-primary">@lang('forum.send-new-topic')</button>
             </form>
         </div>
@@ -51,17 +51,16 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).ready(function() {
-          const title = '{{ $title }}'
-          if (title.length != 0) {
+            const title = '{{ $title }}'
+            if (title.length != 0) {
                 $('#thread-title').text(': ' + title)
             }
-    
+
             $('#input-thread-title').on('input', function() {
                 $('#thread-title').text(': ' + $('#input-thread-title').val())
             });
-    
+
             $('#new-thread-content').wysibb({});
         })
-    
     </script>
 @endsection

@@ -19,11 +19,12 @@
         </label>
     </div>
 
-    @foreach($poll->options as $key => $option)
-        <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>">
+    @foreach ($poll->options as $key => $option)
+        <div class="form-group <?php echo ++$key >= 3 ? 'extra-option' : ''; ?>">
             <label for="{{ 'option' . $key }}">@lang('poll.option') {{ $key }}:</label>
             <label>
-                <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{ $option->id }}">
+                <input readonly type="number" name="option-id[]" style="visibility: hidden;"
+                    value="{{ $option->id }}">
                 <input type="text" name="option-content[]" class="form-control" value="{{ $option->name }}">
             </label>
         </div>
@@ -41,8 +42,8 @@
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="multiple_choice" @if ($poll->multiple_choice) checked @endif >
-                @lang('poll.multiple-choice')
+            <input type="checkbox" name="multiple_choice" @if ($poll->multiple_choice) checked @endif>
+            @lang('poll.multiple-choice')
         </label>
     </div>
 
@@ -53,22 +54,21 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-
-      let options = parseInt({{ $poll->options->count() }}) // Get the size of options passing in
+        let options = parseInt({{ $poll->options->count() }}) // Get the size of options passing in
         const langOption = "@lang('poll.option') "
 
-        $('#add').on('click', function (e) {
+        $('#add').on('click', function(e) {
             e.preventDefault();
             options += 1;
-          const optionHTML = `<div class="form-group extra-option"><label for="option${options}">${langOption}${options}:</label><input type="text" name="new-option-content[]" class="form-control" value="" required></div>`
-          $('.more-options').append(optionHTML);
+            const optionHTML =
+                `<div class="form-group extra-option"><label for="option${options}">${langOption}${options}:</label><input type="text" name="new-option-content[]" class="form-control" value="" required></div>`
+            $('.more-options').append(optionHTML);
         });
 
-        $('#del').on('click', function (e) {
+        $('#del').on('click', function(e) {
             e.preventDefault();
             options = (options > 2) ? options - 1 : 2;
             $('.extra-option').last().remove();
         });
-
     </script>
 @endsection

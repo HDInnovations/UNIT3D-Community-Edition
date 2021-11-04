@@ -26,40 +26,44 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('user.top-uploaders-count')
+                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                            @lang('user.top-uploaders-count')
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('torrent.uploaded')</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('torrent.uploaded')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($uploaders as $key => $u)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $u->user->username) class="mentions" @endif>
-                                    @if ($u->user->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
+                            @foreach ($uploaders as $key => $u)
+                                <tr>
+                                    <td>
+                                        {{ ++$key }}
+                                    </td>
+                                    <td @if (auth()->user()->username == $u->user->username) class="mentions" @endif>
+                                        @if ($u->user->private_profile == 1)
+                                            <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->user->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $u->user->username]) }}">({{ $u->user->username }}
-                                                    )</a></span>
-                                    @endif
+                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
+                                                @if (auth()->user()->id == $u->user->id || auth()->user()->group->is_modo)
+                                                    <a
+                                                        href="{{ route('users.show', ['username' => $u->user->username]) }}">({{ $u->user->username }}
+                                                        )</a>
+                                            </span>
+                                        @endif
                                     @else
                                         <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $u->user->username]) }}">{{ $u->user->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-green">{{ $u->user->getUploads() }}</span>
-                                </td>
+                                                href="{{ route('users.show', ['username' => $u->user->username]) }}">{{ $u->user->username }}</a></span>
+                            @endif
+                            </td>
+                            <td>
+                                <span class="text-green">{{ $u->user->getUploads() }}</span>
+                            </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

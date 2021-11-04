@@ -41,22 +41,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($bontransactions as $b)
+                                    @foreach ($bontransactions as $b)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
-                                                    <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
+                                                <a
+                                                    href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
+                                                    <span
+                                                        class="badge-user text-bold">{{ $b->senderObj->username }}</span>
                                                 </a>
                                             </td>
                                             <td>
-                                                @if($b->whereNotNull('torrent_id'))
+                                                @if ($b->whereNotNull('torrent_id'))
                                                     @php $torrent = \App\Models\Torrent::select(['anon'])->find($b->torrent_id); @endphp
                                                 @endif
-                                                @if(isset($torrent) && $torrent->anon === 1 && $b->receiver !== $user->id)
-                                                        <span class="badge-user text-bold">@lang('common.anonymous')</span>
+                                                @if (isset($torrent) && $torrent->anon === 1 && $b->receiver !== $user->id)
+                                                    <span class="badge-user text-bold">@lang('common.anonymous')</span>
                                                 @else
-                                                    <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
-                                                        <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
+                                                    <a
+                                                        href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
+                                                        <span
+                                                            class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
                                                     </a>
                                                 @endif
                                             </td>

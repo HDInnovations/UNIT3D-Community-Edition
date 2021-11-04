@@ -6,12 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_posts', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('user_posts', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.posts')</span>
         </a>
     </li>
@@ -19,12 +21,13 @@
 
 @section('content')
     <div class="container">
-        @if (!auth()->user()->isAllowed($user,'forum','show_post'))
+        @if (!auth()->user()->isAllowed($user, 'forum', 'show_post'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">@lang('user.not-authorized')</p>
@@ -66,23 +69,25 @@
                                         <td class="f-display-topic-title">
                                             <strong><a
                                                     href="{{ route('forum_topic', ['id' => $r->topic->id]) }}">{{ $r->topic->name }}</a></strong>
-                                            @if ($r->topic->state == "close") <span
+                                            @if ($r->topic->state == 'close') <span
                                                     class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span>
                                             @endif
-                                            @if ($r->topic->approved == "1") <span
+                                            @if ($r->topic->approved == '1') <span
                                                     class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span>
                                             @endif
-                                            @if ($r->topic->denied == "1") <span
+                                            @if ($r->topic->denied == '1') <span
                                                     class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span>
                                             @endif
-                                            @if ($r->topic->solved == "1") <span
-                                                class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                                            @if ($r->topic->invalid == "1") <span
+                                            @if ($r->topic->solved == '1') <span
+                                                    class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span>
+                                            @endif
+                                            @if ($r->topic->invalid == '1') <span
                                                     class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span>
                                             @endif
-                                            @if ($r->topic->bug == "1") <span
-                                                class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                                            @if ($r->topic->suggestion == "1") <span
+                                            @if ($r->topic->bug == '1') <span
+                                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span>
+                                            @endif
+                                            @if ($r->topic->suggestion == '1') <span
                                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
                                             @endif
                                         </td>

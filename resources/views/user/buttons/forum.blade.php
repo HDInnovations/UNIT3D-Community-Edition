@@ -1,5 +1,5 @@
-@if($route == 'profile' && auth()->user()->id != $user->id)
-    
+@if ($route == 'profile' && auth()->user()->id != $user->id)
+
 @else
     <div class="button-holder">
         <div class="button-left">
@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="button-right">
-            @if(auth()->user()->id == $user->id)
+            @if (auth()->user()->id == $user->id)
                 <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
                     @lang('user.settings')
                 </a>

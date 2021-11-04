@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -36,12 +37,14 @@
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>@lang('user.total-download'):</strong>
-                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
+                        <span
+                            class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre, 2) }}</span>
                     </span>
                     <span class="badge-user"><strong>@lang('user.total-upload'):</strong>
-                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
+                        <span
+                            class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-upload')">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre, 2) }}</span>
                     </span>
@@ -201,7 +204,8 @@
                                     </td>
                                     <td>
                                         @if ($upload->isPending())
-                                            <span class='label label-warning' data-toggle="tooltip">@lang('torrent.pending')</span>
+                                            <span class='label label-warning'
+                                                data-toggle="tooltip">@lang('torrent.pending')</span>
                                         @elseif ($upload->isApproved())
                                             <span class='label label-success' data-toggle="tooltip"
                                                 data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">@lang('torrent.approved')</span>
@@ -218,7 +222,8 @@
                                         @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
                                             <span class='label label-info'>@lang('torrent.requires-reseed')</span>
                                         @else
-                                            <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
+                                            <span
+                                                class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
                                         @endif
                                     </td>
                                 </tr>

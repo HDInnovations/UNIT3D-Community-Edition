@@ -25,11 +25,11 @@
             </div>
 
             <div class="row">
-                @foreach($playlists as $playlist)
+                @foreach ($playlists as $playlist)
                     <div class="col-md-2">
                         <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}">
                             <div class="item-playlist-container-playlist">
-                                @if(isset($playlist->cover_image))
+                                @if (isset($playlist->cover_image))
                                     <img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Cover Image">
                                 @else
                                     <div class="no_image_holder w273_and_h153 playlist"></div>

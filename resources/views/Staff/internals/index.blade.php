@@ -47,7 +47,8 @@
                             </td>
 
                             <td>
-                                <form action="{{ route('staff.internals.destroy', ['id' => $internal->id]) }}" method="POST">
+                                <form action="{{ route('staff.internals.destroy', ['id' => $internal->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.internals.edit', ['id' => $internal->id]) }}"

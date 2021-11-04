@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h2><span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
-                        {{ $invitecount }} </strong></span>@lang('user.invites-send') </h2>
+                                {{ $invitecount }} </strong></span>@lang('user.invites-send') </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
@@ -50,8 +50,10 @@
                                     @foreach ($invites as $invite)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
-                                                    <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
+                                                <a
+                                                    href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
+                                                    <span class="text-bold"
+                                                        style="color:{{ $invite->sender->group->color }}; ">
                                                         <i class="{{ $invite->sender->group->icon }}"></i>
                                                         {{ $invite->sender->username }}
                                                     </span>
@@ -71,8 +73,10 @@
                                             </td>
                                             <td>
                                                 @if ($invite->accepted_by != null && $invite->accepted_by != 1)
-                                                    <a href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
-                                                        <span class="text-bold" style="color:{{ $invite->receiver->group->color }}; ">
+                                                    <a
+                                                        href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
+                                                        <span class="text-bold"
+                                                            style="color:{{ $invite->receiver->group->color }}; ">
                                                             <i class="{{ $invite->receiver->group->icon }}"></i>
                                                             {{ $invite->receiver->username }}
                                                         </span>

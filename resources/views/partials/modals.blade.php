@@ -15,7 +15,8 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label for="comment-edit"></label>
-                            <textarea class="form-control" rows="5" name="comment-edit" cols="50" id="comment-edit">{{ $comment->content }}</textarea>
+                            <textarea class="form-control" rows="5" name="comment-edit" cols="50"
+                                id="comment-edit">{{ $comment->content }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">

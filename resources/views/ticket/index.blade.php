@@ -17,6 +17,7 @@
         td {
             vertical-align: middle !important;
         }
+
     </style>
     <div class="container">
         <div class="block">

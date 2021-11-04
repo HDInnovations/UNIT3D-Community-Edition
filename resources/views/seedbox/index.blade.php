@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('seedboxes.index', ['username' => $user->username]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.seedboxes')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
+                @lang('user.seedboxes')</span>
         </a>
     </li>
 @endsection
@@ -33,7 +35,8 @@
                     <p class="lead text-orange text-center"><i
                             class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
                         <strong>{{ strtoupper(trans('user.disclaimer')) }}</strong> <i
-                            class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i></p>
+                            class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
+                    </p>
                     <p class="lead text-orange text-center">@lang('user.disclaimer-info')
                         &nbsp;<br><strong>@lang('user.disclaimer-info-bordered')</strong></p>
                 </div>
@@ -61,7 +64,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete')
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                        @lang('common.delete')
                                     </button>
                                 </form>
                             </td>

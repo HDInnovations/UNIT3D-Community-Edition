@@ -43,7 +43,7 @@
                     <tbody>
                         @if ($audits->count())
                             @foreach ($audits as $audit)
-                            @php $values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR); @endphp
+                                @php $values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR); @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ strtoupper($audit->action) }}</td>
@@ -56,7 +56,8 @@
                                     </td>
                                     <td>
                                         @foreach ($values as $key => $value)
-                                            <span class="badge badge-extra">{{ $key }}:</span> {{ $value['old'] }} &rarr;
+                                            <span class="badge badge-extra">{{ $key }}:</span>
+                                            {{ $value['old'] }} &rarr;
                                             {{ $value['new'] }}<br>
                                         @endforeach
                                     </td>
@@ -65,7 +66,8 @@
                                         ({{ $audit->created_at->diffForHumans() }})
                                     </td>
                                     <td>
-                                        <form action="{{ route('staff.audits.destroy', ['id' => $audit->id]) }}" method="POST">
+                                        <form action="{{ route('staff.audits.destroy', ['id' => $audit->id]) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-xs btn-danger">

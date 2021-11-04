@@ -41,7 +41,7 @@
                                 @else
                                     @lang('poll.votes')
                                 @endif
-                                </span>
+                            </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                                     aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="100"
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

@@ -6,12 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_active', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('user_active', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.active')</span>
         </a>
     </li>
@@ -35,12 +37,14 @@
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>@lang('user.total-download'):</strong>
-                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
+                        <span
+                            class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre, 2) }}</span>
                     </span>
                     <span class="badge-user"><strong>@lang('user.total-upload'):</strong>
-                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
+                        <span
+                            class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-upload')">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre, 2) }}</span>
                     </span>
@@ -132,7 +136,8 @@
                                             class="badge-extra text-purple text-bold">{{ $p->agent ?: trans('common.unknown') }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge-extra text-blue text-bold"> {{ $p->torrent->getSize() }}</span>
+                                        <span class="badge-extra text-blue text-bold">
+                                            {{ $p->torrent->getSize() }}</span>
                                     </td>
                                     <td>
                                         <span class="badge-extra text-green text-bold"> {{ $p->torrent->seeders }}</span>
@@ -167,7 +172,8 @@
                                         <td>
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: 100%;">
                                                     100%
                                                 </div>
                                             </div>

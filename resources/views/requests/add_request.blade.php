@@ -50,24 +50,26 @@
                                     required>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
                             <label>
                                 <select name="category_id" class="form-control" required>
-                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Category--</option>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Category--
+                                    </option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="type_id">@lang('request.type')</label>
                             <label>
                                 <select name="type_id" class="form-control" required>
-                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Type--</option>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Type--
+                                    </option>
                                     @foreach ($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
@@ -79,7 +81,8 @@
                             <label for="resolution_id">@lang('request.resolution')</label>
                             <label>
                                 <select name="resolution_id" class="form-control">
-                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--
+                                    </option>
                                     @foreach ($resolutions as $resolution)
                                         <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
                                     @endforeach
@@ -90,7 +93,8 @@
                         <div class="form-group">
                             <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
                             <label>
-                                <input type="number" name="tmdb" id="autotmdb" class="form-control" value="{{ $tmdb ?? old('tmdb') }}" required>
+                                <input type="number" name="tmdb" id="autotmdb" class="form-control"
+                                    value="{{ $tmdb ?? old('tmdb') }}" required>
                             </label>
                         </div>
 
@@ -98,37 +102,42 @@
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
-                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ $imdb ?? old('imdb') }}" required>
+                                <input type="number" name="imdb" id="autoimdb" class="form-control"
+                                    value="{{ $imdb ?? old('imdb') }}" required>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">TVDB ID (@lang('torrent.optional'))</label>
                             <label>
-                                <input type="number" name="tvdb" id="autotvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                                <input type="number" name="tvdb" id="autotvdb" value="{{ old('tvdb') ?? '0' }}"
+                                    class="form-control" required>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">MAL ID (@lang('request.required') For Anime)</label>
                             <label>
-                                <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
+                                <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control"
+                                    required>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">IGDB ID <b>(@lang('request.required') For Games)</b></label>
                             <label>
-                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control"
+                                    required>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="description">@lang('request.description')</label>
                             <label for="request-form-description"></label>
-                            <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea id="request-form-description" name="description" cols="30" rows="10"
+                                class="form-control"></textarea>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="bonus_point">@lang('request.reward')
                                 <small><em>(@lang('request.reward-desc'))</em></small></label>
@@ -136,7 +145,7 @@
                                 <input class="form-control" name="bounty" type="number" min='100' value="100" required>
                             </label>
                         </div>
-        
+
                         <label for="anon" class="control-label">@lang('common.anonymous')?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
@@ -145,7 +154,7 @@
                             <label><input type="radio" name="anon" checked="checked" value="0">@lang('common.no')</label>
                         </div>
                     </div>
-        
+
                     <br>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
@@ -161,6 +170,5 @@
         $(document).ready(function() {
             $('#request-form-description').wysibb({});
         })
-    
     </script>
 @endsection

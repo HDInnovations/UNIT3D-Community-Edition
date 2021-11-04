@@ -26,40 +26,44 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> @lang('stat.top-leechers')
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                            @lang('stat.top-leechers')
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('torrent.leeching')</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('torrent.leeching')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($leechers as $key => $l)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $l->user->username) class="mentions" @endif>
-                                    @if ($l->user->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
+                            @foreach ($leechers as $key => $l)
+                                <tr>
+                                    <td>
+                                        {{ ++$key }}
+                                    </td>
+                                    <td @if (auth()->user()->username == $l->user->username) class="mentions" @endif>
+                                        @if ($l->user->private_profile == 1)
+                                            <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $l->user->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $l->user->username]) }}">({{ $l->user->username }}
-                                                    )</a></span>
-                                    @endif
+                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
+                                                @if (auth()->user()->id == $l->user->id || auth()->user()->group->is_modo)
+                                                    <a
+                                                        href="{{ route('users.show', ['username' => $l->user->username]) }}">({{ $l->user->username }}
+                                                        )</a>
+                                            </span>
+                                        @endif
                                     @else
                                         <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $l->user->username]) }}">{{ $l->user->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-red">{{ $l->user->getLeeching() }}</span>
-                                </td>
+                                                href="{{ route('users.show', ['username' => $l->user->username]) }}">{{ $l->user->username }}</a></span>
+                            @endif
+                            </td>
+                            <td>
+                                <span class="text-red">{{ $l->user->getLeeching() }}</span>
+                            </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -13,7 +13,8 @@
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
                         <label>
-                            <input class="form-control" type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                            <input class="form-control" type="number" tabindex="3" name='bonus_value' min='100'
+                                value="100">
                         </label>
                         <p>Anonymous Bounty?</p>
                         <div class="radio-inline">
@@ -28,8 +29,7 @@
                     <div class="text-center">
                         <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if ($user->seedbonus < 100) disabled title="@lang('request.dont-have-bps')"
-                            @endif class="btn btn-success">@lang('request.vote')</button>
+                        <button type="submit" @if ($user->seedbonus < 100) disabled title="@lang('request.dont-have-bps')" @endif class="btn btn-success">@lang('request.vote')</button>
                     </div>
                 </div>
             </form>
@@ -43,7 +43,8 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                         aria-hidden="true">&times;</span></button>
-                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('request.fill-request')!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('request.fill-request')!
+                </h2>
             </div>
             <form role="form" method="POST" action="{{ route('fill_request', ['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -82,7 +83,8 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                         aria-hidden="true">&times;</span></button>
-                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('request.reset-request')!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('request.reset-request')!
+                </h2>
             </div>
             <form role="form" method="GET" action="{{ route('resetRequest', ['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -93,8 +95,8 @@
                     <div class="text-center">
                         <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
-                            @endif class="btn btn-warning">@lang('request.reset')</button>
+                        <button type="submit" @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled @endif
+                            class="btn btn-warning">@lang('request.reset')</button>
                     </div>
                 </div>
             </form>
@@ -120,8 +122,8 @@
                     <div class="text-center">
                         <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if ($torrentRequest->filled_hash != null) disabled
-                            @endif class="btn btn-danger">@lang('common.delete')</button>
+                        <button type="submit" @if ($torrentRequest->filled_hash != null) disabled @endif
+                            class="btn btn-danger">@lang('common.delete')</button>
                     </div>
                 </div>
             </form>

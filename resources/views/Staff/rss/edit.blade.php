@@ -53,7 +53,7 @@
                 <input type="text" class="form-control" id="uploader" name="uploader"
                     value="{{ $rss->object_torrent->uploader }}">
             </div>
-    
+
             <div class="form-group">
                 <label for="imdb">ID</label>
                 <input type="text" class="form-control" id="imdb" name="imdb" value="{{ $rss->object_torrent->imdb }}">
@@ -71,12 +71,12 @@
                     @foreach ($categories as $category)
                         <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->categories) && in_array((string)$category->id, $rss->object_torrent->categories, true))
-                                    <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}"
-                                           class="category" CHECKED> {{ $category->name }}
+                                @if (is_array($rss->object_torrent->categories) && in_array((string) $category->id, $rss->object_torrent->categories, true))
+                                    <input type="checkbox" id="{{ $category->name }}" name="categories[]"
+                                        value="{{ $category->id }}" class="category" CHECKED> {{ $category->name }}
                                 @else
-                                    <input type="checkbox" id="{{ $category->name }}" name="categories[]" value="{{ $category->id }}"
-                                           class="category"> {{ $category->name }}
+                                    <input type="checkbox" id="{{ $category->name }}" name="categories[]"
+                                        value="{{ $category->id }}" class="category"> {{ $category->name }}
                                 @endif
                             </label>
                         </span>
@@ -89,11 +89,12 @@
                     @foreach ($types as $type)
                         <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->types) && in_array((string)$type->id, $rss->object_torrent->types, true))
-                                    <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type"
-                                           CHECKED> {{ $type->name }}
+                                @if (is_array($rss->object_torrent->types) && in_array((string) $type->id, $rss->object_torrent->types, true))
+                                    <input type="checkbox" id="{{ $type->name }}" name="types[]"
+                                        value="{{ $type->id }}" class="type" CHECKED> {{ $type->name }}
                                 @else
-                                    <input type="checkbox" id="{{ $type->name }}" name="types[]" value="{{ $type->id }}" class="type">
+                                    <input type="checkbox" id="{{ $type->name }}" name="types[]"
+                                        value="{{ $type->id }}" class="type">
                                     {{ $type->name }}
                                 @endif
                             </label>
@@ -107,11 +108,13 @@
                     @foreach ($resolutions as $resolution)
                         <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->resolutions) && in_array((string)$resolution->id, $rss->object_torrent->resolutions, true))
-                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]" value="{{ $resolution->id }}" class="resolution" CHECKED>
+                                @if (is_array($rss->object_torrent->resolutions) && in_array((string) $resolution->id, $rss->object_torrent->resolutions, true))
+                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]"
+                                        value="{{ $resolution->id }}" class="resolution" CHECKED>
                                     {{ $resolution->name }}
                                 @else
-                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]" value="{{ $resolution->id }}" class="resolution">
+                                    <input type="checkbox" id="{{ $resolution->name }}" name="resolutions[]"
+                                        value="{{ $resolution->id }}" class="resolution">
                                     {{ $resolution->name }}
                                 @endif
                             </label>
@@ -125,12 +128,12 @@
                     @foreach ($genres as $genre)
                         <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->genres) && in_array($genre->id, $rss->object_torrent->genres, true))
-                                    <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}"
-                                           class="genre" CHECKED> {{ $genre->name }}
+                                @if (is_array($rss->object_torrent->genres) && in_array($genre->id, $rss->object_torrent->genres, true))
+                                    <input type="checkbox" id="{{ $genre->name }}" name="genres[]"
+                                        value="{{ $genre->id }}" class="genre" CHECKED> {{ $genre->name }}
                                 @else
-                                    <input type="checkbox" id="{{ $genre->name }}" name="genres[]" value="{{ $genre->id }}"
-                                           class="genre"> {{ $genre->name }}
+                                    <input type="checkbox" id="{{ $genre->name }}" name="genres[]"
+                                        value="{{ $genre->id }}" class="genre"> {{ $genre->name }}
                                 @endif
                             </label>
                         </span>
@@ -142,7 +145,7 @@
                 <div>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->freeleech)
+                            @if ($rss->object_torrent->freeleech)
                                 <input type="checkbox" id="freeleech" name="freeleech" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
                                 @lang('torrent.freeleech')
@@ -155,7 +158,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->doubleupload)
+                            @if ($rss->object_torrent->doubleupload)
                                 <input type="checkbox" id="doubleupload" name="doubleupload" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
                                 @lang('torrent.double-upload')
@@ -168,7 +171,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->featured)
+                            @if ($rss->object_torrent->featured)
                                 <input type="checkbox" id="featured" name="featured" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
                                 @lang('torrent.featured')
@@ -186,7 +189,7 @@
                 <div>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->stream)
+                            @if ($rss->object_torrent->stream)
                                 <input type="checkbox" id="stream" name="stream" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-play text-red"></span>
                                 @lang('torrent.stream-optimized')
@@ -199,7 +202,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->highspeed)
+                            @if ($rss->object_torrent->highspeed)
                                 <input type="checkbox" id="highspeed" name="highspeed" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
                                 @lang('common.high-speeds')
@@ -212,7 +215,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->sd)
+                            @if ($rss->object_torrent->sd)
                                 <input type="checkbox" id="sd" name="sd" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span>
                                 @lang('torrent.sd-content')
@@ -225,7 +228,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->internal)
+                            @if ($rss->object_torrent->internal)
                                 <input type="checkbox" id="internal" name="internal" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span>
                                 @lang('torrent.internal')
@@ -238,7 +241,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->bookmark)
+                            @if ($rss->object_torrent->bookmark)
                                 <input type="checkbox" id="bookmark" name="bookmark" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
                                 @lang('torrent.bookmark')
@@ -251,13 +254,13 @@
                     </span>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="type">@lang('torrent.health')</label>
                 <div>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->alive)
+                            @if ($rss->object_torrent->alive)
                                 <input type="checkbox" id="alive" name="alive" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
                                 @lang('torrent.alive')
@@ -270,7 +273,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->dying)
+                            @if ($rss->object_torrent->dying)
                                 <input type="checkbox" id="dying" name="dying" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
                                 @lang('torrent.dying-torrent')
@@ -283,7 +286,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            @if($rss->object_torrent->dead)
+                            @if ($rss->object_torrent->dead)
                                 <input type="checkbox" id="dead" name="dead" value="1" CHECKED><span
                                     class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
                                 @lang('torrent.dead-torrent')

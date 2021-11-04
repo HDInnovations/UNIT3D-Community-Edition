@@ -1,7 +1,8 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') @lang('common.edit') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('common.user') @lang('common.edit') - @lang('staff.staff-dashboard') - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
@@ -10,7 +11,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -25,7 +27,7 @@
     <div class="container">
         <h1 class="title">
             <i class="{{ config('other.font-awesome') }} fa-gear"></i>
-                @lang('common.edit') @lang('common.user')
+            @lang('common.edit') @lang('common.user')
             <a href="{{ route('users.show', ['username' => $user->username]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
@@ -106,21 +108,22 @@
                             </select>
                         </label>
                     </div>
-                    
-                    @if ($user->group->name == "Internal")
+
+                    @if ($user->group->name == 'Internal')
                         <div class="form-group">
                             <label for="about">Internal Group:</label>
                             <label>
                                 <select name="internal_id" class="form-control">
                                     @if ($user->internal != null)
-                                    <option value="{{ $user->internal->id }}">{{ $user->internal->name }} (Default)</option>
+                                        <option value="{{ $user->internal->id }}">{{ $user->internal->name }}
+                                            (Default)</option>
                                     @endif
                                     <option value="i0">None</option>
                                     @foreach ($internals as $i)
                                         <option value="{{ $i->id }}">{{ $i->name }}</option>
                                     @endforeach
                                 </select>
-                             </label>
+                            </label>
                         </div>
                     @endif
 
@@ -131,71 +134,60 @@
             <div role="tabpanel" class="tab-pane" id="permissions">
                 <h3>@lang('user.id-permissions')</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username]) }}">
+                <form role="form" method="POST"
+                    action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf
                     <label for="hidden" class="control-label">@lang('user.can-upload')?</label>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <br>
                     <label for="hidden" class="control-label">@lang('user.can-download')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
-                            @endif value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
-                            @endif value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <br>
                     <label for="hidden" class="control-label">@lang('user.can-comment')?</label>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <br>
                     <label for="hidden" class="control-label">@lang('user.can-invite')?</label>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <br>
                     <label for="hidden" class="control-label">@lang('user.can-request')?</label>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <br>
                     <label for="hidden" class="control-label">@lang('user.can-chat')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
-                            @endif value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked @endif value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
-                            @endif value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked @endif value="0">@lang('common.no')</label>
                     </div>
                     <br>
                     <div class="form-group">
@@ -207,7 +199,8 @@
             <div role="tabpanel" class="tab-pane" id="notes">
                 <h3>@lang('common.add') @lang('staff.user-notes')</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('staff.notes.store', ['username' => $user->username]) }}">
+                <form role="form" method="POST"
+                    action="{{ route('staff.notes.store', ['username' => $user->username]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="message">@lang('staff.user-notes')</label>
@@ -219,7 +212,8 @@
                     <button type="submit" class="btn btn-primary">@lang('common.save')</button>
                 </form>
                 <hr>
-                <h2>@lang('user.note')<span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
+                <h2>@lang('user.note')<span class="text-blue"><strong><i
+                                class="{{ config('other.font-awesome') }} fa-note"></i>
                             {{ $notes->count() }} </strong></span></h2>
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
@@ -247,10 +241,12 @@
                                         {{ $note->message }}
                                     </td>
                                     <td>
-                                        {{ $note->created_at->toDayDateTimeString() }} ({{ $note->created_at->diffForHumans() }})
+                                        {{ $note->created_at->toDayDateTimeString() }}
+                                        ({{ $note->created_at->diffForHumans() }})
                                     </td>
                                     <td>
-                                        <form action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}" method="POST">
+                                        <form action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-xs btn-danger"><i
@@ -273,7 +269,7 @@
                         <label for="new_password">@lang('common.new-adj') @lang('passwords.password')</label>
                         <label>
                             <input type="password" name="new_password" class="form-control"
-                                   placeholder="@lang('common.new-adj') @lang('common.password')">
+                                placeholder="@lang('common.new-adj') @lang('common.password')">
                         </label>
                     </div>
                     <br>

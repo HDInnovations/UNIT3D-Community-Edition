@@ -40,19 +40,22 @@
                             <tr>
                                 <td>
                                     <label>
-                                        <input type="text" name="name" value="{{ $internal->name }}" class="form-control" />
+                                        <input type="text" name="name" value="{{ $internal->name }}"
+                                            class="form-control" />
                                     </label>
                                 </td>
 
                                 <td>
                                     <label>
-                                        <input type="text" name="icon" value="{{ $internal->icon }}" class="form-control" />
+                                        <input type="text" name="icon" value="{{ $internal->icon }}"
+                                            class="form-control" />
                                     </label>
                                 </td>
 
                                 <td>
                                     <label>
-                                        <input type="text" name="effect" value="{{ $internal->effect }}" class="form-control" />
+                                        <input type="text" name="effect" value="{{ $internal->effect }}"
+                                            class="form-control" />
                                     </label>
                                 </td>
                             </tr>

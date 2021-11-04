@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_torrents', ['username' => $user->username]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.torrents')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
+                @lang('user.torrents')</span>
         </a>
     </li>
 @endsection
@@ -35,12 +37,14 @@
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>@lang('user.total-download'):</strong>
-                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
+                        <span
+                            class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre, 2) }}</span>
                     </span>
                     <span class="badge-user"><strong>@lang('user.total-upload'):</strong>
-                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
+                        <span
+                            class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-upload')">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre, 2) }}</span>
                     </span>
@@ -153,10 +157,12 @@
                         <tbody>
                             @foreach ($history as $his)
                                 <tr class="userFiltered" active="{{ $his->active ? '1' : '0' }}"
-                                    seeding="{{ $his->seeder == 1 ? '1' : '0' }}" prewarned="{{ $his->prewarn ? '1' : '0' }}"
-                                    hr="{{ $his->hitrun ? '1' : '0' }}" immune="{{ $his->immune ? '1' : '0' }}">
+                                    seeding="{{ $his->seeder == 1 ? '1' : '0' }}"
+                                    prewarned="{{ $his->prewarn ? '1' : '0' }}" hr="{{ $his->hitrun ? '1' : '0' }}"
+                                    immune="{{ $his->immune ? '1' : '0' }}">
                                     <td>
-                                        <a class="view-torrent" href="{{ route('torrent', ['id' => $his->torrent->id]) }}">
+                                        <a class="view-torrent"
+                                            href="{{ route('torrent', ['id' => $his->torrent->id]) }}">
                                             {{ $his->torrent->name }}
                                         </a>
                                     </td>
@@ -166,10 +172,12 @@
                                     </td>
                                     @if ($his->active == 1)
                                     <td class="text-green">@lang('common.yes')</td> @else
-                                    <td class="text-red">@lang('common.no')</td> @endif
+                                        <td class="text-red">@lang('common.no')</td>
+                                    @endif
                                     @if ($his->seeder == 1)
                                     <td class="text-green">@lang('common.yes')</td> @else
-                                    <td class="text-red">@lang('common.no')</td> @endif
+                                        <td class="text-red">@lang('common.no')</td>
+                                    @endif
                                     <td>
                                         <span
                                             class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his->actual_uploaded, 2) }}</span>
@@ -182,37 +190,38 @@
                                         <span class="badge-extra text-orange" data-toggle="tooltip"
                                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his->downloaded, 2) }}</span>
                                     </td>
-                                    @if ($his->seedtime < config('hitrun.seedtime')) <td>
+                                    @if ($his->seedtime < config('hitrun.seedtime'))
+                                        <td>
                                             <span
                                                 class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <span
-                                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                            </td>
-                                        @endif
-                                        <td>{{ $his->created_at && $his->created_at != null ? $his->created_at->diffForHumans() : 'N/A' }}
                                         </td>
-                                        <td>{{ $his->updated_at && $his->updated_at != null ? $his->updated_at->diffForHumans() : 'N/A' }}
+                                    @else
+                                        <td>
+                                            <span
+                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                         </td>
-                                        <td>{{ $his->completed_at && $his->completed_at != null ? $his->completed_at->diffForHumans() : 'N/A' }}
-                                        </td>
-                                        @if ($his->prewarn == 1)
-                                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                                        @else
-                                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                                        @endif
-                                        @if ($his->hitrun == 1)
-                                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                                        @else
-                                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                                        @endif
-                                        @if ($his->immune == 1)
-                                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                                        @else
-                                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                                        @endif
+                                    @endif
+                                    <td>{{ $his->created_at && $his->created_at != null ? $his->created_at->diffForHumans() : 'N/A' }}
+                                    </td>
+                                    <td>{{ $his->updated_at && $his->updated_at != null ? $his->updated_at->diffForHumans() : 'N/A' }}
+                                    </td>
+                                    <td>{{ $his->completed_at && $his->completed_at != null ? $his->completed_at->diffForHumans() : 'N/A' }}
+                                    </td>
+                                    @if ($his->prewarn == 1)
+                                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                                    @else
+                                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                                    @endif
+                                    @if ($his->hitrun == 1)
+                                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                                    @else
+                                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                                    @endif
+                                    @if ($his->immune == 1)
+                                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                                    @else
+                                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

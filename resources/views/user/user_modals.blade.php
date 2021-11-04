@@ -24,7 +24,8 @@
                             <label for="bonus_message">@lang('pm.message')</label>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
+                            <textarea class="form-control" name="bonus_message" cols="50" rows="10"
+                                id="bonus_message"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="btn btn-small btn-primary" type="submit" value="@lang('bon.gift')">
@@ -95,7 +96,8 @@
                         </div>
                         <div class="form-group">
                             <label for="ban_reason"></label>
-                            <textarea class="form-control" rows="5" name="ban_reason" cols="50" id="ban_reason"></textarea>
+                            <textarea class="form-control" rows="5" name="ban_reason" cols="50"
+                                id="ban_reason"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="btn btn-danger" type="submit" value="Ban">
@@ -130,7 +132,8 @@
                         </div>
                         <div class="form-group">
                             <label for="unban_reason"></label>
-                            <textarea class="form-control" rows="5" name="unban_reason" cols="50" id="unban_reason"></textarea>
+                            <textarea class="form-control" rows="5" name="unban_reason" cols="50"
+                                id="unban_reason"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="report_reason">New Group</label>
@@ -138,7 +141,8 @@
                         <div class="form-group">
                             <label>
                                 <select name="group_id" class="form-control">
-                                    <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
+                                    <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)
+                                    </option>
                                     @foreach ($groups as $g)
                                         <option value="{{ $g->id }}">{{ $g->name }}</option>
                                     @endforeach
@@ -231,7 +235,7 @@
             <div class="modal-body">
                 <div class="py-3">
                     <form role="form" method="POST"
-                          action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}">
+                        action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}">
                         @csrf
                         <div class="form-group">
                             <label for="report_reason">Reason</label>

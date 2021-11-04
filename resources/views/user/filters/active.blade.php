@@ -49,8 +49,9 @@
                         <td>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                    aria-valuenow="{{ ($p->downloaded / $p->torrent->size) * 100 }}" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: {{ ($p->downloaded / $p->torrent->size) * 100 }}%;">
+                                    aria-valuenow="{{ ($p->downloaded / $p->torrent->size) * 100 }}"
+                                    aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ ($p->downloaded / $p->torrent->size) * 100 }}%;">
                                     {{ round(($p->downloaded / $p->torrent->size) * 100) }}%
                                 </div>
                             </div>
@@ -58,8 +59,8 @@
                     @elseif ($p->seeder == 1)
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100"
-                                    aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
                                     100%
                                 </div>
                             </div>

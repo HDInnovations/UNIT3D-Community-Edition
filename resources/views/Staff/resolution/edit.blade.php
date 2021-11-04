@@ -12,7 +12,8 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.resolutions.edit', ['id' => $resolution->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.resolutions.edit', ['id' => $resolution->id]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Resolution</span>
         </a>
     </li>
@@ -30,14 +31,14 @@
                     <input type="text" class="form-control" name="name" value="{{ $resolution->name }}">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="name">@lang('common.position')</label>
                 <label>
                     <input type="text" class="form-control" name="position" value="{{ $resolution->position }}">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>

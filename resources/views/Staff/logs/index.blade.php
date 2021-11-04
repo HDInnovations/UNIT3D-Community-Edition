@@ -5,21 +5,21 @@
         .stack {
             font-size: 0.85em;
         }
-    
+
         .date {
             min-width: 75px;
         }
-    
+
         .text {
             word-break: break-all;
         }
-    
+
         a.llv-active {
             z-index: 2;
             background-color: #f5f5f5;
             border-color: #777777;
         }
-    
+
         .log_file {
             width: 200px;
             float: right;
@@ -30,9 +30,9 @@
             background-color: #ffffff;
             border: 1px solid #dddddd;
         }
-    
+
     </style>
-    
+
     <div class="container-fluid">
         <div class="row">
             <br><br>
@@ -40,7 +40,7 @@
                 <h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h3>
             </div>
             @foreach ($files as $file)
-        <a href="?l={{ base64_encode($file) }}" class="log_file @if ($current_file == $file) llv-active @endif">
+                <a href="?l={{ base64_encode($file) }}" class="log_file @if ($current_file==$file) llv-active @endif">
                     {{ $file }}
                 </a>
             @endforeach
@@ -60,32 +60,38 @@
                             </tr>
                         </thead>
                         <tbody>
-        
+
                             @foreach ($logs as $key => $log)
                                 <tr>
                                     <td class="text-{{ $log['level_class'] }}"><span
-                                            class="glyphicon glyphicon-{{ $log['level_img'] }}-sign" aria-hidden="true"></span>
+                                            class="glyphicon glyphicon-{{ $log['level_img'] }}-sign"
+                                            aria-hidden="true"></span>
                                         &nbsp;{{ $log['level'] }}</td>
                                     <td class="text">{{ $log['context'] }}</td>
                                     <td class="date">{{ $log['date'] }}</td>
                                     <td class="text">
-                                        @if ($log['stack']) <a class="pull-right expand btn btn-default btn-xs"
+                                        @if ($log['stack']) <a
+                                                class="pull-right expand btn btn-default btn-xs"
                                                 data-display="stack{{ $key }}"><span
-                                                class="glyphicon glyphicon-search"></span></a>@endif
+                                                    class="glyphicon glyphicon-search"></span></a>@endif
                                         {{ $log['text'] }}
-                            @if (isset($log['in_file'])) <br />{{ $log['in_file'] }}@endif
+                                        @if (isset($log['in_file']))
+                                            <br />{{ $log['in_file'] }}@endif
                                         @if ($log['stack'])
-                                            <div class="stack" id="stack{{ $key }}" style="display: none; white-space: pre-wrap;">
-                                            {{ trim($log['stack']) }}</div>@endif
+                                            <div class="stack" id="stack{{ $key }}"
+                                                style="display: none; white-space: pre-wrap;">
+                                                {{ trim($log['stack']) }}</div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
-        
+
                         </tbody>
                     </table>
                 @endif
                 <div>
-                    <a href="?dl={{ base64_encode($current_file) }}"><span class="glyphicon glyphicon-download-alt"></span>
+                    <a href="?dl={{ base64_encode($current_file) }}"><span
+                            class="glyphicon glyphicon-download-alt"></span>
                         Download file</a>
                     -
                     <a id="delete-log" href="?del={{ base64_encode($current_file) }}"><span

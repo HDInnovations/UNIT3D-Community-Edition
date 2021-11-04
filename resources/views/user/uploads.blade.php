@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -20,12 +21,13 @@
 
 @section('content')
     <div class="container-fluid">
-        @if (!auth()->user()->isAllowed($user,'torrent','show_upload'))
+        @if (!auth()->user()->isAllowed($user, 'torrent', 'show_upload'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">@lang('user.not-authorized')</p>
@@ -73,7 +75,8 @@
                                                 href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
                                         </td>
                                         <td>
-                                            <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>
+                                            <span class="badge-extra text-blue text-bold">
+                                                {{ $upload->getSize() }}</span>
                                         </td>
                                         <td>
                                             <span class="badge-extra text-green text-bold"> {{ $upload->seeders }}</span>
@@ -82,7 +85,8 @@
                                             <span class="badge-extra text-red text-bold"> {{ $upload->leechers }}</span>
                                         </td>
                                         <td>
-                                            <span class="badge-extra text-orange text-bold"> {{ $upload->times_completed }}
+                                            <span class="badge-extra text-orange text-bold">
+                                                {{ $upload->times_completed }}
                                                 @lang('common.times')</span>
                                         </td>
                                         <td>{{ $upload->created_at ? $upload->created_at->diffForHumans() : 'N/A' }}</td>

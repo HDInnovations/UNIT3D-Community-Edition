@@ -6,7 +6,8 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
@@ -96,7 +97,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="pid">
-                        <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                            action="{{ route('change_pid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-passkey').</h3>
@@ -116,7 +118,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="rid">
-                        <form role="form" method="POST" action="{{ route('change_rid', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                            action="{{ route('change_rid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-rss').</h3>
@@ -136,7 +139,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="api">
-                        <form role="form" method="POST" action="{{ route('change_api_token', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                            action="{{ route('change_api_token', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-api-token').</h3>
@@ -146,7 +150,8 @@
 
                                 <div class="form-group">
                                     <label for="current_rid">Current API Token</label>
-                                    <p class="form-control-static text-monospace current_api">{{ $user->api_token ?? 'You currently do not have a API Token.' }}</p>
+                                    <p class="form-control-static text-monospace current_api">
+                                        {{ $user->api_token ?? 'You currently do not have a API Token.' }}</p>
                                 </div>
                             </div>
                             <div class="well text-center">
@@ -165,12 +170,12 @@
                                     <hr>
                                     <label for="twostep" class="control-label">Use Two Step Auth?</label>
                                     <div class="radio-inline">
-                                <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked @endif
-                                            value="1">@lang('common.yes')</label>
+                                        <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked @endif
+                                                value="1">@lang('common.yes')</label>
                                     </div>
                                     <div class="radio-inline">
-                                        <label><input type="radio" name="twostep" @if ($user->twostep == 0) checked
-                                            @endif value="0">@lang('common.no')</label>
+                                        <label><input type="radio" name="twostep" @if ($user->twostep == 0) checked @endif
+                                                value="0">@lang('common.no')</label>
                                     </div>
                                     <br>
                                 </div>
@@ -179,7 +184,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                </div>
                 @endif
 
             </div>
@@ -207,6 +212,5 @@
                 $('#basetabs a[href="#rid"]').tab('show');
             }
         }
-
     </script>
 @endsection

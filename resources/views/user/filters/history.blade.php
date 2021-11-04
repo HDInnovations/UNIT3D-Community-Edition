@@ -27,15 +27,16 @@
                             </a>
                         </td>
                         <td>
-                            <span
-                                class="badge-extra text-purple">{{ $his->agent ?: trans('common.unknown') }}</span>
+                            <span class="badge-extra text-purple">{{ $his->agent ?: trans('common.unknown') }}</span>
                         </td>
                         @if ($his->active == 1)
                         <td class="text-green">@lang('common.yes')</td> @else
-                        <td class="text-red">@lang('common.no')</td> @endif
+                            <td class="text-red">@lang('common.no')</td>
+                        @endif
                         @if ($his->seeder == 1)
                         <td class="text-green">@lang('common.yes')</td> @else
-                        <td class="text-red">@lang('common.no')</td> @endif
+                            <td class="text-red">@lang('common.no')</td>
+                        @endif
                         <td>
                             <span
                                 class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his->actual_uploaded, 2) }}</span>
@@ -48,34 +49,35 @@
                             <span class="badge-extra text-orange" data-toggle="tooltip"
                                 data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his->downloaded, 2) }}</span>
                         </td>
-                        @if ($his->seedtime < config('hitrun.seedtime')) <td>
+                        @if ($his->seedtime < config('hitrun.seedtime'))
+                            <td>
                                 <span
                                     class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                </td>
-                            @else
-                                <td>
-                                    <span
-                                        class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                </td>
-                            @endif
-                            <td>{{ $his->created_at ? $his->created_at->diffForHumans() : 'N/A' }}</td>
-                            <td>{{ $his->updated_at ? $his->updated_at->diffForHumans() : 'N/A' }}</td>
-                            <td>{{ $his->completed_at ? $his->completed_at->diffForHumans() : 'N/A' }}</td>
-                            @if ($his->prewarn == 1)
-                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                            @else
-                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                            @endif
-                            @if ($his->hitrun == 1)
-                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                            @else
-                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                            @endif
-                            @if ($his->immune == 1)
-                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
-                            @else
-                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
-                            @endif
+                            </td>
+                        @else
+                            <td>
+                                <span
+                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
+                            </td>
+                        @endif
+                        <td>{{ $his->created_at ? $his->created_at->diffForHumans() : 'N/A' }}</td>
+                        <td>{{ $his->updated_at ? $his->updated_at->diffForHumans() : 'N/A' }}</td>
+                        <td>{{ $his->completed_at ? $his->completed_at->diffForHumans() : 'N/A' }}</td>
+                        @if ($his->prewarn == 1)
+                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                        @else
+                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                        @endif
+                        @if ($his->hitrun == 1)
+                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                        @else
+                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                        @endif
+                        @if ($his->immune == 1)
+                            <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                        @else
+                            <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

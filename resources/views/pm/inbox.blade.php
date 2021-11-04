@@ -27,8 +27,8 @@
                                 <form action="{{ route('mark-all-read') }}" method="POST" style="display: inline;">
                                     @csrf
                                     <button type="submit" id="mark-all-read" class="btn btn-success dropdown-toggle"
-                                            data-toggle="tooltip" data-placement="top"
-                                            data-original-title="@lang('pm.mark-all-read')">
+                                        data-toggle="tooltip" data-placement="top"
+                                        data-original-title="@lang('pm.mark-all-read')">
                                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                                     </button>
                                 </form>
@@ -38,11 +38,13 @@
                                         data-original-title="@lang('pm.refresh')"><i
                                             class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
-                                <form role="form" method="POST" action="{{ route('empty-inbox') }}" style="display: inline-block;">
+                                <form role="form" method="POST" action="{{ route('empty-inbox') }}"
+                                    style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger dropdown-toggle">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('pm.empty-inbox')
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                        @lang('pm.empty-inbox')
                                     </button>
                                 </form>
                             </div>
@@ -97,7 +99,8 @@
                                             </td>
                                         @endif
                                         <td class="col-sm-2">
-                                            <form role="form" method="POST" action="{{ route('delete-pm', ['id' => $p->id]) }}">
+                                            <form role="form" method="POST"
+                                                action="{{ route('delete-pm', ['id' => $p->id]) }}">
                                                 @csrf
                                                 <div class="col-sm-1">
                                                     <button type="submit" class="btn btn-xs btn-danger"

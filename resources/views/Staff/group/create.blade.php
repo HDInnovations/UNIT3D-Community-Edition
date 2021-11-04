@@ -47,7 +47,7 @@
                                 <th>Autogroup</th>
                             </tr>
                         </thead>
-    
+
                         <tbody>
                             <tr>
                                 <td>
@@ -78,7 +78,8 @@
                                     <label>
                                         <input type="text" name="icon" value="" placeholder="FontAwesome Icon"
                                             class="form-control" />
-                                    </label></td>
+                                    </label>
+                                </td>
                                 <td>
                                     <label>
                                         <input type="text" name="effect" value="none" placeholder="GIF Effect"

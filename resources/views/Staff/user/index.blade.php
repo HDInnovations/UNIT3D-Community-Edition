@@ -1,7 +1,8 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard') - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
@@ -26,6 +27,7 @@
         td {
             vertical-align: middle !important;
         }
+
     </style>
     <div class="container">
         <div class="block">

@@ -65,18 +65,24 @@
                                             class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
                                     @endif
                                     @if ($category->getPermission()->show_forum == true)
-                                        @if (auth()->user()->isSubscribed('forum',$forum->id))
-                                            <form action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
+                                        @if (auth()->user()->isSubscribed('forum', $forum->id))
+                                            <form
+                                                action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
+                                                method="POST" style="display: inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
+                                                    @lang('forum.unsubscribe')
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
+                                            <form
+                                                action="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
+                                                method="POST" style="display: inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-success">
-                                                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                                                    <i class="{{ config('other.font-awesome') }} fa-bell"></i>
+                                                    @lang('forum.subscribe')
                                                 </button>
                                             </form>
                                         @endif
@@ -99,29 +105,38 @@
                     @foreach ($topics as $t)
                         <tr>
                             @if ($t->pinned == 0)
-                                <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}" alt="read"></td>
+                                <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}" alt="read">
+                                </td>
                             @else
                                 <td class="f-display-topic-icon"><span class="text-green"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span></td>
+                                            class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span>
+                                </td>
                             @endif
                             <td class="f-display-topic-title">
-                                <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
-                                @if ($t->state == "close") <span
-                                    class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
-                                @if ($t->approved == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
-                                @if ($t->denied == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
-                                @if ($t->solved == "1") <span
-                                    class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                                @if ($t->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
-                                @if ($t->bug == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                                @if ($t->suggestion == "1") <span
+                                <strong><a
+                                        href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
+                                @if ($t->state == 'close') <span
+                                        class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span>
+                                @endif
+                                @if ($t->approved == '1') <span
+                                        class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span>
+                                @endif
+                                @if ($t->denied == '1') <span
+                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span>
+                                @endif
+                                @if ($t->solved == '1') <span
+                                        class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span>
+                                @endif
+                                @if ($t->invalid == '1') <span
+                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span>
+                                @endif
+                                @if ($t->bug == '1') <span
+                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span>
+                                @endif
+                                @if ($t->suggestion == '1') <span
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
                                 @endif
-                                @if ($t->implemented == "1") <span
+                                @if ($t->implemented == '1') <span
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span>
                                 @endif
                             </td>

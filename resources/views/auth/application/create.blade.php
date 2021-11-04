@@ -32,7 +32,7 @@
         </div>
     @endif
     <br>
-    @if(config('other.application_signups') == true)
+    @if (config('other.application_signups') == true)
         <div class="container">
             <div class="block">
                 <div class="row">
@@ -74,17 +74,19 @@
                                     <div class="form-group">
                                         <label for="email" class="control-label">@lang('auth.email')</label>
                                         <input id="email" type="email" class="form-control" name="email" required>
-                                       @if (config('email-white-blacklist.enabled') == 'block')
+                                        @if (config('email-white-blacklist.enabled') == 'block')
                                             <br>
-                                            <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
+                                            <a target="_blank" rel="noopener noreferrer"
+                                                href="{{ route('public.email') }}">
                                                 @lang('common.email-blacklist')
                                             </a>
-                                       @elseif (config('email-white-blacklist.enabled') == 'allow')
+                                        @elseif (config('email-white-blacklist.enabled') == 'allow')
                                             <br>
-                                            <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
+                                            <a target="_blank" rel="noopener noreferrer"
+                                                href="{{ route('public.email') }}">
                                                 @lang('common.email-whitelist')
                                             </a>
-                                       @endif
+                                        @endif
                                     </div>
 
                                     <hr>
@@ -134,7 +136,8 @@
 
                                     <div class="form-group">
                                         <button id="addLink" class="btn btn-primary">@lang('auth.add-profile')</button>
-                                        <button id="delLink" class="btn btn-primary">@lang('auth.delete-profile')</button>
+                                        <button id="delLink"
+                                            class="btn btn-primary">@lang('auth.delete-profile')</button>
                                     </div>
 
                                     <hr>
@@ -144,7 +147,8 @@
                                             config('other.title')])<span class="badge-extra">BBCode
                                                 @lang('common.is-allowed')</span></label>
                                         <label>
-                                            <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
+                                            <textarea name="referrer" cols="30" rows="10" maxlength="500"
+                                                class="form-control"></textarea>
                                         </label>
                                     </div>
 
@@ -177,8 +181,8 @@
                 e.preventDefault();
                 images += 1;
                 const imageHTML = '<div class="form-group extra-image"><label for="image' + images +
-                        '">Proof Image URL ' + images +
-                        ':</label><input type="text" name="images[]" class="form-control" value="" required></div>'
+                    '">Proof Image URL ' + images +
+                    ':</label><input type="text" name="images[]" class="form-control" value="" required></div>'
                 $('.more-images').append(imageHTML);
             });
 
@@ -187,7 +191,6 @@
                 images = (images > 2) ? images - 1 : 2;
                 $('.extra-image').last().remove();
             });
-
         </script>
 
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
@@ -197,8 +200,8 @@
                 e.preventDefault();
                 links += 1;
                 const linkHTML = '<div class="form-group extra-link"><label for="link' + links +
-                        '">Profile Link URL ' + links +
-                        ':</label><input type="text" name="links[]" class="form-control" value="" required></div>'
+                    '">Profile Link URL ' + links +
+                    ':</label><input type="text" name="links[]" class="form-control" value="" required></div>'
                 $('.more-links').append(linkHTML);
             });
 
@@ -207,7 +210,6 @@
                 links = (links > 2) ? links - 1 : 2;
                 $('.extra-link').last().remove();
             });
-
         </script>
 
         @foreach (['warning', 'success', 'info'] as $key)
@@ -224,7 +226,6 @@
                         icon: '{{ $key }}',
                         title: '{{ Session::get($key) }}'
                     })
-
                 </script>
             @endif
         @endforeach
@@ -237,7 +238,6 @@
                     html: jQuery("#ERROR_COPY").html(),
                     showCloseButton: true,
                 })
-
             </script>
         @endif
 
@@ -246,7 +246,8 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('auth.appl-closed')
+                        <i
+                            class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('auth.appl-closed')
                     </h1>
                     <div class="separator"></div>
                     <p class="text-center">@lang('auth.check-later')</p>

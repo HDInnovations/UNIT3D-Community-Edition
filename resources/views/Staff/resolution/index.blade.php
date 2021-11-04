@@ -17,7 +17,7 @@
     <div class="container box">
         <h2>@lang('common.resolutions')</h2>
         <a href="{{ route('staff.resolutions.create') }}" class="btn btn-primary">Add A Torrent Resolution</a>
-    
+
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -39,7 +39,8 @@
                                 </a>
                             </td>
                             <td>
-                                <form action="{{ route('staff.resolutions.destroy', ['id' => $resolution->id]) }}" method="POST">
+                                <form action="{{ route('staff.resolutions.destroy', ['id' => $resolution->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.resolutions.edit', ['id' => $resolution->id]) }}"

@@ -90,12 +90,11 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-        
+
                 Toast.fire({
                     icon: '{{ $key }}',
                     title: '{{ Session::get($key) }}'
                 })
-        
             </script>
         @endif
     @endforeach
@@ -108,7 +107,6 @@
                 html: jQuery("#ERROR_COPY").html(),
                 showCloseButton: true,
             })
-
         </script>
     @endif
 

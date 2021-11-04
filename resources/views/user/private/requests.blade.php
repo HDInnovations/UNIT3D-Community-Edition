@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_requested', ['username' => $user->username]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.requested')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
+                @lang('user.requested')</span>
         </a>
     </li>
 @endsection
@@ -42,7 +44,8 @@
                     </div>
                     @if (config('hitrun.enabled') == true)
                         <div class="mx-0 mt-5 form-group fatten-me">
-                            <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.status')</label>
+                            <label for="name"
+                                class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.status')</label>
                             <div class="col-sm-10">
                                 <span class="badge-user">
                                     <label class="inline">
@@ -61,14 +64,16 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         <input type="checkbox" id="pending" value="1" class="userFilter" trigger="click">
-                                        <span class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span>
+                                        <span
+                                            class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span>
                                         @lang('request.pending')
                                     </label>
                                 </span>
                                 <span class="badge-user">
                                     <label class="inline">
                                         <input type="checkbox" id="filled" value="1" class="userFilter" trigger="click">
-                                        <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span>
+                                        <span
+                                            class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span>
                                         @lang('request.filled')
                                     </label>
                                 </span>
@@ -119,7 +124,8 @@
                                 <tr>
                                     <td>
                                         <div class="text-center">
-                                            <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
+                                            <i class="{{ $torrentRequest->category->icon }} torrent-icon"
+                                                data-toggle="tooltip"
                                                 data-original-title="{{ $torrentRequest->category->name }} @lang('request.request')"></i>
                                         </div>
                                     </td>
@@ -129,7 +135,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a class="view-torrent" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                                        <a class="view-torrent"
+                                            href="{{ route('request', ['id' => $torrentRequest->id]) }}">
                                             {{ $torrentRequest->name }}
                                         </a>
                                     </td>
@@ -159,7 +166,8 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
                                                 @lang('request.claimed')
                                             </button>
-                                        @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+                                        @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by ==
+                                            null)
                                             <button class="btn btn-xs btn-info">
                                                 <i class="{{ config('other.font-awesome') }} fa-question-circle"></i>
                                                 @lang('request.pending')

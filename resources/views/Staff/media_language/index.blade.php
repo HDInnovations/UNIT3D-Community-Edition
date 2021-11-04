@@ -17,14 +17,15 @@
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.media-languages')</h2> <p>@lang('staff.media-languages-desc')</p>
+        <h2>@lang('common.media-languages')</h2>
+        <p>@lang('staff.media-languages-desc')</p>
 
         <a href="{{ route('staff.media_languages.create') }}" class="btn btn-primary">
             @lang('common.add')
             @lang(trans_choice('common.a-an-art',false))
             @lang('common.media-language')
         </a>
-    
+
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -35,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($media_languages as $media_language)
+                    @foreach ($media_languages as $media_language)
                         <tr>
                             <td>
                                 <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}">
@@ -46,7 +47,8 @@
                                 <span>{{ $media_language->code }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}" class="btn btn-warning">
+                                <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}"
+                                    class="btn btn-warning">
                                     @lang('common.edit')
                                 </a>
                             </td>

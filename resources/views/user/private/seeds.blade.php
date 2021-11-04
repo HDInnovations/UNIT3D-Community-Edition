@@ -6,12 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_seeds', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('user_seeds', ['username' => $user->username]) }}" itemprop="url"
+            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.seeds')</span>
         </a>
     </li>
@@ -35,12 +37,14 @@
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>@lang('user.total-download'):</strong>
-                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
+                        <span
+                            class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre, 2) }}</span>
                     </span>
                     <span class="badge-user"><strong>@lang('user.total-upload'):</strong>
-                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
+                        <span
+                            class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
                             data-original-title="@lang('user.credited-upload')">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre, 2) }}</span>
                     </span>
@@ -178,7 +182,8 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <span class="badge-extra text-blue text-bold"> {{ $p->torrent->getSize() }}</span>
+                                        <span class="badge-extra text-blue text-bold">
+                                            {{ $p->torrent->getSize() }}</span>
                                     </td>
                                     <td>
                                         <span class="badge-extra text-green text-bold"> {{ $p->torrent->seeders }}</span>
@@ -187,21 +192,23 @@
                                         <span class="badge-extra text-red text-bold"> {{ $p->torrent->leechers }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge-extra text-orange text-bold"> {{ $p->torrent->times_completed }}
+                                        <span class="badge-extra text-orange text-bold">
+                                            {{ $p->torrent->times_completed }}
                                             @lang('common.times')</span>
                                     </td>
-                                    @if ($p->seedtime < config('hitrun.seedtime')) <td>
+                                    @if ($p->seedtime < config('hitrun.seedtime'))
+                                        <td>
                                             <span
                                                 class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <span
-                                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
-                                            </td>
-                                        @endif
-                                        <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : 'N/A' }}
                                         </td>
+                                    @else
+                                        <td>
+                                            <span
+                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
+                                        </td>
+                                    @endif
+                                    <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : 'N/A' }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

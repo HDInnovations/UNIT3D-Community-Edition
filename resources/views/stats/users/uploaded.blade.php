@@ -26,46 +26,50 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('stat.top-uploaders')
+                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                            @lang('stat.top-uploaders')
                         </strong> ({{ strtolower(trans('stat.by-volume')) }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.upload')</th>
-                            <th>@lang('common.download')</th>
-                            <th>@lang('common.ratio')</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('common.upload')</th>
+                                <th>@lang('common.download')</th>
+                                <th>@lang('common.ratio')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($uploaded as $key => $u)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $u->username) class="mentions" @endif>
-                                    @if ($u->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
+                            @foreach ($uploaded as $key => $u)
+                                <tr>
+                                    <td>
+                                        {{ ++$key }}
+                                    </td>
+                                    <td @if (auth()->user()->username == $u->username) class="mentions" @endif>
+                                        @if ($u->private_profile == 1)
+                                            <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
-                                                    )</a></span>
-                                    @endif
+                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
+                                                @if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
+                                                    <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
+                                                        )</a>
+                                            </span>
+                                        @endif
                                     @else
                                         <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $u->username]) }}">{{ $u->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-green">{{ \App\Helpers\StringHelper::formatBytes($u->uploaded, 2) }}</span>
-                                </td>
-                                <td>{{ \App\Helpers\StringHelper::formatBytes($u->downloaded, 2) }}</td>
-                                <td>
-                                    <span>{{ $u->getRatio() }}</span>
-                                </td>
+                                                href="{{ route('users.show', ['username' => $u->username]) }}">{{ $u->username }}</a></span>
+                            @endif
+                            </td>
+                            <td>
+                                <span
+                                    class="text-green">{{ \App\Helpers\StringHelper::formatBytes($u->uploaded, 2) }}</span>
+                            </td>
+                            <td>{{ \App\Helpers\StringHelper::formatBytes($u->downloaded, 2) }}</td>
+                            <td>
+                                <span>{{ $u->getRatio() }}</span>
+                            </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

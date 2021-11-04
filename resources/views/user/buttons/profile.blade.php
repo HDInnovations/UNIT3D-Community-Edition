@@ -1,45 +1,54 @@
 <div class="button-holder">
     <div class="button-left">
-        @if(auth()->user()->id == $user->id)
-            @if((!auth()->user()->hidden || auth()->user()->hidden == 0))
-                <form role="form" method="POST" action="{{ route('user_hidden', ['username' => $user->username]) }}" style="display: inline-block;">
+        @if (auth()->user()->id == $user->id)
+            @if (!auth()->user()->hidden || auth()->user()->hidden == 0)
+                <form role="form" method="POST" action="{{ route('user_hidden', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class='{{ config('other.font-awesome') }} fa-eye-slash'></i> @lang('user.become-hidden')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> @lang('user.become-visible')
                     </button>
                 </form>
             @endif
-            @if((auth()->user()->private_profile == 0 || auth()->user()->private_profile == 0))
-                <form role="form" method="POST" action="{{ route('user_private', ['username' => $user->username]) }}" style="display: inline-block;">
+            @if (auth()->user()->private_profile == 0 || auth()->user()->private_profile == 0)
+                <form role="form" method="POST" action="{{ route('user_private', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class='{{ config('other.font-awesome') }} fa-lock'></i> @lang('user.go-private')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-lock-open'></i> @lang('user.go-public')
                     </button>
                 </form>
             @endif
-            @if((auth()->user()->block_notifications == 0 || auth()->user()->block_notifications == 0))
-                <form role="form" method="POST" action="{{ route('notification_disable', ['username' => $user->username]) }}" style="display: inline-block;">
+            @if (auth()->user()->block_notifications == 0 || auth()->user()->block_notifications == 0)
+                <form role="form" method="POST"
+                    action="{{ route('notification_disable', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
-                        <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i> @lang('user.disable-notifications')
+                        <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i>
+                        @lang('user.disable-notifications')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('notification_enable', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST"
+                    action="{{ route('notification_enable', ['username' => $user->username]) }}"
+                    style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-bell'></i> @lang('user.enable-notifications')
@@ -49,7 +58,7 @@
         @endif
     </div>
     <div class="button-right">
-        @if(auth()->user()->id == $user->id)
+        @if (auth()->user()->id == $user->id)
             <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
                 @lang('user.settings')
             </a>
@@ -63,12 +72,13 @@
         <a href="{{ route('users.show', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.profile')
         </a>
-        @if(auth()->user()->id == $user->id)
+        @if (auth()->user()->id == $user->id)
             <a href="{{ route('achievements.index') }}" class="btn btn-sm btn-primary">
                 @lang('user.achievements')
             </a>
         @else
-            <a href="{{ route('achievements.show', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('achievements.show', ['username' => $user->username]) }}"
+                class="btn btn-sm btn-primary">
                 @lang('user.achievements')
             </a>
         @endif
@@ -92,8 +102,9 @@
         </a>
     </div>
     <div class="button-right-decreased">
-        @if(!$user->group || !$user->group->is_immune)
-            <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
+        @if (!$user->group || !$user->group->is_immune)
+            <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}"
+                class="btn btn-sm btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
             </a>
         @endif
@@ -106,13 +117,14 @@
         <a href="{{ route('user_seeds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.seeds')
         </a>
-        @if(auth()->user()->id == $user->id)
+        @if (auth()->user()->id == $user->id)
             <a href="{{ route('bonus') }}" class="btn btn-sm btn-primary">
                 @lang('user.bon')
             </a>
         @else
             @if (auth()->user()->isFollowing($user->id))
-                <form class="form-inline" role="form" action="{{ route('follow.destroy', ['username' => $user->username]) }}"
+                <form class="form-inline" role="form"
+                    action="{{ route('follow.destroy', ['username' => $user->username]) }}"
                     style="display: inline-block;" method="POST">
                     @csrf
                     @method('DELETE')
@@ -124,7 +136,8 @@
                     </div>
                 </form>
             @else
-                <form class="form-inline" role="form" action="{{ route('follow.store', ['username' => $user->username]) }}"
+                <form class="form-inline" role="form"
+                    action="{{ route('follow.store', ['username' => $user->username]) }}"
                     style="display: inline-block;" method="POST">
                     @csrf
                     <div class="form-group">

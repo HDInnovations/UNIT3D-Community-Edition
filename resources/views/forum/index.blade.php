@@ -39,8 +39,7 @@
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
                 @foreach ($categories as $category)
-                    @if ($category->getPermission() != null && $category->getPermission()->show_forum == true &&
-                        $category->getForumsInCategory()->count() > 0)
+                    @if ($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
                         <thead class="no-space">
                             <tr class="no-space">
                                 <td colspan="5" class="no-space">
@@ -90,10 +89,12 @@
                                         <td>{{ $categoryChild->num_topic }}</td>
                                         <td>
                                             <span>
-                                                <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }}</span>
+                                                <span>@lang('forum.last-message') -
+                                                    {{ strtolower(trans('forum.author')) }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-user"></i>
                                                 @if ($categoryChild->last_post_user_username !== null)
-                                                    <a href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
+                                                    <a
+                                                        href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
                                                         {{ $categoryChild->last_post_user_username }}
                                                     </a>
                                                 @endif
@@ -103,8 +104,9 @@
                                                 <span>@lang('forum.topic')</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i>
                                                 @if ($categoryChild->last_topic_id !== null)
-                                                    <a href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
-                                                    {{ $categoryChild->last_topic_name }}</a>
+                                                    <a
+                                                        href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
+                                                        {{ $categoryChild->last_topic_name }}</a>
                                                 @endif
                                             </span>
                                             <br>
