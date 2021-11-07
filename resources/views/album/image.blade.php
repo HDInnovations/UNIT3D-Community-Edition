@@ -38,22 +38,18 @@
                     </h2>
                     <div class="form-group">
                         <label for="type">@lang('common.type')</label>
-                        <label>
-                            <select name="type" class="form-control">
-                                <option value="Cover">Cover</option>
-                                <option value="Disc">Disc</option>
-                            </select>
-                        </label>
+                        <select id="type" name="type" class="form-control">
+                            <option value="Cover">Cover</option>
+                            <option value="Disc">Disc</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="description">@lang('common.image') @lang('common.description')</label>
-                        <label>
-                            <textarea name="description" type="text" class="form-control" placeholder="Hi-Res Sleeve / Disc Art"></textarea>
-                        </label>
+                        <textarea id="description" name="description" type="text" class="form-control" placeholder="Hi-Res Sleeve / Disc Art"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="image">@lang('gallery.select-image')</label>
-                        <input type="file" name="image">
+                        <input type="file" id="image" name="image">
                     </div>
                     <button type="submit" class="btn btn-default">@lang('common.add') @lang('common.image')</button>
                 </form>

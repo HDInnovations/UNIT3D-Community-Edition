@@ -37,20 +37,16 @@
                     @lang('gallery.create-an-album-tip')
                 </h4>
                 <div class="form-group">
-                    <label for="name">IMDB</label>
-                    <label>
-                        <input name="imdb" type="text" class="form-control" placeholder="IMDB #" value="{{ old('imdb') }}">
-                    </label>
+                    <label for="imdb">IMDB</label>
+                    <input id="imdb" name="imdb" type="text" class="form-control" placeholder="IMDB #" value="{{ old('imdb') }}">
                 </div>
                 <div class="form-group">
                     <label for="description">@lang('common.album') @lang('common.description')</label>
-                    <label>
-                        <textarea name="description" type="text" class="form-control" placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
-                    </label>
+                    <textarea id="description" name="description" type="text" class="form-control" placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="cover_image">@lang('gallery.select-cover')</label>
-                    <input type="file" name="cover_image">
+                    <input type="file" id="cover_image" name="cover_image">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">@lang('common.add')</button>

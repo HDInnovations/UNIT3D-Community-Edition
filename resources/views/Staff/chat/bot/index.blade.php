@@ -47,7 +47,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}"
-                                            class="btn btn-warning">@lang('common.edit')</a>
+                                            class="btn btn-xs btn-warning">@lang('common.edit')</a>
                                         @if ($bot->is_protected)
 
                                         @else
