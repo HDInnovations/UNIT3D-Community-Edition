@@ -45,7 +45,7 @@ class InviteController extends Controller
     /**
      * Invite Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
