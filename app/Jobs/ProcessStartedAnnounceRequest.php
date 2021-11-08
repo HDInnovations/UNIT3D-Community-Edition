@@ -22,6 +22,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 
 class ProcessStartedAnnounceRequest implements ShouldQueue
 {
@@ -37,6 +38,16 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array
+     */
+    public function middleware()
+    {
+        return [new WithoutOverlapping($this->user->id.'.'.$this->queries['info_hash'])];
     }
 
     /**
