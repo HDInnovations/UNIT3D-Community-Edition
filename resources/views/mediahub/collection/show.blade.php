@@ -52,6 +52,14 @@
                     {{ $collection->overview }}
                 </div>
             </div>
+            <div class="movie-bottom">
+                <a href="{{ route('torrents') }}?perPage=25&collectionId={{ $collection->id }}" role="button"
+                    class="btn btn-sm btn-labeled btn-success">
+                    <span class='btn-label'>
+                        <i class='{{ config('other.font-awesome') }} fa-eye'></i> Collection Torrents List
+                    </span>
+                </a>    
+            </div>
         </div>
     </div>
 
