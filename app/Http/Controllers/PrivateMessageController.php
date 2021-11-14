@@ -78,10 +78,10 @@ class PrivateMessageController extends Controller
     public function getPrivateMessageById(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
+        $pm = PrivateMessage::findOrFail($id);
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
-            if ($user->id === $pm->receiver_id && $pm->read === 0) {
+            if ($user->id == $pm->receiver_id && $pm->read == 0) {
                 $pm->read = 1;
                 $pm->save();
             }
