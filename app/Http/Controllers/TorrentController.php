@@ -202,7 +202,7 @@ class TorrentController extends Controller
                 'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
-            $trailer = 'https://www.youtube.com/embed/'.$link;
+            $trailer = 'https://www.youtube.com/embed/'.$link[0];
             $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
