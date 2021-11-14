@@ -289,7 +289,7 @@ Menu
                         'tmdb'          => $id,
                         'name'          => $tv['name'].' ('.$year.')',
                         'slug'          => Str::slug($tv['name']),
-                        'description'   => $movie['overview'],
+                        'description'   => $tv['overview'],
                         'category_id'   => 2,
                         'type_id'       => \rand(1, 6),
                         'resolution_id' => \rand(1, 10),
