@@ -203,7 +203,7 @@ class TorrentController extends Controller
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
             if (isset($link[0])) {
-                $trailer = 'https://www.youtube.com/embed/'.isset($link[0]);
+                $trailer = 'https://www.youtube.com/embed/'.$link[0];
             } else {
                 $trailer = '/img/no-video.png';
             }
