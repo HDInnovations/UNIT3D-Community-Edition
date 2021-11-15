@@ -23,9 +23,13 @@
         <a href="{{ route('user_seeds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.seeds')
         </a>
-        <a href="{{ route('flush_own_ghost_peers', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
-            @lang('staff.flush-ghost-peers')
-        </a>
+        <form role="form" method="POST" action="{{ route('flush_own_ghost_peers', ['username' => $user->username]) }}"
+              style="display: inline-block;">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-danger">
+                @lang('staff.flush-ghost-peers')
+            </button>
+        </form>
         @if(auth()->user()->id == $user->id)
             @if(!$route || $route != 'profile')
                 <a href="{{ route('download_history_torrents', ['username' => $user->username]) }}" role="button"
