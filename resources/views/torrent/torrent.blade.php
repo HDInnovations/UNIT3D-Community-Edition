@@ -703,10 +703,13 @@
 
                                         @if (auth()->user()->group->is_modo)
                                             <div class="torrent-moderation-controls">
-                                                <a href="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}" role='button'
-                                                class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
-                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
-                                                </a>
+                                                <form role="form" method="POST" action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                                      style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-labeled btn-xs btn-success @if ($torrent->isApproved()) disabled @endif">
+                                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
+                                                    </button>
+                                                </form>
 
                                                 <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
                                                         class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">

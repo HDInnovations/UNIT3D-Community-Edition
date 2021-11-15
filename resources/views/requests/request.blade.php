@@ -204,13 +204,13 @@
                                     </span>
 
                                     @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
-                                        <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
-                                           class="btn btn-xs btn-danger" role="button" data-toggle="tooltip"
-                                           data-original-title="@lang('request.unclaim')">
-                                            <span class="icon">
-                                                <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
-                                            </span>
-                                        </a>
+                                       <form role="form" method="POST" action="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
+                                             style="display: inline-block;">
+                                           @csrf
+                                           <button type="submit" class="btn btn-xs btn-danger">
+                                               <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
+                                           </button>
+                                       </form>
                                         <a href="{{ route('upload_form', ['category_id' => $torrentRequest->category_id, 'title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
                                            class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
@@ -287,16 +287,20 @@
                                     <span class="badge-extra">
                                         {{ $torrentRequest->filled_when->diffForHumans() }}
                                     </span>
-                                    <span class="badge-extra">
-                                        <a href="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}">
+                                    <form role="form" method="POST" action="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}"
+                                          style="display: inline-block;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-xs btn-success">
                                             @lang('request.approve')
-                                        </a>
-                                    </span>
-                                    <span class="badge-extra">
-                                        <a href="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}">
+                                        </button>
+                                    </form>
+                                    <form role="form" method="POST" action="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}"
+                                          style="display: inline-block;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-xs btn-warning">
                                             @lang('request.reject')
-                                        </a>
-                                    </span>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <tr>
