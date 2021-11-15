@@ -295,7 +295,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');
             Route::get('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
             Route::post('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->name('user_edit_profile');
-            Route::post('/{username}/photo', [App\Http\Controllers\UserController::class, 'changePhoto'])->name('user_change_photo');
             Route::get('/{username}/banlog', [App\Http\Controllers\UserController::class, 'getBans'])->name('banlog');
             Route::post('/{username}/userFilters', [App\Http\Controllers\UserController::class, 'myFilter'])->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
@@ -522,19 +521,6 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
-    | ChatBox Routes Group (When Authorized) (Alpha Ordered)
-    |---------------------------------------------------------------------------------
-    */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned']], function () {
-        Route::get('/', [App\Http\Controllers\API\ChatController::class, 'index']);
-        Route::get('/chatrooms', [App\Http\Controllers\API\ChatController::class, 'fetchChatrooms']);
-        Route::post('/change-chatroom', [App\Http\Controllers\API\ChatController::class, 'changeChatroom']);
-        Route::get('/messages', [App\Http\Controllers\API\ChatController::class, 'fetchMessages']);
-        Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'sendMessage']);
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
@@ -732,7 +718,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
             Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
             Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
-            Route::post('/clear-compiled', [App\Http\Controllers\Staff\CommandController::class, 'clearCompiled']);
             Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
         });
 
