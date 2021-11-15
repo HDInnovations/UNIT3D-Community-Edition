@@ -282,11 +282,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // Warnings System
         Route::group(['prefix' => 'warnings'], function () {
-            Route::get('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
-            Route::get('/{username}/mass-deactivate', [App\Http\Controllers\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
+            Route::post('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
+            Route::post('/{username}/mass-deactivate', [App\Http\Controllers\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
             Route::delete('/{id}', [App\Http\Controllers\WarningController::class, 'deleteWarning'])->name('deleteWarning');
             Route::delete('/{username}/mass-delete', [App\Http\Controllers\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
-            Route::get('/{id}/restore', [App\Http\Controllers\WarningController::class, 'restoreWarning'])->name('restoreWarning');
+            Route::post('/{id}/restore', [App\Http\Controllers\WarningController::class, 'restoreWarning'])->name('restoreWarning');
             Route::get('/{username}', [App\Http\Controllers\WarningController::class, 'show'])->name('warnings.show');
         });
 
