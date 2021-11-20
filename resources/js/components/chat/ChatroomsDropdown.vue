@@ -6,24 +6,24 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            current: { type: Number, default: 1 },
-            chatrooms: { required: true }
-        },
-        data() {
-            return {
-                selected: 1,
-            };
-        },
-        methods: {
-            changedRoom(event) {
-                this.$emit('changedRoom', this.selected);
-                this.selected = 0;
-            },
-        },
-        created() {
+export default {
+    props: {
+        current: { type: Number, default: 1 },
+        chatrooms: { required: true },
+    },
+    data() {
+        return {
+            selected: 1,
+        };
+    },
+    methods: {
+        changedRoom(event) {
+            this.$emit('changedRoom', this.selected);
             this.selected = 0;
         },
-    };
+    },
+    created() {
+        this.selected = 0;
+    },
+};
 </script>

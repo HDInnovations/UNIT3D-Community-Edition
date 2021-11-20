@@ -1,8 +1,9 @@
 <div class="movie-wrapper">
     <div class="movie-overlay"></div>
     <div class="movie-poster">
-        @php $tmdb_poster = ($meta && $meta->poster) ? \tmdb_image('poster_big', $meta->poster) : 'https://via.placeholder.com/400x600'; @endphp
-        <img src="{{ $tmdb_poster }}" class="img-responsive" id="meta-poster">
+        <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
+            <img src="{{ ($meta && $meta->poster) ? \tmdb_image('poster_big', $meta->poster) : 'https://via.placeholder.com/400x600' }}" class="img-responsive" id="meta-poster">
+        </a>
     </div>
     <div class="meta-info">
         <div class="tags">
@@ -24,16 +25,15 @@
             @endif
         </div>
 
-        @php $tmdb_backdrop = ($meta && $meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
-        <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
+        <div class="movie-backdrop" style="background-image: url('{{ ($meta && $meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/960x540' }}');"></div>
 
         <div class="movie-top">
-            <h1 class="movie-heading">
+            <h1 class="movie-heading" style="margin-bottom: 0;">
                 <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
-                    <span class="text-bright text-bold">{{ $meta->title ?? 'No Meta Found' }}</span>
+                    <span class="text-bright text-bold" style="font-size: 28px;">{{ $meta->title ?? 'No Meta Found' }}</span>
                 </a>
                 @if(isset($meta->release_date))
-                <span> ({{ substr($meta->release_date, 0, 4) ?? '' }})</span>
+                <span style="font-size: 28px;"> ({{ substr($meta->release_date, 0, 4) ?? '' }})</span>
                 @endif
             </h1>
 
@@ -44,6 +44,22 @@
 
         <div class="movie-bottom">
             <div class="movie-details">
+                @if(isset($meta->crew))
+                @if(!empty($directors = $meta->crew()->where('known_for_department' ,'=', 'Directing')->take(1)->get()))
+                    <span class="badge-user text-bold text-purple">
+                        <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Directors:
+                        @foreach($directors as $director)
+                            <a href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}" style="display: inline-block;">
+                                {{ $director->name }}
+                            </a>
+                            @if (! $loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </span>
+                @endif
+                @endif
+                <br>
                 @if ($torrent->imdb != 0 && $torrent->imdb != null)
                 <span class="badge-user text-bold">
                     <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB" target="_blank">
@@ -68,17 +84,6 @@
                 </span>
                 @endif
 
-                @if(isset($meta->crew))
-                    @php $director = $meta->crew->where('known_for_department' ,'=', 'Directing')->sortByDesc('popularity')->first(); @endphp
-                @if($director)
-                    <span class="badge-user text-bold text-purple">
-                        <a href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Director: {{ $director->name }}
-                        </a>
-                    </span>
-                @endif
-                @endif
-
                 @if (isset($trailer))
                     <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
                         <a class="text-pink" title="@lang('torrent.trailer')">@lang('torrent.trailer')
@@ -92,10 +97,21 @@
                 @foreach ($meta->genres as $genre)
                 <span class="badge-user text-bold text-green">
                     <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
-                        <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre->name }}
+                        <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
                     </a>
                 </span>
                 @endforeach
+                @endif
+
+                <br>
+                @if ($torrent->keywords)
+                    @foreach ($torrent->keywords as $keyword)
+                        <span class="badge-user text-bold text-green">
+                            <a href="{{ route('torrents') }}?keywords={{ $keyword->name }}">
+                                <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $keyword->name }}
+                            </a>
+                        </span>
+                    @endforeach
                 @endif
             </div>
 
@@ -130,10 +146,9 @@
             <div class="cast-list">
                 @if (isset($meta->cast) && $meta->cast->isNotEmpty())
                     @foreach ($meta->cast->sortBy('order')->take(7) as $cast)
-                    <div class="cast-item">
+                    <div class="cast-item" style="max-width: 80px;">
                         <a href="{{ route('mediahub.persons.show', ['id' => $cast->id]) }}" class="badge-user">
-                            @php $tmdb_face = $cast->still ? \tmdb_image('cast_face', $cast->still) : 'https://via.placeholder.com/138x175'; @endphp
-                            <img class="img-responsive" src="{{ $tmdb_face }}" alt="{{ $cast->name }}">
+                            <img class="img-responsive" src="{{ $cast->still ? \tmdb_image('cast_face', $cast->still) : 'https://via.placeholder.com/138x175' }}" alt="{{ $cast->name }}">
                             <div class="cast-name">{{ $cast->name }}</div>
                         </a>
                     </div>

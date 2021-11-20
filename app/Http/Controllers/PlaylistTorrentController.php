@@ -48,6 +48,7 @@ class PlaylistTorrentController extends Controller
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         }
+
         $playlistTorrent->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])

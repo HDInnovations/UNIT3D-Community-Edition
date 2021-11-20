@@ -52,8 +52,10 @@ class TorrentTools
                 $c .= '. '.$createdBy;
                 $createdBy = $c;
             }
+
             $result['created by'] = $createdBy;
         }
+
         $comment = \config('torrent.comment', null);
         if ($comment !== null) {
             $result['comment'] = $comment;
@@ -124,6 +126,7 @@ class TorrentTools
                         $dir .= $file['path'][$i].'/';
                         $files[$k]['name'] = $dir;
                     }
+
                     $files[$k]['size'] = $file['length'];
                 }
             }

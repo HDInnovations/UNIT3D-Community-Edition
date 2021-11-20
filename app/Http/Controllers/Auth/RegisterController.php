@@ -116,6 +116,7 @@ class RegisterController extends Controller
             return \redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $userPrivacy = new UserPrivacy();
         $userPrivacy->setDefaultValues();
@@ -131,6 +132,7 @@ class RegisterController extends Controller
             $key->accepted_at = new Carbon();
             $key->save();
         }
+
         // Handle The Activation System
         $token = \hash_hmac('sha256', $user->username.$user->email.Str::random(16), \config('app.key'));
         $userActivation = new UserActivation();

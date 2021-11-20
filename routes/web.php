@@ -85,7 +85,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
 
         // General
-        Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+        Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
         // Achievements System
@@ -188,7 +188,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/collection/{id}', [App\Http\Controllers\CommentController::class, 'collection'])->name('comment_collection');
             Route::post('/ticket/{id}', [App\Http\Controllers\CommentController::class, 'ticket'])->name('comment_ticket');
             Route::post('/edit/{comment_id}', [App\Http\Controllers\CommentController::class, 'editComment'])->name('comment_edit');
-            Route::get('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
+            Route::delete('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
         });
 
         // Extra-Stats System
@@ -221,8 +221,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/message/{id}', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
             Route::get('/outbox', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
             Route::get('/create', [App\Http\Controllers\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
-            Route::get('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
-            Route::get('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
+            Route::post('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
+            Route::delete('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
             Route::post('/send', [App\Http\Controllers\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
             Route::post('/{id}/reply', [App\Http\Controllers\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
             Route::post('/{id}/destroy', [App\Http\Controllers\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
@@ -241,14 +241,14 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequestForm'])->name('edit_request_form');
             Route::post('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequest'])->name('edit_request');
             Route::get('/{id}{hash?}', [App\Http\Controllers\RequestController::class, 'request'])->name('request');
-            Route::get('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approveRequest'])->name('approveRequest');
+            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approveRequest'])->name('approveRequest');
             Route::post('/{id}/delete', [App\Http\Controllers\RequestController::class, 'deleteRequest'])->name('deleteRequest');
             Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fillRequest'])->name('fill_request');
-            Route::get('/{id}/reject', [App\Http\Controllers\RequestController::class, 'rejectRequest'])->name('rejectRequest');
+            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'rejectRequest'])->name('rejectRequest');
             Route::post('/{id}/vote', [App\Http\Controllers\RequestController::class, 'addBonus'])->name('add_votes');
             Route::post('/{id}/claim', [App\Http\Controllers\RequestController::class, 'claimRequest'])->name('claimRequest');
-            Route::get('/{id}/unclaim', [App\Http\Controllers\RequestController::class, 'unclaimRequest'])->name('unclaimRequest');
-            Route::get('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
+            Route::post('/{id}/unclaim', [App\Http\Controllers\RequestController::class, 'unclaimRequest'])->name('unclaimRequest');
+            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
         });
 
         // Torrents System
@@ -272,8 +272,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentController::class, 'grantDoubleUp'])->name('torrent_doubleup');
             Route::get('/{id}/bumpTorrent', [App\Http\Controllers\TorrentController::class, 'bumpTorrent'])->name('bumpTorrent');
             Route::get('/{id}/torrent_sticky', [App\Http\Controllers\TorrentController::class, 'sticky'])->name('torrent_sticky');
-            Route::get('/{id}/torrent_feature', [App\Http\Controllers\TorrentController::class, 'grantFeatured'])->name('torrent_feature');
-            Route::get('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
+            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentController::class, 'grantFeatured'])->name('torrent_feature');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
             Route::get('/{id}/reseed', [App\Http\Controllers\TorrentController::class, 'reseedTorrent'])->name('reseed');
             Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
             Route::get('/{id}/freeleech_token', [App\Http\Controllers\TorrentController::class, 'freeleechToken'])->name('freeleech_token');
@@ -282,11 +282,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // Warnings System
         Route::group(['prefix' => 'warnings'], function () {
-            Route::get('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
-            Route::get('/{username}/mass-deactivate', [App\Http\Controllers\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
+            Route::post('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
+            Route::post('/{username}/mass-deactivate', [App\Http\Controllers\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
             Route::delete('/{id}', [App\Http\Controllers\WarningController::class, 'deleteWarning'])->name('deleteWarning');
             Route::delete('/{username}/mass-delete', [App\Http\Controllers\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
-            Route::get('/{id}/restore', [App\Http\Controllers\WarningController::class, 'restoreWarning'])->name('restoreWarning');
+            Route::post('/{id}/restore', [App\Http\Controllers\WarningController::class, 'restoreWarning'])->name('restoreWarning');
             Route::get('/{username}', [App\Http\Controllers\WarningController::class, 'show'])->name('warnings.show');
         });
 
@@ -295,12 +295,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');
             Route::get('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
             Route::post('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->name('user_edit_profile');
-            Route::post('/{username}/photo', [App\Http\Controllers\UserController::class, 'changePhoto'])->name('user_change_photo');
             Route::get('/{username}/banlog', [App\Http\Controllers\UserController::class, 'getBans'])->name('banlog');
             Route::post('/{username}/userFilters', [App\Http\Controllers\UserController::class, 'myFilter'])->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
             Route::get('/{username}/seeds', [App\Http\Controllers\UserController::class, 'seeds'])->name('user_seeds');
-            Route::get('/{username}/flushOwnGhostPeers', [App\Http\Controllers\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
+            Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
@@ -312,20 +311,20 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');
-            Route::get('/{username}/bookmarks', [App\Http\Controllers\BookmarkController::class, 'index'])->name('bookmarks.index');
 
             Route::get('/{username}/settings', [App\Http\Controllers\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\UserController::class, 'notification'])->name('user_notification');
+            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep']);
             Route::post('/{username}/settings/change_settings', [App\Http\Controllers\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change_password');
             Route::post('/{username}/settings/change_email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change_email');
             Route::post('/{username}/settings/change_pid', [App\Http\Controllers\UserController::class, 'changePID'])->name('change_pid');
             Route::post('/{username}/settings/change_rid', [App\Http\Controllers\UserController::class, 'changeRID'])->name('change_rid');
             Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::get('/{username}/settings/notification/disable', [App\Http\Controllers\UserController::class, 'disableNotifications'])->name('notification_disable');
-            Route::get('/{username}/settings/notification/enable', [App\Http\Controllers\UserController::class, 'enableNotifications'])->name('notification_enable');
+            Route::post('/{username}/settings/notification/disable', [App\Http\Controllers\UserController::class, 'disableNotifications'])->name('notification_disable');
+            Route::post('/{username}/settings/notification/enable', [App\Http\Controllers\UserController::class, 'enableNotifications'])->name('notification_enable');
             Route::post('/{username}/settings/notification/account', [App\Http\Controllers\UserController::class, 'changeAccountNotification'])->name('notification_account');
             Route::post('/{username}/settings/notification/following', [App\Http\Controllers\UserController::class, 'changeFollowingNotification'])->name('notification_following');
             Route::post('/{username}/settings/notification/forum', [App\Http\Controllers\UserController::class, 'changeForumNotification'])->name('notification_forum');
@@ -342,10 +341,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/request', [App\Http\Controllers\UserController::class, 'changeRequest'])->name('privacy_request');
             Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\UserController::class, 'changeOther'])->name('privacy_other');
             Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep'])->name('change_twostep');
-            Route::get('/{username}/settings/hidden', [App\Http\Controllers\UserController::class, 'makeHidden'])->name('user_hidden');
-            Route::get('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
-            Route::get('/{username}/settings/private', [App\Http\Controllers\UserController::class, 'makePrivate'])->name('user_private');
-            Route::get('/{username}/settings/public', [App\Http\Controllers\UserController::class, 'makePublic'])->name('user_public');
+            Route::post('/{username}/settings/hidden', [App\Http\Controllers\UserController::class, 'makeHidden'])->name('user_hidden');
+            Route::post('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
+            Route::post('/{username}/settings/private', [App\Http\Controllers\UserController::class, 'makePrivate'])->name('user_private');
+            Route::post('/{username}/settings/public', [App\Http\Controllers\UserController::class, 'makePublic'])->name('user_public');
             Route::post('/accept-rules', [App\Http\Controllers\UserController::class, 'acceptRules'])->name('accept.rules');
             Route::get('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'store'])->name('seedboxes.store');
@@ -357,7 +356,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('wishes.')->group(function () {
                 Route::get('/{username}', [App\Http\Controllers\WishController::class, 'index'])->name('index');
                 Route::post('/store', [App\Http\Controllers\WishController::class, 'store'])->name('store');
-                Route::get('/{id}/destroy', [App\Http\Controllers\WishController::class, 'destroy'])->name('destroy');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\WishController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -531,19 +530,6 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
-    | ChatBox Routes Group (When Authorized) (Alpha Ordered)
-    |---------------------------------------------------------------------------------
-    */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned']], function () {
-        Route::get('/', [App\Http\Controllers\API\ChatController::class, 'index']);
-        Route::get('/chatrooms', [App\Http\Controllers\API\ChatController::class, 'fetchChatrooms']);
-        Route::post('/change-chatroom', [App\Http\Controllers\API\ChatController::class, 'changeChatroom']);
-        Route::get('/messages', [App\Http\Controllers\API\ChatController::class, 'fetchMessages']);
-        Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'sendMessage']);
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
@@ -566,7 +552,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/topic/{id}/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('forum_reply');
             Route::get('/posts/{id}/post-{postId}/edit', [App\Http\Controllers\PostController::class, 'postEditForm'])->name('forum_post_edit_form');
             Route::post('/posts/{postId}/edit', [App\Http\Controllers\PostController::class, 'postEdit'])->name('forum_post_edit');
-            Route::get('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
+            Route::delete('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
         });
 
         // Search Forums
@@ -576,47 +562,37 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/search', [App\Http\Controllers\ForumController::class, 'search'])->name('forum_search_form');
 
         Route::group(['prefix' => 'topics'], function () {
-            // Create New Topic
             Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
-            // View Topic
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
-            // Close Topic
-            Route::get('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
-            // Open Topic
-            Route::get('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
-            // Tip Poster
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
             Route::post('/posts/tip_poster', [App\Http\Controllers\BonusController::class, 'tipPoster'])->name('tip_poster');
-
-            // Edit Topic
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
-            // Delete Topic
-            Route::get('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
-            // Pin Topic
-            Route::get('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic');
-            // Unpin Topic
-            Route::get('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic');
+            Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic');
         });
 
         // Topic Label System
         Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function () {
             Route::name('topics.')->group(function () {
-                Route::get('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
-                Route::get('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
-                Route::get('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
-                Route::get('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
-                Route::get('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
-                Route::get('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
-                Route::get('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
+                Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
+                Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
+                Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
+                Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
+                Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
+                Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
+                Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
             });
         });
 
         // Subscription System
-        Route::get('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
-        Route::get('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
-        Route::get('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
-        Route::get('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
+        Route::post('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
+        Route::post('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
+        Route::post('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
+        Route::post('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
     });
 
     /*
@@ -703,8 +679,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/bots/{id}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
                 Route::patch('/bots/{id}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
                 Route::delete('/bots/{id}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
-                Route::get('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
-                Route::get('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
+                Route::post('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
+                Route::post('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
             });
         });
 
@@ -743,23 +719,22 @@ Route::group(['middleware' => 'language'], function () {
         // Commands
         Route::group(['prefix' => 'commands'], function () {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
-            Route::get('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
-            Route::get('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
-            Route::get('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
-            Route::get('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
-            Route::get('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
-            Route::get('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
-            Route::get('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
-            Route::get('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
-            Route::get('/clear-compiled', [App\Http\Controllers\Staff\CommandController::class, 'clearCompiled']);
-            Route::get('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
+            Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
+            Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
+            Route::post('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
+            Route::post('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
+            Route::post('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
+            Route::post('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
+            Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
+            Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
+            Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
         });
 
         // Flush System
         Route::group(['prefix' => 'flush'], function () {
             Route::name('staff.flush.')->group(function () {
-                Route::get('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
-                Route::get('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
+                Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
+                Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
         });
 
@@ -816,7 +791,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'moderation'], function () {
             Route::name('staff.moderation.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::get('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
+                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
                 Route::post('/reject', [App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
                 Route::post('/postpone', [App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
             });

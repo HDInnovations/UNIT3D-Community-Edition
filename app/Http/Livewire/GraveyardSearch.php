@@ -23,24 +23,41 @@ class GraveyardSearch extends Component
     use WithPagination;
 
     public $name = '';
+
     public $categories = [];
+
     public $types = [];
+
     public $resolutions = [];
+
     public $tmdbId = '';
+
     public $imdbId = '';
+
     public $tvdbId = '';
+
     public $malId = '';
+
     public $free;
+
     public $doubleup;
+
     public $featured;
+
     public $stream;
+
     public $sd;
+
     public $highspeed;
+
     public $internal;
 
     public $perPage = 25;
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
+
     public $showFilters = false;
 
     protected $queryString = [
@@ -147,6 +164,7 @@ class GraveyardSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

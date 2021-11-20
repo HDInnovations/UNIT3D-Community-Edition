@@ -104,6 +104,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'bookmark',
             'alive',
             'dying',
             'dead',
@@ -122,6 +123,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
@@ -156,9 +158,11 @@ class RssController extends Controller
         if ($user->group->id == $bannedGroup[0]) {
             \abort(404);
         }
+
         if ($user->group->id == $disabledGroup[0]) {
             \abort(404);
         }
+
         if ($user->active == 0) {
             \abort(404);
         }
@@ -183,6 +187,7 @@ class RssController extends Controller
         $highspeed = $rss->object_torrent->highspeed;
         $sd = $rss->object_torrent->sd;
         $internal = $rss->object_torrent->internal;
+        $bookmark = $rss->object_torrent->bookmark;
         $alive = $rss->object_torrent->alive;
         $dying = $rss->object_torrent->dying;
         $dead = $rss->object_torrent->dead;
@@ -224,11 +229,16 @@ class RssController extends Controller
             if (null === $match) {
                 return ['result' => [], 'count' => 0];
             }
+
             $builder->where('user_id', '=', $match->id)->where('anon', '=', 0);
         }
 
         if ($rss->object_torrent->imdb && $rss->object_torrent->imdb != null) {
-            $builder->where('imdb', '=', $imdb);
+            if (\preg_match('/tt0*?(?=(\d{7,8}))/', $imdb, $matches)) {
+                $builder->where('imdb', '=', $matches[1]);
+            } else {
+                $builder->where('imdb', '=', $imdb);
+            }
         }
 
         if ($rss->object_torrent->tvdb && $rss->object_torrent->tvdb != null) {
@@ -289,6 +299,10 @@ class RssController extends Controller
 
         if ($rss->object_torrent->internal && $rss->object_torrent->internal != null) {
             $builder->where('internal', '=', $internal);
+        }
+
+        if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
+            $builder->whereIn('id', $user->bookmarks->pluck('id'));
         }
 
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
@@ -368,6 +382,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'bookmark',
             'alive',
             'dying',
             'dead',
@@ -384,6 +399,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
+
         if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {

@@ -58,6 +58,7 @@ class MediaLanguageController extends Controller
             return \redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
+
         $mediaLanguage->save();
 
         return \redirect()->route('staff.media_languages.index')
@@ -98,6 +99,7 @@ class MediaLanguageController extends Controller
             return \redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
+
         $mediaLanguage->save();
 
         return \redirect()->route('staff.media_languages.index')

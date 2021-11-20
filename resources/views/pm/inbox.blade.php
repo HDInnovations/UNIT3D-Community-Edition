@@ -24,24 +24,27 @@
                     <div class="row">
                         <div class="col-md-8 col-xs-5">
                             <div class="btn-group">
-                                <a href="{{ route('mark-all-read') }}">
-                                    <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle"
-                                        data-toggle="tooltip" data-placement="top"
-                                        data-original-title="@lang('pm.mark-all-read')"><i
-                                            class="{{ config('other.font-awesome') }} fa-eye"></i></button>
-                                </a>
+                                <form action="{{ route('mark-all-read') }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" id="mark-all-read" class="btn btn-success dropdown-toggle"
+                                            data-toggle="tooltip" data-placement="top"
+                                            data-original-title="@lang('pm.mark-all-read')">
+                                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
+                                    </button>
+                                </form>
                                 <a href="{{ route('inbox') }}">
                                     <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
                                         data-toggle="tooltip" data-placement="top"
                                         data-original-title="@lang('pm.refresh')"><i
                                             class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
-                                <a href="{{ route('empty-inbox') }}">
-                                    <button type="button" id="btn_refresh" class="btn btn-danger dropdown-toggle"
-                                        data-toggle="tooltip" data-placement="top"
-                                        data-original-title="@lang('pm.empty-inbox')"><i
-                                            class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('pm.empty-inbox')</button>
-                                </a>
+                                <form role="form" method="POST" action="{{ route('empty-inbox') }}" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger dropdown-toggle">
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('pm.empty-inbox')
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-7">

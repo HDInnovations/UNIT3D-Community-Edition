@@ -49,8 +49,8 @@ class ChatMessageResource extends JsonResource
         return [
             'id'         => $this->id,
             'bot'        => new BotResource($this->whenLoaded('bot')),
-            'user'       => new UserResource($this->whenLoaded('user')),
-            'receiver'   => new UserResource($this->whenLoaded('receiver')),
+            'user'       => new ChatUserResource($this->whenLoaded('user')),
+            'receiver'   => new ChatUserResource($this->whenLoaded('receiver')),
             'chatroom'   => new ChatRoomResource($this->whenLoaded('chatroom')),
             'message'    => \clean($logger),
             'created_at' => $this->created_at->toIso8601String(),

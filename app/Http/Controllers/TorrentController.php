@@ -50,8 +50,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -78,8 +78,6 @@ class TorrentController extends Controller
      *
      * @param $categoryId
      * @param $tmdbId
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -95,6 +93,7 @@ class TorrentController extends Controller
         if ($torrent->category->tv_meta) {
             $meta = Tv::with('genres', 'cast', 'networks', 'seasons')->where('id', '=', $tmdbId)->first();
         }
+
         if ($torrent->category->movie_meta) {
             $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdbId)->first();
         }
@@ -119,6 +118,7 @@ class TorrentController extends Controller
         if ($mediainfo === null) {
             return;
         }
+
         $completeNameI = \strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
             $pathI = \strpos($mediainfo, ': ', $completeNameI);
@@ -148,18 +148,23 @@ class TorrentController extends Controller
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);
-            if ($part != '') {
+            if ($part !== '') {
                 $result[] = $part;
             }
         }
 
-        return $result;
+        return array_unique($result);
     }
 
     /**
      * Display The Torrent.
      *
-     * @param \App\Models\Torrent $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $id
+     *
+     * @throws \JsonException
+     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
+     * @throws \ReflectionException
      */
     public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -175,19 +180,34 @@ class TorrentController extends Controller
 
         $meta = null;
         $trailer = null;
+        $platforms = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
             $meta = Tv::with('genres', 'cast', 'companies', 'networks', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
+
         if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
             $meta = Movie::with('genres', 'cast', 'companies', 'collection', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
-        $characters = null;
         if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
-            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
-            $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
+            $meta = Game::with([
+                'cover'    => ['url', 'image_id'],
+                'artworks' => ['url', 'image_id'],
+                'genres'   => ['name'],
+                'videos'   => ['video_id', 'name'],
+                'involved_companies.company',
+                'involved_companies.company.logo',
+                'platforms', ])
+                ->find($torrent->igdb);
+            $link = collect($meta->videos)->take(1)->pluck('video_id');
+            if (isset($link[0])) {
+                $trailer = 'https://www.youtube.com/embed/'.$link[0];
+            } else {
+                $trailer = '/img/no-video.png';
+            }
+            $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
         $featured = $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null;
@@ -207,7 +227,7 @@ class TorrentController extends Controller
             'freeleech_token'    => $freeleechToken,
             'meta'               => $meta,
             'trailer'            => $trailer,
-            'characters'         => $characters,
+            'platforms'          => $platforms,
             'total_tips'         => $totalTips,
             'user_tips'          => $userTips,
             'featured'           => $featured,
@@ -299,6 +319,7 @@ class TorrentController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
+
         $torrent->save();
 
         // Cover Image for No-Meta Torrents
@@ -321,6 +342,7 @@ class TorrentController extends Controller
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
+
         if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->movie($torrent->tmdb);
         }
@@ -387,6 +409,7 @@ class TorrentController extends Controller
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
+
                 $torrent->delete();
 
                 return \redirect()->route('torrents')
@@ -397,6 +420,7 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
+
             Log::notice(\sprintf('Deletion of torrent failed due to: %s', $errors));
 
             return \redirect()->route('home.index')
@@ -590,6 +614,7 @@ class TorrentController extends Controller
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors($v->errors())->withInput();
         }
+
         // Save The Torrent
         $torrent->save();
         // Count and save the torrent number in this category
@@ -719,10 +744,12 @@ class TorrentController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
+
         // Delete the last torrent tmp file
         if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {
             \unlink(\getcwd().'/files/tmp/'.$tmpFileName);
         }
+
         // Get the content of the torrent
         $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
         if ($request->user() || ($rsskey && $user)) {
@@ -935,6 +962,7 @@ class TorrentController extends Controller
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrentUrl, $torrent->name)
             );
         }
+
         $torrent->save();
 
         return \redirect()->route('torrent', ['id' => $torrent->id])

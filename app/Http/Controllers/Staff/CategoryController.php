@@ -87,6 +87,7 @@ class CategoryController extends Controller
             return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
+
         $category->save();
 
         return \redirect()->route('staff.categories.index')
@@ -149,6 +150,7 @@ class CategoryController extends Controller
             return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
+
         $category->save();
 
         return \redirect()->route('staff.categories.index')

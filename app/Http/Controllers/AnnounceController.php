@@ -34,11 +34,14 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
+
     protected const REJECTED = 2;
+
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 2_400;
+
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -91,6 +94,11 @@ class AnnounceController extends Controller
              * Get Torrent Info Array from queries and judge if user can reach it.
              */
             $torrent = $this->checkTorrent($queries['info_hash']);
+
+            /**
+             * Check if a user is announcing a torrent as completed but no peer is in db.
+             */
+            $this->checkPeer($torrent, $queries, $user);
 
             /**
              * Lock Min Announce Interval.
@@ -349,6 +357,21 @@ class AnnounceController extends Controller
     }
 
     /**
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkPeer($torrent, $queries, $user): void
+    {
+        $peer = Peer::where('torrent_id', '=', $torrent->id)
+            ->where('peer_id', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        if ($peer === null && \strtolower($queries['event']) === 'completed') {
+            throw new TrackerException(152);
+        }
+    }
+
+    /**
      * @param $queries
      * @param $user
      *
@@ -428,7 +451,12 @@ class AnnounceController extends Controller
             $limit = ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
 
             // Get Torrents Peers
-            $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
+            if ($queries['left'] == 0) {
+                // Only include leechers in a seeder's peerlist
+                $peers = Peer::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 0)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
+            } else {
+                $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
+            }
 
             $repDict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id']);
             $repDict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
@@ -507,6 +535,7 @@ class AnnounceController extends Controller
 
             return $pcomp;
         }
+
         if ($noPeerId) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);

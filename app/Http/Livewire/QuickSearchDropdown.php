@@ -10,7 +10,9 @@ use Livewire\Component;
 class QuickSearchDropdown extends Component
 {
     public $movie = '';
+
     public $series = '';
+
     public $person = '';
 
     public function render()

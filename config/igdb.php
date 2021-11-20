@@ -29,7 +29,15 @@ return [
     'cache_lifetime' => env('IGDB_CACHE_LIFETIME', 3600),
 
     /*
-     * This is the per-page limit for your tier.
+     * Path where the webhooks should be handled.
      */
-    'per_page_limit' => 500,
+    'webhook_path' => 'igdb-webhook/handle',
+
+    /*
+     * The webhook secret.
+     *
+     * This needs to be a string of your choice in order to use the webhook
+     * functionality.
+     */
+    'webhook_secret' => env('IGDB_WEBHOOK_SECRET'),
 ];

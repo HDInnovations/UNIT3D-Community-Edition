@@ -55,8 +55,10 @@ class AutoFlushPeers extends Command
                 $history->active = false;
                 $history->save();
             }
+
             $peer->delete();
         }
+
         $this->comment('Automated Flush Ghost Peers Command Complete');
     }
 }

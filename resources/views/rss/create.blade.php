@@ -165,6 +165,13 @@
                                     @lang('torrent.internal')
                                 </label>
                             </span>
+                            <span class="badge-user">
+                                <label class="inline">
+                                    <input type="checkbox" id="bookmark" name="bookmark" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
+                                    @lang('torrent.bookmark')
+                                </label>
+                            </span>
                         </div>
                     </div>
     

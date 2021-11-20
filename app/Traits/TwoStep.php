@@ -222,6 +222,7 @@ trait TwoStep
         if ($deliveryMethod === null) {
             $user->notify(new TwoStepAuthCode($user, $twoStepAuth->authCode));
         }
+
         $twoStepAuth->requestDate = Carbon::now();
 
         $twoStepAuth->save();

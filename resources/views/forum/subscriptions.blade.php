@@ -84,14 +84,20 @@
                                 --
                             </td>
                             <td class="f-display-topic-stats">
-                                @if (auth()->user()->isSubscribed('forum',$r->id))
-                                    <a href="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
-                                        class="label label-sm label-danger">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')</a>
+                                @if (auth()->user()->isSubscribed('forum', $r->id))
+                                    <form action="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-xs btn-danger">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                                        </button>
+                                    </form>
                                 @else
-                                    <a href="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
-                                        class="label label-sm label-success">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')</a>
+                                    <form action="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-xs btn-success">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                                        </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>

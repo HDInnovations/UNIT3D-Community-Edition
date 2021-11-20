@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recommendation extends Model
 {
     protected $guarded = [];
+
     public $timestamps = false;
 
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo

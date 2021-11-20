@@ -76,7 +76,8 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-categories">
 							<label for="categories" class="label label-default">@lang('common.category')</label>
-							@foreach (App\Models\Category::select(['id', 'name', 'position'])->get()->sortBy('position') as $category)
+							@php $categories = \cache()->remember('categories', 3_600, fn () => \App\Models\Category::all()->sortBy('position')); @endphp
+							@foreach ($categories as $category)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="categories" value="{{ $category->id }}"> {{ $category->name }}
@@ -88,7 +89,8 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-types">
 							<label for="types" class="label label-default">@lang('common.type')</label>
-							@foreach (App\Models\Type::select(['id', 'name', 'position'])->get()->sortBy('position') as $type)
+							@php $types = \cache()->remember('types', 3_600, fn () => \App\Models\Type::all()->sortBy('position')); @endphp
+							@foreach ($types as $type)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="types" value="{{ $type->id }}"> {{ $type->name }}
@@ -100,7 +102,8 @@
 					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
 							<label for="resolutions" class="label label-default">@lang('common.resolution')</label>
-							@foreach (App\Models\Resolution::select(['id', 'name', 'position'])->get()->sortBy('position') as $resolution)
+							@php $resolutions = \cache()->remember('resolutions', 3_600, fn () => \App\Models\Resolution::all()->sortBy('position')); @endphp
+							@foreach ($resolutions as $resolution)
 								<span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model="resolutions" value="{{ $resolution->id }}"> {{ $resolution->name }}
@@ -188,6 +191,24 @@
 					</div>
 
 					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6 adv-search-misc">
+							<label for="misc" class="label label-default">Misc</label>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="bookmarked" type="checkbox" value="1">
+									Bookmarked
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="wished" type="checkbox" value="1">
+									Wished
+								</label>
+							</span>
+						</div>
+					</div>
+
+					<div class="row">
 						<div class="form-group col-sm-12 col-xs-6 adv-search-health">
 							<label for="health" class="label label-default">@lang('torrent.health')</label>
 							<span class="badge-user">
@@ -206,6 +227,42 @@
 								<label class="inline">
 									<input wire:model="dead" type="checkbox" value="1">
 									@lang('torrent.dead-torrent')
+								</label>
+							</span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-sm-12 col-xs-6 adv-search-history">
+							<label for="history" class="label label-default">@lang('torrent.history')</label>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="notDownloaded" type="checkbox" value="1">
+									Not Downloaded
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="downloaded" type="checkbox" value="1">
+									Downloaded
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="seeding" type="checkbox" value="1">
+									Seeding
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="leeching" type="checkbox" value="1">
+									Leeching
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model="incomplete" type="checkbox" value="1">
+									Incomplete
 								</label>
 							</span>
 						</div>
@@ -247,7 +304,6 @@
 					<i class="fas fa-caret-circle-right"></i>
 				</a>
 				<ul class="dropdown-menu">
-					@php $categories = App\Models\Category::all(); @endphp
 					@foreach($categories as $category)
 						<li role="presentation">
 							<a role="menuitem" tabindex="-1" target="_blank" href="{{ route('upload_form', ['category_id' => $category->id]) }}">
@@ -335,12 +391,17 @@
 					@php $meta = null; @endphp
 					@if ($torrent->category->tv_meta)
 						@if ($torrent->tmdb || $torrent->tmdb != 0)
-							@php $meta = App\Models\Tv::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
+							@php $meta = App\Models\Tv::where('id', '=', $torrent->tmdb)->first(); @endphp
 						@endif
 					@endif
 					@if ($torrent->category->movie_meta)
 						@if ($torrent->tmdb || $torrent->tmdb != 0)
-							@php $meta = App\Models\Movie::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
+							@php $meta = App\Models\Movie::where('id', '=', $torrent->tmdb)->first(); @endphp
+						@endif
+					@endif
+					@if ($torrent->category->game_meta)
+						@if ($torrent->igdb || $torrent->igdb != 0)
+							@php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb); @endphp
 						@endif
 					@endif
 
@@ -357,14 +418,13 @@
 											     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 										@endif
 
-										@if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-											<img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ $meta->cover->image_id }}.jpg"
+										@if ($torrent->category->game_meta)
+											<img style="height: 80px;" src="{{ isset($meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/'.$meta->cover['image_id'].'.png' : 'https://via.placeholder.com/90x135' }}"
 											     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 										@endif
 
 										@if ($torrent->category->music_meta)
-											<img src="https://via.placeholder.com/90x135"
-											     class="torrent-poster-img-small" alt="@lang('torrent.poster')">
+											<img src="https://via.placeholder.com/90x135" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 										@endif
 										
 										@if ($torrent->category->no_meta)
@@ -378,11 +438,10 @@
 								@else
 									<div class="torrent-poster pull-left"></div>
 								@endif
-							</td style="width: 1%;">
 							<td class="torrent-listings-format" style="width: 5%; text-align: center;">
 								<a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
 									<div class="text-center">
-										<i class="{{ $torrent->category->icon }} torrent-icon" style="padding-top: 1px; font-size: 24px;"></i>
+										<i class="{{ $torrent->category->icon }} torrent-icon" style="@if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif font-size: 24px;"></i>
 									</div>
 								</a>
 								<div class="text-center">
@@ -390,11 +449,13 @@
                                     {{ $torrent->type->name }}
                                 </span>
 								</div>
+								@if ($torrent->category->movie_meta || $torrent->category->tv_meta)
 								<div class="text-center" style="padding-top: 5px;">
                                 <span class="label label-success" style="font-size: 13px">
                                     {{ $torrent->resolution->name ?? 'N/A' }}
                                 </span>
 								</div>
+								@endif
 							</td>
 							<td class="torrent-listings-overview" style="vertical-align: middle;">
 								<a class="view-torrent torrent-listings-name" style="font-size: 16px;" href="{{ route('torrent', ['id' => $torrent->id]) }}">
@@ -575,38 +636,50 @@
 								@endif
 							</td>
 							<td class="torrent-listings-download" style="vertical-align: middle;">
-							@if (config('torrent.download_check_page') == 1)
+								@if (config('torrent.download_check_page') == 1)
 								<a href="{{ route('download_check', ['id' => $torrent->id]) }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.download')">
 										<i class="{{ config('other.font-awesome') }} fa-download"></i>
 									</button>
 								</a>
-							@else
+								@else
 								<a href="{{ route('download', ['id' => $torrent->id]) }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.download')">
 										<i class="{{ config('other.font-awesome') }} fa-download"></i>
 									</button>
 								</a>
-							@endif
-							@if (config('torrent.magnet') == 1)
+								@endif
+								@if (config('torrent.magnet') == 1)
 								<a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.magnet')">
 										<i class="{{ config('other.font-awesome') }} fa-magnet"></i>
 									</button>
 								</a>
-							@endif
+								@endif
+								<div>
+									@livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+								</div>
 							</td>
 							<td class="torrent-listings-tmdb" style="vertical-align: middle;">
-                            <span class='badge-extra'>
-	                            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
-									<img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id" style="margin-left: -5px;" width="24px" height="24px"> {{ $torrent->tmdb }}
-	                            </a>
-	                            <br>
-	                            <span class="{{ \rating_color($meta->vote_average ?? 'text-white') }}"><i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ $meta->vote_average ?? 0 }}/10 </span>
-                            </span>
+								@if ($torrent->category->game_meta)
+									<span class='badge-extra'>
+										<img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;" width="24px" height="24px"> {{ $torrent->igdb }}
+	                                    <br>
+										<span class="{{ \rating_color($meta->rating ?? 'text-white') }}"><i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ round($meta->rating ?? 0) }}/100 </span>
+                                    </span>
+								@endif
+								@if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+									<span class='badge-extra'>
+	                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
+											<img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id" style="margin-left: -5px;" width="24px" height="24px"> {{ $torrent->tmdb }}
+	                                    </a>
+	                                    <br>
+										<span class="{{ \rating_color($meta->vote_average ?? 'text-white') }}"><i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ $meta->vote_average ?? 0 }}/10 </span>
+                                    </span>
+								@endif
 							</td>
 							<td class="torrent-listings-size" style="vertical-align: middle;">
                             <span class='badge-extra'>
@@ -676,4 +749,3 @@
 			</div>
 		</div>
 	</div>
-</div>

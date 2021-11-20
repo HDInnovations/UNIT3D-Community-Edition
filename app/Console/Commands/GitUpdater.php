@@ -132,7 +132,7 @@ class GitUpdater extends Command
                 $this->restore($paths);
 
                 $conflicts = \array_intersect($updating, $paths);
-                if (\count($conflicts) > 0) {
+                if ($conflicts !== []) {
                     $this->red('There are some files that was not updated because because of conflicts.');
                     $this->red('We will walk you through updating these files now.');
 

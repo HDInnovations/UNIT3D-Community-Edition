@@ -26,6 +26,11 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('route:clear');
 
         $this->artisan('cache:clear');
+
+        // For LARAVEL_START used in sub-footer
+        if (! defined('LARAVEL_START')) {
+            define('LARAVEL_START', microtime(true));
+        }
     }
 
     /**

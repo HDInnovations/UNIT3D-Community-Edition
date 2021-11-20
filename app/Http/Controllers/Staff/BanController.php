@@ -76,6 +76,7 @@ class BanController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $ban->save();
         // Send Email
@@ -122,6 +123,7 @@ class BanController extends Controller
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $user->save();
         $ban->save();
         // Send Email

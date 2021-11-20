@@ -58,15 +58,15 @@ WBBPRESET = {
 };
 
 //hide smilelist
-$(document).ready(function() {
+$(document).ready(function () {
     $('#format-buttons').hide();
     $('#smiley-box').hide();
     $('#message-box').css('width', '100%');
 });
 
-(function($) {
+(function ($) {
     //for attachments process
-    $.wysibb.prototype.traceTextareaEvent = function(e) {
+    $.wysibb.prototype.traceTextareaEvent = function (e) {
         let data = this.$txtArea.val();
         if (
             this.options.bbmode === false &&
@@ -91,36 +91,33 @@ $(document).ready(function() {
         }
     };
 
-    $.wysibb.prototype.txtAreaInitContent = function() {
+    $.wysibb.prototype.txtAreaInitContent = function () {
         let tdata = this.txtArea.value;
-        tdata = tdata.replace(/(\[attachment=(\d+?)\])([^:;]*?)(\[\/attachment\])/g, function(
-            m,
-            left,
-            num,
-            cont,
-            right
-        ) {
-            let idfile = $("input[name='attachment_data[" + num + "][attach_id]']").val();
-            let ext = $("input[name='attachment_data[" + num + "][real_filename]']").val();
-            if (ext) {
-                ext = ext.replace(/.*?\.(\w+)$/, '$1');
-                if (ext.match(/(jpg|gif|png|bmp)/)) {
-                    return left + idfile + ':' + cont + right;
+        tdata = tdata.replace(
+            /(\[attachment=(\d+?)\])([^:;]*?)(\[\/attachment\])/g,
+            function (m, left, num, cont, right) {
+                let idfile = $("input[name='attachment_data[" + num + "][attach_id]']").val();
+                let ext = $("input[name='attachment_data[" + num + "][real_filename]']").val();
+                if (ext) {
+                    ext = ext.replace(/.*?\.(\w+)$/, '$1');
+                    if (ext.match(/(jpg|gif|png|bmp)/)) {
+                        return left + idfile + ':' + cont + right;
+                    } else {
+                        return left + cont + ';' + idfile + right;
+                    }
                 } else {
-                    return left + cont + ';' + idfile + right;
+                    return m;
                 }
-            } else {
-                return m;
             }
-        });
+        );
         this.$body.html(this.getHTML(tdata, true));
     };
 
-    $.fn.closeModal = function() {
+    $.fn.closeModal = function () {
         this.data('wbb').closeModal();
         return this.data('wbb');
     };
-    $.fn.insertAttach = function(id, alt, isimg) {
+    $.fn.insertAttach = function (id, alt, isimg) {
         let num = 0;
         while (num < 30) {
             if ($("input[name='attachment_data[" + num + "][attach_id]']").length == 0) {
@@ -167,7 +164,7 @@ function fileModal() {
             extraParams: {
                 upload_type: this.options.upload_type,
             },
-            success: $.proxy(function(data) {
+            success: $.proxy(function (data) {
                 $.log('Success');
                 if (data && data.status == 1) {
                     let num = 0;
@@ -214,12 +211,12 @@ function fileModal() {
             this.$modal.find('#fileupl').css('opacity', 1);
         }
 
-        this.$modal.find('#fileupl').on('change', function() {
+        this.$modal.find('#fileupl').on('change', function () {
             $('#fupform').submit();
         });
         this.$modal.find('#fupform').on(
             'submit',
-            $.proxy(function(e) {
+            $.proxy(function (e) {
                 $(e.target)
                     .parents('#imguploader')
                     .hide()
@@ -238,10 +235,7 @@ function fileModal() {
         );
     } else {
         this.$modal.find('.hastabs').removeClass('hastabs');
-        this.$modal
-            .find('#imguploader')
-            .parents('.tab-cont')
-            .remove();
+        this.$modal.find('#imguploader').parents('.tab-cont').remove();
         this.$modal.find('.wbbm-tablist').remove();
     }
 }

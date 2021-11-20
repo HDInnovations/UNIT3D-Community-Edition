@@ -231,8 +231,6 @@ class BonusController extends Controller
      *
      * @param \App\Models\User        $userID
      * @param \App\Models\BonExchange $itemID
-     *
-     * @return bool
      */
     public function doItemExchange($userID, $itemID): bool
     {
@@ -355,6 +353,7 @@ class BonusController extends Controller
             return \redirect()->route('bonus_gift')
                 ->withSuccess('Gift Sent');
         }
+
         $v = \validator($request->all(), [
             'to_username' => 'required|exists:users,username|max:180',
         ]);
@@ -397,14 +396,17 @@ class BonusController extends Controller
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
+
         if ($user->id == $torrent->user_id) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
+
         if ($tipAmount <= 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
+
         $uploader->seedbonus += $tipAmount;
         $uploader->save();
 
@@ -451,14 +453,17 @@ class BonusController extends Controller
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
+
         if ($user->id == $poster->id) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
+
         if ($tipAmount <= 0) {
             return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
+
         $poster->seedbonus += $tipAmount;
         $poster->save();
 

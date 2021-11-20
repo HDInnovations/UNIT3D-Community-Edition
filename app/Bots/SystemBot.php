@@ -66,6 +66,7 @@ class SystemBot
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
+
             $output = \str_replace('{bots}', $botHelp, $output);
         }
 
@@ -160,6 +161,7 @@ class SystemBot
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
+
         $command = @\explode(' ', $message);
         if (\array_key_exists($x, $command)) {
             if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
@@ -170,10 +172,12 @@ class SystemBot
                 \array_shift($clone);
                 $log = $this->putGift($command[$y], $command[$z], $clone);
             }
+
             if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
         }
+
         $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
@@ -199,12 +203,14 @@ class SystemBot
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
+
             $receiverListening = false;
             foreach ($receiverEchoes as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
             }
+
             if (! $receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
@@ -213,22 +219,26 @@ class SystemBot
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
                 $receiverDirty = 1;
             }
+
             if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 \cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
                 \event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
             }
+
             $receiverDirty = 0;
             $receiverAudibles = \cache()->get('user-audibles'.$target->id);
             if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
+
             $receiverListening = false;
             foreach ($receiverAudibles as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
             }
+
             if (! $receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
@@ -237,11 +247,13 @@ class SystemBot
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
                 $receiverDirty = 1;
             }
+
             if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 \cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
                 \event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
             }
+
             if ($txt != '') {
                 $roomId = 0;
                 $message = $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
@@ -250,6 +262,7 @@ class SystemBot
 
             return \response('success');
         }
+
         if ($type == 'echo') {
             if ($txt != '') {
                 $roomId = 0;

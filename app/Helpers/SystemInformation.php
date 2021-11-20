@@ -116,6 +116,7 @@ class SystemInformation
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';
         }
+
         $results = DB::select(DB::raw('select version()'));
 
         return $results[0]->{'version()'};

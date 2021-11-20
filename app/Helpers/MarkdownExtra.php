@@ -231,6 +231,7 @@ class MarkdownExtra extends Markdown
                 if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
                     return;
                 }
+
                 if (\preg_match('/<\/'.$matches[1].'>[ ]*$/i', $remainder)) {
                     $Block['closed'] = true;
                 }
@@ -359,6 +360,7 @@ class MarkdownExtra extends Markdown
     //
 
     private $currentAbreviation;
+
     private $currentMeaning;
 
     protected function insertAbreviation(array $Element)

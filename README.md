@@ -1,20 +1,27 @@
 <p align="center">
-    <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/vZb6tpnw/Screen-Shot-2021-10-21-at-5-09-07-PM.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
-<p align="center">
-    🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>🎉
-</p>
+
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
-<a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
-<a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
-<a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
-<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg" /></a> 
+<a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
+<br>
+<a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?style=flat&branch=master" alt="StyleCI"></a>
+<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
+<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
+<br>
+<a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
+<a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg"></a>
+<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+<br>
+<a href="https://huntr.dev"><img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg"></a>    
 </p>
 
+<p align="center">
+    🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://github.com/sponsors/HDVinnie">Sponsors</a></b>🎉
+</p>
 
 ## 📝 Table of Contents
 
@@ -24,17 +31,14 @@
 4. [Installation](#installation)
 4.1 [Automated-Installer](#auto-install)
 5. [Updating](#updating)
-6. [Packages](#packages)
-7. [Version Support Information](#versions)
-8. [Security](#security)
-9. [Contributing](#contributing)
-10. [License](#license)
-11. [Demo](#demo)
-12. [Sponsor-Chat](#chat)
-13. [Sponsoring](#sponsor)
-14. [Collaborators](#collaborators)
-15. [Special Thanks](#thanks)
-16. [Sponsors](#sponsors)
+6. [Version Support Information](#versions)
+7. [Security](#security)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Demo](#demo)
+11. [Sponsor-Chat](#chat)
+12. [Sponsoring](#sponsor)
+13. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
@@ -132,15 +136,6 @@ Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
 ## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
- 
-## <a name="packages"></a> 📦 Packages
-Here are some packages that are built for UNIT3D.
-- [An artisan package to import a xbtitFM database into UNIT3D](https://github.com/HDInnovations/xbtitfm-to-unit3d).
-- [An artisan package to import a TemplateShares database into UNIT3D](https://github.com/HDInnovations/templateshares-to-unit3d).
-- [An artisan package to import a Luminance database into UNIT3D](https://github.com/HDInnovations/luminance-to-unit3d).
-- [An artisan package to import a XBTIT database into UNIT3D](https://github.com/HDInnovations/xbtit-to-unit3d).
-- [An artisan package to import a Gazelle database into UNIT3D](https://github.com/HDInnovations/gazelle-to-unit3d).
-- [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
 
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
@@ -225,109 +220,6 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
-Monero - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
-
-## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
-<h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
-<h3>Top Level Tier = 💖 , Tier 4 = 💛, Tier 3 = 💚, Tier 2 = 💜, Tier 1 = 💙</h3>
-
-<table>
-    <tr>
-        <td align="center">
-            <a href="https://github.com/PyR8zdl"><img src="https://avatars2.githubusercontent.com/u/48926974?v=4" width="50px;" alt="PyR8zdl"/>
-                <br />
-                <sub><b>PyR8zdl</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/StatusBaby"><img src="https://avatars2.githubusercontent.com/u/73584132?v=4" width="50px;" alt="StatusBaby"/>
-                <br />
-                <sub><b>StatusBaby</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/zeleski"><img src="https://avatars1.githubusercontent.com/u/3497536?v=4" width="50px;" alt="zeleski"/>
-                <br />
-                <sub><b>zeleski</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
-                <br />
-                <sub><b>OsamaBinLightBulb</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/clandestine8"><img src="https://avatars0.githubusercontent.com/u/5833609?v=4" width="50px;" alt="clandestine8"/>
-                <br />
-                <sub><b>clandestine8</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/MyFeetHurt"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="MyFeetHurt"/>
-                <br />
-                <sub><b>MyFeetHurt</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/itsasolid4fromme"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="itsasolid4fromme"/>
-                <br />
-                <sub><b>itsasolid4fromme</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
-        </td>
-        <td align="center">
-            <a href="https://github.com/humblbeast"><img src="https://avatars0.githubusercontent.com/u/46381271?v=4" width="50px;" alt="humblbeast"/>
-                <br />
-                <sub><b>humblbeast</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
-        </td>
-    </tr>
-</table>
-
-<h5>Thank you to all out Tier 1, Tier 2 and Tier 3 Sponsors as well. While your not mentioned in the README I do appreciate your sponsorship!</h5>
-
-## <a name="collaborators"></a> ✍️ Collaborators
-
-Thanks goes to these wonderful people who have contributed alot of code:
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4?s=100" width="100px;" alt=""/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=poppabear8883" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4?s=100" width="100px;" alt=""/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=singularity43" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://nyamori.moe"><img src="https://avatars1.githubusercontent.com/u/5460071?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gyakkun</b></sub></a><br /><a href="#translation-gyakkun" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://indiehd.com"><img src="https://avatars2.githubusercontent.com/u/1236883?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Johnson</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Tests">⚠️</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/Oha-you"><img src="https://avatars.githubusercontent.com/u/82098328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>おはよう</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=Oha-you" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## <a name="thanks"></a> 🎉 Special Thanks
 

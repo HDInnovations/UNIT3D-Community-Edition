@@ -39,6 +39,12 @@ use Illuminate\Support\Str;
  */
 class TorrentController extends BaseController
 {
+    public $perPage = 25;
+
+    public $sortField = 'bumped_at';
+
+    public $sortDirection = 'desc';
+
     /**
      * TorrentController Constructor.
      */
@@ -143,6 +149,7 @@ class TorrentController extends BaseController
         if ($category->movie_meta || $category->tv_meta) {
             $resRule = 'required|exists:resolutions,id';
         }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
@@ -180,6 +187,7 @@ class TorrentController extends BaseController
 
             return $this->sendError('Validation Error.', $v->errors());
         }
+
         // Save The Torrent
         $torrent->save();
         // Set torrent to featured
@@ -189,6 +197,7 @@ class TorrentController extends BaseController
             $featuredTorrent->torrent_id = $torrent->id;
             $featuredTorrent->save();
         }
+
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
@@ -206,6 +215,7 @@ class TorrentController extends BaseController
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
+
         if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->movie($torrent->tmdb);
         }
@@ -285,37 +295,11 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Uses Input's To Put Together A Search.
-     *
-     * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
-    public function filter(Request $request)
+    public function filter(Request $request): \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
     {
-        $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->has('name'), function ($query) use ($request) {
                 $terms = \explode(' ', $request->input('name'));
@@ -323,6 +307,7 @@ class TorrentController extends BaseController
                 foreach ($terms as $term) {
                     $search .= '%'.$term.'%';
                 }
+
                 $query->where('name', 'LIKE', $search);
             })
             ->when($request->has('description'), function ($query) use ($request) {
@@ -421,11 +406,11 @@ class TorrentController extends BaseController
                 $query->orWhere('seeders', '=', 0);
             })
             ->orderBy('sticky', 'desc')
-            ->orderBy('bumped_at', 'desc')
-            ->paginate(25);
+            ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
+            ->paginate($request->input('perPage') ?? $this->perPage);
 
-        if ($torrent !== null) {
-            return new TorrentsResource($torrent);
+        if ($torrents !== null) {
+            return new TorrentsResource($torrents);
         }
 
         return $this->sendResponse('404', 'No Torrents Found');
@@ -441,8 +426,9 @@ class TorrentController extends BaseController
     private static function anonymizeMediainfo($mediainfo)
     {
         if ($mediainfo === null) {
-            return;
+            return null;
         }
+
         $completeNameI = \strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
             $pathI = \strpos($mediainfo, ': ', $completeNameI);
@@ -472,11 +458,11 @@ class TorrentController extends BaseController
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);
-            if ($part != '') {
+            if ($part !== '') {
                 $result[] = $part;
             }
         }
 
-        return $result;
+        return array_unique($result);
     }
 }

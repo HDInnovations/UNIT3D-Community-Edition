@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     protected $guarded = [];
+
     public $table = 'movie';
 
     /**
@@ -81,6 +82,8 @@ class Movie extends Model
      */
     public function torrents()
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id');
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+            $q->where('movie_meta', '=', true);
+        });
     }
 }

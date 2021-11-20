@@ -13,6 +13,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Movie;
+use App\Models\Tv;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TorrentResource extends JsonResource
@@ -26,10 +28,25 @@ class TorrentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $meta = null;
+
+        if ($this->category->tv_meta) {
+            if ($this->tmdb || $this->tmdb !== 0) {
+                $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
+            }
+        }
+
+        if ($this->category->movie_meta) {
+            if ($this->tmdb || $this->tmdb !== 0) {
+                $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
+            }
+        }
+
         return [
             'type'          => 'torrent',
             'id'            => (string) $this->id,
             'attributes'    => [
+                'poster'          => isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
                 'name'            => $this->name,
                 'release_year'    => $this->release_year,
                 'category'        => $this->category->name,
@@ -51,6 +68,7 @@ class TorrentResource extends JsonResource
                 'igdb_id'         => $this->igdb,
                 'created_at'      => $this->created_at,
                 'download_link'   => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
+                'magnet_link'     => $this->when(\config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => \auth('api')->user()->passkey]).'&xl='.$this->size),
                 'details_link'    => \route('torrent', ['id' => $this->id]),
             ],
         ];

@@ -55,6 +55,7 @@ class FetchMeta extends Command
                 $this->info('Movie Fetched');
             }
         }
+
         $this->alert('Meta Fetcher Complete');
     }
 }

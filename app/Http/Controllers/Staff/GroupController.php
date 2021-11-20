@@ -97,6 +97,7 @@ class GroupController extends Controller
             return \redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         }
+
         $group->save();
         foreach (Forum::all()->pluck('id') as $collection) {
             $permission = new Permission();
@@ -178,6 +179,7 @@ class GroupController extends Controller
             return \redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         }
+
         $group->save();
 
         return \redirect()->route('staff.groups.index')

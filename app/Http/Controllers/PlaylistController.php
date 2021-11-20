@@ -42,7 +42,12 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
+        $playlists = Playlist::with('user')->withCount('torrents')->where(function ($query) {
+            $query->where('is_private', '=', 0)
+                ->orWhere(function ($query) {
+                    $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
+                });
+        })->orderBy('name', 'ASC')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -94,6 +99,7 @@ class PlaylistController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $playlist->save();
         // Announce To Shoutbox
         $appurl = \config('app.url');
@@ -116,6 +122,10 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::findOrFail($id);
 
+        if ($playlist->is_private) {
+            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
+        }
+
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
         if (isset($random)) {
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
@@ -127,6 +137,7 @@ class PlaylistController extends Controller
             if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
                 $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
             }
+
             if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
                 $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
             }
@@ -201,6 +212,7 @@ class PlaylistController extends Controller
                 ->withInput()
                 ->withErrors($v->errors());
         }
+
         $playlist->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])

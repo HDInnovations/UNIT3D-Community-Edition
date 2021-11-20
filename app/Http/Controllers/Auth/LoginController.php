@@ -124,7 +124,7 @@ class LoginController extends Controller
                 ->withWarning(\trans('auth.require-rules'));
         }
 
-        return \redirect()->route('home.index')
+        return \redirect()->intended()
             ->withSuccess(\trans('auth.welcome'));
     }
 }

@@ -684,25 +684,32 @@
                                                 </a>
 
                                                 @if ($torrent->featured == 0)
-                                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-default btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
-                                                    </a>
+                                                   <form role="form" method="POST" action="{{ route('torrent_feature', ['id' => $torrent->id]) }}" style="display: inline-block;">
+                                                       @csrf
+                                                       <button type="submit" class="btn btn-xs btn-default">
+                                                           <i class='{{ config('other.font-awesome') }} fa-certificate'></i> @lang('torrent.feature')
+                                                       </button>
+                                                   </form>
                                                 @else
-                                                    <a href="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-danger btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.revokefeatured')
-                                                    </a>
+                                                    <form role="form" method="POST" action="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}" style="display: inline-block;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class='{{ config('other.font-awesome') }} fa-certificate'></i> @lang('torrent.revokefeatured')
+                                                        </button>
+                                                    </form>
                                                 @endif
                                             </div>
                                         @endif
 
                                         @if (auth()->user()->group->is_modo)
                                             <div class="torrent-moderation-controls">
-                                                <a href="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}" role='button'
-                                                class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
-                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
-                                                </a>
+                                                <form role="form" method="POST" action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                                      style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-labeled btn-xs btn-success @if ($torrent->isApproved()) disabled @endif">
+                                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
+                                                    </button>
+                                                </form>
 
                                                 <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
                                                         class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
@@ -751,6 +758,12 @@
 		    			        <tr>
 		    				        <td>
 		    				    	    <div class="panel-body">
+                                            <div class="torrent-mediainfo-dump" style="opacity: 1; display: none;" x-show="show">
+                                                <div>
+                                                    <span class="text-center text-bold">Full MediaInfo Dump</span>
+                                                    <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
+                                                </div>
+                                            </div>
 		    				    		    <div class="slidingDiv2">
 		    				    			    <div class="text-left text-main mediainfo-filename" style="border-bottom: 1px solid #444444; padding-bottom: 5px; margin-bottom: 5px;">
 		    				    				    @if ($mediaInfo !== null && isset($mediaInfo['general']['file_name']))
@@ -773,14 +786,14 @@
 		    				    							    <div><u style="font-weight: bold;">Format:</u> {{ $videoElement['format'] ?? trans('common.unknown') }} ({{ $videoElement['bit_depth'] ?? trans('common.unknown') }})</div>
 		    				    							    <div><u style="font-weight: bold;">Resolution:</u> {{ $videoElement['width'] ?? trans('common.unknown') }} x {{ $videoElement['height'] ?? trans('common.unknown') }}</div>
 		    				    							    <div><u style="font-weight: bold;">Aspect Ratio:</u> {{ $videoElement['aspect_ratio'] ?? trans('common.unknown') }}</div>
-		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> @if($videoElement['framerate_mode'] === 'Variable') VFR @else{{ $videoElement['frame_rate'] ?? trans('common.unknown') }}@endif</div>
+		    				    							    <div><u style="font-weight: bold;">Frame Rate:</u> @if((isset($videoElement['framerate_mode'])) && $videoElement['framerate_mode'] === 'Variable') VFR @else{{ $videoElement['frame_rate'] ?? trans('common.unknown') }}@endif</div>
 		    				    							    <div><u style="font-weight: bold;">Bit Rate:</u> {{ $videoElement['bit_rate'] ?? trans('common.unknown') }}</div>
 													            @if(isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
 		    				    								    <div><u style="font-weight: bold;">HDR Format:</u> {{ $videoElement['hdr_format'] ?? trans('common.unknown') }}</div>
 		    				    								    <div><u style="font-weight: bold;">Color Primaries:</u> {{ $videoElement['color_primaries'] ?? trans('common.unknown') }}</div>
 		    				    								    <div><u style="font-weight: bold;">Transfer Characteristics:</u> {{ $videoElement['transfer_characteristics'] ?? trans('common.unknown') }}</div>
 		    				    							    @endif
-		    				    							    @if(count($mediaInfo['video']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
+		    				    							    @if (! $loop->last) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
 		    				    						    @endforeach
 		    				    					    @endif
 		    				    				    </div>
@@ -790,7 +803,7 @@
 		    				    						    @foreach ($mediaInfo['audio'] as $key => $audioElement)
 		    				    							    <div>Track {{ ++$key }}:</div>
 		    				    						        <div>{{ $audioElement['language'] ?? trans('common.unknown') }} | {{ $audioElement['format'] ?? trans('common.unknown') }} | {{ $audioElement['channels'] ?? trans('common.unknown') }} | {{ $audioElement['bit_rate'] ?? trans('common.unknown') }} | {{ $audioElement['title'] ?? trans('common.unknown') }}</div>
-		    				    							    @if(count($mediaInfo['audio']) > 1) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
+		    				    							    @if (! $loop->last) <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px; width: 75%;"></div> @endif
 		    				    						    @endforeach
 		    				    					    @endif
 		    				    				    </div>
@@ -816,13 +829,6 @@
 									    	    	    @endif
 									    	        @endforeach
 									            @endif
-								            </div>
-
-								            <div class="torrent-mediainfo-dump" style="opacity: 1; display: none;" x-show="show">
-									            <div style="border-top: 1px solid #444444; padding-top: 5px; margin-top: 5px;">
-									        	    <span class="text-center text-bold">Full MediaInfo Dump</span>
-									        		<pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
-									            </div>
 								            </div>
 						    	        </div>
 						            </td>
@@ -1043,14 +1049,20 @@
         																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
         										<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
         										@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-        											<a title="@lang('common.delete-comment')"
-        											   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-        														class="pull-right {{ config('other.font-awesome') }} fa fa-times"
-        														aria-hidden="true"></i></a>
-        											<a title="@lang('common.edit-comment')" data-toggle="modal"
-        											   data-target="#modal-comment-edit-{{ $comment->id }}"><i
-        														class="pull-right {{ config('other.font-awesome') }} fa-pencil"
-        														aria-hidden="true"></i></a>
+                                                        <div class="pull-right" style="display: inline-block;">
+                                                            <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                                <button class="btn btn-circle btn-info">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                                </button>
+                                                            </a>
+                                                            <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-circle btn-danger">
+                                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
         										@endif
         										<div class="pt-5">
         											@joypixels($comment->getContentHtml())

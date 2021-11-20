@@ -49,6 +49,7 @@ class AutoRecycleFailedLogins extends Command
         foreach ($failedLogins as $failedLogin) {
             $failedLogin->delete();
         }
+
         $this->comment('Automated Purge Old Failed Logins Command Complete');
     }
 }

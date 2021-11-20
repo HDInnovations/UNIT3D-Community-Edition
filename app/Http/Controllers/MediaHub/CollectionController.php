@@ -15,7 +15,6 @@ namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
-use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
@@ -25,27 +24,6 @@ class CollectionController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('mediahub.collection.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     *
-     * @return void
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -60,41 +38,5 @@ class CollectionController extends Controller
         return \view('mediahub.collection.show', [
             'collection' => $collection,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

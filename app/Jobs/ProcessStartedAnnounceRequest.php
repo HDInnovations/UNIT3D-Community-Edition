@@ -21,6 +21,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 
 class ProcessStartedAnnounceRequest implements ShouldQueue
@@ -37,6 +38,16 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array
+     */
+    public function middleware()
+    {
+        return [new WithoutOverlapping($this->user->id.'.'.$this->queries['info_hash'])];
     }
 
     /**
@@ -57,6 +68,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $this->queries['event'] = 'started';
             }
+
             $peer = new Peer();
         }
 
@@ -86,7 +98,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        //$peer->updateConnectableStateIfNeeded();
+        $peer->updateConnectableStateIfNeeded();
         $peer->save();
         // End Peer Update
 

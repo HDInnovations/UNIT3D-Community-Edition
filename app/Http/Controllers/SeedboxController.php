@@ -62,6 +62,7 @@ class SeedboxController extends Controller
             return \redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
+
         $seedbox->save();
 
         return \redirect()->route('seedboxes.index', ['username' => $user->username])

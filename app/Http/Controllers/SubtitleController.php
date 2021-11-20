@@ -167,6 +167,7 @@ class SubtitleController extends Controller
             return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
+
         $subtitle->save();
 
         return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])

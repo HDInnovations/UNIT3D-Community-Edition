@@ -65,6 +65,7 @@ class ChatStatusController extends Controller
             return \redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
+
         $chatstatus->save();
 
         return \redirect()->route('staff.statuses.index')
@@ -95,6 +96,7 @@ class ChatStatusController extends Controller
             return \redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
+
         $chatstatus->save();
 
         return \redirect()->route('staff.statuses.index')

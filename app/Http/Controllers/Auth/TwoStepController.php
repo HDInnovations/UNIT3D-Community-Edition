@@ -194,6 +194,7 @@ class TwoStepController extends Controller
 
             return \response()->json($returnData, 200);
         }
+
         \abort(404);
     }
 

@@ -22,11 +22,21 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
+
     public $show = false;
+
     public $perPage = 25;
+
     public $search = '';
+
     public $sortField = 'updated_at';
+
     public $sortDirection = 'desc';
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'show'   => ['except' => false],
+    ];
 
     final public function mount(): void
     {
@@ -51,6 +61,13 @@ class TicketSearch extends Component
     final public function updatingShow(): void
     {
         $this->resetPage();
+    }
+
+    final public function toggleProperties($property): void
+    {
+        if ($property === 'show') {
+            $this->show = ! $this->show;
+        }
     }
 
     final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -82,6 +99,7 @@ class TicketSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

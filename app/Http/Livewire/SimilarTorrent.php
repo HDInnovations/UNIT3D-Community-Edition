@@ -33,12 +33,19 @@ use Livewire\Component;
 class SimilarTorrent extends Component
 {
     public $categoryId;
+
     public $tmdbId;
+
     public $reason;
+
     public $checked = [];
+
     public $selectPage = false;
+
     public $selectAll = false;
+
     public $sortField = 'bumped_at';
+
     public $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
@@ -76,11 +83,13 @@ class SimilarTorrent extends Component
                 $q->where('movie_meta', '=', true);
             });
         }
+
         if ($category->tv_meta == true) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('tv_meta', '=', true);
             });
         }
+
         $query = $query->where('tmdb', '=', $this->tmdbId);
         $query = $query->orderBy($this->sortField, $this->sortDirection);
 
@@ -94,6 +103,7 @@ class SimilarTorrent extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 
@@ -120,20 +130,34 @@ class SimilarTorrent extends Component
             $names[] = $torrent->name;
             foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                 if (! in_array($pm->user_id, $users)) {
-                    array_push($users, $pm->user_id);
+                    $users[] = $pm->user_id;
                 }
             }
+
             if (! in_array($torrent->tmdb, $titleids)) {
-                array_push($titleids, $torrent->tmdb);
+                $titleids[] = $torrent->tmdb;
                 $title = null;
-                switch ($torrent->category_id) {
-                        case 1:
-                            $title = Movie::find($torrent->tmdb);
-                            array_push($titles, $title->title.' ('.substr($title->release_date, 0, 4).')');
-                        case 2:
-                            $title = Tv::find($torrent->tmdb);
-                            array_push($titles, $title->name.' ('.substr($title->first_air_date, 0, 4).')');
-                    }
+                $cat = $torrent->category;
+                $meta = 'none';
+
+                if ($cat->tv_meta === 1) {
+                    $meta = 'tv';
+                } elseif ($cat->movie_meta === 1) {
+                    $meta = 'movie';
+                }
+
+                switch ($meta) {
+                    case 'movie':
+                        $title = Movie::find($torrent->tmdb);
+                        $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
+                        break;
+                    case 'tv':
+                        $title = Tv::find($torrent->tmdb);
+                        $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
+                        break;
+                    default:
+                        break;
+                }
             }
 
             // Reset Requests
@@ -164,6 +188,7 @@ class SimilarTorrent extends Component
 
             $torrent->delete();
         }
+
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = 1;

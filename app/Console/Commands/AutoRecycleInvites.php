@@ -49,6 +49,7 @@ class AutoRecycleInvites extends Command
         foreach ($invites as $invite) {
             $invite->delete();
         }
+
         $this->comment('Automated Purge Unaccepted Invites Command Complete');
     }
 }

@@ -28,8 +28,11 @@ class ForumController extends Controller
     /**
      * Display All Forums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
         return \view('Staff.forum.index', ['categories' => $categories]);
@@ -38,8 +41,11 @@ class ForumController extends Controller
     /**
      * Show Forum Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
@@ -54,6 +60,9 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $groups = Group::all();
 
         $forum = new Forum();
@@ -70,6 +79,7 @@ class ForumController extends Controller
             if ($perm == null) {
                 $perm = new Permission();
             }
+
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (\array_key_exists($group->id, $request->input('permissions'))) {
@@ -83,6 +93,7 @@ class ForumController extends Controller
                 $perm->reply_topic = false;
                 $perm->start_topic = false;
             }
+
             $perm->save();
         }
 
@@ -95,8 +106,11 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
@@ -117,6 +131,9 @@ class ForumController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
 
@@ -133,6 +150,7 @@ class ForumController extends Controller
             if ($perm == null) {
                 $perm = new Permission();
             }
+
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (\array_key_exists($group->id, $request->input('permissions'))) {
@@ -146,6 +164,7 @@ class ForumController extends Controller
                 $perm->reply_topic = false;
                 $perm->start_topic = false;
             }
+
             $perm->save();
         }
 
@@ -162,15 +181,18 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        // Forum to delete
+        $user = $request->user();
+        \abort_unless($user->group->is_admin, 403);
+
         $forum = Forum::findOrFail($id);
 
         $permissions = Permission::where('forum_id', '=', $forum->id)->get();
         foreach ($permissions as $p) {
             $p->delete();
         }
+
         unset($permissions);
 
         if ($forum->parent_id == 0) {
@@ -190,22 +212,28 @@ class ForumController extends Controller
                     foreach ($t->posts as $p) {
                         $p->delete();
                     }
+
                     $t->delete();
                 }
+
                 $forum->delete();
             }
+
             $category->delete();
         } else {
             $permissions = Permission::where('forum_id', '=', $forum->id)->get();
             foreach ($permissions as $p) {
                 $p->delete();
             }
+
             foreach ($forum->topics as $t) {
                 foreach ($t->posts as $p) {
                     $p->delete();
                 }
+
                 $t->delete();
             }
+
             $forum->delete();
         }
 

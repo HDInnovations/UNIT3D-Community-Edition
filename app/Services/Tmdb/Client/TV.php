@@ -19,7 +19,9 @@ class TV
      * @var \GuzzleHttp\Client|mixed
      */
     public $client;
+
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+
     public $data;
 
     public function __construct($id)
@@ -36,7 +38,7 @@ class TV
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
                     'language'           => \config('app.locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,recommendations',
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
                 ],
             ]
         );
@@ -62,7 +64,7 @@ class TV
 
     public function get_creator()
     {
-        return $this->data['created_by'];
+        return $this->data['created_by'] ?? null;
     }
 
     public function get_runtime()
@@ -108,6 +110,11 @@ class TV
     public function get_name()
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
+    }
+
+    public function get_alternative_names()
+    {
+        return $this->data['alternative_titles'];
     }
 
     public function get_next_episode_to_air()

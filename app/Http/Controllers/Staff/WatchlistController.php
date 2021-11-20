@@ -50,6 +50,7 @@ class WatchlistController extends Controller
             return \redirect()->route('staff.watchlist.index')
                 ->withErrors($v->errors());
         }
+
         $watchedUser->save();
 
         return \redirect()->route('staff.watchlist.index')

@@ -25,6 +25,7 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
@@ -55,7 +56,7 @@ class PostController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($forum->id);
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
@@ -78,6 +79,7 @@ class PostController extends Controller
             return \redirect()->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         }
+
         $post->save();
         $appurl = \config('app.url');
         $href = \sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
@@ -107,6 +109,7 @@ class PostController extends Controller
                 );
             }
         }
+
         // Save last post user data to topic table
         $topic->last_post_user_id = $user->id;
         $topic->last_post_user_username = $user->username;
@@ -142,8 +145,10 @@ class PostController extends Controller
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
             }
+
             $topic->notifySubscribers($user, $topic, $post);
         }
+
         //Achievements
         $user->unlock(new UserMadeFirstPost(), 1);
         $user->addProgress(new UserMade25Posts(), 1);

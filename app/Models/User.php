@@ -608,15 +608,19 @@ class User extends Authenticatable
         if ($sender->id === $target->id) {
             return false;
         }
+
         if ($sender->group->is_modo || $sender->group->is_admin) {
             return true;
         }
+
         if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
+
         if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
+
         if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
                 return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -643,15 +647,19 @@ class User extends Authenticatable
         if ($sender->id == $target->id) {
             return true;
         }
+
         if ($sender->group->is_modo || $sender->group->is_admin) {
             return true;
         }
+
         if ($target->hidden && $target->hidden == 1) {
             return false;
         }
+
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
+
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
                 return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -678,15 +686,19 @@ class User extends Authenticatable
         if ($sender->id == $target->id) {
             return true;
         }
+
         if ($sender->group->is_modo || $sender->group->is_admin) {
             return true;
         }
+
         if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
+
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
+
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
             if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
                 return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
@@ -896,6 +908,7 @@ class User extends Authenticatable
         if (empty($this->about)) {
             return 'N/A';
         }
+
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 

@@ -26,27 +26,47 @@ class TorrentRequestSearch extends Component
     use WithPagination;
 
     public $name = '';
+
     public $requestor = '';
+
     public $categories = [];
+
     public $types = [];
+
     public $resolutions = [];
+
     public $genres = [];
+
     public $tmdbId = '';
+
     public $imdbId = '';
+
     public $tvdbId = '';
+
     public $malId = '';
+
     public $unfilled;
+
     public $claimed;
+
     public $pending;
+
     public $filled;
+
     public $myRequests;
+
     public $myClaims;
+
     public $myVoted;
+
     public $myFilled;
 
     public $perPage = 25;
+
     public $sortField = 'created_at';
+
     public $sortDirection = 'desc';
+
     public $showFilters = false;
 
     protected $queryString = [
@@ -132,7 +152,11 @@ class TorrentRequestSearch extends Component
                 $query->where('tmdb', '=', $this->tmdbId);
             })
             ->when($this->imdbId, function ($query) {
-                $query->where('imdb', '=', $this->imdbId);
+                if (\preg_match('/tt0*?(?=(\d{7,8}))/', $this->imdbId, $matches)) {
+                    $query->where('imdb', '=', $matches[1]);
+                } else {
+                    $query->where('imdb', '=', $this->imdbId);
+                }
             })
             ->when($this->tvdbId, function ($query) {
                 $query->where('tvdb', '=', $this->tvdbId);
@@ -177,6 +201,7 @@ class TorrentRequestSearch extends Component
         } else {
             $this->sortDirection = 'asc';
         }
+
         $this->sortField = $field;
     }
 

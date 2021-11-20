@@ -48,12 +48,13 @@ class MediaInfo
                 $section = $line;
                 $output[$section] = [];
             }
+
             if (isset($section)) {
                 $output[$section][] = $line;
             }
         }
 
-        if (\count($output) > 0) {
+        if ($output !== []) {
             $output = $this->parseSections($output);
         }
 
@@ -88,6 +89,7 @@ class MediaInfo
                 $property = \strtolower(\trim($info[0]));
                 $value = \trim($info[1]);
             }
+
             if ($property && $value) {
                 switch (\strtolower($section)) {
                     case 'general':

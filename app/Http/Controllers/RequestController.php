@@ -78,9 +78,11 @@ class RequestController extends Controller
         if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
             $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
         }
+
         if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
             $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
         }
+
         if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
             $meta = Game::with([
                 'cover'    => ['url', 'image_id'],
@@ -167,6 +169,7 @@ class RequestController extends Controller
             return \redirect()->route('requests.index')
                 ->withErrors($v->errors())->withInput();
         }
+
         $torrentRequest->save();
 
         $tmdbScraper = new TMDBScraper();
@@ -286,6 +289,7 @@ class RequestController extends Controller
             return \redirect()->route('requests.index')
                 ->withErrors($v->errors());
         }
+
         $torrentRequest->save();
 
         $tmdbScraper = new TMDBScraper();
@@ -325,6 +329,7 @@ class RequestController extends Controller
             return \redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         }
+
         $tr->save();
         $torrentRequestBounty = new TorrentRequestBounty();
         $torrentRequestBounty->user_id = $user->id;
@@ -354,6 +359,7 @@ class RequestController extends Controller
                 \sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $trUrl, $tr->name)
             );
         }
+
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $tr->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
@@ -397,6 +403,7 @@ class RequestController extends Controller
             return \redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
         }
+
         $torrentRequest->save();
         // Send Private Message
         $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
@@ -427,6 +434,7 @@ class RequestController extends Controller
                 return \redirect()->route('request', ['id' => $id])
                     ->withErrors('Seems this request was already approved');
             }
+
             $tr->approved_by = $user->id;
             $tr->approved_when = Carbon::now();
             $tr->save();
