@@ -10,7 +10,6 @@
   "devDependencies": {
     "ajv": "^8.8.2",
     "axios": "^0.21.4",
-    "blade-formatter": "^1.14.2",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0.3",
     "jquery": "^3.6.0",
