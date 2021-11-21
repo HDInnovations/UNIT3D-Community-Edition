@@ -60,15 +60,15 @@
                         </a>
 
                         @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
-                            <a href="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
-                                class="btn btn-default btn-sm torrent-freeleech-token"
-                                data-toggle=tooltip
-                                data-html="true"
-                                title='{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
-                                role="button"
-                            >
-                                @lang('torrent.use-fl-token')
-                            </a>
+                            <form action="{{ route('freeleech_token', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm torrent-freeleech-token"
+                                        data-toggle=tooltip
+                                        data-html="true"
+                                        title='{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
+                                    @lang('torrent.use-fl-token')
+                                </button>
+                            </form>
                         @endif
                     @endif
                     @else
@@ -103,9 +103,12 @@
 
                     @if ($current = $user->history->where('info_hash', $torrent->info_hash)->first())
                         @if ($current->seeder == 0 && $current->active == 1 && $torrent->seeders <= 2)
-                            <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
-                                <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
-                            </a>
+                            <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
+                                </button>
+                            </form>
                         @endif
                     @endif
 
@@ -643,45 +646,59 @@
                                         @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                                             <div class="torrent-internal-controls">
                                                 @if ($torrent->free == 0)
-                                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-success btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
-                                                    </a>
+                                                    <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-success">
+                                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-danger btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
-                                                    </a>
+                                                    <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
+                                                        </button>
+                                                    </form>
                                                 @endif
 
                                                 @if ($torrent->doubleup == 0)
-                                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-success btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')
-                                                    </a>
+                                                    <form action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-success">
+                                                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-danger btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
-                                                    </a>
+                                                    <form action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
+                                                        </button>
+                                                    </form>
                                                 @endif
 
                                                 @if ($torrent->sticky == 0)
-                                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-success btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.sticky')
-                                                    </a>
+                                                    <form action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-success">
+                                                            <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.sticky')
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
-                                                    class="btn btn-danger btn-xs" role="button">
-                                                        <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
-                                                    </a>
+                                                    <form action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-xs btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
+                                                        </button>
+                                                    </form>
                                                 @endif
 
-                                                <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}"
-                                                class="btn btn-primary btn-xs" role="button">
-                                                    <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> @lang('torrent.bump')
-                                                </a>
+                                                <form action="{{ route('bumpTorrent', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-xs btn-primary">
+                                                        <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> @lang('torrent.bump')
+                                                    </button>
+                                                </form>
 
                                                 @if ($torrent->featured == 0)
                                                    <form role="form" method="POST" action="{{ route('torrent_feature', ['id' => $torrent->id]) }}" style="display: inline-block;">
