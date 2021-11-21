@@ -126,7 +126,7 @@ export default {
         },
         editMessage(message) {},
         deleteMessage(id) {
-            axios.get(`/api/chat/message/${id}/delete`);
+            axios.post(`/api/chat/message/${id}/delete`);
         },
         userStyles(user) {
             return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`;

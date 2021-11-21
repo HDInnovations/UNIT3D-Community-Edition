@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
 
         /* Messages */
         Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'createMessage']);
-        Route::get('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
+        Route::post('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
         Route::get('/messages/{room_id}', [App\Http\Controllers\API\ChatController::class, 'messages']);
 
         /* Private Stuff */
