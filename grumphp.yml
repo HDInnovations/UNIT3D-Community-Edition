@@ -1,0 +1,63 @@
+grumphp:
+  tasks:
+    git_commit_message:
+      allow_empty_message: false
+      enforce_capitalized_subject: false
+      enforce_no_subject_trailing_period: true
+      enforce_no_subject_punctuations: false
+      enforce_single_lined_subject: true
+      type_scope_conventions:
+        - types:
+            - api
+            - build
+            - chore
+            - refact
+            - revert
+            - feat
+            - tests
+            - docs
+            - style
+            - ci
+            - ui
+            - scaff
+            - perf
+            - fix
+            - wip
+        - scopes: []
+      max_body_width: 0
+      max_subject_width: 72
+      case_insensitive: false
+      multiline: true
+      additional_modifiers: ''
+    phpcs:
+      standard: PSR2
+      severity: ~
+      error_severity: ~
+      warning_severity: ~
+      tab_width: ~
+      whitelist_patterns:
+        - /^src\/(.*)/
+      encoding: ~
+      ignore_patterns:
+        - /^vendor\/(.*)/
+        - /^database\/(.*)/
+        - /^routes\/(.*)/
+      sniffs: []
+      triggered_by: [php]
+    git_blacklist:
+      # todo: Apparently keywords are not words but rather contains
+      # e.g. `->add()` will be seen as `dd(`
+      # This is assumed an issue that probably should be opened with GrumPHP
+      keywords:
+        - "die("
+        - "var_dump("
+        - "exit;"
+        # - "exit("
+        # - "dd("
+      whitelist_patterns:
+        - /^database\/(.*)/
+        - /^routes\/(.*)/
+        - /^tests\/(.*)/
+      triggered_by: ['php']
+      regexp_type: G
+  ascii: ~

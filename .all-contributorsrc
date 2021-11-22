@@ -1,0 +1,90 @@
+{
+  "projectName": "UNIT3D-Community-Edition",
+  "projectOwner": "HDInnovations",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "HDVinnie",
+      "name": "HDVinnie",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12850699?v=4",
+      "profile": "https://github.com/HDVinnie",
+      "contributions": [
+        "code",
+        "design",
+        "doc"
+      ]
+    },
+    {
+      "login": "poppabear8883",
+      "name": "Everett (Mike) Wiley",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7263458?v=4",
+      "profile": "https://github.com/poppabear8883",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "singularity43",
+      "name": "singularity43",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/46550600?v=4",
+      "profile": "https://github.com/singularity43",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "VerioPL",
+      "name": "VerioPL",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/24521644?v=4",
+      "profile": "https://github.com/VerioPL",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "pbodq2",
+      "name": "Morgan Wong",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/25418300?v=4",
+      "profile": "https://github.com/pbodq2",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "gyakkun",
+      "name": "Gyakkun",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5460071?v=4",
+      "profile": "https://nyamori.moe",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "cbj4074",
+      "name": "Ben Johnson",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1236883?v=4",
+      "profile": "https://indiehd.com",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "Oha-you",
+      "name": "おはよう",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82098328?v=4",
+      "profile": "https://github.com/Oha-you",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true
+}

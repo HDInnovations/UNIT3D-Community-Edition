@@ -1,0 +1,335 @@
+/*
+
+2014 material design colors from https://material.io/design/color/the-color-system.html#tools-for-picking-colors
+
+Create a stylesheet that sets the following custom properties, and then imports this theme.
+
+For example dark blue,
+
+:root {
+    --color-light-blue: #64B5F6;	  300
+    --color-light-green: #64B5F6;	  300
+    --color-light-magenta: #64B5F6;	300
+    --color-light-purple: #64B5F6;	300
+    --color-400: #42A5F5;           400
+    --color-blue: #2196F3;		      500
+    --color-green: #2196F3;		      500
+    --color-yellow: #2196F3;		    500
+    --color-magenta:  #1E88E5;		  600
+    --color-red: #1565C0;		        800
+    --color-dark-green: #1565C0;	  800
+    --color-A200: #448AFF;          A200
+    --color-A400: #2979FF;          A400
+    --color-purple: #2962FF;		    A700
+    
+    --color-dark-blue: #181818;
+    --color-dark-red: #181818;
+
+    --movie-overlay: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 1) 5.46%, rgba(21, 101, 192, 0.46));    800
+    --background-pipe: url("../../img/pipes/blue.png");
+    --gradient-background: radial-gradient(at 30% top, #072e46 0%, #081c24 70%);
+}
+*/
+
+body {
+    background-color: var(--color-dark-blue);
+}
+
+.btn-primary,
+.btn-danger,
+.label-primary {
+    background-color: var(--color-purple);
+    background-image: none;
+}
+
+.btn-info,
+.label-info {
+    background-color: var(--color-magenta);
+    background-image: none;
+}
+
+.btn-success {
+    background-color: var(--color-green);
+    background-image: none;
+}
+
+.btn-warning {
+    background-color: var(--color-yellow);
+    background-image: none;
+}
+
+.btn:active,
+.btn:hover,
+.btn:focus,
+.btn:active:hover,
+.btn:active:focus,
+.btn:active:hover:focus {
+    background-color: var(--color-light-purple) !important;
+    background-image: none;
+}
+
+#hoeapp-wrapper,
+#main-content,
+.inner-content {
+    background-color: var(--color-dark-blue);
+}
+
+.hoe-right-header[hoe-color-type='header-bg5'] {
+    background: #1f1f1f;
+}
+
+#hoeapp-container[hoe-color-type='lpanel-bg5'].hoe-minimized-lpanel #hoe-left-panel {
+    background: #1f1f1f;
+}
+.ratio-bar {
+    background-color: #2b2b2b;
+}
+.ratio-bar .badge-user {
+    background-color: #373737;
+}
+
+.nav-tabs > #active {
+    background-color: var(--color-dark-green);
+}
+
+.btn-primary :hover {
+    background-color: var(--color-light-purple);
+}
+
+/* dark header menus */
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li {
+    border-bottom: none;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a,
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a > .fa {
+    color: #fff;
+}
+
+.hoe-left-header,
+#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel,
+#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a,
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a {
+    background: #1f1f1f;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:focus,
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:hover,
+#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a:hover {
+    background: #151515;
+}
+
+#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a {
+    border-top: 1px solid #151515;
+}
+
+.text-green {
+    color: #3fb618;
+}
+.text-muted {
+    color: #999;
+}
+
+i.torrent-icon {
+    color: var(--color-blue);
+}
+
+.col-md-10 {
+    background-color: #2b2b2b;
+    margin-top: 5px;
+    padding-top: 10px;
+}
+
+.panel-chat > .panel-body > #frame > .content {
+    background-color: var(--color-dark-blue);
+}
+
+#l-footer {
+    background-color: #1f1f1f;
+}
+
+.notify .point {
+    background-color: var(--color-A400);
+}
+
+.notify .heartbit {
+    border: 4px solid var(--color-A200);
+}
+
+.message-sent .message-headers,
+.message-unread .message-headers,
+.message-sent .message-body,
+.message-unread .message-body {
+    background-color: #404040;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.topic-info {
+    color: #fff;
+}
+
+.progress-bar {
+    background-color: var(--color-magenta);
+    border-bottom: 4px solid var(--color-red) !important;
+}
+
+select,
+select option {
+    background-color: #454545 !important;
+}
+
+.form-control {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.56);
+}
+.form-control:focus {
+    box-shadow: 0 0 5px var(--color-light-blue);
+    border: 1px solid var(--color-light-blue);
+}
+.form-control > option {
+    background-color: #616161;
+}
+
+.bbcode-code,
+.bbcode-quote {
+    border: 1px solid var(--color-light-blue);
+}
+
+.bbcode-quote {
+    margin: 0 15px 15px 15px;
+}
+
+.text-info,
+.footer-icon {
+    color: var(--color-400);
+}
+
+.badge-extra {
+    border: 1px solid rgba(66, 70, 92, 0.61);
+    border-radius: 0;
+}
+
+.text-bright {
+    color: #fefefe;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #fcfcfc;
+}
+
+.text-purple,
+.text-orange,
+.text-success,
+.text-pink,
+.fa-coins {
+    color: var(--color-400);
+}
+
+.text-danger {
+    color: #996666;
+}
+
+.alert-danger,
+.panel-danger,
+.panel-danger > .panel-heading,
+.alert-success,
+.panel-success,
+.panel-success > .panel-heading,
+.alert-primary,
+.panel-primary,
+.panel-primary > .panel-heading,
+.alert-warning,
+.panel-warning,
+.panel-warning > .panel-heading,
+.alert-default,
+.panel-default,
+.panel-default > .panel-heading,
+.alert-info,
+.btn-info,
+.panel-info,
+.panel-info > .panel-heading {
+    background-color: var(--color-magenta) !important;
+}
+
+.alert {
+    color: #424242;
+}
+
+.alert > h2,
+.alert > h2 > strong,
+.panel > .panel-heading > h2,
+.panel > .panel-heading > h4,
+.panel > .panel-heading > div > h2,
+.panel > .panel-heading > div > h4,
+.movie-title > a {
+    color: #000;
+}
+
+.panel-chat > .panel-heading > h4 {
+    color: #fff;
+}
+
+.panel-collapse > .panel-heading {
+    background-color: #1b1b1b !important;
+}
+
+.badge-user {
+    border-radius: 0;
+}
+
+.container.box {
+    background: #1f1f1f;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.list-inline {
+    color: inherit;
+}
+
+.gradient.silver,
+.gradient.pink,
+.gradient.purple,
+.gradient.green,
+.gradient.teal,
+.gradient.light_blue,
+.gradient.blue,
+.gradient.orange,
+.gradient.yellow,
+.gradient.red {
+    background-image: var(--gradient-background);
+}
+
+div.header.silver div.inner_content,
+div.header.pink div.inner_content,
+div.header.purple div.inner_content,
+div.header.green div.inner_content,
+div.header.teal div.inner_content,
+div.header.light_blue div.inner_content,
+div.header.blue div.inner_content,
+div.header.orange div.inner_content,
+div.header.yellow div.inner_content,
+div.header.red div.inner_content,
+#l-footer {
+    background-image: var(--background-pipe) !important;
+}
+
+/* history table restores */
+.table > tbody > tr > td.text-green {
+    color: #3fb618 !important;
+}
+.table > tbody > tr > td.text-red {
+    color: var(--color-light-red) !important;
+}

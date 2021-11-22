@@ -1,0 +1,30 @@
+php:
+  preset: recommended
+  risky: true
+  version: 8
+  enabled:
+    - method_argument_space
+    - not_operator_with_successor_space
+    - no_useless_else
+    - ternary_to_null_coalescing
+  disabled:
+    - method_argument_space_strict
+    - psr4
+  finder:
+    exclude:
+      - node_modules
+      - storage
+      - vendor
+      - .github
+    not-name:
+      - index.php
+      - server.php
+    name:
+      - "*.php"
+      - "*.blade.php"
+js:
+  finder:
+    not-name:
+      - webpack.mix.js
+css: true
+vue: true

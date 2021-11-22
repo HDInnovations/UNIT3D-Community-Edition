@@ -1,0 +1,481 @@
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-left-header,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-left-header {
+    right: 0;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-right-header,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-right-header {
+    margin-left: 0;
+    margin-right: 230px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'].left-navbar,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'].left-navbar {
+    float: right;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .right-navbar,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .right-navbar {
+    float: left;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-sidebar-toggle a:after,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-sidebar-toggle a:after {
+    right: 0;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .left-navbar li:last-child,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .left-navbar li:last-child {
+    padding-right: 50px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .left-navbar li:first-child,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .left-navbar li:first-child {
+    padding-right: 0;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] #hoe-left-panel {
+    right: 0;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] #main-content,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] #main-content {
+    margin-left: 0;
+    margin-right: 230px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] #styleSelector,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] #styleSelector {
+    left: -230px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .selector-toggle > a,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .selector-toggle > a {
+    border-radius: 0 4px 4px 0;
+    left: 228px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] #styleSelector.open,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] #styleSelector.open {
+    right: 0;
+    left: 0;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .selector-toggle > a:before,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .selector-toggle > a:before {
+    content: '\f101';
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .open .selector-toggle > a:before,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .open .selector-toggle > a:before {
+    content: '\f100';
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: auto;
+    padding-right: 25px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: auto;
+    padding-right: 35px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-header.hoe-minimized-lpanel
+    > .hoe-right-header,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    #hoe-header.hoe-minimized-lpanel
+    > .hoe-right-header {
+    margin-left: 0;
+    margin-right: 50px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-minimized-lpanel #main-content,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-minimized-lpanel #main-content {
+    margin-left: 0;
+    margin-right: 50px;
+}
+
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-minimized-lpanel #hoe-left-panel,
+body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-minimized-lpanel #hoe-left-panel {
+    direction: rtl;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:hover
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:focus
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:hover
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:focus
+    > a
+    span.menu-text {
+    right: 52px;
+    left: auto;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    li:hover
+    a
+    .label,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    li:hover
+    a
+    .label {
+    left: 5px;
+    right: auto;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:hover
+    > a,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:focus
+    > a,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:hover
+    > a,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li:focus
+    > a {
+    border-radius: 4px 0 0 4px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
+    left: auto;
+    right: 50px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu
+    > a:after,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu
+    > a:after {
+    float: left;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu:hover
+    > a:after,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu:focus
+    > a:after,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu:hover
+    > a:after,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu:focus
+    > a:after {
+    float: left;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro';
+    content: '\f0d9';
+    font-size: 14px;
+    position: relative;
+    float: right;
+    left: 4px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro';
+    content: '\f0d9';
+    font-size: 14px;
+    position: relative;
+    float: right;
+    left: 4px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: auto;
+    padding-right: 0;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro';
+    content: '\f0d9';
+    font-size: 14px;
+    position: relative;
+    float: right;
+    left: 4px;
+}
+
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text,
+body[hoe-nav-placement='right']
+    #hoeapp-wrapper[hoe-device-type='tablet']
+    .hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: auto;
+    padding-right: 0;
+}

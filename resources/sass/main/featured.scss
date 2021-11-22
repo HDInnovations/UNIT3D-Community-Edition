@@ -1,0 +1,146 @@
+.keen-slider {
+    height: 300px;
+}
+
+.keen-slider__slide {
+    min-width: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    height: 300px;
+    background-color: #212120;
+}
+
+.carousel-control {
+    z-index: 10;
+}
+
+.carousel-control.left {
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.0001));
+}
+
+.carousel-control.right {
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.2));
+}
+
+.carousel-control:hover {
+    cursor: pointer;
+}
+
+.featured-header {
+    display: flex;
+}
+
+.movie-image,
+.movie-card {
+    position: absolute;
+    top: 0;
+}
+
+.movie-image {
+    left: 0;
+}
+
+.fade-img,
+.fade-card {
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    top: 0;
+    background-image: linear-gradient(to right, transparent, #212120);
+}
+
+.fade-img {
+    right: 0;
+}
+
+.fade-card {
+    left: 0;
+}
+
+.movie-card {
+    height: 100%;
+    width: 65%;
+    right: 0;
+    padding-left: 100px;
+}
+
+.movie-image > .backdrop {
+    max-height: 300px;
+}
+
+.dots {
+    flex-grow: 1;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.dot {
+    border: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.dot:focus {
+    outline: none;
+}
+
+.dot--active {
+    background: #5cb579;
+}
+
+.movie-content {
+    width: 100%;
+    height: 100%;
+    background-color: #212120;
+    position: relative;
+    padding-right: 15px;
+    padding-top: 20px;
+}
+
+.movie-content .movie-title {
+    color: #ffffff;
+    margin-bottom: 0.25em;
+    opacity: 0.75;
+    margin-top: 0;
+}
+
+.movie-content .movie-info {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8em;
+    color: #2a9fff;
+    line-height: 1;
+    margin: 0;
+    font-weight: 700;
+}
+
+.movie-content .movie-header {
+    margin-bottom: 20px;
+}
+
+.movie-content .movie-desc {
+    max-width: 700px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.movie-badges .badge-extra,
+.movie-badges .badge-user {
+    margin-bottom: 6px;
+}
+
+@media only screen and (max-width: 720px) {
+    .mobile-hide {
+        display: none !important;
+    }
+}

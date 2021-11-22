@@ -1,0 +1,48 @@
+/* 2014 material design colors from https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
+
+/*
+
+Red
+
+50 #FFEBEE
+100 #FFCDD2
+200 #EF9A9A
+300 #E57373
+400 #EF5350
+500 #F44336
+600 #E53935
+700 #D32F2F
+800 #C62828
+900 #B71C1C
+A100 #FF8A80
+A200 #FF5252
+A400 #FF1744
+A700 #D50000
+
+*/
+
+:root {
+    --color-light-blue: #e57373;
+    --color-light-green: #e57373;
+    --color-light-magenta: #e57373;
+    --color-light-purple: #e57373;
+    --color-400: #ef5350;
+    --color-blue: #f44336;
+    --color-green: #f44336;
+    --color-yellow: #f44336;
+    --color-magenta: #e53935;
+    --color-red: #c62828;
+    --color-dark-green: #c62828;
+    --color-A200: #ff5252;
+    --color-A400: #ff1744;
+    --color-purple: #d50000;
+
+    --color-dark-blue: #181818;
+    --color-dark-red: #181818;
+
+    --movie-overlay: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 1) 5.46%, rgba(198, 40, 40, 0.46));
+    --background-pipe: url('/img/pipes/red.png');
+    --gradient-background: radial-gradient(at 30% top, #30172a 0%, #081c24 70%);
+}
+
+@import 'dark-base';

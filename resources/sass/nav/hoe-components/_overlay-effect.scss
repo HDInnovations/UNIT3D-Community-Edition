@@ -1,0 +1,47 @@
+#hoe-header[hoe-lpanel-effect='overlay'] .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoe-header[hoe-lpanel-effect='overlay'].hoe-minimized-lpanel .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 50px;
+    padding-right: 50px;
+}
+
+#hoe-header[hoe-lpanel-effect='overlay'] .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+}
+
+#hoe-header.hoe-minimized-lpanel[hoe-lpanel-effect='overlay'] .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 50px;
+}
+
+#hoe-header[hoe-lpanel-effect='overlay'] .hoe-right-header[hoe-position-type='relative'] .hoe-sidebar-toggle a:after {
+    margin-left: 230px;
+}
+
+#hoe-header.hoe-minimized-lpanel[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='relative']
+    .hoe-sidebar-toggle
+    a:after {
+    margin-left: 0;
+}
+
+#hoe-header[hoe-lpanel-effect='overlay'] .hoe-right-header[hoe-position-type='fixed'] .hoe-sidebar-toggle a:after {
+    margin-left: 230px;
+}
+
+#hoe-header.hoe-minimized-lpanel[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='fixed']
+    .hoe-sidebar-toggle
+    a:after {
+    margin-left: 0;
+}
+
+#hoeapp-container[hoe-lpanel-effect='overlay'] #main-content {
+    margin-left: 50px;
+}
+
+#hoeapp-container[hoe-lpanel-effect='overlay'].hoe-minimized-lpanel #main-content {
+    margin-left: 50px;
+}

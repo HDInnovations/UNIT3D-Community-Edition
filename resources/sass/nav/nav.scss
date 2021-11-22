@@ -1,0 +1,1037 @@
+/********** 1. IMPORTS **********/
+/********************************/
+@import 'hoe-components/overlay-effect';
+@import 'hoe-components/push-effect';
+@import 'hoe-components/shrink-effect';
+@import 'hoe-components/right-sidebar';
+@import 'hoe-components/horizontal-navigation';
+@import 'hoe-components/theme-color';
+@import 'hoe-components/extra';
+@import 'hoe-components/header';
+
+/********** 2. RESET STYLES **********/
+/*************************************/
+
+/* ********** Default Theme Style************* */
+body {
+    position: relative;
+}
+
+#hoeapp-wrapper a:focus {
+    outline: none;
+}
+
+#hoeapp-wrapper {
+    color: #555;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    direction: ltr;
+    line-height: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#hoe-header {
+    background: rgba(41, 55, 70, 0.97);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hoe-left-header {
+    background: #1f1e29;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 50px;
+    position: absolute;
+    float: left;
+    text-align: center;
+    width: 230px;
+    z-index: 999;
+}
+
+// fix for anchors links when using fixed header
+.anchor {
+    display: block;
+    height: 50px; //same height as header
+    margin-top: -50px; //same height as header
+    visibility: hidden;
+}
+
+.hoe-left-header a {
+    color: #fff;
+}
+
+.hoe-left-header a:hover,
+.hoe-left-header a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.hoe-right-header {
+    background: #384b5f none repeat scroll 0 0;
+    height: 50px;
+    line-height: 50px;
+    z-index: 101;
+    margin-left: 230px;
+    position: relative;
+}
+
+.hoe-right-header > ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.hoe-right-header li {
+    display: inline;
+    float: left;
+}
+
+.hoe-right-header > li a {
+    color: #fff;
+    padding: 17px 15px;
+}
+
+.hoe-right-header li a:hover,
+.hoe-right-header li a:focus {
+    text-decoration: none;
+}
+
+.hoe-right-header a i {
+    color: #fff;
+    font-size: 18px;
+}
+
+.right-navbar {
+    float: right;
+    padding-right: 7px !important;
+}
+
+.right-navbar li a i {
+    font-size: 14px;
+}
+
+.left-navbar > li:first-child {
+    padding-left: 50px;
+}
+
+.hoe-sidebar-toggle a:after {
+    background: transparent;
+    border: 0 solid #efefef;
+    content: '\f0c9';
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    font-size: 14px;
+    line-height: 50px;
+    padding: 0 17px;
+    position: absolute;
+    color: #7e7e7e;
+    z-index: 1000;
+}
+
+.hoe-sidebar-toggle a:hover:after {
+    background: #efefef;
+}
+
+.hoe-left-header > .hoe-sidebar-toggle > a {
+    display: none;
+}
+
+#hoe-header .hoe-left-header[hoe-position-type='relative'] {
+    position: relative;
+}
+
+#hoe-header .hoe-left-header[hoe-position-type='absolute'] {
+    position: absolute;
+}
+
+#hoe-header .hoe-left-header[hoe-position-type='fixed'] {
+    position: fixed;
+}
+
+#hoe-header .hoe-right-header[hoe-position-type='relative'] {
+    position: relative;
+}
+
+#hoe-header .hoe-right-header[hoe-position-type='absolute'] {
+    position: absolute;
+}
+
+#hoe-header .hoe-right-header[hoe-position-type='fixed'] {
+    padding-right: 230px;
+    position: fixed;
+    width: 100%;
+}
+
+#hoeapp-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    clear: both;
+}
+
+#hoe-left-panel {
+    background: #272634 none repeat scroll 0 0;
+    color: #7e7e7e;
+    width: 230px;
+    top: 0;
+    position: absolute;
+    float: left;
+    min-height: 100%;
+    z-index: 100;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+#hoe-left-panel .hoe-has-menu > a {
+    cursor: pointer;
+}
+
+#hoe-left-panel .profile-box {
+    border-bottom: 1px solid #efefef;
+    min-height: 50px;
+    padding: 5px 15px;
+    position: relative;
+}
+
+#hoe-left-panel .profile-box .media a img {
+    width: 40px;
+    height: 40px;
+}
+
+#hoe-left-panel .profile-box .media {
+    position: relative;
+}
+
+#hoe-left-panel .profile-box .media a {
+    margin-top: 2px;
+}
+
+#hoe-left-panel .profile-box .media a > img {
+    border: 1px solid #efefef;
+}
+
+#hoe-left-panel ul {
+    margin: 0;
+    padding: 0;
+}
+
+#hoe-left-panel .nav-level {
+    padding: 5px 15px;
+    border-top: 1px solid #efefef;
+    font-weight: bold;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {
+    list-style: none;
+}
+
+#hoe-left-panel .nav-level:first-child {
+    border-top: 0 solid #efefef;
+}
+
+#hoe-left-panel .panel-list > li > a {
+    background: #fff;
+    border-top: 1px solid #efefef;
+    color: #7e7e7e;
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 10px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li:last-child > a {
+    border-bottom: 1px solid #efefef;
+}
+
+#hoe-left-panel .panel-list > li:first-child > a {
+    border-top: 0 solid #efefef;
+}
+
+#hoe-left-panel .panel-list > li > a:hover,
+#hoe-left-panel .panel-list > li > a:focus {
+    color: #000;
+    background: #f1f1f1;
+}
+
+#hoe-left-panel .panel-list > li.active > a {
+    background: #f1f1f1;
+    border-top: 1px solid #efefef;
+    color: #000;
+}
+
+#hoe-left-panel .panel-list > li > a > i {
+    display: inline;
+    font-size: 14px;
+    padding-right: 6px;
+}
+
+#hoe-left-panel .panel-list > li > a span.menu-text {
+    display: inline-block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f107';
+    font-size: 15px;
+    position: relative;
+    float: right;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.opened > a {
+    background: #f1f1f1;
+    color: #000;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.opened > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f106' !important;
+    font-size: 15px;
+    float: right;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f103';
+    font-size: 15px;
+    position: relative;
+    float: right;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu.opened > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f102';
+    font-size: 15px;
+    position: relative;
+    float: right;
+}
+
+#hoe-left-panel .panel-list ul {
+    background: #fafafa;
+    box-shadow: -1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#hoe-left-panel .panel-list ul.hoe-sub-menu li > a {
+    background: transparent;
+    border-top: 1px solid #efefef;
+    color: #7e7e7e;
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 10px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {
+    display: none;
+}
+
+#hoe-left-panel .panel-list li.hoe-has-menu > ul.hoe-sub-menu li > a:hover,
+#hoe-left-panel .panel-list li.hoe-has-menu > ul.hoe-sub-menu li > a:focus {
+    text-decoration: none;
+    color: #000;
+    background: #f1f1f1;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul ul {
+    display: none;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.opened > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.opened > ul > li.hoe-has-menu.opened > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.opened > ul > li.hoe-has-menu.opened > ul > li.hoe-has-menu.opened > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.active > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.active > ul > li.hoe-has-menu.active > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu.active > ul > li.hoe-has-menu.active > ul > li.hoe-has-menu.active > ul {
+    display: block;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul > li > a span.menu-text {
+    padding-left: 15px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {
+    list-style: outside none none;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu > ul.hoe-sub-menu {
+    list-style: outside none none;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {
+    list-style: outside none none;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul > li.hoe-has-menu > ul > li > a span.menu-text {
+    padding-left: 25px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul > li.hoe-has-menu > ul > li > ul > li > a span.menu-text {
+    padding-left: 35px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul > li.hoe-has-menu > ul > li > ul > li > ul > li > a span.menu-text {
+    padding-left: 40px;
+    position: relative;
+}
+
+#hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu > li > a span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f0da';
+    font-size: 14px;
+    position: relative;
+    float: left;
+    left: 4px;
+}
+
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f0da';
+    font-size: 12px;
+    position: relative;
+    float: left;
+    left: 15px;
+}
+
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f0da';
+    font-size: 14px;
+    position: relative;
+    float: left;
+    left: 18px;
+}
+
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f0da';
+    font-size: 12px;
+    position: relative;
+    float: left;
+    left: 30px;
+}
+
+#hoe-left-panel .panel-list li.active > a .selected {
+    border-bottom: 7px solid transparent;
+    border-right: 7px solid #7e7e7e;
+    border-top: 7px solid transparent;
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 13px;
+    vertical-align: middle;
+    width: 0;
+}
+
+#hoe-left-panel .panel-list li.hoe-has-menu.active > a .selected {
+    display: none;
+}
+
+#hoe-left-panel .panel-list li a .label {
+    border-radius: 0.25em;
+    color: #7e7e7e;
+    display: inline;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    padding: 4px 3px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.sul {
+    background-color: #ebebeb;
+}
+
+#hoe-left-panel[hoe-position-type='relative'] {
+    position: relative;
+}
+
+#hoe-left-panel[hoe-position-type='absolute'] {
+    position: absolute;
+}
+
+#hoe-left-panel[hoe-position-type='fixed'] {
+    position: fixed;
+    top: 50px;
+}
+
+#hoe-header.hoe-minimized-lpanel > .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 50px;
+    padding-right: 50px;
+}
+
+#hoe-header.hoe-minimized-lpanel > .hoe-left-header {
+    width: 50px;
+}
+
+#hoe-header.hoe-minimized-lpanel > .hoe-left-header > a > span {
+    display: none;
+}
+
+#hoe-header.hoe-minimized-lpanel > .hoe-right-header {
+    margin-left: 50px;
+    padding-right: 0;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel {
+    width: 50px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .profile-box {
+    border-bottom: 0 solid #efefef;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .media-body {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .profile-box {
+    padding: 5px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .nav-level {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li > a span.menu-text {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu > a:after {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li > a > i {
+    display: inline;
+    font-size: 15px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:hover > a,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:focus > a {
+    display: block;
+    position: relative;
+    width: 230px;
+    margin-bottom: -1px;
+    border-radius: 0 4px 4px 0;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:hover > a,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:focus > a {
+    border-radius: 0 4px 4px 0;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > a,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > a {
+    border-radius: 0 4px 0 0;
+    background: #f1f1f1;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:hover > a span.menu-text,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li:focus > a span.menu-text {
+    display: inline-block;
+    position: absolute;
+    left: 52px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list ul.hoe-sub-menu li {
+    list-style: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {
+    display: none !important;
+    position: absolute;
+    left: 50px;
+    width: 180px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > ul.hoe-sub-menu,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > ul.hoe-sub-menu {
+    display: block !important;
+    border-right: 1px solid #efefef;
+    width: 180px;
+    left: 50px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu ul.hoe-sub-menu {
+    display: none !important;
+    position: absolute;
+    width: 180px;
+    left: 0;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > ul.hoe-sub-menu ul.hoe-sub-menu,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > ul.hoe-sub-menu ul.hoe-sub-menu {
+    display: none !important;
+    left: 0;
+}
+
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
+    display: block !important;
+    position: relative;
+    left: 0;
+}
+
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
+    display: block !important;
+    position: relative;
+    left: 0;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu > a:after {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f103';
+    font-size: 15px;
+    position: relative;
+    float: right;
+    display: block;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu:hover > a:after,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu li.hoe-has-menu:focus > a:after {
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    content: '\f102';
+    font-size: 15px;
+    position: relative;
+    float: right;
+    display: block;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list li.hoe-has-menu.active > li.active a .selected {
+    display: block;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.active:hover > a .selected,
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.active:focus > a .selected {
+    display: none;
+}
+
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    li
+    > a
+    span.menu-text {
+    padding-left: 15px;
+    position: relative;
+}
+
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    left: 4px;
+}
+
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    left: 4px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list li .label {
+    display: none;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list li:hover a .label {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu.opened > a {
+    background: #f1f1f1;
+    color: #000;
+}
+
+.hoe-minimized-lpanel #main-content {
+    margin-left: 50px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel #hoe-left-panel {
+    display: none;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoe-header {
+    height: 100px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-left-header {
+    width: 100%;
+    float: none;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoe-left-panel[hoe-position-type='fixed'] {
+    top: 100px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-right-header {
+    width: 100%;
+    padding-left: 0 !important;
+    position: relative;
+    z-index: 999;
+    top: 50px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel #hoe-left-panel {
+    display: none;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel .hoe-right-header {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-right-header {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoe-left-panel {
+    display: block;
+    z-index: 1024;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #main-content {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-left-header > .hoe-sidebar-toggle > a {
+    display: block;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoe-header > .hoe-right-header .hoe-sidebar-toggle a:after {
+    display: none !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='desktop'] .hoe-left-header .hoe-sidebar-toggle a:after {
+    display: none !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='tablet'] .hoe-left-header .hoe-sidebar-toggle a:after {
+    display: none !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-left-header .hoe-sidebar-toggle a:after {
+    background: transparent;
+    border-radius: 4px;
+    content: '';
+    font-family: 'Font Awesome\ 5 Pro', sans-serif;
+    left: 5px;
+    line-height: 39px;
+    padding: 1px 13px;
+    position: absolute;
+    top: 3px;
+    z-index: 1000;
+    display: block !important;
+    color: #003c70;
+    border: 0 solid #003c70;
+    font-size: 14px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel #hoeapp-container[hoe-lpanel-effect='shrink'] #main-content {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoeapp-container[hoe-lpanel-effect='shrink'] #main-content {
+    margin-left: 230px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel #hoeapp-container[hoe-lpanel-effect='overlay'] #main-content {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoeapp-container[hoe-lpanel-effect='overlay'] #main-content {
+    margin-left: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel #hoeapp-container[hoe-lpanel-effect='push'] #main-content {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] #hoeapp-container[hoe-lpanel-effect='push'] #main-content {
+    margin-left: 230px;
+    margin-right: -230px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']#hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='relative'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='fixed'] {
+    margin-left: 0;
+    padding-right: 0;
+}
+
+body[theme-layout='box-layout'] #hoeapp-wrapper[hoe-device-type='desktop'] {
+    width: 96%;
+    margin: 0 auto;
+}
+
+body[theme-layout='box-layout'][hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] {
+    margin: 0 auto;
+}
+
+body[theme-bg='bg1'] {
+    background-image: url('/images/bg1.png');
+}
+
+body[theme-bg='bg2'] {
+    background-image: url('/images/bg2.png');
+}
+
+body[theme-bg='bg3'] {
+    background-image: url('/images/bg3.png');
+}
+
+body[theme-bg='bg4'] {
+    background-image: url('/images/bg4.png');
+}
+
+body[theme-bg='bg5'] {
+    background-image: url('/images/bg5.png');
+}
+
+body[theme-bg='bg6'] {
+    background-image: url('/images/bg6.png');
+}
+
+body[theme-bg='bg7'] {
+    background-image: url('/images/bg7.png');
+}
+
+body[theme-bg='bg8'] {
+    background-image: url('/images/bg8.png');
+}
+
+body[theme-bg='bg9'] {
+    background-image: url('/images/bg9.png');
+}
+
+.banner {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-align: center;
+    background-image: -webkit-linear-gradient(92deg, #ca1aff, #8cd8fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+@-webkit-keyframes hue {
+    from {
+        -webkit-filter: hue-rotate(0deg);
+    }
+
+    to {
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}
+
+// Prevents left sidenav from expanding on every page load in compact mode
+
+@media screen and (max-width: 767px) {
+    #hoeapp-wrapper:not([hoe-device-type='phone']) #hoeapp-container {
+        visibility: hidden;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    #hoeapp-wrapper:not([hoe-device-type='tablet']) #hoeapp-container {
+        visibility: hidden;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    body[hoe-navigation-type='vertical-compact'] #hoeapp-container:not(.hoe-minimized-lpanel) {
+        visibility: hidden;
+    }
+}

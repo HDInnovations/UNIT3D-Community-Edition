@@ -1,0 +1,408 @@
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-sidebar-toggle a:after {
+    display: none;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] .left-navbar li:first-child {
+    padding-left: 0;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] .theme-config a {
+    display: none;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel {
+    float: left;
+    height: 46px;
+    width: 100%;
+    min-height: 40px;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel .profile-box {
+    display: none;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel .nav-level {
+    display: none !important;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel .nav > li {
+    display: inline-block;
+    float: left;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    li
+    a
+    .label {
+    display: none;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > a:after {
+    font-family: 'Font Awesome\ 5 Pro';
+    content: '\f0d7';
+    font-size: 12px;
+    position: relative;
+    float: right;
+    padding-left: 6px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    li.active
+    > a
+    .selected {
+    display: none;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel .panel-list > li > a {
+    padding: 13px 10px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    ul.hoe-sub-menu
+    li
+    > a {
+    padding: 10px 6px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoeapp-container
+    #hoe-left-panel
+    .panel-list
+    > li:last-child
+    > a {
+    border-bottom: 0 solid #efefef;
+    border-right: 0 solid #efefef;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoeapp-container
+    #hoe-left-panel
+    .panel-list
+    > li
+    > a {
+    border-top: 0 solid #efefef;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li
+    > a
+    > i {
+    padding-right: 0;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu {
+    display: none;
+    list-style: outside none none;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu
+    > ul.hoe-sub-menu {
+    display: none;
+    list-style: outside none none;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu {
+    display: none;
+    list-style: outside none none;
+    width: 156px;
+    position: absolute;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu {
+    left: 156px;
+    position: absolute;
+    width: 156px;
+    z-index: 1;
+    margin-top: -41px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu {
+    left: 156px;
+    position: absolute;
+    width: 156px;
+    z-index: 1;
+    margin-top: -41px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu
+    > a:after {
+    content: '\f101';
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    li.hoe-has-menu.opened
+    > a:after {
+    content: '\f100';
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
+    display: block !important;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu {
+    display: block !important;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu {
+    display: block !important;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoeapp-container
+    #hoe-left-panel
+    .panel-list
+    > li.active
+    > a {
+    border-top: 0 solid #96cd69;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel > ul {
+    margin: 0 35px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    content: '\f105';
+    font-size: 14px;
+    float: left;
+    left: 4px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    content: '\f105';
+    font-size: 14px;
+    left: 4px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
+    content: '\f105';
+    font-size: 14px;
+    float: left;
+    left: 4px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: 13px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: 13px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: 13px;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul
+    > li.hoe-has-menu
+    > ul
+    > li
+    > ul
+    > li
+    > ul
+    > li
+    > a
+    span.menu-text {
+    padding-left: 13px;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #main-content {
+    margin-left: 0;
+    padding-top: 50px;
+    position: relative;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #main-content .content-title {
+    border-top: 0 solid #e8e8e8;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-wrapper.compact-hmenu[hoe-device-type='desktop'] #hoe-left-panel {
+    float: left;
+    height: 60px;
+    min-height: 40px;
+    width: 100%;
+}
+
+body[hoe-navigation-type='horizontal']
+    #hoeapp-wrapper.compact-hmenu[hoe-device-type='desktop']
+    #hoe-left-panel
+    .panel-list
+    > li
+    > a
+    > i {
+    display: block;
+    padding-right: 0;
+    text-align: center;
+}
+
+body[hoe-navigation-type='horizontal'] #hoeapp-container[hoe-lpanel-effect='push'] #main-content {
+    margin-right: 0;
+}

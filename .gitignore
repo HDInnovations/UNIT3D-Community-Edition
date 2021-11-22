@@ -1,0 +1,46 @@
+# NodeJS
+/node_modules
+
+# Laravel
+# Ignore everything in the public/files directory EXCEPT the .gitkeep
+/public/files
+!.gitkeep
+
+/public/css
+/public/files
+/public/fonts
+/public/img
+/public/js
+/public/sounds
+/public/vendor
+/public/mix-manifest.json
+/public/mix-sri.json
+
+/storage/backups
+/storage/gitupdate
+/storage/*.key
+
+/vendor
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+.env
+laravel-echo-server.json
+laravel-echo-server.lock
+
+# OS X
+.DS_store
+
+# IDEs
+/.idea
+/.vscode
+/nbproject
+.phpunit.result.cache
+.ftpconfig
+
+# Vim
+.*.swp
+_ide_helper.php
+
+supervisor.ini

@@ -1,0 +1,359 @@
+.left-navbar .hoe-rheader-submenu > ul {
+    left: auto;
+    position: absolute;
+}
+
+.right-navbar .hoe-rheader-submenu > ul.dropdown-menu {
+    left: auto;
+    position: absolute;
+    right: 0;
+    max-height: 460px;
+    overflow: auto;
+}
+
+.hoe-rheader-submenu > ul > li {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.hoe-rheader-submenu > ul > li > a {
+    display: block;
+}
+
+.hoe-rheader-submenu > .dropdown-menu:after {
+    border-bottom: 8px solid #fff;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    bottom: 100%;
+    content: ' ';
+    height: 0;
+    left: 18px;
+    margin-left: -3px;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+}
+
+.hoe-rheader-submenu > .dropdown-menu:before {
+    border-bottom: 9px solid #ccc;
+    border-left: 9px solid transparent;
+    border-right: 8px solid transparent;
+    bottom: 100%;
+    content: ' ';
+    height: 0;
+    left: 18px;
+    margin-left: -3px;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+}
+
+.right-navbar .hoe-rheader-submenu > ul.dropdown-menu:after {
+    border-bottom: 8px solid #fff;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    bottom: 100%;
+    content: ' ';
+    height: 0;
+    left: auto;
+    margin-left: -3px;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    width: 0;
+}
+
+.right-navbar .hoe-rheader-submenu > ul.dropdown-menu:before {
+    border-bottom: 9px solid #ccc;
+    border-left: 9px solid transparent;
+    border-right: 8px solid transparent;
+    bottom: 100%;
+    content: ' ';
+    height: 0;
+    left: auto;
+    margin-left: -3px;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    width: 0;
+}
+
+.hoe-rheader-submenu > .dropdown-menu {
+    border: 0 solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    margin: 1px 0 0;
+    min-width: 200px;
+    padding: 0;
+}
+
+.hoe-header-profile a img {
+    height: 40px;
+    margin-top: -2px;
+    width: 40px;
+    border-radius: 5px;
+}
+
+.hoe-right-header .hoe-rheader-submenu > a {
+    color: #fff;
+    padding: 5px 5px;
+}
+
+.hoe-right-header .hoe-rheader-submenu > a > i.fa {
+    display: unset;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li {
+    border-bottom: none;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a {
+    clear: both;
+    color: #fff;
+    background-color: #272634;
+    display: block;
+    font-family: 'lato', sans-serif;
+    font-weight: 400;
+    line-height: 1.42857;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:focus,
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:hover {
+    background-color: #1f1f2a;
+}
+
+.hoe-right-header .hoe-rheader-submenu .dropdown-menu > li > a i {
+    display: inline-block;
+    margin-right: 9px;
+    width: 15px;
+    color: #fff;
+}
+
+.hoe-right-header .hoe-rheader-submenu .dropdown-menu > li > a > .badge {
+    border-radius: 12px !important;
+    display: inline;
+    font-size: 11px;
+    font-weight: 300;
+    height: 18px;
+    margin-top: 1px;
+    padding: 3px 6px;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    text-shadow: none;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.badge-danger {
+    background-color: #e7604a;
+    background-image: none;
+}
+
+.badge-success {
+    background-color: #70ca63;
+    background-image: none;
+}
+
+.hoe-right-header .hoe-rheader-submenu .dropdown-menu li.hoe-submenu-label h3 {
+    background: #eaedf2 none repeat scroll 0 0;
+    color: #62878f;
+    font-size: 13px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 12px 8px;
+}
+
+.hoe-right-header .hoe-rheader-submenu .dropdown-menu li.hoe-submenu-label .bold {
+    font-weight: 700 !important;
+}
+
+.hoe-right-header .hoe-rheader-submenu .dropdown-menu li.hoe-submenu-label h3 a {
+    float: right;
+}
+
+.hoe-right-header .message-notification .dropdown-menu {
+    width: auto;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu .notification-avatar {
+    margin: 0 10px 0 0;
+    width: 32px;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu .notification-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #62878f;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu .notification-ago {
+    font-size: 11px;
+    padding-top: 5px;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu .notification-ago-1 {
+    font-size: 11px;
+    position: absolute;
+    right: 6px;
+    top: 2px;
+}
+
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu .notification-message {
+    font-size: 13px;
+    margin: 0 0 2px;
+}
+
+.hoe-right-header .progress {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    height: 8px;
+    margin-bottom: 1px;
+    overflow: hidden;
+}
+
+.hoe-right-header .progress-bar {
+    font-size: 7px;
+    line-height: 8px;
+}
+
+.green-text {
+    color: #5cb85c !important;
+}
+
+.red-text {
+    color: #e7604a !important;
+}
+
+.yellow-text {
+    color: #f0ad4e !important;
+}
+
+.blue-text {
+    color: #337ab7 !important;
+}
+
+.icon-circle {
+    margin: 2px;
+    padding: 10px 11px !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-right-header .left-navbar > li:first-child {
+    padding-left: 3px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-right-header .icon-circle {
+    border: 1px solid #ccc;
+    border-radius: 21px;
+    margin: 2px;
+    padding: 7px 8px !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-right-header .hoe-header-profile a img {
+    height: 33px;
+    margin-top: -2px;
+    width: 33px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .right-navbar .hoe-rheader-submenu > .dropdown-menu {
+    right: 0 !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .left-navbar .hoe-rheader-submenu > .dropdown-menu {
+    left: 0;
+}
+
+.left-navbar .hoe-rheader-submenu span.badge {
+    font-size: 11px;
+    min-width: 8px;
+    padding: 2px 5px;
+    position: absolute;
+    top: 2px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .left-navbar .hoe-rheader-submenu.left-min-30 .dropdown-menu {
+    left: -30px !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-rheader-submenu.left-min-30 > .dropdown-menu:before {
+    left: 42px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-rheader-submenu.left-min-30 > .dropdown-menu:after {
+    left: 42px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .left-navbar .hoe-rheader-submenu.left-min-65 .dropdown-menu {
+    left: -65px !important;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-rheader-submenu.left-min-65 > .dropdown-menu:before {
+    left: 76px;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-rheader-submenu.left-min-65 > .dropdown-menu:after {
+    left: 76px;
+}
+
+.hoe-searchbar input {
+    background: #f3f3f3 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 30px;
+    box-shadow: none;
+    float: right;
+    font-size: 14px;
+    height: 35px;
+    margin: 7px 4px 0;
+    width: 140px;
+    position: absolute;
+    padding-left: 22px;
+    z-index: 100;
+}
+
+.hoe-searchbar input,
+.search-content input:focus {
+    transition: all 0.3s ease 0s;
+}
+
+.hoe-searchbar input:focus {
+    box-shadow: none;
+    border-color: #eff0f4;
+    width: 210px;
+    position: absolute;
+}
+
+.hoe-searchbar .search-icon {
+    left: 11px;
+    position: relative;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-searchbar input {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-shadow: none;
+    float: right;
+    font-size: 14px;
+    height: 33px;
+    margin: 9px 3px 0;
+    padding-left: 21px;
+    position: absolute;
+    width: 6px;
+    z-index: 100;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-searchbar .search-icon {
+    left: 14px;
+    position: relative;
+}
+
+#hoeapp-wrapper[hoe-device-type='phone'] .hoe-searchbar input:focus {
+    box-shadow: none;
+    border-color: #eff0f4;
+    width: 210px;
+    position: absolute;
+    background: #f3f3f3 none repeat scroll 0 0;
+}

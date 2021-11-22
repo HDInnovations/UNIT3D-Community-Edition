@@ -1,0 +1,48 @@
+/* 2014 material design colors from https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
+
+/*
+
+Pink
+
+50 #FCE4EC
+100 #F8BBD0
+200 #F48FB1
+300 #F06292
+400 #EC407A
+500 #E91E63
+600 #D81B60
+700 #C2185B
+800 #AD1457
+900 #880E4F
+A100 #FF80AB
+A200 #FF4081
+A400 #F50057
+A700 #C51162
+
+*/
+
+:root {
+    --color-light-blue: #f06292;
+    --color-light-green: #f06292;
+    --color-light-magenta: #f06292;
+    --color-light-purple: #f06292;
+    --color-400: #ec407a;
+    --color-blue: #e91e63;
+    --color-green: #e91e63;
+    --color-yellow: #e91e63;
+    --color-magenta: #d81b60;
+    --color-red: #ad1457;
+    --color-dark-green: #ad1457;
+    --color-A200: #ff4081;
+    --color-A400: #f50057;
+    --color-purple: #c51162;
+
+    --color-dark-blue: #181818;
+    --color-dark-red: #181818;
+
+    --movie-overlay: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 1) 5.46%, rgba(173, 20, 87, 0.46));
+    --background-pipe: url('/img/pipes/pink.png');
+    --gradient-background: radial-gradient(at 30% top, #341a38 0%, #081c24 70%);
+}
+
+@import 'dark-base';
