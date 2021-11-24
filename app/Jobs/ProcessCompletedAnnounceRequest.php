@@ -14,7 +14,6 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
@@ -72,7 +71,9 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])->where('user_id', '=', $this->user->id)->first();
+        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+            ->where('user_id', '=', $this->user->id)
+            ->first();
 
         // If no History record found then create one
         if ($history === null) {
@@ -95,17 +96,19 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
 
         // Modification of Upload and Download
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
-        $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
-        $group = Group::whereId($this->user->group_id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)
+            ->first();
+        $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)
+            ->where('torrent_id', '=', $this->torrent->id)
+            ->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
         } else {
             $modDownloaded = $downloaded;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $this->user->group->is_double_upload == 1) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;

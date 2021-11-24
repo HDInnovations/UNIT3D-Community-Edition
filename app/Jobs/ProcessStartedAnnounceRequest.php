@@ -73,7 +73,9 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])->where('user_id', '=', $this->user->id)->first();
+        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+            ->where('user_id', '=', $this->user->id)
+            ->first();
 
         // If no History record found then create one
         if ($history === null) {
@@ -117,8 +119,12 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         // End History Update
 
         // Sync Seeders / Leechers Count
-        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '=', '0')->count();
-        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '>', '0')->count();
+        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '=', '0')
+            ->count();
+        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '>', '0')
+            ->count();
         $this->torrent->save();
     }
 }
