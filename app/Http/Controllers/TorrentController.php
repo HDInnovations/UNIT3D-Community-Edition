@@ -281,6 +281,8 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
+        $torrent->season_number = $request->input('season_number');
+        $torrent->episode_number = $request->input('episode_number');
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
         $torrent->mediainfo = $request->input('mediainfo');
@@ -293,26 +295,38 @@ class TorrentController extends Controller
 
         $category = Category::findOrFail($request->input('category_id'));
 
-        $resRule = 'nullable|exists:resolutions,id';
+        $resolutionRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
-            $resRule = 'required|exists:resolutions,id';
+            $resolutionRule = 'required|exists:resolutions,id';
+        }
+
+        $episodeRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $episodeRule = 'required|numeric';
+        }
+
+        $seasonRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $seasonRule = 'required|numeric';
         }
 
         $v = \validator($torrent->toArray(), [
-            'name'          => 'required',
-            'slug'          => 'required',
-            'description'   => 'required',
-            'category_id'   => 'required|exists:categories,id',
-            'type_id'       => 'required|exists:types,id',
-            'resolution_id' => $resRule,
-            'imdb'          => 'required|numeric',
-            'tvdb'          => 'required|numeric',
-            'tmdb'          => 'required|numeric',
-            'mal'           => 'required|numeric',
-            'igdb'          => 'required|numeric',
-            'anon'          => 'required',
-            'stream'        => 'required',
-            'sd'            => 'required',
+            'name'           => 'required',
+            'slug'           => 'required',
+            'description'    => 'required',
+            'category_id'    => 'required|exists:categories,id',
+            'type_id'        => 'required|exists:types,id',
+            'resolution_id'  => $resolutionRule,
+            'imdb'           => 'required|numeric',
+            'tvdb'           => 'required|numeric',
+            'tmdb'           => 'required|numeric',
+            'mal'            => 'required|numeric',
+            'igdb'           => 'required|numeric',
+            'season_number'  => $seasonRule,
+            'episode_number' => $episodeRule,
+            'anon'           => 'required',
+            'stream'         => 'required',
+            'sd'             => 'required',
         ]);
 
         if ($v->fails()) {
@@ -567,6 +581,8 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
+        $torrent->season_number = $request->input('season_number');
+        $torrent->episode_number = $request->input('episode_number');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -580,6 +596,16 @@ class TorrentController extends Controller
         $resRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
             $resRule = 'required|exists:resolutions,id';
+        }
+
+        $episodeRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $episodeRule = 'required|numeric';
+        }
+
+        $seasonRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $seasonRule = 'required|numeric';
         }
 
         // Validation
@@ -601,6 +627,8 @@ class TorrentController extends Controller
             'tmdb'           => 'required|numeric',
             'mal'            => 'required|numeric',
             'igdb'           => 'required|numeric',
+            'season_number'  => $seasonRule,
+            'episode_number' => $episodeRule,
             'anon'           => 'required',
             'stream'         => 'required',
             'sd'             => 'required',

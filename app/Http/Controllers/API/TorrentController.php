@@ -127,6 +127,8 @@ class TorrentController extends BaseController
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
+        $torrent->season_number = $request->input('season_number');
+        $torrent->episode_number = $request->input('episode_number');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -145,9 +147,19 @@ class TorrentController extends BaseController
             $torrent->doubleup = '1';
         }
 
-        $resRule = 'nullable|exists:resolutions,id';
+        $resolutionRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
-            $resRule = 'required|exists:resolutions,id';
+            $resolutionRule = 'required|exists:resolutions,id';
+        }
+
+        $episodeRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $episodeRule = 'required|numeric';
+        }
+
+        $seasonRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $seasonRule = 'required|numeric';
         }
 
         // Validation
@@ -162,13 +174,15 @@ class TorrentController extends BaseController
             'size'              => 'required',
             'category_id'       => 'required|exists:categories,id',
             'type_id'           => 'required|exists:types,id',
-            'resolution_id'     => $resRule,
+            'resolution_id'     => $resolutionRule,
             'user_id'           => 'required|exists:users,id',
             'imdb'              => 'required|numeric',
             'tvdb'              => 'required|numeric',
             'tmdb'              => 'required|numeric',
             'mal'               => 'required|numeric',
             'igdb'              => 'required|numeric',
+            'season_number'     => $seasonRule,
+            'episode_number'    => $episodeRule,
             'anon'              => 'required',
             'stream'            => 'required',
             'sd'                => 'required',
