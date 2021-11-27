@@ -34,7 +34,7 @@ return [
     'categories'               => 'Kategorien',
     'category'                 => 'Kategorie',
     'client'                   => 'Client',
-    'commited'                 => 'Begangen',
+    'commited'                 => 'Engagierter',
     'completed'                => 'Abgeschlossen',
     'completed_at'             => 'Abgeschlossen am',
     'completed-not-seeding'    => 'Du hast diesen Download abgeschlossen, seedest aber nicht mehr',
