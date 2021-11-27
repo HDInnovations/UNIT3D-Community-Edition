@@ -150,7 +150,10 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::with('comments')->findOrFail($id);
+        foreach ($article->comments as $comment) {
+            $comment->delete();
+        }
         $article->delete();
 
         return \redirect()->route('staff.articles.index')
