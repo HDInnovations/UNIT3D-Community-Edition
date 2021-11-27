@@ -166,7 +166,7 @@ return [
     'top-bountied'         => 'Top Bountied',
     'topics'               => 'Temi',
     'tracker-codes'        => 'Codici di monitoraggio',
-    'type'                 => 'genere',
+    'type'                 => 'Sorgente',
     'type-verb'            => 'genere',
     'types'                => 'tipi',
     'genre'                => 'Genere',
