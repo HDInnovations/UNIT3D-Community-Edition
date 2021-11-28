@@ -76,9 +76,13 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if(isset($warning->torrent))
                                                 <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                                     {{ $warning->torrenttitle->name }}
                                                 </a>
+                                                @else
+                                                n/a
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $warning->reason }}
@@ -165,9 +169,13 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if(isset($softDeletedWarning->torrent))
                                                 <a href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
                                                     {{ $softDeletedWarning->torrenttitle->name }}
                                                 </a>
+                                                @else
+                                                n/a
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $softDeletedWarning->reason }}

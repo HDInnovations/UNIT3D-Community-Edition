@@ -77,6 +77,42 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal_warn_user" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header mx-auto">
+                <div class="text-center">
+                    <p style="font-size: 27px;">Warn User: {{ $user->username }}</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="py-3">
+                    <form role="form" method="POST"
+                        action="{{ route('user_warn', ['username' => $user->username]) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="warn_reason">Reason</label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <textarea name="message" class="form-control"></textarea>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-warning" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal_user_ban" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
