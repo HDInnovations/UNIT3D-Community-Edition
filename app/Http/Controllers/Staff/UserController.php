@@ -302,7 +302,7 @@ class UserController extends Controller
         $pm->subject = 'Received warning';
         $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
         $pm->save();
-        
+
         return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Warning issued successfully!');
     }

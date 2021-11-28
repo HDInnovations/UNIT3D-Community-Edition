@@ -62,7 +62,7 @@ class AutoDeactivateWarning extends Command
             } else {
                 $pm->message = 'The [b]WARNING[/b] you received: "'.$warning->reason.'" has expired! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             }
-            
+
             $pm->save();
         }
 
