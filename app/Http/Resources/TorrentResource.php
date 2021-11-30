@@ -69,4 +69,16 @@ class TorrentResource extends JsonResource
             ],
         ];
     }
+
+    /**
+     * Customize the outgoing response for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        $response->setEncodingOptions(JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+    }
 }
