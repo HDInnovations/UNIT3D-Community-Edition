@@ -182,7 +182,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'comments'], function () {
             Route::post('/article/{id}', [App\Http\Controllers\CommentController::class, 'article'])->name('comment_article');
             Route::post('/torrent/{id}', [App\Http\Controllers\CommentController::class, 'torrent'])->name('comment_torrent');
-            Route::get('/thanks/{id}', [App\Http\Controllers\CommentController::class, 'quickthanks'])->name('comment_thanks');
+            Route::post('/thanks/{id}', [App\Http\Controllers\CommentController::class, 'quickthanks'])->name('comment_thanks');
             Route::post('/request/{id}', [App\Http\Controllers\CommentController::class, 'request'])->name('comment_request');
             Route::post('/playlist/{id}', [App\Http\Controllers\CommentController::class, 'playlist'])->name('comment_playlist');
             Route::post('/collection/{id}', [App\Http\Controllers\CommentController::class, 'collection'])->name('comment_collection');
