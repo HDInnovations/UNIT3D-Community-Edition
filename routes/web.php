@@ -891,6 +891,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/permissions', [App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('user_permissions');
             Route::post('/{username}/password', [App\Http\Controllers\Staff\UserController::class, 'password'])->name('user_password');
             Route::get('/{username}/destroy', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
+            Route::post('/{username}/warn', [App\Http\Controllers\Staff\UserController::class, 'warnUser'])->name('user_warn');
         });
 
         // Warnings Log
