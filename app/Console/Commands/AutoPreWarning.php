@@ -60,6 +60,12 @@ class AutoPreWarning extends Command
                 ->get();
 
             foreach ($prewarn as $pre) {
+                // Skip Prewarning if Torrent is NULL
+                // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
+                if (is_null($pre->torrent)) {
+                    continue;
+                }
+
                 if (! $pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $pre->torrent->id)
