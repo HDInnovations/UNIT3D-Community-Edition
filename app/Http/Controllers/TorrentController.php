@@ -745,7 +745,7 @@ class TorrentController extends Controller
         // User's ratio is too low
         if ($user->getRatio() < \config('other.ratio')) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Ratio Is To Low To Download!');
+                ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
