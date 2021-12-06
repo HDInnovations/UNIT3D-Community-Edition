@@ -47,7 +47,7 @@ jobs:
       - name: Install composer dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
       - name: Install NPM Dependencies
         run: npm install
       - name: Compile Assets
