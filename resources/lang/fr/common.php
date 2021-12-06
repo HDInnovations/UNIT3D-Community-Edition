@@ -159,6 +159,7 @@ return [
     'sticked'              => 'Epinglé',
     'submit'               => 'Soumettre',
     'subscriptions'        => 'Abonnements',
+    'system-message'       => 'CECI EST UN MESSAGE DU SYSTÈME AUTOMATISÉ, NE PAS RÉPONDRE!',
     'teams'                => 'Equipes',
     'terms'                => 'Conditions d utilisation',
     'times'                => 'Fois',
