@@ -142,7 +142,7 @@ class CommentControllerTest extends TestCase
             'status'  => 1,
         ]);
 
-        $response = $this->actingAs($user)->get(route('comment_thanks', ['id' => $torrent->id]));
+        $response = $this->actingAs($user)->post(route('comment_thanks', ['id' => $torrent->id]));
 
         $response->assertRedirect(route('torrent', ['id' => $torrent->id]))
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
