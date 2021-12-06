@@ -23,6 +23,7 @@ use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Models\BonTransactions;
 use App\Models\Category;
+use App\Models\Distributor;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Graveyard;
@@ -33,6 +34,7 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
+use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\Torrent;
@@ -247,11 +249,13 @@ class TorrentController extends Controller
         \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
-            'categories'  => Category::all()->sortBy('position'),
-            'types'       => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'torrent'     => $torrent,
-            'user'        => $user,
+            'categories'   => Category::all()->sortBy('position'),
+            'types'        => Type::all()->sortBy('position'),
+            'resolutions'  => Resolution::all()->sortBy('position'),
+            'regions'      => Region::all()->sortBy('position'),
+            'distributors' => Distributor::all()->sortBy('position'),
+            'torrent'      => $torrent,
+            'user'         => $user,
         ]);
     }
 
@@ -281,6 +285,8 @@ class TorrentController extends Controller
         $torrent->episode_number = $request->input('episode_number');
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
+        $torrent->region_id = $request->input('region_id');
+        $torrent->distributor_id = $request->input('distributor_id');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->bdinfo = $request->input('bdinfo');
         $torrent->anon = $request->input('anonymous');
@@ -313,6 +319,8 @@ class TorrentController extends Controller
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
             'resolution_id'  => $resolutionRule,
+            'region_id'      => 'nullable|exists:regions,id',
+            'distributor_id' => 'nullable|exists:distributors,id',
             'imdb'           => 'required|numeric',
             'tvdb'           => 'required|numeric',
             'tmdb'           => 'required|numeric',
@@ -477,14 +485,16 @@ class TorrentController extends Controller
         $user = $request->user();
 
         return \view('torrent.upload', [
-            'categories'  => Category::all()->sortBy('position'),
-            'types'       => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user'        => $user,
-            'category_id' => $categoryId,
-            'title'       => $title,
-            'imdb'        => \str_replace('tt', '', $imdb),
-            'tmdb'        => $tmdb,
+            'categories'   => Category::all()->sortBy('position'),
+            'types'        => Type::all()->sortBy('position'),
+            'resolutions'  => Resolution::all()->sortBy('position'),
+            'regions'      => Region::all()->sortBy('position'),
+            'distributors' => Distributor::all()->sortBy('position'),
+            'user'         => $user,
+            'category_id'  => $categoryId,
+            'title'        => $title,
+            'imdb'         => \str_replace('tt', '', $imdb),
+            'tmdb'         => $tmdb,
         ]);
     }
 
@@ -571,6 +581,8 @@ class TorrentController extends Controller
         $torrent->category_id = $category->id;
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
+        $torrent->region_id = $request->input('region_id');
+        $torrent->distributor_id = $request->input('distributor_id');
         $torrent->user_id = $user->id;
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
@@ -588,10 +600,9 @@ class TorrentController extends Controller
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
 
-        //Require Resolution if Category is for Movies or TV
-        $resRule = 'nullable|exists:resolutions,id';
+        $resolutionRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
-            $resRule = 'required|exists:resolutions,id';
+            $resolutionRule = 'required|exists:resolutions,id';
         }
 
         $episodeRule = 'nullable|numeric';
@@ -616,7 +627,9 @@ class TorrentController extends Controller
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => $resRule,
+            'resolution_id'  => $resolutionRule,
+            'region_id'      => 'nullable|exists:regions,id',
+            'distributor_id' => 'nullable|exists:distributors,id',
             'user_id'        => 'required|exists:users,id',
             'imdb'           => 'required|numeric',
             'tvdb'           => 'required|numeric',

@@ -151,6 +151,26 @@
                                             <span class="torrent-type badge-extra text-info text-bold" style="line-height: 14px">
                                                 {{ $torrent->type->name }}
                                             </span>
+                                            @if (isset($torrent->region_id))
+                                            <span
+                                                    class="torrent-region badge-extra text-info text-bold"
+                                                    data-toggle="tooltip"
+                                                    style="line-height: 14px"
+                                                    title="{{ $torrent->region->name }}"
+                                            >
+                                                {{ $torrent->region->name }}
+                                            </span>
+                                            @endif
+                                            @if (isset($torrent->distributor_id))
+                                            <span
+                                                    class="torrent-distributor badge-extra text-info text-bold"
+                                                    data-toggle="tooltip"
+                                                    style="line-height: 14px"
+                                                    title="{{ $torrent->distributor->name }}"
+                                            >
+                                                {{ $torrent->distributor->name }}
+                                            </span>
+                                            @endif
                                             <span
                                                 class="torrent-size badge-extra text-info text-bold"
                                                 data-toggle="tooltip"
@@ -525,15 +545,29 @@
                             </td>
                         </tr>
 
+                        <tr class="torrent-resolution">
+                            <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
+                            <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
+                        </tr>
+
                         <tr class="torrent-type">
                             <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
                             <td>{{ $torrent->type->name }}</td>
                         </tr>
 
-                        <tr class="torrent-resolution">
-                            <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
-                            <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
+                        @if (isset($torrent->region_id))
+                        <tr class="torrent-region">
+                            <td class="col-sm-2"><strong>@lang('torrent.region')</strong></td>
+                            <td>{{ $torrent->region->name }}</td>
                         </tr>
+                        @endif
+
+                        @if (isset($torrent->distributor_id))
+                        <tr class="torrent-distributor">
+                            <td class="col-sm-2"><strong>@lang('torrent.distributor')</strong></td>
+                            <td>{{ $torrent->distributor->name }}</td>
+                        </tr>
+                        @endif
 
                         <tr class="torrent-stream-optimized">
                             <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>

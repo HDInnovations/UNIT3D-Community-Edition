@@ -215,6 +215,26 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Distributor.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function distributor()
+    {
+        return $this->belongsTo(Distributor::class);
+    }
+
+    /**
+     * Belongs To A Region.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    /**
      * Has Many Genres.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -121,6 +121,8 @@ class TorrentController extends BaseController
         $torrent->category_id = $category->id;
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
+        $torrent->region_id = $request->input('region_id');
+        $torrent->distributor_id = $request->input('distributor_id');
         $torrent->user_id = $user->id;
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
@@ -175,6 +177,8 @@ class TorrentController extends BaseController
             'category_id'       => 'required|exists:categories,id',
             'type_id'           => 'required|exists:types,id',
             'resolution_id'     => $resolutionRule,
+            'region_id'         => 'nullable|exists:regions,id',
+            'distributor_id'    => 'nullable|exists:distributors,id',
             'user_id'           => 'required|exists:users,id',
             'imdb'              => 'required|numeric',
             'tvdb'              => 'required|numeric',
