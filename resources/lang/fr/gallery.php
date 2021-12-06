@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     Howard Lau <howardlau1999@hotmail.com>
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
