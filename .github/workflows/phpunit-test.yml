@@ -57,7 +57,7 @@ jobs:
       - name: Application Cache
         run: php artisan optimize
       - name: Run tests
-        run: ./vendor/bin/phpunit
+        run: php artisan test
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
