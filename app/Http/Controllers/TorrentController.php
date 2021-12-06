@@ -13,8 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Region;
-use App\Models\Distributor;
 use andkab\LaravelJoyPixels\LaravelJoyPixels;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
@@ -25,6 +23,7 @@ use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Models\BonTransactions;
 use App\Models\Category;
+use App\Models\Distributor;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Graveyard;
@@ -35,6 +34,7 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
+use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\Torrent;
