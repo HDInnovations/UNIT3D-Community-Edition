@@ -204,11 +204,7 @@ class TorrentController extends Controller
                 'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
-            if (isset($link[0])) {
-                $trailer = 'https://www.youtube.com/embed/'.$link[0];
-            } else {
-                $trailer = '/img/no-video.png';
-            }
+            $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
             $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
@@ -285,6 +281,8 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
+        $torrent->season_number = $request->input('season_number');
+        $torrent->episode_number = $request->input('episode_number');
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
         $torrent->region_id = $request->input('region_id');
@@ -299,9 +297,19 @@ class TorrentController extends Controller
 
         $category = Category::findOrFail($request->input('category_id'));
 
-        $resRule = 'nullable|exists:resolutions,id';
+        $resolutionRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
-            $resRule = 'required|exists:resolutions,id';
+            $resolutionRule = 'required|exists:resolutions,id';
+        }
+
+        $episodeRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $episodeRule = 'required|numeric';
+        }
+
+        $seasonRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $seasonRule = 'required|numeric';
         }
 
         $v = \validator($torrent->toArray(), [
@@ -581,6 +589,8 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
+        $torrent->season_number = $request->input('season_number');
+        $torrent->episode_number = $request->input('episode_number');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -616,6 +626,8 @@ class TorrentController extends Controller
             'tmdb'           => 'required|numeric',
             'mal'            => 'required|numeric',
             'igdb'           => 'required|numeric',
+            'season_number'  => $seasonRule,
+            'episode_number' => $episodeRule,
             'anon'           => 'required',
             'stream'         => 'required',
             'sd'             => 'required',
@@ -736,7 +748,7 @@ class TorrentController extends Controller
         // User's ratio is too low
         if ($user->getRatio() < \config('other.ratio')) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Ratio Is To Low To Download!');
+                ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked

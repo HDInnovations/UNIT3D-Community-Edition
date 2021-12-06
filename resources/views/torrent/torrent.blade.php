@@ -85,9 +85,12 @@
                         </button>
                     @endif
 
-                    <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-primary">
-                        <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
-                    </a>
+                    <form action="{{ route('comment_thanks', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
+                        </button>
+                    </form>
 
                     <a data-toggle="modal" href="#myModal" role="button" class="btn btn-sm btn-primary">
                         <i class='{{ config("other.font-awesome") }} fa-file'></i>  @lang('torrent.show-files')
