@@ -55,7 +55,6 @@ return [
     'store'                   => 'Magasin',
     'success'                 => 'Succès de l\'échange de bonus',
     'success-tip'             => 'Ton pourboire a été appliqué avec succès!',
-    'system-message'          => '[url=%s]%s[/url] a offert %s Bonus à [url=%s]%s[/url]',
     'tips'                    => 'Conseils',
     'total'                   => 'Total des gains',
     'total-gifts'             => 'Au total, cadeaux coupon',

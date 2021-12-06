@@ -55,7 +55,6 @@ return [
     'store'                   => 'Store',
     'success'                 => 'Bonus Exchange Successful',
     'success-tip'             => 'Your Tip Was Successfully Applied!',
-    'system-message'          => '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
     'tips'                    => 'Tips',
     'total'                   => 'Total Earnings',
     'total-gifts'             => 'In Total BON Gifts',

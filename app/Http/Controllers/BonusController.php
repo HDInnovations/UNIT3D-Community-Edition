@@ -342,7 +342,7 @@ class BonusController extends Controller
             $recipientUrl = \href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                \sprintf(\trans('bon.system-message'), $profileUrl, $user->username, $value, $recipientUrl, $recipient->username)
+                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $user->username, $value, $recipientUrl, $recipient->username)
             );
 
             if ($dest == 'profile') {

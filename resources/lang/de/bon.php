@@ -55,7 +55,6 @@ return [
     'store'                   => 'Store',
     'success'                 => 'Bonusaustausch erfolgreich',
     'success-tip'             => 'Dein Trinkgeld wurde erfolgreich übertragen!',
-    'system-message'          => '[url=%s]%s[/url] hat %s Bonuspunkte [url=%s]%s[/url] geschenkt',
     'tips'                    => 'Trinkgeld',
     'total'                   => 'Gesamteinnahmen',
     'total-gifts'             => 'Geschenkte Bonuspunkte',
