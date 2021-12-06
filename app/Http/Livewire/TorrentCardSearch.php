@@ -13,18 +13,18 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bookmark;
+use App\Models\Category;
+use App\Models\History;
+use App\Models\Keyword;
+use App\Models\PersonalFreeleech;
+use App\Models\PlaylistTorrent;
+use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
-use Livewire\Component;
-use App\Models\Torrent;
-use App\Models\Keyword;
-use App\Models\History;
-use App\Models\Category;
-use App\Models\Bookmark;
-use Livewire\WithPagination;
-use App\Models\PlaylistTorrent;
-use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class TorrentCardSearch extends Component
 {
