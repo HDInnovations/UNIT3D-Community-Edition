@@ -605,6 +605,16 @@ class TorrentController extends Controller
             $resolutionRule = 'required|exists:resolutions,id';
         }
 
+        $episodeRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $episodeRule = 'required|numeric';
+        }
+
+        $seasonRule = 'nullable|numeric';
+        if ($category->tv_meta) {
+            $seasonRule = 'required|numeric';
+        }
+
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',

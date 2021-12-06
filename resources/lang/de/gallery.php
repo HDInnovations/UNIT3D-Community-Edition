@@ -25,4 +25,7 @@ return [
     'select-image'                => 'Ein Bild auswählen',
     'add-an-image-to'             => 'Ein Bild hinzufügen zu',
     'add-sleeve-disc-desc'        => 'Hüllen / Disc Art',
+    'no-meta'                     => 'Meta Daten nicht gefunden. Gallerie System ist noch unter Konstruktion',
+    'success'                     => 'Dein Album wurde erfolgreich veröffentlicht!',
+    'deleted'                     => 'Album wurde erfolgreich gelöscht',
 ];

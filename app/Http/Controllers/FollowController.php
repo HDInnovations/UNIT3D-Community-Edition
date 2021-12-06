@@ -37,7 +37,7 @@ class FollowController extends Controller
 
         if ($request->user()->id == $user->id) {
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('Nice try, but sadly you can not follow yourself.');
+                ->withErrors(\trans('user.follow-yourself'));
         }
 
         if (! $request->user()->isFollowing($user->id)) {
@@ -50,11 +50,11 @@ class FollowController extends Controller
             }
 
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(\sprintf('You are now following %s', $user->username));
+                ->withSuccess(\sprintf(\trans('user.follow-user'), $user->username));
         }
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withErrors('You are already following this user');
+            ->withErrors(\trans('user.follow-already'));
     }
 
     /**
@@ -76,10 +76,10 @@ class FollowController extends Controller
             }
 
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(\sprintf('You are no longer following %s', $user->username));
+                ->withSuccess(\sprintf(\trans('user.follow-revoked'), $user->username));
         }
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withErrors('You are not following this user to begin with');
+            ->withErrors(\trans('user.follow-not-to-begin-with'));
     }
 }
