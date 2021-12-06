@@ -8,7 +8,7 @@ jobs:
         operating-system:
           - ubuntu-latest
         php-version:
-          - '8.0'
+          - '8.1'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -47,15 +47,17 @@ jobs:
       - name: Install composer dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize
       - name: Install NPM Dependencies
         run: npm install
       - name: Compile Assets
         run: npx mix -p
       - name: Generate application key
         run: php artisan key:generate --env=testing
+      - name: Application Cache
+        run: php artisan optimize
       - name: Run tests
-        run: php artisan test --parallel
+        run: ./vendor/bin/phpunit
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
