@@ -197,6 +197,7 @@ return [
     'subscriptions'        => 'Subscriptions',
     'subtitle'             => 'Subtitle',
     'subtitles'            => 'Subtitles',
+    'system-message'       => 'THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY!',
     'teams'                => 'Teams',
     'terms'                => 'Terms of Use',
     'the'                  => 'the',

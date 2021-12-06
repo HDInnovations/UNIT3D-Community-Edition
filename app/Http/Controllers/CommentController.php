@@ -67,14 +67,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('collection-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('collection.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('collection-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -154,7 +154,7 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
+                ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -171,14 +171,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('article-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('articles.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('article-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('articles.show', ['id' => $article->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -256,7 +256,7 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('articles.show', ['id' => $article->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -273,14 +273,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('playlist-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('playlists.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('playlist-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -358,7 +358,7 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -375,14 +375,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -465,7 +465,7 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -482,14 +482,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('request-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('request', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('request-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('request', ['id' => $tr->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -572,7 +572,7 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -589,7 +589,7 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('ticket-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('tickets.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('ticket-comment:'.$user->id);
@@ -624,7 +624,7 @@ class CommentController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -641,14 +641,14 @@ class CommentController extends Controller
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -717,7 +717,7 @@ class CommentController extends Controller
         );
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
@@ -746,7 +746,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Edited.');
+        return \redirect()->back()->withSuccess(\trans('comment.edited'));
     }
 
     /**
@@ -764,6 +764,6 @@ class CommentController extends Controller
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Deleted.');
+        return \redirect()->back()->withSuccess(\trans('comment.deleted'));
     }
 }
