@@ -179,6 +179,7 @@ return [
     'subscriptions'        => 'Abonnements',
     'subtitle'             => 'Untertitel',
     'subtitles'            => 'Untertitel',
+    'system-message'       => 'DIES IST EINE AUTOMATISCHE SYSTEMNACHRICHT, BITTE NICHT ANTWORTEN!',
     'teams'                => 'Teams',
     'terms'                => 'Nutzungsbedingungen',
     'times'                => 'Mal',
