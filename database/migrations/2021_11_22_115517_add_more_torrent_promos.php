@@ -18,14 +18,14 @@ class AddMoreTorrentPromos extends Migration
         });
 
         // Change all "free->1" torrents to "free->100" for now FL discounts
-        $fl_torrents = DB::table('torrents')->select('id','free')->where('free', '=', 1)->get();
+        $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '=', 1)->get();
         $i = 0;
-        foreach ($fl_torrents as $torrent){
+        foreach ($fl_torrents as $torrent) {
             DB::table('torrents')
-                ->where('id',$torrent->id)
+                ->where('id', $torrent->id)
                 ->update([
-                    "free" => "100"
-            ]);
+                    'free' => '100',
+                ]);
             $i++;
         }
     }
@@ -37,14 +37,14 @@ class AddMoreTorrentPromos extends Migration
         });
 
         // Change all "free->100" torrents to "free->1" for now FL discounts
-        $fl_torrents = DB::table('torrents')->select('id','free')->where('free', '>', 1)->get();
+        $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '>', 1)->get();
         $i = 0;
         foreach ($fl_torrents as $torrent){
             DB::table('torrents')
-                ->where('id',$torrent->id)
+                ->where('id', $torrent->id)
                 ->update([
-                    "free" => "1"
-            ]);
+                    'free' => '1',
+                ]);
             $i++;
         }
     }

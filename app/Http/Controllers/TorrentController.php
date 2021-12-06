@@ -895,7 +895,6 @@ class TorrentController extends Controller
         } else {
             // Get amount of FL before revoking for chat announcement
             $torrentFlAmount = $torrent->free;
-            
             $torrent->free = '0';
 
             $this->chatRepository->systemMessage(
