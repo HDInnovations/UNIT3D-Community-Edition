@@ -100,6 +100,11 @@ return [
     'extra'                                => 'Extra',
     'filled-request'                       => 'Filled Members Requests',
     'follow'                               => 'Follow',
+    'follow-already'                       => 'You are already following this user',
+    'follow-not-to-begin-with'             => 'You are not following this user to begin with',
+    'follow-revoked'                       => 'You are no longer following %s',
+    'follow-user'                          => 'You are now following %s',
+    'follow-yourself'                      => 'Nice try, but sadly you can not follow yourself.',
     'follower-privacy'                     => 'Follower Settings',
     'follower-privacy-list'                => 'Allow users to view a list of your followers',
     'follower-help'                        => 'Control the sharing of specific follower related information with groups that are allowed to access to your profile.
