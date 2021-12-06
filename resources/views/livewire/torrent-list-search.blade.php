@@ -12,7 +12,7 @@
 			<div class="mt-5">
 				<div class="row">
 					<div class="form-group col-xs-9">
-						<input wire:model="name" type="search" class="form-control" placeholder="Name" />
+						<input wire:model.debounce.500ms="name" type="search" class="form-control" placeholder="Name" />
 					</div>
 					<div class="form-group col-xs-3">
 						<button class="btn btn-md btn-primary" @click="open = ! open" x-text="open ? '@lang('common.search-hide')' : '@lang('common.search-advanced')'"></button>
@@ -22,55 +22,67 @@
 					<div class="row">
 						<div class="form-group col-sm-3 col-xs-6 adv-search-description">
 							<label for="description" class="label label-default">@lang('torrent.description')</label>
-							<input wire:model="description" type="text" class="form-control" placeholder="Description">
+							<input wire:model.debounce.500ms="description" type="text" class="form-control" placeholder="Description">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-mediainfo">
 							<label for="mediainfo" class="label label-default">@lang('torrent.media-info')</label>
-							<input wire:model="mediainfo" type="text" class="form-control" placeholder="Mediainfo">
+							<input wire:model.debounce.500ms="mediainfo" type="text" class="form-control" placeholder="Mediainfo">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-keywords">
 							<label for="keywords" class="label label-default">@lang('torrent.keywords')</label>
-							<input wire:model="keywords" type="text" class="form-control" placeholder="Keywords">
+							<input wire:model.debounce.500ms="keywords" type="text" class="form-control" placeholder="Keywords">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-uploader">
 							<label for="uploader" class="label label-default">@lang('torrent.uploader')</label>
-							<input wire:model="uploader" type="text" class="form-control" placeholder="Uploader">
+							<input wire:model.debounce.500ms="uploader" type="text" class="form-control" placeholder="Uploader">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-3 col-xs-6 adv-search-tmdb">
 							<label for="tmdbId" class="label label-default">TMDb</label>
-							<input wire:model="tmdbId" type="text" class="form-control" placeholder="TMDb ID">
+							<input wire:model.debounce.500ms="tmdbId" type="text" class="form-control" placeholder="TMDb ID">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-imdb">
 							<label for="imdbId" class="label label-default">IMDb</label>
-							<input wire:model="imdbId" type="text" class="form-control" placeholder="IMDb ID">
+							<input wire:model.debounce.500ms="imdbId" type="text" class="form-control" placeholder="IMDb ID">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-tvdb">
 							<label for="tvdbId" class="label label-default">TVDb</label>
-							<input wire:model="tvdbId" type="text" class="form-control" placeholder="TVDb ID">
+							<input wire:model.debounce.500ms="tvdbId" type="text" class="form-control" placeholder="TVDb ID">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-mal">
 							<label for="malId" class="label label-default">MAL</label>
-							<input wire:model="malId" type="text" class="form-control" placeholder="MAL ID">
+							<input wire:model.debounce.500ms="malId" type="text" class="form-control" placeholder="MAL ID">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-3 col-xs-6 adv-search-startYear">
 							<label for="startYear" class="label label-default">@lang('torrent.start-year')</label>
-							<input wire:model="startYear" type="text" class="form-control" placeholder="Start Year">
+							<input wire:model.debounce.500ms="startYear" type="text" class="form-control" placeholder="Start Year">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-endYear">
 							<label for="endYear" class="label label-default">@lang('torrent.end-year')</label>
-							<input wire:model="endYear" type="text" class="form-control" placeholder="End Year">
+							<input wire:model.debounce.500ms="endYear" type="text" class="form-control" placeholder="End Year">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-playlist">
 							<label for="playlist" class="label label-default">Playlist</label>
-							<input wire:model="playlistId" type="text" class="form-control" placeholder="Playlist ID">
+							<input wire:model.debounce.500ms="playlistId" type="text" class="form-control" placeholder="Playlist ID">
 						</div>
 						<div class="form-group col-sm-3 col-xs-6 adv-search-collection">
 							<label for="collection" class="label label-default">Collection</label>
-							<input wire:model="collectionId" type="text" class="form-control" placeholder="Collection ID">
+							<input wire:model.debounce.500ms="collectionId" type="text" class="form-control" placeholder="Collection ID">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-6 col-xs-12 adv-search-region">
+							@php $regions = \cache()->remember('regions', 3_600, fn () => \App\Models\Region::all()->sortBy('position')); @endphp
+							<label for="region" class="label label-default">Region</label>
+							<div id="regions" wire:ignore></div>
+						</div>
+						<div class="form-group col-sm-6 col-xs-12 adv-search-distributor">
+							@php $distributors = \cache()->remember('distributors', 3_600, fn () => \App\Models\Distributor::all()->sortBy('position')); @endphp
+							<label for="distributor" class="label label-default">Distributor</label>
+							<div id="distributors" wire:ignore></div>
 						</div>
 					</div>
 					<div class="row">
@@ -80,7 +92,7 @@
 							@foreach ($categories as $category)
 								<span class="badge-user">
 									<label class="inline">
-										<input type="checkbox" wire:model="categories" value="{{ $category->id }}"> {{ $category->name }}
+										<input type="checkbox" wire:model.prefetch="categories" value="{{ $category->id }}"> {{ $category->name }}
 									</label>
 								</span>
 							@endforeach
@@ -93,7 +105,7 @@
 							@foreach ($types as $type)
 								<span class="badge-user">
 									<label class="inline">
-										<input type="checkbox" wire:model="types" value="{{ $type->id }}"> {{ $type->name }}
+										<input type="checkbox" wire:model.prefetch="types" value="{{ $type->id }}"> {{ $type->name }}
 									</label>
 								</span>
 							@endforeach
@@ -106,7 +118,7 @@
 							@foreach ($resolutions as $resolution)
 								<span class="badge-user">
 									<label class="inline">
-										<input type="checkbox" wire:model="resolutions" value="{{ $resolution->id }}"> {{ $resolution->name }}
+										<input type="checkbox" wire:model.prefetch="resolutions" value="{{ $resolution->id }}"> {{ $resolution->name }}
 									</label>
 								</span>
 							@endforeach
@@ -118,7 +130,7 @@
 							@foreach (App\Models\Genre::all()->sortBy('name') as $genre)
 								<span class="badge-user">
 									<label class="inline">
-										<input type="checkbox" wire:model="genres" value="{{ $genre->id }}"> {{ $genre->name }}
+										<input type="checkbox" wire:model.prefetch="genres" value="{{ $genre->id }}"> {{ $genre->name }}
 									</label>
 								</span>
 							@endforeach
@@ -129,19 +141,19 @@
 							<label for="buffs" class="label label-default">Buff</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="free" type="checkbox" value="1">
+									<input wire:model.prefetch="free" type="checkbox" value="1">
 									Freeleech
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="doubleup" type="checkbox" value="1">
+									<input wire:model.prefetch="doubleup" type="checkbox" value="1">
 									Double Upload
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="featured" type="checkbox" value="1">
+									<input wire:model.prefetch="featured" type="checkbox" value="1">
 									Featured
 								</label>
 							</span>
@@ -153,19 +165,19 @@
 							<label for="tags" class="label label-default">Tags</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="stream" type="checkbox" value="1">
+									<input wire:model.prefetch="stream" type="checkbox" value="1">
 									Stream Optimized
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="sd" type="checkbox" value="1">
+									<input wire:model.prefetch="sd" type="checkbox" value="1">
 									SD Content
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="highspeed" type="checkbox" value="1">
+									<input wire:model.prefetch="highspeed" type="checkbox" value="1">
 									Highspeed
 								</label>
 							</span>
@@ -177,13 +189,13 @@
 							<label for="extra" class="label label-default">@lang('common.extra')</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="internal" type="checkbox" value="1">
+									<input wire:model.prefetch="internal" type="checkbox" value="1">
 									Internal
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="personalRelease" type="checkbox" value="1">
+									<input wire:model.prefetch="personalRelease" type="checkbox" value="1">
 									Personal Release
 								</label>
 							</span>
@@ -195,13 +207,13 @@
 							<label for="misc" class="label label-default">Misc</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="bookmarked" type="checkbox" value="1">
+									<input wire:model.prefetch="bookmarked" type="checkbox" value="1">
 									Bookmarked
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="wished" type="checkbox" value="1">
+									<input wire:model.prefetch="wished" type="checkbox" value="1">
 									Wished
 								</label>
 							</span>
@@ -213,19 +225,19 @@
 							<label for="health" class="label label-default">@lang('torrent.health')</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="alive" type="checkbox" value="1">
+									<input wire:model.prefetch="alive" type="checkbox" value="1">
 									@lang('torrent.alive')
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="dying" type="checkbox" value="1">
+									<input wire:model.prefetch="dying" type="checkbox" value="1">
 									@lang('torrent.dying-torrent')
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="dead" type="checkbox" value="1">
+									<input wire:model.prefetch="dead" type="checkbox" value="1">
 									@lang('torrent.dead-torrent')
 								</label>
 							</span>
@@ -237,31 +249,31 @@
 							<label for="history" class="label label-default">@lang('torrent.history')</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="notDownloaded" type="checkbox" value="1">
+									<input wire:model.prefetch="notDownloaded" type="checkbox" value="1">
 									Not Downloaded
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="downloaded" type="checkbox" value="1">
+									<input wire:model.prefetch="downloaded" type="checkbox" value="1">
 									Downloaded
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="seeding" type="checkbox" value="1">
+									<input wire:model.prefetch="seeding" type="checkbox" value="1">
 									Seeding
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="leeching" type="checkbox" value="1">
+									<input wire:model.prefetch="leeching" type="checkbox" value="1">
 									Leeching
 								</label>
 							</span>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="incomplete" type="checkbox" value="1">
+									<input wire:model.prefetch="incomplete" type="checkbox" value="1">
 									Incomplete
 								</label>
 							</span>
@@ -316,7 +328,10 @@
 				<a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
 				</a>
-				<a href="#" class="btn btn-xs btn-primary">
+				<a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
+					<i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
+				</a>
+				<a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
 					<i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
 				</a>
 				<a href="#" class="btn btn-xs btn-primary">
@@ -426,9 +441,9 @@
 										@if ($torrent->category->music_meta)
 											<img src="https://via.placeholder.com/90x135" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 										@endif
-										
+
 										@if ($torrent->category->no_meta)
-											@if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg')) 
+											@if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg'))
 												<img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
 											@else
 												<img src="https://via.placeholder.com/400x600" class="torrent-poster-img-small" alt="@lang('torrent.poster')">
@@ -458,6 +473,14 @@
 								@endif
 							</td>
 							<td class="torrent-listings-overview" style="vertical-align: middle;">
+								@if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id || auth()->user()->group_id === 29)
+								<a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
+									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
+									        data-original-title="@lang('common.edit')">
+										<i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
+									</button>
+								</a>
+								@endif
 								<a class="view-torrent torrent-listings-name" style="font-size: 16px;" href="{{ route('torrent', ['id' => $torrent->id]) }}">
 									{{ $torrent->name }}
 								</a>
@@ -510,11 +533,11 @@
                                 </span>
 								@endif
 								<span class='badge-extra text-pink torrent-listings-thanks'>
-                                <i class="{{ config('other.font-awesome') }} fa-heartbeat"></i> {{ $torrent->thanks_count }}
-                            </span>
+                                    <i class="{{ config('other.font-awesome') }} fa-heartbeat"></i> {{ $torrent->thanks_count }}
+                                </span>
 								<span class='badge-extra text-green torrent-listings-comments'>
-								<i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i> {{ $torrent->comments_count }}
-							</span>
+									<i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i> {{ $torrent->comments_count }}
+								</span>
 								@if ($torrent->internal == 1)
 									<span class='badge-extra text-bold torrent-listings-internal'>
                                     <i class='{{ config('other.font-awesome') }} fa-magic' data-toggle='tooltip' title=''
@@ -749,3 +772,51 @@
 			</div>
 		</div>
 	</div>
+
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+  document.addEventListener('livewire:load', function () {
+    let myOptions = [
+		    @foreach($regions as $region)
+      {
+        label: "{{ $region->name }}", value: "{{ $region->id }}"
+      },
+	    @endforeach
+    ];
+    VirtualSelect.init({
+      ele: '#regions',
+      options: myOptions,
+      multiple: true,
+      search: true,
+      placeholder: "{{__('Select Regions')}}",
+      noOptionsText: "{{__('No results found')}}",
+    });
+
+    let regions = document.querySelector('#regions')
+    regions.addEventListener('change', () => {
+      let data = regions.value
+    @this.set('regions', data)
+    })
+
+    let myOptions2 = [
+		    @foreach($distributors as $distributor)
+      {
+        label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
+      },
+	    @endforeach
+    ];
+    VirtualSelect.init({
+      ele: '#distributors',
+      options: myOptions2,
+      multiple: true,
+      search: true,
+      placeholder: "{{__('Select Distributor')}}",
+      noOptionsText: "{{__('No results found')}}",
+    });
+
+    let distributors = document.querySelector('#distributors')
+    distributors.addEventListener('change', () => {
+      let data = distributors.value
+    @this.set('distributors', data)
+    })
+  })
+</script>

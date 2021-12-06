@@ -52,6 +52,10 @@ class TorrentListSearch extends Component
 
     public $genres = [];
 
+    public $regions = [];
+
+    public $distributors = [];
+
     public $tmdbId = '';
 
     public $imdbId = '';
@@ -118,6 +122,8 @@ class TorrentListSearch extends Component
         'types'            => ['except' => []],
         'resolutions'      => ['except' => []],
         'genres'           => ['except' => []],
+        'regions'          => ['except' => []],
+        'distributors'     => ['except' => []],
         'tmdbId'           => ['except' => ''],
         'imdbId'           => ['except' => ''],
         'tvdbId'           => ['except' => ''],
@@ -208,19 +214,19 @@ class TorrentListSearch extends Component
             ->when($this->keywords, function ($query) {
                 $keywords = self::parseKeywords($this->keywords);
                 $keyword = Keyword::whereIn('name', $keywords)->pluck('torrent_id');
-                $query->whereIn('id', $keyword);
+                $query->whereIntegerInRaw('id', $keyword);
             })
             ->when($this->startYear && $this->endYear, function ($query) {
                 $query->whereBetween('release_year', [$this->startYear, $this->endYear]);
             })
             ->when($this->categories, function ($query) {
-                $query->whereIn('category_id', $this->categories);
+                $query->whereIntegerInRaw('category_id', $this->categories);
             })
             ->when($this->types, function ($query) {
-                $query->whereIn('type_id', $this->types);
+                $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->whereIn('resolution_id', $this->resolutions);
+                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
             ->when($this->genres, function ($query) {
                 $this->validate();
@@ -230,7 +236,12 @@ class TorrentListSearch extends Component
                 $mergedCollection = $tvCollection->merge($movieCollection);
 
                 $query->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
-                //$query->whereIn('tmdb', $mergedCollection); Very SLOW!
+            })
+            ->when($this->regions, function ($query) {
+                $query->whereIntegerInRaw('region_id', $this->regions);
+            })
+            ->when($this->distributors, function ($query) {
+                $query->whereIntegerInRaw('distributor_id', $this->distributors);
             })
             ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
@@ -250,12 +261,12 @@ class TorrentListSearch extends Component
             })
             ->when($this->playlistId, function ($query) {
                 $playlist = PlaylistTorrent::where('playlist_id', '=', $this->playlistId)->pluck('torrent_id');
-                $query->whereIn('id', $playlist);
+                $query->whereIntegerInRaw('id', $playlist);
             })
             ->when($this->collectionId, function ($query) {
                 $categories = Category::where('movie_meta', '=', 1)->pluck('id');
                 $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
-                $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
+                $query->whereIntegerInRaw('category_id', $categories)->whereIn('tmdb', $collection);
             })
             ->when($this->free, function ($query) {
                 $query->where('free', '=', 1);
@@ -277,11 +288,11 @@ class TorrentListSearch extends Component
             })
             ->when($this->bookmarked, function ($query) {
                 $bookmarks = Bookmark::where('user_id', '=', \auth()->user()->id)->pluck('torrent_id');
-                $query->whereIn('id', $bookmarks);
+                $query->whereIntegerInRaw('id', $bookmarks);
             })
             ->when($this->wished, function ($query) {
                 $wishes = Wish::where('user_id', '=', \auth()->user()->id)->pluck('tmdb');
-                $query->whereIn('tmdb', $wishes);
+                $query->whereIntegerInRaw('tmdb', $wishes);
             })
             ->when($this->internal, function ($query) {
                 $query->where('internal', '=', 1);
