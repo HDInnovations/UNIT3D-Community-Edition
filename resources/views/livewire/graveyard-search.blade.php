@@ -296,12 +296,34 @@
                                            title='' data-original-title='@lang('torrent.double-upload')'></i>
                                     </span>
 									@endif
-									@if ($torrent->free == 1)
-										<span class='badge-extra text-bold'>
-                                        <i class='{{ config('other.font-awesome') }} fa-star text-gold' data-toggle='tooltip'
-                                           title='' data-original-title='@lang('torrent.freeleech')'></i>
-                                    </span>
-									@endif
+                                    
+                                    @if ($torrent->free >= '90')
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
+                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                        ">
+                                            <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                        </span>
+                                    @elseif ($torrent->free < '90' && $torrent->free >= '30')
+                                        <style>
+                                            .star50 {position: relative;}
+                                            .star50:after {content: "\f005";position: absolute;left: 0;top: 0;width: 50%;overflow: hidden;color: #FFB800;}
+                                        </style>
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
+                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                        ">
+                                            <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
+                                        </span>
+                                    @elseif ($torrent->free < '30' && $torrent->free != '0')
+                                        <style>
+                                            .star30 {position: relative;}
+                                            .star30:after {content: "\f005";position: absolute;left: 0;top: 0;width: 30%;overflow: hidden;color: #FFB800;}
+                                        </style>
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
+                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                        ">
+                                            <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
+                                        </span>
+                                    @endif
 								@endif
 
 								@if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
