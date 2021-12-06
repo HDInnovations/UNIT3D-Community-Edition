@@ -40,10 +40,10 @@ class MovieSearch extends Component
 
     final public function getMoviesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Movie::with('companies', 'genres')
-            ->withCount('torrents')
-            ->where('title', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('title', 'asc')
+        return Movie::query()
+            ->with(['companies', 'genres'])
+            ->when($this->search, fn ($query) => $query->where('title', 'LIKE', '%'.$this->search.'%'))
+            ->orderBy('title')
             ->paginate(30);
     }
 

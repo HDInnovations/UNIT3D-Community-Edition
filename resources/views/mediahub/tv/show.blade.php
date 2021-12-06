@@ -84,7 +84,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($season->torrents()->get()->sortByDesc('created_at') as $torrent)
+                                                    @foreach($season->torrents->sortByDesc('created_at') as $torrent)
                                                         <tr>
                                                             <td>
                                                                 <a href="{{ route('torrent', ['id' => $torrent->id]) }}" style="color: #8fa8e0;">{{ $torrent->name }}</a>
