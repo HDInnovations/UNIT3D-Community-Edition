@@ -30,7 +30,9 @@ class Season extends Model
      */
     public function torrents()
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id');
+        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q) {
+            $q->where('tv_meta', '=', true);
+        });
     }
 
     /**

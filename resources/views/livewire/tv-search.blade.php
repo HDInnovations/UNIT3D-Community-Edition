@@ -8,11 +8,6 @@
 			<div class="card is-torrent" style=" height: 265px;">
 				<div class="card_head">
 					<span class="badge-user text-bold" style="float:right;">
-						<a @if($show->torrents()->first() !== null) href="{{ route('torrents.similar', ['category_id' => $show->torrents()->first()->category_id, 'tmdb' => $show->id]) }}" @else href="#" @endif>
-							{{ $show->torrents_count }} Torrents Matched
-						</a>
-					</span>
-					<span class="badge-user text-bold" style="float:right;">
 						{{ $show->seasons_count }} Seasons
 					</span>
 					@if ($show->networks)

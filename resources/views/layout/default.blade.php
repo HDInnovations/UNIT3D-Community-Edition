@@ -40,6 +40,7 @@
         <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
         <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
         <script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous" defer></script>
+        <script src="{{ mix('js/virtual-select.js') }}" crossorigin="anonymous"></script>
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">

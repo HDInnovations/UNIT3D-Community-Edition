@@ -126,6 +126,34 @@
                             </select>
                         </label>
                     </div>
+
+                    <div class="form-group">
+                        <label for="distributor_id">@lang('torrent.distributor') (Only For Full Disc)</label>
+                        <label>
+                            <select name="distributor_id" id="autodis" class="form-control">
+                                <option hidden="" disabled="disabled" selected="selected" value="">--Select Distributor--</option>
+                                @foreach ($distributors as $distributor)
+                                    <option value="{{ $distributor->id }}" @if (old('distributor_id')==$distributor->id) selected="selected" @endif>
+                                        {{ $distributor->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="region_id">@lang('torrent.region') (Only For Full Disc)</label>
+                        <label>
+                            <select name="region_id" id="autoreg" class="form-control">
+                                <option hidden="" disabled="disabled" selected="selected" value="">--Select Region--</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}" @if (old('region_id')==$region->id) selected="selected" @endif>
+                                        {{ $region->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
                     @endif
 
                     @if ($data->tv_meta)

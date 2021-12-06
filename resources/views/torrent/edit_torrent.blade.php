@@ -149,7 +149,47 @@
                             <input type="number" name="episode_number" id="episode_number" class="form-control" value="{{ $torrent->episode_number }}" required>
                         </div>
                     @endif
-    
+
+                    @if($torrent->type->name === 'Full Disc')
+                    <div class="form-group">
+                        <label for="distributor_id">@lang('torrent.distributor')</label>
+                        <label>
+                            <select name="distributor_id" class="form-control">
+                                @if (! $torrent->distributor)
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Distributor--</option>)
+                                @else
+                                    <option value="{{ $torrent->distributor->id }}" selected>{{ $torrent->distributor->name }}
+                                        (@lang('torrent.current'))
+                                    </option>
+                                @endif
+                                    <option value="">No Distributor</option>
+                                @foreach ($distributors as $distributor)
+                                    <option value="{{ $distributor->id }}">{{ $distributor->name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="region_id">@lang('torrent.region')</label>
+                        <label>
+                            <select name="region_id" class="form-control">
+                                @if (! $torrent->region)
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Region--</option>)
+                                @else
+                                    <option value="{{ $torrent->region->id }}" selected>{{ $torrent->region->name }}
+                                        (@lang('torrent.current'))
+                                    </option>
+                                @endif
+                                    <option value="">No Region</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+                    @endif
+
                     <div class="form-group">
                         <label for="description">@lang('common.description')</label>
                         <label for="upload-form-description"></label>
@@ -170,6 +210,7 @@
                         </label>
                     </div>
 
+                    @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
                     <label for="hidden" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked
@@ -181,6 +222,9 @@
                     </div>
                     <br>
                     <br>
+                    @else
+                        <input type="hidden" name="anonymous" value={{ $torrent->anon }}>
+                    @endif
                     <label for="hidden" class="control-label">@lang('torrent.stream-optimized')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="stream" @if ($torrent->stream == 1) checked

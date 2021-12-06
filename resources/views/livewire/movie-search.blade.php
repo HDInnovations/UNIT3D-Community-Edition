@@ -8,9 +8,6 @@
 			<div class="col-md-12">
 				<div class="card is-torrent" style=" height: 265px;">
 					<div class="card_head">
-						<span class="badge-user text-bold" style="float:right;">
-							{{ $movie->torrents_count }} @lang('torrent.torrents-matched')
-						</span>
 						@if ($movie->companies)
 							@foreach ($movie->companies as $company)
 								<span class="badge-user text-bold" style="float:right;">

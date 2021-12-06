@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
             ResolutionsTableSeeder::class,
             TicketCategoriesTableSeeder::class,
             TicketPrioritiesTableSeeder::class,
+            DistributorsTableSeeder::class,
+            RegionsTableSeeder::class,
         ]);
     }
 }
