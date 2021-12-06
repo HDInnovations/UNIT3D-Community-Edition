@@ -16,7 +16,7 @@ return [
     'dead'                       => 'Mort',
     'graveyard'                  => 'Cimetière',
     'guidelines'                 => 'Lignes directrices',
-    'guidelines-content'         => '1) Tu ne poux pas réactiver ton propres téléchargements. <br> 2) Ne réactivez pas quelque chose que tu ne poux pas commettre aussi.',
+    'guidelines-content'         => '1) Tu ne peux pas réactiver ton propres téléchargements. <br> 2) Ne réactivez pas quelque chose que tu ne peux pas commettre aussi.',
     'howto'                      => 'Voici la règle',
     'howto-desc1'                => 'Tu dois seeder <span class="text-green"><em>:name</em></span> pendant <span class="text-red text-bold">30 jours</span> pour une résurrection. Dans ce cas, quand ton Seedtime de',
     'howto-desc2'                => 'tu seras récompensé',
