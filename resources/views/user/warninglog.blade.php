@@ -195,7 +195,7 @@
                                             <td>
                                                 <form role="form" method="POST" action="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-xs btn-info  @if ($warning->active == 0) disabled @endif">
+                                                    <button type="submit" class="btn btn-xs btn-info  @if ($softDeletedWarning->active == 0) disabled @endif">
                                                         <i class="{{ config('other.font-awesome') }} fa-trash-restore"></i>
                                                     </button>
                                                 </form>
