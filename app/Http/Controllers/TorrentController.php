@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use andkab\LaravelJoyPixels\LaravelJoyPixels;
-use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
 use App\Helpers\Linkify;
