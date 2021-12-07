@@ -1337,7 +1337,7 @@ class Markdown
 
     protected function inlineSpecialCharacter($Excerpt)
     {
-        if (\substr($Excerpt['text'], 1, 1) !== ' ' && \str_contains($Excerpt['text'], ';') && \preg_match('#^&(#?+[0-9a-zA-Z]++);#', $Excerpt['text'], $matches)
+        if (\substr($Excerpt['text'], 1, 1) !== ' ' && \str_contains($Excerpt['text'], ';') && \preg_match('/^&(#?+[0-9a-zA-Z]++);/', $Excerpt['text'], $matches)
         ) {
             return [
                 'element' => ['rawHtml' => '&'.$matches[1].';'],
