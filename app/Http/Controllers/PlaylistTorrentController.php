@@ -52,7 +52,7 @@ class PlaylistTorrentController extends Controller
         $playlistTorrent->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Torrent Has Successfully Been Attached To Your Playlist.');
+            ->withSuccess(\trans('playlist.attached-success'));
     }
 
     /**
@@ -73,6 +73,6 @@ class PlaylistTorrentController extends Controller
         $playlistTorrent->delete();
 
         return \redirect()->route('playlists.show', ['id' => $playlistTorrent->playlist->id])
-            ->withSuccess('Torrent Has Successfully Been Detached From Your Playlist.');
+            ->withSuccess(\trans('playlist.detached-success'));
     }
 }
