@@ -72,7 +72,7 @@ class ImageController extends Controller
         $image->save();
 
         return \redirect()->route('albums.show', ['id' => $request->input('album_id')])
-            ->withSuccess('Your image has successfully published!');
+            ->withSuccess(\trans('gallery.image-published-success'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ImageController extends Controller
 
         if (! \file_exists(\getcwd().'/files/img/'.$filename)) {
             return \redirect()->route('show_album', ['id' => $image->album_id])
-                ->withErrors('Image File Not Found! Please Report This To Staff!');
+                ->withErrors(\trans('gallery.image-album-not-found'));
         }
 
         $image->downloads++;
@@ -116,6 +116,6 @@ class ImageController extends Controller
         $image->delete();
 
         return \redirect()->route('albums.show', ['id' => $image->album_id])
-            ->withSuccess('Image has successfully been deleted');
+            ->withSuccess(\trans('gallery.image-album-deleted-success'));
     }
 }
