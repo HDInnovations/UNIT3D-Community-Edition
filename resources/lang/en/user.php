@@ -194,7 +194,7 @@ return [
     'no-soft-warning'                      => 'There are no soft deleted warnings in the database for this user!',
     'no-warning'                           => 'The are no warnings in the database for this user!',
     'not-authorized'                       => 'You are not authorized to view this page. This member prefers to be hidden like a ninja!',
-    'not-enough-invites'                   => 'You do not have enough invites!';
+    'not-enough-invites'                   => 'You do not have enough invites!',
     'not-satisfied-not-immune'             => 'Not Satisfied / Not Immune',
     'note'                                 => 'Note',
     'notification'                         => 'Notification',

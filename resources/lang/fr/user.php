@@ -170,7 +170,7 @@ return [
     'no-logs'                              => 'Il n y a pas de journaux d invitation dans la base de données pour cet utilisateur!',
     'no-seedboxes'                         => 'Pas de seedbox 😔',
     'not-authorized'                       => 'Vous n êtes pas autorisé à afficher cette page. Ce membre préfère être caché comme un ninja!',
-    'not-enough-invites'                   => 'Tu n\'as pas assez d\'invitations!';
+    'not-enough-invites'                   => 'Tu n\'as pas assez d\'invitations!',
     'note'                                 => 'Remarque',
     'notification'                         => 'Notification',
     'notification-settings'                => 'Paramètres de notification',

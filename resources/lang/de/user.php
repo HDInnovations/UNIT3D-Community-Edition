@@ -180,7 +180,7 @@ return [
     'no-logs'                              => 'Für diesen Nutzer gibt es keine Invite Logs in der Datenbank!',
     'no-seedboxes'                         => 'Keine Seedboxen 😔',
     'not-authorized'                       => 'Du bist nicht berechtigt, diese Seite aufzurufen. Dieses Mitglied zieht es vor ein Ninja zu sein!',
-    'not-enough-invites'                   => 'Du hast nicht genug Invites!';
+    'not-enough-invites'                   => 'Du hast nicht genug Invites!',
     'note'                                 => 'Hinweis',
     'notification'                         => 'Benachrichtigung',
     'notification-settings'                => 'Benachrichtigungs-Einstellungen',
