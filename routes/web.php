@@ -269,16 +269,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/delete', [App\Http\Controllers\TorrentController::class, 'deleteTorrent'])->name('delete');
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'editForm'])->name('edit_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit');
-            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentController::class, 'grantFL'])->name('torrent_fl');
-            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentController::class, 'grantDoubleUp'])->name('torrent_doubleup');
-            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentController::class, 'bumpTorrent'])->name('bumpTorrent');
-            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentController::class, 'sticky'])->name('torrent_sticky');
-            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentController::class, 'grantFeatured'])->name('torrent_feature');
-            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
             Route::post('/{id}/reseed', [App\Http\Controllers\TorrentController::class, 'reseedTorrent'])->name('reseed');
             Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
-            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentController::class, 'freeleechToken'])->name('freeleech_token');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\TorrentController::class, 'similar'])->name('torrents.similar');
+        });
+
+        Route::group(['prefix' => 'torrent'], function () {
+            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl');
+            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup');
+            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent');
+            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentBuffController::class, 'sticky'])->name('torrent_sticky');
+            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature');
+            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
         });
 
         // Warnings System

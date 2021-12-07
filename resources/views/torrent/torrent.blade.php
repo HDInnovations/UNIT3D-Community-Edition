@@ -182,8 +182,8 @@
                                         </div>
                                         <div class="torrent-discounts" style="display: inline-block">
                                             @if ($torrent->featured == '0')
-                                                @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || $torrent->free == '1' || config('other.freeleech') == '1' || $torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
-                                                    @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || $torrent->free == '1' || config('other.freeleech') == '1')
+                                                @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || $torrent->free > '1' || config('other.freeleech') == '1' || $torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
+                                                    @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || config('other.freeleech') == '1')
                                                         <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
                                                 
                                                             @if ($freeleech_token)
@@ -198,10 +198,6 @@
                                                                 <p>@lang('common.personal') @lang('torrent.freeleech')</p>
                                                             @endif
                                 
-                                                            @if ($torrent->free == '1')
-                                                                <p>100% @lang('common.free')</p>
-                                                            @endif
-                                
                                                             @if (config('other.freeleech') == '1')
                                                                 <p>@lang('common.global') @lang('torrent.freeleech')</p>
                                                             @endif
@@ -210,6 +206,34 @@
                                                         >
                                                             <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                                         </span>
+                                                    @elseif ($torrent->free > '1')
+                                                        @if ($torrent->free >= '90')
+                                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true" title="
+                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                            ">
+                                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                                            </span>
+                                                        @elseif ($torrent->free < '90' && $torrent->free >= '30')
+                                                            <style>
+                                                                .star50 {position: relative;}
+                                                                .star50:after {content: "\f005";position: absolute;left: 0;top: 0;width: 50%;overflow: hidden;color: #FFB800;}
+                                                            </style>
+                                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true" title="
+                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                            ">
+                                                                <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
+                                                            </span>
+                                                        @elseif ($torrent->free < '30' && $torrent->free != '0')
+                                                            <style>
+                                                                .star30 {position: relative;}
+                                                                .star30:after {content: "\f005";position: absolute;left: 0;top: 0;width: 30%;overflow: hidden;color: #FFB800;}
+                                                            </style>
+                                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true" title="
+                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                            ">
+                                                                <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
+                                                            </span>
+                                                        @endif
                                                     @endif
 
                                                     @if ($torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
@@ -394,7 +418,7 @@
                                     <strong>@lang('torrent.discounts')</strong>
                                 </td>
                                 <td>
-                                    @if ($torrent->doubleup == '1' || $torrent->free == '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
+                                    @if ($torrent->doubleup == '1' || $torrent->free > '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
                                         @if ($freeleech_token)
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i> @lang('common.fl_token')
@@ -425,9 +449,25 @@
                                             </span>
                                         @endif
 
-                                        @if ($torrent->free == '1')
+                                        @if ($torrent->free >= '90')
                                             <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> 100% @lang('common.free')
+                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> {{ $torrent->free }}% @lang('common.free')
+                                            </span>
+                                        @elseif ($torrent->free < '90' && $torrent->free >= '30')
+                                            <style>
+                                                .star50 {position: relative;}
+                                                .star50:after {content: "\f005";position: absolute;left: 0;top: 0;width: 50%;overflow: hidden;color: #FFB800;}
+                                            </style>
+                                            <span class="badge-extra text-bold">
+                                                <i class="star50 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% @lang('common.free')
+                                            </span>
+                                        @elseif ($torrent->free < '30' && $torrent->free != '0')
+                                            <style>
+                                                .star30 {position: relative;}
+                                                .star30:after {content: "\f005";position: absolute;left: 0;top: 0;width: 30%;overflow: hidden;color: #FFB800;}
+                                            </style>
+                                            <span class="badge-extra text-bold">
+                                                <i class="star30 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% @lang('common.free')
                                             </span>
                                         @endif
 
@@ -685,16 +725,62 @@
                                                 @if ($torrent->free == 0)
                                                     <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-xs btn-success">
-                                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
-                                                        </button>
+                                                        <div x-data="{total_value:0}" style="display: flex; margin-bottom: 5px;">
+                                                            <input type="range"
+                                                                x-model="total_value" min="0" max="100" step="25" list="steplist" 
+                                                                name="freeleech" value="{{ $torrent->free ?? '0' }}"
+                                                            />
+                                                            <datalist id="steplist">
+                                                                <option>0</option>
+                                                                <option>25</option>
+                                                                <option>50</option>
+                                                                <option>75</option>
+                                                                <option>100</option>
+                                                            </datalist>
+                                                            <button style="width:80%;" type="submit" class="btn btn-xs btn-success">
+                                                                <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') <span x-text="total_value"></span>% @lang('torrent.freeleech')
+                                                            </button>
+                                                        </div>
                                                     </form>
-                                                @else
-                                                    <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
-                                                        @csrf
+                                                @elseif ($torrent->featured)
+                                                <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    <div x-data="{total_value:0}" style="display: flex; margin-bottom: 5px;">
+                                                        <input disabled type="range"
+                                                            x-model="total_value" min="0" max="100" step="25" list="steplist" 
+                                                            name="freeleech" value="{{ $torrent->free ?? '0' }}"
+                                                        />
+                                                        <datalist id="steplist">
+                                                            <option>0</option>
+                                                            <option>25</option>
+                                                            <option>50</option>
+                                                            <option>75</option>
+                                                            <option>100</option>
+                                                        </datalist>
                                                         <button type="submit" class="btn btn-xs btn-danger">
                                                             <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
                                                         </button>
+                                                    </div>
+                                                </form>
+                                                @else
+                                                    <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <div x-data="{total_value:0}" style="display: flex; margin-bottom: 5px;">
+                                                            <input disabled type="range"
+                                                                x-model="total_value" min="0" max="100" step="25" list="steplist" 
+                                                                name="freeleech" value="{{ $torrent->free ?? '0' }}"
+                                                            />
+                                                            <datalist id="steplist">
+                                                                <option>0</option>
+                                                                <option>25</option>
+                                                                <option>50</option>
+                                                                <option>75</option>
+                                                                <option>100</option>
+                                                            </datalist>
+                                                            <button type="submit" class="btn btn-xs btn-danger">
+                                                                <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') {{ $torrent->free ?? '0' }}% @lang('torrent.freeleech')
+                                                            </button>
+                                                        </div>
                                                     </form>
                                                 @endif
 
