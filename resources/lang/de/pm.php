@@ -23,7 +23,7 @@ return [
     'new'           => 'Neue Nachricht',
     'outbox'        => 'Postausgang',
     'private'       => 'Private',
-    'read'          => 'Lesen',
+    'read'          => 'Gelesen',
     'received-at'   => 'Erhalten am',
     'refresh'       => 'Aktualisieren',
     'reply'         => 'Antworten',
