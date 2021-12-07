@@ -281,6 +281,16 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\TorrentController::class, 'similar'])->name('torrents.similar');
         });
 
+        Route::group(['prefix' => 'torrent'], function () {
+            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl');
+            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup');
+            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent');
+            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentBuffController::class, 'sticky'])->name('torrent_sticky');
+            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature');
+            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
+        });
+
         // Warnings System
         Route::group(['prefix' => 'warnings'], function () {
             Route::post('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
