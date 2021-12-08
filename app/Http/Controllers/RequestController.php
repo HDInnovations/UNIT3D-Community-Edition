@@ -212,7 +212,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('requests.index')
-            ->withSuccess('Request Added.');
+            ->withSuccess(\trans('request.added-request'));
     }
 
     /**
@@ -302,7 +302,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $torrentRequest->id])
-            ->withSuccess('Request Edited Successfully.');
+            ->withSuccess(\trans('request.edited-request'));
     }
 
     /**
@@ -367,7 +367,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your bonus has been successfully added.');
+            ->withSuccess(\trans('request.added-bonus'));
     }
 
     /**
@@ -396,7 +396,7 @@ class RequestController extends Controller
         $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent->isApproved() === false) {
             return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
+                ->withErrors(\trans('request.pending-moderation'));
         }
 
         if ($v->fails()) {
@@ -413,7 +413,7 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your request fill is pending approval by the Requester.');
+            ->withSuccess(\trans('request.pending-approval'));
     }
 
     /**
@@ -432,7 +432,7 @@ class RequestController extends Controller
         if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
             if ($tr->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already approved');
+                    ->withErrors(\trans('request.already-approved'));
             }
 
             $tr->approved_by = $user->id;
@@ -482,15 +482,15 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fillUser->username));
+                    ->withSuccess(\sprintf(\trans('request.approved-user'), $tr->name, $fillUser->username));
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
+                ->withSuccess(\sprintf(\trans('request.approved-anon'), $tr->name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
+                ->withErrors(\trans('request.access-error'));
     }
 
     /**
@@ -508,7 +508,7 @@ class RequestController extends Controller
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already rejected');
+                    ->withErrors(\trans('request.already-rejected'));
             }
 
             $requester = User::findOrFail($torrentRequest->filled_by);
@@ -522,11 +522,11 @@ class RequestController extends Controller
             $torrentRequest->save();
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('This request has been reset.');
+                ->withSuccess(\trans('request.request-reset'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess("You don't have access to approve this request");
+            ->withSuccess(\trans('request.access-error'));
     }
 
     /**
@@ -548,11 +548,11 @@ class RequestController extends Controller
             $torrentRequest->delete();
 
             return \redirect()->route('requests.index')
-                ->withSuccess(\sprintf('You have deleted %s', $name));
+                ->withSuccess(\sprintf(\trans('request.deleted'), $name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors("You don't have access to delete this request.");
+            ->withErrors(\trans('request.access-delete-error'));
     }
 
     /**
@@ -585,11 +585,11 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Claimed');
+                ->withSuccess(\trans('request.claimed-success'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Someone else has already claimed this request buddy.');
+            ->withErrors(\trans('request.already-claimed'));
     }
 
     /**
@@ -625,11 +625,11 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Un-Claimed');
+                ->withSuccess(\trans('request.unclaimed-success'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Nothing To Unclaim.');
+            ->withErrors(\trans('request.unclaim-error'));
     }
 
     /**
@@ -653,6 +653,6 @@ class RequestController extends Controller
         $torrentRequest->save();
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess('The request has been reset!');
+            ->withSuccess(\trans('request.request-reset'));
     }
 }
