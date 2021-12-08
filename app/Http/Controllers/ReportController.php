@@ -65,7 +65,7 @@ class ReportController extends Controller
         ]);
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess('Your report has been successfully sent');
+            ->withSuccess(\trans('user.report-sent'));
     }
 
     /**
@@ -102,7 +102,7 @@ class ReportController extends Controller
         ]);
 
         return \redirect()->route('torrent', ['id' => $id])
-            ->withSuccess('Your report has been successfully sent');
+            ->withSuccess(\trans('user.report-sent'));
     }
 
     /**
@@ -138,6 +138,6 @@ class ReportController extends Controller
         ]);
 
         return \redirect()->route('users.show', ['username' => $username])
-            ->withSuccess('Your report has been successfully sent');
+            ->withSuccess(\trans('user.report-sent'));
     }
 }

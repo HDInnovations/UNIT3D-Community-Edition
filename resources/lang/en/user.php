@@ -270,6 +270,7 @@ return [
     'registration-date'                    => 'Registration date',
     'removed'                              => 'Removed',
     'report'                               => 'Report',
+    'report-sent'                          => 'Your report has been successfully sent',
     'request-help'                         => 'Control the sharing of specific request related statistics and information with groups that are allowed to access to your profile.
     These settings are overridden if you do not allow any groups to access your requested related statistics and information or if you <strong>Go Private</strong>',
     'request'                              => 'Request',
