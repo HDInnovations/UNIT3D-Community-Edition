@@ -110,7 +110,7 @@ class PlaylistController extends Controller
         }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Was Created Successfully!');
+            ->withSuccess(\trans('playlist.published-success'));
     }
 
     /**
@@ -123,7 +123,7 @@ class PlaylistController extends Controller
         $playlist = Playlist::findOrFail($id);
 
         if ($playlist->is_private) {
-            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
+            \abort_unless($playlist->user_id === \auth()->id(), 403, \trans('playlist.private-error'));
         }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
@@ -216,7 +216,7 @@ class PlaylistController extends Controller
         $playlist->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Has Successfully Been Updated!');
+            ->withSuccess(\trans('playlist.update-success'));
     }
 
     /**
@@ -238,7 +238,7 @@ class PlaylistController extends Controller
         $playlist->delete();
 
         return \redirect()->route('playlists.index')
-            ->withSuccess('Playlist Deleted!');
+            ->withSuccess(\trans('playlist.deleted'));
     }
 
     /**
@@ -327,6 +327,6 @@ class PlaylistController extends Controller
             }
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return \redirect()->back()->withErrors(\trans('playlist.something-went-wrong'));
     }
 }

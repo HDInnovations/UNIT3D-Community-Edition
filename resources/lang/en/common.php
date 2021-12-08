@@ -185,6 +185,7 @@ return [
     'second'               => 'Second',
     'select'               => 'Select',
     'similar'              => 'Similar',
+    'something-went-wrong' => 'Something Went Wrong!',
     'sort'                 => 'Sort',
     'special'              => 'Special',
     'sponsor'              => 'Become a Sponsor',

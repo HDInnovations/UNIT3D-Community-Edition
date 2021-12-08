@@ -150,6 +150,8 @@ return [
     'search-results-desc'  => 'Voir vos résultats ci-dessous',
     'second'               => 'Seconde',
     'select'               => 'Sélectionner',
+    'similar'              => 'Similaire',
+    'something-went-wrong' => 'Quelque chose n\'a pas marché!',
     'sort'                 => 'Trier',
     'special'              => 'Spécial',
     'staff'                => 'Staff',

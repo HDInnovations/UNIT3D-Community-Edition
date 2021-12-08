@@ -167,6 +167,7 @@ return [
     'search-results-desc'  => 'Bitte sehe deine Suchergebnisse unten',
     'second'               => 'Zweite',
     'select'               => 'Wähle',
+    'something-went-wrong' => 'Irgendwas ist schiefgelaufen!',
     'sort'                 => 'Sortieren',
     'special'              => 'Besondere',
     'sponsor'              => 'Werde ein Sponsor',
