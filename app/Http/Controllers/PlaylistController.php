@@ -327,6 +327,6 @@ class PlaylistController extends Controller
             }
         }
 
-        return \redirect()->back()->withErrors(\trans('playlist.something-went-wrong'));
+        return \redirect()->back()->withErrors(\trans('common.something-went-wrong'));
     }
 }
