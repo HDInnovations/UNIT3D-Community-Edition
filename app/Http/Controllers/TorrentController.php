@@ -717,6 +717,12 @@ class TorrentController extends Controller
                 );
             }
 
+            if ($torrent->free >= 1) {
+                $this->chatRepository->systemMessage(
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'%% FreeLeech! Grab It While You Can! :fire:'
+                );
+            }
+
             TorrentHelper::approveHelper($torrent->id);
         }
 

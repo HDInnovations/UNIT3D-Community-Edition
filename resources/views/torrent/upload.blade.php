@@ -328,7 +328,16 @@
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="free" value="1"{{ old('free') ? ' checked' : '' }}>@lang('common.yes')</label>
+                            <label><input type="radio" name="free" value="100"{{ old('free') ? ' checked' : '' }}>100%</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="free" value="75"{{ old('free') ? ' checked' : '' }}>75%</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="free" value="50"{{ old('free') ? ' checked' : '' }}>50%</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="free" value="25"{{ old('free') ? ' checked' : '' }}>25%</label>
                         </div>
                         <div class="radio-inline">
                             <label><input type="radio" name="free" value="0"{{ !old('free') ? ' checked' : '' }}>@lang('common.no')</label>
