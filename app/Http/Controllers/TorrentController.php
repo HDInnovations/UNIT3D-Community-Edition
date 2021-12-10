@@ -640,6 +640,7 @@ class TorrentController extends Controller
             'anon'           => 'required',
             'stream'         => 'required',
             'sd'             => 'required',
+            'free'           => 'sometimes|between:0,100'
         ]);
 
         if ($v->fails()) {

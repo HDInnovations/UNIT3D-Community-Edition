@@ -193,7 +193,7 @@ class TorrentController extends BaseController
             'personal_release'  => 'nullable',
             'internal'          => 'required',
             'featured'          => 'required',
-            'free'              => 'required',
+            'free'              => 'required|between:0,100',
             'doubleup'          => 'required',
             'sticky'            => 'required',
         ]);
