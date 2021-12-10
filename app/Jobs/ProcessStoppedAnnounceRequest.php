@@ -107,8 +107,8 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         } elseif ($this->torrent->free > 1) {
             // FL value in DB are from 0% to 100%.
             // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $this->torrent->free / 100;
-            $modDownloaded = $downloaded * $fl_discount;
+            $fl_discount = $downloaded * $this->torrent->free / 100;
+            $modDownloaded = $downloaded - $fl_discount;
         } else {
             $modDownloaded = $downloaded;
         }
