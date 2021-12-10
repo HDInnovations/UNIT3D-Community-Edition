@@ -68,7 +68,15 @@ class TorrentCardSearch extends Component
 
     public $collectionId = '';
 
-    public $free;
+    public $free0;
+
+    public $free25;
+
+    public $free50;
+
+    public $free75;
+
+    public $free100;
 
     public $doubleup;
 
@@ -130,7 +138,11 @@ class TorrentCardSearch extends Component
         'malId'            => ['except' => ''],
         'playlistId'       => ['except' => ''],
         'collectionId'     => ['except' => ''],
-        'free'             => ['except' => false],
+        'free0'            => ['except' => false],
+        'free25'           => ['except' => false],
+        'free50'           => ['except' => false],
+        'free75'           => ['except' => false],
+        'free100'          => ['except' => false],
         'doubleup'         => ['except' => false],
         'featured'         => ['except' => false],
         'stream'           => ['except' => false],
@@ -263,8 +275,20 @@ class TorrentCardSearch extends Component
                 $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
                 $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
             })
-            ->when($this->free, function ($query) {
-                $query->where('free', '=', 1);
+            ->when($this->free0 === '0' || $this->free0, function ($query) {
+                $query->where('free', '=', 0);
+            })
+            ->when($this->free25, function ($query) {
+                $query->orWhere('free', '=', 25);
+            })
+            ->when($this->free50, function ($query) {
+                $query->orWhere('free', '=', 50);
+            })
+            ->when($this->free75, function ($query) {
+                $query->orWhere('free', '=', 75);
+            })
+            ->when($this->free100, function ($query) {
+                $query->orWhere('free', '=', 100);
             })
             ->when($this->doubleup, function ($query) {
                 $query->where('doubleup', '=', 1);

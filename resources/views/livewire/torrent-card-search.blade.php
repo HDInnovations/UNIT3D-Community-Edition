@@ -141,8 +141,32 @@
 							<label for="buffs" class="label label-default">Buff</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model="free" type="checkbox" value="1">
-									Freeleech
+									<input wire:model.prefetch="free0" type="checkbox" value="0">
+									0% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free25" type="checkbox" value="25">
+									25% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free50" type="checkbox" value="50">
+									50% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free75" type="checkbox" value="75">
+									75% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free100" type="checkbox" value="100">
+									100% Freeleech
 								</label>
 							</span>
 							<span class="badge-user">

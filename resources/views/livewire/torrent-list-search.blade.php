@@ -141,8 +141,32 @@
 							<label for="buffs" class="label label-default">Buff</label>
 							<span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free" type="checkbox" value="1">
-									Freeleech
+									<input wire:model.prefetch="free0" type="checkbox" value="0">
+									0% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free25" type="checkbox" value="25">
+									25% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free50" type="checkbox" value="50">
+									50% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free75" type="checkbox" value="75">
+									75% Freeleech
+								</label>
+							</span>
+							<span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free100" type="checkbox" value="100">
+									100% Freeleech
 								</label>
 							</span>
 							<span class="badge-user">
@@ -473,7 +497,7 @@
 								@endif
 							</td>
 							<td class="torrent-listings-overview" style="vertical-align: middle;">
-								@if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id || auth()->user()->group_id === 29)
+								@if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
 								<a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
 									<button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
 									        data-original-title="@lang('common.edit')">
@@ -568,9 +592,8 @@
 									@endif
 
 									@if ($torrent->free >= '90')
-                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
-                                        ">
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
+                                              title='' data-original-title='{{ $torrent->free }}% @lang('common.free')'>
                                             <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                         </span>
                                     @elseif ($torrent->free < '90' && $torrent->free >= '30')
@@ -578,9 +601,8 @@
                                             .star50 {position: relative;}
                                             .star50:after {content: "\f005";position: absolute;left: 0;top: 0;width: 50%;overflow: hidden;color: #FFB800;}
                                         </style>
-                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
-                                        ">
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
+                                              title='' data-original-title='{{ $torrent->free }}% @lang('common.free')'>
                                             <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
                                     @elseif ($torrent->free < '30' && $torrent->free != '0')
@@ -588,9 +610,8 @@
                                             .star30 {position: relative;}
                                             .star30:after {content: "\f005";position: absolute;left: 0;top: 0;width: 30%;overflow: hidden;color: #FFB800;}
                                         </style>
-                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip" data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
-                                        ">
+                                        <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
+                                              title='' data-original-title='{{ $torrent->free }}% @lang('common.free')'>
                                             <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
                                     @endif
