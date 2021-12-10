@@ -391,7 +391,7 @@ class TorrentController extends BaseController
                 $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
             })
             ->when($request->has('free'), function ($query) {
-                $query->where('free', '=', 1);
+                $query->where('free', '>=', 1);
             })
             ->when($request->has('doubleup'), function ($query) {
                 $query->where('doubleup', '=', 1);
