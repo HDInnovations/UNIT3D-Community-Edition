@@ -27,6 +27,9 @@ class TorrentFactory extends Factory
      */
     public function definition()
     {
+        $freeleech = ['0', '25', '50', '75', '100'];
+        $selected = \random_int(0, \count($freeleech) - 1);
+
         return [
             'name'               => $this->faker->name,
             'slug'               => $this->faker->slug,
@@ -51,10 +54,10 @@ class TorrentFactory extends Factory
             'type_id'            => fn () => Type::factory()->create()->id,
             'resolution_id'      => fn () => Resolution::factory()->create()->id,
             'stream'             => $this->faker->boolean,
-            'free'               => $this->faker->boolean,
+            'free'               => $freeleech[$selected],
             'doubleup'           => $this->faker->boolean,
             'highspeed'          => $this->faker->boolean,
-            'featured'           => $this->faker->boolean,
+            'featured'           => false,
             'status'             => 1,
             'moderated_at'       => \now(),
             'moderated_by'       => 1,
