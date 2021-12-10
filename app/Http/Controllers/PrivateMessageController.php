@@ -90,7 +90,7 @@ class PrivateMessageController extends Controller
         }
 
         return \redirect()->route('inbox')
-            ->withErrors('What Are You Trying To Do Here!');
+            ->withErrors(\trans('pm.error'));
     }
 
     /**
@@ -156,11 +156,11 @@ class PrivateMessageController extends Controller
         $privateMessage->save();
         if ($dest == 'profile') {
             return \redirect()->route('users.show', ['username' => $recipient->username])
-                ->withSuccess('Your PM Was Sent Successfully!');
+                ->withSuccess(\trans('pm.sent-success'));
         }
 
         return \redirect()->route('inbox')
-            ->withSuccess('Your PM Was Sent Successfully!');
+            ->withSuccess(\trans('pm.sent-success'));
     }
 
     /**
@@ -201,7 +201,7 @@ class PrivateMessageController extends Controller
         $privateMessage->save();
 
         return \redirect()->route('inbox')
-            ->withSuccess('Your PM Was Sent Successfully!');
+            ->withSuccess(\trans('pm.sent-success'));
     }
 
     /**
@@ -227,15 +227,15 @@ class PrivateMessageController extends Controller
             $pm->delete();
 
             if ($dest == 'outbox') {
-                return \redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
+                return \redirect()->route('outbox')->withSuccess(\trans('pm.delete-success'));
             }
 
             return \redirect()->route('inbox')
-                ->withSuccess('PM Was Deleted Successfully!');
+                ->withSuccess(\trans('pm.delete-success'));
         }
 
         return \redirect()->route('inbox')
-                ->withErrors('What Are You Trying To Do Here!');
+                ->withErrors(\trans('pm.error'));
     }
 
     /**
@@ -250,7 +250,7 @@ class PrivateMessageController extends Controller
         PrivateMessage::where('receiver_id', '=', $user->id)->delete();
 
         return \redirect()->route('inbox')
-                ->withSuccess('PM Was Deleted Successfully!');
+                ->withSuccess(\trans('pm.delete-success'));
     }
 
     /**
@@ -268,6 +268,6 @@ class PrivateMessageController extends Controller
         }
 
         return \redirect()->route('inbox')
-            ->withSuccess('Your Messages Have All Been Marked As Read!');
+            ->withSuccess(\trans('pm.all-marked-read'));
     }
 }

@@ -55,7 +55,7 @@ class PollController extends Controller
 
         if ($userHasVoted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withInfo('You have already vote on this poll. Here are the results.');
+                ->withInfo(\trans('poll.already-voted-result'));
         }
 
         return \view('poll.show', ['poll' => $poll]);
@@ -76,7 +76,7 @@ class PollController extends Controller
             ->exists();
         if ($voted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
+                ->withErrors(\trans('poll.already-voted-error'));
         }
 
         // Operate options after validation
@@ -98,7 +98,7 @@ class PollController extends Controller
         );
 
         return \redirect()->route('poll_results', ['id' => $poll->id])
-            ->withSuccess('Your vote has been counted.');
+            ->withSuccess(\trans('poll.vote-counted'));
     }
 
     /**
