@@ -136,7 +136,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($torrent->featured == 0) {
-            $torrent->free = '1';
+            $torrent->free = '100';
             $torrent->doubleup = '1';
             $torrent->featured = '1';
             $torrent->save();
