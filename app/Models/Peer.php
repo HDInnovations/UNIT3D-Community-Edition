@@ -142,9 +142,6 @@ class Peer extends Model
                 if (\is_resource($con)) {
                     \fclose($con);
                 }
-
-                // See https://laracasts.com/discuss/channels/eloquent/use-update-without-updating-timestamps?page=1&replyId=680133
-                self::where('ip', '=', $tmp_ip)->where('port', '=', $this->port)->where('agent', '=', $this->agent)->update(['connectable' => $this->connectable, 'updated_at' => DB::raw('updated_at')]);
             }
         }
     }
