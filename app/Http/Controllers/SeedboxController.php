@@ -66,7 +66,7 @@ class SeedboxController extends Controller
         $seedbox->save();
 
         return \redirect()->route('seedboxes.index', ['username' => $user->username])
-            ->withSuccess('Seedbox Has Been Successfully Added!');
+            ->withSuccess(\trans('user.seedbox-added-success'));
     }
 
     /**
@@ -88,6 +88,6 @@ class SeedboxController extends Controller
         $seedbox->delete();
 
         return \redirect()->route('seedboxes.index', ['username' => $user->username])
-            ->withSuccess('Seedbox Has Been Successfully Deleted');
+            ->withSuccess(\trans('user.seedbox-deleted-success'));
     }
 }

@@ -266,6 +266,8 @@ return [
     'search'                               => 'Schnelle Suche nach Nutzername',
     'security'                             => 'Sicherheit',
     'security-settings'                    => 'Sicherheits-Einstellungen',
+    'seedbox-added-success'                => 'Seedbox wurde erfolgreich hinzugefügt!',
+    'seedbox-deleted-success'              => 'Seedbox wurde erfolgreich gelöscht',
     'seedboxes'                            => 'Seedboxen',
     'seeding-size'                         => 'Seed Größe',
     'seeds'                                => 'Seeds',

@@ -301,6 +301,8 @@ return [
     'search'                               => 'Quick Search by Username/Email',
     'security'                             => 'Security',
     'security-settings'                    => 'Security Settings',
+    'seedbox-added-success'                => 'Seedbox Has Been Successfully Added!',
+    'seedbox-deleted-success'              => 'Seedbox Has Been Successfully Deleted',
     'seedboxes'                            => 'Seedboxes',
     'seeding-size'                         => 'Seeding Size',
     'seeds'                                => 'Seeds',
