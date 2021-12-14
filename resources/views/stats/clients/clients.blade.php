@@ -24,6 +24,7 @@
             <hr>
             <div class="row col-md-offset-1">
                 @foreach ($clients as $key => $value)
+                    @php if (\strlen($key) > 26) { $key = substr($key, 0, 23).'...'; } @endphp
                     <div class="well col-md-3" style="margin: 10px;">
                         <div class="text-center">
                             <h3 class="text-success">{{ $key }}</h3>
