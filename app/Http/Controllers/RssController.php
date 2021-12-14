@@ -397,7 +397,7 @@ class RssController extends Controller
             $rss->json_torrent = \array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
             $rss->save();
-            $success =  \trans('rss.updated');
+            $success = \trans('rss.updated');
         }
 
         if ($success === null) {
