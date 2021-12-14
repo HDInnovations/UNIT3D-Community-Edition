@@ -54,7 +54,7 @@ class AutoStatsClients extends Command
                 $clients_tmp[] = $peer->agent;
                 $clients[(string) $peer->agent] = 1;
             } else {
-                ++$clients[(string) $peer->agent];
+                $clients[(string) $peer->agent]++;
             }
         }
 
