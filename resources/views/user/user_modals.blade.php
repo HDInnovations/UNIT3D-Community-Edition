@@ -242,8 +242,13 @@
             <div class="modal-body">
                 <div class="py-3">
                     <div class="text-center">
-                        <a href="{{ route('user_delete', ['username' => $user->username]) }}"><input
-                                class="btn btn-danger" type="submit" value="Yes, Delete"></a>
+                        <form action="{{ route('user_delete', ['username' => $user->username]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete')
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
