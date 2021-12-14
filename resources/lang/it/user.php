@@ -128,7 +128,7 @@ return [
     'invites-count'                        => 'Hai: conta inviti token',
     'invites-disabled'                     => 'Attenzione: gli inviti sono disabilitati a causa della registrazione aperta!',
     'invites-disabled-desc'                => 'Si prega di controllare presto!',
-    'invites-rules'                        => '<li class="text-success"> Invita solo le persone che conosci e di cui ti fidi. </li><li class="text-danger"> Sarai ritenuto personalmente responsabile per coloro che inviti. </li><li class="text-danger"> Non invitare te stesso, controlliamo ogni utente invitato. </li><li class="text-danger"> Non scambiare o vendere Inviti. </li><li class="text-danger"> Se una persona che hai invitato viene sorpresa a barare, fare trading account o vendere / fare trading, valuteremo la tua responsabilità. </li>',
+    'invites-rules'                        => '<li class="text-success"> Invita solo le persone che conosci e di cui ti fidi. </li><li class="text-danger"> Sarai ritenuto personalmente responsabile per coloro che inviti. </li><li class="text-danger"> Non invitare te stesso, controlliamo ogni utente invitato. </li><li class="text-danger"> Non scambiare o vendere Inviti. </li><li class="text-danger"> Se tu o una persona che hai invitato viene sorpresa a barare, fare trading account, valuteremo la tua responsabilità. </li>',
     'invites-send'                         => 'Inviti effettuati',
     'last-login'                           => 'Ultimo accesso',
     'locked'                               => 'Bloccato',
