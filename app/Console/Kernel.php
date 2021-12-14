@@ -58,6 +58,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:sync_peers')->daily();
         $schedule->command('auto:email-blacklist-update')->weekends();
         $schedule->command('auto:reset_user_flushes')->daily();
+        $schedule->command('auto:stats_clients')->daily();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();
