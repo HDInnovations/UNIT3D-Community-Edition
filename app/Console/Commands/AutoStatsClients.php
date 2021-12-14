@@ -49,12 +49,12 @@ class AutoStatsClients extends Command
             if (! \in_array($peer->user_id, $user_id)) {
                 $user_id[] = $peer->user_id;
                 $clients_tmp[] = $peer->agent;
-                $clients[(string)$peer->agent] = 1;
+                $clients[(string) $peer->agent] = 1;
             } elseif (! \in_array($peer->agent, $clients_tmp) && \in_array($peer->user_id, $user_id)) {
                 $clients_tmp[] = $peer->agent;
-                $clients[(string)$peer->agent] = 1;
+                $clients[(string) $peer->agent] = 1;
             } else {
-                ++$clients[(string)$peer->agent];
+                ++$clients[(string) $peer->agent];
             }
         }
 
