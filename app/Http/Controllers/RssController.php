@@ -121,11 +121,11 @@ class RssController extends Controller
             $rss->json_torrent = \array_merge($expected, $params);
             $rss->is_private = 1;
             $rss->save();
-            $success = 'Private RSS Feed Created';
+            $success = \trans('rss.created');
         }
 
         if ($success === null) {
-            $error = 'Unable To Process Request';
+            $error = \trans('rss.error');
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -397,11 +397,11 @@ class RssController extends Controller
             $rss->json_torrent = \array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
             $rss->save();
-            $success = 'Private RSS Feed Updated';
+            $success =  \trans('rss.updated');
         }
 
         if ($success === null) {
-            $error = 'Unable To Process Request';
+            $error = \trans('rss.error');
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -429,6 +429,6 @@ class RssController extends Controller
         $rss->delete();
 
         return \redirect()->route('rss.index', ['hash' => 'private'])
-            ->withSuccess('RSS Feed Deleted!');
+            ->withSuccess(\trans('rss.deleted'));
     }
 }
