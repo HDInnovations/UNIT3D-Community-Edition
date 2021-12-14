@@ -59,6 +59,9 @@ class AutoStatsClients extends Command
         }
 
         if (! empty($clients)) {
+            // Sort Clients by Array Key Alphabetically
+            \ksort($clients);
+
             \cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 
