@@ -574,7 +574,13 @@
                                     </a>
                                 </td>
                                 @if (\config('announce.connectable_check') == true)
-                                <td>@choice('user.client-connectable-state', $p->connectable)</td>
+                                @php 
+                                    $connectable = false;
+                                    if (cache()->has('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent)) {
+                                        $connectable = cache()->get('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent);
+                                    }
+                                @endphp
+                                <td>@choice('user.client-connectable-state', $connectable)</td>
                                 @endif
                             </tr>
 			                @php array_push($peer_array, [$p->ip, $p->port]); @endphp
