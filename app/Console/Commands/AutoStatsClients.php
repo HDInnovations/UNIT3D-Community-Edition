@@ -35,10 +35,8 @@ class AutoStatsClients extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         $peers = Peer::where('seeder', '=', 1)->get();
 
@@ -48,15 +46,15 @@ class AutoStatsClients extends Command
 
         // Goal is to calculate the number of users and not the peer count
         foreach ($peers as $peer) {
-            if (! in_array($peer->user_id, $user_id)) {
-                array_push($user_id, $peer->user_id);
-                array_push($clients_tmp, $peer->agent);
-                $clients[strval($peer->agent)] = 1;
-            } elseif (! in_array($peer->agent, $clients_tmp) && in_array($peer->user_id, $user_id)) {
-                array_push($clients_tmp, $peer->agent);
-                $clients[strval($peer->agent)] = 1;
+            if (! \in_array($peer->user_id, $user_id)) {
+                $user_id[] = $peer->user_id;
+                $clients_tmp[] = $peer->agent;
+                $clients[(string)$peer->agent] = 1;
+            } elseif (! \in_array($peer->agent, $clients_tmp) && \in_array($peer->user_id, $user_id)) {
+                $clients_tmp[] = $peer->agent;
+                $clients[(string)$peer->agent] = 1;
             } else {
-                $clients[strval($peer->agent)] += 1;
+                ++$clients[(string)$peer->agent];
             }
         }
 
