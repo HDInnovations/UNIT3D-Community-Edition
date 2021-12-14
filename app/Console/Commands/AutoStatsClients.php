@@ -48,23 +48,19 @@ class AutoStatsClients extends Command
 
         // Goal is to calculate the number of users and not the peer count
         foreach ($peers as $peer) {
-            if (!in_array($peer->user_id, $user_id)){
+            if (! in_array($peer->user_id, $user_id)) {
                 array_push($user_id, $peer->user_id);
                 array_push($clients_tmp, $peer->agent);
                 $clients[strval($peer->agent)] = 1;
-            }
-            else if(!in_array($peer->agent, $clients_tmp) && in_array($peer->user_id, $user_id))
-            {
+            } else if(! in_array($peer->agent, $clients_tmp) && in_array($peer->user_id, $user_id)) {
                 array_push($clients_tmp, $peer->agent);
                 $clients[strval($peer->agent)] = 1;
-            }
-            else
-            {
+            } else {
                 $clients[strval($peer->agent)] += 1;
             }
         }
 
-        if(!empty($clients)) {
+        if(! empty($clients)) {
             \cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 

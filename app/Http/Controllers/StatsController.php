@@ -362,7 +362,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Clients.
      */
-    public function clients(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $clients = [];
 
