@@ -75,7 +75,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Helpdesk Ticket Was Created Successfully!');
+            ->withSuccess(\trans('ticket.created-success'));
     }
 
     /**
@@ -142,7 +142,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Helpdesk Ticket Was Updated Successfully!');
+            ->withSuccess(\trans('ticket.updated-success'));
     }
 
     /**
@@ -159,7 +159,7 @@ class TicketController extends Controller
         $ticket->delete();
 
         return \redirect()->route('tickets.index')
-            ->withSuccess('Your Helpdesk Ticket Was Deleted Successfully!');
+            ->withSuccess(\trans('ticket.deleted-success'));
     }
 
     final public function assign(Request $request, int $id): \Illuminate\Http\RedirectResponse
@@ -183,7 +183,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Assigned Successfully!');
+            ->withSuccess(\trans('ticket.assigned-success'));
     }
 
     final public function unassign(Request $request, int $id): \Illuminate\Http\RedirectResponse
@@ -196,7 +196,7 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Unassigned Successfully!');
+            ->withSuccess(\trans('ticket.unassigned-success'));
     }
 
     final public function close(Request $request, int $id): \Illuminate\Http\RedirectResponse
@@ -209,6 +209,6 @@ class TicketController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Helpdesk Ticket Was Closed Successfully!');
+            ->withSuccess(\trans('ticket.closed-success'));
     }
 }

@@ -256,6 +256,8 @@ return [
     'search'                               => 'Recherche rapide par nom d utilisateur',
     'security'                             => 'Sécurité',
     'security-settings'                    => 'Les paramètres de sécurité',
+    'seedbox-added-success'                => 'Seedbox a été ajouté avec succès!',
+    'seedbox-deleted-success'              => 'Seedbox a été supprimé avec succès',
     'seedboxes'                            => 'Seedbox',
     'seeds'                                => 'Seeds',
     'send-invite'                          => 'Envoyer une invitation',
