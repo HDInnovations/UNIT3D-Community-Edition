@@ -75,7 +75,7 @@
                 <tr>
                     <td>
                         <section class="recommendations">
-                        @foreach($collection->movie as $movie)
+                        @foreach($collection->movie->sortBy('release_date') as $movie)
                             <div class="item mini backdrop mini_card col-md-3">
                                 <div class="image_content">
                                     @php
