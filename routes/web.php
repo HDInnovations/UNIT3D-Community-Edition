@@ -194,6 +194,7 @@ Route::group(['middleware' => 'language'], function () {
         // Extra-Stats System
         Route::group(['prefix' => 'stats'], function () {
             Route::get('/', [App\Http\Controllers\StatsController::class, 'index'])->name('stats');
+            Route::get('/user/clients', [App\Http\Controllers\StatsController::class, 'clients'])->name('clients');
             Route::get('/user/uploaded', [App\Http\Controllers\StatsController::class, 'uploaded'])->name('uploaded');
             Route::get('/user/downloaded', [App\Http\Controllers\StatsController::class, 'downloaded'])->name('downloaded');
             Route::get('/user/seeders', [App\Http\Controllers\StatsController::class, 'seeders'])->name('seeders');

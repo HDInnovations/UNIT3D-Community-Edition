@@ -140,6 +140,13 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="well well-sm">
+                    <a href="{{ route('clients') }}">
+                        <p class="lead text-green text-center">Clients</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="well well-sm">
                     <a href="{{ route('uploaded') }}">
                         <p class="lead text-green text-center">@lang('common.users')</p>
                     </a>
