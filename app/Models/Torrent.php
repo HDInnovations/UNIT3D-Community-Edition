@@ -235,6 +235,16 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function playlists()
+    {
+        return $this->hasMany(PlaylistTorrent::class);
+    }
+
+    /**
      * Has Many Genres.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
