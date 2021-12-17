@@ -11,7 +11,7 @@
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
+                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count() @endphp
                 <a href="{{ route('inbox') }}" class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
                     @if ($pm > 0)
@@ -46,7 +46,7 @@
                                 $query->where('staff_id', '=', auth()->user()->id)
                                       ->Where('staff_read', '=', '0');
                             })
-                            ->count();
+                            ->count()
                         @endphp
                         @if ($tickets > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
@@ -56,7 +56,7 @@
                         @php $ticket_unread = DB::table('tickets')
                             ->where('user_id', '=', auth()->user()->id)
                             ->where('user_read', '=', '0')
-                            ->count();
+                            ->count()
                         @endphp
                         @if ($ticket_unread > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
@@ -69,7 +69,7 @@
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="{{ route('staff.moderation.index') }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
-                    @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
+                        @php $modder = DB::table('torrents')->where('status', '=', '0')->count() @endphp
                         @if ($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                         @endif
@@ -79,17 +79,20 @@
         </ul>
 
         <ul class="right-navbar">
-            <li class="dropdown hoe-rheader-submenu message-notification left-min-30 mobile-hide" style="margin-right:10px;">
-                <livewire:quick-search-dropdown />
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-30 mobile-hide"
+                style="margin-right:10px;">
+                <livewire:quick-search-dropdown/>
             </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>
                         @if (auth()->user()->image != null)
-                            <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
-                                class="img-circle">
+                            <img src="{{ url('files/img/' . auth()->user()->image) }}"
+                                 alt="{{ auth()->user()->username }}"
+                                 class="img-circle">
                         @else
-                            <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
+                            <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}"
+                                 class="img-circle">
                         @endif
                     </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
@@ -117,7 +120,8 @@
                     </li>
                     <li>
                         <a href="{{ route('achievements.index') }}">
-                            <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i> My @lang('user.achievements')
+                            <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
+                            My @lang('user.achievements')
                         </a>
                     </li>
                     <li>
@@ -142,7 +146,8 @@
                         </a>
                     </li>
                     <li>
-                        <form role="form" method="POST" action="{{ route('logout') }}" style="background-color: #272634; clear: both; display: block; font-family: lato,sans-serif; font-weight: 400; line-height: 1.42857; padding: 6px 10px; white-space: nowrap; ">
+                        <form role="form" method="POST" action="{{ route('logout') }}"
+                              style="background-color: #272634; clear: both; display: block; font-family: lato,sans-serif; font-weight: 400; line-height: 1.42857; padding: 6px 10px; white-space: nowrap; ">
                             @csrf
                             <div class="text-center">
                                 <button type="submit" class="btn btn-xs btn-danger">

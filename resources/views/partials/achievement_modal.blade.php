@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-achievement" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
+    <div class="modal-dialog{{ modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">

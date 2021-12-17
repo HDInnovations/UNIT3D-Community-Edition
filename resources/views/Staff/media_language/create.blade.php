@@ -29,7 +29,7 @@
         </h2>
         <form role="form" method="POST" action="{{ route('staff.media_languages.store') }}">
             @csrf
-    
+
             <div class="form-group">
                 <label for="name">@lang('common.name')</label>
                 <label>
@@ -43,7 +43,7 @@
                     <input type="text" class="form-control" name="code">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
         </form>
     </div>

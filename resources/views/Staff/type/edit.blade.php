@@ -39,14 +39,14 @@
                     <input type="text" class="form-control" name="name" value="{{ $type->name }}">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="name">@lang('common.position')</label>
                 <label>
                     <input type="text" class="form-control" name="position" value="{{ $type->position }}">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>

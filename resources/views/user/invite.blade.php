@@ -6,13 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('invites.index', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
                 @lang('user.send-invite')</span>
         </a>
@@ -70,17 +71,20 @@
                                 @csrf
                                 <div class="form-group"><label for="email">@lang('common.email')</label></div>
                                 <div class="form-group"><input class="form-control" name="email" type="email" id="email"
-                                        size="10" required></div>
+                                                               size="10" required></div>
                                 <div class="form-group"><label for="message">@lang('common.message')</label></div>
                                 <div class="form-group">
-                                    <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea></div>
-                                <div class="form-group"><button type="submit"
-                                        class="btn btn-primary">@lang('common.submit')</button></div>
+                                    <textarea class="form-control" name="message" cols="50" rows="10"
+                                              id="message"></textarea></div>
+                                <div class="form-group">
+                                    <button type="submit"
+                                            class="btn btn-primary">@lang('common.submit')</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     @endif
 @endsection

@@ -27,7 +27,7 @@
                     <div class="well col-md-3" style="margin: 10px;">
                         <div class="text-center">
                             <h3 class="text-success">{{ $name }}</h3>
-                            @php $count = App\Models\User::where('locale', '=', $code)->count(); @endphp
+                            @php $count = App\Models\User::where('locale', '=', $code)->count() @endphp
                             <span class="badge-extra text-blue">Used By {{ $count }} Users</span>
                         </div>
                     </div>

@@ -16,7 +16,8 @@
     </li>
     <li>
         <a href="{{ route('albums.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.create') @lang('common.album')</span>
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">@lang('common.create') @lang('common.album')</span>
         </a>
     </li>
 @endsection
@@ -24,7 +25,8 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <form name="createnewalbum" method="POST" action="{{ route('albums.store') }}" enctype="multipart/form-data">
+            <form name="createnewalbum" method="POST" action="{{ route('albums.store') }}"
+                  enctype="multipart/form-data">
                 @csrf
                 <h2 class="text-center">@lang('gallery.create-an-album')</h2>
                 <h4 class="text-red text-center">
@@ -33,13 +35,15 @@
                 <div class="form-group">
                     <label for="name">IMDB</label>
                     <label>
-                        <input name="imdb" type="text" class="form-control" placeholder="IMDB #" value="{{ old('imdb') }}">
+                        <input name="imdb" type="text" class="form-control" placeholder="IMDB #"
+                               value="{{ old('imdb') }}">
                     </label>
                 </div>
                 <div class="form-group">
                     <label for="description">@lang('common.album') @lang('common.description')</label>
                     <label>
-                        <textarea name="description" type="text" class="form-control" placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
+                        <textarea name="description" type="text" class="form-control"
+                                  placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
                     </label>
                 </div>
                 <div class="form-group">

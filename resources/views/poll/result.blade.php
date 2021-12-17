@@ -36,8 +36,8 @@
                     <div class="panel-body">
                         @foreach ($poll->options as $option)
                             @php
-                            $vote_value = $total_votes !== 0 ? ($option->votes / $total_votes) * 100 : 0;
-                            $vote_value = round($vote_value, 2);
+                                $vote_value = $total_votes !== 0 ? ($option->votes / $total_votes) * 100 : 0;
+                                $vote_value = round($vote_value, 2)
                             @endphp
                             <strong>{{ $option->name }}</strong><span class="pull-right">{{ $option->votes }}
                                 @if ($option->votes == 1)
@@ -48,8 +48,8 @@
                             </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                    aria-valuenow="{{ $vote_value }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ $vote_value }}%;">
+                                     aria-valuenow="{{ $vote_value }}" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ $vote_value }}%;">
                                     {{ $vote_value }}%
                                 </div>
                             </div>

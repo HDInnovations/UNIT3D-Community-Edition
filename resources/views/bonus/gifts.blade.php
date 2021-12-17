@@ -33,34 +33,34 @@
                             <h3>@lang('bon.gifts')</h3>
                             <table class="table table-condensed table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>@lang('bon.sender')</th>
-                                        <th>@lang('bon.receiver')</th>
-                                        <th>@lang('bon.points')</th>
-                                        <th>@lang('bon.date')</th>
-                                    </tr>
+                                <tr>
+                                    <th>@lang('bon.sender')</th>
+                                    <th>@lang('bon.receiver')</th>
+                                    <th>@lang('bon.points')</th>
+                                    <th>@lang('bon.date')</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($gifttransactions as $b)
-                                        <tr>
-                                            <td>
-                                                <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
-                                                    <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
-                                                    <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                {{ $b->cost }}
-                                            </td>
-                                            <td>
-                                                {{ $b->date_actioned }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                @foreach($gifttransactions as $b)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
+                                                <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
+                                                <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ $b->cost }}
+                                        </td>
+                                        <td>
+                                            {{ $b->date_actioned }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <div class="some-padding text-center">

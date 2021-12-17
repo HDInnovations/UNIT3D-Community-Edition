@@ -29,61 +29,65 @@
                             <h3>@lang('bon.exchange')</h3>
                             <table class="table table-condensed table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>@lang('bon.item')</th>
-                                        <th>@lang('bon.points')</th>
-                                        <th>@lang('bon.exchange')</th>
-                                    </tr>
+                                <tr>
+                                    <th>@lang('bon.item')</th>
+                                    <th>@lang('bon.points')</th>
+                                    <th>@lang('bon.exchange')</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($uploadOptions as $u => $uu)
-                                        <tr>
-                                            <td>{{ $uu['description'] }}</td>
-                                            <td>{{ $uu['cost'] }}</td>
-                                            <td>
-                                                <form method="POST" action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
-                                                    @csrf
-                                                    <button type="sumbit"
+                                @foreach ($uploadOptions as $u => $uu)
+                                    <tr>
+                                        <td>{{ $uu['description'] }}</td>
+                                        <td>{{ $uu['cost'] }}</td>
+                                        <td>
+                                            <form method="POST"
+                                                  action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
+                                                @csrf
+                                                <button type="sumbit"
                                                         class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
-                                    @foreach ($personalFreeleech as $p => $pf)
-                                        <tr>
-                                            <td>{{ $pf['description'] }}</td>
-                                            <td>{{ $pf['cost'] }}</td>
-                                            <td>
-                                                @if ($activefl)
-                                                    <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
-                                                        @lang('bon.activated')!
-                                                    </button>
-                                                @else
-                                                    <form method="POST" action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-info btn-exchange">
-                                                            @lang('bon.exchange')
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                    @foreach ($invite as $i => $in)
-                                        <tr>
-                                            <td>{{ $in['description'] }}</td>
-                                            <td>{{ $in['cost'] }}</td>
-                                            <td>
-                                                <form method="POST" action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
+                                @foreach ($personalFreeleech as $p => $pf)
+                                    <tr>
+                                        <td>{{ $pf['description'] }}</td>
+                                        <td>{{ $pf['cost'] }}</td>
+                                        <td>
+                                            @if ($activefl)
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-success btn-exchange disabled">
+                                                    @lang('bon.activated')!
+                                                </button>
+                                            @else
+                                                <form method="POST"
+                                                      action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
                                                     @csrf
-                                                    <button class="btn btn-sm btn-info btn-exchange"
-                                                        type="submit">@lang('bon.exchange')</button>
+                                                    <button type="submit" class="btn btn-sm btn-info btn-exchange">
+                                                        @lang('bon.exchange')
+                                                    </button>
                                                 </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                @foreach ($invite as $i => $in)
+                                    <tr>
+                                        <td>{{ $in['description'] }}</td>
+                                        <td>{{ $in['cost'] }}</td>
+                                        <td>
+                                            <form method="POST"
+                                                  action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
+                                                @csrf
+                                                <button class="btn btn-sm btn-info btn-exchange"
+                                                        type="submit">@lang('bon.exchange')</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

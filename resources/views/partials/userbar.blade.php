@@ -7,15 +7,15 @@
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
-                                aria-hidden="true" data-toggle="tooltip"
-                                data-original-title="@lang('common.active-warning')"></i>
+                               aria-hidden="true" data-toggle="tooltip"
+                               data-original-title="@lang('common.active-warning')"></i>
                         @endif
                     </span>
                 </a>
             </li>
             <li>
                 <span class="badge-user text-bold"
-                    style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
+                      style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                     <i class="{{ auth()->user()->group->icon }}"></i>
                     <strong> {{ auth()->user()->group->name }}</strong>
                 </span>
@@ -56,7 +56,7 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-upload text-green"></i>
                     <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
-                        title="@lang('torrent.my-active-torrents')">
+                       title="@lang('torrent.my-active-torrents')">
                         <span class="text-blue"> @lang('torrent.seeding'):</span>
                     </a>
                     {{ auth()
@@ -68,7 +68,7 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-download text-red"></i>
                     <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
-                        title="@lang('torrent.my-active-torrents')">
+                       title="@lang('torrent.my-active-torrents')">
                         <span class="text-blue"> @lang('torrent.leeching'):</span>
                     </a>
                     {{ auth()
@@ -102,7 +102,7 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                     <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}"
-                        title="@lang('user.my-fl-tokens')">
+                       title="@lang('user.my-fl-tokens')">
                         <span class="text-blue"> @lang('common.fl_tokens') :</span>
                     </a>
                     {{ auth()->user()->fl_tokens }}

@@ -31,39 +31,40 @@
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
-                        <tr>
-                            <th>@lang('common.no')</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.ip')</th>
-                            <th>@lang('user.created-on')</th>
-                            <th>@lang('common.action')</th>
-                        </tr>
+                    <tr>
+                        <th>@lang('common.no')</th>
+                        <th>@lang('common.user')</th>
+                        <th>@lang('common.ip')</th>
+                        <th>@lang('user.created-on')</th>
+                        <th>@lang('common.action')</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @if ($seedboxes->count())
-                            @foreach ($seedboxes as $key => $seedbox)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td><a href="{{ route('users.show', ['username' => $seedbox->user->username]) }}">
-                                            {{ $seedbox->user->username }}
-                                        </a>
-                                    </td>
-                                    <td class="text-success">{{ $seedbox->ip }}</td>
-                                    <td>
-                                        {{ $seedbox->created_at->toDayDateTimeString() }}
-                                        ({{ $seedbox->created_at->diffForHumans() }})
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-xs btn-danger"><i
+                    @if ($seedboxes->count())
+                        @foreach ($seedboxes as $key => $seedbox)
+                            <tr>
+                                <td>{{ ++$key }}</td>
+                                <td><a href="{{ route('users.show', ['username' => $seedbox->user->username]) }}">
+                                        {{ $seedbox->user->username }}
+                                    </a>
+                                </td>
+                                <td class="text-success">{{ $seedbox->ip }}</td>
+                                <td>
+                                    {{ $seedbox->created_at->toDayDateTimeString() }}
+                                    ({{ $seedbox->created_at->diffForHumans() }})
+                                </td>
+                                <td>
+                                    <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}"
+                                          method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-xs btn-danger"><i
                                                     class="{{ config('other.font-awesome') }} fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
                 <div class="text-center">

@@ -36,37 +36,37 @@
             <div class="form-group">
                 <label for="name">@lang('common.position')</label>
                 <label for="position"></label><input type="number" id="position" name="position"
-                    value="{{ $bot->position }}" class="form-control">
+                                                     value="{{ $bot->position }}" class="form-control">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.command')</label>
                 <label for="command"></label><input type="text" class="form-control" id="command" name="command"
-                    value="{{ $bot->command }}">
+                                                    value="{{ $bot->command }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.info')</label>
                 <label for="info"></label><input type="text" class="form-control" id="info" name="info"
-                    value="{{ $bot->info }}">
+                                                 value="{{ $bot->info }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.about')</label>
                 <label for="about"></label><input type="text" class="form-control" id="about" name="about"
-                    value="{{ $bot->about }}">
+                                                  value="{{ $bot->about }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.emoji-code')</label>
                 <label for="emoji"></label><input type="text" class="form-control" id="emoji" name="emoji"
-                    value="{{ $bot->emoji }}">
+                                                  value="{{ $bot->emoji }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.icon')</label>
                 <label for="icon"></label><input type="text" class="form-control" id="icon" name="icon"
-                    value="{{ $bot->icon }}">
+                                                 value="{{ $bot->icon }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.color')</label>
                 <label for="color"></label><input type="text" class="form-control" id="color" name="color"
-                    value="{{ $bot->color }}">
+                                                  value="{{ $bot->color }}">
             </div>
             <div class="form-group">
                 <label for="name">@lang('bot.help')</label>

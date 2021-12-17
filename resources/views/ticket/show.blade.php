@@ -18,26 +18,27 @@
 @endsection
 
 @section('content')
-<div class="container well">
-    <div class="row justify-content-center">
-        <div class="col-12">
-            @if(session('errors'))
-                <div class="alert alert-danger fade show">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h6><b>@lang('ticket.fix-errors')</b></h6>
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+    <div class="container well">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                @if(session('errors'))
+                    <div class="alert alert-danger fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h6><b>@lang('ticket.fix-errors')</b></h6>
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="col-md-8">
                     <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">@lang('ticket.ticket') <i class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
+                        <div class="panel-heading">@lang('ticket.ticket') <i
+                                    class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
                         <div class="panel-body">
                         <span class="float-right small text-right">
                             <i class="far fa-user"></i> @lang('ticket.opened-by')
@@ -48,18 +49,23 @@
                             <div class="form-inline">
                                 <div class="form-group">
                                     @if(empty($ticket->closed_at))
-                                        <form style="display: inline;" role="form" method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
+                                        <form style="display: inline;" role="form" method="POST"
+                                              action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-xs btn-warning"><i class="fas fa-times"></i> @lang('ticket.close')</button>
+                                            <button type="submit" class="btn btn-xs btn-warning"><i
+                                                        class="fas fa-times"></i> @lang('ticket.close')</button>
                                         </form>
                                     @endif
-                                        @if(!empty($ticket->closed_at))
-                                            <span style="display: inline;" class="text-danger">@lang('ticket.closed') {{ $ticket->closed_at->format('m/d/Y') }}</span>
-                                        @endif
-                                        <form style="display: inline;" role="form" method="POST" action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}">
+                                    @if(!empty($ticket->closed_at))
+                                        <span style="display: inline;"
+                                              class="text-danger">@lang('ticket.closed') {{ $ticket->closed_at->format('m/d/Y') }}</span>
+                                    @endif
+                                        <form style="display: inline;" role="form" method="POST"
+                                              action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-xs btn-danger"><i class="fas fa-times"></i> @lang('ticket.delete')</button>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i
+                                                        class="fas fa-times"></i> @lang('ticket.delete')</button>
                                         </form>
                                     </div>
                                 </div>
@@ -69,19 +75,23 @@
                                     <div class="mb-10 form-inline pull-right">
                                         <div class="form-group">
                                             @if(empty($ticket->staff_id))
-                                                <form role="form" method="POST" action="{{ route('tickets.assign', ['id' => $ticket->id]) }}">
+                                                <form role="form" method="POST"
+                                                      action="{{ route('tickets.assign', ['id' => $ticket->id]) }}">
                                                     @csrf
                                                     <select name="user_id" class="form-control">
                                                         @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
                                                             <option value="{{ $user->id }}">{{ $user->username }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <button type="submit" class="btn btn-sm btn-warning">@lang('ticket.assign')</button>
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-warning">@lang('ticket.assign')</button>
                                                 </form>
                                             @else
-                                                <form role="form" method="POST" action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}">
+                                                <form role="form" method="POST"
+                                                      action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-sm btn-warning">@lang('ticket.unassign')</button>
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-warning">@lang('ticket.unassign')</button>
                                                 </form>
                                             @endif
                                         </div>
@@ -142,7 +152,8 @@
                                         @foreach($ticket->attachments as $attachment)
                                             <tr>
                                                 <td style="width:100px">
-                                                    <form action="{{ route('tickets.attachment.download', $attachment) }}" method="POST">
+                                                    <form action="{{ route('tickets.attachment.download', $attachment) }}"
+                                                          method="POST">
                                                         @csrf
                                                         <button class="btn btn-success btn-sm">@lang('ticket.download')</button>
                                                     </form>
@@ -161,52 +172,54 @@
 
                 </div>
 
-                    <div class="col-md-12 col-sm-12">
-                        <div class="panel panel-chat shoutbox">
-                            <div class="panel-heading">
-                                <h4>
-                                    <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
-                                </h4>
-                            </div>
-                            <div class="panel-body no-padding">
-                                <ul class="media-list comments-list">
-                                    @if (count($ticket->comments) == 0)
-                                        <div class="text-center">
-                                            <h4 class="text-bold text-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!
-                                            </h4>
-                                        </div>
-                                        @else
-                                        @foreach ($ticket->comments as $comment)
-                                            <li class="media" style="border-left: 5px solid rgb(1,188,140);">
-                                                <div class="media-body">
+                <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-chat shoutbox">
+                        <div class="panel-heading">
+                            <h4>
+                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                            </h4>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <ul class="media-list comments-list">
+                                @if (count($ticket->comments) == 0)
+                                    <div class="text-center">
+                                        <h4 class="text-bold text-danger">
+                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                            !
+                                        </h4>
+                                    </div>
+                                @else
+                                    @foreach ($ticket->comments as $comment)
+                                        <li class="media" style="border-left: 5px solid rgb(1,188,140);">
+                                            <div class="media-body">
+                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                   class="pull-left" style="padding-right: 10px;">
+                                                    @if ($comment->user->image != null)
+                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
+                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+                                                @else
+                                                    <img src="{{ url('img/profile.png') }}"
+                                                         alt="{{ $comment->user->username }}"
+                                                         class="img-avatar-48"></a>
+                                                @endif
+                                                <strong>
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       class="pull-left" style="padding-right: 10px;">
-                                                        @if ($comment->user->image != null)
-                                                            <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                                 alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                        @else
-                                                        <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}"
-                                                             class="img-avatar-48"></a>
-                                                        @endif
-                                                    <strong>
-                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                           style="color:{{ $comment->user->group->color }};">
-                                                            <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
-                                                        </a>
-                                                    </strong>
-                                                    <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                    <div class="pt-5">
-                                                        @joypixels($comment->getContentHtml())
-                                                    </div>
+                                                       style="color:{{ $comment->user->group->color }};">
+                                                        <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
+                                                    </a>
+                                                </strong>
+                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
+                                                <div class="pt-5">
+                                                    @joypixels($comment->getContentHtml())
                                                 </div>
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                         </div>
                     </div>
+                </div>
 
                 <div class="col-md-12">
                     <form role="form" method="POST" action="{{ route('comment_ticket', ['id' => $ticket->id]) }}">
@@ -218,7 +231,7 @@
                         <button type="submit" class="btn btn-success">@lang('common.submit')</button>
                     </form>
                 </div>
+            </div>
         </div>
     </div>
-</div>
 @endsection

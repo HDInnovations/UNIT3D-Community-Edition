@@ -33,7 +33,7 @@
         @if(auth()->user()->id == $user->id)
             @if(!$route || $route != 'profile')
                 <a href="{{ route('download_history_torrents', ['username' => $user->username]) }}" role="button"
-                    class="btn btn-sm btn-labeled btn-success">
+                   class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-download'></i> @lang('torrent.download-all')
                     </span>
@@ -47,7 +47,8 @@
                 @lang('user.settings')
             </a>
             <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}">
-                <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button></a>
+                <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button>
+            </a>
         @endif
     </div>
 </div>

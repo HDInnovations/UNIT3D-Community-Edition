@@ -2,14 +2,16 @@
     <div class="button-left">
         @if(auth()->user()->id == $user->id)
             @if((!auth()->user()->hidden || auth()->user()->hidden == 0))
-                <form role="form" method="POST" action="{{ route('user_hidden', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_hidden', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class='{{ config('other.font-awesome') }} fa-eye-slash'></i> @lang('user.become-hidden')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_visible', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> @lang('user.become-visible')
@@ -17,14 +19,16 @@
                 </form>
             @endif
             @if((auth()->user()->private_profile == 0 || auth()->user()->private_profile == 0))
-                <form role="form" method="POST" action="{{ route('user_private', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_private', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class='{{ config('other.font-awesome') }} fa-lock'></i> @lang('user.go-private')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST" action="{{ route('user_public', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-lock-open'></i> @lang('user.go-public')
@@ -32,14 +36,18 @@
                 </form>
             @endif
             @if((auth()->user()->block_notifications == 0 || auth()->user()->block_notifications == 0))
-                <form role="form" method="POST" action="{{ route('notification_disable', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST"
+                      action="{{ route('notification_disable', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class='{{ config('other.font-awesome') }} fa-bell-slash'></i> @lang('user.disable-notifications')
                     </button>
                 </form>
             @else
-                <form role="form" method="POST" action="{{ route('notification_enable', ['username' => $user->username]) }}" style="display: inline-block;">
+                <form role="form" method="POST"
+                      action="{{ route('notification_enable', ['username' => $user->username]) }}"
+                      style="display: inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-success">
                         <i class='{{ config('other.font-awesome') }} fa-bell'></i> @lang('user.enable-notifications')
@@ -54,7 +62,8 @@
                 @lang('user.settings')
             </a>
             <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}">
-                <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button></a>
+                <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button>
+            </a>
         @endif
     </div>
 </div>
@@ -112,31 +121,33 @@
             </a>
         @else
             @if (auth()->user()->isFollowing($user->id))
-                <form class="form-inline" role="form" action="{{ route('follow.destroy', ['username' => $user->username]) }}"
-                    style="display: inline-block;" method="POST">
+                <form class="form-inline" role="form"
+                      action="{{ route('follow.destroy', ['username' => $user->username]) }}"
+                      style="display: inline-block;" method="POST">
                     @csrf
                     @method('DELETE')
                     <div class="form-group">
                         <button type="submit" id="delete-follow-{{ $user->target_id }}" class="btn btn-sm btn-danger"
-                            title="@lang('user.unfollow')">
+                                title="@lang('user.unfollow')">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
                         </button>
                     </div>
                 </form>
             @else
-                <form class="form-inline" role="form" action="{{ route('follow.store', ['username' => $user->username]) }}"
-                    style="display: inline-block;" method="POST">
+                <form class="form-inline" role="form"
+                      action="{{ route('follow.store', ['username' => $user->username]) }}"
+                      style="display: inline-block;" method="POST">
                     @csrf
                     <div class="form-group">
                         <button type="submit" id="follow-user-{{ $user->id }}" class="btn btn-sm btn-success"
-                            title="@lang('user.follow')">
+                                title="@lang('user.follow')">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
                         </button>
                     </div>
                 </form>
             @endif
             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_user_report"><i
-                    class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.report')</button>
+                        class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.report')</button>
         @endif
     </div>
 </div>

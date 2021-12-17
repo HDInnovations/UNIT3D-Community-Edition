@@ -38,16 +38,16 @@
 
 @section('scripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(function() {
-            new Chart(document.getElementById("stats-doughnut-chart"), {
-                type: 'doughnut',
-                data: {!! $chartData !!},
-                options: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            });
-        });
+      $(function () {
+        new Chart(document.getElementById('stats-doughnut-chart'), {
+          type: 'doughnut',
+          data: {!! $chartData !!},
+          options: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        })
+      })
     </script>
 @endsection

@@ -32,28 +32,28 @@
                     <input name="username" class="form-control" placeholder="@lang('common.username')" required>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="name">@lang('bon.bon')</label>
                 <label>
                     <input type="number" class="form-control" name="seedbonus" value="0">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="name">@lang('user.invites')</label>
                 <label>
                     <input type="number" class="form-control" name="invites" value="0">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="name">@lang('torrent.freeleech-token')</label>
                 <label>
                     <input type="number" class="form-control" name="fl_tokens" value="0">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('bon.send-gift')</button>
         </form>
     </div>

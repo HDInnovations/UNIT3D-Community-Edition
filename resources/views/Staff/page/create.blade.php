@@ -39,12 +39,12 @@
                     <input type="text" name="name" class="form-control">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="content">@lang('common.content')</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
@@ -52,9 +52,9 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(document).ready(function() {
-            $('#content').wysibb({});
-        })
-    
+      $(document).ready(function () {
+        $('#content').wysibb({})
+      })
+
     </script>
 @endsection
