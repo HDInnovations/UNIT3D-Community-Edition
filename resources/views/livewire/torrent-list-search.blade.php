@@ -90,12 +90,12 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6 col-xs-12 adv-search-region">
-                            @php use App\Models\Region;$regions = cache()->remember('regions', 3_600, fn () => Region::all()->sortBy('position')) @endphp
+                            @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::all()->sortBy('position')) @endphp
                             <label for="region" class="label label-default">Region</label>
                             <div id="regions" wire:ignore></div>
                         </div>
                         <div class="form-group col-sm-6 col-xs-12 adv-search-distributor">
-                            @php use App\Models\Distributor;$distributors = cache()->remember('distributors', 3_600, fn () => Distributor::all()->sortBy('position')) @endphp
+                            @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::all()->sortBy('position')) @endphp
                             <label for="distributor" class="label label-default">Distributor</label>
                             <div id="distributors" wire:ignore></div>
                         </div>
@@ -103,7 +103,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-categories">
                             <label for="categories" class="label label-default">@lang('common.category')</label>
-                            @php use App\Models\Category;$categories = cache()->remember('categories', 3_600, fn () => Category::all()->sortBy('position')) @endphp
+                            @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
                             @foreach ($categories as $category)
                                 <span class="badge-user">
 									<label class="inline">
@@ -117,7 +117,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-types">
                             <label for="types" class="label label-default">@lang('common.type')</label>
-                            @php use App\Models\Type;$types = cache()->remember('types', 3_600, fn () => Type::all()->sortBy('position')) @endphp
+                            @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
                             @foreach ($types as $type)
                                 <span class="badge-user">
 									<label class="inline">
@@ -130,7 +130,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
                             <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
-                            @php use App\Models\Resolution;$resolutions = cache()->remember('resolutions', 3_600, fn () => Resolution::all()->sortBy('position')) @endphp
+                            @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
 									<label class="inline">

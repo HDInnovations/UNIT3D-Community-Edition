@@ -84,7 +84,7 @@
                                                 </a>
                                             @endif
 
-                                            @php use App\Models\History;$history = History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first() @endphp
+                                            @php $history = App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first() @endphp
                                             @if ($history)
                                                 @if ($history->seeder == 1 && $history->active == 1)
                                                     <button class="btn btn-success btn-circle" type="button"
@@ -197,7 +197,7 @@
                                             </span>
                                             @endif
 
-                                            @php use App\Models\FreeleechToken;$freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first() @endphp
+                                            @php $freeleech_token = App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first() @endphp
                                             @if ($freeleech_token)
                                                 <span class='badge-extra'>
                                                 <i class='{{ config('other.font-awesome') }} fa-star'

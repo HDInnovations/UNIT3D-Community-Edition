@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-categories">
                             <label for="categories" class="label label-default">@lang('common.category')</label>
-                            @php use App\Models\Category;$categories = cache()->remember('categories', 3_600, fn () => Category::all()->sortBy('position')) @endphp
+                            @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
                             @foreach ($categories as $category)
                                 <span class="badge-user">
 									<label class="inline">
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-types">
                             <label for="types" class="label label-default">@lang('common.type')</label>
-                            @php use App\Models\Type;$types = cache()->remember('types', 3_600, fn () => Type::all()->sortBy('position')) @endphp
+                            @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
                             @foreach ($types as $type)
                                 <span class="badge-user">
 									<label class="inline">
@@ -69,7 +69,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
                             <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
-                            @php use App\Models\Resolution;$resolutions = cache()->remember('resolutions', 3_600, fn () => Resolution::all()->sortBy('position')) @endphp
+                            @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
 									<label class="inline">
@@ -207,7 +207,7 @@
                 </thead>
                 <tbody>
                 @foreach($torrents as $torrent)
-                    @php use App\Models\History;$history = History::where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->first() @endphp
+                    @php $history = App\Models\History::where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->first() @endphp
                     @php $meta = null @endphp
                     @if ($torrent->category->tv_meta)
                         @if ($torrent->tmdb || $torrent->tmdb != 0)
