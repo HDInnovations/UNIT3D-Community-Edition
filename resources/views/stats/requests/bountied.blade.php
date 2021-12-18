@@ -20,7 +20,7 @@
 @section('content')
     <div class="container">
         @include('partials.statsrequestmenu')
-    
+
         <div class="block">
             <h2>@lang('stat.top-bountied')</h2>
             <hr>
@@ -31,45 +31,45 @@
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>@lang('request.request')</th>
-                                <th>@lang('request.bounty')</th>
-                                <th>@lang('request.filled')</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>@lang('request.request')</th>
+                            <th>@lang('request.bounty')</th>
+                            <th>@lang('request.filled')</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bountied as $key => $b)
-                                <tr>
-                                    <td>
-                                        {{ ++$key }}
-                                    </td>
-                                    <td>
-                                        <a class="text-bold" href="{{ route('request', ['id' => $b->id]) }}">
-                                            {{ $b->name }}
-                                        </a>
-                                    </td>
-                                    <td><span class="text-green">{{ $b->bounty }}</span></td>
-                                    <td>
-                                        @if ($b->filled_hash == null)
-                                            <span class="label label-default" data-toggle="tooltip"
-                                                data-original-title="@lang('stat.request-not-fulfilled')">
+                        @foreach ($bountied as $key => $b)
+                            <tr>
+                                <td>
+                                    {{ ++$key }}
+                                </td>
+                                <td>
+                                    <a class="text-bold" href="{{ route('request', ['id' => $b->id]) }}">
+                                        {{ $b->name }}
+                                    </a>
+                                </td>
+                                <td><span class="text-green">{{ $b->bounty }}</span></td>
+                                <td>
+                                    @if ($b->filled_hash == null)
+                                        <span class="label label-default" data-toggle="tooltip"
+                                              data-original-title="@lang('stat.request-not-fulfilled')">
                                                 <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i>
                                             </span>
-                                        @elseif ($b->filled_hash != null && $b->approved_by == null)
-                                            <span class="label label-default" data-toggle="tooltip"
-                                                data-original-title="@lang('stat.request-pending-aproval')">
+                                    @elseif ($b->filled_hash != null && $b->approved_by == null)
+                                        <span class="label label-default" data-toggle="tooltip"
+                                              data-original-title="@lang('stat.request-pending-aproval')">
                                                 <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
                                             </span>
-                                        @else
-                                            <span class="label label-default" data-toggle="tooltip"
-                                                data-original-title="@lang('stat.request-fulfilled')">
+                                    @else
+                                        <span class="label label-default" data-toggle="tooltip"
+                                              data-original-title="@lang('stat.request-fulfilled')">
                                                 <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
                                             </span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

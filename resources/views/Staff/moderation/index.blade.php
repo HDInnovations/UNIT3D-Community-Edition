@@ -53,7 +53,8 @@
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
                                     ({{ $p->user->group->name }})</span></a></td>
                         <td>
-                            <form role="form" method="POST" action="{{ route('staff.moderation.approve', ['id' => $p->id]) }}"
+                            <form role="form" method="POST"
+                                  action="{{ route('staff.moderation.approve', ['id' => $p->id]) }}"
                                   style="display: inline-block;">
                                 @csrf
                                 <button type="submit" class="btn btn-labeled btn-success">
@@ -65,8 +66,10 @@
                             </form>
                         </td>
                         <td>
-                            <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
-                                <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span>
+                            <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal"
+                                    class="btn btn-labeled btn-danger">
+                                <span class="btn-label"><i
+                                            class="{{ config('other.font-awesome') }} fa-pause"></i></span>
                                 @lang('common.moderation-postpone')
                             </button>
 
@@ -74,14 +77,16 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog{{ \modal_style() }}">
+                                    <div class="modal-dialog{{ modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                                                        aria-label="@lang('common.close')"><span
+                                                            aria-hidden="true">×</span>
                                                 </button>
                                                 <h4 class="modal-title" id="myModalLabel">
-                                                    @lang('common.moderation-postpone') @lang('torrent.torrent'): {{ $p->name }}
+                                                    @lang('common.moderation-postpone') @lang('torrent.torrent')
+                                                    : {{ $p->name }}
                                                 </h4>
                                             </div>
                                             <div class="modal-body">
@@ -94,7 +99,8 @@
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
                                                         <label for="message"></label>
-                                                        <textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                                        <textarea title="Postpone message" class="form-control" rows="5"
+                                                                  name="message" cols="50" id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -115,23 +121,27 @@
                             </div>
                         </td>
                         <td>
-                            <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
+                            <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal"
+                                    class="btn btn-labeled btn-danger">
                                 <span class="btn-label">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
                                 </span>
                                 @lang('common.moderation-reject')
                             </button>
-                            <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog"
+                                 aria-hidden="true">
                                 <form method="POST" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
-                                    <div class="modal-dialog{{ \modal_style() }}">
+                                    <div class="modal-dialog{{ modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                                                        aria-label="@lang('common.close')"><span
+                                                            aria-hidden="true">×</span>
                                                 </button>
                                                 <h4 class="modal-title" id="myModalLabel">
-                                                    @lang('common.moderation-reject') @lang('torrent.torrent'): {{ $p->name }}
+                                                    @lang('common.moderation-reject') @lang('torrent.torrent')
+                                                    : {{ $p->name }}
                                                 </h4>
                                             </div>
                                             <div class="modal-body">
@@ -140,9 +150,11 @@
                                                            value="@lang('torrent.torrent')">
                                                     <input id="id" type="hidden" name="id" value="{{ $p->id }}">
                                                     <input id="slug" type="hidden" name="slug" value="{{ $p->slug }}">
-                                                    <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
+                                                    <label for="file_name"
+                                                           class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <p id="title" name="title" class="form-control-static">{{ $p->name }}</p>
+                                                        <p id="title" name="title"
+                                                           class="form-control-static">{{ $p->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -150,7 +162,9 @@
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
                                                         <label for="message"></label>
-                                                        <textarea title="Rejection Message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                                        <textarea title="Rejection Message" class="form-control"
+                                                                  rows="5" name="message" cols="50"
+                                                                  id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -175,7 +189,7 @@
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
 
     <div class="text-center"><h1>@lang('torrent.postponed-torrents')</h1></div>
     <div class="container box">
@@ -220,7 +234,8 @@
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
                                     ({{ $post->moderated->group->name }})</span></a></td>
                         <td>
-                            <form role="form" method="POST" action="{{ route('staff.moderation.approve', ['id' => $post->id]) }}"
+                            <form role="form" method="POST"
+                                  action="{{ route('staff.moderation.approve', ['id' => $post->id]) }}"
                                   style="display: inline-block;">
                                 @csrf
                                 <button type="submit" class="btn btn-labeled btn-success">
@@ -233,7 +248,8 @@
                         </td>
                         <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')
+                            </a></td>
                         <td>
                             <button data-target="#postdelete-{{ $post->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
@@ -244,11 +260,12 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog{{ \modal_style() }}">
+                                    <div class="modal-dialog{{ modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                                                        aria-label="@lang('common.close')"><span
+                                                            aria-hidden="true">×</span>
                                                 </button>
                                                 <h4 class="modal-title" id="myModalLabel">
                                                     @lang('common.delete') @lang('torrent.torrent'): {{ $post->name }}
@@ -259,11 +276,13 @@
                                                     <input id="type" type="hidden" name="type"
                                                            value="@lang('torrent.torrent')">
                                                     <input id="id" type="hidden" name="id" value="{{ $post->id }}">
-                                                    <input id="slug" type="hidden" name="slug" value="{{ $post->slug }}">
+                                                    <input id="slug" type="hidden" name="slug"
+                                                           value="{{ $post->slug }}">
                                                     <label for="file_name"
                                                            class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <p id="title" name="title" class="form-control-static">{{ $post->name }}</p>
+                                                        <p id="title" name="title"
+                                                           class="form-control-static">{{ $post->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -271,12 +290,14 @@
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
                                                         <label for="message"></label>
-                                                        <textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                                        <textarea title="Deletion message" class="form-control" rows="5"
+                                                                  name="message" cols="50" id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-10 col-sm-offset-2">
-                                                        <button class="btn btn-danger" type="submit">@lang('common.delete')</button>
+                                                        <button class="btn btn-danger"
+                                                                type="submit">@lang('common.delete')</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,7 +315,7 @@
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
 
     <div class="text-center"><h1>@lang('torrent.rejected')</h1></div>
     <div class="container box">
@@ -340,7 +361,8 @@
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
                                     ({{ $reject->moderated->group->name }})</span></a></td>
                         <td>
-                            <form role="form" method="POST" action="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}"
+                            <form role="form" method="POST"
+                                  action="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}"
                                   style="display: inline-block;">
                                 @csrf
                                 <button type="submit" class="btn btn-labeled btn-success">
@@ -352,8 +374,10 @@
                             </form>
                         </td>
                         <td>
-                            <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
-                                    <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span>
+                            <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal"
+                                    class="btn btn-labeled btn-danger">
+                                <span class="btn-label"><i
+                                            class="{{ config('other.font-awesome') }} fa-pause"></i></span>
                                 @lang('common.moderation-postpone')
                             </button>
 
@@ -361,14 +385,16 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog{{ \modal_style() }}">
+                                    <div class="modal-dialog{{ modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                                                        aria-label="@lang('common.close')"><span
+                                                            aria-hidden="true">×</span>
                                                 </button>
                                                 <h4 class="modal-title" id="myModalLabel">
-                                                    @lang('common.moderation-postpone') @lang('torrent.torrent'): {{ $reject->name }}
+                                                    @lang('common.moderation-postpone') @lang('torrent.torrent')
+                                                    : {{ $reject->name }}
                                                 </h4>
                                             </div>
                                             <div class="modal-body">
@@ -376,12 +402,14 @@
                                                     <input id="type" name="type" type="hidden"
                                                            value="@lang('torrent.torrent')">
                                                     <input id="id" name="id" type="hidden" value="{{ $reject->id }}">
-                                                    <input id="slug" name="slug" type="hidden" value="{{ $reject->slug }}">
+                                                    <input id="slug" name="slug" type="hidden"
+                                                           value="{{ $reject->slug }}">
                                                     <label for="postpone_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
                                                         <label for="message"></label>
-                                                        <textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                                        <textarea title="Postpone message" class="form-control" rows="5"
+                                                                  name="message" cols="50" id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -403,7 +431,8 @@
                         </td>
                         <td><a href="{{ route('edit', ['id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')
+                            </a></td>
                         <td>
                             <button data-target="#rejectdelete-{{ $reject->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
@@ -414,11 +443,12 @@
                                  aria-hidden="true">
                                 <form method="POST" action=" {{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog{{ \modal_style() }}">
+                                    <div class="modal-dialog{{ modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                                                        aria-label="@lang('common.close')"><span
+                                                            aria-hidden="true">×</span>
                                                 </button>
                                                 <h4 class="modal-title" id="myModalLabel">
                                                     @lang('common.delete') @lang('torrent.torrent'): {{ $reject->name }}
@@ -430,11 +460,13 @@
                                                     <input id="type" type="hidden" name="type"
                                                            value="@lang('torrent.torrent')">
                                                     <input id="id" type="hidden" name="id" value="{{ $reject->id }}">
-                                                    <input id="slug" type="hidden" name="slug" value="{{ $reject->slug }}">
+                                                    <input id="slug" type="hidden" name="slug"
+                                                           value="{{ $reject->slug }}">
                                                     <label for="file_name"
                                                            class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <p id="title" name="title" class="form-control-static">{{ $reject->name }}</p>
+                                                        <p id="title" name="title"
+                                                           class="form-control-static">{{ $reject->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -442,12 +474,14 @@
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
                                                         <label for="message"></label>
-                                                        <textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                                        <textarea title="Deletion message" class="form-control" rows="5"
+                                                                  name="message" cols="50" id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-10 col-sm-offset-2">
-                                                        <button class="btn btn-danger" type="submit">@lang('common.delete')</button>
+                                                        <button class="btn btn-danger"
+                                                                type="submit">@lang('common.delete')</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -465,5 +499,5 @@
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
 @endsection

@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_followers', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.followers')</span>
+           class="l-breadcrumb-item-link">
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.followers')</span>
         </a>
     </li>
 @endsection
@@ -49,35 +51,36 @@
                 <div class="forum-categories">
                     <table class="table table-bordered table-hover">
                         <thead>
-                            <tr>
-                                <th>@lang('user.avatar')</th>
-                                <th>@lang('user.user')</th>
-                                <th>@lang('common.created_at')</th>
-                            </tr>
+                        <tr>
+                            <th>@lang('user.avatar')</th>
+                            <th>@lang('user.user')</th>
+                            <th>@lang('common.created_at')</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($results as $f)
-                                <tr>
-                                    @if ($f->user->image != null)
-                                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                                <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar" data-toggle="tooltip"
-                                                    title="{{ $f->user->username }}" height="50px"
-                                                    data-original-title="{{ $f->user->username }}">
-                                            </a></td>
-                                    @else
-                                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                                <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
-                                                    title="{{ $f->user->username }}" height="50px"
-                                                    data-original-title="{{ $f->user->username }}">
-                                            </a></td>
-                                    @endif
+                        @foreach ($results as $f)
+                            <tr>
+                                @if ($f->user->image != null)
                                     <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <span class="badge-user text-bold"
-                                                style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                            <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
+                                                 data-toggle="tooltip"
+                                                 title="{{ $f->user->username }}" height="50px"
+                                                 data-original-title="{{ $f->user->username }}">
                                         </a></td>
-                                    <td>{{ $f->created_at }}</td>
-                                </tr>
-                            @endforeach
+                                @else
+                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                            <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
+                                                 title="{{ $f->user->username }}" height="50px"
+                                                 data-original-title="{{ $f->user->username }}">
+                                        </a></td>
+                                @endif
+                                <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                            <span class="badge-user text-bold"
+                                                  style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                    </a></td>
+                                <td>{{ $f->created_at }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

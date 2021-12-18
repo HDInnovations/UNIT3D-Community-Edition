@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('wishes.index', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.wishlist')</span>
+           class="l-breadcrumb-item-link">
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.wishlist')</span>
         </a>
     </li>
 @endsection
@@ -32,89 +34,93 @@
                     <div class="col-md-12">
                         <form action="{{ route('wishes.store') }}" method="POST" class="form-inline pull-right">
                             @csrf
-    
+
                             <div class="form-group mt-5">
                                 <label for="tmdb"></label><input type="text" class="form-control" name="tmdb" id="tmdb"
-                                    placeholder="TMDB ID">
+                                                                 placeholder="TMDB ID">
                             </div>
-    
+
                             <button type="submit" class="btn btn-success mt-10">
                                 <span class="{{ config('other.font-awesome') }} fa-plus"></span> @lang('common.add')
                             </button>
-    
+
                         </form>
                     </div>
                 </div>
-    
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>@lang('torrent.title')</th>
-                                        <th>TMDB</th>
-                                        <th>@lang('common.status')</th>
-                                        <th>@lang('common.delete')</th>
-                                    </tr>
+                                <tr>
+                                    <th>@lang('torrent.title')</th>
+                                    <th>TMDB</th>
+                                    <th>@lang('common.status')</th>
+                                    <th>@lang('common.delete')</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($wishes as $wish)
-                                        <tr>
-                                            <td>
-                                                @if ($wish->source !== null)
-                                                    <a href="{{ $wish->source }}">
+                                @foreach ($wishes as $wish)
+                                    <tr>
+                                        <td>
+                                            @if ($wish->source !== null)
+                                                <a href="{{ $wish->source }}">
                                                     @endif
-        
+
                                                     {{ $wish->title }}
-        
+
                                                     @if ($wish->source !== null)
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}" target="_blank">
-                                                    MediaHub
                                                 </a>
-                                            </td>
-                                            <td>
-                                                @if ($wish->source === null)
-                                                    <i class="{{ config('other.font-awesome') }} fa-times red-text"></i>
-                                                @else
-                                                    <i class="{{ config('other.font-awesome') }} fa-check green-text"></i>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('wishes.destroy', ['id' => $wish->id]) }}" method="POST" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-xs btn-danger">
-                                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}"
+                                               target="_blank">
+                                                MediaHub
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if ($wish->source === null)
+                                                <i class="{{ config('other.font-awesome') }} fa-times red-text"></i>
+                                            @else
+                                                <i class="{{ config('other.font-awesome') }} fa-check green-text"></i>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
+                                                  method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger">
+                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
-    
+
                         <div class="text-center">
                             {{ $wishes->links() }}
                         </div>
-    
-                        @if (count($wishes) <= 0) <div class="row">
+
+                        @if (count($wishes) <= 0)
+                            <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>
+                                    <h1 class="text-blue"><i
+                                                class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>
                                         No Wishes</h1>
                                 </div>
-                        </div>
-                    @endif
-    
+                            </div>
+                        @endif
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+
     </div>
 @endsection

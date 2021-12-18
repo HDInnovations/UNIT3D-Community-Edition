@@ -32,12 +32,12 @@
                     <input type="text" class="form-control" name="subject">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="message">@lang('pm.message')</label>
                 <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('pm.send')</button>
         </form>
     </div>
@@ -45,9 +45,9 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(document).ready(function() {
-            $('#message').wysibb({});
-        })
-    
+      $(document).ready(function () {
+        $('#message').wysibb({})
+      })
+
     </script>
 @endsection

@@ -6,14 +6,16 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_uploads', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.uploads')</span>
+           class="l-breadcrumb-item-link">
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.uploads')</span>
         </a>
     </li>
 @endsection
@@ -46,48 +48,49 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered">
                             <thead>
-                                <th>@lang('torrent.name')</th>
-                                <th>@lang('torrent.category')</th>
-                                <th>@lang('torrent.size')</th>
-                                <th>@lang('torrent.seeders')</th>
-                                <th>@lang('torrent.leechers')</th>
-                                <th>@lang('torrent.completed')</th>
-                                <th>@lang('torrent.created_at')</th>
+                            <th>@lang('torrent.name')</th>
+                            <th>@lang('torrent.category')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.seeders')</th>
+                            <th>@lang('torrent.leechers')</th>
+                            <th>@lang('torrent.completed')</th>
+                            <th>@lang('torrent.created_at')</th>
                             </thead>
                             <tbody>
-                                @foreach ($uploads as $upload)
-                                    <tr>
-                                        <td>
-                                            <a class="view-torrent" href="{{ route('torrent', ['id' => $upload->id]) }}">
-                                                {{ $upload->name }}
+                            @foreach ($uploads as $upload)
+                                <tr>
+                                    <td>
+                                        <a class="view-torrent" href="{{ route('torrent', ['id' => $upload->id]) }}">
+                                            {{ $upload->name }}
+                                        </a>
+                                        <div class="pull-right">
+                                            <a href="{{ route('download', ['id' => $upload->id]) }}">
+                                                <button class="btn btn-primary btn-circle" type="button"><i
+                                                            class="{{ config('other.font-awesome') }} fa-download"></i>
+                                                </button>
                                             </a>
-                                            <div class="pull-right">
-                                                <a href="{{ route('download', ['id' => $upload->id]) }}">
-                                                    <button class="btn btn-primary btn-circle" type="button"><i
-                                                            class="{{ config('other.font-awesome') }} fa-download"></i></button>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a
                                                 href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
-                                        </td>
-                                        <td>
-                                            <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge-extra text-green text-bold"> {{ $upload->seeders }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge-extra text-red text-bold"> {{ $upload->leechers }}</span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
+                                        <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-extra text-green text-bold"> {{ $upload->seeders }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-extra text-red text-bold"> {{ $upload->leechers }}</span>
+                                    </td>
+                                    <td>
                                             <span class="badge-extra text-orange text-bold"> {{ $upload->times_completed }}
                                                 @lang('common.times')</span>
-                                        </td>
-                                        <td>{{ $upload->created_at ? $upload->created_at->diffForHumans() : 'N/A' }}</td>
-                                    </tr>
-                                @endforeach
+                                    </td>
+                                    <td>{{ $upload->created_at ? $upload->created_at->diffForHumans() : 'N/A' }}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                         <div class="text-center">

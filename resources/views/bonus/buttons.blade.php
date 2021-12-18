@@ -24,6 +24,7 @@
             @lang('user.settings')
         </a>
         <a href="{{ route('user_edit_profile_form', ['username' => auth()->user()->username]) }}">
-            <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button></a>
+            <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button>
+        </a>
     </div>
 </div>

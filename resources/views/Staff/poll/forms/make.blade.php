@@ -57,20 +57,20 @@
       let options = 2
       const langOption = "<?php echo __('poll.option') ?>"
 
-        $('#add').on('click', function (e) {
-            e.preventDefault();
-            options += 1;
-          const optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">' + langOption
-            + options
-            + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>'
-          $('.more-options').append(optionHTML);
-        });
+      $('#add').on('click', function (e) {
+        e.preventDefault()
+        options += 1
+        const optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">' + langOption
+          + options
+          + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>'
+        $('.more-options').append(optionHTML)
+      })
 
-        $('#del').on('click', function (e) {
-            e.preventDefault();
-            options = (options > 2) ? options - 1 : 2;
-            $('.extra-option').last().remove();
-        });
+      $('#del').on('click', function (e) {
+        e.preventDefault()
+        options = (options > 2) ? options - 1 : 2
+        $('.extra-option').last().remove()
+      })
 
     </script>
 @endsection

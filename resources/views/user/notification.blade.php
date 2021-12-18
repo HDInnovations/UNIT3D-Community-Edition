@@ -7,13 +7,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_notification', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.notification')
                 @lang('user.settings')</span>
         </a>
@@ -44,8 +45,8 @@
                     <br>
                     <div role="tabpanel" class="tab-pane active" id="account_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_account', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_account', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.account-notification'):</h3>
@@ -60,11 +61,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_account_follow == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_account_follow" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_account_follow" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_account_follow" value="1" />
+                                                    <input type="checkbox" name="show_account_follow" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -78,11 +80,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_account_unfollow == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_account_unfollow" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_account_unfollow" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_account_unfollow" value="1" />
+                                                    <input type="checkbox" name="show_account_unfollow" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -103,12 +106,14 @@
                                                         @if(!$user->notification || !$user->notification->json_account_groups ||
                                                             $group->isAllowed($user->notification->json_account_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -127,8 +132,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="following_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_following', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_following', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.following-notification'):</h3>
@@ -143,11 +148,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_following_upload == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_following_upload" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_following_upload" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_following_upload" value="1" />
+                                                    <input type="checkbox" name="show_following_upload" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -168,12 +174,14 @@
                                                         @if(!$user->notification || !$user->notification->json_following_groups ||
                                                             $group->isAllowed($user->notification->json_following_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -192,8 +200,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="subscription_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_subscription', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_subscription', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.subscription-notification'):</h3>
@@ -208,11 +216,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_subscription_topic == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_subscription_topic" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_subscription_topic" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_subscription_topic" value="1" />
+                                                    <input type="checkbox" name="show_subscription_topic" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -226,11 +235,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_subscription_forum == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_subscription_forum" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_subscription_forum" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_subscription_forum" value="1" />
+                                                    <input type="checkbox" name="show_subscription_forum" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -252,12 +262,14 @@
                                                             ||
                                                             $group->isAllowed($user->notification->json_subscription_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -276,8 +288,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="forum_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_forum', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_forum', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.forum-notification'):</h3>
@@ -292,11 +304,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_forum_topic == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_forum_topic" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_forum_topic" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_forum_topic" value="1" />
+                                                    <input type="checkbox" name="show_forum_topic" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -317,12 +329,14 @@
                                                         @if(!$user->notification || !$user->notification->json_forum_groups ||
                                                             $group->isAllowed($user->notification->json_forum_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -341,8 +355,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_request', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_request', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.request-notification'):</h3>
@@ -357,11 +371,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_fill == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_fill" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill" value="1" />
+                                                    <input type="checkbox" name="show_request_fill" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -375,11 +389,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_fill_approve == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill_approve" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_fill_approve" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill_approve" value="1" />
+                                                    <input type="checkbox" name="show_request_fill_approve" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -393,11 +408,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_fill_reject == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill_reject" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_fill_reject" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_fill_reject" value="1" />
+                                                    <input type="checkbox" name="show_request_fill_reject" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -411,11 +427,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_claim == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_claim" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_claim" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_claim" value="1" />
+                                                    <input type="checkbox" name="show_request_claim" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -429,11 +445,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_unclaim == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_unclaim" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_unclaim" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_unclaim" value="1" />
+                                                    <input type="checkbox" name="show_request_unclaim" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -447,11 +464,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_comment == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_comment" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_comment" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_comment" value="1" />
+                                                    <input type="checkbox" name="show_request_comment" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -465,11 +483,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_request_bounty == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_request_bounty" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_request_bounty" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_request_bounty" value="1" />
+                                                    <input type="checkbox" name="show_request_bounty" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -490,12 +509,14 @@
                                                         @if(!$user->notification || !$user->notification->json_request_groups ||
                                                             $group->isAllowed($user->notification->json_request_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -514,8 +535,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="torrent_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_torrent', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_torrent', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.torrent-notification'):</h3>
@@ -530,11 +551,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_torrent_comment == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_comment" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_torrent_comment" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_comment" value="1" />
+                                                    <input type="checkbox" name="show_torrent_comment" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -548,11 +570,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_torrent_thank == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_thank" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_torrent_thank" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_thank" value="1" />
+                                                    <input type="checkbox" name="show_torrent_thank" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -566,11 +588,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_torrent_tip == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_tip" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_torrent_tip" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_torrent_tip" value="1" />
+                                                    <input type="checkbox" name="show_torrent_tip" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -591,12 +613,14 @@
                                                         @if(!$user->notification || !$user->notification->json_torrent_groups ||
                                                             $group->isAllowed($user->notification->json_torrent_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -615,8 +639,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="bon_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_bon', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_bon', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.bon-notification'):</h3>
@@ -631,11 +655,11 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_bon_gift == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_bon_gift" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_bon_gift" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_bon_gift" value="1" />
+                                                    <input type="checkbox" name="show_bon_gift" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -656,12 +680,14 @@
                                                         @if(!$user->notification || !$user->notification->json_bon_groups ||
                                                             $group->isAllowed($user->notification->json_bon_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -680,8 +706,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mention_tab">
                         <form role="form" method="POST"
-                            action="{{ route('notification_mention', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('notification_mention', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.mention-notification'):</h3>
@@ -697,11 +723,12 @@
                                                 $user->notification->show_mention_article_comment == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_mention_article_comment" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_mention_article_comment" value="1" />
+                                                    <input type="checkbox" name="show_mention_article_comment"
+                                                           value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -716,11 +743,12 @@
                                                 $user->notification->show_mention_request_comment == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_mention_request_comment" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_mention_request_comment" value="1" />
+                                                    <input type="checkbox" name="show_mention_request_comment"
+                                                           value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -735,11 +763,12 @@
                                                 $user->notification->show_mention_torrent_comment == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_mention_torrent_comment" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_mention_torrent_comment" value="1" />
+                                                    <input type="checkbox" name="show_mention_torrent_comment"
+                                                           value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -753,11 +782,12 @@
                                             @if(!$user->notification || ($user->notification &&
                                                 $user->notification->show_mention_forum_post == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_mention_forum_post" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_mention_forum_post" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_mention_forum_post" value="1" />
+                                                    <input type="checkbox" name="show_mention_forum_post" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -778,12 +808,14 @@
                                                         @if(!$user->notification || !$user->notification->json_mention_groups ||
                                                             $group->isAllowed($user->notification->json_mention_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -807,36 +839,36 @@
 @endsection
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(window).on("load", function() {
-            loadTab();
-        });
+      $(window).on('load', function () {
+        loadTab()
+      })
 
-        function loadTab() {
-            if (window.location.hash && window.location.hash == "#account_tab") {
-                $('#basetabs a[href="#account_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#bon_tab") {
-                $('#basetabs a[href="#bon_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#following_tab") {
-                $('#basetabs a[href="#following_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#forum_tab") {
-                $('#basetabs a[href="#forum_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#torrent_tab") {
-                $('#basetabs a[href="#torrent_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#mention_tab") {
-                $('#basetabs a[href="#mention_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#subscription_tab") {
-                $('#basetabs a[href="#subscription_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#request_tab") {
-                $('#basetabs a[href="#request_tab"]').tab('show');
-            }
+      function loadTab () {
+        if (window.location.hash && window.location.hash == '#account_tab') {
+          $('#basetabs a[href="#account_tab"]').tab('show')
         }
+        if (window.location.hash && window.location.hash == '#bon_tab') {
+          $('#basetabs a[href="#bon_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#following_tab') {
+          $('#basetabs a[href="#following_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#forum_tab') {
+          $('#basetabs a[href="#forum_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#torrent_tab') {
+          $('#basetabs a[href="#torrent_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#mention_tab') {
+          $('#basetabs a[href="#mention_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#subscription_tab') {
+          $('#basetabs a[href="#subscription_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#request_tab') {
+          $('#basetabs a[href="#request_tab"]').tab('show')
+        }
+      }
 
     </script>
 @endsection

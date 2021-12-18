@@ -17,8 +17,9 @@
                             <a href="{{ route('users.show', ['username' => $user->username]) }}">
                                 {{ $user->username }}
                                 @if ($user->warnings_count > 0)
-                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                        data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                       aria-hidden="true"
+                                       data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
                                 @endif
                             </a>
                         @endif
@@ -26,13 +27,14 @@
                 @else
                     <a href="{{ route('users.show', ['username' => $user->username]) }}">
                         <span class="badge-user text-bold"
-                            style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
+                              style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
                             <i class="{{ $user->group->icon }}" data-toggle="tooltip"
-                                data-original-title="{{ $user->group->name }}"></i>
+                               data-original-title="{{ $user->group->name }}"></i>
                             {{ $user->username }}
                             @if ($user->warnings_count > 0)
-                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                    data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                   aria-hidden="true"
+                                   data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
                             @endif
                         </span>
                     </a>
@@ -49,7 +51,7 @@
                         </span>
                         @foreach ($groups as $group)
                             <span class="badge-user text-bold"
-                                style="color:{{ $group->color }}; background-image:{{ $group->effect }};">
+                                  style="color:{{ $group->color }}; background-image:{{ $group->effect }};">
                                 <i class="{{ $group->icon }}" aria-hidden="true"></i> {{ $group->name }}
                             </span>
                         @endforeach

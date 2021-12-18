@@ -34,11 +34,12 @@
                                 </form>
                                 <a href="{{ route('inbox') }}">
                                     <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
-                                        data-toggle="tooltip" data-placement="top"
-                                        data-original-title="@lang('pm.refresh')"><i
-                                            class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
+                                            data-toggle="tooltip" data-placement="top"
+                                            data-original-title="@lang('pm.refresh')"><i
+                                                class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
-                                <form role="form" method="POST" action="{{ route('empty-inbox') }}" style="display: inline-block;">
+                                <form role="form" method="POST" action="{{ route('empty-inbox') }}"
+                                      style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger dropdown-toggle">
@@ -52,7 +53,8 @@
                                 <form role="form" method="POST" action="{{ route('searchPMInbox') }}">
                                     @csrf
                                     <label for="subject"></label><input type="text" name="subject" id="subject"
-                                        class="form-control" placeholder="@lang('pm.search')">
+                                                                        class="form-control"
+                                                                        placeholder="@lang('pm.search')">
                                 </form>
                             </div>
                         </div>
@@ -60,55 +62,56 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-bordered table-striped table-hover">
                             <thead>
-                                <tr>
-                                    <td class="col-sm-2">@lang('pm.from')</td>
-                                    <td class="col-sm-5">@lang('pm.subject')</td>
-                                    <td class="col-sm-2">@lang('pm.received-at')</td>
-                                    <td class="col-sm-2">@lang('pm.read')</td>
-                                    <td class="col-sm-2">@lang('pm.delete')</td>
-                                </tr>
+                            <tr>
+                                <td class="col-sm-2">@lang('pm.from')</td>
+                                <td class="col-sm-5">@lang('pm.subject')</td>
+                                <td class="col-sm-2">@lang('pm.received-at')</td>
+                                <td class="col-sm-2">@lang('pm.read')</td>
+                                <td class="col-sm-2">@lang('pm.delete')</td>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pms as $p)
-                                    <tr>
+                            @foreach ($pms as $p)
+                                <tr>
+                                    <td class="col-sm-2">
+                                        <a href="{{ route('users.show', ['username' => $p->sender->username]) }}">{{ $p->sender->username }}
+                                        </a>
+                                    </td>
+                                    <td class="col-sm-5">
+                                        <a href="{{ route('message', ['id' => $p->id]) }}">
+                                            {{ $p->subject }}
+                                        </a>
+                                    </td>
+                                    <td class="col-sm-2">
+                                        {{ $p->created_at->diffForHumans() }}
+                                    </td>
+                                    @if ($p->read == 0)
                                         <td class="col-sm-2">
-                                            <a href="{{ route('users.show', ['username' => $p->sender->username]) }}">{{ $p->sender->username }}
-                                            </a>
-                                        </td>
-                                        <td class="col-sm-5">
-                                            <a href="{{ route('message', ['id' => $p->id]) }}">
-                                                {{ $p->subject }}
-                                            </a>
-                                        </td>
-                                        <td class="col-sm-2">
-                                            {{ $p->created_at->diffForHumans() }}
-                                        </td>
-                                        @if ($p->read == 0)
-                                            <td class="col-sm-2">
                                                 <span class='label label-danger'>
                                                     @lang('pm.unread')
                                                 </span>
-                                            </td>
-                                        @else ($p->read >= 1)
-                                            <td class="col-sm-2">
+                                        </td>
+                                    @else ($p->read >= 1)
+                                        <td class="col-sm-2">
                                                 <span class='label label-success'>
                                                     @lang('pm.read')
                                                 </span>
-                                            </td>
-                                        @endif
-                                        <td class="col-sm-2">
-                                            <form role="form" method="POST" action="{{ route('delete-pm', ['id' => $p->id]) }}">
-                                                @csrf
-                                                <div class="col-sm-1">
-                                                    <button type="submit" class="btn btn-xs btn-danger"
+                                        </td>
+                                    @endif
+                                    <td class="col-sm-2">
+                                        <form role="form" method="POST"
+                                              action="{{ route('delete-pm', ['id' => $p->id]) }}">
+                                            @csrf
+                                            <div class="col-sm-1">
+                                                <button type="submit" class="btn btn-xs btn-danger"
                                                         title="@lang('pm.delete')"><i
                                                             class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

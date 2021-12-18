@@ -11,7 +11,8 @@
         <description>
             <![CDATA[This feed contains your secure RSS PID, please do not share with anyone.]]>
         </description>
-        <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}" type="application/rss+xml" rel="self"></atom:link>
+        <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}"
+                   type="application/rss+xml" rel="self"></atom:link>
         <copyright>{{ config('other.title') }} {{ now()->year }}</copyright>
         <language>en</language>
         <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
@@ -30,7 +31,9 @@
                             <strong>Resolution</strong>: {{ $data->resolution->name ?? 'No Res' }}<br>
                             <strong>Size</strong>: {{ $data->getSize() }}<br>
                             <strong>Uploaded</strong>: {{ $data->created_at->diffForHumans() }}<br>
-                            <strong>Seeders</strong>: {{ $data->seeders }} | <strong>Leechers</strong>: {{ $data->leechers }} | <strong>Completed</strong>: {{ $data->times_completed }}<br>
+                            <strong>Seeders</strong>: {{ $data->seeders }} |
+                            <strong>Leechers</strong>: {{ $data->leechers }} |
+                            <strong>Completed</strong>: {{ $data->times_completed }}<br>
                             <strong>Uploader</strong>:
                             @if(!$data->anon && $data->user)
                                 @lang('torrent.uploaded-by') {{ $data->user->username }}
@@ -38,12 +41,15 @@
                                 @lang('common.anonymous') @lang('torrent.uploader')
                             @endif<br>
                             @if (($data->category->movie_meta || $data->category->tv_meta) && $data->imdb != 0)
-                                IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ $data->imdb }}" target="_blank">tt{{ $data->imdb }}</a><br>
+                                IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ $data->imdb }}"
+                                             target="_blank">tt{{ $data->imdb }}</a><br>
                             @endif
                             @if ($data->category->movie_meta && $data->tmdb != 0)
-                                TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $data->tmdb }}" target="_blank">{{ $data->tmdb }}</a><br>
+                                TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $data->tmdb }}"
+                                              target="_blank">{{ $data->tmdb }}</a><br>
                             @elseif ($data->category->tv_meta && $data->tmdb != 0)
-                                TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $data->tmdb }}" target="_blank">{{ $data->tmdb }}</a><br>
+                                TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $data->tmdb }}"
+                                              target="_blank">{{ $data->tmdb }}</a><br>
                             @endif
                         </p>]]>
                     </description>

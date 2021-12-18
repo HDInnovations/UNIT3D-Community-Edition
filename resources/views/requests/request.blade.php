@@ -34,7 +34,8 @@
         @else
             <h1 class="title h2">
                 {{ $torrentRequest->name }}
-                <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
+                <span class="text-green">@lang('request.for') <i
+                            class="{{ config('other.font-awesome') }} fa-coins text-gold">
             </i> <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon')</span>
             </h1>
             <div class="block single">
@@ -43,7 +44,8 @@
                         <div class="pull-right">
                             <button class="btn btn-xs btn-danger" data-toggle="modal"
                                     data-target="#modal_request_report"><i
-                                        class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('request.report')</button>
+                                        class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('request.report')
+                            </button>
                             @if ($torrentRequest->filled_hash == null)
                                 <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal"
                                         data-target="#vote"><i class="{{ config('other.font-awesome') }} fa-thumbs-up">
@@ -143,18 +145,18 @@
                             </td>
                             <td>
                                 @if ($torrentRequest->anon == 0)
-                                <span class="badge-user">
+                                    <span class="badge-user">
                                     <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         {{ $torrentRequest->user->username }}
                                     </a>
                                 </span>
                                 @else
-                                <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
-                                    <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
+                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                                            <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         ({{ $torrentRequest->user->username }})
                                     </a>
-                                @endif
+                                        @endif
                                 </span>
                                 @endif
                                 <span class="badge-user">
@@ -169,7 +171,8 @@
                             <td>
                                 @if ($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
                                     <button class="btn btn-xs btn-info btn-vote-request" data-toggle="modal"
-                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
+                                            data-target="#claim"><i
+                                                class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
                                     @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
@@ -183,19 +186,20 @@
                                     </button>
                                 @elseif ($torrentRequest->filled_hash != null)
                                     <button class="btn btn-xs btn-success" disabled><i
-                                                class="{{ config('other.font-awesome') }} fa-check-square"></i>@lang('request.filled')</button>
+                                                class="{{ config('other.font-awesome') }} fa-check-square"></i>@lang('request.filled')
+                                    </button>
                                 @else
                                     @if ($torrentRequestClaim->anon == 0)
-                                    <span class="badge-user">
+                                        <span class="badge-user">
                                         <a href="{{ route('users.show', ['username' => $torrentRequestClaim->username]) }}">
                                             {{ $torrentRequestClaim->username }}
                                         </a>
                                     </span>
                                     @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
-                                            ({{ $torrentRequestClaim->username }})
-                                        @endif
+                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                            @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                                ({{ $torrentRequestClaim->username }})
+                                            @endif
                                     </span>
                                     @endif
 
@@ -204,13 +208,14 @@
                                     </span>
 
                                     @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
-                                       <form role="form" method="POST" action="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
-                                             style="display: inline-block;">
-                                           @csrf
-                                           <button type="submit" class="btn btn-xs btn-danger">
-                                               <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
-                                           </button>
-                                       </form>
+                                        <form role="form" method="POST"
+                                              action="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
+                                              style="display: inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
+                                            </button>
+                                        </form>
                                         <a href="{{ route('upload_form', ['category_id' => $torrentRequest->category_id, 'title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
                                            class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
@@ -219,14 +224,16 @@
                                 @if($torrentRequest->filled_hash == null)
                                     @if($torrentRequest->claimed == 1 && ($torrentRequestClaim->username == $user->username || $user->group->is_modo))
                                         <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                                data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
+                                                data-target="#fill"><i
+                                                    class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @elseif ($torrentRequest->claimed == 0)
                                         <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                                data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
+                                                data-target="#fill"><i
+                                                    class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @endif
-                                    @endif
+                                @endif
                             </td>
                         </tr>
                         @if ($torrentRequest->filled_hash != null && $torrentRequest->approved_by != null)
@@ -236,18 +243,18 @@
                                 </td>
                                 <td>
                                     @if ($torrentRequest->filled_anon == 0)
-                                    <span class="badge-user">
+                                        <span class="badge-user">
                                         <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                             {{ $torrentRequest->FillUser->username }}
                                         </a>
                                     </span>
                                     @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
-                                            <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
+                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                            @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                                <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                                 ({{ $torrentRequest->FillUser->username }})
                                             </a>
-                                        @endif
+                                            @endif
                                     </span>
                                     @endif
                                     <span class="badge-user">
@@ -272,29 +279,31 @@
                                 </td>
                                 <td>
                                     @if ($torrentRequest->filled_anon == 0)
-                                    <span class="badge-user">
+                                        <span class="badge-user">
                                         <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                             {{ $torrentRequest->FillUser->username }}
                                         </a>
                                     </span>
                                     @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
-                                            ({{ $torrentRequest->FillUser->username }})
-                                        @endif
+                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                            @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                                ({{ $torrentRequest->FillUser->username }})
+                                            @endif
                                     </span>
                                     @endif
                                     <span class="badge-extra">
                                         {{ $torrentRequest->filled_when->diffForHumans() }}
                                     </span>
-                                    <form role="form" method="POST" action="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}"
+                                    <form role="form" method="POST"
+                                          action="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}"
                                           style="display: inline-block;">
                                         @csrf
                                         <button type="submit" class="btn btn-xs btn-success">
                                             @lang('request.approve')
                                         </button>
                                     </form>
-                                    <form role="form" method="POST" action="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}"
+                                    <form role="form" method="POST"
+                                          action="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}"
                                           style="display: inline-block;">
                                         @csrf
                                         <button type="submit" class="btn btn-xs btn-warning">
@@ -341,18 +350,18 @@
                                     <tr>
                                         <td>
                                             @if ($voter->anon == 0)
-                                            <span class="badge-user">
+                                                <span class="badge-user">
                                                 <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                     {{ $voter->user->username }}
                                                 </a>
                                             </span>
                                             @else
-                                            <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                                @if ($user->group->is_modo || $voter->user->username == $user->username)
-                                                    <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
+                                                <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                                    @if ($user->group->is_modo || $voter->user->username == $user->username)
+                                                        <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                         ({{ $voter->user->username }})
                                                     </a>
-                                                @endif
+                                                    @endif
                                             </span>
                                             @endif
                                         </td>
@@ -385,7 +394,8 @@
                                     @if (count($comments) == 0)
                                         <div class="text-center">
                                             <h4 class="text-bold text-danger"><i
-                                                        class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!
+                                                        class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                                !
                                             </h4></div>
                                     @else @foreach ($comments as $comment)
                                         <li class="media" style="border-left: 5px solid #01bc8c;">
@@ -394,7 +404,9 @@
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
                                                         <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
+                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                           style="color:{{ $comment->user->group->color }};">(<span><i
+                                                                        class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
@@ -408,24 +420,28 @@
                                                              alt="{{ $comment->user->username }}"
                                                              class="img-avatar-48"></a>
                                                     @endif
-                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
+                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                               style="color:{{ $comment->user->group->color }};"><span><i
+                                                                        class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                 @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                        <div class="pull-right" style="display: inline-block;">
-                                                            <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
-                                                                <button class="btn btn-circle btn-info">
-                                                                    <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                                </button>
-                                                            </a>
-                                                            <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-circle btn-danger">
-                                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                                    <div class="pull-right" style="display: inline-block;">
+                                                        <a data-toggle="modal"
+                                                           data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                            <button class="btn btn-circle btn-info">
+                                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                            </button>
+                                                        </a>
+                                                        <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
+                                                              method="POST" style="display: inline-block;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-circle btn-danger">
+                                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @endif
                                                 <div class="pt-5">
                                                     @joypixels($comment->getContentHtml())
@@ -454,7 +470,8 @@
                                         class="badge-extra">@lang('common.type-verb')
                                     <strong>":"</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span
                                         class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
-                                <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea id="content" name="content" cols="30" rows="5"
+                                          class="form-control"></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
                             <label class="radio-inline"><strong>@lang('common.anonymous') {{ strtolower(trans('common.comment')) }}
@@ -469,7 +486,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     @include('requests.request_modals')
     @endif
 @endsection

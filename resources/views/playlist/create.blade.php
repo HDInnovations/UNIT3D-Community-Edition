@@ -24,7 +24,8 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <form name="new-playlist" method="POST" action="{{ route('playlists.store') }}" enctype="multipart/form-data">
+            <form name="new-playlist" method="POST" action="{{ route('playlists.store') }}"
+                  enctype="multipart/form-data">
                 @csrf
                 <h2 class="text-center">@lang('playlist.create')</h2>
                 <div class="form-group">

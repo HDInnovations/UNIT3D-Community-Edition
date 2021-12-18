@@ -29,7 +29,7 @@
                     <h1>Command Shortcuts</h1>
                 </div>
             </div>
-    
+
             <br>
             <div class="row text-center">
                 <div class="col-md-4">
@@ -49,14 +49,15 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
                             <h3 class="text-bold text-green">
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Disable Maintenance Mode
                             </h3>
-                            <h4 class="text-muted">This commands disables maintenance mode. Bringing the site backup for all
+                            <h4 class="text-muted">This commands disables maintenance mode. Bringing the site backup for
+                                all
                                 to access.</h4>
                             <form role="form" method="POST" action="{{ url('/dashboard/commands/maintance-disable') }}">
                                 @csrf
@@ -67,14 +68,15 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
                             <h3 class="text-bold text-green">
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Cache
                             </h3>
-                            <h4 class="text-muted">This commands clears your sites cache. This cache depends on what driver
+                            <h4 class="text-muted">This commands clears your sites cache. This cache depends on what
+                                driver
                                 you are using.</h4>
                             <form role="form" method="POST" action="{{ url('/dashboard/commands/clear-cache') }}">
                                 @csrf
@@ -85,10 +87,10 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <br>
                 <br>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
@@ -105,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
@@ -122,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
@@ -130,7 +132,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Config Cache
                             </h3>
                             <h4 class="text-muted">This commands clears your sites compiled configs cache.</h4>
-                            <form role="form" method="POST" action="{{ url('/dashboard/commands/clear-config-cache') }}">
+                            <form role="form" method="POST"
+                                  action="{{ url('/dashboard/commands/clear-config-cache') }}">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-primary">
                                     <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> Run Commnd
@@ -139,10 +142,10 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <br>
                 <br>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
@@ -159,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">
@@ -176,7 +179,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-md-4">
                     <div class="block">
                         <div class="panel-body">

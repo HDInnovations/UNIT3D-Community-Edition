@@ -35,7 +35,7 @@
                     <input type="text" class="form-control" name="position">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.add')</button>
         </form>
     </div>

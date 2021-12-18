@@ -28,29 +28,29 @@
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th>@lang('poll.title')</th>
-                        <th>@lang('common.date')</th>
-                        <th>@lang('common.action')</th>
-                    </tr>
+                <tr>
+                    <th>@lang('poll.title')</th>
+                    <th>@lang('common.date')</th>
+                    <th>@lang('common.action')</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($polls as $poll)
-                        <tr>
-                            <td><a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">{{ $poll->title }}</a></td>
-                            <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
-                            <td>
-                                <form action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
-                                       class="btn btn-warning">@lang('common.edit')</a>
-                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
-                                </form>
+                @foreach ($polls as $poll)
+                    <tr>
+                        <td><a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">{{ $poll->title }}</a></td>
+                        <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
+                        <td>
+                            <form action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
+                                   class="btn btn-warning">@lang('common.edit')</a>
+                                <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                            </form>
 
-                            </td>
-                        </tr>
-                    @endforeach
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

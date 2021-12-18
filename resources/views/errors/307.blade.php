@@ -6,17 +6,18 @@
 
 @section('container')
     <h1 class="mt-5 text-center">
-        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-warning"></i> Error 307: Temporary Redirect!
+        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-warning"></i> Error 307: Temporary
+        Redirect!
     </h1>
-    
+
     <div class="separator"></div>
-    
+
     <div class="text-center">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            width="100.001px" height="70px" viewBox="0 0 100 68">
+             width="100.001px" height="70px" viewBox="0 0 100 68">
             <g id="large">
                 <path
-                    d="M55.777,38.473l6.221-1.133c0.017-1.791-0.123-3.573-0.41-5.324l-6.321-0.19c-0.438-2.053-1.135-4.048-2.076-5.931
+                        d="M55.777,38.473l6.221-1.133c0.017-1.791-0.123-3.573-0.41-5.324l-6.321-0.19c-0.438-2.053-1.135-4.048-2.076-5.931
         		l4.82-4.094c-0.868-1.552-1.874-3.028-3.005-4.417l-5.569,2.999c-1.385-1.54-2.98-2.921-4.771-4.099l2.124-5.954
         		c-0.759-0.452-1.543-0.878-2.357-1.269c-0.811-0.39-1.625-0.732-2.449-1.046l-3.325,5.381c-2.038-0.665-4.113-1.052-6.183-1.174
         		L31.34,6.002c-1.792-0.02-3.571,0.119-5.32,0.406l-0.191,6.32c-2.056,0.439-4.051,1.137-5.936,2.08l-4.097-4.82
@@ -30,9 +31,10 @@
         		c1.537-1.385,2.914-2.98,4.093-4.772l5.953,2.127c0.448-0.761,0.878-1.545,1.268-2.356c0.388-0.808,0.729-1.631,1.047-2.458
         		l-5.378-3.324C55.268,42.615,55.655,40.542,55.777,38.473z M42.302,42.435c-3.002,6.243-10.495,8.872-16.737,5.866
         		c-6.244-2.999-8.872-10.493-5.867-16.736c3.002-6.244,10.495-8.873,16.736-5.869C42.676,28.698,45.306,36.19,42.302,42.435z"
-                    fill="none" stroke="#E43" />
-                <animateTransform attributeName="transform" begin="0s" dur="3s" type="rotate" from="0 31 37" to="360 31 37"
-                    repeatCount="indefinite">
+                        fill="none" stroke="#E43"/>
+                <animateTransform attributeName="transform" begin="0s" dur="3s" type="rotate" from="0 31 37"
+                                  to="360 31 37"
+                                  repeatCount="indefinite">
                 </animateTransform>
             </g>
             <g id="small">
@@ -47,16 +49,17 @@
         		c-0.425-1.952-0.912-4.194-1.404-6.473c1.439-0.902,2.744-2.057,3.835-3.436l6.273,2.11c0.444-0.7,0.856-1.43,1.225-2.197
         		c0.372-0.777,0.691-1.569,0.963-2.361l-5.568-3.586C93.181,22.677,93.269,20.939,93.068,19.253z M84.365,24.062
         		c-1.693,3.513-5.908,4.991-9.418,3.302c-3.513-1.689-4.99-5.906-3.301-9.419c1.688-3.513,5.906-4.991,9.417-3.302
-        		C84.573,16.331,86.05,20.549,84.365,24.062z" fill="none" stroke="#E43" />
-    
-                <animateTransform attributeName="transform" begin="0s" dur="2s" type="rotate" from="0 78 21" to="-360 78 21"
-                    repeatCount="indefinite">
+        		C84.573,16.331,86.05,20.549,84.365,24.062z" fill="none" stroke="#E43"/>
+
+                <animateTransform attributeName="transform" begin="0s" dur="2s" type="rotate" from="0 78 21"
+                                  to="-360 78 21"
+                                  repeatCount="indefinite">
                 </animateTransform>
             </g>
         </svg>
         <p>
             Please forgive the inconvenience.
-            <br /> We are currently building or revamping this feature.
+            <br/> We are currently building or revamping this feature.
         </p>
         <p>
             It's okay, we're excited too!

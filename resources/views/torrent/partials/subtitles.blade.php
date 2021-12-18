@@ -2,7 +2,9 @@
     <div class="panel-heading">
         <h4>
             <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> @lang('common.subtitles')
-            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="@lang('common.add') @lang('common.subtitle')">@lang('common.add') @lang('common.subtitle')</a>
+            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary"
+               style="float: right;"
+               title="@lang('common.add') @lang('common.subtitle')">@lang('common.add') @lang('common.subtitle')</a>
         </h4>
     </div>
 
@@ -24,10 +26,12 @@
                 <tr>
                     <td>
                         {{ $subtitle->language->name }}
-                        <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip" data-title="{{ $subtitle->note }}"></i>
+                        <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip"
+                           data-title="{{ $subtitle->note }}"></i>
                     </td>
                     <td>
-                        <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}" class="btn btn-xs btn-warning">@lang('common.download')</a>
+                        <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                           class="btn btn-xs btn-warning">@lang('common.download')</a>
                     </td>
                     <td>{{ $subtitle->extension }}</td>
                     <td>{{ $subtitle->getSize() }}</td>
@@ -35,26 +39,32 @@
                     <td>{{ $subtitle->created_at->diffForHumans() }}</td>
                     <td>
                         @if ($subtitle->anon == true)
-                        <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                            @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
-                                <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
+                            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
+                                    <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                                     ({{ $subtitle->user->username }})
                                 </a>
-                            @endif
+                                @endif
                         </span>
                         @else
-                        <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
-                            <span class="badge-user text-bold" style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
-                                <i class="{{ $subtitle->user->group->icon }}" data-toggle="tooltip" data-original-title="{{ $subtitle->user->group->name }}"></i> {{ $subtitle->user->username }}
+                            <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
+                            <span class="badge-user text-bold"
+                                  style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
+                                <i class="{{ $subtitle->user->group->icon }}" data-toggle="tooltip"
+                                   data-original-title="{{ $subtitle->user->group->name }}"></i> {{ $subtitle->user->username }}
                             </span>
-                        </a>
+                            </a>
                         @endif
 
                         @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
                             <div class="align-right" style="display: inline-block;">
                                 @include('subtitle.modals', ['subtitle' => $subtitle, 'torrent' => $torrent, 'media_languages' => App\Models\MediaLanguage::all()->sortBy('name')])
-                                <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}" title="@lang('common.edit') @lang('common.subtitle')"><i class="fa fa-edit text-green"></i></a>
-                                <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}" title="@lang('common.delete') @lang('common.subtitle')"><i class="fa fa-trash text-red"></i></a>
+                                <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}"
+                                   title="@lang('common.edit') @lang('common.subtitle')"><i
+                                            class="fa fa-edit text-green"></i></a>
+                                <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}"
+                                   title="@lang('common.delete') @lang('common.subtitle')"><i
+                                            class="fa fa-trash text-red"></i></a>
                             </div>
                         @endif
                     </td>

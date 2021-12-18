@@ -28,54 +28,54 @@
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th>@lang('common.name')</th>
-                        <th>Type</th>
-                        <th>@lang('common.position')</th>
-                        <th>@lang('common.action')</th>
-                    </tr>
+                <tr>
+                    <th>@lang('common.name')</th>
+                    <th>Type</th>
+                    <th>@lang('common.position')</th>
+                    <th>@lang('common.action')</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
-                        <tr class="success">
+                @foreach ($categories as $category)
+                    <tr class="success">
+                        <td>
+                            <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                        </td>
+                        <td>
+                            Category
+                        </td>
+                        <td>
+                            {{ $category->position }}
+                        </td>
+                        <td>
+                            <form action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
+                        <tr>
                             <td>
-                                <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">---- {{ $forum->name }}</a>
                             </td>
                             <td>
-                                Category
+                                Forum
                             </td>
                             <td>
-                                {{ $category->position }}
+                                {{ $forum->position }}
                             </td>
                             <td>
-                                <form action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}" method="POST">
+                                <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                                 </form>
                             </td>
                         </tr>
-                        @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">---- {{ $forum->name }}</a>
-                                </td>
-                                <td>
-                                    Forum
-                                </td>
-                                <td>
-                                    {{ $forum->position }}
-                                </td>
-                                <td>
-                                    <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
                     @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

@@ -61,7 +61,7 @@
                 <span class="selected"></span>
             </a>
             <ul class="hoe-sub-menu">
-                @php $categories = App\Models\Category::all(); @endphp
+                @php $categories = App\Models\Category::all() @endphp
                 @foreach($categories as $category)
                     <li>
                         <a href="{{ route('upload_form', ['category_id' => $category->id]) }}">
@@ -133,7 +133,7 @@
         <li>
             <a href="{{ config('other.rules_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-info-square"
-                    style=" font-size: 18px; color: #ffffff;"></i>
+                   style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.rules')</span>
                 <span class="selected"></span>
             </a>
@@ -141,7 +141,7 @@
         <li>
             <a href="{{ config('other.faq_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-question-square"
-                    style=" font-size: 18px; color: #ffffff;"></i>
+                   style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.faq')</span>
                 <span class="selected"></span>
             </a>

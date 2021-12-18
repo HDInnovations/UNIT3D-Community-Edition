@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-<meta name="description" content="Reports - @lang('staff.staff-dashboard')"> @endsection
+    <meta name="description" content="Reports - @lang('staff.staff-dashboard')"> @endsection
 
 @section('breadcrumb')
     <li>
@@ -19,7 +19,8 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.report')</span>
         </a>
     </li>
@@ -56,7 +57,7 @@
                             {{ $report->reporter->username }}
                         </a>
                     </p>
-    
+
                     @if ($report->torrent)
                         <h3>@lang('torrent.torrent') @lang('torrent.title'):</h3>
                         <p class="well well-sm">
@@ -65,7 +66,7 @@
                             </a>
                         </p>
                     @endif
-    
+
                     @if ($report->request)
                         <h3>@lang('torrent.torrent-request') @lang('request.title'):</h3>
                         <p class="well well-sm">
@@ -74,23 +75,23 @@
                             </a>
                         </p>
                     @endif
-    
+
                     <h3>@lang('common.message'):</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
-    
+
                     @if (count($urls) > 0)
                         <h3>Referenced Links:</h3>
                         <p class="well">
                             @foreach ($urls as $url)
-                                <a href="{{ $url }}" target="_blank">{{ $url }}</a><br />
+                                <a href="{{ $url }}" target="_blank">{{ $url }}</a><br/>
                             @endforeach
                         </p>
                     @endif
                 </div>
             </div>
-    
+
             <h2>Resolve @lang('common.report')</h2>
             <hr>
             <div class="row">

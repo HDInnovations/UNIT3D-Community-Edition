@@ -20,7 +20,7 @@
 @section('content')
     <div class="container">
         @include('partials.statstorrentmenu')
-    
+
         <div class="block">
             <h2>@lang('stat.top-completed')</h2>
             <hr>
@@ -32,32 +32,32 @@
                 </div>
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>@lang('torrent.torrent')</th>
-                            <th>@lang('torrent.seeders')</th>
-                            <th>@lang('torrent.leechers')</th>
-                            <th>@lang('torrent.completed')</th>
-                        </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>@lang('torrent.torrent')</th>
+                        <th>@lang('torrent.seeders')</th>
+                        <th>@lang('torrent.leechers')</th>
+                        <th>@lang('torrent.completed')</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach ($completed as $key => $c)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['id' => $c->id]) }}">
-                                        {{ $c->name }}
-                                    </a>
-                                </td>
-                                <td>{{ $c->seeders }}</td>
-                                <td>{{ $c->leechers }}</td>
-                                <td>
-                                    <span class="text-orange">{{ $c->times_completed }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
+                    @foreach ($completed as $key => $c)
+                        <tr>
+                            <td>
+                                {{ ++$key }}
+                            </td>
+                            <td>
+                                <a class="text-bold" href="{{ route('torrent', ['id' => $c->id]) }}">
+                                    {{ $c->name }}
+                                </a>
+                            </td>
+                            <td>{{ $c->seeders }}</td>
+                            <td>{{ $c->leechers }}</td>
+                            <td>
+                                <span class="text-orange">{{ $c->times_completed }}</span>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

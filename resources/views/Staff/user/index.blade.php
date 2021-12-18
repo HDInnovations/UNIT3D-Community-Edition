@@ -1,7 +1,8 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('common.user') @lang('common.search') - @lang('staff.staff-dashboard')
+        - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -16,7 +17,8 @@
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.search')</span>
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.search')</span>
         </a>
     </li>
 @endsection

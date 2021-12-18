@@ -37,7 +37,7 @@
                                 <div class="item-playlist-text-playlist">
                                     @if ($playlist->user->image != null)
                                         <img src="{{ url('files/img/' . $playlist->user->image) }}"
-                                            alt="{{ $playlist->user->username }}">
+                                             alt="{{ $playlist->user->username }}">
                                     @else
                                         <img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">
                                     @endif

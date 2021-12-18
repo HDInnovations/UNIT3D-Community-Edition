@@ -20,7 +20,8 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('mediahub.networks.show', ['id' => $company->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('mediahub.networks.show', ['id' => $company->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $company->name }}</span>
         </a>
     </li>
@@ -31,10 +32,12 @@
         <div class="block">
             <div style="width: 100% !important; display: table !important;">
                 <div class="header mediahub" style="width: 100% !important; display: table-cell !important;">
-                    <h1 class="text-center" style="font-family: Shrikhand, cursive; font-size: 4em; font-weight: 400; margin: 10px 0 20px;">
+                    <h1 class="text-center"
+                        style="font-family: Shrikhand, cursive; font-size: 4em; font-weight: 400; margin: 10px 0 20px;">
                         {{ $company->name }}
                     </h1>
-                    <h2 class="text-center" style="margin: 0;">{{ $company->tv_count }} @lang('mediahub.shows') | {{ $company->movie_count }} @lang('mediahub.movies')</h2>
+                    <h2 class="text-center" style="margin: 0;">{{ $company->tv_count }} @lang('mediahub.shows')
+                        | {{ $company->movie_count }} @lang('mediahub.movies')</h2>
                     @foreach($shows as $show)
                         <div class="col-md-12">
                             <div class="card is-torrent">
@@ -48,7 +51,8 @@
                                 </div>
                                 <div class="card_body">
                                     <div class="body_poster">
-                                        <img src="{{ isset($show->poster) ? \tmdb_image('poster_mid', $show->poster) : 'https://via.placeholder.com/200x300' }}" class="show-poster">
+                                        <img src="{{ isset($show->poster) ? tmdb_image('poster_mid', $show->poster) : 'https://via.placeholder.com/200x300' }}"
+                                             class="show-poster">
                                     </div>
                                     <div class="body_description">
                                         <h3 class="description_title">
@@ -75,9 +79,9 @@
                         </div>
                     @endforeach
                     @if ($movies->isNotEmpty())
-                    <div class="col-md-12">
-                        <h2 class="text-center">Movies</h2>
-                    </div>
+                        <div class="col-md-12">
+                            <h2 class="text-center">Movies</h2>
+                        </div>
                     @endif
                     @foreach($movies as $movie)
                         <div class="col-md-12">
@@ -89,7 +93,8 @@
                                 </div>
                                 <div class="card_body">
                                     <div class="body_poster">
-                                        <img src="{{ isset($movie->poster) ? \tmdb_image('poster_mid', $movie->poster) : 'https://via.placeholder.com/200x300' }}" class="show-poster">
+                                        <img src="{{ isset($movie->poster) ? tmdb_image('poster_mid', $movie->poster) : 'https://via.placeholder.com/200x300' }}"
+                                             class="show-poster">
                                     </div>
                                     <div class="body_description">
                                         <h3 class="description_title">

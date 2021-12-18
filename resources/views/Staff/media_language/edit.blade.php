@@ -14,7 +14,8 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
                 @lang('common.edit') @lang('common.media-language')
             </span>
@@ -26,9 +27,10 @@
     <div class="container box">
         <h2>
             @lang('common.edit') @lang('common.media-language') @lang('staff.media-languages-desc')</h2>
-        <form role="form" method="POST" action="{{ route('staff.media_languages.update', ['id' => $media_language->id]) }}">
+        <form role="form" method="POST"
+              action="{{ route('staff.media_languages.update', ['id' => $media_language->id]) }}">
             @csrf
-    
+
             <div class="form-group">
                 <label for="name">@lang('common.name')</label>
                 <label>
@@ -42,7 +44,7 @@
                     <input type="text" class="form-control" name="code" value="{{ $media_language->code }}">
                 </label>
             </div>
-    
+
             <button type="submit" class="btn btn-default">
                 {{ trans('common.submit') }}
             </button>

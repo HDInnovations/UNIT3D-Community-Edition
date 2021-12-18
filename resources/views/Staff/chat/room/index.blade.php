@@ -21,7 +21,7 @@
             @lang('common.add') @lang('common.chat-room')
         </button>
         <div id="addChatroom" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog{{ \modal_style() }}">
+            <div class="modal-dialog{{ modal_style() }}">
                 <div class="modal-content">
 
                     <div class="modal-header" style="text-align: center;">
@@ -33,8 +33,9 @@
                         <div class="modal-body" style="text-align: center;">
                             <h4>Please enter the name of the chatroom you would like to create.</h4>
                             <label for="chatroom_name"> @lang('common.name'):</label> <label for="name"></label><input
-                                style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name"
-                                placeholder="Enter @lang('common.name') Here..." required>
+                                    style="margin:0 auto; width:300px;" type="text" class="form-control" name="name"
+                                    id="name"
+                                    placeholder="Enter @lang('common.name') Here..." required>
                         </div>
 
                         <div class="modal-footer">
@@ -49,36 +50,36 @@
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>@lang('common.name')</th>
-                        <th>@lang('common.action')</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>@lang('common.name')</th>
+                    <th>@lang('common.action')</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($chatrooms as $chatroom)
-                        <tr>
-                            <td>
-                                {{ $chatroom->id }}
-                            </td>
-                            <td>
-                                <a href="#">
-                                    {{ $chatroom->name }}
-                                </a>
-                            </td>
-                            <td>
-                                <button class="btn btn-xs btn-warning" data-toggle="modal"
+                @foreach ($chatrooms as $chatroom)
+                    <tr>
+                        <td>
+                            {{ $chatroom->id }}
+                        </td>
+                        <td>
+                            <a href="#">
+                                {{ $chatroom->name }}
+                            </a>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-warning" data-toggle="modal"
                                     data-target="#editChatroom-{{ $chatroom->id }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-pen-square"></i>
-                                </button>
-                                <button class="btn btn-xs btn-danger" data-toggle="modal"
+                                <i class="{{ config('other.font-awesome') }} fa-pen-square"></i>
+                            </button>
+                            <button class="btn btn-xs btn-danger" data-toggle="modal"
                                     data-target="#deleteChatroom-{{ $chatroom->id }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                </button>
-                                @include('Staff.chat.room.chatroom_modals', ['chatroom' => $chatroom])
-                            </td>
-                        </tr>
-                    @endforeach
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                            </button>
+                            @include('Staff.chat.room.chatroom_modals', ['chatroom' => $chatroom])
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

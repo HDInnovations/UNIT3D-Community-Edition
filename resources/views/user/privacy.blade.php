@@ -6,13 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_privacy', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.privacy')
                 @lang('user.settings')</span>
         </a>
@@ -44,8 +45,8 @@
 
                     <div role="tabpanel" class="tab-pane" id="other_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_other', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_other', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.other-privacy'):</h3>
@@ -59,11 +60,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_online == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_online" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_online" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_online" value="1" />
+                                                    <input type="checkbox" name="show_online" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -84,12 +85,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_other_groups ||
                                                             $group->isAllowed($user->privacy->json_other_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -109,8 +112,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_request', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_request', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.request-privacy'):</h3>
@@ -124,11 +127,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_requested == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_requested" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_requested" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_requested" value="1" />
+                                                    <input type="checkbox" name="show_requested" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -149,12 +152,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_request_groups ||
                                                             $group->isAllowed($user->privacy->json_request_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -174,8 +179,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="torrent_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_torrent', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_torrent', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.torrent-privacy'):</h3>
@@ -189,11 +194,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_upload == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_upload" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_upload" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_upload" value="1" />
+                                                    <input type="checkbox" name="show_upload" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -206,11 +211,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_download == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_download" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_download" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_download" value="1" />
+                                                    <input type="checkbox" name="show_download" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -223,11 +228,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_peer == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_peer" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_peer" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_peer" value="1" />
+                                                    <input type="checkbox" name="show_peer" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -248,12 +253,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_torrent_groups ||
                                                             $group->isAllowed($user->privacy->json_torrent_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -273,8 +280,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane active" id="profile_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_profile', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_profile', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.profile-privacy'):</h3>
@@ -290,11 +297,11 @@
                                                 $user->privacy->show_profile_torrent_count == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_count" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_count" value="1" />
+                                                    <input type="checkbox" name="show_profile_torrent_count" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -308,11 +315,11 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_title ==
                                                 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_title" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_title" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_title" value="1" />
+                                                    <input type="checkbox" name="show_profile_title" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -326,11 +333,11 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_about ==
                                                 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_about" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_about" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_about" value="1" />
+                                                    <input type="checkbox" name="show_profile_about" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -345,11 +352,11 @@
                                                 $user->privacy->show_profile_torrent_ratio == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_ratio" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_ratio" value="1" />
+                                                    <input type="checkbox" name="show_profile_torrent_ratio" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -363,11 +370,12 @@
                                             @if(!$user->privacy || ($user->privacy &&
                                                 $user->privacy->show_profile_torrent_seed == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1" />
+                                                    <input type="checkbox" name="show_profile_torrent_seed" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -381,11 +389,12 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_bon_extra
                                                 == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_bon_extra" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_bon_extra" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_bon_extra" value="1" />
+                                                    <input type="checkbox" name="show_profile_bon_extra" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -400,11 +409,11 @@
                                                 $user->privacy->show_profile_torrent_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_torrent_extra" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_torrent_extra" value="1" />
+                                                    <input type="checkbox" name="show_profile_torrent_extra" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -419,11 +428,11 @@
                                                 $user->privacy->show_profile_comment_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_comment_extra" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_comment_extra" value="1" />
+                                                    <input type="checkbox" name="show_profile_comment_extra" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -438,11 +447,11 @@
                                                 $user->privacy->show_profile_request_extra == 1))
                                                 <label>
                                                     <input type="checkbox" name="show_profile_request_extra" value="1"
-                                                        CHECKED />
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_request_extra" value="1" />
+                                                    <input type="checkbox" name="show_profile_request_extra" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -456,11 +465,12 @@
                                             @if(!$user->privacy || ($user->privacy &&
                                                 $user->privacy->show_profile_forum_extra == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_forum_extra" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_forum_extra" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_forum_extra" value="1" />
+                                                    <input type="checkbox" name="show_profile_forum_extra" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -474,11 +484,12 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_warning
                                                 == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_warning" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_warning" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_warning" value="1" />
+                                                    <input type="checkbox" name="show_profile_warning" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -492,11 +503,11 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_badge ==
                                                 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_badge" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_badge" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_badge" value="1" />
+                                                    <input type="checkbox" name="show_profile_badge" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -510,11 +521,12 @@
                                             @if(!$user->privacy || ($user->privacy &&
                                                 $user->privacy->show_profile_achievement == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_achievement" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_achievement" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_achievement" value="1" />
+                                                    <input type="checkbox" name="show_profile_achievement" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -528,11 +540,12 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_follower
                                                 == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_follower" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_profile_follower" value="1"
+                                                           CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_profile_follower" value="1" />
+                                                    <input type="checkbox" name="show_profile_follower" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -554,11 +567,13 @@
                                                     @if(!$user->privacy || !$user->privacy->json_profile_groups ||
                                                         $group->isAllowed($user->privacy->json_profile_groups,$group->id))
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <input type="checkbox" name="approved[]"
+                                                                   value="{{ $group->id }}" CHECKED/>
                                                         </label>
                                                     @else
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <input type="checkbox" name="approved[]"
+                                                                   value="{{ $group->id }}"/>
                                                         </label>
                                                     @endif
                                                 </div>
@@ -576,8 +591,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="forum_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_forum', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_forum', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.forum-privacy'):</h3>
@@ -591,11 +606,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_topic == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_topic" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_topic" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_topic" value="1" />
+                                                    <input type="checkbox" name="show_topic" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -608,11 +623,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_post == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_post" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_post" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_post" value="1" />
+                                                    <input type="checkbox" name="show_post" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -633,12 +648,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_forum_groups ||
                                                             $group->isAllowed($user->privacy->json_forum_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -657,8 +674,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="follower_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_follower', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_follower', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.follower-privacy'):</h3>
@@ -672,11 +689,11 @@
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_follower == 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_follower" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_follower" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_follower" value="1" />
+                                                    <input type="checkbox" name="show_follower" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -697,12 +714,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_follower_groups ||
                                                             $group->isAllowed($user->privacy->json_follower_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -721,8 +740,8 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="achievement_tab">
                         <form role="form" method="POST"
-                            action="{{ route('privacy_achievement', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('privacy_achievement', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.achievement-privacy'):</h3>
@@ -737,11 +756,11 @@
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_achievement ==
                                                 1))
                                                 <label>
-                                                    <input type="checkbox" name="show_achievement" value="1" CHECKED />
+                                                    <input type="checkbox" name="show_achievement" value="1" CHECKED/>
                                                 </label>
                                             @else
                                                 <label>
-                                                    <input type="checkbox" name="show_achievement" value="1" />
+                                                    <input type="checkbox" name="show_achievement" value="1"/>
                                                 </label>
                                             @endif
                                         </div>
@@ -762,12 +781,14 @@
                                                         @if(!$user->privacy || !$user->privacy->json_achievement_groups ||
                                                             $group->isAllowed($user->privacy->json_achievement_groups,$group->id))
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}"
-                                                                    CHECKED />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"
+                                                                       CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
-                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                                <input type="checkbox" name="approved[]"
+                                                                       value="{{ $group->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -792,36 +813,36 @@
 @endsection
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(window).on("load", function() {
-            loadTab();
-        });
+      $(window).on('load', function () {
+        loadTab()
+      })
 
-        function loadTab() {
-            if (window.location.hash && window.location.hash == "#visible_tab") {
-                $('#basetabs a[href="#visible_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#torrent_tab") {
-                $('#basetabs a[href="#torrent_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#forum_tab") {
-                $('#basetabs a[href="#forum_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#profile_tab") {
-                $('#basetabs a[href="#profile_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#follower_tab") {
-                $('#basetabs a[href="#follower_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#achievement_tab") {
-                $('#basetabs a[href="#achievement_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#request_tab") {
-                $('#basetabs a[href="#request_tab"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#other_tab") {
-                $('#basetabs a[href="#other_tab"]').tab('show');
-            }
+      function loadTab () {
+        if (window.location.hash && window.location.hash == '#visible_tab') {
+          $('#basetabs a[href="#visible_tab"]').tab('show')
         }
+        if (window.location.hash && window.location.hash == '#torrent_tab') {
+          $('#basetabs a[href="#torrent_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#forum_tab') {
+          $('#basetabs a[href="#forum_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#profile_tab') {
+          $('#basetabs a[href="#profile_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#follower_tab') {
+          $('#basetabs a[href="#follower_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#achievement_tab') {
+          $('#basetabs a[href="#achievement_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#request_tab') {
+          $('#basetabs a[href="#request_tab"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#other_tab') {
+          $('#basetabs a[href="#other_tab"]').tab('show')
+        }
+      }
 
     </script>
 @endsection

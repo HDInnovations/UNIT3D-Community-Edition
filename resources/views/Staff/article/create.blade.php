@@ -17,7 +17,8 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.articles.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.add') @lang('staff.articles')</span>
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">@lang('common.add') @lang('staff.articles')</span>
         </a>
     </li>
 @endsection
@@ -33,17 +34,17 @@
                     <input type="text" class="form-control" name="title" required>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="image">@lang('common.image')</label>
                 <input type="file" name="image">
             </div>
-    
+
             <div class="form-group">
                 <label for="content">@lang('staff.article-content')</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
-    
+
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
@@ -51,9 +52,9 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(document).ready(function() {
-            $('#content').wysibb({});
-        })
-    
+      $(document).ready(function () {
+        $('#content').wysibb({})
+      })
+
     </script>
 @endsection

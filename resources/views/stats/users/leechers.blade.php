@@ -26,7 +26,8 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> @lang('stat.top-leechers')
+                    <p class="text-red"><strong><i
+                                    class="{{ config('other.font-awesome') }} fa-arrow-down"></i> @lang('stat.top-leechers')
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

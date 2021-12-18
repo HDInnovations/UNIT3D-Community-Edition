@@ -1,4 +1,4 @@
-@php $bg = rand(1, 13); $bgchange = $bg.".jpg"; @endphp
+@php $bg = rand(1, 13); $bgchange = $bg.".jpg" @endphp
 <br>
 <div id="l-footer" style="background-image: url('/img/footer/{{ $bgchange }}');">
     <div class="container">
@@ -14,11 +14,11 @@
             <ul>
                 <li>
                     <a
-                        href="{{ route('users.show', ['username' => auth()->user()->username]) }}">@lang('user.my-profile')</a>
+                            href="{{ route('users.show', ['username' => auth()->user()->username]) }}">@lang('user.my-profile')</a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf
                     </form>
                 </li>
@@ -59,9 +59,9 @@
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
             <ul>
                 <li><a href="https://github.com/sponsors/HDVinnie" target="_blank"
-                        class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
+                       class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
                 <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
-                        class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
+                       class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
             </ul>
         </div>
     </div>
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="text-bold">
-                        This page took {{ \round(\microtime(true) - LARAVEL_START, 3) }} seconds to render
+                        This page took {{ round(microtime(true) - LARAVEL_START, 3) }} seconds to render
                     </span>
                 </div>
             </div>
