@@ -12,7 +12,7 @@ class FixDatabaseIndexs extends Migration
      */
     public function up()
     {
-        # New Indexs
+        // New Indexs
         DB::statement('ALTER TABLE `history` ADD INDEX `history_idx_prewa_hitru_immun_activ_actua` (`prewarn`,`hitrun`,`immune`,`active`,`actual_downloaded`)');
         DB::statement('ALTER TABLE `torrents` ADD INDEX `torrents_idx_status_resolut_created` (`status`,`resolution_id`,`created_at`)');
         DB::statement('ALTER TABLE `torrents` ADD INDEX `torrents_idx_status_catego_sticky_bumped` (`status`,`category_id`,`sticky`,`bumped_at`)');
