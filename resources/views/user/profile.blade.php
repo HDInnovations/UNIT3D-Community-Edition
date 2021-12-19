@@ -87,16 +87,16 @@
                                     @endif
                                 </h2>
                                 <h4>@lang('common.primary_role'): <span class="badge-user text-bold"
-                                                                       style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};"><i
+                                                                       style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #0f0f0f"><i
                                                 class="{{ $user->primaryRole->icon}}" data-toggle="tooltip" title=""
                                                 data-original-title="{{ $user->primaryRole->name }}"></i> {{ $user->primaryRole->name }}</span>
                                         @if($user->additionalRoles->count() > 0 )
                                         @lang('common.additional_roles'):
                                             @foreach($user->additionalRoles as $role)
                                                 <span class="badge-user text-bold"
-                                                      style="color:{{ $role->color }}; background-image:{{ $role->effect }};"><i
+                                                      style="color:{{ $role->color }}; background-image:{{ $role->effect }}; background-color: #0f0f0f"><i
                                                             class="{{ $role->icon}}" data-toggle="tooltip" title=""
-                                                            data-original-title="{{ $role->name }}"></i> {{ $role->name }}
+                                                            data-original-title="{{ $role->name }}"></i> {{ $role->name }}</span>
                                             @endforeach
                                         @endif
                                 </h4>

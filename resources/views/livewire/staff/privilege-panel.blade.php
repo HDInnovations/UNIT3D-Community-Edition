@@ -9,6 +9,78 @@
                         class="fas fa-key"></i> Privileges</div>
     </div>
     <div class="ppBody">
+        <section x-show="tab === 3 && panel == 0">
+            <div class="ppTable">
+                <div class="ppTInfo">
+                    <div class="ppTTitle"><strong>Configure Users</strong></div>
+                    <div class="ppTInput">
+                        <input type="text" wire:model="userSearch" style="width: 200px;" placeholder="@lang('user.search')"/>
+                    </div>
+                    <div class="ppTBack"><a href="{{route('staff.dashboard.index')}}"><i class="fas fa-arrow-circle-left"></i> Back to Dashboard</a></div>
+                </div>
+                <div class="ppTHeadUsers">
+                    <div class="ppTHeadings" sortable wire:click="sortBy('username')"
+                         :direction="$wire.sortField === 'username' ? $wire.sortDirection : null" role="button">
+                        @lang('common.username')
+                        @include('livewire.includes._sort-icon', ['field' => 'username'])
+                    </div>
+                    <div class="ppTHeadings ppBadgeRoles" sortable wire:click="sortBy('role_id')"
+                         :direction="$wire.sortField === 'role_id' ? $wire.sortDirection : null" role="button">
+                        Role(s)
+                        @include('livewire.includes._sort-icon', ['field' => 'role_id'])</div>
+                    <div class="ppTHeadings" sortable wire:click="sortBy('email')"
+                         :direction="$wire.sortField === 'email' ? $wire.sortDirection : null"
+                         role="button">
+                        @lang('common.email')
+                        @include('livewire.includes._sort-icon', ['field' => 'email'])</div>
+                    <div class="ppTHeadings" sortable wire:click="sortBy('created_at')"
+                         :direction="$wire.sortField === 'created_at' ? $wire.sortDirection : null"
+                         role="button">
+                        @lang('user.registration-date')
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </div>
+                    <div class="ppTHeadings">
+                        Actions
+                    </div>
+                </div>
+                <div class="ppTBodyUsers">
+                    @foreach ($users as $user)
+                        <div class="ppBadge">
+						<span class="text-bold"
+                              style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
+                            <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->username }}
+                        </span>
+                        </div>
+                        <div class="ppBadge ppBadgeRoles">
+                            @foreach($user->roles as $role)
+                                @if($role->slug === $user->primaryRole->slug)
+                                    <span class="text-bold"
+                                          style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
+                                                    <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->primaryRole->name }}</span>
+                                @else
+                                    <span class="ppBadgeSmall">{{$role->name}}</span>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="ppValue">{{ $user->email }}</div>
+                        <div class="ppValue">{{ \Illuminate\Support\Carbon::make($user->created_at)->toFormattedDateString() }}</div>
+                        <div class="ppActions">
+                            <a href="{{route('users.show', ['username' => $user->username])}}"><i class="far fa-id-card"></i> Profile</a>
+                            <a href="{{route('user_setting', ['username' => $user->username])}}"><i class="fas fa-user-edit"></i> Edit</a>
+                            <a href="#"
+                               @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 1; } );"><i class="fas fa-users-class"></i> Roles</a>
+                            <a href="#"
+                               @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 2; } );"><i class="fas fa-key"></i> Privilges</a>
+
+                        </div>
+                    @endforeach
+                </div>
+                <div class="ppPaginate">
+                    {{ $users->links() }}
+                </div>
+            </div>
+        </section>
+
         <section x-show="tab === 1 && panel == 0">
             <div class="ppTable">
                 <div class="ppTInfo">
@@ -60,77 +132,7 @@
                 </div>
             </div>
         </section>
-        <section x-show="tab === 3 && panel == 0">
-            <div class="ppTable">
-                <div class="ppTInfo">
-                    <div class="ppTTitle"><strong>Configure Users</strong></div>
-                    <div class="ppTInput">
-                        <input type="text" wire:model="userSearch" style="width: 200px;" placeholder="@lang('user.search')"/>
-                    </div>
-                    <div class="ppTBack"><a href="{{route('staff.dashboard.index')}}"><i class="fas fa-arrow-circle-left"></i> Back to Dashboard</a></div>
-                </div>
-                <div class="ppTHeadUsers">
-                    <div class="ppTHeadings" sortable wire:click="sortBy('username')"
-                        :direction="$wire.sortField === 'username' ? $wire.sortDirection : null" role="button">
-                        @lang('common.username')
-                        @include('livewire.includes._sort-icon', ['field' => 'username'])
-                    </div>
-                    <div class="ppTHeadings ppBadgeRoles" sortable wire:click="sortBy('role_id')"
-                         :direction="$wire.sortField === 'role_id' ? $wire.sortDirection : null" role="button">
-                        Role(s)
-                        @include('livewire.includes._sort-icon', ['field' => 'role_id'])</div>
-                    <div class="ppTHeadings" sortable wire:click="sortBy('email')"
-                         :direction="$wire.sortField === 'email' ? $wire.sortDirection : null"
-                         role="button">
-                        @lang('common.email')
-                        @include('livewire.includes._sort-icon', ['field' => 'email'])</div>
-                    <div class="ppTHeadings" sortable wire:click="sortBy('created_at')"
-                         :direction="$wire.sortField === 'created_at' ? $wire.sortDirection : null"
-                         role="button">
-                        @lang('user.registration-date')
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                    </div>
-                    <div class="ppTHeadings">
-                        Actions
-                    </div>
-                </div>
-                <div class="ppTBodyUsers">
-                @foreach ($users as $user)
-                        <div class="ppBadge">
-						<span class="text-bold"
-                           style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
-                            <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->username }}
-                        </span>
-                        </div>
-                        <div class="ppBadge ppBadgeRoles">
-                            @foreach($user->roles as $role)
-                                @if($role->slug === $user->primaryRole->slug)
-                                    <span class="text-bold"
-                                          style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
-                                                    <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->primaryRole->name }}</span>
-                                @else
-                                    <span class="ppBadgeSmall">{{$role->name}}</span>
-                                @endif
-                            @endforeach
-                        </div>
-                        <div class="ppValue">{{ $user->email }}</div>
-                        <div class="ppValue">{{ \Illuminate\Support\Carbon::make($user->created_at)->toFormattedDateString() }}</div>
-                        <div class="ppActions">
-                            <a href="{{route('users.show', ['username' => $user->username])}}"><i class="far fa-id-card"></i> Profile</a>
-                            <a href="{{route('user_edit', ['username' => $user->username])}}"><i class="fas fa-user-edit"></i> Edit</a>
-                            <a href="#"
-                               @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 1; } );"><i class="fas fa-users-class"></i> Roles</a>
-                            <a href="#"
-                               @click.prevent="$wire.GetUser({{$user->id}}).then( ()=>{ tab = 3; panel = 2; } );"><i class="fas fa-key"></i> Privilges</a>
 
-                        </div>
-                @endforeach
-                </div>
-                <div class="ppPaginate">
-                    {{ $users->links() }}
-                </div>
-            </div>
-        </section>
         <section x-show="tab === 1 && panel == 1">
             <div class="ppTable">
                 <div class="ppTInfo">
