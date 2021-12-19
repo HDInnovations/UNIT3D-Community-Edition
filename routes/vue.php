@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => ['auth', 'banned']], function () {
+Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
     Route::prefix('chat')->group(function () {
         Route::get('/config', [App\Http\Controllers\API\ChatController::class, 'config']);
 
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 
         /* Messages */
         Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'createMessage']);
-        Route::get('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
+        Route::post('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
         Route::get('/messages/{room_id}', [App\Http\Controllers\API\ChatController::class, 'messages']);
 
         /* Private Stuff */

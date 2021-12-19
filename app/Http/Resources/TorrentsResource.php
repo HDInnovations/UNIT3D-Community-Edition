@@ -57,6 +57,6 @@ class TorrentsResource extends ResourceCollection
      */
     public function withResponse($request, $response)
     {
-        $response->setEncodingOptions(JSON_UNESCAPED_SLASHES);
+        $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 }

@@ -30,16 +30,12 @@ class TorrentResource extends JsonResource
     {
         $meta = null;
 
-        if ($this->category->tv_meta) {
-            if ($this->tmdb || $this->tmdb !== 0) {
-                $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
-            }
+        if ($this->category->tv_meta && ($this->tmdb || $this->tmdb !== 0)) {
+            $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 
-        if ($this->category->movie_meta) {
-            if ($this->tmdb || $this->tmdb !== 0) {
-                $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
-            }
+        if ($this->category->movie_meta && ($this->tmdb || $this->tmdb !== 0)) {
+            $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 
         return [
@@ -72,5 +68,18 @@ class TorrentResource extends JsonResource
                 'details_link'    => \route('torrent', ['id' => $this->id]),
             ],
         ];
+    }
+
+    /**
+     * Customize the outgoing response for the resource.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Response $response
+     *
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 }

@@ -14,10 +14,10 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
+use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -38,7 +38,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
      *
      * @param $queries
      */
-    public function __construct(protected $queries, protected \App\Models\User $user, protected \App\Models\Torrent $torrent)
+    public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
     }
 
@@ -99,15 +99,14 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         // Modification of Upload and Download
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
         $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
-        $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
         } else {
             $modDownloaded = $downloaded;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $this->user->group->is_double_upload == 1) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;

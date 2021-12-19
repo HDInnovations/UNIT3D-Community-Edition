@@ -112,7 +112,17 @@ return [
     |
     */
 
-    'password_timeout'                => 10800,
+    'password_timeout' => 10800,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Two Step Settings
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define your 2fa settings
+    |
+    */
+
     'TwoStepEnabled'                  => true,
     'verificationEmailFrom'           => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
     'verificationEmailFromName'       => ' 2-Step Verification',

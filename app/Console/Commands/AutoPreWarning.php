@@ -60,6 +60,9 @@ class AutoPreWarning extends Command
                 ->get();
 
             foreach ($prewarn as $pre) {
+                if (is_null($pre->torrent)) {
+                    continue;
+                }
                 if (! $pre->user->hasPrivilegeTo('user_special_immune') && $pre->actual_downloaded > ($pre->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $pre->torrent->id)

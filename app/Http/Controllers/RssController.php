@@ -222,7 +222,11 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->imdb && $rss->object_torrent->imdb != null) {
-            $builder->where('imdb', '=', $imdb);
+            if (\preg_match('/tt0*?(?=(\d{7,8}))/', $imdb, $matches)) {
+                $builder->where('imdb', '=', $matches[1]);
+            } else {
+                $builder->where('imdb', '=', $imdb);
+            }
         }
 
         if ($rss->object_torrent->tvdb && $rss->object_torrent->tvdb != null) {

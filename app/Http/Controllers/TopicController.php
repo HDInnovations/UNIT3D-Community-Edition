@@ -64,7 +64,7 @@ class TopicController extends Controller
         $forum = $topic->forum;
 
         // Get The category of the forum
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($forum->id);
 
         // Get all posts
         $posts = $topic->posts()->with(['user', 'user.primaryRole', 'user.topics', 'user.posts', 'topic', 'tips'])
@@ -107,7 +107,7 @@ class TopicController extends Controller
         $user = $request->user();
 
         $forum = Forum::findOrFail($id);
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
         if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
@@ -133,7 +133,7 @@ class TopicController extends Controller
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
         if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {

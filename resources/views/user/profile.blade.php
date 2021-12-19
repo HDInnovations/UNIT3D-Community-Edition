@@ -101,9 +101,12 @@
                                         @endif
                                 </h4>
                                 <h4>@lang('user.registration-date') {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
-        @if (auth()->user()->id != $user->id)
+                                @if (auth()->user()->id != $user->id)
                                 <span style="float:right;">
         @if (auth()->user()->hasPrivilegeTo('users_edit_personal'))
+                                        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_warn_user">
+                                            <span class="{{ config('other.font-awesome') }} fa-radiation-alt"></span> Warn User
+                                        </button>
                                         <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                 data-target="#modal_user_note"><span
                                                     class="{{ config('other.font-awesome') }} fa-sticky-note"></span> @lang('user.note') </button>
@@ -134,7 +137,7 @@
                                         <button class="btn btn-xs btn-danger" data-toggle="modal"
                                                 data-target="#modal_user_delete"><span
                                                     class="{{ config('other.font-awesome') }} fa-trash"></span> @lang('user.delete') </button>
-                                    @endif
+                                        @endif
                                         </span>
                                     @endif
 

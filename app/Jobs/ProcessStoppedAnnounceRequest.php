@@ -13,9 +13,7 @@
 
 namespace App\Jobs;
 
-use App\Exceptions\TrackerException;
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
@@ -61,9 +59,6 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
-        if ($peer === null && \strtolower($this->queries['event']) === 'completed') {
-            throw new TrackerException(151);
-        }
 
         // Creates a new peer if not existing
         if ($peer === null) {
@@ -76,7 +71,9 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])->where('user_id', '=', $this->user->id)->first();
+        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+            ->where('user_id', '=', $this->user->id)
+            ->first();
 
         // If no History record found then create one
         if ($history === null) {
@@ -99,17 +96,19 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
 
         // Modification of Upload and Download
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
-        $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
-        $group = Group::whereId($this->user->group_id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)
+            ->first();
+        $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)
+            ->where('torrent_id', '=', $this->torrent->id)
+            ->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
         } else {
             $modDownloaded = $downloaded;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $this->user->group->is_double_upload == 1) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;
@@ -163,8 +162,12 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         // End User Update
 
         // Sync Seeders / Leechers Count
-        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '=', '0')->count();
-        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '>', '0')->count();
+        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '=', '0')
+            ->count();
+        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '>', '0')
+            ->count();
         $this->torrent->save();
     }
 }

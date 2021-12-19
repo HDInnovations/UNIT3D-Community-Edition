@@ -25,6 +25,7 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
@@ -57,7 +58,7 @@ class PostController extends Controller
         $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
-        $category = $forum->getCategory();
+        $category = Forum::findOrFail($forum->id);
 
         // The user has the right to create a post here?
         if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_reply_topic') || ! $user->hasPrivilegeTo('forums_sudo') || ($topic->state == 'close' && ! $user->hasPrivilegeTo('forums_sudo'))) {

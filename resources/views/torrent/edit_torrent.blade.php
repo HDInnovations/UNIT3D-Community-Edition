@@ -135,6 +135,20 @@
                         </label>
                     </div>
                     @endif
+
+                    @if ($torrent->category->tv_meta)
+                        <div class="form-group">
+                            <label for="season_number">@lang('torrent.season-number') <b>(@lang('common.required') For TV)</b></label>
+                            <input type="number" name="season_number" id="season_number" class="form-control" value="{{ $torrent->season_number }}" required>
+                        </div>
+                    @endif
+
+                    @if ($torrent->category->tv_meta)
+                        <div class="form-group">
+                            <label for="episode_number">@lang('torrent.episode-number') <b>(@lang('common.required') For TV. Use "0" For Season Packs.)</b></label>
+                            <input type="number" name="episode_number" id="episode_number" class="form-control" value="{{ $torrent->episode_number }}" required>
+                        </div>
+                    @endif
     
                     <div class="form-group">
                         <label for="description">@lang('common.description')</label>

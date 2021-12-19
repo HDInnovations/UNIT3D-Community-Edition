@@ -141,7 +141,7 @@ class Bbcode
 
         'image' => [
             'pattern' => '/\[img\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$1">',
+            'replace' => '<img src="$1" class="img-responsive" style="display: inline !important;">',
             'content' => '$1',
         ],
 

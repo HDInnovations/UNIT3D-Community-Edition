@@ -29,6 +29,8 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Models\Warning;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -262,5 +264,37 @@ class UserController extends Controller
 
         return \redirect()->route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
+    }
+
+    /**
+     * Manually warn a user.
+     *
+     * @param \App\Models\User $username
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function warnUser(Request $request, $username)
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+        $carbon = new Carbon();
+        $warning = new Warning();
+        $warning->user_id = $user->id;
+        $warning->warned_by = $request->user()->id;
+        $warning->torrent = null;
+        $warning->reason = $request->input('message');
+        $warning->expires_on = $carbon->copy()->addDays(\config('hitrun.expire'));
+        $warning->active = '1';
+        $warning->save();
+
+        // Send Private Message
+        $pm = new PrivateMessage();
+        $pm->sender_id = 1;
+        $pm->receiver_id = $user->id;
+        $pm->subject = 'Received warning';
+        $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
+        $pm->save();
+
+        return \redirect()->route('users.show', ['username' => $user->username])
+            ->withSuccess('Warning issued successfully!');
     }
 }

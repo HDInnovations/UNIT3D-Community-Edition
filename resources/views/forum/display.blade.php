@@ -69,14 +69,14 @@
                                         @if (auth()->user()->isSubscribed('forum',$forum->id))
                                             <form action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
                                                 @csrf
-                                                <button type="submit" class="btn btn-xs btn-danger">
+                                                <button type="submit" class="btn btn-sm btn-danger">
                                                     <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
                                                 </button>
                                             </form>
                                         @else
                                             <form action="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" method="POST" style="display: inline;">
                                                 @csrf
-                                                <button type="submit" class="btn btn-xs btn-success">
+                                                <button type="submit" class="btn btn-sm btn-success">
                                                     <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
                                                 </button>
                                             </form>

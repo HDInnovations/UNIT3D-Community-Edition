@@ -236,7 +236,11 @@ class TorrentListSearch extends Component
                 $query->where('tmdb', '=', $this->tmdbId);
             })
             ->when($this->imdbId === '0' || $this->imdbId, function ($query) {
-                $query->where('imdb', '=', $this->imdbId);
+                if (\preg_match('/tt0*?(?=(\d{7,8}))/', $this->imdbId, $matches)) {
+                    $query->where('imdb', '=', $matches[1]);
+                } else {
+                    $query->where('imdb', '=', $this->imdbId);
+                }
             })
             ->when($this->tvdbId === '0' || $this->tvdbId, function ($query) {
                 $query->where('tvdb', '=', $this->tvdbId);

@@ -96,6 +96,11 @@ class AnnounceController extends Controller
             $torrent = $this->checkTorrent($queries['info_hash']);
 
             /**
+             * Check if a user is announcing a torrent as completed but no peer is in db.
+             */
+            $this->checkPeer($torrent, $queries, $user);
+
+            /**
              * Lock Min Announce Interval.
              */
             $this->checkMinInterval($queries, $user);
@@ -286,7 +291,10 @@ class AnnounceController extends Controller
         $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
 
         // Check Passkey Against Users Table
-        $user = User::where('passkey', '=', $passkey)->first();
+        $user = User::with('group')
+            ->select(['id', 'group_id', 'active', 'can_download', 'uploaded', 'downloaded'])
+            ->where('passkey', '=', $passkey)
+            ->first();
 
         // If User Doesn't Exist Return Error to Client
         if ($user === null) {
@@ -324,9 +332,10 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::withAnyStatus()
-                ->where('info_hash', '=', $infoHash)
-                ->first();
+        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed'])
+            ->withAnyStatus()
+            ->where('info_hash', '=', $infoHash)
+            ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if ($torrent === null) {
@@ -349,6 +358,19 @@ class AnnounceController extends Controller
         }
 
         return $torrent;
+    }
+
+    /**
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkPeer($torrent, $queries, $user): void
+    {
+        if (! Peer::where('torrent_id', '=', $torrent->id)
+            ->where('peer_id', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->exists() && \strtolower($queries['event']) === 'completed') {
+            throw new TrackerException(152);
+        }
     }
 
     /**
@@ -379,7 +401,9 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
+        $connections = Peer::where('torrent_id', '=', $torrent->id)
+            ->where('user_id', '=', $user->id)
+            ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > \config('announce.rate_limit')) {
@@ -395,10 +419,12 @@ class AnnounceController extends Controller
     private function checkDownloadSlots($user): void
     {
         if (\config('announce.slots_system.enabled')) {
-            $max = $user->group()->download_slots;
+            $max = $user->group->download_slots;
 
             if ($max > 0) {
-                $count = Peer::where('user_id', '=', $user->id)->where('seeder', '=', 0)->count();
+                $count = Peer::where('user_id', '=', $user->id)
+                    ->where('seeder', '=', 0)
+                    ->count();
                 if ($count >= $max) {
                     throw new TrackerException(164, [':max' => $max]);
                 }
@@ -419,8 +445,8 @@ class AnnounceController extends Controller
         $repDict = [
             'interval'     => \rand(self::MIN, self::MAX),
             'min interval' => self::MIN,
-            'complete'     => $torrent->seeders,
-            'incomplete'   => $torrent->leechers,
+            'complete'     => (int) $torrent->seeders,
+            'incomplete'   => (int) $torrent->leechers,
         ];
 
         /**
@@ -428,10 +454,24 @@ class AnnounceController extends Controller
          * We query peers from database and send peerlist, otherwise just quick return.
          */
         if (\strtolower($queries['event']) !== 'stopped') {
-            $limit = ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
+            $limit = ($queries['numwant'] <= 25 ? $queries['numwant'] : 25);
 
             // Get Torrents Peers
-            $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
+            if ($queries['left'] == 0) {
+                // Only include leechers in a seeder's peerlist
+                $peers = Peer::where('torrent_id', '=', $torrent->id)
+                    ->where('seeder', '=', 0)
+                    ->where('user_id', '!=', $user->id)
+                    ->take($limit)
+                    ->get(['peer_id', 'ip', 'port'])
+                    ->toArray();
+            } else {
+                $peers = Peer::where('torrent_id', '=', $torrent->id)
+                    ->where('user_id', '!=', $user->id)
+                    ->take($limit)
+                    ->get(['peer_id', 'ip', 'port'])
+                    ->toArray();
+            }
 
             $repDict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id']);
             $repDict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
@@ -465,18 +505,7 @@ class AnnounceController extends Controller
         return [
             'failure reason' => $trackerException->getMessage(),
             'min interval'   => self::MIN,
-        /**
-         * BEP 31: Failure Retry Extension.
-         *
-         * However most bittorrent client don't support it, so this feature is disabled default
-         *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
-         *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
-         *  - libtransmission (e.g. Transmission )
-         *    This library will ignore any other key if failed
-         *
-         * @see http://www.bittorrent.org/beps/bep_0031.html
-         */
-            //'retry in' => self::MIN
+            //'retry in'     => self::MIN
         ];
     }
 

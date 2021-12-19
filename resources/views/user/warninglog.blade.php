@@ -29,19 +29,19 @@
                             <strong>@lang('user.warnings') {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
-                            <form action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}" method="POST">
+                            <form role="form" method="POST" action="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}"
+                                  style="display: inline-block;">
+                                @csrf
+                                <button type="submit" class="btn btn-xs btn-warning">
+                                    <i class="{{ config('other.font-awesome') }} fa-power-off"></i> @lang('user.deactivate-all')
+                                </button>
+                            </form>
+                            <form role="form" action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}" method="POST"
+                                  style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}">
-                                    <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                                        data-original-title="@lang('user.deactivate-all')">
-                                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                                        @lang('user.deactivate-all')
-                                    </button>
-                                </a>
-                                <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
-                                    data-original-title="@lang('user.delete-all')">
-                                    <i class="{{ config('other.font-awesome') }} fa-times"></i>@lang('user.delete-all')
+                                <button type="submit" class="btn btn-xs btn-danger">
+                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('user.delete-all')
                                 </button>
                             </form>
                         </div>
@@ -76,9 +76,13 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if(isset($warning->torrent))
                                                 <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                                     {{ $warning->torrenttitle->name }}
                                                 </a>
+                                                @else
+                                                n/a
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $warning->reason }}
@@ -97,10 +101,12 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
-                                        class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
-                                                    <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
-                                                </a>
+                                                <form role="form" method="POST" action="{{ route('deactivateWarning', ['id' => $warning->id]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-xs btn-warning  @if ($warning->active == 0) disabled @endif">
+                                                        <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                             <td>
                                                 <form action="{{ route('deleteWarning', ['id' => $warning->id]) }}" method="POST">
@@ -163,9 +169,13 @@
                                                 </a>
                                             </td>
                                             <td>
+                                                @if(isset($softDeletedWarning->torrent))
                                                 <a href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
                                                     {{ $softDeletedWarning->torrenttitle->name }}
                                                 </a>
+                                                @else
+                                                n/a
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $softDeletedWarning->reason }}
@@ -183,10 +193,12 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}"
-                                                    class="btn btn-xs btn-info">
-                                                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                                                </a>
+                                                <form role="form" method="POST" action="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-xs btn-info  @if ($warning->active == 0) disabled @endif">
+                                                        <i class="{{ config('other.font-awesome') }} fa-trash-restore"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
