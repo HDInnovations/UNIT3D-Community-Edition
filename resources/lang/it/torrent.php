@@ -193,7 +193,7 @@ return [
   'torrent-tips-desc' => 'Questo sarà detratto dai tuoi punti bonus disponibili',
   'torrents' => 'Torrents',
   'trailer' => 'Guarda il trailer',
-  'type' => 'Formato',
+  'type' => 'Sorgente',
   'types' => 'Formati',
   'unbookmark' => 'Unbookmark',
   'unsatisfieds' => 'Insoddisfatti',
