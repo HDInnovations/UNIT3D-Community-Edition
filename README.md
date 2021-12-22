@@ -129,11 +129,6 @@ Use this command to generate demo users and torrents for testing purposes:
 
 `php artisan demo:seed`
 
-## <a name="docs"></a> 📖 Documentation (Out Of Date!)
-Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
-
-Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
-
 ## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
 
