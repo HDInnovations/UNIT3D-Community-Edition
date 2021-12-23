@@ -146,14 +146,5 @@
                 <span class="selected"></span>
             </a>
         </li>
-        @if (auth()->user()->group->is_modo)
-            <li>
-                <a href="{{ route('staff.dashboard.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-cogs" style=" font-size: 18px; color: #ffffff;"></i>
-                    <span class="menu-text">@lang('staff.staff-dashboard')</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-        @endif
     </ul>
 </aside>
