@@ -460,8 +460,14 @@ class TorrentController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
+        $userRequests = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get()->toArray();
 
-        return \view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
+        return \view('torrent.history', [
+            'torrent' => $torrent,
+            'history' => $history,
+            'userRequests' => $userRequests,
+        ]);
+
     }
 
     /**

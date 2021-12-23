@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -58,8 +59,19 @@ class AutoWarning extends Command
                 ->where('seedtime', '<', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
                 ->get();
+            $hitrunRequests = History::with(['user', 'torrent'])
+                ->where('actual_downloaded', '>', 0)
+                ->where('prewarn', '=', 1)
+                ->where('hitrun', '=', 0)
+                ->where('immune', '=', 0)
+                ->where('active', '=', 0)
+                ->where('seedtime', '<', \config('hitrun.seedtime')+604800)
+                ->where('seedtime', '>=', \config('hitrun.seedtime'))
+                ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
+                ->get();
+            $merge = $hitrunRequests->merge($hitrun);
 
-            foreach ($hitrun as $hr) {
+            foreach ($merge as $hr) {
                 if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
@@ -82,13 +94,34 @@ class AutoWarning extends Command
                         $hr->user->save();
 
                         // Send Private Message
-                        $pm = new PrivateMessage();
-                        $pm->sender_id = 1;
-                        $pm->receiver_id = $hr->user->id;
-                        $pm->subject = 'Hit and Run Warning Received';
-                        $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                        $pm->save();
+                        if ($hitrunRequests->contains('info_hash', $hr->torrent->info_hash)) {
+                            // When seedtime requirements for requested torrent
+                            $pm = new PrivateMessage();
+                            $pm->sender_id = 1;
+                            $pm->receiver_id = $hr->user->id;
+                            $pm->subject = \sprintf('Hit and Run Warning Received');
+                            $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to the Torrent:
+                                [u][url=/torrents/%s]%s[/url][/u].
+                                
+                                You have requested this torrent, this means it is subject to the extended seedtime requirements defined in our [u][url=/pages/1#RequestRules]Request Rules[/url][/u].
+                                
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+                                $hr->torrent->id, $hr->torrent->name);
+                            $pm->save();
+                        }
+                        else {
+                            // When seedtime requirements for default torrent
+                            $pm = new PrivateMessage();
+                            $pm->sender_id = 1;
+                            $pm->receiver_id = $hr->user->id;
+                            $pm->subject = \sprintf('Hit and Run Warning Received');
+                            $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to Torrent:
+                                [u][url=/torrents/%s]%s[/url][/u].
+
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+                                $hr->torrent->id, $hr->torrent->name);
+                            $pm->save();
+                        }
 
                         $hr->save();
                     }

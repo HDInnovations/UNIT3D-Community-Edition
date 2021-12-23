@@ -95,16 +95,38 @@
                                 </td>
                                 <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
-                                @if ($hpeers->seedtime < config('hitrun.seedtime')) <td>
-                                        <span
-                                            class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
-                                        </td>
+                                @foreach ($userRequests as $userRequest)
+                                    @if (in_array($hpeers->user_id, $userRequest))
+                                        @if ($hpeers->seedtime < config('hitrun.seedtime')+604800)
+                                            <td>
+                                                <span class="badge-extra text-red">
+                                                    {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
+                                                </span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <span class="badge-extra text-green">
+                                                    {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
+                                                </span>
+                                            </td>
+                                        @endif
                                     @else
-                                        <td>
-                                            <span
-                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
-                                        </td>
+                                        @if ($hpeers->seedtime < config('hitrun.seedtime'))
+                                            <td>
+                                                <span class="badge-extra text-red">
+                                                    {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
+                                                </span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <span class="badge-extra text-green">
+                                                    {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
+                                                </span>
+                                            </td>
+                                        @endif
                                     @endif
+                                @endforeach
+                                
                             </tr>
                         @endforeach
                     </tbody>
