@@ -141,6 +141,13 @@
                             @lang('user.my-wishlist')
                         </a>
                     </li>
+                    @if (auth()->user()->group->is_modo)
+                        <li>
+                            <a href="{{ route('staff.dashboard.index') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-cogs"></i>@lang('staff.staff-dashboard')
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <form role="form" method="POST" action="{{ route('logout') }}" style="background-color: #272634; clear: both; display: block; font-family: lato,sans-serif; font-weight: 400; line-height: 1.42857; padding: 6px 10px; white-space: nowrap; ">
                             @csrf
