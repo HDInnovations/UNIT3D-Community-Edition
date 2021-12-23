@@ -467,6 +467,13 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
             });
         });
+
+        // Missing System
+        Route::group(['prefix' => 'missing'], function () {
+            Route::name('missing.')->group(function () {
+                Route::get('/', [App\Http\Controllers\MissingController::class, 'index'])->name('index');
+            });
+        });
     });
 
     /*
