@@ -463,8 +463,8 @@ class TorrentController extends Controller
         $userRequests = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get()->toArray();
 
         return \view('torrent.history', [
-            'torrent' => $torrent,
-            'history' => $history,
+            'torrent'      => $torrent,
+            'history'      => $history,
             'userRequests' => $userRequests,
         ]);
 

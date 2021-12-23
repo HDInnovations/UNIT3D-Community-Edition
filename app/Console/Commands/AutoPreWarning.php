@@ -64,7 +64,7 @@ class AutoPreWarning extends Command
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<=', \config('hitrun.seedtime')+604800)
+                ->where('seedtime', '<=', \config('hitrun.seedtime') + 604800)
                 ->where('seedtime', '>=', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
@@ -100,13 +100,12 @@ class AutoPreWarning extends Command
                                 If you fail to seed it within %s day(s) you will receive an automated WARNING!
 
                                 You have requested this torrent, this means it is subject to the extended seedtime 
-                                requirements defined in our [u][url="/pages/1#RequestRules"]Request Rules[/url][/u].
+                                requirements defined in our [u][url=/pages/1#RequestRules]Request Rules[/url][/u].
                                 
                                 [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
                                 $pre->torrent->id, $pre->torrent->name, $timeleft);
                             $pm->save();
-                        }
-                        else {
+                        } else {
                             // When seedtime requirements for default torrent
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;

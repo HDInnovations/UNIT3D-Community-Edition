@@ -97,9 +97,8 @@ class StringHelper
         $years = 0;
 
         if ($fromRequest) {
-            $seconds = \config('hitrun.seedtime')+604800 - $seconds;
-        }
-        else {
+            $seconds = \config('hitrun.seedtime') + 604800 - $seconds;
+        } else {
             $seconds = \config('hitrun.seedtime') - $seconds;
         }
 

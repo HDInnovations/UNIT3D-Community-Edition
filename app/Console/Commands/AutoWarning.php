@@ -65,7 +65,7 @@ class AutoWarning extends Command
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<', \config('hitrun.seedtime')+604800)
+                ->where('seedtime', '<', \config('hitrun.seedtime') + 604800)
                 ->where('seedtime', '>=', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
                 ->get();
@@ -108,8 +108,7 @@ class AutoWarning extends Command
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
                                 $hr->torrent->id, $hr->torrent->name);
                             $pm->save();
-                        }
-                        else {
+                        } else {
                             // When seedtime requirements for default torrent
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
