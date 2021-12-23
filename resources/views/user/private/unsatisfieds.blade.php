@@ -124,7 +124,8 @@
                             @foreach ($downloads as $download)
                                 @foreach ($userRequests as $userRequest)
                                     @if (in_array($download->torrent->info_hash, $userRequest))
-                                        @if ($download->seedtime < config('hitrun.seedtime')+604800)
+                                        @if ($download->seedtime < config('hitrun.seedtime') + 604800)
+                                        
                                             
                                         
                                             <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
@@ -134,12 +135,13 @@
                                                 <td>
                                                     <a class="view-torrent" href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
                                                         {{ $download->torrent->name }}
-                                                        <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="
+                                                    </a>
+                                                    <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" 
+                                                            title="" data-original-title="
                                                                 You have requested this torrent, this means it is subject to the extended seedtime 
                                                                 requirements defined in our Request Rules.
                                                             ">
                                                         </i>
-                                                    </a>
                                                     <div class="pull-right">
                                                         <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
                                                             <button class="btn btn-primary btn-circle" type="button"><i
