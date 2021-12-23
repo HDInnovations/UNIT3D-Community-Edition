@@ -467,7 +467,6 @@ class TorrentController extends Controller
             'history'      => $history,
             'userRequests' => $userRequests,
         ]);
-
     }
 
     /**

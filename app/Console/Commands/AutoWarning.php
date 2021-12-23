@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
