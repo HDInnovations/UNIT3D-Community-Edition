@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tv;
 use App\Models\Movie;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -50,8 +49,8 @@ class MissingMediaSearch extends Component
         $this->sortField = $field;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.missing-media-search', ['medias' => $this->medias,]);
+        return view('livewire.missing-media-search', ['medias' => $this->medias]);
     }
 }

@@ -18,7 +18,7 @@ class MissingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    final public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('missing.index');
     }
