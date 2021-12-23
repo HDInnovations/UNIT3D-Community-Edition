@@ -113,25 +113,22 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <th>@lang('torrent.name')</th>
-                        <th>@lang('torrent.category')</th>
-                        <th>@lang('torrent.size')</th>
-                        <th>@lang('torrent.seeders')</th>
-                        <th>@lang('torrent.leechers')</th>
-                        <th>@lang('torrent.completed')</th>
-                        <th>@lang('torrent.completed_at')</th>
-                        <th>@lang('torrent.satisfied_in')</th>
-                        <th>@lang('torrent.seedtime')</th>
-                        <th>@lang('torrent.status')</th>
+                            <th>@lang('torrent.name')</th>
+                            <th>@lang('torrent.category')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.seeders')</th>
+                            <th>@lang('torrent.leechers')</th>
+                            <th>@lang('torrent.completed')</th>
+                            <th>@lang('torrent.completed_at')</th>
+                            <th>@lang('torrent.satisfied_in')</th>
+                            <th>@lang('torrent.seedtime')</th>
+                            <th>@lang('torrent.status')</th>
                         </thead>
                         <tbody>
                             @foreach ($downloads as $download)
                                 @foreach ($userRequests as $userRequest)
                                     @if (in_array($download->torrent->info_hash, $userRequest))
                                         @if ($download->seedtime < config('hitrun.seedtime') + 604800)
-                                        
-                                            
-                                        
                                             <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
                                                 seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
                                                 prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
@@ -144,8 +141,7 @@
                                                             title="" data-original-title="
                                                                 You have requested this torrent, this means it is subject to the extended seedtime 
                                                                 requirements defined in our Request Rules.
-                                                            ">
-                                                        </i>
+                                                            "></i>
                                                     <div class="pull-right">
                                                         <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
                                                             <button class="btn btn-primary btn-circle" type="button"><i
@@ -211,8 +207,6 @@
                                     @endif
                                 @endforeach
                                 @if (!in_array($download->torrent->info_hash, $userRequest) && $download->seedtime < config('hitrun.seedtime'))
-                                    
-                                
                                     <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
                                         seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
                                         prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
@@ -279,14 +273,7 @@
                                             @endif
                                         </td>
                                     </tr>
-
-
                                 @endif
-                                
-                                
-
-                                
-                                
                             @endforeach
                         </tbody>
                     </table>
