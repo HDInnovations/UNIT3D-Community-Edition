@@ -27,33 +27,33 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
-                            <tr>
-                                <th>@lang('common.name')</th>
-                                <th>Icon</th>
-                                <th>Effect</th>
-                            </tr>
+                        <tr>
+                            <th>@lang('common.name')</th>
+                            <th>Icon</th>
+                            <th>Effect</th>
+                        </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="name" required>
-                                    </label>
-                                </td>
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="text" class="form-control" name="name" required>
+                                </label>
+                            </td>
 
-                                <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="icon" value="fa-magic">
-                                    </label>
-                                </td>
+                            <td>
+                                <label>
+                                    <input type="text" class="form-control" name="icon" value="fa-magic">
+                                </label>
+                            </td>
 
-                                <td>
-                                    <label>
-                                        <input type="text" class="form-control" name="effect" value="none">
-                                    </label>
-                                </td>
-                            </tr>
+                            <td>
+                                <label>
+                                    <input type="text" class="form-control" name="effect" value="none">
+                                </label>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

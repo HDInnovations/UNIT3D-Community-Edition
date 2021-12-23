@@ -56,7 +56,7 @@ class AlbumController extends Controller
 
         if ($meta === null || ! $meta) {
             return \redirect()->route('albums.create')
-                ->withErrors('Meta Data Not Found. Gallery System Is Being Refactored');
+                ->withErrors(\trans('gallery.no-meta'));
         }
 
         $album = new Album();
@@ -88,7 +88,7 @@ class AlbumController extends Controller
         $album->save();
 
         return \redirect()->route('albums.show', ['id' => $album->id])
-            ->withSuccess('Your album has successfully published!');
+            ->withSuccess(\trans('gallery.success'));
     }
 
     /**
@@ -122,6 +122,6 @@ class AlbumController extends Controller
         $album->delete();
 
         return \redirect()->route('albums.index')
-            ->withSuccess('Album has successfully been deleted');
+            ->withSuccess(\trans('gallery.deleted'));
     }
 }

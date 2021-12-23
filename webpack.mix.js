@@ -64,4 +64,5 @@ mix.options({
      * Extra JS
      */
     .js('resources/js/unit3d/imgbb.js', 'public/js')
-    .js('resources/js/alpine.js', 'public/js');
+    .js('resources/js/vendor/alpine.js', 'public/js')
+    .js('resources/js/vendor/virtual-select.js', 'public/js');

@@ -6,13 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_security', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.security')
                 @lang('user.settings')</span>
         </a>
@@ -43,8 +44,8 @@
                     <br>
                     <div role="tabpanel" class="tab-pane active" id="password">
                         <form role="form" method="POST"
-                            action="{{ route('change_password', ['username' => $user->username]) }}"
-                            enctype="multipart/form-data">
+                              action="{{ route('change_password', ['username' => $user->username]) }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.change-password').</h3>
@@ -54,17 +55,17 @@
                                     <label for="current_password">Current Password</label>
                                     <label>
                                         <input type="password" name="current_password" class="form-control"
-                                            placeholder="Current Password">
+                                               placeholder="Current Password">
                                     </label>
                                     <label for="new_password">New Password</label>
                                     <label>
                                         <input type="password" name="new_password" class="form-control"
-                                            placeholder="New Password">
+                                               placeholder="New Password">
                                     </label>
                                     <label for="new_password">Repeat Password</label>
                                     <label>
                                         <input type="password" name="new_password_confirmation" class="form-control"
-                                            placeholder="New Password, again">
+                                               placeholder="New Password, again">
                                     </label>
                                 </div>
                             </div>
@@ -76,7 +77,7 @@
 
                     <div role="tabpanel" class="tab-pane" id="email">
                         <form role="form" method="POST"
-                            action="{{ route('change_email', ['username' => $user->username]) }}">
+                              action="{{ route('change_email', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.change-email').</h3>
@@ -96,7 +97,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="pid">
-                        <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                              action="{{ route('change_pid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-passkey').</h3>
@@ -116,7 +118,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="rid">
-                        <form role="form" method="POST" action="{{ route('change_rid', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                              action="{{ route('change_rid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-rss').</h3>
@@ -136,7 +139,8 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="api">
-                        <form role="form" method="POST" action="{{ route('change_api_token', ['username' => $user->username]) }}">
+                        <form role="form" method="POST"
+                              action="{{ route('change_api_token', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.reset-api-token').</h3>
@@ -158,19 +162,20 @@
                     @if (config('auth.TwoStepEnabled') == true)
                         <div role="tabpanel" class="tab-pane" id="twostep">
                             <form role="form" method="POST"
-                                action="{{ route('change_twostep', ['username' => $user->username]) }}">
+                                  action="{{ route('change_twostep', ['username' => $user->username]) }}">
                                 @csrf
                                 <div class="well">
                                     <h2 class="text-bold">Two Step Authentication</h2>
                                     <hr>
                                     <label for="twostep" class="control-label">Use Two Step Auth?</label>
                                     <div class="radio-inline">
-                                <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked @endif
-                                            value="1">@lang('common.yes')</label>
+                                        <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked
+                                                      @endif
+                                                      value="1">@lang('common.yes')</label>
                                     </div>
                                     <div class="radio-inline">
                                         <label><input type="radio" name="twostep" @if ($user->twostep == 0) checked
-                                            @endif value="0">@lang('common.no')</label>
+                                                      @endif value="0">@lang('common.no')</label>
                                     </div>
                                     <br>
                                 </div>
@@ -179,7 +184,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                </div>
                 @endif
 
             </div>
@@ -189,24 +194,24 @@
 @endsection
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(window).on("load", function() {
-            loadTab();
-        });
+      $(window).on('load', function () {
+        loadTab()
+      })
 
-        function loadTab() {
-            if (window.location.hash && window.location.hash == "#password") {
-                $('#basetabs a[href="#password"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#email") {
-                $('#basetabs a[href="#email"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#pid") {
-                $('#basetabs a[href="#pid"]').tab('show');
-            }
-            if (window.location.hash && window.location.hash == "#rid") {
-                $('#basetabs a[href="#rid"]').tab('show');
-            }
+      function loadTab () {
+        if (window.location.hash && window.location.hash == '#password') {
+          $('#basetabs a[href="#password"]').tab('show')
         }
+        if (window.location.hash && window.location.hash == '#email') {
+          $('#basetabs a[href="#email"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#pid') {
+          $('#basetabs a[href="#pid"]').tab('show')
+        }
+        if (window.location.hash && window.location.hash == '#rid') {
+          $('#basetabs a[href="#rid"]').tab('show')
+        }
+      }
 
     </script>
 @endsection

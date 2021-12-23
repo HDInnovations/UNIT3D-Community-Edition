@@ -56,7 +56,8 @@
                         <ul class="media-list comments-list">
                             @if (count($article->comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!</h4>
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                        !</h4>
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
@@ -66,7 +67,9 @@
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                       style="color:{{ $comment->user->group->color }};">(<span><i
+                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px;">
@@ -78,23 +81,27 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                            style="color:{{ $comment->user->group->color }};"><span><i
+                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                    <div class="pull-right" style="display: inline-block;">
-                                                        <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
-                                                            <button class="btn btn-circle btn-info">
-                                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-circle btn-danger">
-                                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                <div class="pull-right" style="display: inline-block;">
+                                                    <a data-toggle="modal"
+                                                       data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                        <button class="btn btn-circle btn-info">
+                                                            <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                        </button>
+                                                    </a>
+                                                    <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
+                                                          method="POST" style="display: inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-circle btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             @endif
                                             <div class="pt-5">
                                                 @joypixels($comment->getContentHtml())
@@ -138,7 +145,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
 
-        $('#content').wysibb({});
+        $('#content').wysibb({})
       })
     </script>
 @endsection

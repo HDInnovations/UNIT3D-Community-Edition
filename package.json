@@ -31,6 +31,7 @@
     "alpinejs": "^3.5.1",
     "dayjs": "^1.10.7",
     "keen-slider": "^5.5.1",
-    "node-vibrant": "^3.1.6"
+    "node-vibrant": "^3.1.6",
+    "virtual-select-plugin": "^1.0.18"
   }
 }

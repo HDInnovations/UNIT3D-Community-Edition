@@ -34,68 +34,68 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Type</th>
-                                    <th>@lang('common.title')</th>
-                                    <th>Reported</th>
-                                    <th>@lang('common.reporter')</th>
-                                    <th class="col-md-2">@lang('user.created-on')</th>
-                                    <th>@lang('user.judge')</th>
-                                    <th>@lang('forum.solved')</th>
-                                </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>@lang('common.title')</th>
+                                <th>Reported</th>
+                                <th>@lang('common.reporter')</th>
+                                <th class="col-md-2">@lang('user.created-on')</th>
+                                <th>@lang('user.judge')</th>
+                                <th>@lang('forum.solved')</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (count($reports) == 0)
-                                    <p>The are no reports in database</p>
-                                @else
-                                    @foreach ($reports as $report)
-                                        <tr>
-                                            <td>
-                                                {{ $report->id }}
-                                            </td>
-                                            <td>
-                                                {{ $report->type }}
-                                            </td>
-                                            <td>
-                                                <a
+                            @if (count($reports) == 0)
+                                <p>The are no reports in database</p>
+                            @else
+                                @foreach ($reports as $report)
+                                    <tr>
+                                        <td>
+                                            {{ $report->id }}
+                                        </td>
+                                        <td>
+                                            {{ $report->type }}
+                                        </td>
+                                        <td>
+                                            <a
                                                     href="{{ route('staff.reports.show', ['id' => $report->id]) }}">{{ $report->title }}</a>
-                                            </td>
-                                            <td class="user-name">
-                                                <a class="name"
-                                                    href="{{ route('users.show', ['username' => $report->reported->username]) }}">
-                                                    {{ $report->reported->username }}
-                                                </a>
-                                            </td>
-                                            <td class="user-name">
-                                                <a class="name"
-                                                    href="{{ route('users.show', ['username' => $report->reporter->username]) }}">
-                                                    {{ $report->reporter->username }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                {{ $report->created_at->toDayDateTimeString() }}
-                                            </td>
-                                            <td class="user-name">
-                                                <a class="name"
-                                                    href="{{ $report->staff->username ? route('users.show', ['username' => $report->staff->username]) : route('home') }}">
-                                                    {{ $report->staff_id ? $report->staff->username : '' }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @if ($report->solved == 0)
-                                                    <span class="text-red">
+                                        </td>
+                                        <td class="user-name">
+                                            <a class="name"
+                                               href="{{ route('users.show', ['username' => $report->reported->username]) }}">
+                                                {{ $report->reported->username }}
+                                            </a>
+                                        </td>
+                                        <td class="user-name">
+                                            <a class="name"
+                                               href="{{ route('users.show', ['username' => $report->reporter->username]) }}">
+                                                {{ $report->reporter->username }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ $report->created_at->toDayDateTimeString() }}
+                                        </td>
+                                        <td class="user-name">
+                                            <a class="name"
+                                               href="{{ $report->staff->username ? route('users.show', ['username' => $report->staff->username]) : route('home') }}">
+                                                {{ $report->staff_id ? $report->staff->username : '' }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if ($report->solved == 0)
+                                                <span class="text-red">
                                                         <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.no')</strong>
                                                     </span>
-                                                @else
-                                                    <span class="text-green">
+                                            @else
+                                                <span class="text-green">
                                                         <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('common.yes')</strong>
                                                     </span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>

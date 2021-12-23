@@ -15,6 +15,9 @@ return [
     'welcome-title'               => 'Willkommen zur Gallerie',
     'welcome-text'                => 'Hier findest du Alben mit hochauflösenden Bildern von Cover, Hüllen und Discs. Viel Spaß!',
     'create-new-album'            => 'Neues Album erstellen',
+    'image-album-not-found'       => 'Bilddatei nicht gefunden! Bitte melde dies dem Team!',
+    'image-album-deleted-success' => 'Bild wurde erfolgreich gelöscht',
+    'image-published-success'     => 'Dein Bild wurde erfolgreich veröffentlicht!',
     'images'                      => 'Bilder',
     'created'                     => 'Erstellt',
     'created-by'                  => 'von',
@@ -25,4 +28,7 @@ return [
     'select-image'                => 'Ein Bild auswählen',
     'add-an-image-to'             => 'Ein Bild hinzufügen zu',
     'add-sleeve-disc-desc'        => 'Hüllen / Disc Art',
+    'no-meta'                     => 'Meta Daten nicht gefunden. Gallerie System ist noch unter Konstruktion',
+    'success'                     => 'Dein Album wurde erfolgreich veröffentlicht!',
+    'deleted'                     => 'Album wurde erfolgreich gelöscht',
 ];

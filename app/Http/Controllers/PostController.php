@@ -61,7 +61,7 @@ class PostController extends Controller
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
             return \redirect()->route('forums.index')
-                ->withErrors('You Cannot Reply To This Topic!');
+                ->withErrors(\trans('forum.reply-topic-error'));
         }
 
         $post = new Post();
@@ -164,7 +164,7 @@ class PostController extends Controller
         $user->addProgress(new UserMade900Posts(), 1);
 
         return \redirect()->to($realUrl)
-            ->withSuccess('Post Successfully Posted');
+            ->withSuccess(\trans('forum.reply-topic-success'));
     }
 
     /**
@@ -206,7 +206,7 @@ class PostController extends Controller
         $post->save();
 
         return \redirect()->to($postUrl)
-            ->withSuccess('Post Successfully Edited!');
+            ->withSuccess(\trans('forum.edit-post-success'));
     }
 
     /**
@@ -227,6 +227,6 @@ class PostController extends Controller
         $post->delete();
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-            ->withSuccess('This Post Is Now Deleted!');
+            ->withSuccess(\trans('forum.delete-post-success'));
     }
 }

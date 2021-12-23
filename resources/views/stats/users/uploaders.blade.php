@@ -26,7 +26,8 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('user.top-uploaders-count')
+                    <p class="text-green"><strong><i
+                                    class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('user.top-uploaders-count')
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

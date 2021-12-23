@@ -121,6 +121,8 @@ class TorrentController extends BaseController
         $torrent->category_id = $category->id;
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
+        $torrent->region_id = $request->input('region_id');
+        $torrent->distributor_id = $request->input('distributor_id');
         $torrent->user_id = $user->id;
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
@@ -175,6 +177,8 @@ class TorrentController extends BaseController
             'category_id'       => 'required|exists:categories,id',
             'type_id'           => 'required|exists:types,id',
             'resolution_id'     => $resolutionRule,
+            'region_id'         => 'nullable|exists:regions,id',
+            'distributor_id'    => 'nullable|exists:distributors,id',
             'user_id'           => 'required|exists:users,id',
             'imdb'              => 'required|numeric',
             'tvdb'              => 'required|numeric',
@@ -189,7 +193,7 @@ class TorrentController extends BaseController
             'personal_release'  => 'nullable',
             'internal'          => 'required',
             'featured'          => 'required',
-            'free'              => 'required',
+            'free'              => 'required|between:0,100',
             'doubleup'          => 'required',
             'sticky'            => 'required',
         ]);
@@ -273,9 +277,9 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($free == 1 && $featured == 0) {
+            if ($free >= 1 && $featured == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
@@ -387,7 +391,7 @@ class TorrentController extends BaseController
                 $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
             })
             ->when($request->has('free'), function ($query) {
-                $query->where('free', '=', 1);
+                $query->where('free', '>=', 1);
             })
             ->when($request->has('doubleup'), function ($query) {
                 $query->where('doubleup', '=', 1);

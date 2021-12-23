@@ -6,13 +6,14 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('achievements.show', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
                 @lang('user.achievements')</span>
         </a>
@@ -54,31 +55,34 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">@lang('user.unlocked-achievements')</div>
                                     <div class="panel-body">
-                                        <br />
+                                        <br/>
                                         <div class="table-responsive">
                                             <table class="table table-borderless">
                                                 <thead>
-                                                    <tr>
-                                                        <th>@lang('common.name')</th>
-                                                        <th>@lang('common.description')</th>
-                                                        <th>@lang('common.progress')</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>@lang('common.name')</th>
+                                                    <th>@lang('common.description')</th>
+                                                    <th>@lang('common.progress')</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($achievements as $item)
-                                                        <tr>
-                                                            <td><img src="/img/badges/{{ $item->details->name }}.png"
-                                                                    alt="{{ $item->details->name }}" data-toggle="tooltip"
-                                                                    data-original-title="{{ $item->details->name }}"></td>
-                                                            <td>{{ $item->details->description }}</td>
-                                                            @if ($item->isUnlocked())
-                                                                <td><span class="label label-success">@lang('user.unlocked')</span></td>
-                                                            @else
-                                                                <td><span class="label label-warning">@lang('common.progress'):
-                                                                        {{ $item->points }}/{{ $item->details->points }}</span></td>
-                                                            @endif
-                                                        </tr>
-                                                    @endforeach
+                                                @foreach ($achievements as $item)
+                                                    <tr>
+                                                        <td><img src="/img/badges/{{ $item->details->name }}.png"
+                                                                 alt="{{ $item->details->name }}" data-toggle="tooltip"
+                                                                 data-original-title="{{ $item->details->name }}"></td>
+                                                        <td>{{ $item->details->description }}</td>
+                                                        @if ($item->isUnlocked())
+                                                            <td>
+                                                                <span class="label label-success">@lang('user.unlocked')</span>
+                                                            </td>
+                                                        @else
+                                                            <td><span class="label label-warning">@lang('common.progress'):
+                                                                        {{ $item->points }}/{{ $item->details->points }}</span>
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

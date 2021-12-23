@@ -15,6 +15,9 @@ return [
     'welcome-title'               => 'Welcome To The Gallery',
     'welcome-text'                => 'Here you will find albums that contain hi-res images of cover sleeves and disc art. Enjoy!',
     'create-new-album'            => 'Create New Album',
+    'image-album-not-found'       => 'Image File Not Found! Please Report This To Staff!',
+    'image-album-deleted-success' => 'Image has successfully been deleted',
+    'image-published-success'     => 'Your image has successfully published!',
     'images'                      => 'image(s)',
     'created'                     => 'Created',
     'created-by'                  => 'By',
@@ -25,4 +28,7 @@ return [
     'select-image'                => 'Select An Image',
     'add-an-image-to'             => 'Add an Image to',
     'add-sleeve-disc-desc'        => 'Sleeves / Disc Art',
+    'no-meta'                     => 'Meta Data Not Found. Gallery System Is Being Refactored',
+    'success'                     => 'Your album has successfully published!',
+    'deleted'                     => 'Album has successfully been deleted',
 ];

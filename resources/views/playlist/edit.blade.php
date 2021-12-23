@@ -25,7 +25,7 @@
     <div class="container">
         <div class="block">
             <form name="edit-playlist" method="POST" action="{{ route('playlists.update', ['id' => $playlist->id]) }}"
-                enctype="multipart/form-data">
+                  enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <h2 class="text-center">@lang('playlist.edit-playlist')</h2>
@@ -35,7 +35,8 @@
                 </div>
                 <div class="form-group">
                     <label for="description">@lang('playlist.desc')</label>
-                    <textarea name="description" type="text" class="form-control">{{ $playlist->description }}</textarea>
+                    <textarea name="description" type="text"
+                              class="form-control">{{ $playlist->description }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="cover_image">@lang('playlist.cover')</label>
@@ -43,11 +44,11 @@
                 </div>
                 <label for="is_private" class="control-label">@lang('playlist.is-private')</label>
                 <div class="radio-inline">
-                <label><input type="radio" name="is_private" @if ($playlist->is_private == 1) checked @endif
+                    <label><input type="radio" name="is_private" @if ($playlist->is_private == 1) checked @endif
                         value="1">@lang('common.yes')</label>
                 </div>
                 <div class="radio-inline">
-                <label><input type="radio" name="is_private" @if ($playlist->is_private == 0) checked @endif
+                    <label><input type="radio" name="is_private" @if ($playlist->is_private == 0) checked @endif
                         value="0">@lang('common.no')</label>
                 </div>
                 <br>

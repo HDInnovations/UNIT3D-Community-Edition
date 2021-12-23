@@ -36,44 +36,44 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
-                                <tr>
-                                    <th>@lang('common.user')</th>
-                                    <th>@lang('common.group')</th>
-                                    <th>@lang('user.member-since')</th>
-                                    <th>@lang('user.last-login')</th>
-                                </tr>
+                            <tr>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('common.group')</th>
+                                <th>@lang('user.member-since')</th>
+                                <th>@lang('user.last-login')</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cheaters as $cheater)
-                                    <tr>
-                                        <td>
-                                            <a class="text-bold"
-                                                href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
-                                        </td>
-                                        <td>
+                            @foreach ($cheaters as $cheater)
+                                <tr>
+                                    <td>
+                                        <a class="text-bold"
+                                           href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
+                                    </td>
+                                    <td>
                                             <span class="badge-user text-bold"
-                                                style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
+                                                  style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
                                                 <i class="{{ $cheater->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $cheater->user->group->name }}"></i>
+                                                   data-original-title="{{ $cheater->user->group->name }}"></i>
                                                 {{ $cheater->user->group->name }}
                                             </span>
-                                        </td>
-                                        <td>
-                                            @if ($cheater->user->created_at != null)
-                                                {{ $cheater->user->created_at->toDayDateTimeString() }}
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($cheater->user->last_login != null)
-                                                {{ $cheater->user->last_login->toDayDateTimeString() }}
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($cheater->user->created_at != null)
+                                            {{ $cheater->user->created_at->toDayDateTimeString() }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($cheater->user->last_login != null)
+                                            {{ $cheater->user->last_login->toDayDateTimeString() }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

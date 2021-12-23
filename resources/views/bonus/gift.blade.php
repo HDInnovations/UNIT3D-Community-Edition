@@ -37,7 +37,7 @@
                                         <label for="users">@lang('pm.select')</label>
                                         <label>
                                             <input name="to_username" class="form-control"
-                                                placeholder="@lang('common.username')" required>
+                                                   placeholder="@lang('common.username')" required>
                                         </label>
                                     </div>
 
@@ -46,15 +46,16 @@
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control"
-                                            placeholder="@lang('common.enter') {{ strtolower(trans('common.amount')) }}"
-                                            name="bonus_points" type="number" id="bonus_points" required>
+                                               placeholder="@lang('common.enter') {{ strtolower(trans('common.amount')) }}"
+                                               name="bonus_points" type="number" id="bonus_points" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="bonus_message">@lang('pm.message')</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
+                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10"
+                                                  id="bonus_message"></textarea>
                                     </div>
 
                                     <div class="form-group">

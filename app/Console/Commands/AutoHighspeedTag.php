@@ -45,7 +45,7 @@ class AutoHighspeedTag extends Command
      */
     public function handle()
     {
-        DB::table('torrents')->update(['highspeed' => 0]);
+        DB::statement('UPDATE torrents SET highspeed = 0');
 
         $seedboxUsers = Seedbox::select(['user_id'])->get()->toArray();
 
@@ -53,7 +53,7 @@ class AutoHighspeedTag extends Command
             $torid = Peer::select(['torrent_id'])->whereIn('user_id', $seedboxUsers)->where('seeder', '=', 1)->get()->toArray();
 
             foreach ($torid as $id) {
-                $torrent = Torrent::where('id', '=', $id)->first();
+                $torrent = Torrent::select(['id', 'highspeed'])->where('id', '=', $id)->first();
                 if (isset($torrent)) {
                     $torrent->highspeed = 1;
                     $torrent->save();

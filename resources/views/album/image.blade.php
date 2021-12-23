@@ -26,9 +26,9 @@
         <div class="block">
             <div class="text-center">
                 <form name="addimagetoalbum" method="POST" action="{{ route('images.store') }}"
-                    enctype="multipart/form-data">
+                      enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="album_id" value="{{ $album->id }}" />
+                    <input type="hidden" name="album_id" value="{{ $album->id }}"/>
                     <h2>@lang('gallery.add-an-image-to') {{ $album->name }}</h2>
                     <div class="form-group">
                         <label for="type">@lang('common.type')</label>
@@ -42,7 +42,8 @@
                     <div class="form-group">
                         <label for="description">@lang('common.image') @lang('common.description')</label>
                         <label>
-                            <textarea name="description" type="text" class="form-control" placeholder="Hi-Res Sleeve / Disc Art"></textarea>
+                            <textarea name="description" type="text" class="form-control"
+                                      placeholder="Hi-Res Sleeve / Disc Art"></textarea>
                         </label>
                     </div>
                     <div class="form-group">

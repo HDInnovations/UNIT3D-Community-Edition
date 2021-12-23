@@ -36,63 +36,63 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
-                                <tr>
-                                    <th>@lang('common.user')</th>
-                                    <th>@lang('user.warned-by')</th>
-                                    <th>@lang('torrent.torrent')</th>
-                                    <th>@lang('common.reason')</th>
-                                    <th>@lang('user.created-on')</th>
-                                    <th>@lang('user.expires-on')</th>
-                                    <th>@lang('common.active')</th>
-                                </tr>
+                            <tr>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('user.warned-by')</th>
+                                <th>@lang('torrent.torrent')</th>
+                                <th>@lang('common.reason')</th>
+                                <th>@lang('user.created-on')</th>
+                                <th>@lang('user.expires-on')</th>
+                                <th>@lang('common.active')</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (count($warnings) == 0)
-                                    <p>The are no warnings in the database!</p>
-                                @else
-                                    @foreach ($warnings as $warning)
-                                        <tr>
-                                            <td>
+                            @if (count($warnings) == 0)
+                                <p>The are no warnings in the database!</p>
+                            @else
+                                @foreach ($warnings as $warning)
+                                    <tr>
+                                        <td>
+                                            <a class="text-bold"
+                                               href="{{ route('users.show', ['username' => $warning->warneduser->username]) }}">
+                                                {{ $warning->warneduser->username }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="text-bold"
+                                               href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
+                                                {{ $warning->staffuser->username }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if(isset($warning->torrent))
                                                 <a class="text-bold"
-                                                    href="{{ route('users.show', ['username' => $warning->warneduser->username]) }}">
-                                                    {{ $warning->warneduser->username }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a class="text-bold"
-                                                    href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
-                                                    {{ $warning->staffuser->username }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @if(isset($warning->torrent))
-                                                <a class="text-bold"
-                                                    href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                                                   href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                                     {{ $warning->torrenttitle->name }}
                                                 </a>
-                                                @else
+                                            @else
                                                 n/a
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{ $warning->reason }}
-                                            </td>
-                                            <td>
-                                                {{ $warning->created_at }}
-                                            </td>
-                                            <td>
-                                                {{ $warning->expires_on }}
-                                            </td>
-                                            <td>
-                                                @if ($warning->active == 1)
-                                                    <span class='label label-success'>@lang('common.yes')</span>
-                                                @else
-                                                    <span class='label label-danger'>@lang('common.expired')</span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $warning->reason }}
+                                        </td>
+                                        <td>
+                                            {{ $warning->created_at }}
+                                        </td>
+                                        <td>
+                                            {{ $warning->expires_on }}
+                                        </td>
+                                        <td>
+                                            @if ($warning->active == 1)
+                                                <span class='label label-success'>@lang('common.yes')</span>
+                                            @else
+                                                <span class='label label-danger'>@lang('common.expired')</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>

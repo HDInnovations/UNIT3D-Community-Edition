@@ -32,45 +32,45 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
-                                <tr>
-                                    <th>@lang('common.no')</th>
-                                    <th>@lang('user.user-id')</th>
-                                    <th>@lang('common.username')</th>
-                                    <th>@lang('common.ip')</th>
-                                    <th>@lang('user.created-on')</th>
-                                </tr>
+                            <tr>
+                                <th>@lang('common.no')</th>
+                                <th>@lang('user.user-id')</th>
+                                <th>@lang('common.username')</th>
+                                <th>@lang('common.ip')</th>
+                                <th>@lang('user.created-on')</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @if (count($attempts) == 0)
-                                    <p>The are no failed login entries in the database!</p>
-                                @else
-                                    @foreach ($attempts as $attempt)
-                                        <tr>
-                                            <td>
-                                                {{ $attempt->id }}
-                                            </td>
-                                            <td>
-                                                {{ $attempt->user_id ?? 'Not Found' }}
-                                            </td>
-                                            <td>
-                                                @if ($attempt->user_id == null)
+                            @if (count($attempts) == 0)
+                                <p>The are no failed login entries in the database!</p>
+                            @else
+                                @foreach ($attempts as $attempt)
+                                    <tr>
+                                        <td>
+                                            {{ $attempt->id }}
+                                        </td>
+                                        <td>
+                                            {{ $attempt->user_id ?? 'Not Found' }}
+                                        </td>
+                                        <td>
+                                            @if ($attempt->user_id == null)
+                                                {{ $attempt->username }}
+                                            @else
+                                                <a class="text-bold"
+                                                   href="{{ route('users.show', ['username' => $attempt->username]) }}">
                                                     {{ $attempt->username }}
-                                                @else
-                                                    <a class="text-bold"
-                                                        href="{{ route('users.show', ['username' => $attempt->username]) }}">
-                                                        {{ $attempt->username }}
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{ $attempt->ip_address }}
-                                            </td>
-                                            <td>
-                                                {{ $attempt->created_at }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                                                </a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $attempt->ip_address }}
+                                        </td>
+                                        <td>
+                                            {{ $attempt->created_at }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>

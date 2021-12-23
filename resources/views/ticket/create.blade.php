@@ -41,7 +41,8 @@
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-6">
-                                    <label for="category">@lang('ticket.category') <span class="text-danger small">*</span></label>
+                                    <label for="category">@lang('ticket.category') <span
+                                                class="text-danger small">*</span></label>
                                     <select name="category" id="category" class="form-control">
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -49,7 +50,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="priority">@lang('ticket.priority') <span class="text-danger small">*</span></label>
+                                    <label for="priority">@lang('ticket.priority') <span
+                                                class="text-danger small">*</span></label>
                                     <select name="priority" id="priority" class="form-control">
                                         @foreach($priorities as $priority)
                                             <option value="{{ $priority->id }}">{{ $priority->name }}</option>
@@ -57,16 +59,22 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="subject">@lang('ticket.subject') <span class="text-danger small">*</span></label>
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="@lang('ticket.subject-enter')" autocomplete="off">
+                                    <label for="subject">@lang('ticket.subject') <span
+                                                class="text-danger small">*</span></label>
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                           placeholder="@lang('ticket.subject-enter')" autocomplete="off">
                                 </div>
                                 <div class="form-group col-12">
-                                    <label for="body">@lang('ticket.body') <span class="text-danger small">*</span></label>
-                                    <textarea name="body" id="body" cols="30" rows="3" class="form-control" placeholder="@lang('ticket.body-enter')"></textarea>
+                                    <label for="body">@lang('ticket.body') <span
+                                                class="text-danger small">*</span></label>
+                                    <textarea name="body" id="body" cols="30" rows="3" class="form-control"
+                                              placeholder="@lang('ticket.body-enter')"></textarea>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success btn-md"><i class="fas fa-save"></i> @lang('ticket.submit-ticket')</button>
-                                    <button type="reset" class="btn btn-danger btn-md"><i class="fas fa-eraser"></i> @lang('ticket.reset')</button>
+                                    <button type="submit" class="btn btn-success btn-md"><i
+                                                class="fas fa-save"></i> @lang('ticket.submit-ticket')</button>
+                                    <button type="reset" class="btn btn-danger btn-md"><i
+                                                class="fas fa-eraser"></i> @lang('ticket.reset')</button>
                                 </div>
                             </div>
                         </form>
