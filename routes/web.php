@@ -252,6 +252,13 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
         });
 
+        // Top 10 System
+        Route::group(['prefix' => 'top10'], function () {
+            Route::name('top10.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Top10Controller::class, 'index'])->name('index');
+            });
+        });
+
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'uploadForm'])->name('upload_form');
