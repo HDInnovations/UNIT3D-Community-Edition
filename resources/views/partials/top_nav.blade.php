@@ -144,7 +144,7 @@
                     @if (auth()->user()->group->is_modo)
                         <li>
                             <a href="{{ route('staff.dashboard.index') }}">
-                                <i class="{{ config('other.font-awesome') }} fa-cogs"></i>@lang('staff.staff-dashboard')
+                                <i class="{{ config('other.font-awesome') }} fa-cog"></i>@lang('staff.staff-dashboard')
                             </a>
                         </li>
                     @endif
