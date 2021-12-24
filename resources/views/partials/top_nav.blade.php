@@ -102,7 +102,7 @@
                     </li>
                     <li>
                         <a href="{{ route('user_settings', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.my-settings')
+                            <i class="{{ config('other.font-awesome') }} fa-user-cog"></i> @lang('user.my-settings')
                         </a>
                     </li>
                     <li>
