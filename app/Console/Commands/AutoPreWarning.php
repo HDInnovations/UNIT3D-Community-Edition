@@ -93,16 +93,18 @@ class AutoPreWarning extends Command
                             $pm->sender_id = 1;
                             $pm->receiver_id = $pre->user->id;
                             $pm->subject = \sprintf('Hit and Run Warning Incoming');
-                            $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for
-                                ').\config('hitrun.prewarn').\sprintf(' days on Torrent [u][url=/torrents/%s]%s[/url][/u].
+                            $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for ').\config('hitrun.prewarn').\sprintf(' days on Torrent 
+                                [u][url=/torrents/%s]%s[/url][/u].
 
                                 If you fail to seed it within %s day(s) you will receive an automated WARNING!
 
                                 You have requested this torrent, this means it is subject to the extended seedtime 
-                                requirements defined in our [u][url=/pages/1#RequestRules]Request Rules[/url][/u].
+                                requirements defined in our [u][url=', $pre->torrent->id, $pre->torrent->name, $timeleft)
+                                .\config('other.request-rules_url')
+                                .\sprintf(']Request Rules[/url][/u].
                                 
-                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-                                $pre->torrent->id, $pre->torrent->name, $timeleft);
+                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
+                                );
                             $pm->save();
                         } else {
                             // When seedtime requirements for default torrent

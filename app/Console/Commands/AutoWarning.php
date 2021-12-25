@@ -102,10 +102,13 @@ class AutoWarning extends Command
                             $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to the Torrent:
                                 [u][url=/torrents/%s]%s[/url][/u].
                                 
-                                You have requested this torrent, this means it is subject to the extended seedtime requirements defined in our [u][url=/pages/1#RequestRules]Request Rules[/url][/u].
+                                You have requested this torrent, this means it is subject to the extended seedtime 
+                                requirements defined in our [u][url=', $hr->torrent->id, $hr->torrent->name)
+                                .\config('other.request-rules_url')
+                                .\sprintf(']Request Rules[/url][/u].
                                 
-                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-                                $hr->torrent->id, $hr->torrent->name);
+                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
+                                );
                             $pm->save();
                         } else {
                             // When seedtime requirements for default torrent
