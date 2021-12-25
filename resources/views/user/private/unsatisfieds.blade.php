@@ -200,9 +200,6 @@
                                                     @endif
                                                 </td>
                                             </tr>
-
-
-
                                         @endif
                                     @endif
                                 @endforeach
