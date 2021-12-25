@@ -97,7 +97,7 @@
                                 @if ($userRequests)
                                     @foreach ($userRequests as $userRequest)
                                         @if (in_array($hpeers->user_id, $userRequest))
-                                            @if ($hpeers->seedtime < config('hitrun.seedtime')+604800)
+                                            @if ($hpeers->seedtime < config('hitrun.seedtime_requests'))
                                                 <td>
                                                     <span class="badge-extra text-red">
                                                         {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
@@ -111,7 +111,7 @@
                                                 </td>
                                             @endif
                                         @else
-                                            @if ($hpeers->seedtime < config('hitrun.seedtime')+604800)
+                                            @if ($hpeers->seedtime < config('hitrun.seedtime_requests'))
                                                 <td>
                                                     <span class="badge-extra text-red">
                                                         {{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}
