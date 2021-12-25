@@ -128,7 +128,7 @@
                             @foreach ($downloads as $download)
                                 @foreach ($userRequests as $userRequest)
                                     @if (in_array($download->torrent->info_hash, $userRequest))
-                                        @if ($download->seedtime < config('hitrun.seedtime') + 604800)
+                                        @if ($download->seedtime < config('hitrun.seedtime_requests'))
                                             <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
                                                 seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
                                                 prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
@@ -170,7 +170,7 @@
                                                 <td>
                                                     {{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
                                                 </td>
-                                                @if ($download->seedtime < config('hitrun.seedtime')+604800) <td>
+                                                @if ($download->seedtime < config('hitrun.seedtime_requests')) <td>
                                                     <span
                                                         class="badge-extra text-red">{{ App\Helpers\StringHelper::timeRemaining($download->seedtime, $fromRequest = true) }}</span>
                                                     </td>
@@ -180,7 +180,7 @@
                                                             class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
                                                     </td>
                                                 @endif
-                                                @if ($download->seedtime < config('hitrun.seedtime')+604800) <td>
+                                                @if ($download->seedtime < config('hitrun.seedtime_requests')) <td>
                                                     <span
                                                         class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
                                                     </td>
