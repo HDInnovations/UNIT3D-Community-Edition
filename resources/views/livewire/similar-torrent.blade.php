@@ -71,7 +71,7 @@
 				@if($torrents->where('type_id', '=', $type->id)->count() > 0)
 					<thead>
 					<tr>
-						<th class="text-center dark-th" colspan="12">
+						<th class="text-left dark-th" colspan="12">
 							<span style="font-size: 16px;">{{ $type->name }}</span>
 						</th>
 					</tr>
