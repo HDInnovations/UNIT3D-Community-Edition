@@ -179,8 +179,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a
-                                            href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                                    {{ $upload->category->name }}
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>

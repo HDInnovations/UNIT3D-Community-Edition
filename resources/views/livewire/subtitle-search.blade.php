@@ -123,22 +123,18 @@
                         <tr>
                             <td>
                                 @if ($subtitle->torrent->category->image != null)
-                                    <a href="{{ route('categories.show', ['id' => $subtitle->torrent->category->id]) }}">
-                                        <div class="text-center">
-                                            <img src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
-                                                 data-toggle="tooltip"
-                                                 data-original-title="{{$subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                 alt="{{ $subtitle->torrent->category->name }}">
-                                        </div>
-                                    </a>
+                                    <div class="text-center">
+                                        <img src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
+                                             data-toggle="tooltip"
+                                             data-original-title="{{$subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                             alt="{{ $subtitle->torrent->category->name }}">
+                                    </div>
                                 @else
-                                    <a href="{{ route('categories.show', ['id' => $subtitle->torrent->category->id]) }}">
-                                        <div class="text-center">
-                                            <i class="{{ $subtitle->torrent->category->icon }} torrent-icon"
-                                               data-toggle="tooltip"
-                                               data-original-title="{{ $subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                        </div>
-                                    </a>
+                                    <div class="text-center">
+                                        <i class="{{ $subtitle->torrent->category->icon }} torrent-icon"
+                                           data-toggle="tooltip"
+                                           data-original-title="{{ $subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                    </div>
                                 @endif
                             </td>
                             <td>

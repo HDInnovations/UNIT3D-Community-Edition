@@ -354,9 +354,6 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
-            </a>
             <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
             </a>

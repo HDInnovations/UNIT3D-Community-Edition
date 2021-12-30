@@ -85,8 +85,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a
-                                                    href="{{ route('categories.show', ['id' => $download->torrent->category->id]) }}">{{ $download->torrent->category->name }}</a>
+                                            {{ $download->torrent->category->name }}
                                         </td>
                                         <td>
                                                 <span class="badge-extra text-blue text-bold">

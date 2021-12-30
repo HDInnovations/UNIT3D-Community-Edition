@@ -367,9 +367,6 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
-            </a>
             <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
             </a>
@@ -454,12 +451,12 @@
                 @php $meta = null @endphp
                 @if ($torrent->category->tv_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Tv::where('id', '=', $torrent->tmdb)->first() @endphp
+                        @php $meta = cache()->remember('tvmeta:'.$torrent->tmdb.$torrent->category_id, 3_600, fn () => App\Models\Tv::select(['id', 'poster', 'vote_average'])->where('id', '=', $torrent->tmdb)->first()) @endphp
                     @endif
                 @endif
                 @if ($torrent->category->movie_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Movie::where('id', '=', $torrent->tmdb)->first() @endphp
+                        @php $meta = cache()->remember('moviemeta:'.$torrent->tmdb.$torrent->category_id, 3_600, fn () => App\Models\Movie::select(['id', 'poster', 'vote_average'])->where('id', '=', $torrent->tmdb)->first()) @endphp
                     @endif
                 @endif
                 @if ($torrent->category->game_meta)
@@ -506,12 +503,10 @@
                                 <div class="torrent-poster pull-left"></div>
                         @endif
                         <td class="torrent-listings-format" style="width: 5%; text-align: center;">
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <i class="{{ $torrent->category->icon }} torrent-icon"
-                                       style="@if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif font-size: 24px;"></i>
-                                </div>
-                            </a>
+                            <div class="text-center">
+                                <i class="{{ $torrent->category->icon }} torrent-icon"
+                                   style="@if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif font-size: 24px;"></i>
+                            </div>
                             <div class="text-center">
                                 <span class="label label-success" style="font-size: 13px">
                                     {{ $torrent->type->name }}

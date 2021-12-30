@@ -221,12 +221,10 @@
                     @endif
                     <tr>
                         <td style="width: 5%; text-align: center;">
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <i class="{{ $torrent->category->icon }} torrent-icon"
-                                       style="padding-top: 1px; font-size: 20px;"></i>
-                                </div>
-                            </a>
+                            <div class="text-center">
+                                <i class="{{ $torrent->category->icon }} torrent-icon"
+                                   style="padding-top: 1px; font-size: 20px;"></i>
+                            </div>
                             <div class="text-center">
                                 <span class="label label-success" style="font-size: 11px">
                                     {{ $torrent->type->name }}

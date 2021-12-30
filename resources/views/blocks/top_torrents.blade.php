@@ -63,21 +63,17 @@
                             <tr>
                                 <td style="width: 1%;">
                                     @if ($new->category->image != null)
-                                        <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
-                                            <div class="text-center">
-                                                <img src="{{ url('files/img/' . $new->category->image) }}"
-                                                     data-toggle="tooltip"
-                                                     data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     alt="{{ $new->category->name }}">
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $new->category->image) }}"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 alt="{{ $new->category->name }}">
+                                        </div>
                                     @else
-                                        <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
-                                            <div class="text-center">
-                                                <i class="{{ $new->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                   data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <i class="{{ $new->category->icon }} torrent-icon" data-toggle="tooltip"
+                                               data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                        </div>
                                     @endif
                                 </td>
 
@@ -337,22 +333,18 @@
                             <tr>
                                 <td style="width: 1%;">
                                     @if ($seed->category->image != null)
-                                        <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
-                                            <div class="text-center">
-                                                <img src="{{ url('files/img/' . $seed->category->image) }}"
-                                                     data-toggle="tooltip"
-                                                     data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     alt="{{ $seed->category->name }}">
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $seed->category->image) }}"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 alt="{{ $seed->category->name }}">
+                                        </div>
                                     @else
-                                        <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
-                                            <div class="text-center">
-                                                <i class="{{ $seed->category->icon }} torrent-icon"
-                                                   data-toggle="tooltip"
-                                                   data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <i class="{{ $seed->category->icon }} torrent-icon"
+                                               data-toggle="tooltip"
+                                               data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                        </div>
                                     @endif
                                 </td>
 
@@ -612,22 +604,18 @@
                             <tr>
                                 <td style="width: 1%;">
                                     @if ($leech->category->image != null)
-                                        <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
-                                            <div class="text-center">
-                                                <img src="{{ url('files/img/' . $leech->category->image) }}"
-                                                     data-toggle="tooltip"
-                                                     data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     alt="{{ $leech->category->name }}">
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $leech->category->image) }}"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 alt="{{ $leech->category->name }}">
+                                        </div>
                                     @else
-                                        <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
-                                            <div class="text-center">
-                                                <i class="{{ $leech->category->icon }} torrent-icon"
-                                                   data-toggle="tooltip"
-                                                   data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <i class="{{ $leech->category->icon }} torrent-icon"
+                                               data-toggle="tooltip"
+                                               data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                        </div>
                                     @endif
                                 </td>
 
@@ -887,22 +875,18 @@
                             <tr>
                                 <td style="width: 1%;">
                                     @if ($d->category->image != null)
-                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
-                                            <div class="text-center">
-                                                <img src="{{ url('files/img/' . $d->category->image) }}"
-                                                     data-toggle="tooltip"
-                                                     data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     alt="{{ $d->category->name }}">
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $d->category->image) }}"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 alt="{{ $d->category->name }}">
+                                        </div>
                                     @else
-                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
-                                            <div class="text-center">
-                                                <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                   data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                ></i>
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
+                                               data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                            ></i>
+                                        </div>
                                     @endif
                                 </td>
 
@@ -1162,22 +1146,18 @@
                             <tr>
                                 <td style="width: 1%;">
                                     @if ($d->category->image != null)
-                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
-                                            <div class="text-center">
-                                                <img src="{{ url('files/img/' . $d->category->image) }}"
-                                                     data-toggle="tooltip"
-                                                     data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     alt="{{ $d->category->name }}">
-                                            </div>
-                                        </a>
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $d->category->image) }}"
+                                                 data-toggle="tooltip"
+                                                 data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 alt="{{ $d->category->name }}">
+                                        </div>
                                     @else
-                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                 ></i>
                                             </div>
-                                        </a>
                                     @endif
                                 </td>
 
