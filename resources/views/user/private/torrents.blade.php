@@ -198,34 +198,35 @@
                                             data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his->downloaded, 2) }}</span>
                                     </td>
                                     <td>
-                                        @if(count($userRequests) > 0)
+                                        @if (count($userRequests) > 0)
                                             @foreach ($userRequests as $userRequest)
                                                 @if (in_array($his->torrent->info_hash, $userRequest))
                                                     @if ($his->seedtime < config('hitrun.seedtime_requests'))
-                                                            <span
-                                                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
+                                                        <span
+                                                            class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime,) }}</span>
                                                     @else
-                                                            <span
-                                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
+                                                        <span
+                                                            class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                                     @endif
-                                                @else
-                                                    @if ($his->seedtime < config('hitrun.seedtime'))       
-                                                            <span
-                                                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                                    @else
-                                                            <span
-                                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                                    @endif
+                                                    @break
                                                 @endif
-                                                @break
                                             @endforeach
-                                        @else
-                                            @if ($his->seedtime < config('hitrun.seedtime'))       
+                                            @if (!in_array($his->torrent->info_hash, $userRequest))
+                                                @if ($his->seedtime < config('hitrun.seedtime'))
                                                     <span
                                                         class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
-                                            @else
+                                                @else
                                                     <span
                                                         class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
+                                                @endif
+                                            @endif
+                                        @else
+                                            @if ($his->seedtime < config('hitrun.seedtime'))       
+                                                <span
+                                                    class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                             @endif
                                         @endif
                                     </td>
