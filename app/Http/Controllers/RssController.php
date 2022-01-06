@@ -274,7 +274,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
-            $builder->where('free', '=', $freeleech);
+            $builder->where('free', '>=', $freeleech);
         }
 
         if ($rss->object_torrent->doubleupload && $rss->object_torrent->doubleupload != null) {
