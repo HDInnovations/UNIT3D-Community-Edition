@@ -380,13 +380,6 @@
                 <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss') @lang('rss.feeds')
             </a>
         </div>
-        <div class="header gradient green" style="margin-top: 10px;">
-            <div class="inner_content">
-                <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                    @lang('torrent.torrents')
-                </h5>
-            </div>
-        </div>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
             <tr>
@@ -521,7 +514,7 @@
                             @endif
                         </td>
                         <td class="torrent-listings-overview" style="vertical-align: middle;">
-                            @if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                            @if($user->group->is_modo || $user->id === $torrent->user_id)
                                 <a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             data-original-title="@lang('common.edit')">
