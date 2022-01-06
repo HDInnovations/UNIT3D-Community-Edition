@@ -367,13 +367,6 @@
                 <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss') @lang('rss.feeds')
             </a>
         </div>
-        <div class="header gradient green" style="margin-top: 10px;">
-            <div class="inner_content">
-                <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                    @lang('torrent.torrents')
-                </h5>
-            </div>
-        </div>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
             <tr>
@@ -550,7 +543,7 @@
                         <div style="float: left;">
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                    @if ($user->id === $torrent->user->id || $user->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 												({{ $torrent->user->username }})
 											</a>
