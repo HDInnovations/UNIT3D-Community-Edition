@@ -264,8 +264,10 @@ class AutoBonAllocation extends Command
         //Move data from array to Users table
         foreach ($array as $key => $value) {
             $user = User::where('id', '=', $key)->first();
-            $user->seedbonus += $value;
-            $user->save();
+            if ($user) {
+                $user->seedbonus += $value;
+                $user->save();
+            }
         }
 
         $this->comment('Automated BON Allocation Command Complete');
