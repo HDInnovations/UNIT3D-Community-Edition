@@ -381,6 +381,12 @@ class TorrentController extends BaseController
             ->when($request->has('malId'), function ($query) use ($request) {
                 $query->where('mal', '=', $request->input('malId'));
             })
+            ->when($request->has('seasonNumber'), function ($query) use ($request) {
+                $query->where('season_number', '=', $request->input('seasonNumber'));
+            })
+            ->when($request->has('episodeNumber'), function ($query) use ($request) {
+                $query->where('episode_number', '=', $request->input('episodeNumber'));
+            })
             ->when($request->has('playlistId'), function ($query) use ($request) {
                 $playlist = PlaylistTorrent::where('playlist_id', '=', $request->input('playlistId'))->pluck('torrent_id');
                 $query->whereIn('id', $playlist);
