@@ -13,10 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
 use App\Models\Group;
 use App\Models\Internal;
-use Illuminate\Support\Facades\DB;
+use App\Models\Page;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
