@@ -245,7 +245,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
             'categories'   => Category::all()->sortBy('position'),
@@ -270,7 +270,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
@@ -540,12 +540,18 @@ class TorrentController extends Controller
 
         if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() != 'torrent') {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
-                ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
+                ->withErrors('Supplied Torrent File Is Corrupt!')->withInput();
         }
 
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
+
+        $v2 = Bencode::is_v2_or_hybrid($decodedTorrent);
+        if ($v2) {
+            return \redirect()->route('upload_form', ['category_id' => $category->id])
+                ->withErrors('BitTorrent v2 (BEP 52) is not supported!')->withInput();
+        }
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);

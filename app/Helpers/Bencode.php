@@ -240,4 +240,9 @@ class Bencode
 
         return $result;
     }
+
+    public static function is_v2_or_hybrid($t)
+    {
+        return isset($t['piece layers']);
+    }
 }
