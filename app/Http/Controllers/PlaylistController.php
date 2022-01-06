@@ -231,9 +231,13 @@ class PlaylistController extends Controller
     public function destroy($id)
     {
         $user = \auth()->user();
-        $playlist = Playlist::findOrFail($id);
+        $playlist = Playlist::with('torrents')->findOrFail($id);
 
         \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+
+        foreach ($playlist->torrents as $playlistTorrent) {
+            $playlistTorrent->delete();
+        }
 
         $playlist->delete();
 
