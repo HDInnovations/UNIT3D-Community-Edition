@@ -27,17 +27,6 @@
             vertical-align: middle !important;
         }
     </style>
-    <div class="container">
-        <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <div class="page-title">
-                        <h1 style="margin: 0;">Watched Users</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="box container">
         @livewire('watchlist-search')
     </div>

@@ -25,13 +25,6 @@
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.other')
-            <div class="header gradient blue">
-                <div class="inner_content">
-                    <h1>
-                        {{ $user->username }} @lang('user.resurrections')
-                    </h1>
-                </div>
-            </div>
             <hr class="some-padding">
             <div class="container well search mt-5">
                 <div class="form-horizontal form-condensed form-torrent-search form-bordered">

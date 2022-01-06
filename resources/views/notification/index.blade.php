@@ -180,11 +180,6 @@
 
     <div class="container-fluid">
         <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <h1>@lang('notification.notifications')</h1>
-                </div>
-            </div>
             <div id="result">
                 @include('notification.results')
             </div>

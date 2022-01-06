@@ -25,13 +25,6 @@
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.stats')
-            <div class="header gradient blue">
-                <div class="inner_content">
-                    <h1>
-                        {{ $user->username }} @lang('user.downloads')
-                    </h1>
-                </div>
-            </div>
             <div class="button-holder some-padding">
                 <div class="button-left">
 

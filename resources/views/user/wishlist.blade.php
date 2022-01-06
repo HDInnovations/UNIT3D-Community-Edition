@@ -24,11 +24,6 @@
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.other')
-            <div class="header gradient pink">
-                <div class="inner_content">
-                    <h1>{{ $user->username }} @lang('user.wishlist')</h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row mb-20">
                     <div class="col-md-12">

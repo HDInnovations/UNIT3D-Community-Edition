@@ -18,16 +18,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="box">
-            <div class="header gradient pink">
-                <div class="inner_content">
-                    <h1>@lang('staff.staff-dashboard')</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
         <div class="row">
             @include('partials.dashboardmenu')
 

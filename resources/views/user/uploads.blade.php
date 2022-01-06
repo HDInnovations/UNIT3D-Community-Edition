@@ -37,13 +37,6 @@
         @else
             <div class="block">
                 @include('user.buttons.public')
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.uploads')
-                        </h1>
-                    </div>
-                </div>
                 <div view="uploads">
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered">

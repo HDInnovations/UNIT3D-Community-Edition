@@ -18,11 +18,6 @@
 
 @section('content')
     <div class="container box">
-        <div class="header gradient light_blue">
-            <div class="inner_content">
-                <h1>@lang('articles.articles')</h1>
-            </div>
-        </div>
         @foreach ($articles as $article)
             <div class="well">
                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"

@@ -50,11 +50,6 @@
         @else
             <div class="block">
                 @include('user.buttons.invite')
-                <div class="header gradient red">
-                    <div class="inner_content">
-                        <h1>{{ $user->username }} @lang('user.send-invite')</h1>
-                    </div>
-                </div>
                 <div class="some-padding">
                     <div class="container-fluid">
                         <div class="block">

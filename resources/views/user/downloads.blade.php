@@ -37,13 +37,6 @@
         @else
             <div class="block">
                 @include('user.buttons.public')
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.downloads')
-                        </h1>
-                    </div>
-                </div>
 
                 @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
                     <div class="container">

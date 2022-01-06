@@ -159,13 +159,6 @@
             <a href="{{ route('add_request') }}" role="button" class="btn btn-xs btn-success">
                 @lang('request.add-request')
             </a>
-            <div class="header gradient green" style="margin-top: 10px;">
-                <div class="inner_content">
-                    <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                        @lang('request.requests')
-                    </h5>
-                </div>
-            </div>
             <table class="table table-condensed table-striped table-bordered" id="requests-table">
                 <thead>
                 <tr>

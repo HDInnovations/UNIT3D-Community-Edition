@@ -12,11 +12,6 @@
 
 @section('content')
     <div class="container">
-        <div class="header gradient silver">
-            <div class="inner_content">
-                <h1>@lang('pm.private') @lang('pm.messages') - @lang('pm.outbox')</h1>
-            </div>
-        </div>
         <div class="row">
             @include('partials.pmmenu')
             <div class="col-md-10">

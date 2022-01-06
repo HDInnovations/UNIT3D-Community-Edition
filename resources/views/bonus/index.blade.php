@@ -12,11 +12,6 @@
     <div class="container">
         <div class="block">
             @include('bonus.buttons')
-            <div class="header gradient purple">
-                <div class="inner_content">
-                    <h1>@lang('bon.bon') @lang('bon.points')</h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row">
                     <div class="col-sm-8">

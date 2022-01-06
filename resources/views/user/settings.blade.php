@@ -24,11 +24,6 @@
     <div class="container">
         <div class="block">
             @include('user.buttons.settings')
-            <div class="header gradient red">
-                <div class="inner_content">
-                    <h1>{{ $user->username }} @lang('user.general-settings')</h1>
-                </div>
-            </div>
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#general" data-toggle="tab">General</a></li>

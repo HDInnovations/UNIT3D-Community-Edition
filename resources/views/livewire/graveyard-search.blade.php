@@ -156,13 +156,6 @@
         </div>
         <br>
         <div class="table-responsive block">
-            <div class="header gradient green" style="margin-top: 25px;">
-                <div class="inner_content">
-                    <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                        {{ number_format($torrentsStat) }} Dead @lang('torrent.torrents')
-                    </h5>
-                </div>
-            </div>
             <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
                 <thead>
                 <tr>

@@ -2,14 +2,6 @@
     <div class="container-fluid">
         <div class="block">
             <div class="container box search mt-5 fatten-me form-horizontal form-condensed form-torrent-search form-bordered">
-                <div class="header gradient silver">
-                    <div class="inner_content">
-                        <div class="page-title">
-                            <h1 style="margin: 0;">@lang('common.subtitles')</h1>
-                        </div>
-                    </div>
-                </div>
-                <br>
                 <div class="mx-0 mt-5 form-group fatten-me">
                     <label for="search"
                            class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>

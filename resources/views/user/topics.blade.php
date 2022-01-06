@@ -41,13 +41,6 @@
                 @else
                     @include('user.buttons.public')
                 @endif
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.topics')
-                        </h1>
-                    </div>
-                </div>
                 <div class="forum-categories">
                     <table class="table table-bordered table-hover">
                         <thead>

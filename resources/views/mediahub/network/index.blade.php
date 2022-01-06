@@ -22,17 +22,6 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <div class="page-title">
-                        <h1 style="margin: 0;">@lang('mediahub.networks')</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="box container">
         @livewire('network-search')
     </div>

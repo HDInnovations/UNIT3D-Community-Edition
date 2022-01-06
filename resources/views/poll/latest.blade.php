@@ -14,11 +14,6 @@
 
 @section('content')
     <div class="container box">
-        <div class="header gradient green">
-            <div class="inner_content">
-                <h1>@lang('poll.current')</h1>
-            </div>
-        </div>
         <div class="blocks">
             @foreach ($polls as $poll)
                 <a href="{{ route('poll', ['id' => $poll->id]) }}" style="padding: 0 2px;">

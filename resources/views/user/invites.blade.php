@@ -25,11 +25,6 @@
         <div class="block">
             @php $user = $owner @endphp
             @include('user.buttons.invite')
-            <div class="header gradient red">
-                <div class="inner_content">
-                    <h1>{{ $owner->username }} @lang('user.invites')</h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row">
                     <div class="col-sm-12">

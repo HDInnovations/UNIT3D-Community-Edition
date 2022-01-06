@@ -11,13 +11,6 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <div class="header gradient yellow">
-                <div class="inner_content">
-                    <h1>@lang('playlist.playlists')</h1>
-                </div>
-            </div>
-        </div>
-        <div class="block">
             <div class="container box text-center">
                 <h2>@lang('playlist.playlists')</h2>
                 <h4>@lang('playlist.about')</h4>

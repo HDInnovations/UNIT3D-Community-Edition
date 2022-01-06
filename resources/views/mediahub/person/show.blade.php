@@ -23,11 +23,6 @@
     <div class="container">
 
         <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <h1 style=" margin: 2px;">{{ $details->name }}</h1>
-                </div>
-            </div>
             <div class="panel-body">
                 <div class="col-sm-12 movie-list" style=" margin: 0;">
                     <div class="row">
@@ -93,11 +88,6 @@
         </div>
 
         <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <h1 style=" margin: 2px;">@lang('mediahub.movies')</h1>
-                </div>
-            </div>
             <table class="table table-striped clearfix">
                 <tbody>
                 @if(! empty($credits->movie))
@@ -145,11 +135,6 @@
         </div>
 
         <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <h1 style=" margin: 2px;">TV</h1>
-                </div>
-            </div>
             <table class="table table-striped clearfix">
                 <tbody>
                 @if(! empty($credits->tv))

@@ -24,13 +24,6 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <h1>Command Shortcuts</h1>
-                </div>
-            </div>
-
-            <br>
             <div class="row text-center">
                 <div class="col-md-4">
                     <div class="block">

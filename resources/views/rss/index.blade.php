@@ -20,11 +20,6 @@
 
                 </div>
             </div>
-            <div class="header gradient orange">
-                <div class="inner_content">
-                    <h1>{{ trans('rss.rss') }} {{ trans('rss.feeds') }}</h1>
-                </div>
-            </div>
             <div class="container-fluid p-0 some-padding">
                 <div class="block">
                     <ul class="nav nav-tabs" id="basetabs" role="tablist">

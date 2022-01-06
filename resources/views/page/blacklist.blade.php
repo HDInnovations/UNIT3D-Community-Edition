@@ -12,13 +12,6 @@
 @section('content')
     <div class="container box">
         <div class="col-md-12 page">
-            <div class="header gradient red">
-                <div class="inner_content">
-                    <div class="page-title">
-                        <h1>{{ config('other.title') }} @lang('common.blacklist')</h1>
-                    </div>
-                </div>
-            </div>
             <div class="alert alert-info" id="alert1">
                 <div class="text-center">
                     <span>

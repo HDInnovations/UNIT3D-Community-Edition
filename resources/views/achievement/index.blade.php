@@ -24,13 +24,6 @@
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.achievement')
-            <div class="header gradient blue">
-                <div class="inner_content">
-                    <h1>
-                        {{ $user->username }} @lang('user.achievements')
-                    </h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row">
                     <div class="col-md-5">

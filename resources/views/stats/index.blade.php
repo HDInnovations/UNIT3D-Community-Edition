@@ -14,11 +14,6 @@
 
 @section('content')
     <div class="container box">
-        <div class="header gradient red">
-            <div class="inner_content">
-                <h1>@lang('stat.site-stats')</h1>
-            </div>
-        </div>
         <div class="stats">
             <div class="table-responsive">
                 <div class="content">
