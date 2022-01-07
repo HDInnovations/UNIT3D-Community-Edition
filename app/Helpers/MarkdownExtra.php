@@ -485,7 +485,7 @@ class MarkdownExtra extends Markdown
             $n = \count($textElements) - 1;
 
             if ($textElements[$n]['name'] === 'p') {
-                $backLinkElements = \array_merge(
+                $backLinkElements = \a...rray_merge(
                     [
                         [
                             'rawHtml'                => '&#160;',
@@ -499,7 +499,7 @@ class MarkdownExtra extends Markdown
 
                 $textElements[$n] = [
                     'name'     => 'p',
-                    'elements' => \array_merge(
+                    'elements' => \a...rray_merge(
                         [$textElements[$n]],
                         $backLinkElements
                     ),
@@ -514,7 +514,7 @@ class MarkdownExtra extends Markdown
             $Element['elements'][1]['elements'][] = [
                 'name'       => 'li',
                 'attributes' => ['id' => 'fn:'.$definitionId],
-                'elements'   => \array_merge(
+                'elements'   => \a...rray_merge(
                     $textElements
                 ),
             ];

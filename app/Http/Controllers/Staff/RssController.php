@@ -112,7 +112,7 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = \array_merge($expected, $params);
+            $rss->json_torrent = \[...$expected, ...$params];
             $rss->is_private = 0;
             $rss->staff_id = $user->id;
             $rss->position = (int) $request->input('position');
@@ -208,8 +208,8 @@ class RssController extends Controller
 
         if ($v->passes()) {
             $expected = $rss->expected_fields;
-            $push = \array_merge($expected, $params);
-            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
+            $push = \[...$expected, ...$params];
+            $rss->json_torrent = \[...$rss->json_torrent, ...$push];
             $rss->is_private = 0;
             $rss->name = $request->input('name');
             $rss->position = (int) $request->input('position');

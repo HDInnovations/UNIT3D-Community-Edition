@@ -118,7 +118,7 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = \array_merge($expected, $params);
+            $rss->json_torrent = \[...$expected, ...$params];
             $rss->is_private = 1;
             $rss->save();
             $success = \trans('rss.created');
@@ -393,8 +393,8 @@ class RssController extends Controller
         $redirect = null;
         if ($v->passes()) {
             $expected = $rss->expected_fields;
-            $push = \array_merge($expected, $params);
-            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
+            $push = \[...$expected, ...$params];
+            $rss->json_torrent = \[...$rss->json_torrent, ...$push];
             $rss->is_private = 1;
             $rss->save();
             $success = \trans('rss.updated');

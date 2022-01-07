@@ -572,7 +572,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_other_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_other_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
 
@@ -607,7 +607,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_request_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_request_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
 
@@ -642,7 +642,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_achievement_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_achievement_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
 
@@ -677,7 +677,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_forum_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_forum_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
         $privacy->save();
@@ -713,7 +713,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_follower_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_follower_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
 
@@ -748,7 +748,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_torrent_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_torrent_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
         $privacy->show_download = ($request->input('show_download') && $request->input('show_download') == 1 ? 1 : 0);
         $privacy->show_peer = ($request->input('show_peer') && $request->input('show_peer') == 1 ? 1 : 0);
@@ -788,7 +788,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_account_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_account_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
         $notification->save();
@@ -824,7 +824,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_following_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_following_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
 
@@ -859,7 +859,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_bon_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_bon_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
 
@@ -894,7 +894,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_subscription_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_subscription_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
         $notification->save();
@@ -930,7 +930,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_request_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_request_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
         $notification->show_request_bounty = ($request->input('show_request_bounty') && $request->input('show_request_bounty') == 1 ? 1 : 0);
         $notification->show_request_fill = ($request->input('show_request_fill') && $request->input('show_request_fill') == 1 ? 1 : 0);
@@ -971,7 +971,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_torrent_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_torrent_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
         $notification->show_torrent_thank = ($request->input('show_torrent_thank') && $request->input('show_torrent_thank') == 1 ? 1 : 0);
         $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
@@ -1008,7 +1008,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_mention_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_mention_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
         $notification->show_mention_request_comment = ($request->input('show_mention_request_comment') && $request->input('show_mention_request_comment') == 1 ? 1 : 0);
         $notification->show_mention_article_comment = ($request->input('show_mention_article_comment') && $request->input('show_mention_article_comment') == 1 ? 1 : 0);
@@ -1047,7 +1047,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $notification->json_forum_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_forum_groups = \[...$notification->expected_groups, ...['default_groups' => $tomerge]];
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
 
@@ -1082,7 +1082,7 @@ class UserController extends Controller
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
 
-        $privacy->json_profile_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_profile_groups = \[...$privacy->expected_groups, ...['default_groups' => $tomerge]];
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
         $privacy->show_profile_torrent_ratio = ($request->input('show_profile_torrent_ratio') && $request->input('show_profile_torrent_ratio') == 1 ? 1 : 0);
         $privacy->show_profile_torrent_seed = ($request->input('show_profile_torrent_seed') && $request->input('show_profile_torrent_seed') == 1 ? 1 : 0);

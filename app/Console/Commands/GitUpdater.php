@@ -361,6 +361,6 @@ class GitUpdater extends Command
         $p = $this->process('git diff master --name-only');
         $paths = \array_filter(\explode("\n", $p->getOutput()), 'strlen');
 
-        return \array_merge($paths, self::ADDITIONAL);
+        return \[...$paths, ...self::ADDITIONAL];
     }
 }

@@ -154,7 +154,7 @@ class VendorCleanup extends Command
             $directory = $dir.'/'.$file;
             if (\is_dir($directory)) {
                 $directories[] = $directory;
-                $directories = \array_merge($directories, $this->expandDirectoryTree($directory));
+                $directories = \[...$directories, ...$this->expandDirectoryTree($directory)];
             }
         }
 

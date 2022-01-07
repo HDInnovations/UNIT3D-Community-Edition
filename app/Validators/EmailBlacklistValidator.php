@@ -98,6 +98,6 @@ class EmailBlacklistValidator
         }
 
         $appendDomains = \explode('|', \strtolower($appendList));
-        $this->domains = \array_merge($this->domains, $appendDomains);
+        $this->domains = \[...$this->domains, ...$appendDomains];
     }
 }

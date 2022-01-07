@@ -195,7 +195,7 @@ class BBCodeConverter
 
             $headers[] = $headerSeparator;
 
-            return \implode("\n", \array_merge($headers, $rows))."\n";
+            return \implode("\n", \[...$headers, ...$rows])."\n";
         }, $this->text);
     }
 
