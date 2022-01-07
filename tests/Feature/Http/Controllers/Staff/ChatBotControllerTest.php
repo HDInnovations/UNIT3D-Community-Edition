@@ -29,10 +29,7 @@ class ChatBotControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -45,10 +42,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
-    public function disable_returns_an_ok_response()
+    public function testDisableReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -59,10 +53,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
-    public function edit_returns_an_ok_response()
+    public function testEditReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -76,10 +67,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertViewHas('bot');
     }
 
-    /**
-     * @test
-     */
-    public function enable_returns_an_ok_response()
+    public function testEnableReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -90,10 +78,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -106,10 +91,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertViewHas('bots');
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

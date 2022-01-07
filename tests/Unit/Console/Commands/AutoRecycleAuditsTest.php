@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleAuditsTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:recycle_activity_log')
             ->expectsOutput('Automated Purge Old Audits Command Complete')

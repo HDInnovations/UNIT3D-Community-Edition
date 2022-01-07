@@ -12,8 +12,7 @@ use Tests\TestCase;
  */
 class ContactControllerTest extends TestCase
 {
-    /** @test */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -26,8 +25,7 @@ class ContactControllerTest extends TestCase
             ->assertViewIs('contact.index');
     }
 
-    /** @test */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

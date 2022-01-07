@@ -14,8 +14,7 @@ use Tests\TestCase;
  */
 class ForumControllerTest extends TestCase
 {
-    /** @test */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -31,8 +30,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('num_topics');
     }
 
-    /** @test */
-    public function latest_posts_returns_an_ok_response()
+    public function testLatestPostsReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -49,8 +47,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('num_topics');
     }
 
-    /** @test */
-    public function latest_topics_returns_an_ok_response()
+    public function testLatestTopicsReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -67,8 +64,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('num_topics');
     }
 
-    /** @test */
-    public function search_topics_returns_an_ok_response()
+    public function testSearchTopicsReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -89,8 +85,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('params');
     }
 
-    /** @test */
-    public function search_posts_returns_an_ok_response()
+    public function testSearchPostsReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -111,8 +106,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('params');
     }
 
-    /** @test */
-    public function show_category_returns_an_ok_response()
+    public function testShowCategoryReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -150,8 +144,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('num_topics');
     }
 
-    /** @test */
-    public function show_forum_returns_an_ok_response()
+    public function testShowForumReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -178,8 +171,7 @@ class ForumControllerTest extends TestCase
             ->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
     }
 
-    /** @test */
-    public function subscriptions_returns_an_ok_response()
+    public function testSubscriptionsReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

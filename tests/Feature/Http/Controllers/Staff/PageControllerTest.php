@@ -29,10 +29,7 @@ class PageControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function create_returns_an_ok_response()
+    public function testCreateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -44,10 +41,7 @@ class PageControllerTest extends TestCase
         $response->assertViewIs('Staff.page.create');
     }
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -59,10 +53,7 @@ class PageControllerTest extends TestCase
         $response->assertRedirect(route('staff.pages.index'));
     }
 
-    /**
-     * @test
-     */
-    public function edit_returns_an_ok_response()
+    public function testEditReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -76,10 +67,7 @@ class PageControllerTest extends TestCase
         $response->assertViewHas('page');
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -92,10 +80,7 @@ class PageControllerTest extends TestCase
         $response->assertViewHas('pages');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -111,10 +96,7 @@ class PageControllerTest extends TestCase
         $response->assertRedirect(route('staff.pages.index'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

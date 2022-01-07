@@ -29,10 +29,7 @@ class MassActionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function create_returns_an_ok_response()
+    public function testCreateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -44,10 +41,7 @@ class MassActionControllerTest extends TestCase
         $response->assertViewIs('Staff.masspm.index');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -66,10 +60,7 @@ class MassActionControllerTest extends TestCase
         $response->assertRedirect(route('staff.mass-pm.create'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoBonAllocationTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:bon_allocation')
             ->expectsOutput('Automated BON Allocation Command Complete')

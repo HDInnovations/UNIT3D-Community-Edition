@@ -19,8 +19,7 @@ class BookmarkControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
     }
 
-    /** @test */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
 
@@ -36,8 +35,7 @@ class BookmarkControllerTest extends TestCase
             ->assertSessionHas('success', 'Torrent Has Been Unbookmarked Successfully!');
     }
 
-    /** @test */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
 
@@ -54,8 +52,7 @@ class BookmarkControllerTest extends TestCase
             ->assertViewHas('user');
     }
 
-    /** @test */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
 

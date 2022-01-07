@@ -19,10 +19,7 @@ use Tests\TestCase;
  */
 class CommentControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function article_returns_an_ok_response()
+    public function testArticleReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -46,10 +43,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
-    public function delete_comment_returns_an_ok_response()
+    public function testDeleteCommentReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -70,10 +64,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Comment Has Been Deleted.');
     }
 
-    /**
-     * @test
-     */
-    public function edit_comment_returns_an_ok_response()
+    public function testEditCommentReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -94,10 +85,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Comment Has Been Edited.');
     }
 
-    /**
-     * @test
-     */
-    public function playlist_returns_an_ok_response()
+    public function testPlaylistReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -123,10 +111,7 @@ class CommentControllerTest extends TestCase
         ]))->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
-    public function quickthanks_returns_an_ok_response()
+    public function testQuickthanksReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -148,10 +133,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
-    public function request_returns_an_ok_response()
+    public function testRequestReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -175,10 +157,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
-    public function torrent_returns_an_ok_response()
+    public function testTorrentReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

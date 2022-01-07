@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoHighspeedTagTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:highspeed_tag')
             ->expectsOutput('Automated High Speed Torrents Command Complete')

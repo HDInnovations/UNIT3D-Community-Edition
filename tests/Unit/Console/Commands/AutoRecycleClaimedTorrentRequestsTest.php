@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleClaimedTorrentRequestsTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:recycle_claimed_torrent_requests')
             ->expectsOutput('Automated Request Claim Reset Command Complete')

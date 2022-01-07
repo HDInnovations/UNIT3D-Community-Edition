@@ -28,10 +28,7 @@ class GroupControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function create_returns_an_ok_response()
+    public function testCreateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -43,10 +40,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewIs('Staff.group.create');
     }
 
-    /**
-     * @test
-     */
-    public function edit_returns_an_ok_response()
+    public function testEditReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -60,10 +54,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('group');
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -76,10 +67,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('groups');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -110,10 +98,7 @@ class GroupControllerTest extends TestCase
         $response->assertRedirect(route('staff.groups.index'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

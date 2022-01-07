@@ -29,10 +29,7 @@ class ChatRoomControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -44,10 +41,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.rooms.index'));
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -60,10 +54,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertViewHas('chatrooms');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -77,10 +68,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.rooms.index'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

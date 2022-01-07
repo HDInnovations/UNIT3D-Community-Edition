@@ -12,10 +12,7 @@ use Tests\TestCase;
  */
 class ArticleControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -28,10 +25,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('articles');
     }
 
-    /**
-     * @test
-     */
-    public function show_returns_an_ok_response()
+    public function testShowReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

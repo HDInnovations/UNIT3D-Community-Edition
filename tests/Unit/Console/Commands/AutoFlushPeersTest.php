@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoFlushPeersTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:flush_peers')
             ->expectsOutput('Automated Flush Ghost Peers Command Complete')

@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoGraveyardTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:graveyard')
             ->expectsOutput('Automated Graveyard Rewards Command Complete')

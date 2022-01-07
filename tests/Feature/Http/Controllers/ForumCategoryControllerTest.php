@@ -14,8 +14,7 @@ use Tests\TestCase;
  */
 class ForumCategoryControllerTest extends TestCase
 {
-    /** @test */
-    public function show_category_returns_an_ok_response()
+    public function testShowCategoryReturnsAnOkResponse()
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -40,8 +39,7 @@ class ForumCategoryControllerTest extends TestCase
             ->assertRedirect(route('forums.show', ['id' => $forum->id]));
     }
 
-    /** @test */
-    public function show_forum_returns_an_ok_response()
+    public function testShowForumReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

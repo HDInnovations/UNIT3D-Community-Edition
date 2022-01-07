@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleInvitesTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:recycle_invites')
             ->expectsOutput('Automated Purge Unaccepted Invites Command Complete')

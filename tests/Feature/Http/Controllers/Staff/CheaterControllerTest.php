@@ -28,10 +28,7 @@ class CheaterControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

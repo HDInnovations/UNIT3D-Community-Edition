@@ -29,10 +29,7 @@ class ChatStatusControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -43,10 +40,7 @@ class ChatStatusControllerTest extends TestCase
         $response->assertRedirect(route('staff.statuses.index'));
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -59,10 +53,7 @@ class ChatStatusControllerTest extends TestCase
         $response->assertViewHas('chatstatuses');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -78,10 +69,7 @@ class ChatStatusControllerTest extends TestCase
         $response->assertRedirect(route('staff.statuses.index'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

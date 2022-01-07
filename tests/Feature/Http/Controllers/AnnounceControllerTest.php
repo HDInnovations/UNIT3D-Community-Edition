@@ -13,10 +13,7 @@ use Tests\TestCase;
  */
 class AnnounceControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function announce_returns_an_ok_response()
+    public function testAnnounceReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

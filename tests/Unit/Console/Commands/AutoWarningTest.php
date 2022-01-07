@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoWarningTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:warning')
             ->expectsOutput('Automated User Warning Command Complete')

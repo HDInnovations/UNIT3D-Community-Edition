@@ -24,8 +24,7 @@ class BonusControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
     }
 
-    /** @test */
-    public function bonus_returns_an_ok_response()
+    public function testBonusReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -55,8 +54,7 @@ class BonusControllerTest extends TestCase
             ->assertViewHas('second');
     }
 
-    /** @test */
-    public function upload_exchange_returns_an_ok_response()
+    public function testUploadExchangeReturnsAnOkResponse()
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -78,8 +76,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
-    /** @test */
-    public function download_exchange_returns_an_ok_response()
+    public function testDownloadExchangeReturnsAnOkResponse()
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -105,8 +102,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
-    /** @test */
-    public function personal_freeleech_exchange_returns_an_ok_response()
+    public function testPersonalFreeleechExchangeReturnsAnOkResponse()
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -132,8 +128,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
-    /** @test */
-    public function gift_returns_an_ok_response()
+    public function testGiftReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -144,8 +139,7 @@ class BonusControllerTest extends TestCase
             ->assertViewHas('userbon');
     }
 
-    /** @test */
-    public function gifts_returns_an_ok_response()
+    public function testGiftsReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -160,8 +154,7 @@ class BonusControllerTest extends TestCase
             ->assertViewHas('gifts_received');
     }
 
-    /** @test */
-    public function send_gift_returns_an_ok_response()
+    public function testSendGiftReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
@@ -183,8 +176,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Gift Sent');
     }
 
-    /** @test */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -201,8 +193,7 @@ class BonusControllerTest extends TestCase
             ->assertViewHas('invite');
     }
 
-    /** @test */
-    public function tip_poster_returns_an_ok_response()
+    public function testTipPosterReturnsAnOkResponse()
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
@@ -221,8 +212,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Tip Was Successfully Applied!');
     }
 
-    /** @test */
-    public function tip_uploader_returns_an_ok_response()
+    public function testTipUploaderReturnsAnOkResponse()
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
@@ -240,8 +230,7 @@ class BonusControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Tip Was Successfully Applied!');
     }
 
-    /** @test */
-    public function tips_returns_an_ok_response()
+    public function testTipsReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 

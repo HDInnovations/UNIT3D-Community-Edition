@@ -11,10 +11,7 @@ use Tests\TestCase;
  */
 class AchievementsControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -30,10 +27,7 @@ class AchievementsControllerTest extends TestCase
             ->assertViewHas('pending');
     }
 
-    /**
-     * @test
-     */
-    public function show_returns_an_ok_response()
+    public function testShowReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

@@ -18,10 +18,7 @@ use Tests\TestCase;
  */
 class TorrentControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function filter_returns_an_ok_response()
+    public function testFilterReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -49,10 +46,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -80,10 +74,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
-    public function show_returns_an_ok_response()
+    public function testShowReturnsAnOkResponse()
     {
         $user = User::factory()->create();
 
@@ -101,10 +92,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);

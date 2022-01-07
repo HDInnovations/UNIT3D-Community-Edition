@@ -28,10 +28,7 @@ class CommandControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function clear_all_cache_returns_an_ok_response()
+    public function testClearAllCacheReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -42,10 +39,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function clear_cache_returns_an_ok_response()
+    public function testClearCacheReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -56,10 +50,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function clear_config_returns_an_ok_response()
+    public function testClearConfigReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -70,10 +61,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function clear_route_returns_an_ok_response()
+    public function testClearRouteReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -84,10 +72,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function clear_view_returns_an_ok_response()
+    public function testClearViewReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -98,10 +83,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -113,10 +95,7 @@ class CommandControllerTest extends TestCase
         $response->assertViewIs('Staff.command.index');
     }
 
-    /**
-     * @test
-     */
-    public function maintance_disable_returns_an_ok_response()
+    public function testMaintanceDisableReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -127,10 +106,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function set_all_cache_returns_an_ok_response()
+    public function testSetAllCacheReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -141,10 +117,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
-    public function test_email_returns_an_ok_response()
+    public function testEmailReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

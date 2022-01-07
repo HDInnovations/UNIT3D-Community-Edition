@@ -28,10 +28,7 @@ class GiftControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -43,10 +40,7 @@ class GiftControllerTest extends TestCase
         $response->assertViewIs('Staff.gift.index');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

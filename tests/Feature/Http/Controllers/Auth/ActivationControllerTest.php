@@ -11,10 +11,7 @@ use Tests\TestCase;
  */
 class ActivationControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function activate_returns_an_ok_response()
+    public function testActivateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

@@ -12,10 +12,7 @@ use Tests\TestCase;
  */
 class TwoStepControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function resend_returns_an_ok_response()
+    public function testResendReturnsAnOkResponse()
     {
         config(['auth.TwoStepEnabled' => true]);
 
@@ -33,10 +30,7 @@ class TwoStepControllerTest extends TestCase
             ->assertRedirect(route('verificationNeeded'));
     }
 
-    /**
-     * @test
-     */
-    public function show_verification_returns_an_ok_response()
+    public function testShowVerificationReturnsAnOkResponse()
     {
         config(['auth.TwoStepEnabled' => true]);
 
@@ -55,10 +49,7 @@ class TwoStepControllerTest extends TestCase
             ->assertViewIs('auth.twostep-verification');
     }
 
-    /**
-     * @test
-     */
-    public function verify_returns_an_ok_response()
+    public function testVerifyReturnsAnOkResponse()
     {
         config(['auth.TwoStepEnabled' => true]);
 

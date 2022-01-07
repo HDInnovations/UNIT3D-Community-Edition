@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class SetCacheTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('set:all_cache')
             ->expectsOutput('Setting several common cache\'s ...')

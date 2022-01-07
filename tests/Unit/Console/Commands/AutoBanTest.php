@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoBanTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:ban')
             ->expectsOutput('Automated User Banning Command Complete')

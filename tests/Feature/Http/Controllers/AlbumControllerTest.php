@@ -12,8 +12,7 @@ use Tests\TestCase;
  */
 class AlbumControllerTest extends TestCase
 {
-    /** @test */
-    public function create_returns_an_ok_response()
+    public function testCreateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -25,8 +24,7 @@ class AlbumControllerTest extends TestCase
             ->assertViewIs('album.create');
     }
 
-    /** @test */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -42,8 +40,7 @@ class AlbumControllerTest extends TestCase
             ->assertSessionHas('success', 'Album has successfully been deleted');
     }
 
-    /** @test */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -55,8 +52,7 @@ class AlbumControllerTest extends TestCase
             ->assertViewIs('album.index');
     }
 
-    /** @test */
-    public function show_returns_an_ok_response()
+    public function testShowReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -74,8 +70,7 @@ class AlbumControllerTest extends TestCase
             ->assertViewHas('albums');
     }
 
-    /** @test */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 

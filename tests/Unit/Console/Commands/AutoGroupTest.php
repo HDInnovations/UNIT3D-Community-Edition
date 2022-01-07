@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class AutoGroupTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:group')
             ->expectsOutput('Automated User Group Command Complete')

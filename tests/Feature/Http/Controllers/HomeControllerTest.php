@@ -18,16 +18,14 @@ class HomeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
     }
 
-    /** @test */
-    public function whenNotAuthenticatedHomepageRedirectsToLogin()
+    public function testWhenNotAuthenticatedHomepageRedirectsToLogin()
     {
         $response = $this->get('/');
 
         $response->assertRedirect(route('login'));
     }
 
-    /** @test */
-    public function whenAuthenticatedHomepageReturns200()
+    public function testWhenAuthenticatedHomepageReturns200()
     {
         $user = User::factory()->create();
 
@@ -55,8 +53,7 @@ class HomeControllerTest extends TestCase
             ->assertViewHas('bookmarks');
     }
 
-    /** @test */
-    public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep()
+    public function testWhenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep()
     {
         $user = User::factory()->create([
             'twostep' => true,

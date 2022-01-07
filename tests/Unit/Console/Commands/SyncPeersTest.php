@@ -9,10 +9,7 @@ use Tests\TestCase;
  */
 class SyncPeersTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_runs_successfully()
+    public function testItRunsSuccessfully()
     {
         $this->artisan('auto:sync_peers')
             ->expectsOutput('Torrent Peer Syncing Command Complete')

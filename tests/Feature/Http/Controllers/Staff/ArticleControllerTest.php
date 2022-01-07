@@ -29,10 +29,7 @@ class ArticleControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function create_returns_an_ok_response()
+    public function testCreateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -44,10 +41,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewIs('Staff.article.create');
     }
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response()
+    public function testDestroyReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -58,10 +52,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect(route('staff.articles.index'));
     }
 
-    /**
-     * @test
-     */
-    public function edit_returns_an_ok_response()
+    public function testEditReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -75,10 +66,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('article');
     }
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response()
+    public function testIndexReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -91,10 +79,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('articles');
     }
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response()
+    public function testStoreReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -111,10 +96,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect(route('staff.articles.index'));
     }
 
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response()
+    public function testUpdateReturnsAnOkResponse()
     {
         $this->seed(GroupsTableSeeder::class);
 
