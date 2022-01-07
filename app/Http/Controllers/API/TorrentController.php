@@ -315,7 +315,7 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      */
-    public function filter(Request $request): \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
+    public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])

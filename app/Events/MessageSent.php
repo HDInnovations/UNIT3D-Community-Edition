@@ -26,6 +26,7 @@ class MessageSent implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
+
     /**
      * Message details.
      *

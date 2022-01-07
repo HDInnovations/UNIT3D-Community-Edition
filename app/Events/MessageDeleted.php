@@ -25,6 +25,7 @@ class MessageDeleted implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
+
     /**
      * Message details.
      *
