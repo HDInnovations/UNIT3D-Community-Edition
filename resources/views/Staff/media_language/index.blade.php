@@ -3,13 +3,13 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.media_languages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                @lang('common.media-languages')
+                {{ __('common.media-languages') }}
             </span>
         </a>
     </li>
@@ -17,22 +17,22 @@
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.media-languages')</h2>
-        <p>@lang('staff.media-languages-desc')</p>
+        <h2>{{ __('common.media-languages') }}</h2>
+        <p>{{ __('staff.media-languages-desc') }}</p>
 
         <a href="{{ route('staff.media_languages.create') }}" class="btn btn-primary">
-            @lang('common.add')
-            @lang(trans_choice('common.a-an-art',false))
-            @lang('common.media-language')
+            {{ __('common.add') }}
+            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ __('common.media-language') }}
         </a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>@lang('common.name')</th>
-                    <th>@lang('common.code')</th>
-                    <th>@lang('common.action')</th>
+                    <th>{{ __('common.name') }}</th>
+                    <th>{{ __('common.code') }}</th>
+                    <th>{{ __('common.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
                         <td>
                             <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}"
                                class="btn btn-warning">
-                                @lang('common.edit')
+                                {{ __('common.edit') }}
                             </a>
                         </td>
                     </tr>

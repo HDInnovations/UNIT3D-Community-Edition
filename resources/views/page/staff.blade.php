@@ -4,7 +4,7 @@
     <li>
         <a href="{{ route('staff') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
-                @lang('common.staff')</span>
+                {{ __('common.staff') }}</span>
         </a>
     </li>
 @endsection
@@ -21,9 +21,9 @@
                             <a href="{{ route('users.show', ['username' => $user->username]) }}" style="color:#ffffff;">
                                 <h1>{{ $user->username }}</h1>
                             </a>
-                            <span class="badge-user">@lang('page.staff-group'): {{ $s->name }}</span>
+                            <span class="badge-user">{{ __('page.staff-group') }}: {{ $s->name }}</span>
                             <br>
-                            <span class="badge-user">@lang('page.staff-title'): {{ $user->title }}</span>
+                            <span class="badge-user">{{ __('page.staff-title') }}: {{ $user->title }}</span>
                             <i class="fal {{ $s->icon }} oper-icon"></i>
                         </div>
                     </div>

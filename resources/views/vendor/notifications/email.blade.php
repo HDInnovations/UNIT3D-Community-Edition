@@ -51,7 +51,7 @@
     <!-- Subcopy -->
     @if (isset($actionText))
         @component('mail::subcopy')
-            @lang('email.footer-link', ['actionText' => $actionText])
+            {{ __('email.footer-link', ['actionText' => $actionText]) }}
             [{{ $actionUrl }}]({{ $actionUrl }})
         @endcomponent
     @endif

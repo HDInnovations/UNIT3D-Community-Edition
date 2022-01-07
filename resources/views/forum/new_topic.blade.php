@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('forum.create-new-topic') - {{ config('other.title') }}</title>
+    <title>{{ __('forum.create-new-topic') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
@@ -22,7 +22,7 @@
     <li>
         <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.create-new-topic')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.create-new-topic') }}</span>
         </a>
     </li>
 @endsection
@@ -30,13 +30,13 @@
 @section('content')
     <div class="forum box container">
         <div class="col-md-12">
-            <h2><span>@lang('forum.create-new-topic')</span><span id="thread-title">{{ $title }}</span></h2>
+            <h2><span>{{ __('forum.create-new-topic') }}</span><span id="thread-title">{{ $title }}</span></h2>
             <form role="form" method="POST" action="{{ route('forum_new_topic', ['id' => $forum->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="input-thread-title"></label><input id="input-thread-title" type="text" name="title"
                                                                    maxlength="75" class="form-control"
-                                                                   placeholder="@lang('forum.topic-title')">
+                                                                   placeholder="{{ __('forum.topic-title') }}">
                 </div>
 
                 <div class="form-group">
@@ -45,7 +45,7 @@
                               class="form-control"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">@lang('forum.send-new-topic')</button>
+                <button type="submit" class="btn btn-primary">{{ __('forum.send-new-topic') }}</button>
             </form>
         </div>
     </div>

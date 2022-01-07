@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.search') - @lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>{{ __('common.search') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('forum_search_form') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.search-results')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.search-results') }}</span>
         </a>
     </li>
 @endsection
@@ -31,7 +31,7 @@
                     <td colspan="5" class="no-space">
                         <div class="header gradient teal some-padding">
                             <div class="inner_content">
-                                <h1 class="no-space">@lang('forum.forum') @lang('forum.forums-post-search')</h1>
+                                <h1 class="no-space">{{ __('forum.forum') }} {{ __('forum.forums-post-search') }}</h1>
                             </div>
                         </div>
                     </td>
@@ -48,10 +48,10 @@
                                           class="form-horizontal form-condensed form-torrent-search form-bordered table-me">
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="name"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.topic')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.topic') }}</label>
                                             <div class="col-sm-9 fatten-me">
                                                 <label>
-                                                    <input type="text" name="name" placeholder="@lang('forum.topic')"
+                                                    <input type="text" name="name" placeholder="{{ __('forum.topic') }}"
                                                            value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
                                                            class="form-control">
                                                 </label>
@@ -59,10 +59,10 @@
                                         </div>
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="body"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.post')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.post') }}</label>
                                             <div class="col-sm-9 fatten-me">
                                                 <label>
-                                                    <input type="text" name="body" placeholder="@lang('forum.post')"
+                                                    <input type="text" name="body" placeholder="{{ __('forum.post') }}"
                                                            value="{{ isset($params) && is_array($params) && array_key_exists('body', $params) ? $params['body'] : '' }}"
                                                            class="form-control">
                                                 </label>
@@ -71,11 +71,11 @@
 
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.forum')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.forum') }}</label>
                                             <div class="col-sm-9 fatten-me">
                                                 <label for="category"></label><select id="category" name="category"
                                                                                       class="form-control">
-                                                    <option value="">@lang('forum.select-all-forum')</option>
+                                                    <option value="">{{ __('forum.select-all-forum') }}</option>
                                                     @foreach ($categories as $category)
                                                         @if ($category->getPermission() != null &&
                                                             $category->getPermission()->show_forum == true &&
@@ -100,7 +100,7 @@
 
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.label')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.label') }}</label>
                                             <div class="col-sm-10">
     
                                                     <span class="badge-user">
@@ -112,12 +112,12 @@
                                                                        CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-check text-purple"></span>
-                                                                @lang('forum.implemented')
+                                                                {{ __('forum.implemented') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="implemented">
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-check text-purple"></span>
-                                                                @lang('forum.implemented')
+                                                                {{ __('forum.implemented') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -131,11 +131,11 @@
                                                                 <input type="checkbox" value="1" name="approved"
                                                                        CHECKED> <span
                                                                         class="{{ config('other.font-awesome') }} fa-tag text-green"></span>
-                                                                @lang('forum.approved')
+                                                                {{ __('forum.approved') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="approved"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-tag text-green"></span>
-                                                                @lang('forum.approved')
+                                                                {{ __('forum.approved') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -146,11 +146,11 @@
                                                                 <input type="checkbox" value="1" name="denied" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-tag text-red"></span>
-                                                                @lang('forum.denied')
+                                                                {{ __('forum.denied') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="denied"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-tag text-red"></span>
-                                                                @lang('forum.denied')
+                                                                {{ __('forum.denied') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -161,11 +161,11 @@
                                                                 <input type="checkbox" value="1" name="solved" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-thumbs-up text-green"></span>
-                                                                @lang('forum.solved')
+                                                                {{ __('forum.solved') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="solved"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-thumbs-up text-green"></span>
-                                                                @lang('forum.solved')
+                                                                {{ __('forum.solved') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -176,11 +176,11 @@
                                                                 <input type="checkbox" value="1" name="invalid" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-thumbs-down text-red"></span>
-                                                                @lang('forum.invalid')
+                                                                {{ __('forum.invalid') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="invalid"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-thumbs-down text-red"></span>
-                                                                @lang('forum.invalid')
+                                                                {{ __('forum.invalid') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -191,11 +191,11 @@
                                                                 <input type="checkbox" value="1" name="bug" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-bug text-red"></span>
-                                                                @lang('forum.bug')
+                                                                {{ __('forum.bug') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="bug"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-bug text-red"></span>
-                                                                @lang('forum.bug')
+                                                                {{ __('forum.bug') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -208,12 +208,12 @@
                                                                        CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-info text-blue"></span>
-                                                                @lang('forum.suggestion')
+                                                                {{ __('forum.suggestion') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="suggestion">
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-info text-blue"></span>
-                                                                @lang('forum.suggestion')
+                                                                {{ __('forum.suggestion') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -222,7 +222,7 @@
                                         </div>
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.state')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.state') }}</label>
                                             <div class="col-sm-10">
                                                     <span class="badge-user">
                                                         <label class="inline">
@@ -231,11 +231,11 @@
                                                                 <input type="checkbox" value="1" name="open" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-lock-open text-green"></span>
-                                                                @lang('forum.open')
+                                                                {{ __('forum.open') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="open"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-lock-open text-green"></span>
-                                                                @lang('forum.open')
+                                                                {{ __('forum.open') }}
                                                             @endif
                                                         </label>
                                                     </span><span class="badge-user">
@@ -245,11 +245,11 @@
                                                                 <input type="checkbox" value="1" name="closed" CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-lock text-red"></span>
-                                                                @lang('forum.closed')
+                                                                {{ __('forum.closed') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="closed"> <span
                                                                         class="{{ config('other.font-awesome') }} fa-lock text-red"></span>
-                                                                @lang('forum.closed')
+                                                                {{ __('forum.closed') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -257,7 +257,7 @@
                                         </div>
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.activity')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.activity') }}</label>
                                             <div class="col-sm-10">
                                                     <span class="badge-user">
                                                         <label class="inline">
@@ -268,12 +268,12 @@
                                                                        CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-bell text-green"></span>
-                                                                @lang('forum.subscribed')
+                                                                {{ __('forum.subscribed') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="subscribed">
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-bell text-green"></span>
-                                                                @lang('forum.subscribed')
+                                                                {{ __('forum.subscribed') }}
                                                             @endif
                                                         </label>
                                                     </span><span class="badge-user">
@@ -285,12 +285,12 @@
                                                                        CHECKED>
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-bell-slash text-red"></span>
-                                                                @lang('forum.not-subscribed')
+                                                                {{ __('forum.not-subscribed') }}
                                                             @else
                                                                 <input type="checkbox" value="1" name="notsubscribed">
                                                                 <span
                                                                         class="{{ config('other.font-awesome') }} fa-bell-slash text-red"></span>
-                                                                @lang('forum.not-subscribed')
+                                                                {{ __('forum.not-subscribed') }}
                                                             @endif
                                                         </label>
                                                     </span>
@@ -299,31 +299,31 @@
 
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.sort') }}</label>
                                             <div class="col-sm-2">
                                                 <label for="sorting"></label><select id="sorting" name="sorting"
                                                                                      class="form-control">
                                                     <option value="updated_at"
                                                             {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '' }}>
-                                                        @lang('forum.updated-at')</option>
+                                                        {{ __('forum.updated-at') }}</option>
                                                     <option value="created_at"
                                                             {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '' }}>
-                                                        @lang('forum.created-at')</option>
+                                                        {{ __('forum.created-at') }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="mx-0 mt-5 form-group fatten-me">
                                             <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
+                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.direction') }}</label>
                                             <div class="col-sm-2">
                                                 <label for="direction"></label><select id="direction" name="direction"
                                                                                        class="form-control">
                                                     <option value="desc"
                                                             {{ isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'desc' ? 'SELECTED' : '' }}>
-                                                        @lang('common.descending')</option>
+                                                        {{ __('common.descending') }}</option>
                                                     <option value="asc"
                                                             {{ isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'asc' ? 'SELECTED' : '' }}>
-                                                        @lang('common.ascending')</option>
+                                                        {{ __('common.ascending') }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -332,7 +332,7 @@
                                         <div class="button-holder" style="margin-top: 20px !important;">
                                             <div class="button-center">
                                                 <button type="submit"
-                                                        class="btn btn-primary">@lang('common.search')</button>
+                                                        class="btn btn-primary">{{ __('common.search') }}</button>
                                             </div>
                                         </div>
                                     </form>
@@ -344,11 +344,11 @@
                 </thead>
                 <thead>
                 <tr>
-                    <th>@lang('forum.forum')</th>
-                    <th>@lang('forum.topic')</th>
-                    <th>@lang('forum.author')</th>
-                    <th>@lang('forum.stats')</th>
-                    <th>@lang('forum.last-post-info')</th>
+                    <th>{{ __('forum.forum') }}</th>
+                    <th>{{ __('forum.topic') }}</th>
+                    <th>{{ __('forum.author') }}</th>
+                    <th>{{ __('forum.stats') }}</th>
+                    <th>{{ __('forum.last-post-info') }}</th>
                 </tr>
                 </thead>
 
@@ -380,8 +380,8 @@
                                     href="{{ route('users.show', ['username' => $r->topic->first_post_user_username]) }}">{{ $r->topic->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
-                            {{ $r->topic->num_post - 1 }} @lang('forum.replies')
-                            \ {{ $r->topic->views }} @lang('forum.views')
+                            {{ $r->topic->num_post - 1 }} {{ __('forum.replies') }}
+                            \ {{ $r->topic->views }} {{ __('forum.views') }}
                         </td>
                         <td class="f-display-topic-last-post">
                             <a

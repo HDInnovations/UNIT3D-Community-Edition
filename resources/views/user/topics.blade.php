@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.topics') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.topics') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('user_topics', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.topics')</span>
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.topics') }}</span>
         </a>
     </li>
 @endsection
@@ -27,10 +27,10 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">@lang('user.not-authorized')</p>
+                        <p class="text-center">{{ __('user.not-authorized') }}</p>
                     </div>
                 </div>
             </div>
@@ -45,11 +45,11 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>@lang('forum.forum')</th>
-                            <th>@lang('forum.topic')</th>
-                            <th>@lang('forum.author')</th>
-                            <th>@lang('forum.stats')</th>
-                            <th>@lang('forum.last-post-info')</th>
+                            <th>{{ __('forum.forum') }}</th>
+                            <th>{{ __('forum.topic') }}</th>
+                            <th>{{ __('forum.author') }}</th>
+                            <th>{{ __('forum.stats') }}</th>
+                            <th>{{ __('forum.last-post-info') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,8 +84,8 @@
                                                 href="{{ route('users.show', ['username' => $r->first_post_user_username]) }}">{{ $r->first_post_user_username }}</a>
                                     </td>
                                     <td class="f-display-topic-stats">
-                                        {{ $r->num_post - 1 }} @lang('forum.replies')
-                                        \ {{ $r->views }} @lang('forum.views')
+                                        {{ $r->num_post - 1 }} {{ __('forum.replies') }}
+                                        \ {{ $r->views }} {{ __('forum.views') }}
                                     </td>
                                     <td class="f-display-topic-last-post">
                                         <a

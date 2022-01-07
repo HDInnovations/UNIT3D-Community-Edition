@@ -1,16 +1,16 @@
 <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">
         <thead>
-        <th>@lang('torrent.name')</th>
-        <th>@lang('torrent.size')</th>
-        <th>@lang('torrent.seeders')</th>
-        <th>@lang('torrent.leechers')</th>
-        <th>@lang('torrent.completed')</th>
-        <th>@lang('graveyard.resurrect-date')</th>
-        <th>@lang('graveyard.current-seedtime')</th>
-        <th>@lang('graveyard.seedtime-goal')</th>
-        <th>@lang('graveyard.rewarded')</th>
-        <th>@lang('common.cancel')</th>
+        <th>{{ __('torrent.name') }}</th>
+        <th>{{ __('torrent.size') }}</th>
+        <th>{{ __('torrent.seeders') }}</th>
+        <th>{{ __('torrent.leechers') }}</th>
+        <th>{{ __('torrent.completed') }}</th>
+        <th>{{ __('graveyard.resurrect-date') }}</th>
+        <th>{{ __('graveyard.current-seedtime') }}</th>
+        <th>{{ __('graveyard.seedtime-goal') }}</th>
+        <th>{{ __('graveyard.rewarded') }}</th>
+        <th>{{ __('common.cancel') }}</th>
         </thead>
         <tbody>
         @foreach ($resurrections as $resurrection)
@@ -35,7 +35,7 @@
                 </td>
                 <td>
                         <span class="badge-extra text-orange text-bold"> {{ $resurrection->torrent->times_completed }}
-                            @lang('common.times')</span>
+                            {{ __('common.times') }}</span>
                 </td>
                 <td>
                     {{ $resurrection->created_at->diffForHumans() }}

@@ -81,8 +81,8 @@
                                                         <table class="table table-condensed table-bordered table-striped table-hover">
                                                             <thead>
                                                             <tr>
-                                                                <th>@lang('common.name')</th>
-                                                                <th>@lang('torrent.size')</th>
+                                                                <th>{{ __('common.name') }}</th>
+                                                                <th>{{ __('torrent.size') }}</th>
                                                                 <th>S</th>
                                                                 <th>L</th>
                                                                 <th>C</th>

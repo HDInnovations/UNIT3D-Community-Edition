@@ -3,7 +3,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('poll.poll')</h4>
+                <h4><i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> {{ __('poll.poll') }}</h4>
             </div>
             <div class="panel-body">
                 <h3 class="poll-title">{{ $poll->title }}</h3>
@@ -43,12 +43,12 @@
 
                     <div class="poll form-group">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">@lang('poll.vote')</button>
+                            <button type="submit" class="btn btn-primary">{{ __('poll.vote') }}</button>
                         </div>
                     </div>
                 </form>
                 @if ($poll->multiple_choice)
-                    <span class="badge-user text-bold text-red poll-note">@lang('poll.multiple-choice')</span>
+                    <span class="badge-user text-bold text-red poll-note">{{ __('poll.multiple-choice') }}</span>
                 @endif
             </div>
         </div>

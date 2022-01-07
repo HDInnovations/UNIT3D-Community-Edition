@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header" style="text-align: center;">
-                <h3>@lang('common.edit') @lang('common.chat-room') ({{ $chatroom->name }})</h3>
+                <h3>{{ __('common.edit') }} {{ __('common.chat-room') }} ({{ $chatroom->name }})</h3>
             </div>
 
             <form class="form-horizontal" role="form" method="POST"
@@ -13,11 +13,11 @@
                     <h4>Please enter the new name you want to use for {{ $chatroom->name }}</h4>
                     <label for="chatroom_name"></label> <label for="name"></label><input
                             style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name"
-                            placeholder="Enter @lang('common.name') Here..." value="{{ $chatroom->name }}" required>
+                            placeholder="Enter {{ __('common.name') }} Here..." value="{{ $chatroom->name }}" required>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-md btn-primary" data-dismiss="modal">@lang('common.cancel')</button>
+                    <button class="btn btn-md btn-primary" data-dismiss="modal">{{ __('common.cancel') }}</button>
                     <input class="btn btn-md btn-success" type="submit">
                 </div>
             </form>
@@ -30,7 +30,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">@lang('common.delete') Chatroom ({{ $chatroom->name }}) Permanently</h4>
+                <h4 class="modal-title">{{ __('common.delete') }} Chatroom ({{ $chatroom->name }}) Permanently</h4>
             </div>
 
             <form class="form-horizontal" role="form" method="POST"
@@ -43,7 +43,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-md btn-primary"
-                            data-dismiss="modal">@lang('common.cancel')</button>
+                            data-dismiss="modal">{{ __('common.cancel') }}</button>
                     <input class="btn btn-md btn-danger" type="submit">
                 </div>
             </form>

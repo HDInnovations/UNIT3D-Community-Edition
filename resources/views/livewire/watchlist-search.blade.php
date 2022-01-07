@@ -1,7 +1,7 @@
 <div>
     <div class="mb-10 form-inline pull-right">
         <div class="form-group">
-            @lang('common.quantity')
+            {{ __('common.quantity') }}
             <select wire:model="perPage" class="form-control">
                 <option>25</option>
                 <option>50</option>
@@ -47,7 +47,7 @@
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </div>
                 </th>
-                <th style="width: 15%;">@lang('common.action')</th>
+                <th style="width: 15%;">{{ __('common.action') }}</th>
             </tr>
             @foreach ($watchedUsers as $watching)
                 <tr>
@@ -82,7 +82,7 @@
         </table>
         @if (! $watchedUsers->count())
             <div class="margin-10">
-                @lang('common.no-result')
+                {{ __('common.no-result') }}
             </div>
         @endif
         <br>

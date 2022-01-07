@@ -8,14 +8,14 @@
             <th class="torrents-filename">
                 <div sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null"
                      role="button">
-                    @lang('common.name')
+                    {{ __('common.name') }}
                     @include('livewire.includes._sort-icon', ['field' => 'name'])
                 </div>
             </th>
             <th>
                 <div sortable wire:click="sortBy('created_at')"
                      :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                    @lang('common.created_at')
+                    {{ __('common.created_at') }}
                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                 </div>
             </th>
@@ -108,14 +108,14 @@
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('common.download')">
+                                                data-original-title="{{ __('common.download') }}">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
                                     <a href="{{ route('download', ['id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('common.download')">
+                                                data-original-title="{{ __('common.download') }}">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
@@ -125,28 +125,28 @@
                                 @if ($history)
                                     @if ($history->seeder == 1 && $history->active == 1)
                                         <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('torrent.currently-seeding')!">
+                                                data-original-title="{{ __('torrent.currently-seeding') }}!">
                                             <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 1)
                                         <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('torrent.currently-leeching')!">
+                                                data-original-title="{{ __('torrent.currently-leeching') }}!">
                                             <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null)
                                         <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('torrent.not-completed')!">
+                                                data-original-title="{{ __('torrent.not-completed') }}!">
                                             <i class="{{ config('other.font-awesome') }} fa-spinner"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null)
                                         <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="@lang('torrent.completed-not-seeding')!">
+                                                data-original-title="{{ __('torrent.completed-not-seeding') }}!">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
                                         </button>
                                     @endif
@@ -156,7 +156,7 @@
                                 @if ($torrent->anon == 1)
                                     <span class="badge-extra">
 										<i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
-                                           data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
+                                           data-original-title="{{ __('torrent.uploader') }}"></i> {{ __('common.anonymous') }}
                                         @if ($user->id == $torrent->user->id || $user->group->is_modo)
                                             <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 												({{ $torrent->user->username }})
@@ -166,7 +166,7 @@
                                 @else
                                     <span class="badge-extra">
 										<i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
-                                           data-original-title="@lang('torrent.uploader')"></i>
+                                           data-original-title="{{ __('torrent.uploader') }}"></i>
 										<a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 											{{ $torrent->user->username }}
 										</a>
@@ -175,20 +175,20 @@
 
                                 <span class="badge-extra text-pink">
 									<i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip"
-                                       data-original-title="@lang('torrent.thanks-given')"></i>
+                                       data-original-title="{{ __('torrent.thanks-given') }}"></i>
 									{{ $torrent->thanks_count }}
 								</span>
 
                                 <span class="badge-extra text-green">
 									<i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip"
-                                       data-original-title="@lang('common.comments')"></i>
+                                       data-original-title="{{ __('common.comments') }}"></i>
 									{{ $torrent->comments_count }}
 								</span>
 
                                 @if ($torrent->internal == 1)
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-magic' data-toggle='tooltip'
-                                           title='' data-original-title='@lang('torrent.internal-release')'
+                                           title='' data-original-title='{{ __('torrent.internal-release') }}'
                                            style="color: #baaf92;"></i>
 									</span>
                                 @endif
@@ -197,7 +197,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-play text-red'
                                            data-toggle='tooltip'
-                                           title='' data-original-title='@lang('torrent.stream-optimized')'></i>
+                                           title='' data-original-title='{{ __('torrent.stream-optimized') }}'></i>
 									</span>
                                 @endif
 
@@ -206,14 +206,14 @@
                                         <span class='badge-extra'>
 											<i class='{{ config('other.font-awesome') }} fa-gem text-green'
                                                data-toggle='tooltip' title=''
-                                               data-original-title='@lang('torrent.double-upload')'></i>
+                                               data-original-title='{{ __('torrent.double-upload') }}'></i>
 										</span>
                                     @endif
                                     @if ($torrent->free == 1)
                                         <span class='badge-extra'>
 											<i class='{{ config('other.font-awesome') }} fa-star text-gold'
                                                data-toggle='tooltip' title=''
-                                               data-original-title='@lang('torrent.freeleech')'></i>
+                                               data-original-title='{{ __('torrent.freeleech') }}'></i>
 										</span>
                                     @endif
                                 @endif
@@ -222,7 +222,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-id-badge text-orange'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.personal-freeleech')'></i>
+                                           data-original-title='{{ __('torrent.personal-freeleech') }}'></i>
 									</span>
                                 @endif
 
@@ -231,7 +231,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-star'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.freeleech-token')'></i>
+                                           data-original-title='{{ __('torrent.freeleech-token') }}'></i>
 									</span>
                                 @endif
 
@@ -239,7 +239,7 @@
                                     <span class='badge-extra' style='background-image:url(/img/sparkels.gif);'>
 										<i class='{{ config('other.font-awesome') }} fa-certificate text-pink'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.featured')'></i>
+                                           data-original-title='{{ __('torrent.featured') }}'></i>
 									</span>
                                 @endif
 
@@ -247,7 +247,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.special-freeleech')'></i>
+                                           data-original-title='{{ __('torrent.special-freeleech') }}'></i>
 									</span>
                                 @endif
 
@@ -255,7 +255,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-globe text-blue'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.global-freeleech')'></i>
+                                           data-original-title='{{ __('torrent.global-freeleech') }}'></i>
 									</span>
                                 @endif
 
@@ -263,7 +263,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.double-upload')'></i>
+                                           data-original-title='{{ __('torrent.double-upload') }}'></i>
 									</span>
                                 @endif
 
@@ -271,7 +271,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.special-double_upload')'></i>
+                                           data-original-title='{{ __('torrent.special-double_upload') }}'></i>
 									</span>
                                 @endif
 
@@ -279,7 +279,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-fire text-orange'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('common.hot')!'></i>
+                                           data-original-title='{{ __('common.hot') }}!'></i>
 									</span>
                                 @endif
 
@@ -287,7 +287,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-thumbtack text-black'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('torrent.sticky')!'></i>
+                                           data-original-title='{{ __('torrent.sticky') }}!'></i>
 									</span>
                                 @endif
 
@@ -295,7 +295,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-magic text-black'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('common.new')!'></i>
+                                           data-original-title='{{ __('common.new') }}!'></i>
 									</span>
                                 @endif
 
@@ -303,7 +303,7 @@
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-tachometer text-red'
                                            data-toggle='tooltip' title=''
-                                           data-original-title='@lang('common.high-speeds')'></i>
+                                           data-original-title='{{ __('common.high-speeds') }}'></i>
 									</span>
                                 @endif
 
@@ -338,7 +338,7 @@
                             <td>
                                 <a href="{{ route('history', ['id' => $torrent->id]) }}">
 									<span class='badge-extra text-orange'>
-										{{ $torrent->times_completed }} @lang('common.times')
+										{{ $torrent->times_completed }} {{ __('common.times') }}
 									</span>
                                 </a>
                             </td>

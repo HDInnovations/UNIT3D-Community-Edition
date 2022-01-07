@@ -15,13 +15,13 @@
                             </div>
                             <div style=" margin-top: 8px">
 		    									    <span class="badge-extra">
-		    										    <i class="fas fa-clock"></i> @lang('common.year'):
+		    										    <i class="fas fa-clock"></i> {{ __('common.year') }}:
 		    										    @if(isset($recommendation->release_date))
                                                             {{ substr($recommendation->release_date, 0, 4) }}
                                                         @elseif(isset($recommendation->first_air_date))
                                                             {{ substr($recommendation->first_air_date, 0, 4) }}
                                                         @else
-                                                            @lang('common.unknown')
+                                                            {{ __('common.unknown') }}
                                                         @endif
 		    									    </span>
                                 <span class="badge-extra {{ rating_color($recommendation->vote_average ?? 'text-white') }}">

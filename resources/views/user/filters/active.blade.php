@@ -1,15 +1,15 @@
 <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">
         <thead>
-        <th>@lang('torrent.name')</th>
-        <th>@lang('torrent.client')</th>
-        <th>@lang('torrent.size')</th>
-        <th>@lang('torrent.seeders')</th>
-        <th>@lang('torrent.leechers')</th>
-        <th>@lang('common.upload')</th>
-        <th>@lang('common.download')</th>
-        <th>@lang('torrent.remaining')</th>
-        <th>@lang('torrent.progress')</th>
+        <th>{{ __('torrent.name') }}</th>
+        <th>{{ __('torrent.client') }}</th>
+        <th>{{ __('torrent.size') }}</th>
+        <th>{{ __('torrent.seeders') }}</th>
+        <th>{{ __('torrent.leechers') }}</th>
+        <th>{{ __('common.upload') }}</th>
+        <th>{{ __('common.download') }}</th>
+        <th>{{ __('torrent.remaining') }}</th>
+        <th>{{ __('torrent.progress') }}</th>
         </thead>
         <tbody>
         @foreach ($active as $p)

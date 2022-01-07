@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
+    <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('bankers') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-bankers')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.top-bankers') }}</span>
         </a>
     </li>
 @endsection
@@ -22,20 +22,20 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>@lang('stat.top-bankers') (@lang('bon.bon'))</h2>
+            <h2>{{ __('stat.top-bankers') }} ({{ __('bon.bon') }})</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
                     <p class="text-purple"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('stat.top-bankers')
+                                    class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('stat.top-bankers') }}
                         </strong>
-                        (@lang('bon.bon'))</p>
+                        ({{ __('bon.bon') }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.balance')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('common.balance') }}</th>
                         </tr>
                         </thead>
                         <tbody>

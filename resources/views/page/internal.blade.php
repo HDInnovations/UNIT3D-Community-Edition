@@ -4,7 +4,7 @@
     <li>
         <a href="{{ route('internal') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
-                @lang('common.internal')</span>
+                {{ __('common.internal') }}</span>
         </a>
     </li>
 @endsection
@@ -32,10 +32,10 @@
                                     <a href="{{ route('users.show', ['username' => $user->username]) }}" style="color:#ffffff;">
                                         <h1>{{ $user->username }}</h1>
                                     </a>
-                                    <span class="badge-user" style="margin-bottom:5px;">@lang('page.staff-group'): {{ $internal->name }}</span>
+                                    <span class="badge-user" style="margin-bottom:5px;">{{ __('page.staff-group') }}: {{ $internal->name }}</span>
                                     <br>
                                     @if ($user->title != null)
-                                        <span class="badge-user">@lang('page.staff-title'): {{ $user->title }}</span>
+                                        <span class="badge-user">{{ __('page.staff-title') }}: {{ $user->title }}</span>
                                     @else
                                         <span class="badge-user" style="visibility:hidden;"></span>
                                     @endif
