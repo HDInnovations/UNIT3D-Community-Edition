@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SendResetLinkEmailForgotPasswordRequest;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {

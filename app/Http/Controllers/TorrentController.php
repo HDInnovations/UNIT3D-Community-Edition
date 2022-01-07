@@ -160,7 +160,7 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @throws \JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
