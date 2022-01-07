@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\LoginLoginRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -50,14 +51,9 @@ class LoginController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function validateLogin(Request $request)
+    protected function validateLogin(LoginLoginRequest $request)
     {
         if (\config('captcha.enabled') == true) {
-            $this->validate($request, [
-                $this->username()      => 'required|string',
-                'password'             => 'required|string',
-                'captcha'              => 'hiddencaptcha',
-            ]);
         } else {
             $this->validate($request, [
                 $this->username() => 'required|string',
