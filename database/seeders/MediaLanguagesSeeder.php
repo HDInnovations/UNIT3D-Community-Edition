@@ -16,8 +16,6 @@ class MediaLanguagesSeeder extends Seeder
 
     /**
      * Run the database seeder.
-     *
-     * @return void
      */
     public function run(): void
     {

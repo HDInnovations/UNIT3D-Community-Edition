@@ -160,7 +160,6 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
      *
      * @throws \JsonException
