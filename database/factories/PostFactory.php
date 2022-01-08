@@ -26,7 +26,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'content'  => $this->faker->text,
+            'content'  => $this->faker->text(),
             'user_id'  => fn () => User::factory()->create()->id,
             'topic_id' => fn () => Topic::factory()->create()->id,
         ];

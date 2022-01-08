@@ -28,7 +28,7 @@ class VoterFactory extends Factory
         return [
             'poll_id'    => fn () => Poll::factory()->create()->id,
             'user_id'    => fn () => User::factory()->create()->id,
-            'ip_address' => $this->faker->word,
+            'ip_address' => $this->faker->word(),
         ];
     }
 }

@@ -31,7 +31,7 @@ class UserAudibleFactory extends Factory
             'room_id'   => fn () => Chatroom::factory()->create()->id,
             'target_id' => fn () => User::factory()->create()->id,
             'bot_id'    => fn () => Bot::factory()->create()->id,
-            'status'    => $this->faker->boolean,
+            'status'    => $this->faker->boolean(),
         ];
     }
 }

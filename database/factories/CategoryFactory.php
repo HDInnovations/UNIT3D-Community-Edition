@@ -24,11 +24,11 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name'        => $this->faker->name,
-            'slug'        => $this->faker->slug,
-            'image'       => $this->faker->word,
+            'name'        => $this->faker->name(),
+            'slug'        => $this->faker->slug(),
+            'image'       => $this->faker->word(),
             'position'    => $this->faker->randomNumber(),
-            'icon'        => $this->faker->word,
+            'icon'        => $this->faker->word(),
             'no_meta'     => true,
             'music_meta'  => false,
             'game_meta'   => false,

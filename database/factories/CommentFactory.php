@@ -29,7 +29,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'content'       => $this->faker->text,
+            'content'       => $this->faker->text(),
             'anon'          => (int) $this->faker->boolean(),
             'torrent_id'    => fn () => Torrent::factory()->create()->id,
             'article_id'    => fn () => Article::factory()->create()->id,

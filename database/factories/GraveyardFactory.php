@@ -29,7 +29,7 @@ class GraveyardFactory extends Factory
             'user_id'    => fn () => User::factory()->create()->id,
             'torrent_id' => fn () => Torrent::factory()->create()->id,
             'seedtime'   => $this->faker->randomNumber(),
-            'rewarded'   => $this->faker->boolean,
+            'rewarded'   => $this->faker->boolean(),
         ];
     }
 }

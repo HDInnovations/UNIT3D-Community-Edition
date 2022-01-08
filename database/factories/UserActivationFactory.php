@@ -26,7 +26,7 @@ class UserActivationFactory extends Factory
     {
         return [
             'user_id' => fn () => User::factory()->create()->id,
-            'token'   => $this->faker->uuid,
+            'token'   => $this->faker->uuid(),
         ];
     }
 }

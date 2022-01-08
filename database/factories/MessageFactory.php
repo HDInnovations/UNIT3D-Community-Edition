@@ -31,7 +31,7 @@ class MessageFactory extends Factory
             'chatroom_id' => fn () => Chatroom::factory()->create()->id,
             'receiver_id' => fn () => User::factory()->create()->id,
             'bot_id'      => fn () => Bot::factory()->create()->id,
-            'message'     => $this->faker->text,
+            'message'     => $this->faker->text(),
         ];
     }
 }

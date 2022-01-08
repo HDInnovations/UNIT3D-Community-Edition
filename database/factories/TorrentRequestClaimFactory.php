@@ -25,7 +25,7 @@ class TorrentRequestClaimFactory extends Factory
     {
         return [
             'request_id' => $this->faker->randomNumber(),
-            'username'   => $this->faker->userName,
+            'username'   => $this->faker->userName(),
             'anon'       => $this->faker->randomNumber(),
         ];
     }

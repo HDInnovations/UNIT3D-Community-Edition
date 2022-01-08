@@ -27,7 +27,7 @@ class NoteFactory extends Factory
         return [
             'user_id'  => fn () => User::factory()->create()->id,
             'staff_id' => fn () => User::factory()->create()->id,
-            'message'  => $this->faker->text,
+            'message'  => $this->faker->text(),
         ];
     }
 }

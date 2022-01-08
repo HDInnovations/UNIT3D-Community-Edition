@@ -24,13 +24,13 @@ class BonExchangeFactory extends Factory
     public function definition()
     {
         return [
-            'description'        => $this->faker->text,
+            'description'        => $this->faker->text(),
             'value'              => $this->faker->randomNumber(),
             'cost'               => $this->faker->randomNumber(),
-            'upload'             => $this->faker->boolean,
-            'download'           => $this->faker->boolean,
-            'personal_freeleech' => $this->faker->boolean,
-            'invite'             => $this->faker->boolean,
+            'upload'             => $this->faker->boolean(),
+            'download'           => $this->faker->boolean(),
+            'personal_freeleech' => $this->faker->boolean(),
+            'invite'             => $this->faker->boolean(),
         ];
     }
 }
