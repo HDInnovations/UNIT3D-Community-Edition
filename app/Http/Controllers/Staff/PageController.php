@@ -71,7 +71,7 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      */
-    public function edit(Page $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 
