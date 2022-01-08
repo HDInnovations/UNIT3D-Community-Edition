@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
+    <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('groups') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.groups')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.groups') }}</span>
         </a>
     </li>
 @endsection
@@ -21,11 +21,11 @@
     <div class="container">
         @include('partials.statsgroupmenu')
         <div class="block">
-            <h2>@lang('stat.groups')</h2>
+            <h2>{{ __('stat.groups') }}</h2>
             <hr>
             <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i>
-                    @lang('stat.groups')</strong>
-                (@lang('stat.users-per-group'))</p>
+                    {{ __('stat.groups') }}</strong>
+                ({{ __('stat.users-per-group') }})</p>
             <div class="row col-md-offset-2">
                 @foreach ($groups as $group)
                     <div class="well col-md-3" style="margin: 10px;">

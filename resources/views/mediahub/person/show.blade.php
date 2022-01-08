@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.persons.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.persons')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.persons') }}</span>
         </a>
     </li>
     <li class="active">
@@ -38,14 +38,14 @@
 
                             <br>
 
-                            <i class="fa fa-book text-green" aria-hidden="true"></i> @lang('mediahub.wiki-read')
+                            <i class="fa fa-book text-green" aria-hidden="true"></i> {{ __('mediahub.wiki-read') }}
                             <a target="_blank"
                                href="https://en.wikipedia.org/wiki/{{ $details->name }}">{{ $details->name }} Wiki</a>
 
                             <hr>
 
                             <dl class="dl-horizontal">
-                                <dt><i class="fa fa-heart text-green" aria-hidden="true"></i> @lang('mediahub.born')
+                                <dt><i class="fa fa-heart text-green" aria-hidden="true"></i> {{ __('mediahub.born') }}
                                 </dt>
                                 <dd>
                                     {{ $details->birthday ?? '' }}
@@ -53,29 +53,29 @@
                                 </dd>
                                 <br>
                                 <dt><i class="fa fa-film text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.movie-credits') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.movie-credits') }} </dt>
                                 <dd>{{ $credits->movie->count() ?? '0' }}</dd>
                                 <dt><i class="fa fa-step-backward text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.first-seen') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.first-seen') }} </dt>
                                 <dd>In
                                     <a href="{{ route('mediahub.movies.show', ['id' => $credits->movie->first()->id ?? '0']) }}">{{ $credits->movie->first()->title ?? 'N/A'}}</a>
                                 </dd>
                                 <dt><i class="fa fa-step-forward text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.latest-project') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.latest-project') }} </dt>
                                 <dd>Last in <a
                                             href="{{ route('mediahub.movies.show', ['id' => $credits->movie->last()->id ?? '0']) }}">{{ $credits->movie->last()->title ?? 'N/A' }} </a>
                                 </dd>
                                 <br>
                                 <dt><i class="fa fa-tv-retro text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.tv-credits') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.tv-credits') }} </dt>
                                 <dd>{{ $credits->tv->count() ?? '0' }}</dd>
                                 <dt><i class="fa fa-step-backward text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.first-seen') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.first-seen') }} </dt>
                                 <dd>In
                                     <a href="{{ route('mediahub.shows.show', ['id' => $credits->tv->first()->id ?? '0']) }}">{{ $credits->tv->first()->name ?? 'N/A'}}</a>
                                 </dd>
                                 <dt><i class="fa fa-step-forward text-green"
-                                       aria-hidden="true"></i> @lang('mediahub.latest-project') </dt>
+                                       aria-hidden="true"></i> {{ __('mediahub.latest-project') }} </dt>
                                 <dd>Last in <a
                                             href="{{ route('mediahub.shows.show', ['id' => $credits->tv->last()->id ?? '0']) }}">{{ $credits->tv->last()->name ?? 'N/A' }} </a>
                                 </dd>
@@ -108,7 +108,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-film text-purple" aria-hidden="true"></i>
-                                <strong>@lang('mediahub.movie')</strong><br>
+                                <strong>{{ __('mediahub.movie') }}</strong><br>
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
                                         href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
@@ -121,10 +121,10 @@
                                 </strong>
                                 <br>
                                 <i class="fa fa-calendar text-blue" aria-hidden="true"></i>
-                                <strong>@lang('mediahub.release-date') </strong>{{ $movie->release_date }}<br>
+                                <strong>{{ __('mediahub.release-date') }} </strong>{{ $movie->release_date }}<br>
                             </td>
                             <td class="col-xs-pull-6"><i class="fa fa-book text-gold" aria-hidden="true"></i>
-                                <strong>@lang('mediahub.plot') </strong>
+                                <strong>{{ __('mediahub.plot') }} </strong>
                                 {{ $movie->overview }}
                             </td>
                         </tr>
@@ -142,7 +142,7 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <h1 class="text-blue">
-                                    <i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>@lang('mediahub.no-data')
+                                    <i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>{{ __('mediahub.no-data') }}
                                 </h1>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-tv-retro text-purple" aria-hidden="true"></i>
-                                <strong> @lang('mediahub.show')</strong><br>
+                                <strong> {{ __('mediahub.show') }}</strong><br>
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
                                         href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}">{{ $show->name }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
@@ -168,10 +168,10 @@
                                 </strong>
                                 <br>
                                 <i class="fa fa-calendar text-blue" aria-hidden="true"></i>
-                                <strong>@lang('mediahub.release-date') </strong>{{ $show->first_air_date }}<br>
+                                <strong>{{ __('mediahub.release-date') }} </strong>{{ $show->first_air_date }}<br>
                             </td>
                             <td class="col-xs-pull-6"><i class="fa fa-book text-gold" aria-hidden="true"></i>
-                                <strong>@lang('mediahub.plot') </strong>
+                                <strong>{{ __('mediahub.plot') }} </strong>
                                 {{ $show->overview }}
                             </td>
                         </tr>

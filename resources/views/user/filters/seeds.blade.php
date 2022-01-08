@@ -1,13 +1,13 @@
 <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">
         <thead>
-        <th>@lang('torrent.name')</th>
-        <th>@lang('torrent.size')</th>
-        <th>@lang('torrent.seeders')</th>
-        <th>@lang('torrent.leechers')</th>
-        <th>@lang('torrent.completed')</th>
-        <th>@lang('torrent.seedtime')</th>
-        <th>@lang('torrent.created_at')</th>
+        <th>{{ __('torrent.name') }}</th>
+        <th>{{ __('torrent.size') }}</th>
+        <th>{{ __('torrent.seeders') }}</th>
+        <th>{{ __('torrent.leechers') }}</th>
+        <th>{{ __('torrent.completed') }}</th>
+        <th>{{ __('torrent.seedtime') }}</th>
+        <th>{{ __('torrent.created_at') }}</th>
         </thead>
         <tbody>
         @foreach ($seeds as $p)
@@ -29,7 +29,7 @@
                 </td>
                 <td>
                         <span class="badge-extra text-orange text-bold"> {{ $p->torrent->times_completed }}
-                            @lang('common.times')</span>
+                            {{ __('common.times') }}</span>
                 </td>
                 @if ($p->seedtime < config('hitrun.seedtime'))
                     <td>

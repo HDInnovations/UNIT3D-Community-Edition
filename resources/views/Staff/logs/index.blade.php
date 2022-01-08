@@ -92,7 +92,7 @@
                         Download file</a>
                     -
                     <a id="delete-log" href="?del={{ base64_encode($current_file) }}"><span
-                                class="glyphicon glyphicon-trash"></span> @lang('common.delete') file</a>
+                                class="glyphicon glyphicon-trash"></span> {{ __('common.delete') }} file</a>
                 </div>
             </div>
         </div>

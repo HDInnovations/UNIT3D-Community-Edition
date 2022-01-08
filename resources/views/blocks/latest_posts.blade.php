@@ -2,16 +2,16 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4><i class="{{ config('other.font-awesome') }} fa-comments"></i> @lang('blocks.latest-posts')</h4>
+            <h4><i class="{{ config('other.font-awesome') }} fa-comments"></i> {{ __('blocks.latest-posts') }}</h4>
         </div>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th class="torrents-filename">@lang('forum.post')</th>
-                    <th>@lang('forum.topic')</th>
-                    <th>@lang('forum.author')</th>
-                    <th>@lang('forum.created')</th>
+                    <th class="torrents-filename">{{ __('forum.post') }}</th>
+                    <th>{{ __('forum.topic') }}</th>
+                    <th>{{ __('forum.author') }}</th>
+                    <th>{{ __('forum.created') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                 <thead>
                 <tr>
                     <th colspan="4" class="text-right"><a href="{{ route('forum_latest_posts') }}"
-                                                          class="text-info">@lang('articles.read-more')</a></th>
+                                                          class="text-info">{{ __('articles.read-more') }}</a></th>
                 </tr>
                 </thead>
             </table>

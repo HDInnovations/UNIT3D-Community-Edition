@@ -2,7 +2,7 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4><i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('blocks.users-online')
+            <h4><i class="{{ config('other.font-awesome') }} fa-users"></i> {{ __('blocks.users-online') }}
                 <span class="label label-default">{{ $users->count() }}</span>
             </h4>
         </div>
@@ -19,7 +19,7 @@
                                 @if ($user->warnings_count > 0)
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                        aria-hidden="true"
-                                       data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                       data-toggle="tooltip" data-original-title="{{ __('common.active-warning') }}"></i>
                                 @endif
                             </a>
                         @endif
@@ -34,7 +34,7 @@
                             @if ($user->warnings_count > 0)
                                 <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                    aria-hidden="true"
-                                   data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                                   data-toggle="tooltip" data-original-title="{{ __('common.active-warning') }}"></i>
                             @endif
                         </span>
                     </a>

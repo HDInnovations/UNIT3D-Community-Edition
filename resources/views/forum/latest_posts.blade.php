@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.latest-posts') - @lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>{{ __('common.latest-posts') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum @lang('common.latest-posts')">
+    <meta name="description" content="Forum {{ __('common.latest-posts') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('forum_latest_posts') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.latest-posts')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.latest-posts') }}</span>
         </a>
     </li>
 @endsection
@@ -32,10 +32,10 @@
                     <label>
                         <input type="text" name="body"
                                value="{{ isset($params) && is_array($params) && array_key_exists('body', $params) ? $params['body'] : '' }}"
-                               placeholder="@lang('forum.post-quick-search')" class="form-control">
+                               placeholder="{{ __('forum.post-quick-search') }}" class="form-control">
                     </label>
                     <button type="submit" class="btn btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
+                        <i class="{{ config('other.font-awesome') }} fa-search"></i> {{ __('common.search') }}
                     </button>
                 </form>
             </div>
@@ -47,7 +47,7 @@
                     <td colspan="5" class="no-space">
                         <div class="header gradient teal some-padding">
                             <div class="inner_content">
-                                <h1 class="no-space">@lang('common.latest-posts')</h1>
+                                <h1 class="no-space">{{ __('common.latest-posts') }}</h1>
                             </div>
                         </div>
                     </td>
@@ -55,11 +55,11 @@
                 </thead>
                 <thead>
                 <tr>
-                    <th>@lang('forum.forum')</th>
-                    <th>@lang('forum.topic')</th>
-                    <th>@lang('forum.author')</th>
-                    <th>@lang('forum.stats')</th>
-                    <th>@lang('forum.last-post-info')</th>
+                    <th>{{ __('forum.forum') }}</th>
+                    <th>{{ __('forum.topic') }}</th>
+                    <th>{{ __('forum.author') }}</th>
+                    <th>{{ __('forum.stats') }}</th>
+                    <th>{{ __('forum.last-post-info') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,8 +90,8 @@
                                     href="{{ route('users.show', ['username' => $r->topic->first_post_user_username]) }}">{{ $r->topic->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
-                            {{ $r->topic->num_post - 1 }} @lang('forum.replies')
-                            \ {{ $r->topic->views }} @lang('forum.views')
+                            {{ $r->topic->num_post - 1 }} {{ __('forum.replies') }}
+                            \ {{ $r->topic->views }} {{ __('forum.views') }}
                         </td>
                         <td class="f-display-topic-last-post">
                             <a

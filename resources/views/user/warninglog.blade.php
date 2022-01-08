@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.warning-log')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('user.warning-log') }}</span>
         </a>
     </li>
 @endsection
@@ -19,14 +19,14 @@
                 <a href="{{ route('users.show', ['username' => $user->username]) }}">
                     {{ $user->username }}
                 </a>
-                @lang('user.warning-log')
+                {{ __('user.warning-log') }}
             </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>
                         <span class="text-red">
-                            <strong>@lang('user.warnings') {{ $warningcount }} </strong>
+                            <strong>{{ __('user.warnings') }} {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
                             <form role="form" method="POST"
@@ -34,7 +34,7 @@
                                   style="display: inline-block;">
                                 @csrf
                                 <button type="submit" class="btn btn-xs btn-warning">
-                                    <i class="{{ config('other.font-awesome') }} fa-power-off"></i> @lang('user.deactivate-all')
+                                    <i class="{{ config('other.font-awesome') }} fa-power-off"></i> {{ __('user.deactivate-all') }}
                                 </button>
                             </form>
                             <form role="form"
@@ -44,7 +44,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-xs btn-danger">
-                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('user.delete-all')
+                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i> {{ __('user.delete-all') }}
                                 </button>
                             </form>
                         </div>
@@ -53,21 +53,21 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>@lang('user.warned-by')</th>
-                                <th>@lang('torrent.torrent')</th>
-                                <th>@lang('common.reason')</th>
-                                <th>@lang('user.created-on')</th>
-                                <th>@lang('user.expires-on')</th>
-                                <th>@lang('user.active')</th>
-                                <th>@lang('user.deactivate')</th>
-                                <th>@lang('common.delete')</th>
+                                <th>{{ __('user.warned-by') }}</th>
+                                <th>{{ __('torrent.torrent') }}</th>
+                                <th>{{ __('common.reason') }}</th>
+                                <th>{{ __('user.created-on') }}</th>
+                                <th>{{ __('user.expires-on') }}</th>
+                                <th>{{ __('user.active') }}</th>
+                                <th>{{ __('user.deactivate') }}</th>
+                                <th>{{ __('common.delete') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if (count($warnings) == 0)
                                 <tr>
                                     <td>
-                                        <p>@lang('user.no-warning')</p>
+                                        <p>{{ __('user.no-warning') }}</p>
                                     </td>
                                 </tr>
                             @else
@@ -98,9 +98,9 @@
                                         </td>
                                         <td>
                                             @if ($warning->active == 1)
-                                                <span class='label label-success'>@lang('common.yes')</span>
+                                                <span class='label label-success'>{{ __('common.yes') }}</span>
                                             @else
-                                                <span class='label label-danger'>@lang('user.expired')</span>
+                                                <span class='label label-danger'>{{ __('user.expired') }}</span>
                                             @endif
                                         </td>
                                         <td>
@@ -139,7 +139,7 @@
         <div class="block">
             <h2>
                 <span class="text-bold text-orange">
-                    @lang('user.soft-deleted-warnings') {{ $softDeletedWarningCount }}
+                    {{ __('user.soft-deleted-warnings') }} {{ $softDeletedWarningCount }}
                 </span>
             </h2>
             <hr>
@@ -149,20 +149,20 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>@lang('user.warned-by')</th>
-                                <th>@lang('torrent.torrent')</th>
-                                <th>@lang('common.reason')</th>
-                                <th>@lang('user.created-on')</th>
-                                <th>@lang('user.deleted-on')</th>
-                                <th>@lang('user.deleted-by')</th>
-                                <th>@lang('user.restore')</th>
+                                <th>{{ __('user.warned-by') }}</th>
+                                <th>{{ __('torrent.torrent') }}</th>
+                                <th>{{ __('common.reason') }}</th>
+                                <th>{{ __('user.created-on') }}</th>
+                                <th>{{ __('user.deleted-on') }}</th>
+                                <th>{{ __('user.deleted-by') }}</th>
+                                <th>{{ __('user.restore') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if (count($softDeletedWarnings) == 0)
                                 <tr>
                                     <td>
-                                        <p>@lang('user.no-soft-warning')</p>
+                                        <p>{{ __('user.no-soft-warning') }}</p>
                                     </td>
                                 </tr>
                             @else

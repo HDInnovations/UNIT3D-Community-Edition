@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Groups</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.user') }} Groups</span>
         </a>
     </li>
     <li class="active">
@@ -28,8 +28,8 @@
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>@lang('common.name')</th>
-                            <th>@lang('common.position')</th>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('common.position') }}</th>
                             <th>Level</th>
                             <th>Color</th>
                             <th>Icon</th>
@@ -52,13 +52,13 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="text" name="name" value="" placeholder="@lang('common.name')"
+                                    <input type="text" name="name" value="" placeholder="{{ __('common.name') }}"
                                            class="form-control"/>
                                 </label>
                             </td>
                             <td>
                                 <label>
-                                    <input type="number" name="position" value="" placeholder="@lang('common.position')"
+                                    <input type="number" name="position" value="" placeholder="{{ __('common.position') }}"
                                            class="form-control"/>
                                 </label>
                             </td>
@@ -155,7 +155,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-primary">@lang('common.add')</button>
+                <button type="submit" class="btn btn-primary">{{ __('common.add') }}</button>
             </form>
         </div>
     </div>

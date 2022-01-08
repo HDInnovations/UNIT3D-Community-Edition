@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('playlist.playlists')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.playlists') }}</span>
         </a>
     </li>
     <li>
@@ -33,20 +33,20 @@
                                              style=" width: 50px;">
                                     @endif
                                 </a>
-                                <p>@lang('playlist.list-by')<br><a
+                                <p>{{ __('playlist.list-by') }}<br><a
                                             href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a>
                                 </p>
                             </li>
                         </ul>
 
-                        <h3 class="text-bold">@lang('playlist.list-about')</h3>
+                        <h3 class="text-bold">{{ __('playlist.list-about') }}</h3>
                         <div class="description">
                             <p>{{ $playlist->description }}</p>
                             <br>
                             @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
                                 <button data-toggle="modal" data-target="#modal_playlist_torrent"
                                         class="btn btn-md btn-success">
-                                    <i class="{{ config('other.font-awesome') }} fa-search-plus"></i> @lang('playlist.add-torrent')
+                                    <i class="{{ config('other.font-awesome') }} fa-search-plus"></i> {{ __('playlist.add-torrent') }}
                                 </button>
                                 <form action="{{ route('playlists.destroy', ['id' => $playlist->id]) }}" method="POST"
                                       style="display: inline;">
@@ -54,10 +54,10 @@
                                     @method('DELETE')
                                     <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
                                        class="btn btn-warning">
-                                        <i class="{{ config('other.font-awesome') }} fa-edit"></i> @lang('playlist.edit-playlist')
+                                        <i class="{{ config('other.font-awesome') }} fa-edit"></i> {{ __('playlist.edit-playlist') }}
                                     </a>
                                     <button type="submit" class="btn btn-danger pull-right">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('playlist.delete-playlist')
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> {{ __('playlist.delete-playlist') }}
                                     </button>
                                 </form>
                             @endif
@@ -73,7 +73,7 @@
                     <a href="{{ route('playlists.download', ['id' => $playlist->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
-                        <i class='{{ config('other.font-awesome') }} fa-download'></i> @lang('playlist.download-all')
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('playlist.download-all') }}
                     </span>
                     </a>
                     <a href="{{ route('torrents') }}?perPage=25&playlistId={{ $playlist->id }}" role="button"
@@ -102,7 +102,7 @@
                                     <a href="{{ route('torrents.similar', ['category_id' => $t->torrent->category_id, 'tmdb' => $t->torrent->tmdb]) }}"
                                        role="button"
                                        data-toggle="tooltip" data-placement="top"
-                                       data-original-title="@lang('torrent.similar')" class="btn btn-xs btn-primary"
+                                       data-original-title="{{ __('torrent.similar') }}" class="btn btn-xs btn-primary"
                                        style="float: left; margin-right: 10px;">
                                         <i class='{{ config("other.font-awesome") }} fa-copy'></i>
                                     </a>
@@ -111,14 +111,14 @@
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
                                        data-toggle="tooltip" data-placement="top"
-                                       data-original-title="@lang('common.download')" class="btn btn-xs btn-success"
+                                       data-original-title="{{ __('common.download') }}" class="btn btn-xs btn-success"
                                        style="float: left; margin-right: 10px;">
                                         <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                     </a>
                                 @else
                                     <a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
                                        data-toggle="tooltip" data-placement="top"
-                                       data-original-title="@lang('common.download')" class="btn btn-xs btn-success"
+                                       data-original-title="{{ __('common.download') }}" class="btn btn-xs btn-success"
                                        style="float: left; margin-right: 10px;">
                                         <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                     </a>
@@ -128,7 +128,7 @@
                                     <form action="{{ route('playlists.detach', ['id' => $t->id]) }}" method="POST"
                                           style="float: left; margin-right: 10px;"
                                           data-toggle="tooltip" data-placement="top"
-                                          data-original-title="@lang('common.delete')">
+                                          data-original-title="{{ __('common.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-xs btn-danger">
@@ -155,17 +155,17 @@
                                 <div class="body_poster">
                                     @if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta)
                                         <img src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
-                                             class="show-poster" alt="@lang('torrent.poster')">
+                                             class="show-poster" alt="{{ __('torrent.poster') }}">
                                     @endif
 
                                     @if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
                                         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $t->torrent->meta->cover->image_id }}.jpg"
-                                             class="show-poster" alt="@lang('torrent.poster')">
+                                             class="show-poster" alt="{{ __('torrent.poster') }}">
                                     @endif
 
                                     @if ($t->torrent->category->no_meta || $t->torrent->category->music_meta)
                                         <img src="https://via.placeholder.com/160x240"
-                                             class="show-poster" alt="@lang('torrent.poster')">
+                                             class="show-poster" alt="{{ __('torrent.poster') }}">
                                     @endif
                                 </div>
                                 <div class="body_description">
@@ -224,7 +224,7 @@
                                 </div>
                                 <span class="badge-user text-bold" style="float: right;">
 									<i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                    {{ $meta->vote_average ?? '0' }}/10 ({{ $meta->vote_count ?? '0' }} @lang('torrent.votes'))
+                                    {{ $meta->vote_average ?? '0' }}/10 ({{ $meta->vote_count ?? '0' }} {{ __('torrent.votes') }})
 								</span>
                             </div>
                         </div>
@@ -240,14 +240,14 @@
                     <div class="panel panel-chat shoutbox">
                         <div class="panel-heading">
                             <h4>
-                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
                             </h4>
                         </div>
                         <div class="panel-body no-padding">
                             <ul class="media-list comments-list">
                                 @if (count($playlist->comments) == 0)
                                     <div class="text-center"><h4 class="text-bold text-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
                                             !</h4>
                                     </div>
                                 @else
@@ -313,15 +313,15 @@
                     <form role="form" method="POST" action="{{ route('comment_playlist', ['id' => $playlist->id]) }}">
                         @csrf
                         <div class="form-group">
-                            <label for="content">@lang('common.your-comment'):</label>
-                            <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                            <label for="content">{{ __('common.your-comment') }}:</label>
+                            <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
                             <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                        <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+                        <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
+                        <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
                                 :</strong></label>
-                        <input type="radio" value="1" name="anonymous"> @lang('common.yes')
-                        <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
+                        <input type="radio" value="1" name="anonymous"> {{ __('common.yes') }}
+                        <input type="radio" value="0" checked="checked" name="anonymous"> {{ __('common.no') }}
                     </form>
                 </div>
             </div>
@@ -339,7 +339,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">@lang('playlist.add-to-playlist')</h4>
+                            <h4 class="modal-title" id="myModalLabel">{{ __('playlist.add-to-playlist') }}</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -351,12 +351,12 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input class="btn btn-success" type="submit" value="@lang('common.save')">
+                                <input class="btn btn-success" type="submit" value="{{ __('common.save') }}">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-sm btn-primary" type="button"
-                                    data-dismiss="modal">@lang('common.close')</button>
+                                    data-dismiss="modal">{{ __('common.close') }}</button>
                         </div>
                     </form>
                 </div>

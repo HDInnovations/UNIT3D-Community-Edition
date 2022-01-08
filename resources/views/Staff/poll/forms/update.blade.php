@@ -12,7 +12,7 @@
     @csrf
 
     <div class="form-group">
-        <label for="stitle">@lang('poll.title'):</label>
+        <label for="stitle">{{ __('poll.title') }}:</label>
         <label>
             <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{ $poll->id }}">
             <input type="text" name="title" class="form-control" value="{{ $poll->title }}" required>
@@ -21,7 +21,7 @@
 
     @foreach($poll->options as $key => $option)
         <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>">
-            <label for="{{ 'option' . $key }}">@lang('poll.option') {{ $key }}:</label>
+            <label for="{{ 'option' . $key }}">{{ __('poll.option') }} {{ $key }}:</label>
             <label>
                 <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{ $option->id }}">
                 <input type="text" name="option-content[]" class="form-control" value="{{ $option->name }}">
@@ -33,8 +33,8 @@
     <div class="more-options"></div>
 
     <div class="form-group">
-        <button id="add" class="btn btn-primary">@lang('poll.add-option')</button>
-        <button id="del" class="btn btn-primary">@lang('poll.delete-option')</button>
+        <button id="add" class="btn btn-primary">{{ __('poll.add-option') }}</button>
+        <button id="del" class="btn btn-primary">{{ __('poll.delete-option') }}</button>
     </div>
 
     <hr>
@@ -42,12 +42,12 @@
     <div class="checkbox">
         <label>
             <input type="checkbox" name="multiple_choice" @if ($poll->multiple_choice) checked @endif >
-            @lang('poll.multiple-choice')
+            {{ __('poll.multiple-choice') }}
         </label>
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">@lang('poll.edit-poll')</button>
+        <button type="submit" class="btn btn-primary">{{ __('poll.edit-poll') }}</button>
     </div>
 </form>
 
@@ -55,7 +55,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
 
       let options = parseInt({{ $poll->options->count() }}) // Get the size of options passing in
-      const langOption = "@lang('poll.option') "
+      const langOption = "{{ __('poll.option') }} "
 
       $('#add').on('click', function (e) {
         e.preventDefault()

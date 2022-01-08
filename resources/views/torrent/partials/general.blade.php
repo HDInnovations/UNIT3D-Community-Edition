@@ -1,7 +1,7 @@
 <div class="panel panel-chat shoutbox torrent-general" x-data="{ show: false }">
     <div class="panel-heading">
         <h4 style="cursor: pointer;" @click="show = !show">
-            <i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')
+            <i class="{{ config("other.font-awesome") }} fa-info"></i> {{ __('torrent.general') }}
             <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" x-show="!show"></i>
             <i class="{{ config("other.font-awesome") }} fa-minus-circle fa-pull-right" x-show="show"></i>
         </h4>
@@ -47,7 +47,7 @@
                                     class="torrent-size badge-extra text-info text-bold"
                                     data-toggle="tooltip"
                                     style="line-height: 14px"
-                                    title="@lang('torrent.estimated-ratio'): {{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}"
+                                    title="{{ __('torrent.estimated-ratio') }}: {{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}"
                             >
                                                 {{ $torrent->getSize() }}
                                             </span>
@@ -59,19 +59,19 @@
                                         <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
 
                                                             @if ($freeleech_token)
-                                                <p>@lang('common.fl_token')</p>
+                                                <p>{{ __('common.fl_token') }}</p>
                                                             @endif
 
                                         @if ($user->group->is_freeleech == '1')
-                                                <p>@lang('common.special') @lang('torrent.freeleech')</p>
+                                                <p>{{ __('common.special') }} {{ __('torrent.freeleech') }}</p>
                                                             @endif
 
                                         @if ($personal_freeleech)
-                                                <p>@lang('common.personal') @lang('torrent.freeleech')</p>
+                                                <p>{{ __('common.personal') }} {{ __('torrent.freeleech') }}</p>
                                                             @endif
 
                                         @if (config('other.freeleech') == '1')
-                                                <p>@lang('common.global') @lang('torrent.freeleech')</p>
+                                                <p>{{ __('common.global') }} {{ __('torrent.freeleech') }}</p>
                                                             @endif
 
                                                 "
@@ -82,7 +82,7 @@
                                         @if ($torrent->free >= '90')
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="
-                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                                <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                                             ">
                                                                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                                             </span>
@@ -104,7 +104,7 @@
                                             </style>
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="
-                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                                <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                                             ">
                                                                 <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
                                                             </span>
@@ -126,7 +126,7 @@
                                             </style>
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="
-                                                                <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                                                <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                                             ">
                                                                 <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
                                                             </span>
@@ -137,15 +137,15 @@
                                         <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
 
                                                             @if ($torrent->doubleup == '1')
-                                                <p>@lang('torrent.double-upload')</p>
+                                                <p>{{ __('torrent.double-upload') }}</p>
                                                             @endif
 
                                         @if ($user->group->is_double_upload == '1')
-                                                <p>@lang('common.special') @lang('torrent.double-upload')</p>
+                                                <p>{{ __('common.special') }} {{ __('torrent.double-upload') }}</p>
                                                             @endif
 
                                         @if (config('other.doubleup') == '1')
-                                                <p>@lang('common.global') {{ strtolower(trans('torrent.double-upload')) }}</p>
+                                                <p>{{ __('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}</p>
                                                             @endif
 
                                                 "
@@ -155,20 +155,20 @@
                                     @endif
                                 @else
                                     <span class="text-danger badge-extra" data-toggle="tooltip"
-                                          title="@lang('torrent.no-discounts')">
+                                          title="{{ __('torrent.no-discounts') }}">
                                                         <i class="{{ config('other.font-awesome') }} fa-frown"></i>
                                                     </span>
                                 @endif
                             @else
                                 <span class="badge-extra" data-toggle="tooltip" data-html="true"
-                                      title='@lang("torrent.featured-until") {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!) {!! trans("torrent.featured-desc") !!}'>
+                                      title='{{ __("torrent.featured-until") }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!) {!! trans("torrent.featured-desc") !!}'>
                                                     <i class="{{ config('other.font-awesome') }} fa-certificate text-orange"></i>
                                                 </span>
                             @endif
 
                             @if ($torrent->internal == '1')
                                 <span class="badge-extra" data-toggle="tooltip"
-                                      title="@lang('torrent.internal-release')">
+                                      title="{{ __('torrent.internal-release') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-magic"
                                                        style="color: #baaf92;"></i>
                                                 </span>
@@ -176,7 +176,7 @@
 
                             @if ($torrent->personal_release == '1')
                                 <span class="badge-extra" data-toggle="tooltip"
-                                      title="@lang('torrent.personal-release')">
+                                      title="{{ __('torrent.personal-release') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-user-plus text-green"
                                                        style="color: #865be9"></i>
                                                 </span>
@@ -184,37 +184,37 @@
 
                             @if ($torrent->stream == '1')
                                 <span class="badge-extra" data-toggle="tooltip"
-                                      title="@lang('torrent.stream-optimized')">
+                                      title="{{ __('torrent.stream-optimized') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-play text-red"></i>
                                                 </span>
                             @endif
 
                             @if ($torrent->leechers >= 5)
-                                <span class="badge-extra" data-toggle="tooltip" title="@lang('common.hot')">
+                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('common.hot') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-fire text-orange"></i>
                                                 </span>
                             @endif
 
                             @if ($torrent->sticky == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.sticky')">
+                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.sticky') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-thumbtack text-black"></i>
                                                 </span>
                             @endif
 
                             @if ($torrent->highspeed == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="@lang('common.high-speeds')">
+                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('common.high-speeds') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-tachometer text-red"></i>
                                                 </span>
                             @endif
 
                             @if ($torrent->sd == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="@lang('torrent.sd-content')">
+                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.sd-content') }}">
                                                     <i class="{{ config('other.font-awesome') }} fa-ticket text-orange"></i>
                                                 </span>
                             @endif
                         </div>
                         <div class="torrent-uploaded pull-right">
-                            @lang('torrent.uploaded-by')
+                            {{ __('torrent.uploaded-by') }}
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
                                     @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
@@ -243,8 +243,8 @@
                                         <div class="form-group">
                                             <button type="submit" id="delete-follow-{{ $uploader->target_id }}"
                                                     class="btn btn-xs btn-info"
-                                                    title="@lang('user.unfollow')">
-                                                @lang('user.unfollow')
+                                                    title="{{ __('user.unfollow') }}">
+                                                {{ __('user.unfollow') }}
                                             </button>
                                         </div>
                                     </form>
@@ -256,8 +256,8 @@
                                         <div class="form-group">
                                             <button type="submit" id="follow-user-{{ $uploader->id }}"
                                                     class="btn btn-xs btn-success"
-                                                    title="@lang('user.follow')">
-                                                @lang('user.follow')
+                                                    title="{{ __('user.follow') }}">
+                                                {{ __('user.follow') }}
                                             </button>
                                         </div>
                                     </form>
@@ -300,18 +300,18 @@
                         @if ($torrent->seeders == 0)
                             @if ($last_seed_activity)
                                 <span class="badge-extra text-orange torrent-last-seed-activity">
-                                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('torrent.last-seed-activity'): {{ $last_seed_activity->updated_at->diffForHumans() }}
+                                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> {{ __('torrent.last-seed-activity') }}: {{ $last_seed_activity->updated_at->diffForHumans() }}
                                                 </span>
                             @else
                                 <span class="badge-extra text-orange torrent-last-seed-activity">
-                                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('torrent.last-seed-activity'): @lang('common.unknown')
+                                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> {{ __('torrent.last-seed-activity') }}: {{ __('common.unknown') }}
                                                 </span>
                             @endif
                         @endif
 
 
                         <span class="torrent-info-hash badge-extra pull-right">
-                                            @lang('torrent.info-hash'): {{ $torrent->info_hash }}
+                                            {{ __('torrent.info-hash') }}: {{ $torrent->info_hash }}
                                         </span>
                     </div>
                 </td>
@@ -326,43 +326,43 @@
             @if ($torrent->featured == '0')
                 <tr class="success torrent-discounts">
                     <td>
-                        <strong>@lang('torrent.discounts')</strong>
+                        <strong>{{ __('torrent.discounts') }}</strong>
                     </td>
                     <td>
                         @if ($torrent->doubleup == '1' || $torrent->free > '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
                             @if ($freeleech_token)
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i> @lang('common.fl_token')
+                                                <i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i> {{ __('common.fl_token') }}
                                             </span>
                             @endif
 
                             @if ($user->group->is_freeleech == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> @lang('common.special') @lang('torrent.freeleech')
+                                                <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> {{ __('common.special') }} {{ __('torrent.freeleech') }}
                                             </span>
                             @endif
 
                             @if ($personal_freeleech)
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-id-badge text-orange"></i> @lang('common.personal') @lang('torrent.freeleech')
+                                                <i class="{{ config('other.font-awesome') }} fa-id-badge text-orange"></i> {{ __('common.personal') }} {{ __('torrent.freeleech') }}
                                             </span>
                             @endif
 
                             @if ($torrent->doubleup == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-gem text-green"></i> @lang('torrent.double-upload')
+                                                <i class="{{ config('other.font-awesome') }} fa-gem text-green"></i> {{ __('torrent.double-upload') }}
                                             </span>
                             @endif
 
                             @if ($user->group->is_double_upload == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> @lang('common.special') @lang('torrent.double-upload')
+                                                <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> {{ __('common.special') }} {{ __('torrent.double-upload') }}
                                             </span>
                             @endif
 
                             @if ($torrent->free >= '90')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> {{ $torrent->free }}% @lang('common.free')
+                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> {{ $torrent->free }}% {{ __('common.free') }}
                                             </span>
                             @elseif ($torrent->free < '90' && $torrent->free >= '30')
                                 <style>
@@ -381,7 +381,7 @@
                                     }
                                 </style>
                                 <span class="badge-extra text-bold">
-                                                <i class="star50 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% @lang('common.free')
+                                                <i class="star50 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% {{ __('common.free') }}
                                             </span>
                             @elseif ($torrent->free < '30' && $torrent->free != '0')
                                 <style>
@@ -400,24 +400,24 @@
                                     }
                                 </style>
                                 <span class="badge-extra text-bold">
-                                                <i class="star30 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% @lang('common.free')
+                                                <i class="star30 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% {{ __('common.free') }}
                                             </span>
                             @endif
 
                             @if (config('other.freeleech') == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-globe text-blue"></i> @lang('common.global') @lang('torrent.freeleech')
+                                                <i class="{{ config('other.font-awesome') }} fa-globe text-blue"></i> {{ __('common.global') }} {{ __('torrent.freeleech') }}
                                             </span>
                             @endif
 
                             @if (config('other.doubleup') == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-globe text-green"></i> @lang('common.global') {{ strtolower(trans('torrent.double-upload')) }}
+                                                <i class="{{ config('other.font-awesome') }} fa-globe text-green"></i> {{ __('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}
                                             </span>
                             @endif
                         @else
                             <span class="text-bold text-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('torrent.no-discounts')
+                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('torrent.no-discounts') }}
                                         </span>
                         @endif
                     </td>
@@ -427,12 +427,12 @@
             @if ($torrent->featured == 1)
                 <tr class="info torrent-featured">
                     <td>
-                        <strong>@lang('torrent.featured')</strong>
+                        <strong>{{ __('torrent.featured') }}</strong>
                     </td>
                     <td>
                                     <span class="badge-user text-bold text-pink"
                                           style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">
-                                        @lang('torrent.featured-until') {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!)
+                                        {{ __('torrent.featured-until') }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!)
                                     </span>
                         <span class="small">
                                         <em>{!! trans('torrent.featured-desc') !!}</em>
@@ -443,13 +443,13 @@
 
             <tr class="torrent-name">
                 <td class="col-sm-2">
-                    <strong>@lang('torrent.name')</strong>
+                    <strong>{{ __('torrent.name') }}</strong>
                 </td>
                 <td>{{ $torrent->name }}</td>
             </tr>
 
             <tr class="torrent-uploader">
-                <td class="col-sm-2"><strong>@lang('torrent.uploader')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.uploader') }}</strong></td>
                 <td>
                     @if ($torrent->anon == 1)
                         <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
@@ -479,8 +479,8 @@
                                 <div class="form-group">
                                     <button type="submit" id="delete-follow-{{ $uploader->target_id }}"
                                             class="btn btn-xs btn-info"
-                                            title="@lang('user.unfollow')">
-                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
+                                            title="{{ __('user.unfollow') }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('user.unfollow') }}
                                     </button>
                                 </div>
                             </form>
@@ -492,8 +492,8 @@
                                 <div class="form-group">
                                     <button type="submit" id="follow-user-{{ $uploader->id }}"
                                             class="btn btn-xs btn-success"
-                                            title="@lang('user.follow')">
-                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
+                                            title="{{ __('user.follow') }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('user.follow') }}
                                     </button>
                                 </div>
                             </form>
@@ -503,95 +503,95 @@
             </tr>
 
             <tr class="torrent-uploaded-time">
-                <td class="col-sm-2"><strong>@lang('torrent.uploaded')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.uploaded') }}</strong></td>
                 <td>{{ $torrent->created_at }} ({{ $torrent->created_at->diffForHumans() }})</td>
             </tr>
 
             <tr class="torrent-size">
-                <td class="col-sm-2"><strong>@lang('torrent.size')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.size') }}</strong></td>
                 <td>{{ $torrent->getSize() }}</td>
             </tr>
 
             <tr class="torrent-estimated-ratio">
-                <td class="col-sm-2"><strong>@lang('torrent.estimated-ratio')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.estimated-ratio') }}</strong></td>
                 <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}</td>
             </tr>
 
             <tr class="torrent-category">
-                <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.category') }}</strong></td>
                 <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
                        data-toggle="tooltip"
-                       data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i>
+                       data-original-title="{{ $torrent->category->name }} {{ __('torrent.torrent') }}"></i>
                     {{ $torrent->category->name }}
                 </td>
             </tr>
 
             <tr class="torrent-resolution">
-                <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.resolution') }}</strong></td>
                 <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
             </tr>
 
             <tr class="torrent-type">
-                <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.type') }}</strong></td>
                 <td>{{ $torrent->type->name }}</td>
             </tr>
 
             @if (isset($torrent->region_id))
                 <tr class="torrent-region">
-                    <td class="col-sm-2"><strong>@lang('torrent.region')</strong></td>
+                    <td class="col-sm-2"><strong>{{ __('torrent.region') }}</strong></td>
                     <td>{{ $torrent->region->name }}</td>
                 </tr>
             @endif
 
             @if (isset($torrent->distributor_id))
                 <tr class="torrent-distributor">
-                    <td class="col-sm-2"><strong>@lang('torrent.distributor')</strong></td>
+                    <td class="col-sm-2"><strong>{{ __('torrent.distributor') }}</strong></td>
                     <td>{{ $torrent->distributor->name }}</td>
                 </tr>
             @endif
 
             <tr class="torrent-stream-optimized">
-                <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.stream-optimized') }}?</strong></td>
                 <td>
-                    @if ($torrent->stream == "1") @lang('common.yes') @else @lang('common.no') @endif
+                    @if ($torrent->stream == "1") {{ __('common.yes') }} @else {{ __('common.no') }} @endif
                 </td>
             </tr>
 
             <tr class="torrent-internal">
-                <td class="col-sm-2"><strong>@lang('torrent.internal-release')?</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.internal-release') }}?</strong></td>
                 <td>
-                    @if ($torrent->internal == "1") @lang('common.yes') @else @lang('common.no') @endif
+                    @if ($torrent->internal == "1") {{ __('common.yes') }} @else {{ __('common.no') }} @endif
                 </td>
             </tr>
 
             <tr class="torrent-personal-release">
                 <td class="col-sm-2"><strong>Personal Release?</strong></td>
                 <td>
-                    @if ($torrent->personal_release == "1") @lang('common.yes') @else @lang('common.no') @endif
+                    @if ($torrent->personal_release == "1") {{ __('common.yes') }} @else {{ __('common.no') }} @endif
                 </td>
             </tr>
 
             <tr class="torrent-highspeed">
-                <td class="col-sm-2"><strong>@lang('common.high-speeds')?</strong></td>
+                <td class="col-sm-2"><strong>{{ __('common.high-speeds') }}?</strong></td>
                 <td>
-                    @if ($torrent->highspeed == '1') @lang('common.yes') @else @lang('common.no') @endif
+                    @if ($torrent->highspeed == '1') {{ __('common.yes') }} @else {{ __('common.no') }} @endif
                 </td>
             </tr>
 
             <tr class="torrent-sd">
-                <td class="col-sm-2"><strong>@lang('torrent.sd-content')?</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.sd-content') }}?</strong></td>
                 <td>
-                    @if ($torrent->sd == '1') @lang('common.yes') @else @lang('common.no') @endif
+                    @if ($torrent->sd == '1') {{ __('common.yes') }} @else {{ __('common.no') }} @endif
                 </td>
             </tr>
 
             <tr class="torrent-info-hash">
-                <td class="col-sm-2"><strong>@lang('torrent.info-hash')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.info-hash') }}</strong></td>
                 <td>{{ $torrent->info_hash }}</td>
             </tr>
 
             <tr class="torrent-peers">
-                <td class="col-sm-2"><strong>@lang('torrent.peers')</strong></td>
+                <td class="col-sm-2"><strong>{{ __('torrent.peers') }}</strong></td>
                 <td>
                                 <span class="badge-extra text-green">
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}
@@ -604,12 +604,12 @@
                                 </span>
                     <span class="badge-extra">
                                     <a href="{{ route('peers', ['id' => $torrent->id]) }}"
-                                       title="@lang('common.view') @lang('torrent.peers')">@lang('common.view') @lang('torrent.peers')
+                                       title="{{ __('common.view') }} {{ __('torrent.peers') }}">{{ __('common.view') }} {{ __('torrent.peers') }}
                                     </a>
                                 </span>
                     <span class="badge-extra">
                                     <a href="{{ route('history', ['id' => $torrent->id]) }}"
-                                       title="@lang('common.view') @lang('torrent.history')">@lang('common.view') @lang('torrent.history')
+                                       title="{{ __('common.view') }} {{ __('torrent.history') }}">{{ __('common.view') }} {{ __('torrent.history') }}
                                     </a>
                                 </span>
                 </td>
@@ -617,7 +617,7 @@
 
             @if ($torrent->seeders == 0)
                 <tr class="torrent-last-seed-activity">
-                    <td class="col-sm-2"><strong>@lang('torrent.last-seed-activity')</strong></td>
+                    <td class="col-sm-2"><strong>{{ __('torrent.last-seed-activity') }}</strong></td>
                     <td>
                         @if ($last_seed_activity)
                             <span class="badge-extra text-orange">
@@ -625,7 +625,7 @@
                                         </span>
                         @else
                             <span class="badge-extra text-orange">
-                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> @lang('common.unknown')
+                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> {{ __('common.unknown') }}
                                         </span>
                         @endif
                     </td>

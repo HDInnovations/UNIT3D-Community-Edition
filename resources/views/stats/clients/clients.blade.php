@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
+    <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
         </a>
     </li>
     <li>

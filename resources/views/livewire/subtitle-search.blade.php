@@ -4,19 +4,19 @@
             <div class="container box search mt-5 fatten-me form-horizontal form-condensed form-torrent-search form-bordered">
                 <div class="mx-0 mt-5 form-group fatten-me">
                     <label for="search"
-                           class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('torrent.name') }}</label>
                     <div class="col-sm-9 fatten-me">
                         <label for="search"></label>
-                        <input wire:model="search" type="text" class="form-control" placeholder="@lang('torrent.name')">
+                        <input wire:model="search" type="text" class="form-control" placeholder="{{ __('torrent.name') }}">
                     </div>
                 </div>
 
                 <div class="mx-0 mt-5 form-group fatten-me">
                     <label for="language_id"
-                           class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.language')</label>
+                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.language') }}</label>
                     <div class="col-sm-9">
                         <select class="form-control" wire:model="language">
-                            <option value="">--@lang('common.select') @lang('common.language')--</option>
+                            <option value="">--{{ __('common.select') }} {{ __('common.language') }}--</option>
                             @foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
                                 <option value="{{ $media_language->id }}">{{ $media_language->name }}
                                     ({{ $media_language->code }})
@@ -28,7 +28,7 @@
 
                 <div class="mx-0 mt-5 form-group fatten-me">
                     <label for="categories"
-                           class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.category')</label>
+                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.category') }}</label>
                     <div class="col-sm-9">
                         @foreach (App\Models\Category::all()->sortBy('position') as $category)
                             <span class="badge-user">
@@ -42,7 +42,7 @@
 
                 <div class="mx-0 mt-5 form-group fatten-me">
                     <label for="perPage"
-                           class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>
+                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.quantity') }}</label>
                     <div class="col-sm-2">
                         <select wire:model="perPage" class="form-control">
                             <option value="25">25</option>
@@ -61,50 +61,50 @@
                         <th class="torrents-filename">
                             <div sortable wire:click="sortBy('title')"
                                  :direction="$sortField === 'title' ? $sortDirection : null" role="button">
-                                @lang('torrent.torrent')
+                                {{ __('torrent.torrent') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'title'])
                             </div>
                         </th>
                         <th>
                             <div sortable wire:click="sortBy('language_id')"
                                  :direction="$sortField === 'language_id' ? $sortDirection : null" role="button">
-                                @lang('common.language')
+                                {{ __('common.language') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'language_id'])
                             </div>
                         </th>
-                        <th>@lang('common.download')</th>
+                        <th>{{ __('common.download') }}</th>
                         <th>
                             <div sortable wire:click="sortBy('extension')"
                                  :direction="$sortField === 'extension' ? $sortDirection : null" role="button">
-                                @lang('subtitle.extension')
+                                {{ __('subtitle.extension') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'extension'])
                             </div>
                         </th>
                         <th>
                             <div sortable wire:click="sortBy('file_size')"
                                  :direction="$sortField === 'file_size' ? $sortDirection : null" role="button">
-                                @lang('subtitle.size')
+                                {{ __('subtitle.size') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'file_size'])
                             </div>
                         </th>
                         <th>
                             <div sortable wire:click="sortBy('downloads')"
                                  :direction="$sortField === 'downloads' ? $sortDirection : null" role="button">
-                                @lang('subtitle.downloads')
+                                {{ __('subtitle.downloads') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'downloads'])
                             </div>
                         </th>
                         <th>
                             <div sortable wire:click="sortBy('created_at')"
                                  :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                                @lang('subtitle.uploaded')
+                                {{ __('subtitle.uploaded') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </div>
                         </th>
                         <th>
                             <div sortable wire:click="sortBy('user_id')"
                                  :direction="$sortField === 'user_id' ? $sortDirection : null" role="button">
-                                @lang('subtitle.uploader')
+                                {{ __('subtitle.uploader') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                             </div>
                         </th>
@@ -141,7 +141,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
-                                   class="btn btn-xs btn-warning">@lang('common.download')</a>
+                                   class="btn btn-xs btn-warning">{{ __('common.download') }}</a>
                             </td>
                             <td>{{ $subtitle->extension }}</td>
                             <td>{{ $subtitle->getSize() }}</td>

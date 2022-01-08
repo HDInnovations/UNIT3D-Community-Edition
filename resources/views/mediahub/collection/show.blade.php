@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.collections.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.collections')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.collections') }}</span>
         </a>
     </li>
     <li class="active">
@@ -39,7 +39,7 @@
 
             <div class="meta-info">
                 <div class="tags">
-                    @lang('mediahub.collections')
+                    {{ __('mediahub.collections') }}
                 </div>
 
                 <div class="movie-backdrop"
@@ -93,8 +93,8 @@
                                                 </div>
                                                 <div style=" margin-top: 8px;">
                                                     <span class="badge-extra"><i
-                                                                class="fas fa-calendar text-purple"></i> @lang('common.year'): {{ substr($movie->release_date, 0, 4) }}</span>
-                                                    <span class="badge-extra"><i class="fas fa-star text-gold"></i> @lang('torrent.rating'): {{ $movie->vote_average }}</span>
+                                                                class="fas fa-calendar text-purple"></i> {{ __('common.year') }}: {{ substr($movie->release_date, 0, 4) }}</span>
+                                                    <span class="badge-extra"><i class="fas fa-star text-gold"></i> {{ __('torrent.rating') }}: {{ $movie->vote_average }}</span>
                                                 </div>
                                             </a>
                                         </div>
@@ -117,14 +117,14 @@
                 <div class="panel panel-chat shoutbox">
                     <div class="panel-heading">
                         <h4>
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
                         </h4>
                     </div>
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
                             @if (count($collection->comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
                                         !</h4>
                                 </div>
                             @else
@@ -190,15 +190,15 @@
                 <form role="form" method="POST" action="{{ route('comment_collection', ['id' => $collection->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="content">@lang('common.your-comment'):</label>
-                        <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                        <label for="content">{{ __('common.your-comment') }}:</label>
+                        <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
                         <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+                    <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
+                    <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
                             :</strong></label>
-                    <input type="radio" value="1" name="anonymous"> @lang('common.yes')
-                    <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
+                    <input type="radio" value="1" name="anonymous"> {{ __('common.yes') }}
+                    <input type="radio" value="0" checked="checked" name="anonymous"> {{ __('common.no') }}
                 </form>
             </div>
             <!-- /Add comment -->

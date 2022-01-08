@@ -4,7 +4,7 @@
     <li class="active">
         <a href="{{ route('outbox') }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                @lang('pm.outbox')
+                {{ __('pm.outbox') }}
             </span>
         </a>
     </li>
@@ -23,7 +23,7 @@
                                     @csrf
                                     <label for="subject"></label><input type="text" name="subject" id="subject"
                                                                         class="form-control"
-                                                                        placeholder="@lang('pm.search')">
+                                                                        placeholder="{{ __('pm.search') }}">
                                 </form>
                             </div>
                         </div>
@@ -32,10 +32,10 @@
                         <table class="table table-condensed table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <td class="col-sm-2">@lang('pm.to')</td>
-                                <td class="col-sm-6">@lang('pm.subject')</td>
-                                <td class="col-sm-2">@lang('pm.sent-at')</td>
-                                <td class="col-sm-2">@lang('pm.delete')</td>
+                                <td class="col-sm-2">{{ __('pm.to') }}</td>
+                                <td class="col-sm-6">{{ __('pm.subject') }}</td>
+                                <td class="col-sm-2">{{ __('pm.sent-at') }}</td>
+                                <td class="col-sm-2">{{ __('pm.delete') }}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -55,7 +55,7 @@
                                             <input type="hidden" name="dest" value="outbox"/>
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-xs btn-danger"
-                                                        title="@lang('pm.delete')"><i
+                                                        title="{{ __('pm.delete') }}"><i
                                                             class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>

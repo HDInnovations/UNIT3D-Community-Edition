@@ -3,18 +3,18 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Groups</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.user') }} Groups</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.groups.create', ['group' => $group->name, 'id' => $group->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') User Group</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.edit') }} User Group</span>
         </a>
     </li>
 @endsection
@@ -30,8 +30,8 @@
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>@lang('common.name')</th>
-                            <th>@lang('common.position')</th>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('common.position') }}</th>
                             <th>Level</th>
                             <th>Color</th>
                             <th>Icon</th>
@@ -223,7 +223,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
+                <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
             </form>
         </div>
     </div>

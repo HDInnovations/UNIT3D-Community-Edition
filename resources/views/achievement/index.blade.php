@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.achievements') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -14,7 +14,7 @@
     <li>
         <a href="{{ route('achievements.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
-                @lang('user.achievements')</span>
+                {{ __('user.achievements') }}</span>
         </a>
     </li>
 @endsection
@@ -28,16 +28,16 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="panel panel-default">
-                            <div class="panel-heading">@lang('user.unlocked-achievements')</div>
+                            <div class="panel-heading">{{ __('user.unlocked-achievements') }}</div>
                             <div class="panel-body">
                                 <br/>
                                 <div class="table-responsive">
                                     <table class="table table-borderless">
                                         <thead>
                                         <tr>
-                                            <th>@lang('common.name')</th>
-                                            <th>@lang('common.description')</th>
-                                            <th>@lang('common.progress')</th>
+                                            <th>{{ __('common.name') }}</th>
+                                            <th>{{ __('common.description') }}</th>
+                                            <th>{{ __('common.progress') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -48,9 +48,9 @@
                                                          data-original-title="{{ $item->details->name }}"></td>
                                                 <td>{{ $item->details->description }}</td>
                                                 @if ($item->isUnlocked())
-                                                    <td><span class="label label-success">@lang('user.unlocked')</span>
+                                                    <td><span class="label label-success">{{ __('user.unlocked') }}</span>
                                                     </td> @else
-                                                    <td><span class="label label-warning">@lang('common.progress'):
+                                                    <td><span class="label label-warning">{{ __('common.progress') }}:
                                                                 {{ $item->points }}/{{ $item->details->points }}</span>
                                                     </td>
                                                 @endif
@@ -65,16 +65,16 @@
 
                     <div class="col-md-5">
                         <div class="panel panel-default">
-                            <div class="panel-heading">@lang('user.pending-achievements')</div>
+                            <div class="panel-heading">{{ __('user.pending-achievements') }}</div>
                             <div class="panel-body">
                                 <br/>
                                 <div class="table-responsive">
                                     <table class="table table-borderless">
                                         <thead>
                                         <tr>
-                                            <th>@lang('common.name')</th>
-                                            <th>@lang('common.description')</th>
-                                            <th>@lang('common.progress')</th>
+                                            <th>{{ __('common.name') }}</th>
+                                            <th>{{ __('common.description') }}</th>
+                                            <th>{{ __('common.progress') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -84,9 +84,9 @@
                                                          alt="{{ $p->details->name }}" data-toggle="tooltip"
                                                          data-original-title="{{ $p->details->name }}"></td>
                                                 <td>{{ $p->details->description }}</td>
-                                                <td><span class="label label-warning">@lang('common.progress'):
+                                                <td><span class="label label-warning">{{ __('common.progress') }}:
                                                             {{ $p->points }}/{{ $p->details->points }}</span>
-                                                    <span class="label label-danger">@lang('user.locked')</span>
+                                                    <span class="label label-danger">{{ __('user.locked') }}</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -100,7 +100,7 @@
                     <div class="col-sm-2 text-center">
                         <div class="text-green well well-sm">
                             <h3>
-                                <strong>@lang('user.unlocked-achievements')
+                                <strong>{{ __('user.unlocked-achievements') }}
                                     :</strong>{{ auth()
                                             ->user()
                                             ->unlockedAchievements()
@@ -109,7 +109,7 @@
                         </div>
                         <div class="text-red well well-sm">
                             <h3>
-                                <strong>@lang('user.locked-achievements')
+                                <strong>{{ __('user.locked-achievements') }}
                                     :</strong>{{ auth()
                                             ->user()
                                             ->lockedAchievements()

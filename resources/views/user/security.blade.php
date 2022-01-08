@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Security - @lang('common.members') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -14,8 +14,8 @@
     <li>
         <a href="{{ route('user_security', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.security')
-                @lang('user.settings')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.security') }}
+                {{ __('user.settings') }}</span>
         </a>
     </li>
 @endsection
@@ -43,8 +43,8 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.change-password').</h3>
-                                <div class="help-block">@lang('user.change-password-help').</div>
+                                <h3>{{ __('user.change-password') }}.</h3>
+                                <div class="help-block">{{ __('user.change-password-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <label for="current_password">Current Password</label>
@@ -75,8 +75,8 @@
                               action="{{ route('change_email', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.change-email').</h3>
-                                <div class="help-block">@lang('user.change-email-help').</div>
+                                <h3>{{ __('user.change-email') }}.</h3>
+                                <div class="help-block">{{ __('user.change-email-help') }}.</div>
                                 <hr>
                                 <label for="current_email">Current Email</label>
                                 <p class="text-primary">{{ $user->email }}</p>
@@ -96,8 +96,8 @@
                               action="{{ route('change_pid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.reset-passkey').</h3>
-                                <div class="help-block">@lang('user.reset-passkey-help').</div>
+                                <h3>{{ __('user.reset-passkey') }}.</h3>
+                                <div class="help-block">{{ __('user.reset-passkey-help') }}.</div>
                                 </h3>
                                 <hr>
 
@@ -117,8 +117,8 @@
                               action="{{ route('change_rid', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.reset-rss').</h3>
-                                <div class="help-block">@lang('user.reset-rss-help').</div>
+                                <h3>{{ __('user.reset-rss') }}.</h3>
+                                <div class="help-block">{{ __('user.reset-rss-help') }}.</div>
                                 </h3>
                                 <hr>
 
@@ -138,8 +138,8 @@
                               action="{{ route('change_api_token', ['username' => $user->username]) }}">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.reset-api-token').</h3>
-                                <div class="help-block">@lang('user.reset-api-help').</div>
+                                <h3>{{ __('user.reset-api-token') }}.</h3>
+                                <div class="help-block">{{ __('user.reset-api-help') }}.</div>
                                 </h3>
                                 <hr>
 
@@ -166,11 +166,11 @@
                                     <div class="radio-inline">
                                         <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked
                                                       @endif
-                                                      value="1">@lang('common.yes')</label>
+                                                      value="1">{{ __('common.yes') }}</label>
                                     </div>
                                     <div class="radio-inline">
                                         <label><input type="radio" name="twostep" @if ($user->twostep == 0) checked
-                                                      @endif value="0">@lang('common.no')</label>
+                                                      @endif value="0">{{ __('common.no') }}</label>
                                     </div>
                                     <br>
                                 </div>

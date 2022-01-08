@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.genres') - {{ config('other.title') }}</title>
+    <title>{{ __('common.genres') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('mediahub.genres.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.genres')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.genres') }}</span>
         </a>
     </li>
 @endsection
@@ -43,7 +43,7 @@
                                       d="M968.15,196A15.69,15.69,0,0,0,943,214.83h0A15.69,15.69,0,0,0,968.15,196Z"></path>
                             </svg>
                         </div>
-                        <a href="#"><h2>@lang('common.genres')</h2></a>
+                        <a href="#"><h2>{{ __('common.genres') }}</h2></a>
                     </div>
                 </div>
             </section>
@@ -54,9 +54,9 @@
                             <h2 class="text-bold"> {{ $genre->name }}</h2>
                             <span style="background-color: #317aaf;"></span>
                             <h2 style="font-size: 14px;">
-                                <i class="{{ config('other.font-awesome') }} fa-tv-retro"></i> {{ $genre->tv->count() }} @lang('mediahub.shows')
+                                <i class="{{ config('other.font-awesome') }} fa-tv-retro"></i> {{ $genre->tv->count() }} {{ __('mediahub.shows') }}
                                 |
-                                <i class="{{ config('other.font-awesome') }} fa-film"></i> {{ $genre->movie->count() }} @lang('mediahub.movies')
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> {{ $genre->movie->count() }} {{ __('mediahub.movies') }}
                             </h2>
                         </div>
                     </a>

@@ -2,9 +2,9 @@
     <div class="alert alert-info" x-data="timer()" x-init="start()">
         <div class="text-center">
             <span>
-                @if (config('other.freeleech') == true)🌐 @lang('common.freeleech_activated') 🌐@endif
-                @if (config('other.invite-only') == false)🌐 @lang('common.openreg_activated') 🌐@endif
-                @if (config('other.doubleup') == true)🌐 @lang('common.doubleup_activated') 🌐@endif
+                @if (config('other.freeleech') == true)🌐 {{ __('common.freeleech_activated') }} 🌐@endif
+                @if (config('other.invite-only') == false)🌐 {{ __('common.openreg_activated') }} 🌐@endif
+                @if (config('other.doubleup') == true)🌐 {{ __('common.doubleup_activated') }} 🌐@endif
             </span>
             <div>
                 <span x-text="days">00</span>

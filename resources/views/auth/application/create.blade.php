@@ -8,7 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Application">
-    <meta property="og:title" content="@lang('auth.login')">
+    <meta property="og:title" content="{{ __('auth.login') }}">
     <meta property="og:site_name" content="{{ config('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/og.png') }}">
@@ -41,48 +41,48 @@
                         <div class="header gradient blue">
                             <div class="inner_content">
                                 <h1>
-                                    @lang('auth.application')
+                                    {{ __('auth.application') }}
                                 </h1>
                             </div>
                         </div>
                         <div class="panel-body">
                             <div class="alert alert-info text-center">
-                                {{ config('other.title') }} @lang('auth.appl-intro')
+                                {{ config('other.title') }} {{ __('auth.appl-intro') }}
                             </div>
                             <hr>
 
                             <form role="form" method="POST" action="{{ route('application.store') }}">
                                 @csrf
 
-                                <label for="type" class="control-label">@lang('auth.are-you')</label>
+                                <label for="type" class="control-label">{{ __('auth.are-you') }}</label>
                                 <br>
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" name="type" value="New To The Game" checked>
-                                        @lang('auth.newbie')
+                                        {{ __('auth.newbie') }}
                                     </label>
                                 </div>
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" name="type" value="Experienced With Private Trackers">
-                                        @lang('auth.veteran')
+                                        {{ __('auth.veteran') }}
                                     </label>
                                 </div>
 
                                 <hr>
 
                                 <div class="form-group">
-                                    <label for="email" class="control-label">@lang('auth.email')</label>
+                                    <label for="email" class="control-label">{{ __('auth.email') }}</label>
                                     <input id="email" type="email" class="form-control" name="email" required>
                                     @if (config('email-white-blacklist.enabled') == 'block')
                                         <br>
                                         <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
-                                            @lang('common.email-blacklist')
+                                            {{ __('common.email-blacklist') }}
                                         </a>
                                     @elseif (config('email-white-blacklist.enabled') == 'allow')
                                         <br>
                                         <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
-                                            @lang('common.email-whitelist')
+                                            {{ __('common.email-whitelist') }}
                                         </a>
                                     @endif
                                 </div>
@@ -90,16 +90,16 @@
                                 <hr>
 
                                 <div class="form-group">
-                                    <strong>@lang('auth.proof-image-title')</strong><br>
-                                    @lang('auth.proof-min')<br>
-                                    <label for="image1">@lang('auth.proof-image') 1:</label>
+                                    <strong>{{ __('auth.proof-image-title') }}</strong><br>
+                                    {{ __('auth.proof-min') }}<br>
+                                    <label for="image1">{{ __('auth.proof-image') }} 1:</label>
                                     <label>
                                         <input type="text" name="images[]" class="form-control" value="">
                                     </label>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image2">@lang('auth.proof-image') 2:</label>
+                                    <label for="image2">{{ __('auth.proof-image') }} 2:</label>
                                     <label>
                                         <input type="text" name="images[]" class="form-control" value="">
                                     </label>
@@ -108,23 +108,23 @@
                                 <div class="more-images"></div>
 
                                 <div class="form-group">
-                                    <button id="addImg" class="btn btn-primary">@lang('auth.add-image')</button>
-                                    <button id="delImg" class="btn btn-primary">@lang('auth.delete-image')</button>
+                                    <button id="addImg" class="btn btn-primary">{{ __('auth.add-image') }}</button>
+                                    <button id="delImg" class="btn btn-primary">{{ __('auth.delete-image') }}</button>
                                 </div>
 
                                 <hr>
 
                                 <div class="form-group">
-                                    <strong>@lang('auth.proof-profile-title')</strong><br>
-                                    @lang('auth.proof-min')<br>
-                                    <label for="link1">@lang('auth.proof-profile') 1:</label>
+                                    <strong>{{ __('auth.proof-profile-title') }}</strong><br>
+                                    {{ __('auth.proof-min') }}<br>
+                                    <label for="link1">{{ __('auth.proof-profile') }} 1:</label>
                                     <label>
                                         <input type="text" name="links[]" class="form-control" value="">
                                     </label>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="link2">@lang('auth.proof-profile') 2:</label>
+                                    <label for="link2">{{ __('auth.proof-profile') }} 2:</label>
                                     <label>
                                         <input type="text" name="links[]" class="form-control" value="">
                                     </label>
@@ -133,16 +133,16 @@
                                 <div class="more-links"></div>
 
                                 <div class="form-group">
-                                    <button id="addLink" class="btn btn-primary">@lang('auth.add-profile')</button>
-                                    <button id="delLink" class="btn btn-primary">@lang('auth.delete-profile')</button>
+                                    <button id="addLink" class="btn btn-primary">{{ __('auth.add-profile') }}</button>
+                                    <button id="delLink" class="btn btn-primary">{{ __('auth.delete-profile') }}</button>
                                 </div>
 
                                 <hr>
 
                                 <div class="form-group">
-                                    <label for="referrer">@lang('auth.appl-reason',['sitename' =>
-                                            config('other.title')])<span class="badge-extra">BBCode
-                                                @lang('common.is-allowed')</span></label>
+                                    <label for="referrer">{{ __('auth.appl-reason',['sitename' =>
+                                            config('other.title')]) }}<span class="badge-extra">BBCode
+                                                {{ __('common.is-allowed') }}</span></label>
                                     <label>
                                         <textarea name="referrer" cols="30" rows="10" maxlength="500"
                                                   class="form-control"></textarea>
@@ -156,7 +156,7 @@
                                 <div class="form-group">
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">
-                                            @lang('common.submit')
+                                            {{ __('common.submit') }}
                                         </button>
                                     </div>
                                 </div>
@@ -247,10 +247,10 @@
         <div class="jumbotron shadowed">
             <div class="container">
                 <h1 class="mt-5 text-center">
-                    <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('auth.appl-closed')
+                    <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('auth.appl-closed') }}
                 </h1>
                 <div class="separator"></div>
-                <p class="text-center">@lang('auth.check-later')</p>
+                <p class="text-center">{{ __('auth.check-later') }}</p>
             </div>
         </div>
     </div>
