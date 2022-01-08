@@ -19,10 +19,8 @@ class AddPositionToCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->integer('position')->after('slug');

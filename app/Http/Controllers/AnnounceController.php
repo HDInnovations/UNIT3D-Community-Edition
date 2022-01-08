@@ -61,13 +61,11 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \App\Models\User $passkey
      *
      * @throws \Exception
-     *
      * @return string
      */
-    public function index(Request $request, $passkey)
+    public function index(Request $request, \App\Models\User $passkey)
     {
         try {
             /**
@@ -512,7 +510,7 @@ class AnnounceController extends Controller
     /**
      * @param $repDict
      */
-    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -524,9 +522,8 @@ class AnnounceController extends Controller
      * @param     $peers
      * @param     $compact
      * @param     $noPeerId
-     * @param int $filterFlag
      */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string|array
+    private function givePeers($peers, $compact, $noPeerId, int $filterFlag = FILTER_FLAG_IPV4): string|array
     {
         if ($compact) {
             $pcomp = '';

@@ -31,13 +31,13 @@ class SystemBot
 
     private $chat;
 
-    private $target;
+    private ?\App\Models\User $target = null;
 
     private $type;
 
-    private $message;
+    private ?string $message = null;
 
-    private $targeted;
+    private ?int $targeted = null;
 
     private $log;
 
@@ -57,7 +57,7 @@ class SystemBot
      *
      * @return mixed
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
@@ -76,7 +76,7 @@ class SystemBot
     /**
      * Get Help.
      */
-    public function getHelp()
+    public function getHelp(): array|string
     {
         return $this->replaceVars($this->bot->help);
     }
@@ -84,13 +84,9 @@ class SystemBot
     /**
      * Send Gift.
      *
-     * @param string $receiver
-     * @param int    $amount
-     * @param string $note
      *
-     * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
         $output = \implode(' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
@@ -143,12 +139,9 @@ class SystemBot
      * Process Message.
      *
      * @param        $type
-     * @param string $message
-     * @param int    $targeted
      *
-     * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $this->target = $user;
         $x = $type == 'message' ? 0 : 1;
@@ -189,7 +182,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $type = $this->type;
         $target = $this->target;

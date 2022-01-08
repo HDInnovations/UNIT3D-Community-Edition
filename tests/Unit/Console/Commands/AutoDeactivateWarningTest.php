@@ -12,7 +12,7 @@ class AutoDeactivateWarningTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:deactivate_warning')
             ->expectsOutput('Automated Warning Deativation Command Complete')

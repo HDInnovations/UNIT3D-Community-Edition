@@ -8,10 +8,8 @@ class ChangeTorrentToNullableInWarning extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('warnings', function (Blueprint $table) {
             $table->bigInteger('torrent')->unsigned()->nullable()->change();

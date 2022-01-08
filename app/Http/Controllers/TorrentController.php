@@ -140,10 +140,8 @@ class TorrentController extends Controller
      * Parse Torrent Keywords.
      *
      * @param $text
-     *
-     * @return array
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];
@@ -160,14 +158,12 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
      *
      * @throws \JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \ReflectionException
      */
-    public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrent(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -237,10 +233,8 @@ class TorrentController extends Controller
 
     /**
      * Torrent Edit Form.
-     *
-     * @param \App\Models\Torrent $id
      */
-    public function editForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -261,11 +255,10 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, \App\Models\Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -447,10 +440,8 @@ class TorrentController extends Controller
 
     /**
      * Display Peers Of A Torrent.
-     *
-     * @param \App\Models\Torrent $id
      */
-    public function peers($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function peers(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -460,10 +451,8 @@ class TorrentController extends Controller
 
     /**
      * Display History Of A Torrent.
-     *
-     * @param \App\Models\Torrent $id
      */
-    public function history($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function history(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
@@ -473,13 +462,8 @@ class TorrentController extends Controller
 
     /**
      * Torrent Upload Form.
-     *
-     * @param int    $categoryId
-     * @param string $title
-     * @param int    $imdb
-     * @param int    $tmdb
      */
-    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function uploadForm(Request $request, int $categoryId = 0, string $title = '', int $imdb = 0, int $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -500,10 +484,8 @@ class TorrentController extends Controller
     /**
      * Preview torrent description.
      *
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function preview(Request $request)
+    public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
         // Preview The Upload
         $joyPixel = \app()->make(LaravelJoyPixels::class);
@@ -739,10 +721,8 @@ class TorrentController extends Controller
 
     /**
      * Download Check.
-     *
-     * @param \App\Models\Torrent $id
      */
-    public function downloadCheck(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function downloadCheck(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();
@@ -752,13 +732,8 @@ class TorrentController extends Controller
 
     /**
      * Download A Torrent.
-     *
-     * @param \App\Models\Torrent $id
-     * @param null                $rsskey
-     *
-     * @return TorrentFile
      */
-    public function download(Request $request, $id, $rsskey = null)
+    public function download(Request $request, \App\Models\Torrent $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $user = $request->user();
         if (! $user && $rsskey) {
@@ -819,11 +794,10 @@ class TorrentController extends Controller
     /**
      * Reseed Request A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, $id)
+    public function reseedTorrent(Request $request, \App\Models\Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

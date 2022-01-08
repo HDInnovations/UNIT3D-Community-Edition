@@ -18,12 +18,12 @@ class TorrentTools
     /**
      * Name of the file to be saved.
      */
-    public static $fileName = '';
+    public static string $fileName = '';
 
     /**
      * Representative table of the decoded torrent.
      */
-    public static $decodedTorrent = [];
+    public static array $decodedTorrent = [];
 
     /**
      * Moves and decodes the torrent.
@@ -68,10 +68,8 @@ class TorrentTools
      * Calculate the number of files in the torrent.
      *
      * @param $decodedTorrent
-     *
-     * @return int
      */
-    public static function getFileCount($decodedTorrent)
+    public static function getFileCount($decodedTorrent): int
     {
         // Multiple file torrent ?
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -142,10 +140,8 @@ class TorrentTools
      * Returns file and folder names from the torrent.
      *
      * @param $decodedTorrent
-     *
-     * @return array
      */
-    public static function getFilenameArray($decodedTorrent)
+    public static function getFilenameArray($decodedTorrent): array
     {
         $filenames = [];
 
@@ -169,10 +165,8 @@ class TorrentTools
      * Returns the sha1 (hash) of the torrent.
      *
      * @param $decodedTorrent
-     *
-     * @return string
      */
-    public static function getTorrentHash($decodedTorrent)
+    public static function getTorrentHash($decodedTorrent): string
     {
         return \sha1(Bencode::bencode($decodedTorrent['info']));
     }
@@ -181,10 +175,8 @@ class TorrentTools
      * Returns the number of the torrent file.
      *
      * @param $decodedTorrent
-     *
-     * @return int
      */
-    public static function getTorrentFileCount($decodedTorrent)
+    public static function getTorrentFileCount($decodedTorrent): int
     {
         if (\array_key_exists('files', $decodedTorrent['info'])) {
             return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
@@ -218,10 +210,8 @@ class TorrentTools
      * Check if the filename is valid or not.
      *
      * @param $filename
-     *
-     * @return bool
      */
-    public static function isValidFilename($filename)
+    public static function isValidFilename($filename): bool
     {
         $result = true;
         if (\strlen($filename) > 255 ||

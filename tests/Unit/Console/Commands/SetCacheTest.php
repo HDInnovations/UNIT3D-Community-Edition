@@ -12,7 +12,7 @@ class SetCacheTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('set:all_cache')
             ->expectsOutput('Setting several common cache\'s ...')

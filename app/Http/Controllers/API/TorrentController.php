@@ -39,11 +39,11 @@ use Illuminate\Support\Str;
  */
 class TorrentController extends BaseController
 {
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $sortField = 'bumped_at';
+    public string $sortField = 'bumped_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     /**
      * TorrentController Constructor.
@@ -54,10 +54,8 @@ class TorrentController extends BaseController
 
     /**
      * Display a listing of the resource.
-     *
-     * @return TorrentsResource
      */
-    public function index()
+    public function index(): \App\Http\Resources\TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
             ->orderBy('sticky', 'desc')
@@ -71,7 +69,7 @@ class TorrentController extends BaseController
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -299,11 +297,9 @@ class TorrentController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param int $id
      *
-     * @return TorrentResource
      */
-    public function show($id)
+    public function show(int $id): \App\Http\Resources\TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -473,10 +469,8 @@ class TorrentController extends BaseController
      * Parse Torrent Keywords.
      *
      * @param $text
-     *
-     * @return array
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];

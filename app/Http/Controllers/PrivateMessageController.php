@@ -72,10 +72,8 @@ class PrivateMessageController extends Controller
 
     /**
      * View A Message.
-     *
-     * @param \App\Models\PrivateMessage $id
      */
-    public function getPrivateMessageById(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function getPrivateMessageById(Request $request, \App\Models\PrivateMessage $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $pm = PrivateMessage::findOrFail($id);
@@ -95,11 +93,8 @@ class PrivateMessageController extends Controller
 
     /**
      * Create Message Form.
-     *
-     * @param string $receiverId
-     * @param string $username
      */
-    public function makePrivateMessage(Request $request, $receiverId = '', $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function makePrivateMessage(Request $request, string $receiverId = '', string $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -166,11 +161,10 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message.
      *
-     * @param \App\Models\PrivateMessage $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function replyPrivateMessage(Request $request, $id)
+    public function replyPrivateMessage(Request $request, \App\Models\PrivateMessage $id)
     {
         $user = $request->user();
 
@@ -207,13 +201,11 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param \App\Models\PrivateMessage $id
      *
      * @throws \Exception
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deletePrivateMessage(Request $request, $id)
+    public function deletePrivateMessage(Request $request, \App\Models\PrivateMessage $id)
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -241,10 +233,8 @@ class PrivateMessageController extends Controller
     /**
      * Empty Private Message Inbox.
      *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function emptyInbox(Request $request)
+    public function emptyInbox(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         PrivateMessage::where('receiver_id', '=', $user->id)->delete();
@@ -256,10 +246,8 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function markAllAsRead(Request $request)
+    public function markAllAsRead(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $pm) {

@@ -72,11 +72,10 @@ class ChatRoomController extends Controller
     /**
      * Update A Chatroom.
      *
-     * @param \App\Models\Chatroom $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Chatroom $id)
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');
@@ -99,13 +98,11 @@ class ChatRoomController extends Controller
     /**
      * Delete A Chatroom.
      *
-     * @param \App\Models\Chatroom $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(\App\Models\Chatroom $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();

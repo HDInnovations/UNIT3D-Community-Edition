@@ -46,10 +46,8 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
      * Execute the job.
      *
      * @throws \App\Exceptions\TrackerException
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)

@@ -54,10 +54,8 @@ class Option extends Model
 
     /**
      * Belongs To A Poll.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function poll()
+    public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }

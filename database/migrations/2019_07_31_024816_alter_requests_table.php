@@ -19,10 +19,8 @@ class AlterRequestsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('requests', function (Blueprint $table) {
             $table->string('igdb')->default(0)->index()->after('mal');

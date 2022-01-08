@@ -40,10 +40,8 @@ class InternalController extends Controller
      * Edit A group.
      *
      * @param \App\Models\UsersVIP $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
@@ -134,10 +132,8 @@ class InternalController extends Controller
      * Delete A Internal Group.
      *
      * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $internal = Internal::findOrFail($id);

@@ -27,17 +27,15 @@ class RegionsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->regions as $region) {
             Region::updateOrCreate($region);
         }
     }
 
-    private function getRegions()
+    private function getRegions(): array
     {
         return [
             [

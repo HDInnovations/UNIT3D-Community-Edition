@@ -33,7 +33,7 @@ class TwoStepController extends Controller
 
     private $remainingAttempts;
 
-    private $user;
+    private ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     /**
      * Create a new controller instance.
@@ -53,10 +53,8 @@ class TwoStepController extends Controller
 
     /**
      * Set the User2Step Variables.
-     *
-     * @return void
      */
-    private function setUser2StepData()
+    private function setUser2StepData(): void
     {
         $user = \auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
@@ -70,12 +68,8 @@ class TwoStepController extends Controller
 
     /**
      * Validation and Invalid code failed actions and return message.
-     *
-     * @param null $errors (optional)
-     *
-     * @return array
      */
-    private function invalidCodeReturnData($errors = null)
+    private function invalidCodeReturnData($errors = null): array
     {
         $this->authCount = ++$this->twoStepAuth->authCount;
         $this->twoStepAuth->save();
@@ -98,7 +92,7 @@ class TwoStepController extends Controller
      *
      * @throws \Exception
      */
-    public function showVerification(): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function showVerification(): \Illuminate\Contracts\View\View
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);
@@ -200,10 +194,8 @@ class TwoStepController extends Controller
 
     /**
      * Resend the validation code triggered by user.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function resend()
+    public function resend(): \Illuminate\Http\JsonResponse
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);

@@ -18,10 +18,8 @@ class CreateFreeleechTokensTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('freeleech_tokens', function (Blueprint $table) {
             $table->increments('id');

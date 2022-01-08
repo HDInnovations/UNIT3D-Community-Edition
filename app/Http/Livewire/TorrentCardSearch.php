@@ -30,43 +30,43 @@ class TorrentCardSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
+    public string $name = '';
 
-    public $description = '';
+    public string $description = '';
 
-    public $mediainfo = '';
+    public string $mediainfo = '';
 
-    public $uploader = '';
+    public string $uploader = '';
 
-    public $keywords = [];
+    public array $keywords = [];
 
-    public $startYear = '';
+    public string $startYear = '';
 
-    public $endYear = '';
+    public string $endYear = '';
 
-    public $categories = [];
+    public array $categories = [];
 
-    public $types = [];
+    public array $types = [];
 
-    public $resolutions = [];
+    public array $resolutions = [];
 
-    public $genres = [];
+    public array $genres = [];
 
-    public $regions = [];
+    public array $regions = [];
 
-    public $distributors = [];
+    public array $distributors = [];
 
-    public $tmdbId = '';
+    public string $tmdbId = '';
 
-    public $imdbId = '';
+    public string $imdbId = '';
 
-    public $tvdbId = '';
+    public string $tvdbId = '';
 
-    public $malId = '';
+    public string $malId = '';
 
-    public $playlistId = '';
+    public string $playlistId = '';
 
-    public $collectionId = '';
+    public string $collectionId = '';
 
     public $free0;
 
@@ -112,11 +112,11 @@ class TorrentCardSearch extends Component
 
     public $incomplete;
 
-    public $perPage = 24;
+    public int $perPage = 24;
 
-    public $sortField = 'bumped_at';
+    public string $sortField = 'bumped_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     protected $queryString = [
         'name'             => ['except' => ''],
@@ -165,7 +165,7 @@ class TorrentCardSearch extends Component
         'perPage'          => ['except' => ''],
     ];
 
-    protected $rules = [
+    protected array $rules = [
         'genres.*' => 'exists:genres,id',
     ];
 
@@ -184,7 +184,7 @@ class TorrentCardSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTorrentsStatProperty()
+    final public function getTorrentsStatProperty(): ?object
     {
         return DB::table('torrents')
             ->selectRaw('count(*) as total')

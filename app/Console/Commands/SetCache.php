@@ -39,7 +39,7 @@ class SetCache extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->comment("Setting several common cache's ...");
         $this->call('view:cache');

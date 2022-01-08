@@ -25,7 +25,7 @@ class DbDump extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $outfile = \config('database.pristine-db-file');
         $host = \config('database.connections.mysql.host');

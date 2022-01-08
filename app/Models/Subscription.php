@@ -48,10 +48,8 @@ class Subscription extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -61,20 +59,16 @@ class Subscription extends Model
 
     /**
      * Belongs To A Topic.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
     /**
      * Belongs To A Forum.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

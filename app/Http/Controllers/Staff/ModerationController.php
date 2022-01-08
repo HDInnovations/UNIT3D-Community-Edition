@@ -54,11 +54,10 @@ class ModerationController extends Controller
     /**
      * Approve A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve($id)
+    public function approve(\App\Models\Torrent $id)
     {
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->first();
 

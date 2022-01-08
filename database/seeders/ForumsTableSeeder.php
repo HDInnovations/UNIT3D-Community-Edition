@@ -27,17 +27,15 @@ class ForumsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->forums as $forum) {
             Forum::updateOrCreate($forum);
         }
     }
 
-    private function getForums()
+    private function getForums(): array
     {
         return [
             [

@@ -15,10 +15,7 @@ namespace App\Services\Tmdb\Client;
 
 class Movie
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
 
     public const API_BASE_URI = 'https://api.themoviedb.org/3/';
 
@@ -53,7 +50,7 @@ class Movie
         return $this->data;
     }
 
-    public function get_background()
+    public function get_background(): ?string
     {
         if (isset($this->data['backdrop_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -117,7 +114,7 @@ class Movie
         return $this->data['popularity'];
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if (isset($this->data['poster_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
@@ -176,7 +173,7 @@ class Movie
         return $this->data['vote_count'];
     }
 
-    public function get_trailer()
+    public function get_trailer(): ?string
     {
         if (! empty($this->data['videos']['results'])) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'][0]['key'];
@@ -185,7 +182,7 @@ class Movie
         return null;
     }
 
-    public function get_videos()
+    public function get_videos(): ?string
     {
         if (isset($this->data['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'];

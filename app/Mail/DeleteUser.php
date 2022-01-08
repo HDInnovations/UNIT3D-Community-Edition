@@ -33,10 +33,8 @@ class DeleteUser extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->markdown('emails.pruned')
             ->subject('Your Account Has Been Pruned - '.\config('other.title'));

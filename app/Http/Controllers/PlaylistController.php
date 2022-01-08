@@ -225,10 +225,8 @@ class PlaylistController extends Controller
      * @param \App\Playlist $id
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::with('torrents')->findOrFail($id);

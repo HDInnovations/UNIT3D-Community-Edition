@@ -55,10 +55,8 @@ class ForumController extends Controller
     /**
      * Store A New Forum.
      *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -103,10 +101,8 @@ class ForumController extends Controller
 
     /**
      * Forum Edit Form.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, \App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -125,11 +121,9 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      *
-     * @param \App\Models\Forum $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -175,13 +169,11 @@ class ForumController extends Controller
     /**
      * Delete A Forum.
      *
-     * @param \App\Models\Forum $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

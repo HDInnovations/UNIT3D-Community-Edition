@@ -56,20 +56,16 @@ class Permission extends Model
 
     /**
      * Belongs To A Group.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group()
+    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
     /**
      * Belongs To A Forum.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

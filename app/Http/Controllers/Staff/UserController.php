@@ -57,10 +57,8 @@ class UserController extends Controller
 
     /**
      * User Edit Form.
-     *
-     * @param \App\Models\User $username
      */
-    public function settings($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function settings(\App\Models\User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -78,11 +76,10 @@ class UserController extends Controller
     /**
      * Edit A User.
      *
-     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $username)
+    public function edit(Request $request, \App\Models\User $username)
     {
         $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -133,11 +130,9 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function permissions(Request $request, $username)
+    public function permissions(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->can_upload = $request->input('can_upload');
@@ -155,11 +150,9 @@ class UserController extends Controller
     /**
      * Edit A Users Password.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function password(Request $request, $username)
+    protected function password(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->password = Hash::make($request->input('new_password'));
@@ -172,11 +165,10 @@ class UserController extends Controller
     /**
      * Delete A User.
      *
-     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function destroy($username)
+    protected function destroy(\App\Models\User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -278,11 +270,9 @@ class UserController extends Controller
     /**
      * Manually warn a user.
      *
-     * @param \App\Models\User $username
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function warnUser(Request $request, $username)
+    protected function warnUser(Request $request, \App\Models\User $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $carbon = new Carbon();

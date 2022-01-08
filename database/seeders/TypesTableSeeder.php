@@ -27,17 +27,15 @@ class TypesTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->types as $type) {
             Type::updateOrCreate($type);
         }
     }
 
-    private function getTypes()
+    private function getTypes(): array
     {
         return [
             [

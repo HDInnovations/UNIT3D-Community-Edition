@@ -23,10 +23,8 @@ class TorrentResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param $request
-     *
-     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $meta = null;
 
@@ -75,10 +73,8 @@ class TorrentResource extends JsonResource
      *
      * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Http\Response $response
-     *
-     * @return void
      */
-    public function withResponse($request, $response)
+    public function withResponse($request, $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }

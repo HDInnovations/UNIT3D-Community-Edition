@@ -27,11 +27,6 @@ class WishRepository implements WishInterface
     {
     }
 
-    /**
-     * @param null $paginate
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
     public function all($paginate = null): \Illuminate\Database\Eloquent\Collection|array
     {
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
@@ -68,10 +63,8 @@ class WishRepository implements WishInterface
     /**
      * @param $uid
      * @param $id
-     *
-     * @return bool
      */
-    public function exists($uid, $id)
+    public function exists($uid, $id): bool
     {
         return (bool) $this->user->find($uid)
             ->wishes()
@@ -81,10 +74,8 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
-     *
-     * @return bool
      */
-    public function isGranted($id)
+    public function isGranted($id): bool
     {
         return (bool) $this->torrent
             ->where('tmdb', '=', $id)

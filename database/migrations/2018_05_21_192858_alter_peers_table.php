@@ -18,10 +18,8 @@ class AlterPeersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('peers', function ($table) {
             $table->renameColumn('hash', 'info_hash');

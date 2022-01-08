@@ -117,10 +117,8 @@ class ResolutionController extends Controller
      * @param $id
      *
      * @throws \Exception
-     *
-     * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();

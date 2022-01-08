@@ -19,10 +19,8 @@ class AddAnonToRequestsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('requests', function (Blueprint $table) {
             $table->boolean('anon')->default(0)->after('claimed');

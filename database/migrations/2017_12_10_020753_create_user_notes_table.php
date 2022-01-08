@@ -18,10 +18,8 @@ class CreateUserNotesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('user_notes', function (Blueprint $table) {
             $table->increments('id');

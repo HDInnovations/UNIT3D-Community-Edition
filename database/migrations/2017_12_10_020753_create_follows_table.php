@@ -18,10 +18,8 @@ class CreateFollowsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->increments('id');

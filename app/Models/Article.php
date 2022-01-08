@@ -55,10 +55,8 @@ class Article extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -68,10 +66,8 @@ class Article extends Model
 
     /**
      * Has Many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
     }
@@ -79,13 +75,10 @@ class Article extends Model
     /**
      * Article Trimming.
      *
-     * @param int  $length
-     * @param bool $ellipses
-     * @param bool $stripHtml
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 20, $ellipses = true, $stripHtml = false)
+    public function getBrief(int $length = 20, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
         //strip tags, if desired
@@ -113,11 +106,9 @@ class Article extends Model
     /**
      * Set The Articles Content After Its Been Purified.
      *
-     * @param string $value
      *
-     * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -127,7 +118,7 @@ class Article extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
         $linkify = new Linkify();

@@ -12,7 +12,7 @@ class AutoHighspeedTagTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:highspeed_tag')
             ->expectsOutput('Automated High Speed Torrents Command Complete')

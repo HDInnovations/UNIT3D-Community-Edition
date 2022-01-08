@@ -8,10 +8,8 @@ class CreateCastEpisodeTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('cast_episode', function (Blueprint $table) {
             $table->unsignedInteger('cast_id');

@@ -66,40 +66,32 @@ class Message extends Model
 
     /**
      * Belongs To A Bot.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function bot()
+    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
      * A message belongs to a receiver.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
     /**
      * Belongs To A Chat Room.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function chatroom()
+    public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
@@ -107,11 +99,9 @@ class Message extends Model
     /**
      * Set The Chat Message After Its Been Purified.
      *
-     * @param string $value
      *
-     * @return void
      */
-    public function setMessageAttribute($value)
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -123,7 +113,7 @@ class Message extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public static function getMessageHtml($message)
+    public static function getMessageHtml($message): string
     {
         return (new Bbcode())->parse($message, true);
     }

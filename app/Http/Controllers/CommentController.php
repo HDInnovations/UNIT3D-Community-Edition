@@ -160,11 +160,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param \App\Models\Article $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $id)
+    public function article(Request $request, \App\Models\Article $id)
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -262,11 +261,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      *
-     * @param \App\Models\Playlist $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, $id)
+    public function playlist(Request $request, \App\Models\Playlist $id)
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -364,11 +362,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, \App\Models\Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -471,11 +468,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, \App\Models\TorrentRequest $id)
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -578,11 +574,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function ticket(Request $request, $id)
+    public function ticket(Request $request, \App\Models\TorrentRequest $id)
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -630,11 +625,10 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(Request $request, $id)
+    public function quickthanks(Request $request, \App\Models\Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -753,10 +747,8 @@ class CommentController extends Controller
      * Delete A Comment.
      *
      * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $commentId)
+    public function deleteComment(Request $request, $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);

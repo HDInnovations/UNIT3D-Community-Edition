@@ -18,10 +18,8 @@ class AddForeignKeysToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
             $table->foreign('article_id', 'fk_comments_articles_1')->references('id')->on('articles')->onUpdate('CASCADE')->onDelete('RESTRICT');

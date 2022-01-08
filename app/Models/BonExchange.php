@@ -75,10 +75,8 @@ class BonExchange extends Model
 
     /**
      * @method getDownloadOptions
-     *
-     * @return array
      */
-    public function getDownloadOptions()
+    public function getDownloadOptions(): array
     {
         return self::where('download', '=', true)
             ->orderBy('value', 'asc')
@@ -87,10 +85,8 @@ class BonExchange extends Model
 
     /**
      * @method getUploadOptions
-     *
-     * @return array
      */
-    public function getUploadOptions()
+    public function getUploadOptions(): array
     {
         return self::where('upload', '=', true)
             ->orderBy('value', 'asc')
@@ -99,10 +95,8 @@ class BonExchange extends Model
 
     /**
      * @method getPersonalFreeleechOption
-     *
-     * @return array
      */
-    public function getPersonalFreeleechOption()
+    public function getPersonalFreeleechOption(): array
     {
         return self::where('personal_freeleech', '=', true)
             ->orderBy('value', 'asc')
@@ -111,10 +105,8 @@ class BonExchange extends Model
 
     /**
      * @method getInviteOption
-     *
-     * @return array
      */
-    public function getInviteOption()
+    public function getInviteOption(): array
     {
         return self::where('invite', '=', true)
             ->orderBy('value', 'asc')
@@ -125,10 +117,8 @@ class BonExchange extends Model
      * @method getItemCost
      *
      * @param $id
-     *
-     * @return int
      */
-    public function getItemCost($id)
+    public function getItemCost($id): int
     {
         return self::where('id', '=', $id)
             ->get()

@@ -126,10 +126,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Earnings System.
-     *
-     * @param string $username
      */
-    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function bonus(Request $request, string $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -196,11 +194,10 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param \App\Models\BonExchange $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function exchange(Request $request, $id)
+    public function exchange(Request $request, \App\Models\BonExchange $id)
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -228,11 +225,8 @@ class BonusController extends Controller
 
     /**
      * Do Item Exchange.
-     *
-     * @param \App\Models\User        $userID
-     * @param \App\Models\BonExchange $itemID
      */
-    public function doItemExchange($userID, $itemID): bool
+    public function doItemExchange(\App\Models\User $userID, \App\Models\BonExchange $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
@@ -381,11 +375,10 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipUploader(Request $request, $id)
+    public function tipUploader(Request $request, \App\Models\Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -488,10 +481,8 @@ class BonusController extends Controller
 
     /**
      * @method getDyingCount
-     *
-     * @return int
      */
-    public function getDyingCount(Request $request)
+    public function getDyingCount(Request $request): int
     {
         $user = $request->user();
 
@@ -507,10 +498,8 @@ class BonusController extends Controller
 
     /**
      * @method getLegendaryCount
-     *
-     * @return int
      */
-    public function getLegendaryCount(Request $request)
+    public function getLegendaryCount(Request $request): int
     {
         $user = $request->user();
 
@@ -526,10 +515,8 @@ class BonusController extends Controller
 
     /**
      * @method getOldCount
-     *
-     * @return int
      */
-    public function getOldCount(Request $request)
+    public function getOldCount(Request $request): int
     {
         $user = $request->user();
 
@@ -546,10 +533,8 @@ class BonusController extends Controller
 
     /**
      * @method getHugeCount
-     *
-     * @return int
      */
-    public function getHugeCount(Request $request)
+    public function getHugeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -564,10 +549,8 @@ class BonusController extends Controller
 
     /**
      * @method getLargeCount
-     *
-     * @return int
      */
-    public function getLargeCount(Request $request)
+    public function getLargeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -583,10 +566,8 @@ class BonusController extends Controller
 
     /**
      * @method getRegularCount
-     *
-     * @return int
      */
-    public function getRegularCount(Request $request)
+    public function getRegularCount(Request $request): int
     {
         $user = $request->user();
 
@@ -602,10 +583,8 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @return int
      */
-    public function getParticipaintSeedCount(Request $request)
+    public function getParticipaintSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -621,10 +600,8 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @return int
      */
-    public function getTeamPlayerSeedCount(Request $request)
+    public function getTeamPlayerSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -640,10 +617,8 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @return int
      */
-    public function getCommitedSeedCount(Request $request)
+    public function getCommitedSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -659,10 +634,8 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @return int
      */
-    public function getMVPSeedCount(Request $request)
+    public function getMVPSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -678,10 +651,8 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @return int
      */
-    public function getLegendarySeedCount(Request $request)
+    public function getLegendarySeedCount(Request $request): int
     {
         $user = $request->user();
 

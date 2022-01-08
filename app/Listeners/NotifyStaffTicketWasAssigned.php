@@ -33,10 +33,8 @@ class NotifyStaffTicketWasAssigned
     /**
      * Handle the event.
      *
-     *
-     * @return void
      */
-    public function handle(TicketAssigned $event)
+    public function handle(TicketAssigned $event): void
     {
         $staff = User::where(['is_modo' => 1])->limit(1)->get();
         Notification::send($staff, new StaffTicketAssigned($event->ticket));

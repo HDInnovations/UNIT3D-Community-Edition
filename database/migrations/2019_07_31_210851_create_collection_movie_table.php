@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -9,10 +8,8 @@ class CreateCollectionMovieTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('collection_movie', function (Blueprint $table) {
             $table->unsignedInteger('collection_id');

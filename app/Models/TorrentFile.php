@@ -55,23 +55,16 @@ class TorrentFile extends Model
 
     /**
      * Belongs To A Torrent.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
     /**
      * Return Size In Human Format.
-     *
-     * @param null $bytes
-     * @param int  $precision
-     *
-     * @return string
      */
-    public function getSize($bytes = null, $precision = 2)
+    public function getSize(): string
     {
         $bytes = $this->size;
 

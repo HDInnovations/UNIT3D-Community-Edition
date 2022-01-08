@@ -52,10 +52,8 @@ class ApplicationUrlProof extends Model
 
     /**
      * Belongs To A Application.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function application()
+    public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Application::class);
     }

@@ -28,7 +28,7 @@ class AlbumController extends Controller
     /**
      * Display All Albums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\View
     {
         $albums = Album::withCount('images')->get();
 
@@ -93,10 +93,8 @@ class AlbumController extends Controller
 
     /**
      * Show A Album.
-     *
-     * @param \App\Models\Album $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(\App\Models\Album $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -107,13 +105,11 @@ class AlbumController extends Controller
     /**
      * Delete A Album.
      *
-     * @param \App\Models\Album $id
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, \App\Models\Album $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);

@@ -43,7 +43,7 @@ class AutoBonAllocation extends Command
      *
      * @return mixed
      */
-    public function handle(ByteUnits $byteUnits)
+    public function handle(ByteUnits $byteUnits): void
     {
         $dyingTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')

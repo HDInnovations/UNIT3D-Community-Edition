@@ -78,10 +78,8 @@ class MassActionController extends Controller
      * Mass Validate Unvalidated Users.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update()
+    public function update(): \Illuminate\Http\RedirectResponse
     {
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));

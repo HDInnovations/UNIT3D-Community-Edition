@@ -12,7 +12,7 @@ class AutoRecycleInvitesTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_invites')
             ->expectsOutput('Automated Purge Unaccepted Invites Command Complete')

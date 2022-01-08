@@ -45,7 +45,7 @@ class AutoGroup extends Command
      *
      * @return mixed
      */
-    public function handle(ByteUnits $byteUnits)
+    public function handle(ByteUnits $byteUnits): void
     {
         // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();

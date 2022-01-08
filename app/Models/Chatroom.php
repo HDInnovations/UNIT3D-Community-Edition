@@ -58,20 +58,16 @@ class Chatroom extends Model
 
     /**
      * A User Has Many Messages.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messages()
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
 
     /**
      * A Chat Room Has Many Users.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);
     }

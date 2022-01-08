@@ -31,10 +31,8 @@ class SendActivationMail implements ShouldQueue
 
     /**
      * The number of times the job may be attempted.
-     *
-     * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * SendActivationMail Constructor.
@@ -47,10 +45,8 @@ class SendActivationMail implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(\min(30 * $this->attempts(), 300));

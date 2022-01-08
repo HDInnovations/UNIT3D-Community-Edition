@@ -30,10 +30,8 @@ class NotifyUserTicketWasClosed
     /**
      * Handle the event.
      *
-     *
-     * @return void
      */
-    public function handle(TicketClosed $event)
+    public function handle(TicketClosed $event): void
     {
         //
     }

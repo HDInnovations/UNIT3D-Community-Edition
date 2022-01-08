@@ -19,10 +19,8 @@ class ApplicationUrlProofFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'application_id' => fn () => Application::factory()->create()->id,

@@ -70,12 +70,10 @@ trait Auditable
      * Generates the data to store.
      *
      * @param       $action
-     * @param array $old
-     * @param array $new
      *
      * @throws \JsonException
      */
-    protected static function generate($action, $old = [], $new = []): false|string
+    protected static function generate($action, array $old = [], array $new = []): false|string
     {
         $data = [];
         switch ($action) {

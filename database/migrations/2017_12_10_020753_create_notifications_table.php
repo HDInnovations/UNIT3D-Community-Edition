@@ -18,10 +18,8 @@ class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->char('id', 36)->primary();

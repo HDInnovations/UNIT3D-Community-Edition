@@ -25,7 +25,7 @@ class Ping implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $ping;
+    public array $ping;
 
     /**
      * Ping Constructor.
@@ -40,15 +40,13 @@ class Ping implements ShouldBroadcastNow
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PresenceChannel
     {
         return new PresenceChannel('chatroom.'.$this->room);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.ping';
     }

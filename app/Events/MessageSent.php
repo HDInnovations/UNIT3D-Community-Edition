@@ -51,17 +51,15 @@ class MessageSent implements ShouldBroadcastNow
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.message';
     }

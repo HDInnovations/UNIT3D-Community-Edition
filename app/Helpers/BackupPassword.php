@@ -20,10 +20,8 @@ class BackupPassword
 {
     /**
      * Path to .zip-file.
-     *
-     * @var string
      */
-    public $path;
+    public ?string $path;
 
     /**
      * The chosen password.

@@ -19,7 +19,7 @@ class HomeControllerTest extends TestCase
     }
 
     /** @test */
-    public function whenNotAuthenticatedHomepageRedirectsToLogin()
+    public function whenNotAuthenticatedHomepageRedirectsToLogin(): void
     {
         $response = $this->get('/');
 
@@ -27,7 +27,7 @@ class HomeControllerTest extends TestCase
     }
 
     /** @test */
-    public function whenAuthenticatedHomepageReturns200()
+    public function whenAuthenticatedHomepageReturns200(): void
     {
         $user = User::factory()->create();
 
@@ -56,7 +56,7 @@ class HomeControllerTest extends TestCase
     }
 
     /** @test */
-    public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep()
+    public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep(): void
     {
         $user = User::factory()->create([
             'twostep' => true,

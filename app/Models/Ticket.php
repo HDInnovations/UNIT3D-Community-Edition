@@ -37,7 +37,7 @@ class Ticket extends Model
             ->orWhereNull('reminded_at');
     }
 
-    public static function checkForStaleTickets()
+    public static function checkForStaleTickets(): void
     {
         $open_tickets = self::status('open')
             ->whereNotNull('staff_id')
@@ -50,10 +50,8 @@ class Ticket extends Model
 
     /**
      * Belongs To A User (Created).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -63,50 +61,40 @@ class Ticket extends Model
 
     /**
      * Belongs To A Staff User (Assigned).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staff()
+    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
 
     /**
      * Belongs To A Ticket Priority.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function priority()
+    public function priority(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TicketPriority::class);
     }
 
     /**
      * Belongs To A Ticket Category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TicketCategory::class);
     }
 
     /**
      * Has Many Ticket Attachments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function attachments()
+    public function attachments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TicketAttachment::class);
     }
 
     /**
      * Has Many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
     }
