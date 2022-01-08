@@ -110,7 +110,7 @@ class TorrentController extends Controller
     private static function anonymizeMediainfo($mediainfo): array|null
     {
         if ($mediainfo === null) {
-            return;
+            return null;
         }
 
         $completeNameI = \strpos($mediainfo, 'Complete name');
