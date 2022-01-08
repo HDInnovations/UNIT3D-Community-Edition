@@ -49,7 +49,7 @@ class TopicController extends Controller
     /**
      * Show The Topic.
      */
-    public function topic(Topic $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function topic(int $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);

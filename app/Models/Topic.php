@@ -104,8 +104,6 @@ class Topic extends Model
 
     /**
      * Does User Have Permission To View Topic.
-     *
-     * @return string
      */
     public function viewable()
     {
