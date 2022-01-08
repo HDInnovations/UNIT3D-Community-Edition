@@ -203,6 +203,7 @@ class PrivateMessageController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage(Request $request, PrivateMessage $id)

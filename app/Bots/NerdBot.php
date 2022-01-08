@@ -369,7 +369,7 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @param        $type
+     * @param $type
      *
      * @throws \Exception
      */

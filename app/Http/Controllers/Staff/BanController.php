@@ -43,6 +43,7 @@ class BanController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, User $username)

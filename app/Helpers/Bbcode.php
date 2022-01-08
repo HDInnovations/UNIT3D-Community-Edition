@@ -285,7 +285,7 @@ class Bbcode
     /**
      * Parses the BBCode string.
      *
-     * @param      $source
+     * @param $source
      */
     public function parse($source, bool $caseInsensitive = false): string
     {

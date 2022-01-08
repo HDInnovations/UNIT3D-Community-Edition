@@ -153,7 +153,7 @@ class CasinoBot
     /**
      * Process Message.
      *
-     * @param        $type
+     * @param $type
      *
      * @throws \Exception
      */

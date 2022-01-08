@@ -521,6 +521,7 @@ class RequestController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, TorrentRequest $id)
@@ -581,6 +582,7 @@ class RequestController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, TorrentRequest $id)

@@ -63,6 +63,7 @@ class AnnounceController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return string
      */
     public function index(Request $request, User $passkey)
@@ -519,9 +520,9 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param     $peers
-     * @param     $compact
-     * @param     $noPeerId
+     * @param $peers
+     * @param $compact
+     * @param $noPeerId
      */
     private function givePeers($peers, $compact, $noPeerId, int $filterFlag = FILTER_FLAG_IPV4): string|array
     {

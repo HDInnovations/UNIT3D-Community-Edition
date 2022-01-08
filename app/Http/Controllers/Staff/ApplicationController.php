@@ -56,6 +56,7 @@ class ApplicationController extends Controller
      *
      *
      * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function approve(Request $request, Application $id)

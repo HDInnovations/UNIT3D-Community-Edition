@@ -681,7 +681,7 @@ class User extends Authenticatable
     // Return the ratio after $size bytes would be downloaded, pretty formatted
     // as a string.
     /**
-     * @param      $size
+     * @param $size
      */
     public function ratioAfterSizeString($size, bool $freeleech = false): string
     {

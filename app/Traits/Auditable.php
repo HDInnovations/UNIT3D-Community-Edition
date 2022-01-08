@@ -69,7 +69,7 @@ trait Auditable
     /**
      * Generates the data to store.
      *
-     * @param       $action
+     * @param $action
      *
      * @throws \JsonException
      */
