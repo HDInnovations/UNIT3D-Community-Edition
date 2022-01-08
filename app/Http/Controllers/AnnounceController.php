@@ -65,7 +65,7 @@ class AnnounceController extends Controller
      * @throws \Exception
      * @return string
      */
-    public function index(Request $request, \App\Models\User $passkey)
+    public function index(Request $request, User $passkey)
     {
         try {
             /**

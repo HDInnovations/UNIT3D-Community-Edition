@@ -25,7 +25,7 @@ class ForumCategoryController extends Controller
     /**
      * Show The Forum Category.
      */
-    public function show(\App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

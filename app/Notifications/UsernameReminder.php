@@ -47,7 +47,7 @@ class UsernameReminder extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      */
-    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                     ->subject(\trans('common.your').' '.\config('app.name').' '.\trans('common.username'))

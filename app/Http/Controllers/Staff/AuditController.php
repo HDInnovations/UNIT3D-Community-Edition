@@ -37,9 +37,8 @@ class AuditController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(Request $request, \App\Models\Audit $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Audit $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $audit = Audit::findOrFail($id);

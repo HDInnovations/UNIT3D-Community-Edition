@@ -54,7 +54,6 @@ class ForumController extends Controller
 
     /**
      * Store A New Forum.
-     *
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -102,7 +101,7 @@ class ForumController extends Controller
     /**
      * Forum Edit Form.
      */
-    public function edit(Request $request, \App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -120,10 +119,8 @@ class ForumController extends Controller
 
     /**
      * Edit A Forum.
-     *
-     *
      */
-    public function update(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -171,9 +168,8 @@ class ForumController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(Request $request, \App\Models\Forum $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

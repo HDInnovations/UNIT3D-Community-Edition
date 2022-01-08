@@ -163,7 +163,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, \App\Models\Article $id)
+    public function article(Request $request, Article $id)
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -264,7 +264,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, \App\Models\Playlist $id)
+    public function playlist(Request $request, Playlist $id)
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -365,7 +365,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, \App\Models\Torrent $id)
+    public function torrent(Request $request, Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -471,7 +471,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, \App\Models\TorrentRequest $id)
+    public function request(Request $request, TorrentRequest $id)
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -577,7 +577,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function ticket(Request $request, \App\Models\TorrentRequest $id)
+    public function ticket(Request $request, TorrentRequest $id)
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -628,7 +628,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(Request $request, \App\Models\Torrent $id)
+    public function quickthanks(Request $request, Torrent $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();

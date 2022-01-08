@@ -36,7 +36,7 @@ class ReportController extends Controller
     /**
      * Show A Report.
      */
-    public function show(\App\Models\Report $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Report $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $report = Report::findOrFail($id);
 
@@ -48,7 +48,7 @@ class ReportController extends Controller
     /**
      * Update A Report.
      */
-    public function update(Request $request, \App\Models\Report $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Report $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 

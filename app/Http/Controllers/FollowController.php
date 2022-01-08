@@ -30,7 +30,7 @@ class FollowController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, \App\Models\User $username)
+    public function store(Request $request, User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -62,7 +62,7 @@ class FollowController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, \App\Models\User $username)
+    public function destroy(Request $request, User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

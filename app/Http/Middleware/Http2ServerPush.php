@@ -111,10 +111,8 @@ class Http2ServerPush
 
     /**
      * Get all nodes we are interested in pushing.
-     *
-     *
      */
-    protected function fetchLinkableNodes(\Illuminate\Http\Response $response): \Illuminate\Support\Collection
+    protected function fetchLinkableNodes(Response $response): \Illuminate\Support\Collection
     {
         $crawler = $this->getCrawler($response);
 

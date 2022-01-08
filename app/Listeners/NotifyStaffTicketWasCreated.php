@@ -29,7 +29,6 @@ class NotifyStaffTicketWasCreated
 
     /**
      * Handle the event.
-     *
      */
     public function handle(TicketCreated $event): void
     {

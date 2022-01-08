@@ -58,7 +58,7 @@ class Chatter implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\PrivateChannel
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('chatter.'.$this->target);
     }

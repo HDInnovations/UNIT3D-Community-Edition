@@ -47,7 +47,7 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      */
-    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->from(\config('auth.verificationEmailFrom'), \config('auth.verificationEmailFromName'))

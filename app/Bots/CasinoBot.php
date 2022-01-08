@@ -83,7 +83,6 @@ class CasinoBot
      *
      *
      * @throws \Exception
-     *
      */
     public function putDonate(int $amount = 0, string $note = ''): string
     {
@@ -124,7 +123,6 @@ class CasinoBot
      *
      *
      * @throws \Exception
-     *
      */
     public function getDonations(string $duration = 'default'): string
     {
@@ -158,7 +156,6 @@ class CasinoBot
      * @param        $type
      *
      * @throws \Exception
-     *
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {

@@ -142,8 +142,6 @@ class VendorCleanup extends Command
 
     /**
      * Recursively traverses the directory tree.
-     *
-     *
      */
     protected function expandDirectoryTree(string $dir): array
     {
@@ -188,8 +186,6 @@ class VendorCleanup extends Command
 
     /**
      * Prepare word.
-     *
-     *
      */
     protected function prepareWord(string $matches): string
     {

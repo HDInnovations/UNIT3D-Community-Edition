@@ -49,7 +49,7 @@ class TopicController extends Controller
     /**
      * Show The Topic.
      */
-    public function topic(\App\Models\Topic $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function topic(Topic $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -94,7 +94,7 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      */
-    public function addForm(Request $request, \App\Models\Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function addForm(Request $request, Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $category = Forum::findOrFail($id);
@@ -118,7 +118,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function newTopic(Request $request, \App\Models\Forum $id)
+    public function newTopic(Request $request, Forum $id)
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
@@ -223,7 +223,7 @@ class TopicController extends Controller
     /**
      * Topic Edit Form.
      */
-    public function editForm(\App\Models\Topic $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(Topic $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
@@ -233,10 +233,8 @@ class TopicController extends Controller
 
     /**
      * Edit Topic In The Forum.
-     *
-     *
      */
-    public function editTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function editTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -254,10 +252,8 @@ class TopicController extends Controller
 
     /**
      * Close The Topic.
-     *
-     *
      */
-    public function closeTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function closeTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -272,10 +268,8 @@ class TopicController extends Controller
 
     /**
      * Open The Topic.
-     *
-     *
      */
-    public function openTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function openTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -293,9 +287,8 @@ class TopicController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function deleteTopic(Request $request, \App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function deleteTopic(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -311,10 +304,8 @@ class TopicController extends Controller
 
     /**
      * Pin The Topic.
-     *
-     *
      */
-    public function pinTopic(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function pinTopic(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -326,10 +317,8 @@ class TopicController extends Controller
 
     /**
      * Unpin The Topic.
-     *
-     *
      */
-    public function unpinTopic(\App\Models\Topic $id): \Illuminate\Http\RedirectResponse
+    public function unpinTopic(Topic $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;

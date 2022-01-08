@@ -55,7 +55,7 @@ class TorrentController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index(): \App\Http\Resources\TorrentsResource
+    public function index(): TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
             ->orderBy('sticky', 'desc')
@@ -296,10 +296,8 @@ class TorrentController extends BaseController
 
     /**
      * Display the specified resource.
-     *
-     *
      */
-    public function show(int $id): \App\Http\Resources\TorrentResource
+    public function show(int $id): TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -311,7 +309,7 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      */
-    public function filter(Request $request): \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
+    public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])

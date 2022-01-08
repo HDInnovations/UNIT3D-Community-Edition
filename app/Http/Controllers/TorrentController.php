@@ -163,7 +163,7 @@ class TorrentController extends Controller
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \ReflectionException
      */
-    public function torrent(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrent(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -234,7 +234,7 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      */
-    public function editForm(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -258,7 +258,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, \App\Models\Torrent $id)
+    public function edit(Request $request, Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -441,7 +441,7 @@ class TorrentController extends Controller
     /**
      * Display Peers Of A Torrent.
      */
-    public function peers(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function peers(Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -452,7 +452,7 @@ class TorrentController extends Controller
     /**
      * Display History Of A Torrent.
      */
-    public function history(\App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function history(Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
@@ -483,7 +483,6 @@ class TorrentController extends Controller
 
     /**
      * Preview torrent description.
-     *
      */
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -722,7 +721,7 @@ class TorrentController extends Controller
     /**
      * Download Check.
      */
-    public function downloadCheck(Request $request, \App\Models\Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function downloadCheck(Request $request, Torrent $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();
@@ -733,7 +732,7 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      */
-    public function download(Request $request, \App\Models\Torrent $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function download(Request $request, Torrent $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $user = $request->user();
         if (! $user && $rsskey) {
@@ -797,7 +796,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, \App\Models\Torrent $id)
+    public function reseedTorrent(Request $request, Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

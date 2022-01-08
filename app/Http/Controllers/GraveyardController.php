@@ -36,7 +36,7 @@ class GraveyardController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, \App\Models\Torrent $id)
+    public function store(Request $request, Torrent $id)
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
@@ -79,7 +79,6 @@ class GraveyardController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

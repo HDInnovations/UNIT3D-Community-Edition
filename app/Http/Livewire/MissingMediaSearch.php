@@ -11,10 +11,15 @@ class MissingMediaSearch extends Component
     use WithPagination;
 
     public array $categories = [];
+
     public array $types = [];
+
     public array $resolutions = [];
+
     public int $perPage = 50;
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
 
     protected $queryString = [

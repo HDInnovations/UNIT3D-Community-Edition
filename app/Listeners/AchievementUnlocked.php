@@ -29,7 +29,6 @@ class AchievementUnlocked
 
     /**
      * Handle the event.
-     *
      */
     public function handle(Unlocked $unlocked): void
     {

@@ -29,7 +29,6 @@ class NotifyUserTicketWasAssigned
 
     /**
      * Handle the event.
-     *
      */
     public function handle(TicketAssigned $event): void
     {

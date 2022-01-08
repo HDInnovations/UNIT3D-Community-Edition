@@ -98,8 +98,6 @@ class Message extends Model
 
     /**
      * Set The Chat Message After Its Been Purified.
-     *
-     *
      */
     public function setMessageAttribute(string $value): void
     {

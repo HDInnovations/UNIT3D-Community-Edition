@@ -53,7 +53,7 @@ class SubtitleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(\App\Models\Torrent $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Torrent $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($torrentId);
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
@@ -146,7 +146,7 @@ class SubtitleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\Subtitle $id)
+    public function update(Request $request, Subtitle $id)
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -176,9 +176,8 @@ class SubtitleController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(Request $request, \App\Models\Subtitle $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -198,7 +197,7 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      */
-    public function download(Request $request, \App\Models\Subtitle $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
+    public function download(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

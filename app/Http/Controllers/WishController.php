@@ -33,7 +33,7 @@ class WishController extends Controller
     /**
      * Get A Users Wishlist.
      */
-    public function index(Request $request, \App\Models\User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
@@ -98,8 +98,6 @@ class WishController extends Controller
 
     /**
      * Delete A Wish.
-     *
-     *
      */
     public function destroy(Request $request, \App\Models\Wish $id): \Illuminate\Http\RedirectResponse
     {

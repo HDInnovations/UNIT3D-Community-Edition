@@ -45,7 +45,7 @@ class BanController extends Controller
      * @throws \Exception
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, \App\Models\User $username)
+    public function store(Request $request, User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -90,7 +90,7 @@ class BanController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\User $username)
+    public function update(Request $request, User $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();

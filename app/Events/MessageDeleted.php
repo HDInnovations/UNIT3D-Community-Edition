@@ -25,6 +25,7 @@ class MessageDeleted implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
+
     /**
      * Message details.
      *
@@ -43,7 +44,7 @@ class MessageDeleted implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\PresenceChannel
+    public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 

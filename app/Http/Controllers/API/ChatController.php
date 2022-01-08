@@ -125,7 +125,7 @@ class ChatController extends Controller
         return ChatMessageResource::collection($this->chatRepository->botMessages($this->authFactory->user()->id, $bot->id));
     }
 
-    public function createMessage(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool|\App\Http\Resources\ChatMessageResource
+    public function createMessage(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool|ChatMessageResource
     {
         $user = $this->authFactory->user();
 

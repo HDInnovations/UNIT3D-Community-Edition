@@ -88,7 +88,7 @@ class ArticleController extends Controller
     /**
      * Article Edit Form.
      */
-    public function edit(\App\Models\Article $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Article $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $article = Article::findOrFail($id);
 
@@ -101,7 +101,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\Article $id)
+    public function update(Request $request, Article $id)
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -141,9 +141,8 @@ class ArticleController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(\App\Models\Article $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::with('comments')->findOrFail($id);
         foreach ($article->comments as $comment) {

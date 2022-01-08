@@ -114,8 +114,6 @@ class Language
 
     /**
      * Add names to an array of language codes as [$language => $code].
-     *
-     *
      */
     public static function codes(array $langs): array
     {
@@ -145,8 +143,6 @@ class Language
 
     /**
      * Returns the url to set up language and return back.
-     *
-     *
      */
     public static function back(string $code): string
     {
@@ -155,8 +151,6 @@ class Language
 
     /**
      * Returns the url to set up language and return to url('/').
-     *
-     *
      */
     public static function home(string $code): string
     {
@@ -165,8 +159,6 @@ class Language
 
     /**
      * Returns the language code.
-     *
-     *
      */
     public static function getCode(string $name = 'default'): string
     {
@@ -179,8 +171,6 @@ class Language
 
     /**
      * Returns the language long code.
-     *
-     *
      */
     public static function getLongCode(string $short = 'default'): string
     {
@@ -204,8 +194,6 @@ class Language
 
     /**
      * Returns the language short code.
-     *
-     *
      */
     public static function getShortCode(string $long = 'default'): string
     {
@@ -231,8 +219,6 @@ class Language
 
     /**
      * Returns the language name.
-     *
-     *
      */
     public static function getName(string $code = 'default'): string
     {

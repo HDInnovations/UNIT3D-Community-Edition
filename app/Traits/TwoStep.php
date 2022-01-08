@@ -111,7 +111,7 @@ trait TwoStep
      *
      * @throws \Exception
      */
-    private function checkTwoStepAuthStatus(int $userId): \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
+    private function checkTwoStepAuthStatus(int $userId): TwoStepAuth|\Illuminate\Database\Eloquent\Model
     {
         return TwoStepAuth::firstOrCreate(
             [

@@ -74,7 +74,7 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      */
-    public function edit(\App\Models\Page $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Page $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 
@@ -87,7 +87,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\Page $id)
+    public function update(Request $request, Page $id)
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
@@ -116,9 +116,8 @@ class PageController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(\App\Models\Page $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Page $id): \Illuminate\Http\RedirectResponse
     {
         Page::findOrFail($id)->delete();
 

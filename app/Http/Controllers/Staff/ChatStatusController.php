@@ -78,7 +78,7 @@ class ChatStatusController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\ChatStatus $id)
+    public function update(Request $request, ChatStatus $id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->name = $request->input('name');
@@ -107,9 +107,8 @@ class ChatStatusController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(\App\Models\ChatStatus $id): \Illuminate\Http\RedirectResponse
+    public function destroy(ChatStatus $id): \Illuminate\Http\RedirectResponse
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();

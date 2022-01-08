@@ -60,7 +60,6 @@ class PlaylistTorrentController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

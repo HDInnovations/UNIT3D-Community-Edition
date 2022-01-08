@@ -74,7 +74,7 @@ class TypeController extends Controller
     /**
      * Type Edit Form.
      */
-    public function edit(\App\Models\Type $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Type $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $type = Type::findOrFail($id);
 
@@ -87,7 +87,7 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\Type $id)
+    public function update(Request $request, Type $id)
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
@@ -116,9 +116,8 @@ class TypeController extends Controller
      *
      *
      * @throws \Exception
-     *
      */
-    public function destroy(\App\Models\Type $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Type $id): \Illuminate\Http\RedirectResponse
     {
         $type = Type::findOrFail($id);
         $type->delete();

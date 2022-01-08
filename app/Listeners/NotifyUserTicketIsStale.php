@@ -30,7 +30,6 @@ class NotifyUserTicketIsStale
 
     /**
      * Handle the event.
-     *
      */
     public function handle(TicketWentStale $event): void
     {

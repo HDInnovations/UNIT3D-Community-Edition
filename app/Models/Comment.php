@@ -113,8 +113,6 @@ class Comment extends Model
 
     /**
      * Set The Comments Content After Its Been Purified.
-     *
-     *
      */
     public function setContentAttribute(string $value): void
     {
