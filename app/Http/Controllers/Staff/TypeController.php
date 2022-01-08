@@ -43,11 +43,8 @@ class TypeController extends Controller
 
     /**
      * Store A New Type.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $type = new Type();
         $type->name = $request->input('name');

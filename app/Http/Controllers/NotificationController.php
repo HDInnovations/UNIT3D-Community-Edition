@@ -34,7 +34,6 @@ class NotificationController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     *
      * @throws \Throwable
      */
     public function faceted(Request $request): string
@@ -141,11 +140,8 @@ class NotificationController extends Controller
 
     /**
      * Set A Notification To Read.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
@@ -167,7 +163,6 @@ class NotificationController extends Controller
 
     /**
      * Mass Update All Notification's To Read.
-     *
      *
      * @throws \Exception
      */

@@ -55,10 +55,8 @@ class ApplicationController extends Controller
      * Approve A Application.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve(int $request, int $id)
+    public function approve(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
@@ -105,10 +103,8 @@ class ApplicationController extends Controller
 
     /**
      * Reject A Application.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request, int $id)
+    public function reject(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 

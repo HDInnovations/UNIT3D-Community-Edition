@@ -69,18 +69,15 @@ class TorrentController extends Controller
     /**
      * Displays Torrent List View.
      */
-    public function torrents(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrents(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('torrent.torrents');
     }
 
     /**
      * Torrent Similar Results.
-     *
-     * @param $categoryId
-     * @param $tmdbId
      */
-    public function similar($categoryId, $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function similar(int $categoryId, int $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::where('category_id', '=', $categoryId)
             ->where('tmdb', '=', $tmdbId)
@@ -109,12 +106,8 @@ class TorrentController extends Controller
 
     /**
      * Anonymize A Torrent Media Info.
-     *
-     * @param $mediainfo
-     *
-     * @return array
      */
-    private static function anonymizeMediainfo($mediainfo)
+    private static function anonymizeMediainfo($mediainfo): array|null
     {
         if ($mediainfo === null) {
             return;
@@ -138,8 +131,6 @@ class TorrentController extends Controller
 
     /**
      * Parse Torrent Keywords.
-     *
-     * @param $text
      */
     private static function parseKeywords($text): array
     {
@@ -161,6 +152,7 @@ class TorrentController extends Controller
      * @throws \JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \ReflectionException
+     * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
     public function torrent(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -253,10 +245,8 @@ class TorrentController extends Controller
 
     /**
      * Edit A Torrent.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -362,10 +352,7 @@ class TorrentController extends Controller
     /**
      * Delete A Torrent.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTorrent(Request $request)
     {
@@ -500,11 +487,8 @@ class TorrentController extends Controller
 
     /**
      * Upload A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function upload(Request $request)
+    public function upload(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -790,10 +774,8 @@ class TorrentController extends Controller
 
     /**
      * Reseed Request A Torrent.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, int $id)
+    public function reseedTorrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

@@ -119,11 +119,8 @@ class RequestController extends Controller
 
     /**
      * Store A New Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function addrequest(Request $request)
+    public function addrequest(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

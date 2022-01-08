@@ -45,11 +45,8 @@ class ChatRoomController extends Controller
 
     /**
      * Store A New Chatroom.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $chatroom = new Chatroom();
         $chatroom->name = $request->input('name');
@@ -71,10 +68,8 @@ class ChatRoomController extends Controller
 
     /**
      * Update A Chatroom.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');

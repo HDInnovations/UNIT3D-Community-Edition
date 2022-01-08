@@ -62,11 +62,8 @@ class PlaylistController extends Controller
 
     /**
      * Store A New Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 
@@ -115,10 +112,8 @@ class PlaylistController extends Controller
 
     /**
      * Show A Playlist.
-     *
-     * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -159,10 +154,8 @@ class PlaylistController extends Controller
 
     /**
      * Show Playlist Update Form.
-     *
-     * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -174,12 +167,8 @@ class PlaylistController extends Controller
 
     /**
      * Update A Playlist.
-     *
-     * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -222,11 +211,9 @@ class PlaylistController extends Controller
     /**
      * Delete A Playlist.
      *
-     * @param \App\Playlist $id
-     *
      * @throws \Exception
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::with('torrents')->findOrFail($id);
@@ -245,10 +232,8 @@ class PlaylistController extends Controller
 
     /**
      * Download All Playlist Torrents.
-     *
-     * @param $id
      */
-    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadPlaylist(int $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);

@@ -66,10 +66,9 @@ class NoteController extends Controller
     /**
      * Delete A User Note.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(Note $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

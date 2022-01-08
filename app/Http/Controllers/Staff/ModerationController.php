@@ -124,11 +124,8 @@ class ModerationController extends Controller
 
     /**
      * Reject A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request)
+    public function reject(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',

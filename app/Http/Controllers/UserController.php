@@ -290,11 +290,8 @@ class UserController extends Controller
 
     /**
      * User TwoStep Auth.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeTwoStep(Request $request)
+    protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->getMethod() == 'GET') {
             return \redirect()->route('user_security', ['username' => $request->user()->username]);

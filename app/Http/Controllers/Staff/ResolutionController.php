@@ -40,11 +40,8 @@ class ResolutionController extends Controller
 
     /**
      * Store A New Resolution.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $resolution = new Resolution();
         $resolution->name = $request->input('name');
@@ -70,10 +67,8 @@ class ResolutionController extends Controller
 
     /**
      * Resolution Edit Form.
-     *
-     * @param $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $resolution = Resolution::findOrFail($id);
 
@@ -82,12 +77,8 @@ class ResolutionController extends Controller
 
     /**
      * Edit A Resolution.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');
@@ -114,11 +105,9 @@ class ResolutionController extends Controller
     /**
      * Delete A Resolution.
      *
-     * @param $id
-     *
      * @throws \Exception
      */
-    public function destroy($id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();

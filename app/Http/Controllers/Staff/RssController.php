@@ -228,7 +228,6 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     *
      * @throws \Exception
      */
     public function destroy(int $id): \Illuminate\Http\Response

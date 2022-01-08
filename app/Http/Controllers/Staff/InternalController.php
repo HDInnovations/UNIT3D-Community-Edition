@@ -124,10 +124,8 @@ class InternalController extends Controller
 
     /**
      * Delete A Internal Group.
-     *
-     * @param $commentId
      */
-    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $internal = Internal::findOrFail($id);

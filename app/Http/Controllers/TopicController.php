@@ -94,7 +94,7 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      */
-    public function addForm(Request $request, Forum $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function addForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $category = Forum::findOrFail($id);
@@ -114,11 +114,8 @@ class TopicController extends Controller
 
     /**
      * Create A New Topic In The Forum.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function newTopic(Request $request, Forum $id)
+    public function newTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
@@ -223,7 +220,7 @@ class TopicController extends Controller
     /**
      * Topic Edit Form.
      */
-    public function editForm(Topic $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();

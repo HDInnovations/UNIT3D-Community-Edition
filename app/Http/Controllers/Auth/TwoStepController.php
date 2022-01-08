@@ -145,12 +145,9 @@ class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function verify(Request $request)
+    public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);

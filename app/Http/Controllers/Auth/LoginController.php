@@ -66,7 +66,7 @@ class LoginController extends Controller
         }
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $user): \Illuminate\Http\RedirectResponse
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));

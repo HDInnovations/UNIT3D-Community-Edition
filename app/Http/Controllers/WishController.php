@@ -51,12 +51,9 @@ class WishController extends Controller
     /**
      * Add New Wish.
      *
-     *
      * @throws \JsonException
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         if ($request->get('tmdb') === 0) {

@@ -39,11 +39,8 @@ class MediaLanguageController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $mediaLanguage = new MediaLanguage();
         $mediaLanguage->name = $request->input('name');
@@ -77,11 +74,8 @@ class MediaLanguageController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, MediaLanguage $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->name = $request->input('name');
@@ -106,10 +100,9 @@ class MediaLanguageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(MediaLanguage $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->delete();

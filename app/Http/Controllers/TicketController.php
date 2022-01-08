@@ -25,7 +25,7 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    final public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return \view('ticket.index');
     }
@@ -101,14 +101,6 @@ class TicketController extends Controller
             'user'   => $user,
             'ticket' => $ticket,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    final public function edit(int $id): void
-    {
-        //
     }
 
     /**

@@ -46,11 +46,8 @@ class PostController extends Controller
 
     /**
      * Store A New Post To A Topic.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, Topic $id)
+    public function reply(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);

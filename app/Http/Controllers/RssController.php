@@ -139,7 +139,6 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     *
      * @throws \Exception
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
@@ -406,7 +405,6 @@ class RssController extends Controller
 
     /**
      * Remove the specified RSS resource from storage.
-     *
      *
      * @throws \Exception
      */

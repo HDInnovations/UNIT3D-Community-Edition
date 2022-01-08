@@ -68,12 +68,9 @@ class InviteController extends Controller
     /**
      * Send Invite.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
         $user = $request->user();
@@ -131,10 +128,8 @@ class InviteController extends Controller
 
     /**
      * Resend Invite.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function send(Request $request, int $id)
+    public function send(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);

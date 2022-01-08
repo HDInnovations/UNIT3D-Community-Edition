@@ -63,11 +63,8 @@ class SubtitleController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $subtitleFile = $request->file('subtitle_file');
@@ -142,11 +139,8 @@ class SubtitleController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Subtitle $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -174,10 +168,9 @@ class SubtitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $subtitle = Subtitle::findOrFail($id);
 
@@ -197,7 +190,7 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      */
-    public function download(Request $request, Subtitle $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
+    public function download(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

@@ -24,11 +24,9 @@ class BackupPassword
     public ?string $path;
 
     /**
-     * The chosen password.
-     *
-     * @var string
+     * The chosen password
      */
-    protected $password;
+    protected string $password;
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
@@ -61,9 +59,7 @@ class BackupPassword
         $zipArchive->open($path, ZipArchive::OVERWRITE);
         $zipArchive->addFile($path, 'backup.zip');
         $zipArchive->setPassword($this->password);
-        Collection::times($zipArchive->numFiles, function ($i) use ($zipArchive, $encryption) {
-            $zipArchive->setEncryptionIndex($i - 1, $encryption);
-        });
+        Collection::times($zipArchive->numFiles, fn ($i) => $zipArchive->setEncryptionIndex($i - 1, $encryption));
         $zipArchive->close();
 
         $this->path = $path;

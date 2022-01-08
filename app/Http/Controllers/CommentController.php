@@ -55,12 +55,8 @@ class CommentController extends Controller
 
     /**
      * Add A Comment To A Collection.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function collection(Request $request, $id)
+    public function collection(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $collection = Collection::findOrFail($id);
         $user = $request->user();
@@ -159,10 +155,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Article.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, int $id)
+    public function article(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -259,11 +253,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, Playlist $id)
+    public function playlist(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -703,12 +694,8 @@ class CommentController extends Controller
 
     /**
      * Edit A Comment.
-     *
-     * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editComment(Request $request, $commentId)
+    public function editComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
@@ -732,10 +719,8 @@ class CommentController extends Controller
 
     /**
      * Delete A Comment.
-     *
-     * @param $commentId
      */
-    public function deleteComment(Request $request, $commentId): \Illuminate\Http\RedirectResponse
+    public function deleteComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);

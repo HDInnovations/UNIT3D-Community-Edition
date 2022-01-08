@@ -193,10 +193,8 @@ class BonusController extends Controller
 
     /**
      * Exchange Points For A Item.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function exchange(Request $request, int $id)
+    public function exchange(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -283,11 +281,8 @@ class BonusController extends Controller
 
     /**
      * Gift Points To A User.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function sendGift(Request $request)
+    public function sendGift(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -422,11 +417,8 @@ class BonusController extends Controller
 
     /**
      * Tip Points To A Poster.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipPoster(Request $request)
+    public function tipPoster(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

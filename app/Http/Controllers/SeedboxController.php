@@ -38,11 +38,8 @@ class SeedboxController extends Controller
 
     /**
      * Store A Seedbox.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function store(Request $request)
+    protected function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -69,7 +66,6 @@ class SeedboxController extends Controller
 
     /**
      * Delete A Seedbox.
-     *
      *
      * @throws \Exception
      */

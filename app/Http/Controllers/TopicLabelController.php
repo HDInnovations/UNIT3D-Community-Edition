@@ -36,7 +36,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Denied Label.
      */
-    public function deny(Topic $id): \Illuminate\Http\RedirectResponse
+    public function deny(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->denied = $topic->denied == 0 ? '1' : '0';
@@ -49,7 +49,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Solved Label.
      */
-    public function solve(Topic $id): \Illuminate\Http\RedirectResponse
+    public function solve(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->solved = $topic->solved == 0 ? '1' : '0';
@@ -62,7 +62,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Invalid Label.
      */
-    public function invalid(Topic $id): \Illuminate\Http\RedirectResponse
+    public function invalid(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->invalid = $topic->invalid == 0 ? '1' : '0';
@@ -75,7 +75,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Bug Label.
      */
-    public function bug(Topic $id): \Illuminate\Http\RedirectResponse
+    public function bug(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->bug = $topic->bug == 0 ? '1' : '0';
@@ -88,7 +88,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Suggestion Label.
      */
-    public function suggest(Topic $id): \Illuminate\Http\RedirectResponse
+    public function suggest(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->suggestion = $topic->suggestion == 0 ? '1' : '0';
@@ -101,7 +101,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Implemented Label.
      */
-    public function implement(Topic $id): \Illuminate\Http\RedirectResponse
+    public function implement(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->implemented = $topic->implemented == 0 ? '1' : '0';
