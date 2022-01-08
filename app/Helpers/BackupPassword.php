@@ -24,7 +24,7 @@ class BackupPassword
     public ?string $path;
 
     /**
-     * The chosen password
+     * The chosen password.
      */
     protected string $password;
 
