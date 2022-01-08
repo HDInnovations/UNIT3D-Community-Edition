@@ -140,9 +140,6 @@ class Forum extends Model
 
     /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
-     *
-     * @param $poster
-     * @param $topic
      */
     public function notifySubscribers($poster, $topic): void
     {
@@ -162,9 +159,6 @@ class Forum extends Model
 
     /**
      * Notify Staffers When New Staff Topic Is Made.
-     *
-     * @param $poster
-     * @param $topic
      */
     public function notifyStaffers($poster, $topic): void
     {
@@ -189,10 +183,8 @@ class Forum extends Model
 
     /**
      * Returns A Table With The Forums In The Category.
-     *
-     * @param $forumId
      */
-    public function getForumsInCategoryById($forumId): string
+    public function getForumsInCategoryById(int $forumId): string
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
@@ -207,10 +199,8 @@ class Forum extends Model
 
     /**
      * Count The Number Of Posts In The Forum.
-     *
-     * @param $forumId
      */
-    public function getPostCount($forumId): float|int
+    public function getPostCount(int $forumId): float|int
     {
         $topics = self::find($forumId)->topics;
         $count = 0;
@@ -223,10 +213,8 @@ class Forum extends Model
 
     /**
      * Count The Number Of Topics In The Forum.
-     *
-     * @param $forumId
      */
-    public function getTopicCount($forumId): string
+    public function getTopicCount(int $forumId): int
     {
         $forum = self::find($forumId);
 
@@ -236,7 +224,7 @@ class Forum extends Model
     /**
      * Returns The Permission Field.
      */
-    public function getPermission(): string
+    public function getPermission(): object
     {
         $group = \auth()->check() ? \auth()->user()->group : Group::where('slug', 'guest')->first();
 
