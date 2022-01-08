@@ -357,7 +357,7 @@ class Torrent extends Model
     /**
      * Set The Torrents MediaInfo After Its Been Purified.
      */
-    public function setMediaInfoAttribute(string $value): void
+    public function setMediaInfoAttribute(?string $value): void
     {
         $this->attributes['mediainfo'] = $value;
     }
