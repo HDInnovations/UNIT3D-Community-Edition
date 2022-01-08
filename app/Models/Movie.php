@@ -46,7 +46,7 @@ class Movie extends Model
         return $this->belongsToMany(Company::class);
     }
 
-    public function collection(): \Illuminate\Database\Query\Builder
+    public function collection(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Collection::class)->take(1);
     }
@@ -56,7 +56,7 @@ class Movie extends Model
         return $this->hasMany(Recommendation::class, 'movie_id', 'id');
     }
 
-    public function torrents(): \Illuminate\Database\Eloquent\Builder
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
             $q->where('movie_meta', '=', true);

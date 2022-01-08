@@ -26,7 +26,7 @@ class Season extends Model
     /**
      * Has Many Torrents.
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Builder
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q) {
             $q->where('tv_meta', '=', true);
@@ -38,7 +38,7 @@ class Season extends Model
         return $this->belongsTo(Tv::class);
     }
 
-    public function episodes(): \Illuminate\Database\Query\Builder
+    public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episode::class)
             ->orderBy('episode_number');

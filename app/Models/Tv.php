@@ -26,14 +26,14 @@ class Tv extends Model
     /**
      * Has Many Torrents.
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Builder
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
             $q->where('tv_meta', '=', true);
         });
     }
 
-    public function seasons(): \Illuminate\Database\Query\Builder
+    public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Season::class)
             ->orderBy('season_number');

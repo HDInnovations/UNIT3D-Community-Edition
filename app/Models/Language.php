@@ -21,9 +21,6 @@ class Language
 
     /**
      * Get single flags view.
-     *
-     *
-     * @return mixed
      */
     public static function flag(string $code = 'default'): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
@@ -39,9 +36,6 @@ class Language
 
     /**
      * Get country code based on locale.
-     *
-     *
-     * @return mixed
      */
     public static function country(string $locale = 'default'): string
     {
@@ -58,8 +52,6 @@ class Language
 
     /**
      * Get all flags view.
-     *
-     * @return mixed
      */
     public static function flags(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
