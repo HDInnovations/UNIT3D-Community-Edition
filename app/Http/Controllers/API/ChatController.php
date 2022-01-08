@@ -149,7 +149,7 @@ class ChatController extends Controller
         $botDirty = 0;
         $bots = \cache()->get('bots');
         if (! $bots || ! \is_array($bots) || \count($bots) < 1) {
-            $bots = Bot::where('active', '=', 1)->orderBy('position', 'asc')->get();
+            $bots = Bot::where('active', '=', 1)->orderBy('position')->get();
             $botDirty = 1;
         }
 

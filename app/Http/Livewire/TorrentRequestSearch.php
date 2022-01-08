@@ -134,7 +134,7 @@ class TorrentRequestSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->requestor, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username', 'ASC')->first();
+                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }

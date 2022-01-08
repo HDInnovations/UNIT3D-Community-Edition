@@ -31,7 +31,7 @@ class RssController extends Controller
      */
     public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
 
         return \view('Staff.rss.index', [
             'hash'       => $hash,

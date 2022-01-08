@@ -30,7 +30,7 @@ class Ticket extends Model
     public function scopeStale($query)
     {
         return $query->with(['comments' => function ($query) {
-            $query->orderBy('id', 'desc');
+            $query->orderByDesc('id');
         }, 'comments.user'])
             ->has('comments')
             ->where('reminded_at', '<', \strtotime('+ 3 days'))

@@ -218,7 +218,7 @@ class TorrentListSearch extends Component
                 $query->where('mediainfo', 'LIKE', '%'.$this->mediainfo.'%');
             })
             ->when($this->uploader, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->uploader.'%')->orderBy('username', 'ASC')->first();
+                $match = User::where('username', 'LIKE', '%'.$this->uploader.'%')->orderBy('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
@@ -361,7 +361,7 @@ class TorrentListSearch extends Component
                     $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', false)->where('seeder', '=', false)->where('seedtime', '=', '0');
                 });
             })
-            ->orderBy('sticky', 'desc')
+            ->orderByDesc('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

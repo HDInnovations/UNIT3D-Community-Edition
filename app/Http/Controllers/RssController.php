@@ -36,7 +36,7 @@ class RssController extends Controller
     {
         $user = $request->user();
 
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
         $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [

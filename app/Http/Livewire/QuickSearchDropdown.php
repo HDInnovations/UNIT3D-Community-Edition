@@ -23,7 +23,7 @@ class QuickSearchDropdown extends Component
             $search_results = Movie::query()
                 ->select(['id', 'poster', 'title', 'release_date'])
                 ->where('title', 'LIKE', '%'.$this->movie.'%')
-                ->orderBy('title', 'asc')
+                ->orderBy('title')
                 ->take(10)
                 ->get();
         }
@@ -32,7 +32,7 @@ class QuickSearchDropdown extends Component
             $search_results = Tv::query()
                 ->select(['id', 'poster', 'name', 'first_air_date'])
                 ->where('name', 'LIKE', '%'.$this->series.'%')
-                ->orderBy('name', 'asc')
+                ->orderBy('name')
                 ->take(10)
                 ->get();
         }
@@ -42,7 +42,7 @@ class QuickSearchDropdown extends Component
                 ->select(['id', 'still', 'name'])
                 ->whereNotNull('still')
                 ->where('name', 'LIKE', '%'.$this->person.'%')
-                ->orderBy('name', 'asc')
+                ->orderBy('name')
                 ->take(10)
                 ->get();
         }
