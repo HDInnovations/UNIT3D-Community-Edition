@@ -32,11 +32,8 @@ class GraveyardController extends Controller
 
     /**
      * Resurrect A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Torrent $id)
+    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

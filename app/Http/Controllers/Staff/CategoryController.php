@@ -97,7 +97,7 @@ class CategoryController extends Controller
     /**
      * Category Edit Form.
      */
-    public function edit(Category $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $category = Category::findOrFail($id);
 
@@ -110,7 +110,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Category $id)
+    public function update(Request $request, int $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -157,10 +157,9 @@ class CategoryController extends Controller
     /**
      * Destroy A Category.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(Category $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();

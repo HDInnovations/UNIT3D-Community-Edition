@@ -53,7 +53,7 @@ class SubtitleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Torrent $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(int $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($torrentId);
         $mediaLanguages = MediaLanguage::all()->sortBy('name');

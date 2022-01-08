@@ -23,7 +23,7 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Approved Label.
      */
-    public function approve(Topic $id): \Illuminate\Http\RedirectResponse
+    public function approve(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->approved = $topic->approved == 0 ? '1' : '0';

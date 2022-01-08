@@ -41,12 +41,9 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, User $username)
+    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -87,11 +84,8 @@ class BanController extends Controller
 
     /**
      * Unban A User (banned -> new_group).
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, User $username)
+    public function update(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();

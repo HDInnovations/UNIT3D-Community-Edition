@@ -63,7 +63,7 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      */
-    public function request(Request $request, TorrentRequest $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function request(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -212,7 +212,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      */
-    public function editRequestForm(Request $request, TorrentRequest $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editRequestForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -227,11 +227,8 @@ class RequestController extends Controller
 
     /**
      * Edit A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editrequest(Request $request, TorrentRequest $id)
+    public function editrequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -298,11 +295,8 @@ class RequestController extends Controller
 
     /**
      * Add Bounty To A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function addBonus(Request $request, TorrentRequest $id)
+    public function addBonus(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -362,11 +356,8 @@ class RequestController extends Controller
 
     /**
      * Fill A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function fillRequest(Request $request, TorrentRequest $id)
+    public function fillRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -407,11 +398,8 @@ class RequestController extends Controller
 
     /**
      * Approve A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function approveRequest(Request $request, TorrentRequest $id)
+    public function approveRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -483,11 +471,8 @@ class RequestController extends Controller
 
     /**
      * Reject A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function rejectRequest(Request $request, TorrentRequest $id)
+    public function rejectRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -519,12 +504,9 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteRequest(Request $request, TorrentRequest $id)
+    public function deleteRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -543,11 +525,8 @@ class RequestController extends Controller
 
     /**
      * Claim A Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function claimRequest(Request $request, TorrentRequest $id)
+    public function claimRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::with('user')->findOrFail($id);
@@ -580,12 +559,9 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function unclaimRequest(Request $request, TorrentRequest $id)
+    public function unclaimRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -619,7 +595,7 @@ class RequestController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      */
-    public function resetRequest(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
+    public function resetRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);

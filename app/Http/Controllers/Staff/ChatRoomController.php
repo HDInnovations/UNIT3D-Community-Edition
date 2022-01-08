@@ -72,10 +72,9 @@ class ChatRoomController extends Controller
     /**
      * Update A Chatroom.
      *
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Chatroom $id)
+    public function update(Request $request, int $id)
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');
@@ -98,10 +97,9 @@ class ChatRoomController extends Controller
     /**
      * Delete A Chatroom.
      *
-     *
      * @throws \Exception
      */
-    public function destroy(Chatroom $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();

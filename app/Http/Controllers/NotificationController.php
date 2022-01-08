@@ -130,7 +130,7 @@ class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      */
-    public function show(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
+    public function show(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -145,7 +145,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, \App\Models\Notification $id)
+    public function update(Request $request, int $id)
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
@@ -183,7 +183,7 @@ class NotificationController extends Controller
     /**
      * Delete A Notification.
      */
-    public function destroy(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 

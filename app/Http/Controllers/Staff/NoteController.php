@@ -35,11 +35,8 @@ class NoteController extends Controller
 
     /**
      * Store A New User Note.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, User $username)
+    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();

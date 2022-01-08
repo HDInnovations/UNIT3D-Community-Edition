@@ -42,7 +42,7 @@ class AchievementsController extends Controller
     /**
      * Show A Users Achievements.
      */
-    public function show(User $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
