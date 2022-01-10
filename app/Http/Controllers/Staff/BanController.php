@@ -14,8 +14,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Mail\BanUser;
-use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
@@ -23,7 +21,6 @@ use App\Notifications\UserBan;
 use App\Notifications\UserBanExpire;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
