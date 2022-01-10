@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +16,7 @@ class UserPreWarning extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public User $user, public Torrent $torrent)
     {
     }
 
