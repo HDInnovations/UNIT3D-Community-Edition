@@ -460,7 +460,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
+     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html).
      */
     private function sendAnnounceJob($queries, $user, $torrent): void
     {

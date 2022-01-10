@@ -88,7 +88,7 @@ class Post extends Model
     }
 
     /**
-     * Post Trimming.t
+     * Post Trimming.t.
      */
     public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {
