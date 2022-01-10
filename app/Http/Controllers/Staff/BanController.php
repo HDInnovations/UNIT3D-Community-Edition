@@ -19,6 +19,8 @@ use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
+use App\Notifications\UserBan;
+use App\Notifications\UserBanExpire;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -79,8 +81,9 @@ class BanController extends Controller
 
         $user->save();
         $ban->save();
-        // Send Email
-        Mail::to($user->email)->send(new BanUser($user->email, $ban));
+
+        // Send Notifications
+        $user->notify(new UserBan($ban));
 
         return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
@@ -126,8 +129,9 @@ class BanController extends Controller
 
         $user->save();
         $ban->save();
-        // Send Email
-        Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
+
+        // Send Notifications
+        $user->notify(new UserBanExpire());
 
         return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
