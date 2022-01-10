@@ -77,7 +77,7 @@ UNIT3D currently offers the following features:
 - A Redis server
 - MySQL 5.7 + or MariaDB 10.2 +
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
-- A decent dedicated server. Dont try running this on some crappy server!
+- A decent dedicated server. Dont try running this on some basic server if you plann to run a large tracker!
 <pre>
 Processor: Intel  Xeon E3-1245v2 -
 Cores/Threads: 4c/8t
@@ -128,11 +128,6 @@ Check it out here for more information: https://github.com/poppabear8883/UNIT3D-
 Use this command to generate demo users and torrents for testing purposes:
 
 `php artisan demo:seed`
-
-## <a name="docs"></a> 📖 Documentation (Out Of Date!)
-Repo - https://github.com/HDInnovations/UNIT3D-Community-Edition-Docs
-
-Site - https://hdinnovations.github.io/UNIT3D-Community-Edition-Docs/
 
 ## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
