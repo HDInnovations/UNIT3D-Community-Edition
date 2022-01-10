@@ -13,7 +13,7 @@ class ApplicationControllerTest extends TestCase
     /**
      * @test
      */
-    public function create_returns_an_ok_response()
+    public function create_returns_an_ok_response(): void
     {
         $this->get(route('application.create'))
             ->assertOk()
@@ -23,7 +23,7 @@ class ApplicationControllerTest extends TestCase
     /**
      * @test
      */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         config(['captcha.enabled' => false]);
 

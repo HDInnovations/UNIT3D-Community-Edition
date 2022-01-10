@@ -28,7 +28,6 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     *
      * @throws \Exception
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View

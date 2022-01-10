@@ -14,7 +14,7 @@ use Tests\TestCase;
 class FollowControllerTest extends TestCase
 {
     /** @test */
-    public function destroy_returns_an_ok_response()
+    public function destroy_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -37,7 +37,7 @@ class FollowControllerTest extends TestCase
     }
 
     /** @test */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

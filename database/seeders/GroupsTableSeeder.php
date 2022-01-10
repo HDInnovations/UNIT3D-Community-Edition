@@ -27,17 +27,15 @@ class GroupsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->groups as $group) {
             Group::updateOrCreate($group);
         }
     }
 
-    private function getGroups()
+    private function getGroups(): array
     {
         return [
             [

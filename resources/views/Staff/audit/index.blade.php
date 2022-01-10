@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Audits Log - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Audits Log - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Audits Log - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Audits Log - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.audits.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.audit-log')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.audit-log') }}</span>
         </a>
     </li>
 @endsection
@@ -24,20 +24,20 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2><i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.audit-log')</h2>
+            <h2><i class="{{ config('other.font-awesome') }} fa-list"></i> {{ __('staff.audit-log') }}</h2>
             <hr>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>@lang('common.no')</th>
-                        <th>@lang('common.action')</th>
+                        <th>{{ __('common.no') }}</th>
+                        <th>{{ __('common.action') }}</th>
                         <th>Model</th>
                         <th>Model ID</th>
                         <th>By</th>
                         <th>Changes</th>
-                        <th>@lang('user.created-on')</th>
-                        <th>@lang('common.action')</th>
+                        <th>{{ __('user.created-on') }}</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                     </thead>
                     <tbody>

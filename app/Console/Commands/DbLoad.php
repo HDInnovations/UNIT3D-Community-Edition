@@ -24,10 +24,8 @@ class DbLoad extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $input = \config('database.pristine-db-file');
         $db = \config('database.connections.mysql.database');

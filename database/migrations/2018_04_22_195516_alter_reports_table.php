@@ -19,10 +19,8 @@ class AlterReportsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
             // new columns

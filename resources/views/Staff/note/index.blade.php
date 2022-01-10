@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') Notes - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>{{ __('common.user') }} Notes - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="User Notes - @lang('staff.staff-dashboard')">
+    <meta name="description" content="User Notes - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.notes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.user-notes')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.user-notes') }}</span>
         </a>
     </li>
 @endsection
@@ -24,11 +24,11 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>@lang('staff.user-notes')</h2>
+            <h2>{{ __('staff.user-notes') }}</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>@lang('user.note') <span class="text-blue"><strong><i
+                    <h2>{{ __('user.note') }} <span class="text-blue"><strong><i
                                         class="{{ config('other.font-awesome') }} fa-note"></i>
                                 {{ $notes->count() }} </strong></span>
                     </h2>
@@ -36,11 +36,11 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>@lang('common.user')</th>
-                                <th>@lang('common.staff')</th>
-                                <th>@lang('common.message')</th>
-                                <th>@lang('user.created-on')</th>
-                                <th>@lang('common.delete')</th>
+                                <th>{{ __('common.user') }}</th>
+                                <th>{{ __('common.staff') }}</th>
+                                <th>{{ __('common.message') }}</th>
+                                <th>{{ __('user.created-on') }}</th>
+                                <th>{{ __('common.delete') }}</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -17,17 +17,15 @@ class BBCodeConverter
 {
     /**
      * BBCodeConverter Constructor.
-     *
-     * @param $text
      */
-    public function __construct(public $text)
+    public function __construct(public string $text)
     {
     }
 
     /**
      * @brief Replaces BBCode size.
      */
-    protected function replaceSize()
+    protected function replaceSize(): void
     {
         $this->text = \preg_replace_callback('#\[size=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/size\]#iu',
 
@@ -40,7 +38,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode center.
      */
-    protected function replaceCenter()
+    protected function replaceCenter(): void
     {
         $this->text = \preg_replace_callback('#\[center\]([\W\D\w\s]*?)\[/center\]#iu',
 
@@ -53,7 +51,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode bold.
      */
-    protected function replaceBold()
+    protected function replaceBold(): void
     {
         $this->text = \preg_replace_callback('#\[b\]([\W\D\w\s]*?)\[/b\]#iu',
 
@@ -66,7 +64,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode italic.
      */
-    protected function replaceItalic()
+    protected function replaceItalic(): void
     {
         $this->text = \preg_replace_callback('#\[i\]([\W\D\w\s]*?)\[/i\]#iu',
 
@@ -79,7 +77,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode underline. Hoedown support underline.
      */
-    protected function replaceUnderline()
+    protected function replaceUnderline(): void
     {
         $this->text = \preg_replace_callback('#\[u\]([\W\D\w\s]*?)\[/u\]#iu',
 
@@ -92,7 +90,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode strikethrough.
      */
-    protected function replaceStrikethrough()
+    protected function replaceStrikethrough(): void
     {
         $this->text = \preg_replace_callback('#\[s\]([\W\D\w\s]*?)\[/s\]#iu',
 
@@ -105,7 +103,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode lists.
      */
-    protected function replaceLists()
+    protected function replaceLists(): void
     {
         $this->text = \preg_replace_callback('#\[list(?P<type>=1)?\](?P<items>[\W\D\w\s]*?)\[/list\]#iu',
 
@@ -152,7 +150,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode tables.
      */
-    protected function replaceTables()
+    protected function replaceTables(): void
     {
         $replaceRow = function ($matches) {
             $columns = $matches['columns'];
@@ -202,7 +200,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode urls.
      */
-    protected function replaceUrls()
+    protected function replaceUrls(): void
     {
         $this->text = \preg_replace_callback('#\[url\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\]([\W\D\w\s]*?)\[/url\]#iu',
 
@@ -221,7 +219,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode images.
      */
-    protected function replaceImage()
+    protected function replaceImage(): void
     {
         $this->text = \preg_replace_callback('#\[img\]([\W\D\w\s]*?)\[/img\]#iu',
 
@@ -234,7 +232,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode images.
      */
-    protected function replaceImages()
+    protected function replaceImages(): void
     {
         $this->text = \preg_replace_callback('#\[img\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\[/img\]#iu',
 
@@ -247,7 +245,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode quotes.
      */
-    protected function replaceQuotes()
+    protected function replaceQuotes(): void
     {
         // Removes the inner quotes, leaving just one level.
         $this->text = \preg_replace('#\G(?<!^)(?>(\[quote\b[^]]*](?>[^[]++|\[(?!/?quote)|(?1))*\[/quote])|(?<!\[)(?>[^[]++|\[(?!/?quote))+\K)|\[quote\b[^]]*]\K#', '', $this->text);
@@ -268,7 +266,7 @@ class BBCodeConverter
     /**
      * @brief Replaces BBCode snippets.
      */
-    protected function replaceSnippets()
+    protected function replaceSnippets(): void
     {
         $this->text = \preg_replace_callback('#\[code\s*=?(?P<language>\w*)\](?P<snippet>[\W\D\w\s]*?)\[\/code\]#iu',
 
@@ -315,7 +313,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode spoiler.
      */
-    protected function replaceSpoilers()
+    protected function replaceSpoilers(): void
     {
         $this->text = \preg_replace_callback('#\[spoiler\](.*?)\[\/spoiler\]#ius',
 
@@ -328,7 +326,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode named spoiler.
      */
-    protected function replaceNamedSpoilers()
+    protected function replaceNamedSpoilers(): void
     {
         $this->text = \preg_replace_callback('#\[spoiler\=(.*?)\](.*?)\[\/spoiler\]#ius',
 
@@ -341,7 +339,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode color.
      */
-    protected function replaceColor()
+    protected function replaceColor(): void
     {
         $this->text = \preg_replace_callback('#\[color=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/color\]#iu',
 
@@ -354,7 +352,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode Video.
      */
-    protected function replaceVideo()
+    protected function replaceVideo(): void
     {
         $this->text = \preg_replace_callback('#\[video=[^\]]*.([\W\D\w\s][^\[]*)\[/video]#iu',
 
@@ -367,7 +365,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode Youtube.
      */
-    protected function replaceYoutube()
+    protected function replaceYoutube(): void
     {
         $this->text = \preg_replace_callback('#\[youtube\]([\W\D\w\s]*?)\[/youtube\]#iu',
 
@@ -380,7 +378,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode Alert.
      */
-    protected function replaceAlert()
+    protected function replaceAlert(): void
     {
         $this->text = \preg_replace_callback('#\[alert\]([\W\D\w\s]*?)\[/alert\]#iu',
 
@@ -393,7 +391,7 @@ class BBCodeConverter
     /**
      * @brief Replace BBCode Note.
      */
-    protected function replaceNote()
+    protected function replaceNote(): void
     {
         $this->text = \preg_replace_callback('#\[note\]([\W\D\w\s]*?)\[/note\]#iu',
 

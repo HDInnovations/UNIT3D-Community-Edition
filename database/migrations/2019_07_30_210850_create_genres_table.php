@@ -8,10 +8,8 @@ class CreateGenresTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->bigIncrements('id');

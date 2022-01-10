@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.album') - {{ config('other.title') }}</title>
+    <title>{{ __('common.album') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('common.album')">
+    <meta name="description" content="{{ __('common.album') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.gallery')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.gallery') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('albums.create', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $album->name }} @lang('common.album')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $album->name }} {{ __('common.album') }}</span>
         </a>
     </li>
 @endsection
@@ -29,10 +29,10 @@
                      src="{{ url('files/img/' . $album->cover_image) }}" height="175px" width="auto"
                      style="margin-right: 20px;">
                 <div class="media-body">
-                    <h2 class="media-heading">@lang('common.album') @lang('common.name'):</h2>
+                    <h2 class="media-heading">{{ __('common.album') }} {{ __('common.name') }}:</h2>
                     <p class="text-bold">{{ $album->name }}</p>
                     <div class="media">
-                        <h2 class="media-heading">@lang('common.album') @lang('common.description'):</h2>
+                        <h2 class="media-heading">{{ __('common.album') }} {{ __('common.description') }}:</h2>
                         <p class="text-bold">{{ $album->description }}</p>
                         @if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id &&
                             Carbon\Carbon::now()->lt($album->created_at->addDay())))
@@ -41,9 +41,9 @@
                                 @method('DELETE')
                                 <a href="{{ route('images.create', ['id' => $album->id]) }}">
                                     <button type="button"
-                                            class="btn btn-success btn-md">@lang('gallery.add-an-image-to') @lang('common.album')</button>
+                                            class="btn btn-success btn-md">{{ __('gallery.add-an-image-to') }} {{ __('common.album') }}</button>
                                 </a>
-                                <button type="submit" class="btn btn-md btn-danger">@lang('common.delete')</button>
+                                <button type="submit" class="btn btn-md btn-danger">{{ __('common.delete') }}</button>
                             </form>
                         @endif
                     </div>
@@ -60,7 +60,7 @@
                             <div class="caption text-center">
                                 <h4 class="label label-success">{{ $photo->type }}</h4>
                                 <br>
-                                <h4 class="badge badge-user"> @lang('gallery.uploaded-by')
+                                <h4 class="badge badge-user"> {{ __('gallery.uploaded-by') }}
                                     : {{ $photo->user->username }}</h4>
                                 <br>
                                 @if (auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)

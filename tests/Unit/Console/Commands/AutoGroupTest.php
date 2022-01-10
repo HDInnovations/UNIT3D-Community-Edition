@@ -12,7 +12,7 @@ class AutoGroupTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:group')
             ->expectsOutput('Automated User Group Command Complete')

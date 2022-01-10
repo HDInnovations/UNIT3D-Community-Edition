@@ -8,10 +8,8 @@ class UpdateWishesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('wishes', function (Blueprint $table) {
             $table->renameColumn('imdb', 'tmdb');

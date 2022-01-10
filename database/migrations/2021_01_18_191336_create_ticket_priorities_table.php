@@ -8,10 +8,8 @@ class CreateTicketPrioritiesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('ticket_priorities', function (Blueprint $table) {
             $table->id();

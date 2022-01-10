@@ -28,10 +28,8 @@ class InviteController extends Controller
 {
     /**
      * Invite Tree.
-     *
-     * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
@@ -70,12 +68,9 @@ class InviteController extends Controller
     /**
      * Send Invite.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
         $user = $request->user();
@@ -133,12 +128,8 @@ class InviteController extends Controller
 
     /**
      * Resend Invite.
-     *
-     * @param \App\Models\Invite $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function send(Request $request, $id)
+    public function send(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);

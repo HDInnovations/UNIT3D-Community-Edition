@@ -12,7 +12,7 @@ class AutoBonAllocationTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:bon_allocation')
             ->expectsOutput('Automated BON Allocation Command Complete')

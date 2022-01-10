@@ -50,10 +50,8 @@ class AutoRecycleClaimedTorrentRequests extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)

@@ -8,10 +8,8 @@ class CreatePersonSeasonTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('person_season', function (Blueprint $table) {
             $table->unsignedInteger('person_id');

@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('ticket.helpdesk') - {{ config('other.title') }}</title>
+    <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('tickets.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('ticket.helpdesk')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('ticket.helpdesk') }}</span>
         </a>
     </li>
 @endsection

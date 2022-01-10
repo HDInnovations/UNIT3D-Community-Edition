@@ -19,10 +19,8 @@ class AddBotIdToMessagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->integer('bot_id')->after('receiver_id')->unsigned()->nullable();

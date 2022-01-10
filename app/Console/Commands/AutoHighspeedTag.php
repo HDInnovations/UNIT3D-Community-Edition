@@ -40,10 +40,8 @@ class AutoHighspeedTag extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         DB::statement('UPDATE torrents SET highspeed = 0');
 

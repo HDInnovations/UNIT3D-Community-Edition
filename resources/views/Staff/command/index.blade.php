@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Commands - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Commands - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Commands - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Commands - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">

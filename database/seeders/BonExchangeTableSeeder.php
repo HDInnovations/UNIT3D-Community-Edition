@@ -28,17 +28,15 @@ class BonExchangeTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->bonExchanges as $be) {
             BonExchange::updateOrCreate($be);
         }
     }
 
-    private function getBonExchanges()
+    private function getBonExchanges(): array
     {
         return [
             [

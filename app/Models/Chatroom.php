@@ -18,29 +18,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-/**
- * App\Models\Chatroom.
- *
- * @property int                             $id
- * @property string                          $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
- * @property-read int|null $messages_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
- * @property-read int|null $users_count
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class Chatroom extends Model
 {
     use HasFactory;
@@ -58,20 +35,16 @@ class Chatroom extends Model
 
     /**
      * A User Has Many Messages.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messages()
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
 
     /**
      * A Chat Room Has Many Users.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);
     }

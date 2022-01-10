@@ -232,12 +232,12 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ Route::is('log-viewer::dashboard') ? 'active' : '' }}">
                 <a href="{{ route('log-viewer::dashboard') }}" class="nav-link">
-                    <i class="fa fa-dashboard"></i> @lang('Dashboard')
+                    <i class="fa fa-dashboard"></i> {{ __('Dashboard') }}
                 </a>
             </li>
             <li class="nav-item {{ Route::is('log-viewer::logs.list') ? 'active' : '' }}">
                 <a href="{{ route('log-viewer::logs.list') }}" class="nav-link">
-                    <i class="fa fa-archive"></i> @lang('Logs')
+                    <i class="fa fa-archive"></i> {{ __('Logs') }}
                 </a>
             </li>
             <li class="nav-item">

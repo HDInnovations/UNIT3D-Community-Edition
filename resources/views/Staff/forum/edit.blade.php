@@ -1,29 +1,29 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.edit') Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>{{ __('common.edit') }} Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('common.edit') Forums - @lang('staff.staff-dashboard')">
+    <meta name="description" content="{{ __('common.edit') }} Forums - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Forums</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.edit') }} Forums</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.edit'): {{ $forum->name }}</h2>
+        <h2>{{ __('common.edit') }}: {{ $forum->name }}</h2>
 
         <form role="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
             @csrf
@@ -74,7 +74,7 @@
             </div>
 
             <div class="form-group">
-                <label for="position">@lang('common.position')</label>
+                <label for="position">{{ __('common.position') }}</label>
                 <label>
                     <input type="text" name="position" class="form-control" placeholder="The position number"
                            value="{{ $forum->position }}">

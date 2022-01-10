@@ -8,10 +8,8 @@ class AddReadColumnTicketsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->tinyInteger('user_read')->nullable()->after('staff_id');

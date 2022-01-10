@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.downloads') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.downloads') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('user_downloads', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.downloads')</span>
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.downloads') }}</span>
         </a>
     </li>
 @endsection
@@ -27,10 +27,10 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">@lang('user.not-authorized')</p>
+                        <p class="text-center">{{ __('user.not-authorized') }}</p>
                     </div>
                 </div>
             </div>
@@ -44,10 +44,10 @@
                             <div class="container">
                                 <h1 class="mt-5 text-center">
                                     <i
-                                            class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                                            class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                                 </h1>
                                 <div class="separator"></div>
-                                <p class="text-center">@lang('user.not-authorized')</p>
+                                <p class="text-center">{{ __('user.not-authorized') }}</p>
                             </div>
                         </div>
                     </div>
@@ -56,13 +56,13 @@
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped table-bordered">
                                 <thead>
-                                <th>@lang('torrent.name')</th>
-                                <th>@lang('torrent.category')</th>
-                                <th>@lang('torrent.size')</th>
-                                <th>@lang('torrent.seeders')</th>
-                                <th>@lang('torrent.leechers')</th>
-                                <th>@lang('torrent.completed')</th>
-                                <th>@lang('torrent.completed_at')</th>
+                                <th>{{ __('torrent.name') }}</th>
+                                <th>{{ __('torrent.category') }}</th>
+                                <th>{{ __('torrent.size') }}</th>
+                                <th>{{ __('torrent.seeders') }}</th>
+                                <th>{{ __('torrent.leechers') }}</th>
+                                <th>{{ __('torrent.completed') }}</th>
+                                <th>{{ __('torrent.completed_at') }}</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($downloads as $download)
@@ -92,7 +92,7 @@
                                         </td>
                                         <td>
                                                 <span class="badge-extra text-orange text-bold">
-                                                    {{ $download->torrent->times_completed }} @lang('common.times')</span>
+                                                    {{ $download->torrent->times_completed }} {{ __('common.times') }}</span>
                                         </td>
                                         <td>{{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
                                         </td>

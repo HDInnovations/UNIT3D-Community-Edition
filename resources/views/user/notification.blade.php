@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - @lang('user.notification') - @lang('common.members') - {{ config('other.title') }}
+    <title>{{ $user->username }} - {{ __('user.notification') }} - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -15,8 +15,8 @@
     <li>
         <a href="{{ route('user_notification', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.notification')
-                @lang('user.settings')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.notification') }}
+                {{ __('user.settings') }}</span>
         </a>
     </li>
 @endsection
@@ -44,13 +44,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.account-notification'):</h3>
-                                <div class="help-block">@lang('user.account-notification-help').</div>
+                                <h3>{{ __('user.account-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.account-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.account-notification-follow').
+                                            {{ __('user.account-notification-follow') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -69,7 +69,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.account-notification-unfollow').
+                                            {{ __('user.account-notification-unfollow') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -86,8 +86,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-account'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-account-help').</div>
+                                    <h3>{{ __('user.notification-from-account') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-account-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -120,8 +120,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.account-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.account-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -131,13 +131,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.following-notification'):</h3>
-                                <div class="help-block">@lang('user.following-notification-help').</div>
+                                <h3>{{ __('user.following-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.following-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.following-notification-upload').
+                                            {{ __('user.following-notification-upload') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -154,8 +154,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-following'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-following-help').</div>
+                                    <h3>{{ __('user.notification-from-following') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-following-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -188,8 +188,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.following-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.following-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -199,13 +199,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.subscription-notification'):</h3>
-                                <div class="help-block">@lang('user.subscription-notification-help').</div>
+                                <h3>{{ __('user.subscription-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.subscription-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.subscription-notification-topic').
+                                            {{ __('user.subscription-notification-topic') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -224,7 +224,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.subscription-notification-forum').
+                                            {{ __('user.subscription-notification-forum') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -241,8 +241,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-subscription'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-subscription-help').</div>
+                                    <h3>{{ __('user.notification-from-subscription') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-subscription-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -276,8 +276,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.subscription-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.subscription-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -287,13 +287,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.forum-notification'):</h3>
-                                <div class="help-block">@lang('user.forum-notification-help').</div>
+                                <h3>{{ __('user.forum-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.forum-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.forum-notification-topic').
+                                            {{ __('user.forum-notification-topic') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -309,8 +309,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-forum'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-forum-help').</div>
+                                    <h3>{{ __('user.notification-from-forum') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-forum-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -343,8 +343,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.forum-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.forum-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -354,13 +354,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.request-notification'):</h3>
-                                <div class="help-block">@lang('user.request-notification-help').</div>
+                                <h3>{{ __('user.request-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.request-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-fill').
+                                            {{ __('user.request-notification-fill') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -378,7 +378,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-fill-approve').
+                                            {{ __('user.request-notification-fill-approve') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -397,7 +397,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-fill-reject').
+                                            {{ __('user.request-notification-fill-reject') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -416,7 +416,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-claim').
+                                            {{ __('user.request-notification-claim') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -434,7 +434,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-unclaim').
+                                            {{ __('user.request-notification-unclaim') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -453,7 +453,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-comment').
+                                            {{ __('user.request-notification-comment') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -472,7 +472,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-notification-bounty').
+                                            {{ __('user.request-notification-bounty') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -489,8 +489,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-request'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-request-help').</div>
+                                    <h3>{{ __('user.notification-from-request') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-request-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -523,8 +523,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.request-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.request-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -534,13 +534,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.torrent-notification'):</h3>
-                                <div class="help-block">@lang('user.torrent-notification-help').</div>
+                                <h3>{{ __('user.torrent-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.torrent-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-notification-comment').
+                                            {{ __('user.torrent-notification-comment') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -559,7 +559,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-notification-thank').
+                                            {{ __('user.torrent-notification-thank') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -577,7 +577,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-notification-tip').
+                                            {{ __('user.torrent-notification-tip') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -593,8 +593,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-torrent'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-torrent-help').</div>
+                                    <h3>{{ __('user.notification-from-torrent') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-torrent-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -627,8 +627,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.torrent-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.torrent-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -638,13 +638,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.bon-notification'):</h3>
-                                <div class="help-block">@lang('user.bon-notification-help').</div>
+                                <h3>{{ __('user.bon-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.bon-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.bon-notification-gift').
+                                            {{ __('user.bon-notification-gift') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -660,8 +660,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-bon'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-bon-help').</div>
+                                    <h3>{{ __('user.notification-from-bon') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-bon-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -694,8 +694,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.bon-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.bon-notification') }}</button>
                             </div>
                         </form>
                     </div>
@@ -705,13 +705,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.mention-notification'):</h3>
-                                <div class="help-block">@lang('user.mention-notification-help').</div>
+                                <h3>{{ __('user.mention-notification') }}:</h3>
+                                <div class="help-block">{{ __('user.mention-notification-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.mention-notification-article-comment').
+                                            {{ __('user.mention-notification-article-comment') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -731,7 +731,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.mention-notification-request-comment').
+                                            {{ __('user.mention-notification-request-comment') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -751,7 +751,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.mention-notification-torrent-comment').
+                                            {{ __('user.mention-notification-torrent-comment') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -771,7 +771,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.mention-notification-forum-post').
+                                            {{ __('user.mention-notification-forum-post') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification &&
@@ -788,8 +788,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.notification-from-mention'):</h3>
-                                    <div class="help-block">@lang('user.notification-from-mention-help').</div>
+                                    <h3>{{ __('user.notification-from-mention') }}:</h3>
+                                    <div class="help-block">{{ __('user.notification-from-mention-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -822,8 +822,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.mention-notification')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.mention-notification') }}</button>
                             </div>
                         </form>
                     </div>

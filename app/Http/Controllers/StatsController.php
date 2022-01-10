@@ -29,10 +29,7 @@ use Illuminate\Support\Facades\DB;
  */
 class StatsController extends Controller
 {
-    /**
-     * @var \Carbon\Carbon|mixed
-     */
-    public $carbon;
+    public \Carbon\Carbon $carbon;
 
     /**
      * StatsController Constructor.
@@ -336,10 +333,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Groups.
-     *
-     * @param \App\Models\Group $id
      */
-    public function group($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function group(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);

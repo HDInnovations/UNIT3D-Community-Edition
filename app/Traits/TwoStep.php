@@ -23,10 +23,8 @@ trait TwoStep
      * Check if the user is authorized.
      *
      * @throws \Exception
-     *
-     * @return bool
      */
-    private function twoStepVerification()
+    private function twoStepVerification(): bool
     {
         $user = \auth()->user();
         if ($user !== null) {
@@ -44,13 +42,9 @@ trait TwoStep
     /**
      * Check time since user was last verified and take apprpriate action.
      *
-     * @param collection $twoStepAuth
-     *
      * @throws \Exception
-     *
-     * @return bool
      */
-    private function checkTimeSinceVerified($twoStepAuth)
+    private function checkTimeSinceVerified($twoStepAuth): bool
     {
         $expireMinutes = \config('auth.TwoStepVerifiedLifetimeMinutes');
         $now = Carbon::now();
@@ -69,13 +63,9 @@ trait TwoStep
     /**
      * Reset TwoStepAuth collection item and code.
      *
-     * @param collection $twoStepAuth
-     *
      * @throws \Exception
-     *
-     * @return collection
      */
-    private function resetAuthStatus($twoStepAuth)
+    private function resetAuthStatus($twoStepAuth): mixed
     {
         $twoStepAuth->authCode = $this->generateCode();
         $twoStepAuth->authCount = 0;
@@ -91,10 +81,7 @@ trait TwoStep
     /**
      * Generate Authorization Code.
      *
-     *
      * @throws \Exception
-     *
-     * @return string
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
     {
@@ -111,7 +98,7 @@ trait TwoStep
      *
      * @throws \Exception
      */
-    private function checkTwoStepAuthStatus(int $userId): \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
+    private function checkTwoStepAuthStatus(int $userId): TwoStepAuth|\Illuminate\Database\Eloquent\Model
     {
         return TwoStepAuth::firstOrCreate(
             [
@@ -127,9 +114,6 @@ trait TwoStep
 
     /**
      * Retreive the Verification Status.
-     *
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model | void
      */
     protected function getTwoStepAuthStatus(int $userId)
     {
@@ -138,12 +122,8 @@ trait TwoStep
 
     /**
      * Format verification exceeded timings with Carbon.
-     *
-     * @param string $time
-     *
-     * @return \Illuminate\Support\Collection
      */
-    protected function exceededTimeParser($time)
+    protected function exceededTimeParser(string $time): \Illuminate\Support\Collection
     {
         $tomorrow = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
@@ -158,11 +138,8 @@ trait TwoStep
 
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
-     *
-     *
-     * @return bool
      */
-    protected function checkExceededTime(\DateTimeInterface $time)
+    protected function checkExceededTime(\DateTimeInterface $time): bool
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'));
@@ -173,13 +150,9 @@ trait TwoStep
     /**
      * Method to reset code and count.
      *
-     * @param collection $twoStepEntry
-     *
      * @throws \Exception
-     *
-     * @return collection
      */
-    protected function resetExceededTime($twoStepEntry)
+    protected function resetExceededTime($twoStepEntry): mixed
     {
         $twoStepEntry->authCount = 0;
         $twoStepEntry->authCode = $this->generateCode();
@@ -191,13 +164,9 @@ trait TwoStep
     /**
      * Successful activation actions.
      *
-     * @param collection $twoStepAuth
-     *
      * @throws \Exception
-     *
-     * @return void
      */
-    protected function resetActivationCountdown($twoStepAuth)
+    protected function resetActivationCountdown($twoStepAuth): void
     {
         $twoStepAuth->authCode = $this->generateCode();
         $twoStepAuth->authCount = 0;
@@ -210,13 +179,8 @@ trait TwoStep
 
     /**
      * Send verification code via notify.
-     *
-     * @param      $twoStepAuth
-     * @param null $deliveryMethod (nullable)
-     *
-     * @return void
      */
-    protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null)
+    protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null): void
     {
         $user = \auth()->user();
         if ($deliveryMethod === null) {

@@ -13,7 +13,7 @@ use Tests\TestCase;
 class ContactControllerTest extends TestCase
 {
     /** @test */
-    public function index_returns_an_ok_response()
+    public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -27,7 +27,7 @@ class ContactControllerTest extends TestCase
     }
 
     /** @test */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

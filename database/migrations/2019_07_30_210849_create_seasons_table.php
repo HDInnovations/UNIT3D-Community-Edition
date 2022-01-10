@@ -8,10 +8,8 @@ class CreateSeasonsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->bigIncrements('id');

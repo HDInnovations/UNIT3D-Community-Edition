@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $article->title }} - @lang('articles.articles') - {{ config('other.title') }}</title>
+    <title>{{ $article->title }} - {{ __('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
         </a>
     </li>
     <li>
@@ -36,7 +36,7 @@
         <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
         <p class="text-muted">
-            <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
+            <em>{{ __('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
         </p>
 
         <p style="margin-top: 20px;">@joypixels($article->getContentHtml())</p>
@@ -49,14 +49,14 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading border-light">
                         <h4 class="panel-title">
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
                         </h4>
                     </div>
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
                             @if (count($article->comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
                                         !</h4>
                                 </div>
                             @else
@@ -122,19 +122,19 @@
                 <form role="form" method="POST" action="{{ route('comment_article', ['id' => $article->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="content">@lang('common.your-comment'):</label>
-                        <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                        <label for="content">{{ __('common.your-comment') }}:</label>
+                        <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
                         <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+                    <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
+                    <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
                             :</strong></label>
                     <label>
                         <input type="radio" value="1" name="anonymous">
-                    </label> @lang('common.yes')
+                    </label> {{ __('common.yes') }}
                     <label>
                         <input type="radio" value="0" checked="checked" name="anonymous">
-                    </label> @lang('common.no')
+                    </label> {{ __('common.no') }}
                 </form>
             </div>
         </div>

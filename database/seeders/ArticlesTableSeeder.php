@@ -27,17 +27,15 @@ class ArticlesTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->articles as $article) {
             Article::updateOrCreate($article);
         }
     }
 
-    private function getArticles()
+    private function getArticles(): array
     {
         return [
             [

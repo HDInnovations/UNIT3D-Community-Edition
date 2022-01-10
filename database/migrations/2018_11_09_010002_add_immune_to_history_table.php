@@ -19,10 +19,8 @@ class AddImmuneToHistoryTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('history', function (Blueprint $table) {
             $table->boolean('immune')->default(0)->index()->after('seedtime');

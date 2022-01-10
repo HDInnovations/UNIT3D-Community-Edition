@@ -19,10 +19,8 @@ class AddReceiverIdColumnToMessagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->integer('receiver_id')->after('chatroom_id')->unsigned()->nullable();

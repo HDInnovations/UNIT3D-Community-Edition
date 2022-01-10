@@ -2,19 +2,19 @@
     <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
             <thead>
-            <th>@lang('torrent.name')</th>
-            <th>@lang('torrent.client')</th>
-            <th>@lang('common.connected')</th>
-            <th>@lang('torrent.seeder')</th>
-            <th>@lang('common.upload')</th>
-            <th>@lang('common.download')</th>
-            <th>@lang('torrent.seedtime')</th>
-            <th>@lang('torrent.created_at')</th>
-            <th>@lang('torrent.updated_at')</th>
-            <th>@lang('torrent.completed_at')</th>
-            <th>@lang('torrent.prewarn')</th>
-            <th>@lang('torrent.hitrun')</th>
-            <th>@lang('torrent.immune')</th>
+            <th>{{ __('torrent.name') }}</th>
+            <th>{{ __('torrent.client') }}</th>
+            <th>{{ __('common.connected') }}</th>
+            <th>{{ __('torrent.seeder') }}</th>
+            <th>{{ __('common.upload') }}</th>
+            <th>{{ __('common.download') }}</th>
+            <th>{{ __('torrent.seedtime') }}</th>
+            <th>{{ __('torrent.created_at') }}</th>
+            <th>{{ __('torrent.updated_at') }}</th>
+            <th>{{ __('torrent.completed_at') }}</th>
+            <th>{{ __('torrent.prewarn') }}</th>
+            <th>{{ __('torrent.hitrun') }}</th>
+            <th>{{ __('torrent.immune') }}</th>
             </thead>
             <tbody>
             @foreach ($history as $his)
@@ -31,22 +31,22 @@
                                     class="badge-extra text-purple">{{ $his->agent ?: trans('common.unknown') }}</span>
                     </td>
                     @if ($his->active == 1)
-                        <td class="text-green">@lang('common.yes')</td> @else
-                        <td class="text-red">@lang('common.no')</td> @endif
+                        <td class="text-green">{{ __('common.yes') }}</td> @else
+                        <td class="text-red">{{ __('common.no') }}</td> @endif
                     @if ($his->seeder == 1)
-                        <td class="text-green">@lang('common.yes')</td> @else
-                        <td class="text-red">@lang('common.no')</td> @endif
+                        <td class="text-green">{{ __('common.yes') }}</td> @else
+                        <td class="text-red">{{ __('common.no') }}</td> @endif
                     <td>
                             <span
                                     class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his->actual_uploaded, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
-                              data-original-title="@lang('user.credited-upload')">{{ App\Helpers\StringHelper::formatBytes($his->uploaded, 2) }}</span>
+                              data-original-title="{{ __('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($his->uploaded, 2) }}</span>
                     </td>
                     <td>
                             <span
                                     class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his->actual_downloaded, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
-                              data-original-title="@lang('user.credited-download')">{{ App\Helpers\StringHelper::formatBytes($his->downloaded, 2) }}</span>
+                              data-original-title="{{ __('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his->downloaded, 2) }}</span>
                     </td>
                     @if ($his->seedtime < config('hitrun.seedtime'))
                         <td>

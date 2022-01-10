@@ -18,10 +18,8 @@ class CreateForumsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->integer('id', true);

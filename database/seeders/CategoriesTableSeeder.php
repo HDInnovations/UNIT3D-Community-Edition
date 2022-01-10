@@ -27,17 +27,15 @@ class CategoriesTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->categories as $category) {
             Category::updateOrCreate($category);
         }
     }
 
-    private function getCategories()
+    private function getCategories(): array
     {
         return [
             [

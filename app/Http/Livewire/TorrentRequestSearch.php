@@ -25,25 +25,25 @@ class TorrentRequestSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
+    public string $name = '';
 
-    public $requestor = '';
+    public string $requestor = '';
 
-    public $categories = [];
+    public array $categories = [];
 
-    public $types = [];
+    public array $types = [];
 
-    public $resolutions = [];
+    public array $resolutions = [];
 
-    public $genres = [];
+    public array $genres = [];
 
-    public $tmdbId = '';
+    public string $tmdbId = '';
 
-    public $imdbId = '';
+    public string $imdbId = '';
 
-    public $tvdbId = '';
+    public string $tvdbId = '';
 
-    public $malId = '';
+    public string $malId = '';
 
     public $unfilled;
 
@@ -61,13 +61,13 @@ class TorrentRequestSearch extends Component
 
     public $myFilled;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $sortField = 'created_at';
+    public string $sortField = 'created_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
-    public $showFilters = false;
+    public bool $showFilters = false;
 
     protected $queryString = [
         'name'          => ['except' => ''],
@@ -108,7 +108,7 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty()
+    final public function getTorrentRequestStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -117,7 +117,7 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty()
+    final public function getTorrentRequestBountyStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -134,7 +134,7 @@ class TorrentRequestSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->requestor, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username', 'ASC')->first();
+                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }

@@ -1,16 +1,16 @@
 <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">
         <thead>
-        <th>@lang('torrent.name')</th>
-        <th>@lang('torrent.seeding')</th>
-        <th>@lang('torrent.size')</th>
-        <th>@lang('torrent.seeders')</th>
-        <th>@lang('torrent.leechers')</th>
-        <th>@lang('torrent.completed')</th>
-        <th>@lang('torrent.completed_at')</th>
-        <th>@lang('torrent.satisfied_in')</th>
-        <th>@lang('torrent.seedtime')</th>
-        <th>@lang('torrent.status')</th>
+        <th>{{ __('torrent.name') }}</th>
+        <th>{{ __('torrent.seeding') }}</th>
+        <th>{{ __('torrent.size') }}</th>
+        <th>{{ __('torrent.seeders') }}</th>
+        <th>{{ __('torrent.leechers') }}</th>
+        <th>{{ __('torrent.completed') }}</th>
+        <th>{{ __('torrent.completed_at') }}</th>
+        <th>{{ __('torrent.satisfied_in') }}</th>
+        <th>{{ __('torrent.seedtime') }}</th>
+        <th>{{ __('torrent.status') }}</th>
         </thead>
         <tbody>
         @foreach ($downloads as $download)
@@ -23,8 +23,8 @@
                     </a>
                 </td>
                 @if ($download->seeder == 1)
-                    <td class="text-green">@lang('common.yes')</td> @else
-                    <td class="text-red">@lang('common.no')</td> @endif
+                    <td class="text-green">{{ __('common.yes') }}</td> @else
+                    <td class="text-red">{{ __('common.no') }}</td> @endif
                 <td>
                     <span class="badge-extra text-blue text-bold"> {{ $download->torrent->getSize() }}</span>
                 </td>
@@ -36,7 +36,7 @@
                 </td>
                 <td>
                         <span class="badge-extra text-orange text-bold"> {{ $download->torrent->times_completed }}
-                            @lang('common.times')</span>
+                            {{ __('common.times') }}</span>
                 </td>
                 <td>{{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
                 </td>

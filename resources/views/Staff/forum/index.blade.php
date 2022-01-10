@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forums - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Forums - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
@@ -29,10 +29,10 @@
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>@lang('common.name')</th>
+                    <th>{{ __('common.name') }}</th>
                     <th>Type</th>
-                    <th>@lang('common.position')</th>
-                    <th>@lang('common.action')</th>
+                    <th>{{ __('common.position') }}</th>
+                    <th>{{ __('common.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,7 @@
                             <form action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                             </form>
                         </td>
                     </tr>
@@ -70,7 +70,7 @@
                                 <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                    <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                                 </form>
                             </td>
                         </tr>

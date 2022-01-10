@@ -17,10 +17,8 @@ trait UsersOnlineTrait
 {
     /**
      * Check if the current user is online.
-     *
-     * @return bool
      */
-    public function isOnline()
+    public function isOnline(): bool
     {
         if (! $this->last_action) {
             return false;

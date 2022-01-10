@@ -35,13 +35,9 @@ class SeedboxController extends Controller
     /**
      * Delete A Registered Seedbox.
      *
-     * @param \App\Models\Seedbox $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Seedbox $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

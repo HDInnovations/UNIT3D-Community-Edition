@@ -22,10 +22,8 @@ class TorrentFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $freeleech = ['0', '25', '50', '75', '100'];
         $selected = \random_int(0, \count($freeleech) - 1);

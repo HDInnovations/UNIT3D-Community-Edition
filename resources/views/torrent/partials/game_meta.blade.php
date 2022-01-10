@@ -51,7 +51,7 @@
 
                 @if (isset($trailer))
                     <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
-                        <a class="text-pink" title="@lang('torrent.trailer')">@lang('torrent.trailer')
+                        <a class="text-pink" title="{{ __('torrent.trailer') }}">{{ __('torrent.trailer') }}
                             <i class="{{ config('other.font-awesome') }} fa-external-link"></i>
                         </a>
                     </span>
@@ -79,11 +79,11 @@
             </div>
 
             <div class="movie-details">
-                <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
+                <span class="badge-user text-bold text-gold">{{ __('torrent.rating') }}:
                     <span class="movie-rating-stars">
                         <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     </span>
-                    {{ round($meta->rating ?? 0) }}/100 ({{ $meta->rating_count ?? 0 }} @lang('torrent.votes'))
+                    {{ round($meta->rating ?? 0) }}/100 ({{ $meta->rating_count ?? 0 }} {{ __('torrent.votes') }})
                 </span>
             </div>
 

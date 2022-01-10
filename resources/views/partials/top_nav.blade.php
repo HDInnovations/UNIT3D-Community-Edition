@@ -100,49 +100,49 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('user.my-profile') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_settings', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.my-settings')
+                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> {{ __('user.my-settings') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_privacy', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.my-privacy')
+                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> {{ __('user.my-privacy') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_security', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-security')
+                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> {{ __('user.my-security') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('achievements.index') }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
-                            My @lang('user.achievements')
+                            My {{ __('user.achievements') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.my-uploads')
+                            <i class="{{ config('other.font-awesome') }} fa-upload"></i> {{ __('user.my-uploads') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
+                            <i class="{{ config('other.font-awesome') }} fa-question"></i> {{ __('user.my-requested') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('torrents') }}?bookmarked=1">
-                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
+                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> {{ __('user.my-bookmarks') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('wishes.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
-                            @lang('user.my-wishlist')
+                            {{ __('user.my-wishlist') }}
                         </a>
                     </li>
                     <li>
@@ -151,7 +151,7 @@
                             @csrf
                             <div class="text-center">
                                 <button type="submit" class="btn btn-xs btn-danger">
-                                    <i class='{{ config('other.font-awesome') }} fa-sign-out'></i> @lang('auth.logout')
+                                    <i class='{{ config('other.font-awesome') }} fa-sign-out'></i> {{ __('auth.logout') }}
                                 </button>
                             </div>
                         </form>

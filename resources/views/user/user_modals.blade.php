@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
-                    <p style="font-size: 27px;">@lang('bon.gift-to'): {{ $user->username }}</p>
+                    <p style="font-size: 27px;">{{ __('bon.gift-to') }}: {{ $user->username }}</p>
                 </div>
             </div>
             <div class="modal-body">
@@ -13,22 +13,22 @@
                         <input type="hidden" name="dest" value="profile"/>
                         <input type="hidden" name="to_username" value="{{ $user->username }}"/>
                         <div class="form-group">
-                            <label for="bonus_points">@lang('bon.amount')</label>
+                            <label for="bonus_points">{{ __('bon.amount') }}</label>
                         </div>
                         <div class="form-group">
                             <input class="form-control"
-                                   placeholder="@lang('common.enter') {{ strtolower(trans('common.amount')) }}"
+                                   placeholder="{{ __('common.enter') }} {{ strtolower(trans('common.amount')) }}"
                                    name="bonus_points" type="number" id="bonus_points" required>
                         </div>
                         <div class="form-group">
-                            <label for="bonus_message">@lang('pm.message')</label>
+                            <label for="bonus_message">{{ __('pm.message') }}</label>
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" name="bonus_message" cols="50" rows="10"
                                       id="bonus_message"></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-small btn-primary" type="submit" value="@lang('bon.gift')">
+                            <input class="btn btn-small btn-primary" type="submit" value="{{ __('bon.gift') }}">
                         </div>
                     </form>
                 </div>
@@ -249,7 +249,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">
-                                <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete')
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i> {{ __('common.delete') }}
                             </button>
                         </form>
                     </div>

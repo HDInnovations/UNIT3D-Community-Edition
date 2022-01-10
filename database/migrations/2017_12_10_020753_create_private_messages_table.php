@@ -18,10 +18,8 @@ class CreatePrivateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('private_messages', function (Blueprint $table) {
             $table->increments('id');

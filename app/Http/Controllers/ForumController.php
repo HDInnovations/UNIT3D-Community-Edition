@@ -200,7 +200,7 @@ class ForumController extends Controller
             $query->whereIntegerInRaw('topics.id', $topicNeos)->orWhereIntegerInRaw('forums.id', $forumNeos);
         })->groupBy('forums.id');
 
-        $results = $builder->orderBy('topic_created_at', 'desc')->paginate(25);
+        $results = $builder->orderByDesc('topic_created_at')->paginate(25);
         $results->setPath('?name='.$request->input('name'));
 
         // Total Forums Count
@@ -310,10 +310,8 @@ class ForumController extends Controller
 
     /**
      * Show Forums And Topics Inside.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

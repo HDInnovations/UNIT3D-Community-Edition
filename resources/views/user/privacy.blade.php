@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Privacy - @lang('common.members') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - Privacy - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -14,8 +14,8 @@
     <li>
         <a href="{{ route('user_privacy', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.privacy')
-                @lang('user.settings')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.privacy') }}
+                {{ __('user.settings') }}</span>
         </a>
     </li>
 @endsection
@@ -44,13 +44,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.other-privacy'):</h3>
-                                <div class="help-block">@lang('user.other-help').</div>
+                                <h3>{{ __('user.other-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.other-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.other-privacy-online').
+                                            {{ __('user.other-privacy-online') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_online == 1))
@@ -65,8 +65,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-other'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-other-help').</div>
+                                    <h3>{{ __('user.visible-to-other') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-other-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -100,8 +100,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.other-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.other-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -111,13 +111,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.request-privacy'):</h3>
-                                <div class="help-block">@lang('user.request-help').</div>
+                                <h3>{{ __('user.request-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.request-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.request-privacy-requested').
+                                            {{ __('user.request-privacy-requested') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_requested == 1))
@@ -132,8 +132,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-request'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-request-help').</div>
+                                    <h3>{{ __('user.visible-to-request') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-request-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -167,8 +167,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.request-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.request-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -178,13 +178,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.torrent-privacy'):</h3>
-                                <div class="help-block">@lang('user.torrent-help').</div>
+                                <h3>{{ __('user.torrent-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.torrent-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-privacy-upload').
+                                            {{ __('user.torrent-privacy-upload') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_upload == 1))
@@ -201,7 +201,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-privacy-download').
+                                            {{ __('user.torrent-privacy-download') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_download == 1))
@@ -218,7 +218,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.torrent-privacy-peer').
+                                            {{ __('user.torrent-privacy-peer') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_peer == 1))
@@ -233,8 +233,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-torrent'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-torrent-help').</div>
+                                    <h3>{{ __('user.visible-to-torrent') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-torrent-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -268,8 +268,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.torrent-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.torrent-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -279,13 +279,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.profile-privacy'):</h3>
-                                <div class="help-block">@lang('user.profile-privacy-help').</div>
+                                <h3>{{ __('user.profile-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.profile-privacy-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-torrent-count').
+                                            {{ __('user.profile-privacy-torrent-count') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -304,7 +304,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-title').
+                                            {{ __('user.profile-privacy-title') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_title ==
@@ -322,7 +322,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-about').
+                                            {{ __('user.profile-privacy-about') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_about ==
@@ -340,7 +340,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-torrent-ratio').
+                                            {{ __('user.profile-privacy-torrent-ratio') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -359,7 +359,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-torrent-seed').
+                                            {{ __('user.profile-privacy-torrent-seed') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -378,7 +378,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-bon-extra').
+                                            {{ __('user.profile-privacy-bon-extra') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_bon_extra
@@ -397,7 +397,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-torrent-extra').
+                                            {{ __('user.profile-privacy-torrent-extra') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -416,7 +416,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-comment-extra').
+                                            {{ __('user.profile-privacy-comment-extra') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -435,7 +435,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-request-extra').
+                                            {{ __('user.profile-privacy-request-extra') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -454,7 +454,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-forum-extra').
+                                            {{ __('user.profile-privacy-forum-extra') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -473,7 +473,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-warning').
+                                            {{ __('user.profile-privacy-warning') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_warning
@@ -492,7 +492,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-badge').
+                                            {{ __('user.profile-privacy-badge') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_badge ==
@@ -510,7 +510,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-achievement').
+                                            {{ __('user.profile-privacy-achievement') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy &&
@@ -529,7 +529,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.profile-privacy-follower').
+                                            {{ __('user.profile-privacy-follower') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_follower
@@ -547,8 +547,8 @@
                                     </div>
                                     <hr class="some-padding">
                                 </div>
-                                <h3>@lang('user.visible-to-profile'):</h3>
-                                <div class="help-block">@lang('user.visible-to-profile-help').</div>
+                                <h3>{{ __('user.visible-to-profile') }}:</h3>
+                                <div class="help-block">{{ __('user.visible-to-profile-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     @foreach($groups as $group)
@@ -579,8 +579,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.profile-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.profile-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -590,13 +590,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.forum-privacy'):</h3>
-                                <div class="help-block">@lang('user.forum-help').</div>
+                                <h3>{{ __('user.forum-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.forum-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.forum-privacy-topic').
+                                            {{ __('user.forum-privacy-topic') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_topic == 1))
@@ -613,7 +613,7 @@
                                     <hr class="some-padding">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.forum-privacy-post').
+                                            {{ __('user.forum-privacy-post') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_post == 1))
@@ -628,8 +628,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-forum'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-forum-help').</div>
+                                    <h3>{{ __('user.visible-to-forum') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-forum-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -662,8 +662,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.forum-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.forum-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -673,13 +673,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.follower-privacy'):</h3>
-                                <div class="help-block">@lang('user.follower-help').</div>
+                                <h3>{{ __('user.follower-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.follower-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.follower-privacy-list').
+                                            {{ __('user.follower-privacy-list') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_follower == 1))
@@ -694,8 +694,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-follower'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-follower-help').</div>
+                                    <h3>{{ __('user.visible-to-follower') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-follower-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -728,8 +728,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.follower-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.follower-privacy') }}</button>
                             </div>
                         </form>
                     </div>
@@ -739,13 +739,13 @@
                               enctype="multipart/form-data">
                             @csrf
                             <div class="well">
-                                <h3>@lang('user.achievement-privacy'):</h3>
-                                <div class="help-block">@lang('user.achievement-help').</div>
+                                <h3>{{ __('user.achievement-privacy') }}:</h3>
+                                <div class="help-block">{{ __('user.achievement-help') }}.</div>
                                 <hr>
                                 <div class="form-group">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            @lang('user.achievement-privacy-list').
+                                            {{ __('user.achievement-privacy-list') }}.
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->privacy || ($user->privacy && $user->privacy->show_achievement ==
@@ -761,8 +761,8 @@
                                         </div>
                                     </div>
                                     <hr class="some-padding">
-                                    <h3>@lang('user.visible-to-achievement'):</h3>
-                                    <div class="help-block">@lang('user.visible-to-achievement-help').</div>
+                                    <h3>{{ __('user.visible-to-achievement') }}:</h3>
+                                    <div class="help-block">{{ __('user.visible-to-achievement-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
                                         @foreach($groups as $group)
@@ -795,8 +795,8 @@
                                 </div>
                             </div>
                             <div class="well text-center">
-                                <button type="submit" class="btn btn-primary">@lang('common.save')
-                                    @lang('user.achievement-privacy')</button>
+                                <button type="submit" class="btn btn-primary">{{ __('common.save') }}
+                                    {{ __('user.achievement-privacy') }}</button>
                             </div>
                         </form>
                     </div>

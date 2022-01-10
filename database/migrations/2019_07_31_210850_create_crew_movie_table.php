@@ -8,10 +8,8 @@ class CreateCrewMovieTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('crew_movie', function (Blueprint $table) {
             $table->unsignedInteger('movie_id');

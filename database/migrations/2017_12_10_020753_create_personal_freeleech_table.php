@@ -18,10 +18,8 @@ class CreatePersonalFreeleechTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('personal_freeleech', function (Blueprint $table) {
             $table->increments('id');

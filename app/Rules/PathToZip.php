@@ -18,12 +18,12 @@ use Illuminate\Support\Str;
 
 class PathToZip implements Rule
 {
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return Str::endsWith($value, '.zip');
     }
 
-    public function message()
+    public function message(): string
     {
         return 'It must be a zip file';
     }

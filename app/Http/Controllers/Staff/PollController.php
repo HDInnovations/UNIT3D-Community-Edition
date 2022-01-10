@@ -43,10 +43,8 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -63,11 +61,8 @@ class PollController extends Controller
 
     /**
      * Store A New Poll.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePoll $storePoll)
+    public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
     {
         $user = $storePoll->user();
 
@@ -88,10 +83,8 @@ class PollController extends Controller
 
     /**
      * Poll Edit Form.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 
@@ -101,13 +94,9 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StorePoll $storePoll, $id)
+    public function update(StorePoll $storePoll, int $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
 
@@ -158,13 +147,9 @@ class PollController extends Controller
     /**
      * Delete A Poll.
      *
-     * @param \App\Models\Poll $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();

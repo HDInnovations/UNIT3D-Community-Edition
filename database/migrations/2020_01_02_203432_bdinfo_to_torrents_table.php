@@ -8,10 +8,8 @@ class BdinfoToTorrentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->longText('bdinfo')->nullable()->after('mediainfo');

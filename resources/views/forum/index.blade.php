@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>{{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - @lang('forum.forums')">
+    <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}">
 @endsection
 
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
 @endsection
@@ -29,9 +29,9 @@
                     <label for="name"></label>
                     <input type="text" name="name" id="name"
                            value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                           placeholder="@lang('forum.topic-quick-search')" class="form-control">
+                           placeholder="{{ __('forum.topic-quick-search') }}" class="form-control">
                     <button type="submit" class="btn btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
+                        <i class="{{ config('other.font-awesome') }} fa-search"></i> {{ __('common.search') }}
                     </button>
                 </form>
             </div>
@@ -59,7 +59,7 @@
                                     <div class="button-left"></div>
                                     <div class="button-right">
                                         <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
-                                           class="btn btn-sm btn-primary">@lang('forum.view-all')</a>
+                                           class="btn btn-sm btn-primary">{{ __('forum.view-all') }}</a>
                                     </div>
                                 </div>
                             </td>
@@ -90,7 +90,7 @@
                                     <td>{{ $categoryChild->num_topic }}</td>
                                     <td>
                                             <span>
-                                                <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }}</span>
+                                                <span>{{ __('forum.last-message') }} - {{ strtolower(trans('forum.author')) }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-user"></i>
                                                 @if ($categoryChild->last_post_user_username !== null)
                                                     <a href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
@@ -100,7 +100,7 @@
                                             </span>
                                         <br>
                                         <span>
-                                                <span>@lang('forum.topic')</span>
+                                                <span>{{ __('forum.topic') }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i>
                                                 @if ($categoryChild->last_topic_id !== null)
                                                 <a href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">

@@ -19,10 +19,8 @@ class AddChatStatusIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('chat_status_id')->unsigned()->default(1);

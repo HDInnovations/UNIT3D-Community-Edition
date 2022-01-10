@@ -28,10 +28,8 @@ class PersonController extends Controller
 
     /**
      * Show A Person.
-     *
-     * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $details = Person::findOrFail($id);
         $credits = Person::with(['tv', 'season', 'episode', 'movie'])->findOrFail($id);

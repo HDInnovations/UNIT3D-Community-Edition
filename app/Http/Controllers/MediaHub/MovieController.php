@@ -30,10 +30,8 @@ class MovieController extends Controller
 
     /**
      * Show A Movie.
-     *
-     * @param $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();

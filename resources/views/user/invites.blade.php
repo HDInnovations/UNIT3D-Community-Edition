@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $owner->username }} - @lang('user.invites') - {{ config('other.title') }}</title>
+    <title>{{ $owner->username }} - {{ __('user.invites') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('invites.index', ['username' => $owner->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $owner->username }} @lang('user.invites')</span>
+                  class="l-breadcrumb-item-link-title">{{ $owner->username }} {{ __('user.invites') }}</span>
         </a>
     </li>
 @endsection
@@ -32,19 +32,19 @@
                             <table class="table table-condensed table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>@lang('user.sender')</th>
-                                    <th>@lang('common.email')</th>
-                                    <th>@lang('user.code')</th>
-                                    <th>@lang('user.created-on')</th>
-                                    <th>@lang('user.expires-on')</th>
-                                    <th>@lang('user.accepted-by')</th>
-                                    <th>@lang('user.accepted-at')</th>
-                                    <th>@lang('common.resend')</th>
+                                    <th>{{ __('user.sender') }}</th>
+                                    <th>{{ __('common.email') }}</th>
+                                    <th>{{ __('user.code') }}</th>
+                                    <th>{{ __('user.created-on') }}</th>
+                                    <th>{{ __('user.expires-on') }}</th>
+                                    <th>{{ __('user.accepted-by') }}</th>
+                                    <th>{{ __('user.accepted-at') }}</th>
+                                    <th>{{ __('common.resend') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @if (count($invites) == 0)
-                                    <p>@lang('user.no-logs')</p>
+                                    <p>{{ __('user.no-logs') }}</p>
                                 @else
                                     @foreach ($invites as $invite)
                                         <tr>

@@ -19,10 +19,8 @@ class UpdateTagTorrentTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('tag_torrent');
 

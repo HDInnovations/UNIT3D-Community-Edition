@@ -1,7 +1,7 @@
 <div>
     <div class="mb-10 form-inline pull-right">
         <div class="form-group">
-            @lang('common.quantity')
+            {{ __('common.quantity') }}
             <select wire:model="perPage" class="form-control">
                 <option>25</option>
                 <option>50</option>
@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <input type="text" wire:model="search" class="form-control" style="width: 275px;"
-                   placeholder="@lang('user.search')"/>
+                   placeholder="{{ __('user.search') }}"/>
         </div>
     </div>
     <div class="box-body no-padding">
@@ -22,14 +22,14 @@
                 <th>
                     <div sortable wire:click="sortBy('username')"
                          :direction="$sortField === 'username' ? $sortDirection : null" role="button">
-                        @lang('common.username')
+                        {{ __('common.username') }}
                         @include('livewire.includes._sort-icon', ['field' => 'username'])
                     </div>
                 </th>
                 <th>
                     <div sortable wire:click="sortBy('group_id')"
                          :direction="$sortField === 'group_id' ? $sortDirection : null" role="button">
-                        @lang('common.group')
+                        {{ __('common.group') }}
                         @include('livewire.includes._sort-icon', ['field' => 'group_id'])
                     </div>
                 </th>
@@ -37,7 +37,7 @@
                     <div sortable wire:click="sortBy('email')"
                          :direction="$sortField === 'email' ? $sortDirection : null"
                          role="button">
-                        @lang('common.email')
+                        {{ __('common.email') }}
                         @include('livewire.includes._sort-icon', ['field' => 'email'])
                     </div>
                 </th>
@@ -45,11 +45,11 @@
                     <div sortable wire:click="sortBy('created_at')"
                          :direction="$sortField === 'created_at' ? $sortDirection : null"
                          role="button">
-                        @lang('user.registration-date')
+                        {{ __('user.registration-date') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </div>
                 </th>
-                <th>@lang('common.action')</th>
+                <th>{{ __('common.action') }}</th>
             </tr>
             @foreach ($users as $user)
                 <tr>
@@ -80,17 +80,17 @@
                         <div class="dropdown">
                             <a class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown" href="#"
                                aria-expanded="true">
-                                @lang('common.actions')
+                                {{ __('common.actions') }}
                                 <i class="fas fa-caret-circle-right"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" target="_blank"
-                                       href="{{ route('users.show', ['username' => $user->username]) }}">@lang('common.view') @lang('user.profile')</a>
+                                       href="{{ route('users.show', ['username' => $user->username]) }}">{{ __('common.view') }} {{ __('user.profile') }}</a>
                                 </li>
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}">@lang('user.edit')</a>
+                                       href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}">{{ __('user.edit') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -101,7 +101,7 @@
         </table>
         @if (! $users->count())
             <div class="margin-10">
-                @lang('common.no-result')
+                {{ __('common.no-result') }}
             </div>
         @endif
         <br>

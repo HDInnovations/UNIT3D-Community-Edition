@@ -17,10 +17,8 @@ class CreateRequestBountyTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('request_bounty', function (Blueprint $table) {
             $table->integer('id', true);

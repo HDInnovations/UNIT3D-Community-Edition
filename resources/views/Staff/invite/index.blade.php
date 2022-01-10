@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Invites Log - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Invites Log - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Invites Log - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Invites Log - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.invites.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.invites-log')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.invites-log') }}</span>
         </a>
     </li>
 @endsection
@@ -24,23 +24,23 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2>@lang('staff.invites-log')</h2>
+            <h2>{{ __('staff.invites-log') }}</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2><span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
-                        {{ $invitecount }} </strong></span>@lang('user.invites-send') </h2>
+                        {{ $invitecount }} </strong></span>{{ __('user.invites-send') }} </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>@lang('user.sender')</th>
-                                <th>@lang('common.email')</th>
+                                <th>{{ __('user.sender') }}</th>
+                                <th>{{ __('common.email') }}</th>
                                 <th>Token</th>
-                                <th>@lang('user.created-on')</th>
-                                <th>@lang('user.expires-on')</th>
-                                <th>@lang('user.accepted-by')</th>
-                                <th>@lang('user.accepted-at')</th>
+                                <th>{{ __('user.created-on') }}</th>
+                                <th>{{ __('user.expires-on') }}</th>
+                                <th>{{ __('user.accepted-by') }}</th>
+                                <th>{{ __('user.accepted-at') }}</th>
                             </tr>
                             </thead>
                             <tbody>

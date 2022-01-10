@@ -24,8 +24,6 @@ class DenyApplication extends Mailable
 
     /**
      * DenyApplication Constructor.
-     *
-     * @param $deniedMessage
      */
     public function __construct(public $deniedMessage)
     {
@@ -33,10 +31,8 @@ class DenyApplication extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->markdown('emails.deny_application')->subject('Your Application Has Been Denied!');
     }

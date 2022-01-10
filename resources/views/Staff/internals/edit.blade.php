@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
@@ -61,7 +61,7 @@
                     </table>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
+                <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
             </form>
         </div>
     </div>

@@ -12,7 +12,7 @@ class AutoSoftDeleteDisabledUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:softdelete_disabled_users')
             ->expectsOutput('Automated Soft Delete Disabled Users Command Complete')

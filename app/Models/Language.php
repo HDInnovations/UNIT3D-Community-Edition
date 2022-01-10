@@ -21,12 +21,8 @@ class Language
 
     /**
      * Get single flags view.
-     *
-     * @param string $code
-     *
-     * @return mixed
      */
-    public static function flag($code = 'default')
+    public static function flag(string $code = 'default'): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         if ($code === 'default') {
             $code = \app()->getLocale();
@@ -40,12 +36,8 @@ class Language
 
     /**
      * Get country code based on locale.
-     *
-     * @param string $locale
-     *
-     * @return mixed
      */
-    public static function country($locale = 'default')
+    public static function country(string $locale = 'default'): string
     {
         if ($locale === 'default') {
             $locale = \app()->getLocale();
@@ -60,10 +52,8 @@ class Language
 
     /**
      * Get all flags view.
-     *
-     * @return mixed
      */
-    public static function flags()
+    public static function flags(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return \view('vendor.language.flags');
     }
@@ -71,8 +61,6 @@ class Language
     /**
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
-     *
-     * @param null $locale
      */
     public static function allowed($locale = null): bool|array
     {
@@ -89,12 +77,8 @@ class Language
 
     /**
      * Add names to an array of language codes as [$code => $language].
-     *
-     * @param array $codes
-     *
-     * @return array
      */
-    public static function names($codes)
+    public static function names(array $codes): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -122,12 +106,8 @@ class Language
 
     /**
      * Add names to an array of language codes as [$language => $code].
-     *
-     * @param array $langs
-     *
-     * @return array
      */
-    public static function codes($langs)
+    public static function codes(array $langs): array
     {
         // Get mode
         $mode = \config('language.mode');
@@ -155,36 +135,24 @@ class Language
 
     /**
      * Returns the url to set up language and return back.
-     *
-     * @param string $code
-     *
-     * @return string
      */
-    public static function back($code)
+    public static function back(string $code): string
     {
         return \route('back', ['locale' => $code]);
     }
 
     /**
      * Returns the url to set up language and return to url('/').
-     *
-     * @param string $code
-     *
-     * @return string
      */
-    public static function home($code)
+    public static function home(string $code): string
     {
         return \route('home', ['locale' => $code]);
     }
 
     /**
      * Returns the language code.
-     *
-     * @param string $name
-     *
-     * @return string
      */
-    public static function getCode($name = 'default')
+    public static function getCode(string $name = 'default'): string
     {
         if ($name === 'default') {
             $name = self::getName();
@@ -195,12 +163,8 @@ class Language
 
     /**
      * Returns the language long code.
-     *
-     * @param string $short
-     *
-     * @return string
      */
-    public static function getLongCode($short = 'default')
+    public static function getLongCode(string $short = 'default'): string
     {
         if ($short === 'default') {
             $short = \app()->getLocale();
@@ -222,12 +186,8 @@ class Language
 
     /**
      * Returns the language short code.
-     *
-     * @param string $long
-     *
-     * @return string
      */
-    public static function getShortCode($long = 'default')
+    public static function getShortCode(string $long = 'default'): string
     {
         if ($long === 'default') {
             $long = \app()->getLocale();
@@ -251,12 +211,8 @@ class Language
 
     /**
      * Returns the language name.
-     *
-     * @param string $code
-     *
-     * @return string
      */
-    public static function getName($code = 'default')
+    public static function getName(string $code = 'default'): string
     {
         if ($code === 'default') {
             $code = \app()->getLocale();

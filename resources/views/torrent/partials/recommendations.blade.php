@@ -1,6 +1,7 @@
 <div class="panel-body" style="padding: 5px;">
     <section class="recommendations" style="max-height: 330px !important;">
         <div class="scroller" style="padding-bottom: 10px;">
+            @if(isset($meta->recommendations))
             @forelse($meta->recommendations as $recommendation)
                 <div class="item mini backdrop mini_card">
                     <div class="image_content">
@@ -15,13 +16,13 @@
                             </div>
                             <div style=" margin-top: 8px">
 		    									    <span class="badge-extra">
-		    										    <i class="fas fa-clock"></i> @lang('common.year'):
+		    										    <i class="fas fa-clock"></i> {{ __('common.year') }}:
 		    										    @if(isset($recommendation->release_date))
                                                             {{ substr($recommendation->release_date, 0, 4) }}
                                                         @elseif(isset($recommendation->first_air_date))
                                                             {{ substr($recommendation->first_air_date, 0, 4) }}
                                                         @else
-                                                            @lang('common.unknown')
+                                                            {{ __('common.unknown') }}
                                                         @endif
 		    									    </span>
                                 <span class="badge-extra {{ rating_color($recommendation->vote_average ?? 'text-white') }}">
@@ -38,6 +39,7 @@
                     </h4>
                 </div>
             @endforelse
+            @endif
         </div>
     </section>
 </div>

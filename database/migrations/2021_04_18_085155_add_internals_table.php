@@ -8,10 +8,8 @@ class AddInternalsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         //Create Table
         Schema::create('internals', function (Blueprint $table) {
@@ -29,10 +27,8 @@ class AddInternalsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         //Delete Table
         Schema::dropIfExists('internals');

@@ -15,10 +15,7 @@ namespace App\Services\Tmdb\Client;
 
 class Episode
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
 
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
@@ -73,12 +70,12 @@ class Episode
         return $this->data['id'];
     }
 
-    public function get_poster()
+    public function get_poster(): string
     {
         return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
     }
 
-    public function get_season_number()
+    public function get_season_number(): string
     {
         return \sprintf('%02d', $this->data['seasons']);
     }
