@@ -33,10 +33,8 @@ class Forum extends Model
 
     /**
      * Has Many Sub Topics.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sub_topics()
+    public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
         if (\is_array($children)) {

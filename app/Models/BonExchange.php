@@ -90,10 +90,8 @@ class BonExchange extends Model
 
     /**
      * @method getItemCost
-     *
-     * @param $id
      */
-    public function getItemCost($id): int
+    public function getItemCost(int $id): int
     {
         return self::where('id', '=', $id)
             ->get()

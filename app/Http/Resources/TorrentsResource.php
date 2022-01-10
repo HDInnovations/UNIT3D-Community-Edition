@@ -19,8 +19,6 @@ class TorrentsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param \Illuminate\Http\Request $request
      */
     public function toArray($request): array
     {
@@ -31,8 +29,6 @@ class TorrentsResource extends ResourceCollection
 
     /**
      * Get additional data that should be returned with the resource array.
-     *
-     * @param \Illuminate\Http\Request $request
      */
     public function with($request): array
     {
@@ -45,9 +41,6 @@ class TorrentsResource extends ResourceCollection
 
     /**
      * Customize the outgoing response for the resource.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Illuminate\Http\Response $response
      */
     public function withResponse($request, $response): void
     {

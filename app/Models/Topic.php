@@ -61,10 +61,6 @@ class Topic extends Model
 
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
-     *
-     * @param $poster
-     * @param $topic
-     * @param $post
      */
     public function notifySubscribers($poster, $topic, $post): void
     {
@@ -84,10 +80,6 @@ class Topic extends Model
 
     /**
      * Notify Staffers When New Staff Post Is Made.
-     *
-     * @param $poster
-     * @param $topic
-     * @param $post
      */
     public function notifyStaffers($poster, $topic, $post): void
     {
@@ -116,10 +108,6 @@ class Topic extends Model
 
     /**
      * Notify Starter When An Action Is Taken.
-     *
-     * @param $poster
-     * @param $topic
-     * @param $post
      */
     public function notifyStarter($poster, $topic, $post): bool
     {
@@ -133,8 +121,6 @@ class Topic extends Model
 
     /**
      * Get Post Number From ID.
-     *
-     * @param $searchId
      */
     public function postNumberFromId($searchId): int
     {

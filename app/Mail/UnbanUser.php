@@ -24,9 +24,6 @@ class UnbanUser extends Mailable
 
     /**
      * UnbanUser Constructor.
-     *
-     * @param $email
-     * @param $ban
      */
     public function __construct(public $email, public $ban)
     {

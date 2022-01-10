@@ -29,8 +29,6 @@ class ProcessCompanyJob implements ShouldQueue
 
     /**
      * ProcessCompanyJob Constructor.
-     *
-     * @param $company
      */
     public function __construct(public $company)
     {

@@ -57,10 +57,6 @@ class CasinoBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
     public function replaceVars($output): array|string
     {
@@ -152,8 +148,6 @@ class CasinoBot
 
     /**
      * Process Message.
-     *
-     * @param $type
      *
      * @throws \Exception
      */

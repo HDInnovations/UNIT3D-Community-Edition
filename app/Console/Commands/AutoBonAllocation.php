@@ -39,9 +39,6 @@ class AutoBonAllocation extends Command
 
     /**
      * Execute the console command.
-     *
-     *
-     * @return mixed
      */
     public function handle(ByteUnits $byteUnits): void
     {

@@ -29,8 +29,6 @@ class ProcessCollectionJob implements ShouldQueue
 
     /**
      * ProcessCollectionJob Constructor.
-     *
-     * @param $collection
      */
     public function __construct(public $collection)
     {

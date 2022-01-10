@@ -61,10 +61,6 @@ class NerdBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
     public function replaceVars($output): array|string
     {
@@ -368,8 +364,6 @@ class NerdBot
 
     /**
      * Process Message.
-     *
-     * @param $type
      *
      * @throws \Exception
      */

@@ -87,11 +87,8 @@ class ModerationController extends Controller
 
     /**
      * Postpone A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postpone(Request $request)
+    public function postpone(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',

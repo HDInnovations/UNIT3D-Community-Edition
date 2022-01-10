@@ -330,9 +330,6 @@ class ChatRepository
         return $this->chatStatus->findOrFail($id);
     }
 
-    /**
-     * @param $message
-     */
     protected function censorMessage($message): string
     {
         foreach (\config('censor.redact') as $word) {

@@ -38,30 +38,18 @@ class TaggedUserRepository
     {
     }
 
-    /**
-     * @param $content
-     *
-     * @return mixed
-     */
-    public function getTags($content)
+    public function getTags($content): mixed
     {
         \preg_match_all($this->regex, $content, $tagged);
 
         return $tagged[0];
     }
 
-    /**
-     * @param $content
-     */
     public function hasTags($content): bool
     {
         return $this->getTags($content) > 0;
     }
 
-    /**
-     * @param $haystack
-     * @param $needle
-     */
     public function contains($haystack, $needle): bool
     {
         return \collect($this->getTags($haystack))->contains($needle);

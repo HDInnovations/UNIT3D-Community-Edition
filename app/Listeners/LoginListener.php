@@ -19,8 +19,6 @@ class LoginListener
 {
     /**
      * Handle the event.
-     *
-     * @param auth.login $event
      */
     public function handle($event): void
     {

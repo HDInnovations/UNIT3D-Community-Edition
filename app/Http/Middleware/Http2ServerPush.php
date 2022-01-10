@@ -96,11 +96,8 @@ class Http2ServerPush
 
     /**
      * Get the DomCrawler instance.
-     *
-     *
-     * @return \Symfony\Component\DomCrawler\Crawler
      */
-    protected function getCrawler(Response $response)
+    protected function getCrawler(Response $response): ?Crawler
     {
         if ($this->crawler) {
             return $this->crawler;
@@ -121,11 +118,8 @@ class Http2ServerPush
 
     /**
      * Build out header string based on asset extension.
-     *
-     *
-     * @return string
      */
-    private function buildLinkHeaderString(string $url)
+    private function buildLinkHeaderString(string $url): ?string
     {
         $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {
@@ -138,8 +132,6 @@ class Http2ServerPush
 
     /**
      * Add Link Header.
-     *
-     * @param $link
      */
     private function addLinkHeader(Response $response, $link): void
     {

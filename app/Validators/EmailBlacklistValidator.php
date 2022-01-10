@@ -26,11 +26,6 @@ class EmailBlacklistValidator
 
     /**
      * Generate the error message on validation failure.
-     *
-     * @param $message
-     * @param $attribute
-     * @param $rule
-     * @param $parameters
      */
     public function message($message, $attribute, $rule, $parameters): string
     {
@@ -40,10 +35,7 @@ class EmailBlacklistValidator
     /**
      * Execute the validation routine.
      *
-     *
      * @throws \Exception
-     *
-     * @return bool.
      */
     public function validate(string $attribute, string $value, array $parameters): bool
     {

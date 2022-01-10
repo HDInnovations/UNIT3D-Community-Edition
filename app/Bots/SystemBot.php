@@ -52,10 +52,6 @@ class SystemBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
     public function replaceVars($output): array|string
     {
@@ -135,8 +131,6 @@ class SystemBot
 
     /**
      * Process Message.
-     *
-     * @param $type
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {

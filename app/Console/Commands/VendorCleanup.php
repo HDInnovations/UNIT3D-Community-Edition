@@ -72,8 +72,6 @@ class VendorCleanup extends Command
 
     /**
      * List of File and Folders Patters Going To Be Excluded.
-     *
-     * @return void
      */
     protected array $excluded =
         [
@@ -89,8 +87,6 @@ class VendorCleanup extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle(): void
     {
@@ -159,9 +155,6 @@ class VendorCleanup extends Command
 
     /**
      * Recursively deletes the directory.
-     *
-     *
-     * @return bool
      */
     protected function delTree(string $dir)
     {

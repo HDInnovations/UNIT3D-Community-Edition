@@ -27,10 +27,6 @@ class TorrentTools
 
     /**
      * Moves and decodes the torrent.
-     *
-     * @param $torrentFile
-     *
-     * @return array|int|string|void
      */
     public static function normalizeTorrent($torrentFile)
     {
@@ -66,8 +62,6 @@ class TorrentTools
 
     /**
      * Calculate the number of files in the torrent.
-     *
-     * @param $decodedTorrent
      */
     public static function getFileCount($decodedTorrent): int
     {
@@ -81,12 +75,8 @@ class TorrentTools
 
     /**
      * Returns the size of the torrent files.
-     *
-     * @param $decodedTorrent
-     *
-     * @return int|mixed
      */
-    public static function getTorrentSize($decodedTorrent)
+    public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -105,12 +95,8 @@ class TorrentTools
 
     /**
      * Returns the torrent file list.
-     *
-     * @param $decodedTorrent
-     *
-     * @return mixed
      */
-    public static function getTorrentFiles($decodedTorrent)
+    public static function getTorrentFiles($decodedTorrent): array
     {
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
@@ -138,8 +124,6 @@ class TorrentTools
 
     /**
      * Returns file and folder names from the torrent.
-     *
-     * @param $decodedTorrent
      */
     public static function getFilenameArray($decodedTorrent): array
     {
@@ -163,8 +147,6 @@ class TorrentTools
 
     /**
      * Returns the sha1 (hash) of the torrent.
-     *
-     * @param $decodedTorrent
      */
     public static function getTorrentHash($decodedTorrent): string
     {
@@ -173,8 +155,6 @@ class TorrentTools
 
     /**
      * Returns the number of the torrent file.
-     *
-     * @param $decodedTorrent
      */
     public static function getTorrentFileCount($decodedTorrent): int
     {
@@ -187,12 +167,8 @@ class TorrentTools
 
     /**
      * Returns the NFO.
-     *
-     * @param $inputFile
-     *
-     * @return false|string|null
      */
-    public static function getNfo($inputFile)
+    public static function getNfo($inputFile): bool|string|null
     {
         $fileName = \uniqid('', true).'.nfo';
         $inputFile->move(\getcwd().'/files/tmp/', $fileName);
@@ -208,8 +184,6 @@ class TorrentTools
 
     /**
      * Check if the filename is valid or not.
-     *
-     * @param $filename
      */
     public static function isValidFilename($filename): bool
     {

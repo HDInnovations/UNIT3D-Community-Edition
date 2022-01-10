@@ -81,11 +81,8 @@ class SetLanguage
 
     /**
      * Handle an incoming request.
-     *
-     *
-     * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

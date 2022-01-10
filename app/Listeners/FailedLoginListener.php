@@ -22,8 +22,6 @@ class FailedLoginListener
     /**
      * Handle the event.
      *
-     * @param auth.failed $event
-     *
      * @throws \Exception
      */
     public function handle($event): void

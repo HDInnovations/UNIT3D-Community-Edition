@@ -19,12 +19,9 @@ class NotifyUserCommentWasCreated
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -32,6 +29,5 @@ class NotifyUserCommentWasCreated
      */
     public function handle(CommentCreated $event): void
     {
-        //
     }
 }

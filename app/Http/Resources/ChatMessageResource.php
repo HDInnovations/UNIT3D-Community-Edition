@@ -22,8 +22,6 @@ class ChatMessageResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function toArray($request): array

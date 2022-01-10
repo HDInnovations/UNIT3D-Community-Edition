@@ -35,8 +35,6 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
 
     /**
      * ProcessCompletedAnnounceRequest Constructor.
-     *
-     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {

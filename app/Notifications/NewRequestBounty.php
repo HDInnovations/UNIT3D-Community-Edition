@@ -24,8 +24,6 @@ class NewRequestBounty extends Notification implements ShouldQueue
 
     /**
      * NewRequestBounty Constructor.
-     *
-     * @param $amount
      */
     public function __construct(public string $type, public string $sender, public $amount, public TorrentRequest $torrentRequest)
     {
@@ -33,8 +31,6 @@ class NewRequestBounty extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
      */
     public function via($notifiable): array
     {
@@ -43,8 +39,6 @@ class NewRequestBounty extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
      */
     public function toArray($notifiable): array
     {

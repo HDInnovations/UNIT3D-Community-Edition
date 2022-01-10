@@ -82,10 +82,8 @@ class StringHelper
 
     /**
      * @method timeRemaining
-     *
-     * @param time $seconds in bigInt
      */
-    public static function timeRemaining($seconds): string
+    public static function timeRemaining(int $seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -143,10 +141,8 @@ class StringHelper
 
     /**
      * @method timeElapsed
-     *
-     * @param time $seconds in bigInt
      */
-    public static function timeElapsed($seconds): string
+    public static function timeElapsed(int $seconds): string
     {
         $minutes = 0;
         $hours = 0;

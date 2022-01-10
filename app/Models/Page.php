@@ -34,8 +34,6 @@ class Page extends Model
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Convert BBCODE and Parse Markdown To HTML
      */
     public function getContentHtml(): ?string
     {

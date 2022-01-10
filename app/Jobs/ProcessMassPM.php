@@ -39,11 +39,6 @@ class ProcessMassPM implements ShouldQueue
 
     /**
      * ProcessMassPM Constructor.
-     *
-     * @param $sender_id
-     * @param $receiver_id
-     * @param $subject
-     * @param $message
      */
     public function __construct(protected $senderId, protected $receiverId, protected $subject, protected $message)
     {

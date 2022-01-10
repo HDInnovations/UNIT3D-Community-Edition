@@ -63,8 +63,6 @@ class Poll extends Model
 
     /**
      * Set The Poll's Title.
-     *
-     * @param $title
      */
     public function setTitleAttribute($title): string
     {
@@ -73,8 +71,6 @@ class Poll extends Model
 
     /**
      * Create A Poll Title Slug.
-     *
-     * @param $title
      */
     public function makeSlugFromTitle($title): string
     {

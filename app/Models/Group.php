@@ -54,12 +54,8 @@ class Group extends Model
 
     /**
      * Returns The Requested Row From The Permissions Table.
-     *
-     * @param $forum
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function getPermissionsByForum($forum)
+    public function getPermissionsByForum($forum): \Illuminate\Database\Eloquent\Builder|null
     {
         return Permission::where('forum_id', '=', $forum->id)
             ->where('group_id', '=', $this->id)
@@ -68,11 +64,8 @@ class Group extends Model
 
     /**
      * Get the Group allowed answer as bool.
-     *
-     * @param $object
-     * @param $groupId
      */
-    public function isAllowed($object, $groupId): bool
+    public function isAllowed($object, int $groupId): bool
     {
         if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
             return $object['default_groups'][$groupId] == 1;

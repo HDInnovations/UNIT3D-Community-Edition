@@ -19,12 +19,9 @@ class NotifyStaffTicketWasCreated
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -32,6 +29,5 @@ class NotifyStaffTicketWasCreated
      */
     public function handle(TicketCreated $event): void
     {
-        //
     }
 }

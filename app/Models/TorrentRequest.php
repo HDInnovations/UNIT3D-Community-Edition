@@ -136,8 +136,6 @@ class TorrentRequest extends Model
 
     /**
      * Parse Description And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getDescriptionHtml(): string
     {
@@ -149,9 +147,6 @@ class TorrentRequest extends Model
 
     /**
      * Notify Requester When A New Action Is Taken.
-     *
-     * @param $type
-     * @param $payload
      */
     public function notifyRequester($type, $payload): bool
     {

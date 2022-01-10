@@ -42,9 +42,6 @@ class ProcessTvJob implements ShouldQueue
 
     /**
      * ProcessTvJob Constructor.
-     *
-     * @param $tv
-     * @param $id
      */
     public function __construct(public $tv, public $id)
     {

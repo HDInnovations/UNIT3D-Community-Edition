@@ -28,10 +28,8 @@ class NetworkController extends Controller
 
     /**
      * Show A Network.
-     *
-     * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $network = Network::withCount('tv')->findOrFail($id);
         $shows = $network->tv()->orderBy('name')->paginate(25);

@@ -32,8 +32,6 @@ class NewFollow extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
      */
     public function via($notifiable): array
     {
@@ -42,8 +40,6 @@ class NewFollow extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
      */
     public function toArray($notifiable): array
     {

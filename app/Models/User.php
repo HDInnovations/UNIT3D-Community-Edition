@@ -114,10 +114,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
-    /**
-     * @param $torrentId
-     */
-    public function isBookmarked($torrentId): bool
+    public function isBookmarked(int $torrentId): bool
     {
         return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
     }
@@ -593,10 +590,8 @@ class User extends Authenticatable
 
     /**
      * Does Subscription Exist.
-     *
-     * @param $topicId
      */
-    public function isSubscribed(string $type, $topicId): bool
+    public function isSubscribed(string $type, int $topicId): bool
     {
         if ($type === 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
@@ -607,10 +602,8 @@ class User extends Authenticatable
 
     /**
      * Get All Followers Of A User.
-     *
-     * @param $targetId
      */
-    public function isFollowing($targetId): bool
+    public function isFollowing(int $targetId): bool
     {
         return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
@@ -665,9 +658,8 @@ class User extends Authenticatable
         return (string) $ratio;
     }
 
-    // Return the ratio after $size bytes would be downloaded.
     /**
-     * @param $size
+     * Return the ratio after $size bytes would be downloaded.
      */
     public function ratioAfterSize($size): float
     {
@@ -678,10 +670,8 @@ class User extends Authenticatable
         return \round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
-    // Return the ratio after $size bytes would be downloaded, pretty formatted
-    // as a string.
     /**
-     * @param $size
+     * Return the ratio after $size bytes would be downloaded, pretty formatted as string
      */
     public function ratioAfterSizeString($size, bool $freeleech = false): string
     {
@@ -697,13 +687,9 @@ class User extends Authenticatable
         return (string) $ratio;
     }
 
-    // Return the size (pretty formated) which can be safely downloaded
-    // without falling under the minimum ratio.
-
     /**
-     * @param $ratio
-     *
-     * @return string
+     * Return the size (pretty formated) which can be safely downloaded
+     * without falling under the minimum ratio.
      */
     public function untilRatio($ratio)
     {
@@ -726,8 +712,6 @@ class User extends Authenticatable
 
     /**
      * Returns the HTML of the user's signature.
-     *
-     * @return string html
      */
     public function getSignature(): string
     {
@@ -747,8 +731,6 @@ class User extends Authenticatable
 
     /**
      * Parse About Me And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml(): string
     {

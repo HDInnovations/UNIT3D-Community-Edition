@@ -35,12 +35,8 @@ class Chatter implements ShouldBroadcastNow
 
     /**
      * Chatter Constructor.
-     *
-     * @param $type
-     * @param $target
-     * @param $payload
      */
-    public function __construct(public $type, public $target, $payload)
+    public function __construct(public string $type, public $target, $payload)
     {
         if ($type == 'echo') {
             $this->echoes = $payload;

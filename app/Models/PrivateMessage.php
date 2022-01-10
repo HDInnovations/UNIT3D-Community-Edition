@@ -57,8 +57,6 @@ class PrivateMessage extends Model
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getMessageHtml(): string
     {

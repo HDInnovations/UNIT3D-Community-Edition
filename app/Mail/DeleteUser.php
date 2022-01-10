@@ -24,8 +24,6 @@ class DeleteUser extends Mailable
 
     /**
      * DeleteUser Constructor.
-     *
-     * @param $email
      */
     public function __construct(public $email)
     {

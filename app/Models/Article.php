@@ -46,9 +46,6 @@ class Article extends Model
 
     /**
      * Article Trimming.
-     *
-     *
-     * @return string Formatted And Trimmed Content
      */
     public function getBrief(int $length = 20, bool $ellipses = true, bool $stripHtml = false): string
     {
@@ -85,8 +82,6 @@ class Article extends Model
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml(): string
     {

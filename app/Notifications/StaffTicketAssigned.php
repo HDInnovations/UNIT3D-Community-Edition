@@ -24,9 +24,6 @@ class StaffTicketAssigned extends Notification
 
     /**
      * Create a new notification instance.
-     *
-     *
-     * @return mixed
      */
     public function __construct(private Ticket $ticket)
     {
@@ -34,8 +31,6 @@ class StaffTicketAssigned extends Notification
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
      */
     public function via($notifiable): array
     {
@@ -44,8 +39,6 @@ class StaffTicketAssigned extends Notification
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
      */
     public function toMail($notifiable): MailMessage
     {
@@ -57,13 +50,9 @@ class StaffTicketAssigned extends Notification
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
      */
     public function toArray($notifiable): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

@@ -17,10 +17,8 @@ class BBCodeConverter
 {
     /**
      * BBCodeConverter Constructor.
-     *
-     * @param $text
      */
-    public function __construct(public $text)
+    public function __construct(public string $text)
     {
     }
 

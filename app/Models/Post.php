@@ -78,8 +78,6 @@ class Post extends Model
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml(): string
     {
@@ -90,10 +88,7 @@ class Post extends Model
     }
 
     /**
-     * Post Trimming.
-     *
-     *
-     * @return string Formatted And Trimmed Content
+     * Post Trimming.t
      */
     public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {

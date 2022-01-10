@@ -29,11 +29,8 @@ class Ping implements ShouldBroadcastNow
 
     /**
      * Ping Constructor.
-     *
-     * @param $room
-     * @param $id
      */
-    public function __construct(public $room, $id)
+    public function __construct(public $room, int $id)
     {
         $this->ping = ['type' => 'room', 'id' => $id];
     }

@@ -153,8 +153,6 @@ class SystemInformation
 
     /**
      * Get the file permissions for a specific path/file.
-     *
-     * @param $path
      */
     public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
     {
