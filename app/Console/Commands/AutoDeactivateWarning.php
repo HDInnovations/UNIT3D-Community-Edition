@@ -15,6 +15,8 @@ namespace App\Console\Commands;
 
 use App\Models\PrivateMessage;
 use App\Models\Warning;
+use App\Notifications\UserManualWarningExpire;
+use App\Notifications\UserWarningExpire;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -53,18 +55,12 @@ class AutoDeactivateWarning extends Command
             $warning->active = '0';
             $warning->save();
 
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $warning->warneduser->id;
-            $pm->subject = 'Hit and Run Warning Deactivated';
-            if (isset($warning->torrent)) {
-                $pm->message = 'The [b]WARNING[/b] you received relating to Torrent '.$warning->torrenttitle->name.' has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+            // Send Notifications
+            if ($warning->torrenttitle) {
+                $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
             } else {
-                $pm->message = 'The [b]WARNING[/b] you received: "'.$warning->reason.'" has expired! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+                $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
             }
-
-            $pm->save();
         }
 
         // Calculate User Warning Count and Disable DL Priv If Required.
