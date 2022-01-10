@@ -42,7 +42,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:prewarning')->hourly();
         $schedule->command('auto:warning')->daily();
         $schedule->command('auto:deactivate_warning')->hourly();
-        $schedule->command('auto:revoke_permissions')->hourly();
         $schedule->command('auto:flush_peers')->hourly();
         $schedule->command('auto:bon_allocation')->hourly();
         $schedule->command('auto:remove_personal_freeleech')->hourly();

@@ -19,6 +19,7 @@ use App\Models\Warning;
 use App\Notifications\UserWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoWarningTest
@@ -87,6 +88,16 @@ class AutoWarning extends Command
 
                         $hr->save();
                     }
+                }
+            }
+
+            // Calculate User Warning Count and Disable DL Priv If Required.
+            $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
+
+            foreach ($warnings as $warning) {
+                if ($warning->warneduser->can_download === 1) {
+                    $warning->warneduser->can_download = 0;
+                    $warning->warneduser->save();
                 }
             }
         }

@@ -40,7 +40,7 @@ class UserBan extends Notification
      */
     public function toMail($notifiable)
     {
-        $discordUrl = 'https://discord.gg/kUtC3WynUU';
+        $discordUrl = config('other.discord-link');
 
         return (new MailMessage)
             ->greeting('You have been banned 😭')
