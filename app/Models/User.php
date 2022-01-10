@@ -1027,7 +1027,7 @@ class User extends Authenticatable
     {
         $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
-        return Torrent::whereIn('id', $peers)->sum('size');
+        return Torrent::whereIntegerInRaw('id', $peers)->sum('size');
     }
 
     /**

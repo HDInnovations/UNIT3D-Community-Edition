@@ -121,7 +121,7 @@ class Forum extends Model
             $subscriptions = \auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 
             return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions) {
-                $query->whereIn('topics.id', [$id])->orWhereIn('topics.id', $subscriptions);
+                $query->whereIntegerInRaw('topics.id', [$id])->orWhereIntegerInRaw('topics.id', $subscriptions);
             });
         }
 

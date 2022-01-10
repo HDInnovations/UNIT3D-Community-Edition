@@ -254,20 +254,20 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->categories && \is_array($rss->object_torrent->categories)) {
-            $builder->whereIn('category_id', $categories);
+            $builder->whereIntegerInRaw('category_id', $categories);
         }
 
         if ($rss->object_torrent->types && \is_array($rss->object_torrent->types)) {
-            $builder->whereIn('type_id', $types);
+            $builder->whereIntegerInRaw('type_id', $types);
         }
 
         if ($rss->object_torrent->resolutions && \is_array($rss->object_torrent->resolutions)) {
-            $builder->whereIn('resolution_id', $resolutions);
+            $builder->whereIntegerInRaw('resolution_id', $resolutions);
         }
 
         if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $genres)->pluck('tv_id');
-            $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $genres)->pluck('movie_id');
+            $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $genres)->pluck('tv_id');
+            $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $genres)->pluck('movie_id');
             $mergedCollection = $tvCollection->merge($movieCollection);
 
             $builder->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
@@ -302,7 +302,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
-            $builder->whereIn('id', $user->bookmarks->pluck('id'));
+            $builder->whereIntegerInRaw('id', $user->bookmarks->pluck('id'));
         }
 
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
