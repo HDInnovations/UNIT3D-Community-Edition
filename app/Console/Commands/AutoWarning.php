@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
+use App\Notifications\UserWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -81,14 +82,8 @@ class AutoWarning extends Command
                         $hr->user->hitandruns++;
                         $hr->user->save();
 
-                        // Send Private Message
-                        $pm = new PrivateMessage();
-                        $pm->sender_id = 1;
-                        $pm->receiver_id = $hr->user->id;
-                        $pm->subject = 'Hit and Run Warning Received';
-                        $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                        $pm->save();
+                        // Send Notifications
+                        $hr->user->notify(new UserWarning($hr->user, $hr->torrent));
 
                         $hr->save();
                     }
