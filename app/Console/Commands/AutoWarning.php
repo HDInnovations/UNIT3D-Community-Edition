@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
-use App\Models\PrivateMessage;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
 use Carbon\Carbon;

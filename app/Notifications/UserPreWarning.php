@@ -5,7 +5,6 @@ namespace App\Notifications;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -35,7 +34,7 @@ class UserPreWarning extends Notification
     {
         $profileUrl = \href_profile($this->user);
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->greeting('Hit and Run Pre Warning!')
             ->line('You have revieved a hit and run pre warning on one or more torrents!')
             ->action('View Unsatfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)

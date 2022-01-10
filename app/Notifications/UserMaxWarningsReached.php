@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -24,7 +23,8 @@ class UserMaxWarningsReached extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -35,14 +35,15 @@ class UserMaxWarningsReached extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         $profileUrl = \href_profile($this->user);
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->greeting('Max Hit and Run Warnings Reached!')
             ->line('You have hit the limit on active Hit and Run Warnings! Your download privilliges have been revoked!')
             ->action('View Unsatfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
@@ -52,7 +53,8 @@ class UserMaxWarningsReached extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
