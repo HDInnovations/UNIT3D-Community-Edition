@@ -443,6 +443,8 @@ class AnnounceController extends Controller
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
+            'peers'        => [],
+            'peers6'       => [],
         ];
 
         /**

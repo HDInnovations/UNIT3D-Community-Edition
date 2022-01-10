@@ -24,7 +24,7 @@ class ApplicationUrlProofFactory extends Factory
     {
         return [
             'application_id' => fn () => Application::factory()->create()->id,
-            'url'            => $this->faker->url,
+            'url'            => $this->faker->url(),
         ];
     }
 }

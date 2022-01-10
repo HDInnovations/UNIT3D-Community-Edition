@@ -23,8 +23,8 @@ class FailedLoginAttemptFactory extends Factory
     {
         return [
             'user_id'    => $this->faker->randomNumber(),
-            'username'   => $this->faker->userName,
-            'ip_address' => $this->faker->word,
+            'username'   => $this->faker->userName(),
+            'ip_address' => $this->faker->word(),
         ];
     }
 }

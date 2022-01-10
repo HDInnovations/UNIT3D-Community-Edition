@@ -112,13 +112,13 @@ class GraveyardSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->categories, function ($query) {
-                $query->whereIn('category_id', $this->categories);
+                $query->whereIntegerInRaw('category_id', $this->categories);
             })
             ->when($this->types, function ($query) {
-                $query->whereIn('type_id', $this->types);
+                $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->whereIn('resolution_id', $this->resolutions);
+                $query->v('resolution_id', $this->resolutions);
             })
             ->when($this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);

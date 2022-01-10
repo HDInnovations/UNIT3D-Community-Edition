@@ -24,12 +24,12 @@ class RssFactory extends Factory
     {
         return [
             'position'     => $this->faker->randomNumber(),
-            'name'         => $this->faker->name,
+            'name'         => $this->faker->name(),
             'user_id'      => fn () => User::factory()->create()->id,
             'staff_id'     => fn () => User::factory()->create()->id,
-            'is_private'   => $this->faker->boolean,
-            'is_torrent'   => $this->faker->boolean,
-            'json_torrent' => $this->faker->word,
+            'is_private'   => $this->faker->boolean(),
+            'is_torrent'   => $this->faker->boolean(),
+            'json_torrent' => $this->faker->word(),
         ];
     }
 }

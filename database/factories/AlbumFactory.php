@@ -24,10 +24,10 @@ class AlbumFactory extends Factory
     {
         return [
             'user_id'     => fn () => User::factory()->create()->id,
-            'name'        => $this->faker->name,
-            'description' => $this->faker->text,
-            'imdb'        => $this->faker->word,
-            'cover_image' => $this->faker->word,
+            'name'        => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'imdb'        => $this->faker->word(),
+            'cover_image' => $this->faker->word(),
         ];
     }
 }

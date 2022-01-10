@@ -56,7 +56,7 @@ class StatsController extends Controller
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
             $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
-            return User::whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->count();
+            return User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->count();
         });
 
         // Total Disabled Members Count
@@ -158,7 +158,7 @@ class StatsController extends Controller
         $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Uploaders
-        $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
+        $uploaded = User::latest('uploaded')->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
 
         return \view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
@@ -176,7 +176,7 @@ class StatsController extends Controller
         $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Downloaders
-        $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
+        $downloaded = User::latest('downloaded')->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
 
         return \view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
@@ -227,7 +227,7 @@ class StatsController extends Controller
         $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
 
         return \view('stats.users.bankers', ['bankers' => $bankers]);
     }

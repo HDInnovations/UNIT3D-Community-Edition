@@ -25,9 +25,9 @@ class ImageFactory extends Factory
         return [
             'user_id'     => fn () => User::factory()->create()->id,
             'album_id'    => $this->faker->randomNumber(),
-            'image'       => $this->faker->word,
-            'description' => $this->faker->text,
-            'type'        => $this->faker->word,
+            'image'       => $this->faker->word(),
+            'description' => $this->faker->text(),
+            'type'        => $this->faker->word(),
             'downloads'   => $this->faker->randomNumber(),
         ];
     }

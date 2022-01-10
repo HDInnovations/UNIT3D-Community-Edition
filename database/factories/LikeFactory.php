@@ -27,8 +27,8 @@ class LikeFactory extends Factory
             'user_id'     => fn () => User::factory()->create()->id,
             'post_id'     => fn () => Post::factory()->create()->id,
             'subtitle_id' => $this->faker->randomNumber(),
-            'like'        => $this->faker->boolean,
-            'dislike'     => $this->faker->boolean,
+            'like'        => $this->faker->boolean(),
+            'dislike'     => $this->faker->boolean(),
         ];
     }
 }

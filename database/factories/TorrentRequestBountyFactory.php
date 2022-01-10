@@ -27,7 +27,7 @@ class TorrentRequestBountyFactory extends Factory
             'user_id'     => fn () => User::factory()->create()->id,
             'seedbonus'   => $this->faker->randomFloat(),
             'requests_id' => $this->faker->randomNumber(),
-            'anon'        => $this->faker->boolean,
+            'anon'        => $this->faker->boolean(),
             'request_id'  => fn () => TorrentRequest::factory()->create()->id,
         ];
     }

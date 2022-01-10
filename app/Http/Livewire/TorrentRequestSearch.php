@@ -140,13 +140,13 @@ class TorrentRequestSearch extends Component
                 }
             })
             ->when($this->categories, function ($query) {
-                $query->whereIn('category_id', $this->categories);
+                $query->whereIntegerInRaw('category_id', $this->categories);
             })
             ->when($this->types, function ($query) {
-                $query->whereIn('type_id', $this->types);
+                $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->whereIn('resolution_id', $this->resolutions);
+                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
             ->when($this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
@@ -181,11 +181,11 @@ class TorrentRequestSearch extends Component
             })
             ->when($this->myClaims, function ($query) {
                 $requestCliams = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
-                $query->whereIn('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
+                $query->whereIntegerInRaw('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) {
                 $requestVotes = TorrentRequestBounty::where('user_id', '=', \auth()->user()->id)->pluck('requests_id');
-                $query->whereIn('id', $requestVotes);
+                $query->whereIntegerInRaw('id', $requestVotes);
             })
             ->when($this->myFilled, function ($query) {
                 $query->where('filled_by', '=', \auth()->user()->id);

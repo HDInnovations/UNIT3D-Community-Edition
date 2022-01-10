@@ -24,10 +24,10 @@ class WishFactory extends Factory
     {
         return [
             'user_id' => fn () => User::factory()->create()->id,
-            'title'   => $this->faker->word,
-            'imdb'    => $this->faker->word,
-            'type'    => $this->faker->word,
-            'source'  => $this->faker->word,
+            'title'   => $this->faker->word(),
+            'imdb'    => $this->faker->word(),
+            'type'    => $this->faker->word(),
+            'source'  => $this->faker->word(),
         ];
     }
 }

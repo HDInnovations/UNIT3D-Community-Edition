@@ -25,8 +25,8 @@ class BanFactory extends Factory
         return [
             'owned_by'     => fn () => User::factory()->create()->id,
             'created_by'   => fn () => User::factory()->create()->id,
-            'ban_reason'   => $this->faker->text,
-            'unban_reason' => $this->faker->text,
+            'ban_reason'   => $this->faker->text(),
+            'unban_reason' => $this->faker->text(),
             'removed_at'   => $this->faker->dateTime(),
         ];
     }

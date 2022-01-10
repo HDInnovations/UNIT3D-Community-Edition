@@ -24,7 +24,7 @@ class ApplicationImageProofFactory extends Factory
     {
         return [
             'application_id' => fn () => Application::factory()->create()->id,
-            'image'          => $this->faker->word,
+            'image'          => $this->faker->word(),
         ];
     }
 }

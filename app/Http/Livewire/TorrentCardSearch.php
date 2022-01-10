@@ -243,8 +243,8 @@ class TorrentCardSearch extends Component
             ->when($this->genres, function ($query) {
                 $this->validate();
 
-                $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $this->genres)->pluck('tv_id');
-                $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $this->genres)->pluck('movie_id');
+                $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $this->genres)->pluck('tv_id');
+                $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $this->genres)->pluck('movie_id');
                 $mergedCollection = $tvCollection->merge($movieCollection);
 
                 $query->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
@@ -278,7 +278,7 @@ class TorrentCardSearch extends Component
             ->when($this->collectionId, function ($query) {
                 $categories = Category::where('movie_meta', '=', 1)->pluck('id');
                 $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
-                $query->whereIntegerInRaw('category_id', $categories)->whereIn('tmdb', $collection);
+                $query->whereIntegerInRaw('category_id', $categories)->whereIntegerInRaw('tmdb', $collection);
             })
             ->when($this->free0 === '0' || $this->free0, function ($query) {
                 $query->where('free', '=', 0);
@@ -316,7 +316,7 @@ class TorrentCardSearch extends Component
             })
             ->when($this->wished, function ($query) {
                 $wishes = Wish::where('user_id', '=', \auth()->user()->id)->pluck('tmdb');
-                $query->whereIntegerInRaw('tmdb', $wishes);
+                $query->whereIn('tmdb', $wishes);
             })
             ->when($this->internal, function ($query) {
                 $query->where('internal', '=', 1);
