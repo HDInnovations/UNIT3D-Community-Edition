@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\PrivateMessage;
 use App\Models\Warning;
 use App\Notifications\UserManualWarningExpire;
 use App\Notifications\UserWarningExpire;
