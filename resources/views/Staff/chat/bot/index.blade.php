@@ -51,30 +51,30 @@
                                     @else
                                         <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                                     @endif
-                                    @if($bot->is_systembot)
-
-                                    @else
-                                        @if($bot->active)
-                                            <form role="form" method="POST"
-                                                  action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
-                                                  style="display: inline-block;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-xs btn-warning">
-                                                    <i class='{{ config('other.font-awesome') }} fa-times-circle'></i> {{ __('common.disable') }}
-                                                </button>
-                                            </form>
-                                        @else
-                                            <form role="form" method="POST"
-                                                  action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
-                                                  style="display: inline-block;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-xs btn-success">
-                                                    <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> {{ __('common.enable') }}
-                                                </button>
-                                            </form>
-                                        @endif
-                                    @endif
                                 </form>
+                                @if($bot->is_systembot)
+
+                                @else
+                                    @if($bot->active)
+                                        <form role="form" method="POST"
+                                              action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
+                                              style="display: inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-warning">
+                                                <i class='{{ config('other.font-awesome') }} fa-times-circle'></i> {{ __('common.disable') }}
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form role="form" method="POST"
+                                              action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
+                                              style="display: inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-success">
+                                                <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> {{ __('common.enable') }}
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
                             </td>
                         </tr>
                     @endforeach
