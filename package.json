@@ -24,7 +24,7 @@
     "socket.io-client": "^2.3.1",
     "sweetalert2": "^11.3.4",
     "vue": "^2.6.14",
-    "vue-loader": "^17.0.0",
+    "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
