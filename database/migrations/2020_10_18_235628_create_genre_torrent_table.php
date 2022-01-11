@@ -8,10 +8,8 @@ class CreateGenreTorrentTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('genre_torrent', function (Blueprint $table) {
             $table->bigInteger('genre_id')->index();

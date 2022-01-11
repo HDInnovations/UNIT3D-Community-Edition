@@ -8,10 +8,8 @@ class CreateEpisodePersonTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('episode_person', function (Blueprint $table) {
             $table->unsignedInteger('episode_id');

@@ -25,7 +25,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function bonus_returns_an_ok_response()
+    public function bonus_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
 
@@ -56,7 +56,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function upload_exchange_returns_an_ok_response()
+    public function upload_exchange_returns_an_ok_response(): void
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -79,7 +79,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function download_exchange_returns_an_ok_response()
+    public function download_exchange_returns_an_ok_response(): void
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -106,7 +106,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function personal_freeleech_exchange_returns_an_ok_response()
+    public function personal_freeleech_exchange_returns_an_ok_response(): void
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
@@ -133,7 +133,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function gift_returns_an_ok_response()
+    public function gift_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
 
@@ -145,7 +145,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function gifts_returns_an_ok_response()
+    public function gifts_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
 
@@ -161,7 +161,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function send_gift_returns_an_ok_response()
+    public function send_gift_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
@@ -184,7 +184,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
 
@@ -202,7 +202,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function tip_poster_returns_an_ok_response()
+    public function tip_poster_returns_an_ok_response(): void
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
@@ -222,7 +222,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function tip_uploader_returns_an_ok_response()
+    public function tip_uploader_returns_an_ok_response(): void
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
@@ -241,7 +241,7 @@ class BonusControllerTest extends TestCase
     }
 
     /** @test */
-    public function tips_returns_an_ok_response()
+    public function tips_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
 

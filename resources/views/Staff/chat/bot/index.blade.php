@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.bots')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.bots') }}</span>
         </a>
     </li>
 @endsection
@@ -16,17 +16,17 @@
 @section('content')
     <div class="container box">
         <div class="block">
-            <h2>@lang('staff.bots')</h2>
+            <h2>{{ __('staff.bots') }}</h2>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>@lang('common.name')</th>
-                        <th>@lang('common.position')</th>
-                        <th>@lang('common.icon')</th>
-                        <th>@lang('common.command')</th>
-                        <th>@lang('common.status')</th>
-                        <th>@lang('common.action')</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.icon') }}</th>
+                        <th>{{ __('common.command') }}</th>
+                        <th>{{ __('common.status') }}</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,36 +45,36 @@
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}"
-                                       class="btn btn-warning">@lang('common.edit')</a>
+                                       class="btn btn-warning">{{ __('common.edit') }}</a>
                                     @if($bot->is_protected)
 
                                     @else
-                                        <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
-                                    @endif
-                                    @if($bot->is_systembot)
-
-                                    @else
-                                        @if($bot->active)
-                                            <form role="form" method="POST"
-                                                  action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
-                                                  style="display: inline-block;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-xs btn-warning">
-                                                    <i class='{{ config('other.font-awesome') }} fa-times-circle'></i> @lang('common.disable')
-                                                </button>
-                                            </form>
-                                        @else
-                                            <form role="form" method="POST"
-                                                  action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
-                                                  style="display: inline-block;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-xs btn-success">
-                                                    <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> @lang('common.enable')
-                                                </button>
-                                            </form>
-                                        @endif
+                                        <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                                     @endif
                                 </form>
+                                @if($bot->is_systembot)
+
+                                @else
+                                    @if($bot->active)
+                                        <form role="form" method="POST"
+                                              action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
+                                              style="display: inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-warning">
+                                                <i class='{{ config('other.font-awesome') }} fa-times-circle'></i> {{ __('common.disable') }}
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form role="form" method="POST"
+                                              action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
+                                              style="display: inline-block;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-xs btn-success">
+                                                <i class='{{ config('other.font-awesome') }} fa-check-circle'></i> {{ __('common.enable') }}
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
                             </td>
                         </tr>
                     @endforeach

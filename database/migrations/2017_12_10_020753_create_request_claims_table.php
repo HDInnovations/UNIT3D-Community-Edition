@@ -18,10 +18,8 @@ class CreateRequestClaimsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('request_claims', function (Blueprint $table) {
             $table->increments('id');

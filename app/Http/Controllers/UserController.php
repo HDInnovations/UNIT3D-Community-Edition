@@ -46,10 +46,8 @@ class UserController extends Controller
 {
     /**
      * Show A User.
-     *
-     * @param \App\Models\User $username
      */
-    public function show($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
@@ -115,10 +113,8 @@ class UserController extends Controller
 
     /**
      * User Followers.
-     *
-     * @param \App\Models\User $username
      */
-    public function followers($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function followers(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
@@ -132,10 +128,8 @@ class UserController extends Controller
 
     /**
      * User Topics.
-     *
-     * @param \App\Models\User $username
      */
-    public function topics($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function topics(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
@@ -149,13 +143,11 @@ class UserController extends Controller
 
     /**
      * User Posts.
-     *
-     * @param \App\Models\User $username
      */
-    public function posts($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function posts(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderByDesc('posts.created_at')->paginate(25);
 
         return \view('user.posts', [
             'route'   => 'forum',
@@ -166,10 +158,8 @@ class UserController extends Controller
 
     /**
      * Edit Profile Form.
-     *
-     * @param \App\Models\User $username
      */
-    public function editProfileForm(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editProfileForm(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -180,12 +170,8 @@ class UserController extends Controller
 
     /**
      * Edit User Profile.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editProfile(Request $request, $username)
+    public function editProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -233,10 +219,8 @@ class UserController extends Controller
 
     /**
      * User Account Settings.
-     *
-     * @param \App\Models\User $username
      */
-    public function settings(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function settings(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -247,12 +231,8 @@ class UserController extends Controller
 
     /**
      * Change User Account Settings.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function changeSettings(Request $request, $username)
+    public function changeSettings(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -298,10 +278,8 @@ class UserController extends Controller
 
     /**
      * User Security Settings.
-     *
-     * @param \App\Models\User $username
      */
-    public function security(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function security(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -312,11 +290,8 @@ class UserController extends Controller
 
     /**
      * User TwoStep Auth.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeTwoStep(Request $request)
+    protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->getMethod() == 'GET') {
             return \redirect()->route('user_security', ['username' => $request->user()->username]);
@@ -334,12 +309,8 @@ class UserController extends Controller
 
     /**
      * User Password Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changePassword(Request $request, $username)
+    protected function changePassword(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -368,12 +339,8 @@ class UserController extends Controller
 
     /**
      * User Email Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeEmail(Request $request, $username)
+    protected function changeEmail(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -403,12 +370,8 @@ class UserController extends Controller
 
     /**
      * Change User Privacy Level.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function makePrivate(Request $request, $username)
+    public function makePrivate(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -423,12 +386,8 @@ class UserController extends Controller
 
     /**
      * Change User Privacy Level.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function makePublic(Request $request, $username)
+    public function makePublic(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -443,12 +402,8 @@ class UserController extends Controller
 
     /**
      * Change User Notification Setting.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function disableNotifications(Request $request, $username)
+    public function disableNotifications(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -463,12 +418,8 @@ class UserController extends Controller
 
     /**
      * Change User Notification Setting.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function enableNotifications(Request $request, $username)
+    public function enableNotifications(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -483,12 +434,8 @@ class UserController extends Controller
 
     /**
      * Change User Hidden Value.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function makeHidden(Request $request, $username)
+    public function makeHidden(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -503,12 +450,8 @@ class UserController extends Controller
 
     /**
      * Change User Hidden Value.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function makeVisible(Request $request, $username)
+    public function makeVisible(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -524,13 +467,9 @@ class UserController extends Controller
     /**
      * Change User PID.
      *
-     * @param \App\Models\User $username
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function changePID(Request $request, $username)
+    public function changePID(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -547,12 +486,8 @@ class UserController extends Controller
 
     /**
      * User Other Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeOther(Request $request, $username)
+    protected function changeOther(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -582,12 +517,8 @@ class UserController extends Controller
 
     /**
      * User Request Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeRequest(Request $request, $username)
+    protected function changeRequest(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -617,12 +548,8 @@ class UserController extends Controller
 
     /**
      * User Achievement Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeAchievement(Request $request, $username)
+    protected function changeAchievement(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -652,12 +579,8 @@ class UserController extends Controller
 
     /**
      * User Forum Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeForum(Request $request, $username)
+    protected function changeForum(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -688,12 +611,8 @@ class UserController extends Controller
 
     /**
      * User Follower Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeFollower(Request $request, $username)
+    protected function changeFollower(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -723,12 +642,8 @@ class UserController extends Controller
 
     /**
      * User Torrent Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrent(Request $request, $username)
+    protected function changeTorrent(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -763,12 +678,8 @@ class UserController extends Controller
 
     /**
      * User Account Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeAccountNotification(Request $request, $username)
+    protected function changeAccountNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -799,12 +710,8 @@ class UserController extends Controller
 
     /**
      * User Following Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeFollowingNotification(Request $request, $username)
+    protected function changeFollowingNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -834,12 +741,8 @@ class UserController extends Controller
 
     /**
      * User BON Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeBonNotification(Request $request, $username)
+    protected function changeBonNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -869,12 +772,8 @@ class UserController extends Controller
 
     /**
      * User Subscription Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeSubscriptionNotification(Request $request, $username)
+    protected function changeSubscriptionNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -905,12 +804,8 @@ class UserController extends Controller
 
     /**
      * User Request Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeRequestNotification(Request $request, $username)
+    protected function changeRequestNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -946,12 +841,8 @@ class UserController extends Controller
 
     /**
      * User Torrent Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrentNotification(Request $request, $username)
+    protected function changeTorrentNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -983,12 +874,8 @@ class UserController extends Controller
 
     /**
      * User Mention Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeMentionNotification(Request $request, $username)
+    protected function changeMentionNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1022,12 +909,8 @@ class UserController extends Controller
 
     /**
      * User Forum Notification Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeForumNotification(Request $request, $username)
+    protected function changeForumNotification(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1057,12 +940,8 @@ class UserController extends Controller
 
     /**
      * User Profile Privacy Change.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function changeProfile(Request $request, $username)
+    protected function changeProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1105,12 +984,8 @@ class UserController extends Controller
 
     /**
      * Change User RID.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function changeRID(Request $request, $username)
+    public function changeRID(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1125,12 +1000,8 @@ class UserController extends Controller
 
     /**
      * Change User API Token.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function changeApiToken(Request $request, $username)
+    public function changeApiToken(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1145,32 +1016,28 @@ class UserController extends Controller
 
     /**
      * User Privacy Settings.
-     *
-     * @param \App\Models\User $username
      */
-    public function privacy(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function privacy(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+        $groups = Group::where('level', '>', 0)->orderByDesc('level')->get();
 
         return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
      * User Notification Settings.
-     *
-     * @param \App\Models\User $username
      */
-    public function notification(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function notification(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+        $groups = Group::where('level', '>', 0)->orderByDesc('level')->get();
 
         return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }
@@ -1178,13 +1045,9 @@ class UserController extends Controller
     /**
      * Uses Input's To Put Together A Filtered View.
      *
-     * @param \App\Models\User $username
-     *
      * @throws \Throwable
-     *
-     * @return array
      */
-    public function myFilter(Request $request, $username)
+    public function myFilter(Request $request, string $username): string|bool
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1703,10 +1566,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Downloads (Fully Downloaded) Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function downloads(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function downloads(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1722,13 +1583,13 @@ class UserController extends Controller
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
                     ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
-                    ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                    ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderByDesc('completed_at')
                     ->paginate(50);
             } else {
                 $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-                    ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                    ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderByDesc('completed_at')
                     ->paginate(50);
             }
 
@@ -1750,14 +1611,14 @@ class UserController extends Controller
             }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)
-                ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                ->groupBy('history.info_hash')->orderByDesc('completed_at')
                 ->paginate(50);
         } else {
             $downloads = History::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                 ->where('history.user_id', '=', $user->id)
-                ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                ->groupBy('history.info_hash')->orderByDesc('completed_at')
                 ->paginate(50);
         }
 
@@ -1770,10 +1631,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Requested Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function requested(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function requested(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1800,10 +1659,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Unsatisfieds Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function unsatisfieds(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function unsatisfieds(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1818,7 +1675,7 @@ class UserController extends Controller
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
-                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
+                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderByDesc('satisfied_at')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')])
                 ->paginate(50);
         } else {
@@ -1826,7 +1683,7 @@ class UserController extends Controller
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
-                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
+                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderByDesc('satisfied_at')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')])
                 ->paginate(50);
         }
@@ -1844,10 +1701,8 @@ class UserController extends Controller
 
     /**
      * Get A Users History Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function torrents(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrents(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1859,7 +1714,7 @@ class UserController extends Controller
         $history = History::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->selectRaw('distinct(history.id),max(history.info_hash) as info_hash,max(history.agent) as agent,max(history.uploaded) as uploaded,max(history.downloaded) as downloaded,max(history.seeder) as seeder,max(history.active) as active,max(history.actual_uploaded) as actual_uploaded,max(history.actual_downloaded) as actual_downloaded,max(history.seedtime) as seedtime,max(history.created_at) as created_at,max(history.updated_at) as updated_at,max(history.completed_at) as completed_at,max(history.immune) as immune,max(history.hitrun) as hitrun,max(history.prewarn) as prewarn,max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.status) as status')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->groupBy('history.id')
-            ->orderBy('created_at', 'DESC')->paginate(50);
+            ->orderByDesc('created_at')->paginate(50);
 
         return \view('user.private.torrents', [
             'route'         => 'torrents',
@@ -1874,10 +1729,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Graveyard Resurrections.
-     *
-     * @param \App\Models\User $username
      */
-    public function resurrections(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function resurrections(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
@@ -1893,10 +1746,8 @@ class UserController extends Controller
 
     /**
      * Get A User Uploads.
-     *
-     * @param \App\Models\User $username
      */
-    public function uploads(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function uploads(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
@@ -1907,7 +1758,7 @@ class UserController extends Controller
 
             $logger = 'user.private.uploads';
             $uploads = Torrent::with(['tips', 'thanks', 'category'])->selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,max(bt.tipped_total) as tipped_total')
-                ->withAnyStatus()->where('torrents.user_id', '=', $user->id)->leftJoin(DB::raw('(select distinct(bon_transactions.torrent_id),sum(bon_transactions.cost) as tipped_total from bon_transactions group by bon_transactions.torrent_id) as bt'), 'bt.torrent_id', '=', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
+                ->withAnyStatus()->where('torrents.user_id', '=', $user->id)->leftJoin(DB::raw('(select distinct(bon_transactions.torrent_id),sum(bon_transactions.cost) as tipped_total from bon_transactions group by bon_transactions.torrent_id) as bt'), 'bt.torrent_id', '=', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderByDesc('created_at')->paginate(50);
 
             return \view($logger, [
                 'route'         => 'uploads',
@@ -1921,7 +1772,7 @@ class UserController extends Controller
         }
 
         $logger = 'user.uploads';
-        $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
+        $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderByDesc('created_at')->paginate(50);
 
         return \view($logger, [
             'route'       => 'uploads',
@@ -1932,10 +1783,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Active Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function active(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function active(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1965,10 +1814,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Seeds Table.
-     *
-     * @param \App\Models\User $username
      */
-    public function seeds(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function seeds(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1982,7 +1829,7 @@ class UserController extends Controller
         $seeds = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
-            ->where('peers.seeder', '=', 1)->orderBy('history_created_at', 'DESC')->groupBy('torrents.info_hash')
+            ->where('peers.seeder', '=', 1)->orderByDesc('history_created_at')->groupBy('torrents.info_hash')
             ->paginate(50);
 
         return \view('user.private.seeds', ['user' => $user,
@@ -1997,10 +1844,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Bans.
-     *
-     * @param \App\Models\User $username
      */
-    public function getBans(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function getBans(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
@@ -2015,10 +1860,8 @@ class UserController extends Controller
 
     /**
      * Download All History Torrents.
-     *
-     * @param \App\Models\User $username
      */
-    public function downloadHistoryTorrents(Request $request, $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadHistoryTorrents(Request $request, string $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(1200);
@@ -2103,11 +1946,8 @@ class UserController extends Controller
 
     /**
      * Accept Site Rules.
-     *
-     *
-     * @return void
      */
-    public function acceptRules(Request $request)
+    public function acceptRules(Request $request): void
     {
         $user = $request->user();
         $user->read_rules = 1;
@@ -2116,10 +1956,8 @@ class UserController extends Controller
 
     /**
      * Flushes own Peers.
-     *
-     * @param \App\Models\User $username
      */
-    public function flushOwnGhostPeers(Request $request, $username): \Illuminate\Http\RedirectResponse
+    public function flushOwnGhostPeers(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -2159,12 +1997,8 @@ class UserController extends Controller
 
     /**
      * Get A Users Active Table by IP and Port.
-     *
-     * @param \App\Models\User $username
-     * @param \App\Models\Peer $ip
-     * @param \App\Models\Peer $port
      */
-    public function activeByClient(Request $request, $username, $ip, $port): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function activeByClient(Request $request, string $username, string $ip, string $port): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

@@ -53,10 +53,8 @@ class AutoNerdStat extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('chat.nerd_bot') == true) {
             // Site Birthday

@@ -36,7 +36,7 @@ class TorrentBuffController extends Controller
     /**
      * Bump A Torrent.
      */
-    public function bumpTorrent(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function bumpTorrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -69,7 +69,7 @@ class TorrentBuffController extends Controller
     /**
      * Sticky A Torrent.
      */
-    public function sticky(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function sticky(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -85,7 +85,7 @@ class TorrentBuffController extends Controller
     /**
      * Freeleech A Torrent (1% to 100% Free).
      */
-    public function grantFL(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function grantFL(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
     /**
      * Feature A Torrent.
      */
-    public function grantFeatured(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function grantFeatured(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -163,7 +163,7 @@ class TorrentBuffController extends Controller
     /**
      * UnFeature A Torrent.
      */
-    public function revokeFeatured(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function revokeFeatured(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -195,7 +195,7 @@ class TorrentBuffController extends Controller
     /**
      * Double Upload A Torrent.
      */
-    public function grantDoubleUp(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function grantDoubleUp(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -225,7 +225,7 @@ class TorrentBuffController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      */
-    public function freeleechToken(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function freeleechToken(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);

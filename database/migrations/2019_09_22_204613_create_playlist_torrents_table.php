@@ -19,10 +19,8 @@ class CreatePlaylistTorrentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('playlist_torrents', function (Blueprint $table) {
             $table->bigIncrements('id');

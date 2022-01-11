@@ -19,10 +19,8 @@ class AddInternalToTorrentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->boolean('internal')->default(0)->after('sd');

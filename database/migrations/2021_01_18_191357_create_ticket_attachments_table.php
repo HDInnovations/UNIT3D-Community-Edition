@@ -8,10 +8,8 @@ class CreateTicketAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('ticket_attachments', function (Blueprint $table) {
             $table->id();

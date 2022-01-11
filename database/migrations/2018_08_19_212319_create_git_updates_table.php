@@ -19,10 +19,8 @@ class CreateGitUpdatesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('git_updates', function (Blueprint $table) {
             $table->increments('id');

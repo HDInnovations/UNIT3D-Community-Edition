@@ -3,43 +3,43 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.rooms.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.chat-rooms')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.chat-rooms') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.chat-rooms')</h2>
+        <h2>{{ __('common.chat-rooms') }}</h2>
 
         <button class="btn btn-primary" data-toggle="modal" data-target="#addChatroom">
-            @lang('common.add') @lang('common.chat-room')
+            {{ __('common.add') }} {{ __('common.chat-room') }}
         </button>
         <div id="addChatroom" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog{{ modal_style() }}">
                 <div class="modal-content">
 
                     <div class="modal-header" style="text-align: center;">
-                        <h3>@lang('common.add') @lang('common.chat-room')</h3>
+                        <h3>{{ __('common.add') }} {{ __('common.chat-room') }}</h3>
                     </div>
 
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.rooms.store') }}">
                         @csrf
                         <div class="modal-body" style="text-align: center;">
                             <h4>Please enter the name of the chatroom you would like to create.</h4>
-                            <label for="chatroom_name"> @lang('common.name'):</label> <label for="name"></label><input
+                            <label for="chatroom_name"> {{ __('common.name') }}:</label> <label for="name"></label><input
                                     style="margin:0 auto; width:300px;" type="text" class="form-control" name="name"
                                     id="name"
-                                    placeholder="Enter @lang('common.name') Here..." required>
+                                    placeholder="Enter {{ __('common.name') }} Here..." required>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-md btn-primary" data-dismiss="modal">@lang('common.cancel')</button>
+                            <button class="btn btn-md btn-primary" data-dismiss="modal">{{ __('common.cancel') }}</button>
                             <input class="btn btn-md btn-success" type="submit">
                         </div>
                     </form>
@@ -52,8 +52,8 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>@lang('common.name')</th>
-                    <th>@lang('common.action')</th>
+                    <th>{{ __('common.name') }}</th>
+                    <th>{{ __('common.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>

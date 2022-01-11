@@ -17,31 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Permission.
- *
- * @property int $id
- * @property int $forum_id
- * @property int $group_id
- * @property int $show_forum
- * @property int $read_topic
- * @property int $reply_topic
- * @property int $start_topic
- * @property-read \App\Models\Forum $forum
- * @property-read \App\Models\Group $group
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereForumId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereGroupId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereReadTopic($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereReplyTopic($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereShowForum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereStartTopic($value)
- * @mixin \Eloquent
- */
 class Permission extends Model
 {
     use HasFactory;
@@ -56,20 +31,16 @@ class Permission extends Model
 
     /**
      * Belongs To A Group.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group()
+    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
     /**
      * Belongs To A Forum.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

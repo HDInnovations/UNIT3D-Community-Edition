@@ -19,10 +19,8 @@ class CreateChatStatusesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('chat_statuses', function (Blueprint $table) {
             $table->increments('id');

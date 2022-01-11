@@ -8,10 +8,8 @@ class CreateRecommendationsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('recommendations', function (Blueprint $table) {
             $table->id();

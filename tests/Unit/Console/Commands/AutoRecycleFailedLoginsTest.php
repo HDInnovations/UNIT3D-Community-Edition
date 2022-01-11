@@ -12,7 +12,7 @@ class AutoRecycleFailedLoginsTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_failed_logins')
             ->expectsOutput('Automated Purge Old Failed Logins Command Complete')

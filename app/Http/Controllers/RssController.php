@@ -31,14 +31,12 @@ class RssController extends Controller
 {
     /**
      * Display a listing of the RSS resource.
-     *
-     * @param null $hash
      */
     public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
         $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [
@@ -141,14 +139,9 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     * @param int    $id
-     * @param string $rsskey
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function show($id, $rsskey)
+    public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
 
@@ -254,20 +247,20 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->categories && \is_array($rss->object_torrent->categories)) {
-            $builder->whereIn('category_id', $categories);
+            $builder->whereIntegerInRaw('category_id', $categories);
         }
 
         if ($rss->object_torrent->types && \is_array($rss->object_torrent->types)) {
-            $builder->whereIn('type_id', $types);
+            $builder->whereIntegerInRaw('type_id', $types);
         }
 
         if ($rss->object_torrent->resolutions && \is_array($rss->object_torrent->resolutions)) {
-            $builder->whereIn('resolution_id', $resolutions);
+            $builder->whereIntegerInRaw('resolution_id', $resolutions);
         }
 
         if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $genres)->pluck('tv_id');
-            $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $genres)->pluck('movie_id');
+            $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $genres)->pluck('tv_id');
+            $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $genres)->pluck('movie_id');
             $mergedCollection = $tvCollection->merge($movieCollection);
 
             $builder->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
@@ -302,7 +295,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
-            $builder->whereIn('id', $user->bookmarks->pluck('id'));
+            $builder->whereIntegerInRaw('id', $user->bookmarks->pluck('id'));
         }
 
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
@@ -324,10 +317,8 @@ class RssController extends Controller
 
     /**
      * Show the form for editing the specified RSS resource.
-     *
-     * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
@@ -345,10 +336,8 @@ class RssController extends Controller
 
     /**
      * Update the specified RSS resource in storage.
-     *
-     * @param int $id
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
@@ -417,13 +406,9 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @param int $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();

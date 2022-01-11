@@ -8,10 +8,8 @@ class AddBumpedAtToTorrentsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->dateTime('bumped_at')->nullable()->after('updated_at');

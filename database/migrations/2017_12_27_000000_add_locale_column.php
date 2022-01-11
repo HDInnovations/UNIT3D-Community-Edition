@@ -18,10 +18,8 @@ class AddLocaleColumn extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function ($table) {
             $table->string('locale')->default(config('app.locale'));

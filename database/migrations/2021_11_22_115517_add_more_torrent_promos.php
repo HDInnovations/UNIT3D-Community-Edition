@@ -8,10 +8,8 @@ class AddMoreTorrentPromos extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->smallInteger('free')->default(0)->change();
@@ -30,7 +28,7 @@ class AddMoreTorrentPromos extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->boolean('free')->default(0)->change();

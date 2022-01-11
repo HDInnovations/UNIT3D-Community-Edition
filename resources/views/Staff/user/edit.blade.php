@@ -1,12 +1,12 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.user') @lang('common.edit') - @lang('staff.staff-dashboard')
+    <title>{{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }}
         - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="User @lang('common.edit') - @lang('staff.staff-dashboard')">
+    <meta name="description" content="User {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
@@ -18,7 +18,7 @@
     </li>
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.edit')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.user') }} {{ __('common.edit') }}</span>
         </a>
     </li>
 @endsection
@@ -27,58 +27,58 @@
     <div class="container">
         <h1 class="title">
             <i class="{{ config('other.font-awesome') }} fa-gear"></i>
-            @lang('common.edit') @lang('common.user')
+            {{ __('common.edit') }} {{ __('common.user') }}
             <a href="{{ route('users.show', ['username' => $user->username]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab"
                                                       data-toggle="tab"
-                                                      aria-expanded="true">@lang('common.account')</a></li>
+                                                      aria-expanded="true">{{ __('common.account') }}</a></li>
             <li role="presentation" class=""><a href="#permissions" aria-controls="permissions" role="tab"
                                                 data-toggle="tab"
-                                                aria-expanded="false">@lang('user.id-permissions')</a></li>
+                                                aria-expanded="false">{{ __('user.id-permissions') }}</a></li>
             <li role="presentation" class=""><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"
-                                                aria-expanded="false">@lang('staff.user-notes')</a></li>
+                                                aria-expanded="false">{{ __('staff.user-notes') }}</a></li>
             <li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
-                                                aria-expanded="false">@lang('user.change-password')</a></li>
+                                                aria-expanded="false">{{ __('user.change-password') }}</a></li>
         </ul>
 
         <div class="tab-content block block-titled">
             <div role="tabpanel" class="tab-pane active" id="account">
-                <h3>@lang('common.account')</h3>
+                <h3>{{ __('common.account') }}</h3>
                 <hr>
                 <form role="form" method="POST" action="{{ route('user_edit', ['username' => $user->username]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="username">@lang('common.username')</label>
+                        <label for="username">{{ __('common.username') }}</label>
                         <label>
                             <input name="username" type="text" value="{{ $user->username }}" class="form-control">
                         </label>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">@lang('common.email')</label>
+                        <label for="email">{{ __('common.email') }}</label>
                         <label>
                             <input name="email" type="email" value="{{ $user->email }}" class="form-control">
                         </label>
                     </div>
 
                     <div class="form-group">
-                        <label for="uploaded">@lang('user.total-upload') (Bytes)</label>
+                        <label for="uploaded">{{ __('user.total-upload') }} (Bytes)</label>
                         <label>
                             <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
                         </label>
                     </div>
 
                     <div class="form-group">
-                        <label for="downloaded">@lang('user.total-download') (Bytes)</label>
+                        <label for="downloaded">{{ __('user.total-download') }} (Bytes)</label>
                         <label>
                             <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
                         </label>
                     </div>
 
                     <div class="form-group">
-                        <label for="join-date">@lang('user.member-since')</label>
+                        <label for="join-date">{{ __('user.member-since') }}</label>
                         <label>
                             <input name="join-date" type="join-date"
                                    value="{{ date('d/m/Y', strtotime($user->created_at)) }}" class="form-control">
@@ -86,14 +86,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="downloaded">@lang('user.title')</label>
+                        <label for="downloaded">{{ __('user.title') }}</label>
                         <label>
                             <input name="title" type="text" value="{{ $user->title }}" class="form-control">
                         </label>
                     </div>
 
                     <div class="form-group">
-                        <label for="about">@lang('user.about-me')</label>
+                        <label for="about">{{ __('user.about-me') }}</label>
                         <label>
                             <textarea name="about" cols="30" rows="10"
                                       class="form-control">{{ $user->about }}</textarea>
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="about">@lang('common.group')</label>
+                        <label for="about">{{ __('common.group') }}</label>
                         <label>
                             <select name="group_id" class="form-control">
                                 <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
@@ -131,115 +131,115 @@
                         </div>
                     @endif
 
-                    <button type="submit" class="btn btn-default">@lang('common.save')</button>
+                    <button type="submit" class="btn btn-default">{{ __('common.save') }}</button>
                 </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="permissions">
-                <h3>@lang('user.id-permissions')</h3>
+                <h3>{{ __('user.id-permissions') }}</h3>
                 <hr>
                 <form role="form" method="POST"
                       action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf
-                    <label for="hidden" class="control-label">@lang('user.can-upload')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-upload') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                            value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                            value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-download')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-download') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
-                                      @endif value="1">@lang('common.yes')</label>
+                                      @endif value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
-                                      @endif value="0">@lang('common.no')</label>
+                                      @endif value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-comment')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-comment') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                            value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                            value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-invite')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-invite') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                            value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                            value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-request')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-request') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
+                            value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif
-                            value="0">@lang('common.no')</label>
+                            value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <br>
-                    <label for="hidden" class="control-label">@lang('user.can-chat')?</label>
+                    <label for="hidden" class="control-label">{{ __('user.can-chat') }}?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
-                                      @endif value="1">@lang('common.yes')</label>
+                                      @endif value="1">{{ __('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
                         <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
-                                      @endif value="0">@lang('common.no')</label>
+                                      @endif value="0">{{ __('common.no') }}</label>
                     </div>
                     <br>
                     <div class="form-group">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">@lang('common.save')</div>
+                            <button type="submit" class="btn btn-primary">{{ __('common.save') }}</div>
                     </div>
                 </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="notes">
-                <h3>@lang('common.add') @lang('staff.user-notes')</h3>
+                <h3>{{ __('common.add') }} {{ __('staff.user-notes') }}</h3>
                 <hr>
                 <form role="form" method="POST"
                       action="{{ route('staff.notes.store', ['username' => $user->username]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="message">@lang('staff.user-notes')</label>
+                        <label for="message">{{ __('staff.user-notes') }}</label>
                         <label>
                             <textarea name="message" class="form-control"></textarea>
                         </label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">@lang('common.save')</button>
+                    <button type="submit" class="btn btn-primary">{{ __('common.save') }}</button>
                 </form>
                 <hr>
-                <h2>@lang('user.note')<span class="text-blue"><strong><i
+                <h2>{{ __('user.note') }}<span class="text-blue"><strong><i
                                     class="{{ config('other.font-awesome') }} fa-note"></i>
                             {{ $notes->count() }} </strong></span></h2>
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>@lang('common.user')</th>
-                        <th>@lang('common.staff')</th>
-                        <th>@lang('user.note')</th>
-                        <th>@lang('user.created-on')</th>
-                        <th>@lang('common.delete')</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('common.staff') }}</th>
+                        <th>{{ __('user.note') }}</th>
+                        <th>{{ __('user.created-on') }}</th>
+                        <th>{{ __('common.delete') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -278,19 +278,19 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="password">
-                <h3>@lang('user.change-password')</h3>
+                <h3>{{ __('user.change-password') }}</h3>
                 <hr>
                 <form role="form" method="POST" action="{{ route('user_password', ['username' => $user->username]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="new_password">@lang('common.new-adj') @lang('passwords.password')</label>
+                        <label for="new_password">{{ __('common.new-adj') }} {{ __('passwords.password') }}</label>
                         <label>
                             <input type="password" name="new_password" class="form-control"
-                                   placeholder="@lang('common.new-adj') @lang('common.password')">
+                                   placeholder="{{ __('common.new-adj') }} {{ __('common.password') }}">
                         </label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">@lang('common.save')</button>
+                    <button type="submit" class="btn btn-primary">{{ __('common.save') }}</button>
                 </form>
             </div>
         </div>

@@ -19,10 +19,8 @@ class AlterGroupsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->integer('level')->default(0)->after('position');

@@ -25,30 +25,25 @@ class Ping implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $ping;
+    public array $ping;
 
     /**
      * Ping Constructor.
-     *
-     * @param $room
-     * @param $id
      */
-    public function __construct(public $room, $id)
+    public function __construct(public $room, int $id)
     {
         $this->ping = ['type' => 'room', 'id' => $id];
     }
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PresenceChannel
     {
         return new PresenceChannel('chatroom.'.$this->room);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.ping';
     }

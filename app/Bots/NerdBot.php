@@ -34,19 +34,19 @@ class NerdBot
 
     private $chat;
 
-    private $target;
+    private ?\App\Models\User $target = null;
 
     private $type;
 
-    private $message;
+    private ?string $message = null;
 
-    private $targeted;
+    private ?int $targeted = null;
 
     private $log;
 
-    private $expiresAt;
+    private \Carbon\Carbon $expiresAt;
 
-    private $current;
+    private \Carbon\Carbon $current;
 
     /**
      * NerdBot Constructor.
@@ -61,17 +61,13 @@ class NerdBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
@@ -85,13 +81,10 @@ class NerdBot
     /**
      * Get Banker.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getBanker($duration = 'default')
+    public function getBanker(string $duration = 'default'): string
     {
         $banker = \cache()->get('nerdbot-banker');
         if (! $banker) {
@@ -105,13 +98,10 @@ class NerdBot
     /**
      * Get Snatched.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getSnatched($duration = 'default')
+    public function getSnatched(string $duration = 'default'): string
     {
         $snatched = \cache()->get('nerdbot-snatched');
         if (! $snatched) {
@@ -125,13 +115,10 @@ class NerdBot
     /**
      * Get Leeched.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getLeeched($duration = 'default')
+    public function getLeeched(string $duration = 'default'): string
     {
         $leeched = \cache()->get('nerdbot-leeched');
         if (! $leeched) {
@@ -145,13 +132,10 @@ class NerdBot
     /**
      * Get Seeded.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getSeeded($duration = 'default')
+    public function getSeeded(string $duration = 'default'): string
     {
         $seeded = \cache()->get('nerdbot-seeded');
         if (! $seeded) {
@@ -165,13 +149,10 @@ class NerdBot
     /**
      * Get FL.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getFreeleech($duration = 'default')
+    public function getFreeleech(string $duration = 'default'): string
     {
         $fl = \cache()->get('nerdbot-fl');
         if (! $fl) {
@@ -185,13 +166,10 @@ class NerdBot
     /**
      * Get DU.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getDoubleUpload($duration = 'default')
+    public function getDoubleUpload(string $duration = 'default'): string
     {
         $du = \cache()->get('nerdbot-doubleup');
         if (! $du) {
@@ -205,13 +183,10 @@ class NerdBot
     /**
      * Get Peers.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getPeers($duration = 'default')
+    public function getPeers(string $duration = 'default'): string
     {
         $peers = \cache()->get('nerdbot-peers');
         if (! $peers) {
@@ -225,13 +200,10 @@ class NerdBot
     /**
      * Get Bans.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getBans($duration = 'default')
+    public function getBans(string $duration = 'default'): string
     {
         $bans = \cache()->get('nerdbot-bans');
         if (! $bans) {
@@ -245,13 +217,10 @@ class NerdBot
     /**
      * Get Warnings.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getWarnings($duration = 'default')
+    public function getWarnings(string $duration = 'default'): string
     {
         $warnings = \cache()->get('nerdbot-warnings');
         if (! $warnings) {
@@ -265,13 +234,10 @@ class NerdBot
     /**
      * Get Uploads.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getUploads($duration = 'default')
+    public function getUploads(string $duration = 'default'): string
     {
         $uploads = \cache()->get('nerdbot-uploads');
         if (! $uploads) {
@@ -285,13 +251,10 @@ class NerdBot
     /**
      * Get Logins.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getLogins($duration = 'default')
+    public function getLogins(string $duration = 'default'): string
     {
         $logins = \cache()->get('nerdbot-logins');
         if (! $logins) {
@@ -305,13 +268,10 @@ class NerdBot
     /**
      * Get Registrations.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getRegistrations($duration = 'default')
+    public function getRegistrations(string $duration = 'default'): string
     {
         $registrations = \cache()->get('nerdbot-users');
         if (! $registrations) {
@@ -325,13 +285,10 @@ class NerdBot
     /**
      * Get Bot Donations.
      *
-     * @param string $duration
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function getDonations($duration = 'default')
+    public function getDonations(string $duration = 'default'): string
     {
         $donations = \cache()->get('nerdbot-donations');
         if (! $donations) {
@@ -352,7 +309,7 @@ class NerdBot
     /**
      * Get Help.
      */
-    public function getHelp()
+    public function getHelp(): array|string
     {
         return $this->replaceVars($this->bot->help);
     }
@@ -360,7 +317,7 @@ class NerdBot
     /**
      * Get King.
      */
-    public function getKing()
+    public function getKing(): string
     {
         return \config('other.title').' Is King!';
     }
@@ -368,14 +325,10 @@ class NerdBot
     /**
      * Send Bot Donation.
      *
-     * @param int    $amount
-     * @param string $note
      *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function putDonate($amount = 0, $note = '')
+    public function putDonate(int $amount = 0, string $note = ''): string
     {
         $output = \implode(' ', $note);
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
@@ -412,15 +365,9 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
-     *
      * @throws \Exception
-     *
-     * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $this->target = $user;
         if ($type == 'message') {
@@ -529,7 +476,7 @@ class NerdBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $type = $this->type;
         $target = $this->target;

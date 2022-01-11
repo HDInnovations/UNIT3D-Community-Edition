@@ -19,10 +19,8 @@ class CreatePlaylistsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('playlists', function (Blueprint $table) {
             $table->bigIncrements('id');

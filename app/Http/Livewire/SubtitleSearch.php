@@ -22,17 +22,17 @@ class SubtitleSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $search = '';
+    public string $search = '';
 
-    public $categories = [];
+    public array $categories = [];
 
-    public $language = '';
+    public string $language = '';
 
-    public $sortField = 'created_at';
+    public string $sortField = 'created_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     final public function paginationView(): string
     {
@@ -54,9 +54,9 @@ class SubtitleSearch extends Component
         return Subtitle::with(['user', 'torrent', 'language'])
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))
             ->when($this->categories, function ($query) {
-                $torrents = Torrent::whereIn('category_id', $this->categories)->pluck('id');
+                $torrents = Torrent::whereIntegerInRaw('category_id', $this->categories)->pluck('id');
 
-                return $query->whereIn('torrent_id', $torrents);
+                return $query->whereIntegerInRaw('torrent_id', $torrents);
             })
             ->when($this->language, fn ($query) => $query->where('language_id', '=', $this->language))
             ->orderBy($this->sortField, $this->sortDirection)

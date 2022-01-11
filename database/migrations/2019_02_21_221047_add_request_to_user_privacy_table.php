@@ -19,10 +19,8 @@ class AddRequestToUserPrivacyTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('user_privacy', function (Blueprint $table) {
             $table->boolean('show_profile_request_extra')->index()->default(1)->after('show_profile_forum_extra');

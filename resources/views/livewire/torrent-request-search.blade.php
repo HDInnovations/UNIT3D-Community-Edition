@@ -14,18 +14,18 @@
             <div class="mt-5">
                 <div class="row">
                     <div class="form-group col-xs-9">
-                        <input wire:model="name" type="search" class="form-control" placeholder="@lang('common.name')"/>
+                        <input wire:model="name" type="search" class="form-control" placeholder="{{ __('common.name') }}"/>
                     </div>
                     <div class="form-group col-xs-3">
                         <button class="btn btn-md btn-primary" @click="open = ! open"
-                                x-text="open ? '@lang('common.search-hide')' : '@lang('common.search-advanced')'"></button>
+                                x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"></button>
                     </div>
                 </div>
                 <div x-show="open">
                     <div class="row">
                         <div class="form-group col-xs-9">
                             <input wire:model="requestor" type="search" class="form-control"
-                                   placeholder="@lang('common.author')"/>
+                                   placeholder="{{ __('common.author') }}"/>
                         </div>
                     </div>
                     <div class="row">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="categories" class="label label-default">@lang('common.category')</label>
+                            <label for="categories" class="label label-default">{{ __('common.category') }}</label>
                             @foreach (App\Models\Category::select(['id', 'name', 'position'])->get()->sortBy('position') as $category)
                                 <span class="badge-user">
 									<label class="inline">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="types" class="label label-default">@lang('common.type')</label>
+                            <label for="types" class="label label-default">{{ __('common.type') }}</label>
                             @foreach (App\Models\Type::select(['id', 'name', 'position'])->get()->sortBy('position') as $type)
                                 <span class="badge-user">
 									<label class="inline">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+                            <label for="resolutions" class="label label-default">{{ __('common.resolution') }}</label>
                             @foreach (App\Models\Resolution::select(['id', 'name', 'position'])->get()->sortBy('position') as $resolution)
                                 <span class="badge-user">
 									<label class="inline">
@@ -82,33 +82,33 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="extra" class="label label-default">@lang('common.status')</label>
+                            <label for="extra" class="label label-default">{{ __('common.status') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="unfilled" type="checkbox" value="1">
 									<span class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span>
-									@lang('request.unfilled')
+									{{ __('request.unfilled') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="claimed" type="checkbox" value="1">
 									<span class="{{ config('other.font-awesome') }} fa-hand-paper text-blue"></span>
-									@lang('request.claimed')
+									{{ __('request.claimed') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="pending" type="checkbox" value="1">
 									<span class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span>
-									@lang('request.pending')
+									{{ __('request.pending') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="filled" type="checkbox" value="1">
 									<span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span>
-									@lang('request.filled')
+									{{ __('request.filled') }}
 								</label>
 							</span>
                         </div>
@@ -116,29 +116,29 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="extra" class="label label-default">@lang('common.extra')</label>
+                            <label for="extra" class="label label-default">{{ __('common.extra') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="myRequests" type="checkbox" value="{{ $user->id }}">
-									@lang('request.my-requests')
+									{{ __('request.my-requests') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="myClaims" type="checkbox" value="1">
-									@lang('request.my-claims')
+									{{ __('request.my-claims') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="myVoted" type="checkbox" value="1">
-									@lang('request.my-voted')
+									{{ __('request.my-voted') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="myFilled" type="checkbox" value="1">
-									@lang('request.my-filled')
+									{{ __('request.my-filled') }}
 								</label>
 							</span>
                         </div>
@@ -149,15 +149,15 @@
         <br>
         <div class="table-responsive block">
 			<span class="badge-user" style="float: right;">
-				<strong>@lang('request.requests'):</strong> {{ number_format($torrentRequestStat->total) }} |
-				<strong>@lang('request.filled'):</strong> {{ number_format($torrentRequestStat->filled) }} |
-				<strong>@lang('request.unfilled'):</strong> {{ number_format($torrentRequestStat->unfilled) }} |
-				<strong>@lang('request.total-bounty'):</strong> {{ number_format($torrentRequestBountyStat->total) }} @lang('bon.bon') |
-				<strong>@lang('request.bounty-claimed'):</strong> {{ number_format($torrentRequestBountyStat->claimed) }} @lang('bon.bon') |
-				<strong>@lang('request.bounty-unclaimed'):</strong> {{ number_format($torrentRequestBountyStat->unclaimed) }} @lang('bon.bon')
+				<strong>{{ __('request.requests') }}:</strong> {{ number_format($torrentRequestStat->total) }} |
+				<strong>{{ __('request.filled') }}:</strong> {{ number_format($torrentRequestStat->filled) }} |
+				<strong>{{ __('request.unfilled') }}:</strong> {{ number_format($torrentRequestStat->unfilled) }} |
+				<strong>{{ __('request.total-bounty') }}:</strong> {{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }} |
+				<strong>{{ __('request.bounty-claimed') }}:</strong> {{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }} |
+				<strong>{{ __('request.bounty-unclaimed') }}:</strong> {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
 			</span>
             <a href="{{ route('add_request') }}" role="button" class="btn btn-xs btn-success">
-                @lang('request.add-request')
+                {{ __('request.add-request') }}
             </a>
             <table class="table table-condensed table-striped table-bordered" id="requests-table">
                 <thead>
@@ -165,35 +165,35 @@
                     <th class="torrents-filename">
                         <div sortable wire:click="sortBy('name')"
                              :direction="$sortField === 'name' ? $sortDirection : null" role="button">
-                            @lang('common.name')
+                            {{ __('common.name') }}
                             @include('livewire.includes._sort-icon', ['field' => 'name'])
                         </div>
                     </th>
                     <th>
                         <div sortable wire:click="sortBy('category_id')"
                              :direction="$sortField === 'category_id' ? $sortDirection : null" role="button">
-                            @lang('common.category')
+                            {{ __('common.category') }}
                             @include('livewire.includes._sort-icon', ['field' => 'category_id'])
                         </div>
                     </th>
                     <th>
                         <div sortable wire:click="sortBy('type_id')"
                              :direction="$sortField === 'type_id' ? $sortDirection : null" role="button">
-                            @lang('common.type')
+                            {{ __('common.type') }}
                             @include('livewire.includes._sort-icon', ['field' => 'type_id'])
                         </div>
                     </th>
                     <th>
                         <div sortable wire:click="sortBy('resolution_id')"
                              :direction="$sortField === 'resolution_id' ? $sortDirection : null" role="button">
-                            @lang('common.resolution')
+                            {{ __('common.resolution') }}
                             @include('livewire.includes._sort-icon', ['field' => 'resolution_id'])
                         </div>
                     </th>
                     <th>
                         <div sortable wire:click="sortBy('user_id')"
                              :direction="$sortField === 'user_id' ? $sortDirection : null" role="button">
-                            @lang('common.author')
+                            {{ __('common.author') }}
                             @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </div>
                     </th>
@@ -217,12 +217,12 @@
                     <th>
                         <div sortable wire:click="sortBy('created_at')"
                              :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                            @lang('common.created_at')
+                            {{ __('common.created_at') }}
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </div>
                     </th>
                     <th>
-                        @lang('common.status')
+                        {{ __('common.status') }}
                     </th>
                 </tr>
                 </thead>
@@ -290,19 +290,19 @@
                         <td style="vertical-align: middle;">
                             @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
                                 <span class="label label-primary">
-									<i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> @lang('request.claimed')
+									<i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> {{ __('request.claimed') }}
 								</span>
                             @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                 <span class="label label-info">
-									<i class="{{ config('other.font-awesome') }} fa-question-circle"></i> @lang('request.pending')
+									<i class="{{ config('other.font-awesome') }} fa-question-circle"></i> {{ __('request.pending') }}
 								</span>
                             @elseif ($torrentRequest->filled_hash == null)
                                 <span class="label label-danger">
-									<i class="{{ config('other.font-awesome') }} fa-times-circle"></i> @lang('request.unfilled')
+									<i class="{{ config('other.font-awesome') }} fa-times-circle"></i> {{ __('request.unfilled') }}
 								</span>
                             @else
                                 <span class="label label-success">
-									<i class="{{ config('other.font-awesome') }} fa-check-circle"></i> @lang('request.filled')
+									<i class="{{ config('other.font-awesome') }} fa-check-circle"></i> {{ __('request.filled') }}
 								</span>
                             @endif
                         </td>
@@ -312,7 +312,7 @@
             </table>
             @if (! $torrentRequests->count())
                 <div class="margin-10">
-                    @lang('common.no-result')
+                    {{ __('common.no-result') }}
                 </div>
             @endif
             <br>

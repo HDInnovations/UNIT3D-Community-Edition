@@ -13,7 +13,7 @@ class ForgotUsernameControllerTest extends TestCase
     /**
      * @test
      */
-    public function send_username_reminder_returns_an_ok_response()
+    public function send_username_reminder_returns_an_ok_response(): void
     {
         config(['captcha.enabled' => false]);
 
@@ -29,7 +29,7 @@ class ForgotUsernameControllerTest extends TestCase
     /**
      * @test
      */
-    public function show_forgot_username_form_returns_an_ok_response()
+    public function show_forgot_username_form_returns_an_ok_response(): void
     {
         $this->get(route('username.request'))
             ->assertOk()

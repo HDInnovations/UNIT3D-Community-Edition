@@ -6,7 +6,7 @@
                     <h4 class="text-center">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                            href="#collapse4" style="color:#ffffff;">
-                            @joypixels(':rotating_light:') @lang('blocks.new-news') {{ $article->created_at->diffForHumans() }}
+                            @joypixels(':rotating_light:') {{ __('blocks.new-news') }} {{ $article->created_at->diffForHumans() }}
                             @joypixels(':rotating_light:')
                         </a>
                     </h4>
@@ -17,7 +17,7 @@
                             <h4 class="text-center">
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                    href="#collapse4" style="color:#ffffff;">
-                                    @lang('blocks.check-news') {{ $article->created_at->diffForHumans() }}
+                                    {{ __('blocks.check-news') }} {{ $article->created_at->diffForHumans() }}
                                 </a>
                             </h4>
                         </div>
@@ -40,7 +40,7 @@
                                     <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
                                     <p class="text-muted">
-                                        <em>@lang('articles.published-at')
+                                        <em>{{ __('articles.published-at') }}
                                             {{ $article->created_at->toDayDateTimeString() }}</em>
                                     </p>
 
@@ -51,12 +51,12 @@
 
                                     <a href="{{ route('articles.show', ['id' => $article->id]) }}"
                                        class="btn btn-success">
-                                        @lang('articles.read-more')
+                                        {{ __('articles.read-more') }}
                                     </a>
 
                                     <div class="pull-right">
                                         <a href="{{ route('articles.index') }}" class="btn btn-primary">
-                                            @lang('common.view-all')
+                                            {{ __('common.view-all') }}
                                         </a>
                                     </div>
                                 </div>

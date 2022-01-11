@@ -13,7 +13,7 @@ use Tests\TestCase;
 class AlbumControllerTest extends TestCase
 {
     /** @test */
-    public function create_returns_an_ok_response()
+    public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -26,7 +26,7 @@ class AlbumControllerTest extends TestCase
     }
 
     /** @test */
-    public function destroy_returns_an_ok_response()
+    public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -43,7 +43,7 @@ class AlbumControllerTest extends TestCase
     }
 
     /** @test */
-    public function index_returns_an_ok_response()
+    public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -56,7 +56,7 @@ class AlbumControllerTest extends TestCase
     }
 
     /** @test */
-    public function show_returns_an_ok_response()
+    public function show_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -75,7 +75,7 @@ class AlbumControllerTest extends TestCase
     }
 
     /** @test */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 

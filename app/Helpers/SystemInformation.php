@@ -40,7 +40,7 @@ class SystemInformation
         }
     }
 
-    public function memory()
+    public function memory(): array
     {
         if (\is_readable('/proc/meminfo')) {
             $content = \file_get_contents('/proc/meminfo');
@@ -65,7 +65,7 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    protected function formatBytes($bytes, $precision = 2): string
     {
         $bytes = \max($bytes, 0);
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
@@ -77,7 +77,7 @@ class SystemInformation
         return \round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
-    public function disk()
+    public function disk(): array
     {
         $total = \disk_total_space(\base_path());
         $free = \disk_free_space(\base_path());
@@ -101,7 +101,7 @@ class SystemInformation
         return Carbon::now();
     }
 
-    public function basic()
+    public function basic(): array
     {
         return [
             'os'       => PHP_OS,
@@ -124,10 +124,8 @@ class SystemInformation
 
     /**
      * Get all the directory permissions as well as the recommended ones.
-     *
-     * @return array
      */
-    public function directoryPermissions()
+    public function directoryPermissions(): array
     {
         return [
             [
@@ -155,8 +153,6 @@ class SystemInformation
 
     /**
      * Get the file permissions for a specific path/file.
-     *
-     * @param $path
      */
     public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
     {

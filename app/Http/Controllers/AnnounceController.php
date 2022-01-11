@@ -61,13 +61,9 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \App\Models\User $passkey
-     *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function index(Request $request, $passkey)
+    public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
         try {
             /**
@@ -177,8 +173,6 @@ class AnnounceController extends Controller
     /**
      * Check Passkey Exist and Valid.
      *
-     * @param $passkey
-     *
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkPasskey($passkey): void
@@ -278,9 +272,6 @@ class AnnounceController extends Controller
     /**
      * Get User Via Validated Passkey.
      *
-     * @param $passkey
-     * @param $queries
-     *
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkUser($passkey, $queries): object
@@ -325,8 +316,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $infoHash
-     *
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkTorrent($infoHash): object
@@ -374,9 +363,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $queries
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
     private function checkMinInterval($queries, $user): void
@@ -393,9 +379,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $torrent
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
     private function checkMaxConnections($torrent, $user): void
@@ -412,8 +395,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
     private function checkDownloadSlots($user): void
@@ -433,10 +414,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $queries
-     * @param $torrent
-     * @param $user
-     *
      * @throws \Exception
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
@@ -447,6 +424,8 @@ class AnnounceController extends Controller
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
+            'peers'        => [],
+            'peers6'       => [],
         ];
 
         /**
@@ -481,11 +460,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $queries
-     * @param $user
-     * @param $torrent
-     *
-     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
+     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html).
      */
     private function sendAnnounceJob($queries, $user, $torrent): void
     {
@@ -509,10 +484,7 @@ class AnnounceController extends Controller
         ];
     }
 
-    /**
-     * @param $repDict
-     */
-    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -520,13 +492,7 @@ class AnnounceController extends Controller
             ->withHeaders(['Pragma' => 'no-cache']);
     }
 
-    /**
-     * @param     $peers
-     * @param     $compact
-     * @param     $noPeerId
-     * @param int $filterFlag
-     */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string|array
+    private function givePeers($peers, $compact, $noPeerId, int $filterFlag = FILTER_FLAG_IPV4): string|array
     {
         if ($compact) {
             $pcomp = '';

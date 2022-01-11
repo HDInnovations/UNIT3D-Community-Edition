@@ -35,12 +35,8 @@ class Chatter implements ShouldBroadcastNow
 
     /**
      * Chatter Constructor.
-     *
-     * @param $type
-     * @param $target
-     * @param $payload
      */
-    public function __construct(public $type, public $target, $payload)
+    public function __construct(public string $type, public $target, $payload)
     {
         if ($type == 'echo') {
             $this->echoes = $payload;
@@ -57,10 +53,8 @@ class Chatter implements ShouldBroadcastNow
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('chatter.'.$this->target);
     }

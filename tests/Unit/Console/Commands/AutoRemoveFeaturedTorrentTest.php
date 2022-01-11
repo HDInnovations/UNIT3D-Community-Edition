@@ -12,7 +12,7 @@ class AutoRemoveFeaturedTorrentTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:remove_featured_torrent')
             ->expectsOutput('Automated Removal Featured Torrents Command Complete')

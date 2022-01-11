@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
@@ -28,7 +28,7 @@
         <h2>{{ $topic->name }}</h2>
 
         <div class="topic-info">
-            @lang('forum.author')
+            {{ __('forum.author') }}
             <a href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">
                 {{ $topic->first_post_user_username }}
             </a>,
@@ -40,7 +40,7 @@
                       method="POST" style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-xs btn-danger">
-                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> {{ __('forum.unsubscribe') }}
                     </button>
                 </form>
             @else
@@ -48,7 +48,7 @@
                       style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-xs btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
                     </button>
                 </form>
             @endif
@@ -63,7 +63,7 @@
                             <div class="head">
                                 <p>{{ date('M d Y', $p->created_at->getTimestamp()) }}
                                     ({{ $p->created_at->diffForHumans() }}) <a class="text-bold permalink"
-                                                                               href="{{ route('forum_topic', ['id' => $p->topic->id]) }}?page={{ $p->getPageNumber() }}#post-{{ $p->id }}">@lang('forum.permalink')</a>
+                                                                               href="{{ route('forum_topic', ['id' => $p->topic->id]) }}?page={{ $p->getPageNumber() }}#post-{{ $p->id }}">{{ __('forum.permalink') }}</a>
                                 </p>
                             </div>
                             <aside class="col-md-2 post-info">
@@ -112,13 +112,13 @@
                                     @if($p->user->topics && $p->user->topics->count() > 0)
                                         <span class="badge-user text-bold">
                                             <a href="{{ route('user_topics', ['username' => $p->user->username]) }}"
-                                               class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
+                                               class="post-info-username">{{ $p->user->topics->count() }} {{ __('forum.topics') }}</a>
                                         </span>
                                     @endif
                                     @if($p->user->posts && $p->user->posts->count() > 0)
                                         <span class="badge-user text-bold">
                                             <a href="{{ route('user_posts', ['username' => $p->user->username]) }}"
-                                               class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
+                                               class="post-info-username">{{ $p->user->posts->count() }} {{ __('forum.posts') }}</a>
                                         </span>
                                     @endif
                                 </p>
@@ -127,11 +127,11 @@
                                 <span class="inline">
                                     @if ($topic->state == 'open')
                                         <button id="quote"
-                                                class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
+                                                class="btn btn-xs btn-xxs btn-info">{{ __('forum.quote') }}</button>
                                     @endif
                                     @if (auth()->user()->group->is_modo || $p->user_id === auth()->user()->id)
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
-                                                    class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
+                                                    class="btn btn-xs btn-xxs btn-warning">{{ __('common.edit') }}</button></a>
                                     @endif
                                     @if (auth()->user()->group->is_modo || ($p->user_id === auth()->user()->id && $topic->state === 'open'))
                                         <form role="form" method="POST"
@@ -140,7 +140,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-xs btn-xxs btn-danger">
-                                                @lang('common.delete')
+                                                {{ __('common.delete') }}
                                             </button>
                                         </form>
                                     @endif
@@ -154,14 +154,14 @@
                             <div class="post-signature col-md-12 mt-10">
                                 <div id="forumTip{{ $p->id }}" class="text-center">
                                     @if($p->tips && $p->tips->sum('cost') > 0)
-                                        <div>@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
+                                        <div>{{ __('forum.tip-post-total') }} {{ $p->tips->sum('cost') }}
                                             BON
                                         </div>
                                     @endif
                                     <div id="forumTip" route="{{ route('tip_poster') }}"
-                                         leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
+                                         leaveTip="{{ __('torrent.leave-tip') }}" quickTip="{{ __('torrent.quick-tip') }}">
                                         <a class="forumTip" href="#/" post="{{ $p->id }}"
-                                           user="{{ $p->user->id }}">@lang('forum.tip-this-post')</a></div>
+                                           user="{{ $p->user->id }}">{{ __('forum.tip-this-post') }}</a></div>
                                 </div>
                             </div>
 
@@ -199,10 +199,10 @@
                                 <label for="topic-response"></label>
                                 <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
+                            <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
                         </form>
                     @elseif ($topic->state == "close")
-                        <div class="col-md-12 alert alert-danger">@lang('forum.topic-closed')</div>
+                        <div class="col-md-12 alert alert-danger">{{ __('forum.topic-closed') }}</div>
                     @else
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
@@ -210,19 +210,19 @@
                                 <label for="topic-response"></label>
                                 <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
+                            <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
                         </form>
                     @endif
 
                     <div class="text-center">
                         @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
-                            <h3>@lang('forum.moderation')</h3>
+                            <h3>{{ __('forum.moderation') }}</h3>
                             @if ($topic->state === 'close')
                                 <form action="{{ route('forum_open', ['id' => $topic->id]) }}" method="POST"
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
-                                        @lang('forum.open-topic')
+                                        {{ __('forum.open-topic') }}
                                     </button>
                                 </form>
                             @else
@@ -230,7 +230,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
-                                        @lang('forum.close-topic')
+                                        {{ __('forum.close-topic') }}
                                     </button>
                                 </form>
                             @endif
@@ -238,14 +238,14 @@
                         @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                             <a href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
                                class="btn btn-warning">
-                                @lang('forum.edit-topic')
+                                {{ __('forum.edit-topic') }}
                             </a>
                             <form action="{{ route('forum_delete_topic', ['id' => $topic->id]) }}" method="POST"
                                   style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">
-                                    @lang('forum.delete-topic')
+                                    {{ __('forum.delete-topic') }}
                                 </button>
                             </form>
                         @endif
@@ -255,7 +255,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">
-                                        @lang('forum.pin') @lang('forum.topic')
+                                        {{ __('forum.pin') }} {{ __('forum.topic') }}
                                     </button>
                                 </form>
                             @else
@@ -263,7 +263,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-default">
-                                        @lang('forum.unpin') @lang('forum.topic')
+                                        {{ __('forum.unpin') }} {{ __('forum.topic') }}
                                     </button>
                                 </form>
                             @endif
@@ -272,13 +272,13 @@
                         <br>
 
                         @if (auth()->user()->group->is_modo)
-                            <h3>@lang('forum.label-system')</h3>
+                            <h3>{{ __('forum.label-system') }}</h3>
                             @if ($topic->approved === 0)
                                 <form action="{{ route('topics.approve', ['id' => $topic->id]) }}" method="POST"
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.approved')) }}
                                     </button>
                                 </form>
                             @else
@@ -286,7 +286,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.approved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -295,7 +295,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.denied')) }}
                                     </button>
                                 </form>
                             @else
@@ -303,7 +303,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.denied')) }}
                                     </button>
                                 </form>
                             @endif
@@ -312,7 +312,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.solved')) }}
                                     </button>
                                 </form>
                             @else
@@ -320,7 +320,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.solved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -329,7 +329,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.invalid')) }}
                                     </button>
                                 </form>
                             @else
@@ -337,7 +337,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.invalid')) }}
                                     </button>
                                 </form>
                             @endif
@@ -346,7 +346,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.bug')) }}
                                     </button>
                                 </form>
                             @else
@@ -354,7 +354,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.bug')) }}
                                     </button>
                                 </form>
                             @endif
@@ -363,7 +363,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @else
@@ -371,7 +371,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @endif
@@ -380,7 +380,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        @lang('common.add') {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.add') }} {{ strtoupper(trans('forum.implemented')) }}
                                     </button>
                                 </form>
                             @else
@@ -388,7 +388,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        @lang('common.remove') {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.implemented')) }}
                                     </button>
                                 </form>
                             @endif

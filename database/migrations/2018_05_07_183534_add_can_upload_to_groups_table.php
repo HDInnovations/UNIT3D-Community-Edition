@@ -19,10 +19,8 @@ class AddCanUploadToGroupsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->boolean('can_upload')->after('is_freeleech')->default(1);

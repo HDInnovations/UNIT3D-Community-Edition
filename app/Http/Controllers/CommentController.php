@@ -55,12 +55,8 @@ class CommentController extends Controller
 
     /**
      * Add A Comment To A Collection.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function collection(Request $request, $id)
+    public function collection(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $collection = Collection::findOrFail($id);
         $user = $request->user();
@@ -159,12 +155,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Article.
-     *
-     * @param \App\Models\Article $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $id)
+    public function article(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -261,12 +253,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Playlist.
-     *
-     * @param \App\Models\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, $id)
+    public function playlist(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
@@ -363,12 +351,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -470,12 +454,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
@@ -577,12 +557,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function ticket(Request $request, $id)
+    public function ticket(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
@@ -629,12 +605,8 @@ class CommentController extends Controller
 
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(Request $request, $id)
+    public function quickthanks(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -722,12 +694,8 @@ class CommentController extends Controller
 
     /**
      * Edit A Comment.
-     *
-     * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editComment(Request $request, $commentId)
+    public function editComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
@@ -751,12 +719,8 @@ class CommentController extends Controller
 
     /**
      * Delete A Comment.
-     *
-     * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $commentId)
+    public function deleteComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);

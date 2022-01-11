@@ -2,11 +2,11 @@
     <div class="modal-dialog{{ modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>@lang('common.edit-your-comment')</title>
+            <title>{{ __('common.edit-your-comment') }}</title>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">@lang('common.edit-your-comment')</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ __('common.edit-your-comment') }}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="POST"
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <input style="float:right;" class="btn btn-primary" type="submit"
-                                   value="@lang('common.submit')">
+                                   value="{{ __('common.submit') }}">
                         </div>
                     </div>
                 </form>

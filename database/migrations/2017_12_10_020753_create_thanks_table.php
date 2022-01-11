@@ -18,10 +18,8 @@ class CreateThanksTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('thanks', function (Blueprint $table) {
             $table->increments('id');

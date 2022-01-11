@@ -8,10 +8,8 @@ class AddConnectableStateToPeersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('peers', function (Blueprint $table) {
             $table->boolean('connectable')->default(0);

@@ -12,7 +12,7 @@ class AutoFlushPeersTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:flush_peers')
             ->expectsOutput('Automated Flush Ghost Peers Command Complete')

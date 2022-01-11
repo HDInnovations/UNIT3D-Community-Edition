@@ -32,10 +32,8 @@ class ArticleController extends Controller
 
     /**
      * Show A Article.
-     *
-     * @param \App\Models\Article $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 

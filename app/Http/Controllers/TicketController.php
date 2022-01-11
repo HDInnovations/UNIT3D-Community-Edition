@@ -25,7 +25,7 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    final public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return \view('ticket.index');
     }
@@ -33,7 +33,7 @@ class TicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
@@ -81,7 +81,7 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
@@ -101,14 +101,6 @@ class TicketController extends Controller
             'user'   => $user,
             'ticket' => $ticket,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    final public function edit(int $id): \Illuminate\Http\Response
-    {
-        //
     }
 
     /**

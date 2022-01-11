@@ -3,7 +3,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading featured-header">
-                <h4><i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('blocks.featured-torrents')</h4>
+                <h4><i class="{{ config('other.font-awesome') }} fa-star"></i> {{ __('blocks.featured-torrents') }}</h4>
                 <div id="dots" class="dots"></div>
             </div>
             <div id="myCarousel" class="keen-slider">
@@ -16,15 +16,15 @@
                         <div class="fade-card"></div>
                         <div class="movie-content">
                             <div class="movie-header">
-                                <h1 class="movie-title">@lang('blocks.featured-torrents')</h1>
+                                <h1 class="movie-title">{{ __('blocks.featured-torrents') }}</h1>
                                 <h4 class="movie-info">
-                                    @lang('blocks.featured-torrents-intro')
+                                    {{ __('blocks.featured-torrents-intro') }}
                                     <br>
                                     <br>
                                     <span class="badge-user text-bold text-pink"
-                                          style="background-image:url(/img/sparkels.gif);">@lang('torrent.freeleech')</span>
+                                          style="background-image:url(/img/sparkels.gif);">{{ __('torrent.freeleech') }}</span>
                                     <span class="badge-user text-bold text-pink"
-                                          style="background-image:url(/img/sparkels.gif);">@lang('torrent.double-upload')</span>
+                                          style="background-image:url(/img/sparkels.gif);">{{ __('torrent.double-upload') }}</span>
                                 </h4>
                             </div>
                         </div>
@@ -94,39 +94,39 @@
                                 <div class="movie-badges list-inline">
                                     <span class="badge-extra text-blue"><i
                                                 class="{{ config('other.font-awesome') }} fa-database"></i>
-                                        <strong>@lang('torrent.size'): </strong>
+                                        <strong>{{ __('torrent.size') }}: </strong>
                                         {{ $feature->torrent->getSize() }}
                                     </span>
                                     <span class="badge-extra text-blue"><i
                                                 class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
-                                        <strong>@lang('torrent.released'): </strong>
+                                        <strong>{{ __('torrent.released') }}: </strong>
                                         {{ $feature->torrent->created_at->diffForHumans() }}
                                     </span>
                                     <span class="badge-extra text-green"><i
                                                 class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                                        <strong>@lang('torrent.seeders'): </strong>
+                                        <strong>{{ __('torrent.seeders') }}: </strong>
                                         {{ $feature->torrent->seeders }}
                                     </span>
                                     <span class="badge-extra text-red"><i
                                                 class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                                        <strong>@lang('torrent.leechers'): </strong>
+                                        <strong>{{ __('torrent.leechers') }}: </strong>
                                         {{ $feature->torrent->leechers }}
                                     </span>
                                     <span class="badge-extra text-orange"><i
                                                 class="{{ config('other.font-awesome') }} fa-check-square"></i>
-                                        <strong>@lang('torrent.completed'): </strong>
+                                        <strong>{{ __('torrent.completed') }}: </strong>
                                         {{ $feature->torrent->times_completed }}
                                     </span>
                                     <br>
                                     <span class="badge-user text-bold text-pink"
                                           style="background-image:url(/img/sparkels.gif);">
-                                        @lang('blocks.featured-until'):
+                                        {{ __('blocks.featured-until') }}:
                                         {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
                                         ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                     </span>
                                     <span class="badge-user text-bold text-pink"
                                           style="background-image:url(/img/sparkels.gif);">
-                                        @lang('blocks.featured-by'): {{ $feature->user->username }}!
+                                        {{ __('blocks.featured-by') }}: {{ $feature->user->username }}!
                                     </span>
                                 </div>
                             </div>
@@ -135,11 +135,11 @@
                 @endforeach
                 <a class="left carousel-control">
                     <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">@lang('common.previous')</span>
+                    <span class="sr-only">{{ __('common.previous') }}</span>
                 </a>
                 <a class="right carousel-control">
                     <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">@lang('common.next')</span>
+                    <span class="sr-only">{{ __('common.next') }}</span>
                 </a>
             </div>
         </div>

@@ -36,7 +36,7 @@ class AutoStatsClients extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $peers = Peer::where('seeder', '=', 1)->get();
 

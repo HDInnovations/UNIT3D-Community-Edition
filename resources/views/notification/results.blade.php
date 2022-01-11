@@ -2,11 +2,11 @@
     <table class="table table-condensed table-striped table-bordered">
         <thead>
         <tr>
-            <th>@lang('notification.title')</th>
-            <th>@lang('notification.message')</th>
-            <th>@lang('notification.date')</th>
-            <th>@lang('notification.read')</th>
-            <th>@lang('notification.delete')</th>
+            <th>{{ __('notification.title') }}</th>
+            <th>{{ __('notification.message') }}</th>
+            <th>{{ __('notification.date') }}</th>
+            <th>{{ __('notification.read') }}</th>
+            <th>{{ __('notification.delete') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                     <form action="{{ route('notifications.update', ['id' => $notification->id]) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-xxs btn-success" data-toggle="tooltip"
-                                data-original-title="@lang('notification.mark-read')"
+                                data-original-title="{{ __('notification.mark-read') }}"
                                 @if ($notification->read_at != null)
                                 disabled @endif>
                             <i class="{{ config('other.font-awesome') }} fa-eye"></i>
@@ -39,14 +39,14 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-xxs btn-danger" data-toggle="tooltip"
-                                data-original-title="@lang('notification.delete')">
+                                data-original-title="{{ __('notification.delete') }}">
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                         </button>
                     </form>
                 </td>
             </tr>
         @empty
-            @lang('notification.no-notifications').
+            {{ __('notification.no-notifications') }}.
         @endforelse
         </tbody>
     </table>

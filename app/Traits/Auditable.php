@@ -35,13 +35,8 @@ trait Auditable
 
     /**
      * Strips specified data keys from the audit.
-     *
-     * @param $model
-     * @param $data
-     *
-     * @return array
      */
-    protected static function strip($model, $data)
+    protected static function strip($model, $data): array
     {
         // Initialize an instance of $model
         $instance = new $model();
@@ -69,13 +64,9 @@ trait Auditable
     /**
      * Generates the data to store.
      *
-     * @param       $action
-     * @param array $old
-     * @param array $new
-     *
      * @throws \JsonException
      */
-    protected static function generate($action, $old = [], $new = []): false|string
+    protected static function generate($action, array $old = [], array $new = []): false|string
     {
         $data = [];
         switch ($action) {
@@ -134,13 +125,11 @@ trait Auditable
 
     /**
      * Gets the current user ID, or null if guest.
-     *
-     * @return mixed|null
      */
     public static function getUserId()
     {
         if (\auth()->guest()) {
-            return;
+            return null;
         }
 
         return \auth()->user()->id;
@@ -148,8 +137,6 @@ trait Auditable
 
     /**
      * Logs a record creation.
-     *
-     * @param $model
      *
      * @throws \JsonException
      */
@@ -179,8 +166,6 @@ trait Auditable
     /**
      * Logs a record update.
      *
-     * @param $model
-     *
      * @throws \JsonException
      */
     protected static function registerUpdate($model)
@@ -208,8 +193,6 @@ trait Auditable
 
     /**
      * Logs a record deletion.
-     *
-     * @param $model
      *
      * @throws \JsonException
      */
