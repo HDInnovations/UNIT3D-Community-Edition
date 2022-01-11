@@ -107,7 +107,7 @@ class TorrentController extends Controller
     /**
      * Anonymize A Torrent Media Info.
      */
-    private static function anonymizeMediainfo($mediainfo): array|null
+    private static function anonymizeMediainfo($mediainfo): array|string|null
     {
         if ($mediainfo === null) {
             return null;

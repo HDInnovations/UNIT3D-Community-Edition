@@ -705,7 +705,7 @@ class User extends Authenticatable
     /**
      * Set The Users Signature After Its Been Purified.
      */
-    public function setSignatureAttribute(string $value): void
+    public function setSignatureAttribute(?string $value): void
     {
         $this->attributes['signature'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -724,7 +724,7 @@ class User extends Authenticatable
     /**
      * Set The Users About Me After Its Been Purified.
      */
-    public function setAboutAttribute(string $value): void
+    public function setAboutAttribute(?string $value): void
     {
         $this->attributes['about'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
