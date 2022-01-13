@@ -68,7 +68,10 @@ class AutoPreWarning extends Command
                 ->where('seedtime', '>', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
+            $userRequests = TorrentRequest::where('user_id', '=', $user->id)->get();
             $merge = $prewarnRequests->merge($prewarn);
+
+            
 
             foreach ($merge as $pre) {
                 // Skip Prewarning if Torrent is NULL
@@ -86,27 +89,31 @@ class AutoPreWarning extends Command
                     if ($exsist === null) {
                         $timeleft = \config('hitrun.grace') - \config('hitrun.prewarn');
 
+                        foreach ($userRequests as $userRequest) {
+                            if (in_array($pre->torrent->info_hash, $userRequest) && $his->seedtime < config('hitrun.seedtime_requests')) {
+                                // When seedtime requirements for requested torrent
+                                $pm = new PrivateMessage();
+                                $pm->sender_id = 1;
+                                $pm->receiver_id = $pre->user->id;
+                                $pm->subject = \sprintf('Hit and Run Warning Incoming');
+                                $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for ').\config('hitrun.prewarn').\sprintf(' days on Torrent 
+                                    [u][url=/torrents/%s]%s[/url][/u].
+
+                                    If you fail to seed it within %s day(s) you will receive an automated WARNING!
+
+                                    You have requested this torrent, this means it is subject to the extended seedtime 
+                                    requirements defined in our [u][url=', $pre->torrent->id, $pre->torrent->name, $timeleft)
+                                    .\config('other.request-rules_url')
+                                    .\sprintf(']Request Rules[/url][/u].
+                                    
+                                    [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
+                                    );
+                                $pm->save();
+                            }
+                        }
+
                         // Send Private Message
-                        if ($prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
-                            // When seedtime requirements for requested torrent
-                            $pm = new PrivateMessage();
-                            $pm->sender_id = 1;
-                            $pm->receiver_id = $pre->user->id;
-                            $pm->subject = \sprintf('Hit and Run Warning Incoming');
-                            $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for ').\config('hitrun.prewarn').\sprintf(' days on Torrent 
-                                [u][url=/torrents/%s]%s[/url][/u].
-
-                                If you fail to seed it within %s day(s) you will receive an automated WARNING!
-
-                                You have requested this torrent, this means it is subject to the extended seedtime 
-                                requirements defined in our [u][url=', $pre->torrent->id, $pre->torrent->name, $timeleft)
-                                .\config('other.request-rules_url')
-                                .\sprintf(']Request Rules[/url][/u].
-                                
-                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
-                                );
-                            $pm->save();
-                        } else {
+                        if (!$prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
                             // When seedtime requirements for default torrent
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
