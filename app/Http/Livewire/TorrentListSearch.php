@@ -38,7 +38,7 @@ class TorrentListSearch extends Component
 
     public string $uploader = '';
 
-    public array $keywords = [];
+    public string $keywords = '';
 
     public string $startYear = '';
 
@@ -123,7 +123,7 @@ class TorrentListSearch extends Component
         'description'      => ['except' => ''],
         'mediainfo'        => ['except' => ''],
         'uploader'         => ['except' => ''],
-        'keywords'         => ['except' => []],
+        'keywords'         => ['except' => ''],
         'startYear'        => ['except' => ''],
         'endYear'          => ['except' => ''],
         'categories'       => ['except' => []],
