@@ -117,7 +117,7 @@ class AutoWarning extends Command
                         }
 
                         // When seedtime requirements for default torrent
-                        if (!$prewarnRequests->contains('info_hash', $hr->torrent->info_hash)) {
+                        if (! $prewarnRequests->contains('info_hash', $hr->torrent->info_hash)) {
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;

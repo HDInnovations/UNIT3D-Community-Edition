@@ -71,7 +71,7 @@ class AutoPreWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
             $merge = $prewarnRequests->merge($prewarn);
-            
+
             foreach ($merge as $pre) {
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
@@ -113,7 +113,7 @@ class AutoPreWarning extends Command
                         }
 
                         // When seedtime requirements for default torrent
-                        if (!$prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
+                        if (! $prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
