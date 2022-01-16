@@ -1,32 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>{{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('staff.staff-dashboard')">
+    <meta name="description" content="{{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="box">
-            <div class="header gradient pink">
-                <div class="inner_content">
-                    <h1>@lang('staff.staff-dashboard')</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container-fluid">
         <div class="row">
             @include('partials.dashboardmenu')

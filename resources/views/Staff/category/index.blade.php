@@ -3,39 +3,39 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-categories')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.torrent-categories') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('torrent.categories')</h2>
+        <h2>{{ __('torrent.categories') }}</h2>
         <a href="{{ route('staff.categories.create') }}" class="btn btn-primary">
-            @lang('common.add')
-            @lang(trans_choice('common.a-an-art',false))
-            @lang('torrent.category')
+            {{ __('common.add') }}
+            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ __('torrent.category') }}
         </a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>@lang('common.position')</th>
-                    <th>@lang('common.name')</th>
-                    <th>@lang('common.icon')</th>
-                    <th>@lang('common.image')</th>
+                    <th>{{ __('common.position') }}</th>
+                    <th>{{ __('common.name') }}</th>
+                    <th>{{ __('common.icon') }}</th>
+                    <th>{{ __('common.image') }}</th>
                     <th>Movie Meta</th>
                     <th>TV Meta</th>
                     <th>Game Meta</th>
                     <th>Music Meta</th>
                     <th>No Meta</th>
-                    <th>@lang('common.action')</th>
+                    <th>{{ __('common.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -100,9 +100,9 @@
                                 @method('DELETE')
                                 <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}"
                                    class="btn btn-warning">
-                                    @lang('common.edit')
+                                    {{ __('common.edit') }}
                                 </a>
-                                <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                             </form>
                         </td>
                     </tr>

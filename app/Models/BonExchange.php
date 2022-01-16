@@ -17,31 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\BonExchange.
- *
- * @property int         $id
- * @property string|null $description
- * @property int         $value
- * @property int         $cost
- * @property bool        $upload
- * @property bool        $download
- * @property bool        $personal_freeleech
- * @property bool        $invite
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereCost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDownload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereInvite($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange wherePersonalFreeleech($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereUpload($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
- * @mixin \Eloquent
- */
 class BonExchange extends Model
 {
     use HasFactory;
@@ -75,60 +50,48 @@ class BonExchange extends Model
 
     /**
      * @method getDownloadOptions
-     *
-     * @return array
      */
-    public function getDownloadOptions()
+    public function getDownloadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('download', '=', true)
-            ->orderBy('value', 'asc')
+            ->orderBy('value')
             ->get();
     }
 
     /**
      * @method getUploadOptions
-     *
-     * @return array
      */
-    public function getUploadOptions()
+    public function getUploadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('upload', '=', true)
-            ->orderBy('value', 'asc')
+            ->orderBy('value')
             ->get();
     }
 
     /**
      * @method getPersonalFreeleechOption
-     *
-     * @return array
      */
-    public function getPersonalFreeleechOption()
+    public function getPersonalFreeleechOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('personal_freeleech', '=', true)
-            ->orderBy('value', 'asc')
+            ->orderBy('value')
             ->get();
     }
 
     /**
      * @method getInviteOption
-     *
-     * @return array
      */
-    public function getInviteOption()
+    public function getInviteOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('invite', '=', true)
-            ->orderBy('value', 'asc')
+            ->orderBy('value')
             ->get();
     }
 
     /**
      * @method getItemCost
-     *
-     * @param $id
-     *
-     * @return int
      */
-    public function getItemCost($id)
+    public function getItemCost(int $id): int
     {
         return self::where('id', '=', $id)
             ->get()

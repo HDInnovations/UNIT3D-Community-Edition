@@ -27,17 +27,15 @@ class BotsTableSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->bots as $bot) {
             Bot::updateOrCreate($bot);
         }
     }
 
-    private function getBots()
+    private function getBots(): array
     {
         return [
             [

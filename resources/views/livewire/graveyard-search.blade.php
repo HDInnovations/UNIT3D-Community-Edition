@@ -42,7 +42,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-categories">
-                            <label for="categories" class="label label-default">@lang('common.category')</label>
+                            <label for="categories" class="label label-default">{{ __('common.category') }}</label>
                             @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
                             @foreach ($categories as $category)
                                 <span class="badge-user">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-types">
-                            <label for="types" class="label label-default">@lang('common.type')</label>
+                            <label for="types" class="label label-default">{{ __('common.type') }}</label>
                             @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
                             @foreach ($types as $type)
                                 <span class="badge-user">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
-                            <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+                            <label for="resolutions" class="label label-default">{{ __('common.resolution') }}</label>
                             @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+                            <label for="resolutions" class="label label-default">{{ __('common.resolution') }}</label>
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
 									<label class="inline">
@@ -141,7 +141,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6">
-                            <label for="extra" class="label label-default">@lang('common.extra')</label>
+                            <label for="extra" class="label label-default">{{ __('common.extra') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="internal" type="checkbox" value="1">
@@ -156,13 +156,6 @@
         </div>
         <br>
         <div class="table-responsive block">
-            <div class="header gradient green" style="margin-top: 25px;">
-                <div class="inner_content">
-                    <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                        {{ number_format($torrentsStat) }} Dead @lang('torrent.torrents')
-                    </h5>
-                </div>
-            </div>
             <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
                 <thead>
                 <tr>
@@ -170,7 +163,7 @@
                     <th class="torrents-filename">
                         <div sortable wire:click="sortBy('name')"
                              :direction="$sortField === 'name' ? $sortDirection : null" role="button">
-                            @lang('common.name')
+                            {{ __('common.name') }}
                             @include('livewire.includes._sort-icon', ['field' => 'name'])
                         </div>
                     </th>
@@ -198,11 +191,11 @@
                     <th style="width: 6%;">
                         <div sortable wire:click="sortBy('created_at')"
                              :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                            @lang('common.created_at')
+                            {{ __('common.created_at') }}
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </div>
                     </th>
-                    <th>@lang('graveyard.resurrect')</th>
+                    <th>{{ __('graveyard.resurrect') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -221,12 +214,10 @@
                     @endif
                     <tr>
                         <td style="width: 5%; text-align: center;">
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <i class="{{ $torrent->category->icon }} torrent-icon"
-                                       style="padding-top: 1px; font-size: 20px;"></i>
-                                </div>
-                            </a>
+                            <div class="text-center">
+                                <i class="{{ $torrent->category->icon }} torrent-icon"
+                                   style="padding-top: 1px; font-size: 20px;"></i>
+                            </div>
                             <div class="text-center">
                                 <span class="label label-success" style="font-size: 11px">
                                     {{ $torrent->type->name }}
@@ -247,14 +238,14 @@
                             @if (config('torrent.download_check_page') == 1)
                                 <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="@lang('common.download')">
+                                            data-original-title="{{ __('common.download') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                     </button>
                                 </a>
                             @else
                                 <a href="{{ route('download', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="@lang('common.download')">
+                                            data-original-title="{{ __('common.download') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                     </button>
                                 </a>
@@ -262,7 +253,7 @@
                             @if (config('torrent.magnet') == 1)
                                 <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="@lang('common.magnet')">
+                                            data-original-title="{{ __('common.magnet') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
                                     </button>
                                 </a>
@@ -290,7 +281,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-magic' data-toggle='tooltip'
                                        title=''
-                                       data-original-title='@lang('torrent.internal-release')'
+                                       data-original-title='{{ __('torrent.internal-release') }}'
                                        style="color: #baaf92;"></i>
                                 </span>
                             @endif
@@ -298,7 +289,7 @@
                             @if ($torrent->stream == 1)
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-play text-red' data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.stream-optimized')'></i>
+                                       title='' data-original-title='{{ __('torrent.stream-optimized') }}'></i>
                                 </span>
                             @endif
 
@@ -307,14 +298,14 @@
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config('other.font-awesome') }} fa-gem text-green'
                                            data-toggle='tooltip'
-                                           title='' data-original-title='@lang('torrent.double-upload')'></i>
+                                           title='' data-original-title='{{ __('torrent.double-upload') }}'></i>
                                     </span>
                                 @endif
 
                                 @if ($torrent->free >= '90')
                                     <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
                                           data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                            <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                         ">
                                             <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                         </span>
@@ -336,7 +327,7 @@
                                     </style>
                                     <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
                                           data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                            <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                         ">
                                             <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
@@ -358,7 +349,7 @@
                                     </style>
                                     <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
                                           data-html="true" title="
-                                            <p>{{ $torrent->free }}% @lang('common.free')</p>
+                                            <p>{{ $torrent->free }}% {{ __('common.free') }}</p>
                                         ">
                                             <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
@@ -369,7 +360,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.freeleech-token')'></i>
+                                       title='' data-original-title='{{ __('torrent.freeleech-token') }}'></i>
                                 </span>
                             @endif
 
@@ -377,7 +368,7 @@
                                 <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                     <i class='{{ config('other.font-awesome') }} fa-certificate text-pink'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.featured')'></i>
+                                       title='' data-original-title='{{ __('torrent.featured') }}'></i>
                                 </span>
                             @endif
 
@@ -385,7 +376,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.special-freeleech')'></i>
+                                       title='' data-original-title='{{ __('torrent.special-freeleech') }}'></i>
                                 </span>
                             @endif
 
@@ -393,7 +384,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-globe text-blue'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.global-freeleech')'></i>
+                                       title='' data-original-title='{{ __('torrent.global-freeleech') }}'></i>
                                 </span>
                             @endif
 
@@ -401,7 +392,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.global-double-upload')'></i>
+                                       title='' data-original-title='{{ __('torrent.global-double-upload') }}'></i>
                                 </span>
                             @endif
 
@@ -409,7 +400,7 @@
                                 <span class='badge-extra text-bold'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''
-                                       data-original-title='@lang('torrent.special-double_upload')'></i>
+                                       data-original-title='{{ __('torrent.special-double_upload') }}'></i>
 								</span>
                             @endif
 
@@ -417,7 +408,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-fire text-orange'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('common.hot')'></i>
+                                       title='' data-original-title='{{ __('common.hot') }}'></i>
                                 </span>
                             @endif
 
@@ -425,7 +416,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-thumbtack text-black'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.sticky')'></i>
+                                       title='' data-original-title='{{ __('torrent.sticky') }}'></i>
                                 </span>
                             @endif
 
@@ -433,7 +424,7 @@
                                 <span class='badge-extra text-bold'>
 									<i class='{{ config('other.font-awesome') }} fa-tachometer text-red'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('common.high-speeds')'></i>
+                                       title='' data-original-title='{{ __('common.high-speeds') }}'></i>
 								</span>
                             @endif
 
@@ -441,7 +432,7 @@
                                 <span class='badge-extra text-bold'>
 									<i class='{{ config('other.font-awesome') }} fa-ticket text-orange'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.sd-content')'></i>
+                                       title='' data-original-title='{{ __('torrent.sd-content') }}'></i>
 								</span>
                             @endif
 
@@ -449,7 +440,7 @@
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'
-                                       title='' data-original-title='@lang('torrent.recent-bumped')'></i>
+                                       title='' data-original-title='{{ __('torrent.recent-bumped') }}'></i>
                                 </span>
                             @endif
 
@@ -481,7 +472,7 @@
                             @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->first() @endphp
                             @if (! $resurrected)
                                 <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}"
-                                        class="btn btn-xs btn-success">@lang('graveyard.resurrect')
+                                        class="btn btn-xs btn-success">{{ __('graveyard.resurrect') }}
                                 </button>
                                 <div class="modal fade" id="resurrect-{{ $torrent->id }}" tabindex="-1" role="dialog"
                                      aria-labelledby="resurrect">
@@ -493,7 +484,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                                 <h2>
-                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('graveyard.resurrect')
+                                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ __('graveyard.resurrect') }}
                                                     {{ strtolower(trans('torrent.torrent')) }} ?
                                                 </h2>
                                             </div>
@@ -505,7 +496,7 @@
                                                 </span>
                                                 </p>
                                                 <p class="text-center text-bold">
-                                                    @lang('graveyard.howto')
+                                                    {{ __('graveyard.howto') }}
                                                 </p>
                                                 <br>
                                                 <div class="text-center">
@@ -528,7 +519,7 @@
                                                         {{ strtolower(trans('graveyard.howto-desc2')) }}
                                                         <span class="badge-user text-bold text-pink"
                                                               style="background-image:url(/img/sparkels.gif);">
-                                                        {{ config('graveyard.reward') }} @lang('torrent.freeleech') Token(s)!
+                                                        {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }} Token(s)!
                                                     </span>
                                                     </p>
                                                 </div>
@@ -550,10 +541,10 @@
                                                                                              value="{{ $history->seedtime + config('graveyard.time') }}">
                                                     @endif
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                                        @lang('common.cancel')
+                                                        {{ __('common.cancel') }}
                                                     </button>
                                                     <button type="submit" class="btn btn-success">
-                                                        @lang('graveyard.resurrect')
+                                                        {{ __('graveyard.resurrect') }}
                                                     </button>
                                                 </form>
                                             </div>
@@ -572,7 +563,7 @@
             </table>
             @if (! $torrents->count())
                 <div class="margin-10">
-                    @lang('common.no-result')
+                    {{ __('common.no-result') }}
                 </div>
             @endif
             <br>

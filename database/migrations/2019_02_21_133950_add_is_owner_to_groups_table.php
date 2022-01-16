@@ -19,10 +19,8 @@ class AddIsOwnerToGroupsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->boolean('is_owner')->after('is_internal')->default(0);

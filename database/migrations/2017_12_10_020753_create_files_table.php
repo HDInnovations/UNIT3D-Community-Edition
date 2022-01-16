@@ -18,10 +18,8 @@ class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('files', function (Blueprint $table) {
             $table->bigInteger('id', true)->unsigned();

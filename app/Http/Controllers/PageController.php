@@ -13,8 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Models\Internal;
 use App\Models\Page;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -33,10 +34,8 @@ class PageController extends Controller
 
     /**
      * Show A Page.
-     *
-     * @param \App\Models\Page $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 
@@ -48,7 +47,7 @@ class PageController extends Controller
      */
     public function staff(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
+        $staff = Group::with('users:id,username,group_id,title')->where('is_modo', '=', 1)->orWhere('is_admin', '=', 1)->get()->sortByDesc('position');
 
         return \view('page.staff', ['staff' => $staff]);
     }
@@ -58,10 +57,9 @@ class PageController extends Controller
      */
     public function internal(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internal_group = DB::table('internals')->get();
-        $internal_user = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon', 'users.internal_id'])->where('groups.is_internal', 1)->get();
+        $internals = Internal::with('users')->get()->sortBy('name');
 
-        return \view('page.internal', ['internal_user' => $internal_user, 'internal_group' => $internal_group]);
+        return \view('page.internal', ['internals' => $internals]);
     }
 
     /**

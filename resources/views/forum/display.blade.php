@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $forum->name }} - @lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>{{ $forum->name }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('forum.display-forum')">
+    <meta name="description" content="{{ __('forum.display-forum') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
@@ -33,9 +33,9 @@
                     <label for="name"></label>
                     <input type="text" name="name" id="name"
                            value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                           placeholder="@lang('forum.category-quick-search')" class="form-control">
+                           placeholder="{{ __('forum.category-quick-search') }}" class="form-control">
                     <button type="submit" class="btn btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
+                        <i class="{{ config('other.font-awesome') }} fa-search"></i> {{ __('common.search') }}
                     </button>
                 </form>
             </div>
@@ -62,7 +62,7 @@
                             <div class="button-right">
                                 @if ($category->getPermission()->start_topic == true)
                                     <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}"
-                                       class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
+                                       class="btn btn-sm btn-primary">{{ __('forum.create-new-topic') }}</a>
                                 @endif
                                 @if ($category->getPermission()->show_forum == true)
                                     @if (auth()->user()->isSubscribed('forum',$forum->id))
@@ -70,7 +70,7 @@
                                               method="POST" style="display: inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> @lang('forum.unsubscribe')
+                                                <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> {{ __('forum.unsubscribe') }}
                                             </button>
                                         </form>
                                     @else
@@ -78,7 +78,7 @@
                                               method="POST" style="display: inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-success">
-                                                <i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('forum.subscribe')
+                                                <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
                                             </button>
                                         </form>
                                     @endif
@@ -91,10 +91,10 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>@lang('forum.topic')</th>
-                    <th>@lang('forum.author')</th>
-                    <th>@lang('forum.stats')</th>
-                    <th>@lang('forum.last-post-info')</th>
+                    <th>{{ __('forum.topic') }}</th>
+                    <th>{{ __('forum.author') }}</th>
+                    <th>{{ __('forum.stats') }}</th>
+                    <th>{{ __('forum.last-post-info') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -133,8 +133,8 @@
                                     href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
-                            {{ $t->num_post - 1 }} @lang('forum.replies')
-                            \ {{ $t->views }} @lang('forum.views')
+                            {{ $t->num_post - 1 }} {{ __('forum.replies') }}
+                            \ {{ $t->views }} {{ __('forum.views') }}
                         </td>
                         <td class="f-display-topic-last-post">
                             <a

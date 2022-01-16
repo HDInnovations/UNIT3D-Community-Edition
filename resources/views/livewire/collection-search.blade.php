@@ -1,6 +1,6 @@
 <div>
     <div class="mb-10">
-        <input type="text" wire:model="search" class="form-control" placeholder="@lang('torrent.search-by-name')"/>
+        <input type="text" wire:model="search" class="form-control" placeholder="{{ __('torrent.search-by-name') }}"/>
     </div>
 
     @foreach($collections as $collection)
@@ -12,7 +12,7 @@
                          style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
                     <section class="collection">
                         <h2>{{ $collection->name }}</h2>
-                        <p class="text-blue">@lang('mediahub.includes')
+                        <p class="text-blue">{{ __('mediahub.includes') }}
                             @foreach($collection->movie as $collection_movie)
                                 {{ $collection_movie->title }},
                             @endforeach
@@ -21,7 +21,7 @@
                         <a href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}" role="button"
                            class="btn btn-labeled btn-primary"
                            style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
-                            <span class="btn-label"><i class="{{ config("other.font-awesome") }} fa-copy"></i> @lang('mediahub.view-collection')</span>
+                            <span class="btn-label"><i class="{{ config("other.font-awesome") }} fa-copy"></i> {{ __('mediahub.view-collection') }}</span>
                         </a>
                     </section>
                 </div>

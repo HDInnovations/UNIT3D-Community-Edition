@@ -27,17 +27,15 @@ class DistributorsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->distributors as $distributor) {
             Distributor::updateOrCreate($distributor);
         }
     }
 
-    private function getDistributors()
+    private function getDistributors(): array
     {
         return [
             [

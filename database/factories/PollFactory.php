@@ -19,17 +19,15 @@ class PollFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'         => fn () => User::factory()->create()->id,
-            'title'           => $this->faker->word,
-            'slug'            => $this->faker->slug,
-            'ip_checking'     => $this->faker->boolean,
-            'multiple_choice' => $this->faker->boolean,
+            'title'           => $this->faker->word(),
+            'slug'            => $this->faker->slug(),
+            'ip_checking'     => $this->faker->boolean(),
+            'multiple_choice' => $this->faker->boolean(),
         ];
     }
 }

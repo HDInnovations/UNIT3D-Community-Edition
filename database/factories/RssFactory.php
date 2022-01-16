@@ -19,19 +19,17 @@ class RssFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'position'     => $this->faker->randomNumber(),
-            'name'         => $this->faker->name,
+            'name'         => $this->faker->name(),
             'user_id'      => fn () => User::factory()->create()->id,
             'staff_id'     => fn () => User::factory()->create()->id,
-            'is_private'   => $this->faker->boolean,
-            'is_torrent'   => $this->faker->boolean,
-            'json_torrent' => $this->faker->word,
+            'is_private'   => $this->faker->boolean(),
+            'is_torrent'   => $this->faker->boolean(),
+            'json_torrent' => $this->faker->word(),
         ];
     }
 }

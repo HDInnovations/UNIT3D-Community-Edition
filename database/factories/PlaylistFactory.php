@@ -19,20 +19,18 @@ class PlaylistFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'     => fn () => User::factory()->create()->id,
-            'name'        => $this->faker->name,
-            'description' => $this->faker->text,
-            'cover_image' => $this->faker->word,
+            'name'        => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'cover_image' => $this->faker->word(),
             'position'    => $this->faker->randomNumber(),
-            'is_private'  => $this->faker->boolean,
-            'is_pinned'   => $this->faker->boolean,
-            'is_featured' => $this->faker->boolean,
+            'is_private'  => $this->faker->boolean(),
+            'is_pinned'   => $this->faker->boolean(),
+            'is_featured' => $this->faker->boolean(),
         ];
     }
 }

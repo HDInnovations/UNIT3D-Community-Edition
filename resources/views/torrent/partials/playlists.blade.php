@@ -23,7 +23,7 @@
                                     <h3 class="text-bold"
                                         style="margin: 0; color: #cccccc;">{{ $base->playlist->name }}</h3>
                                     <h5>
-                                        @lang('playlist.added-by') <b>{{ $base->playlist->user->username }}</b>
+                                        {{ __('playlist.added-by') }} <b>{{ $base->playlist->user->username }}</b>
                                     </h5>
                                 </div>
                             </div>

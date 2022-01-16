@@ -39,11 +39,8 @@ class AutoBonAllocation extends Command
 
     /**
      * Execute the console command.
-     *
-     *
-     * @return mixed
      */
-    public function handle(ByteUnits $byteUnits)
+    public function handle(ByteUnits $byteUnits): void
     {
         $dyingTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
@@ -264,8 +261,10 @@ class AutoBonAllocation extends Command
         //Move data from array to Users table
         foreach ($array as $key => $value) {
             $user = User::where('id', '=', $key)->first();
-            $user->seedbonus += $value;
-            $user->save();
+            if ($user) {
+                $user->seedbonus += $value;
+                $user->save();
+            }
         }
 
         $this->comment('Automated BON Allocation Command Complete');

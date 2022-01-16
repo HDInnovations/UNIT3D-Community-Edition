@@ -18,15 +18,13 @@ class FailedLoginAttemptFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'    => $this->faker->randomNumber(),
-            'username'   => $this->faker->userName,
-            'ip_address' => $this->faker->word,
+            'username'   => $this->faker->userName(),
+            'ip_address' => $this->faker->word(),
         ];
     }
 }

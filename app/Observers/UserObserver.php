@@ -19,11 +19,8 @@ class UserObserver
 {
     /**
      * Handle the User "created" event.
-     *
-     *
-     * @return void
      */
-    public function created(User $user)
+    public function created(User $user): void
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
@@ -33,10 +30,8 @@ class UserObserver
      *
      *
      * @throws \Exception
-     *
-     * @return void
      */
-    public function saved(User $user)
+    public function saved(User $user): void
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
         \cache()->forget('cachedUser.'.$user->id);
@@ -44,33 +39,24 @@ class UserObserver
 
     /**
      * Handle the User "retrieved" event.
-     *
-     *
-     * @return void
      */
-    public function retrieved(User $user)
+    public function retrieved(User $user): void
     {
         //\cache()->add(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
      * Handle the User "deleted" event.
-     *
-     *
-     * @return void
      */
-    public function deleted(User $user)
+    public function deleted(User $user): void
     {
         //\cache()->forget(\sprintf('user:%s', $user->passkey));
     }
 
     /**
      * Handle the User "restored" event.
-     *
-     *
-     * @return void
      */
-    public function restored(User $user)
+    public function restored(User $user): void
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }

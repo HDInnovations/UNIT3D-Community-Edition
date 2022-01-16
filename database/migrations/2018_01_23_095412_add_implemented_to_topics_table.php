@@ -19,10 +19,8 @@ class AddImplementedToTopicsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('topics', function (Blueprint $table) {
             $table->boolean('implemented')->default(0)->after('suggestion');

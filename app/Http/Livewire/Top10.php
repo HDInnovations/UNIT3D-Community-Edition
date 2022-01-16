@@ -23,7 +23,7 @@ class Top10 extends Component
     final public function getTorrentsDayProperty()
     {
         $matches = Cache::remember('top10DayMatches', 3_600, function () {
-            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 DAY) AND deleted_at IS NULL GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
+            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 DAY) GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
         });
 
         return Cache::remember('top10DayTorrents', 3_600, function () use ($matches) {
@@ -36,7 +36,7 @@ class Top10 extends Component
     final public function getTorrentsWeekProperty()
     {
         $matches = Cache::remember('top10WeekMatches', 3_600, function () {
-            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 WEEK) AND deleted_at IS NULL GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
+            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 WEEK) GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
         });
 
         return Cache::remember('top10WeekTorrents', 3_600, function () use ($matches) {
@@ -49,7 +49,7 @@ class Top10 extends Component
     final public function getTorrentsMonthProperty()
     {
         $matches = Cache::remember('top10MonthMatches', 3_600, function () {
-            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 MONTH) AND deleted_at IS NULL GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
+            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 MONTH) GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
         });
 
         return Cache::remember('top10MonthTorrents', 3_600, function () use ($matches) {
@@ -62,7 +62,7 @@ class Top10 extends Component
     final public function getTorrentsYearProperty()
     {
         $matches = Cache::remember('top10YearMatches', 3_600, function () {
-            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 YEAR) AND deleted_at IS NULL GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
+            return DB::select('SELECT info_hash, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 YEAR) GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
         });
 
         return Cache::remember('top10YearTorrents', 3_600, function () use ($matches) {
@@ -75,7 +75,7 @@ class Top10 extends Component
     final public function getTorrentsAllProperty()
     {
         $matches = Cache::remember('top10AllMatches', 3_600, function () {
-            return DB::select('SELECT info_hash, count(*) FROM history WHERE deleted_at IS NULL GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
+            return DB::select('SELECT info_hash, count(*) FROM history GROUP BY info_hash ORDER BY count(*) DESC LIMIT 10');
         });
 
         return Cache::remember('top10AllTorrents', 3_600, function () use ($matches) {

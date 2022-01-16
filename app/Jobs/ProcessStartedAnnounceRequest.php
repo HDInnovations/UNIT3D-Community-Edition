@@ -33,8 +33,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
 
     /**
      * ProcessStartedAnnounceRequest Constructor.
-     *
-     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
@@ -42,20 +40,16 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
 
     /**
      * Get the middleware the job should pass through.
-     *
-     * @return array
      */
-    public function middleware()
+    public function middleware(): array
     {
         return [new WithoutOverlapping($this->user->id.'.'.$this->queries['info_hash'])];
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)

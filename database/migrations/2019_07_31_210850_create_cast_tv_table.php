@@ -8,10 +8,8 @@ class CreateCastTvTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('cast_tv', function (Blueprint $table) {
             $table->unsignedInteger('cast_id');

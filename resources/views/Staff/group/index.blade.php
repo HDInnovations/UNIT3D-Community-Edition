@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Groups</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.user') }} Groups</span>
         </a>
     </li>
 @endsection
@@ -22,8 +22,8 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>@lang('common.name')</th>
-                    <th>@lang('common.position')</th>
+                    <th>{{ __('common.name') }}</th>
+                    <th>{{ __('common.position') }}</th>
                     <th>Level</th>
                     <th>Color</th>
                     <th>Icon</th>

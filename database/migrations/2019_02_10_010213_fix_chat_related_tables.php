@@ -19,10 +19,8 @@ class FixChatRelatedTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('user_echoes', function (Blueprint $table) {
             $table->integer('room_id')->change();

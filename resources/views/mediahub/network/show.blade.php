@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $network->name }} @lang('mediahub.networks') - {{ config('other.title') }}</title>
+    <title>{{ $network->name }} {{ __('mediahub.networks') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $network->name }} @lang('mediahub.networks')">
+    <meta name="description" content="{{ $network->name }} {{ __('mediahub.networks') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.title')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('mediahub.networks.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('mediahub.networks')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.networks') }}</span>
         </a>
     </li>
     <li class="active">
@@ -36,16 +36,16 @@
                         style="font-family: Shrikhand, cursive; font-size: 4em; font-weight: 400; margin: 10px 0 20px;">
                         {{ $network->name }}
                     </h1>
-                    <h2 class="text-center" style="margin: 0;">{{ $network->tv_count }} @lang('mediahub.shows')</h2>
+                    <h2 class="text-center" style="margin: 0;">{{ $network->tv_count }} {{ __('mediahub.shows') }}</h2>
                     @foreach($shows as $show)
                         <div class="col-md-12">
                             <div class="card is-torrent">
                                 <div class="card_head">
                                     <span class="badge-user text-bold" style="float:right;">
-                                        {{ $show->number_of_seasons }} @lang('mediahub.seasons')
+                                        {{ $show->number_of_seasons }} {{ __('mediahub.seasons') }}
                                     </span>
                                     <span class="badge-user text-bold" style="float:right;">
-                                        {{ $show->number_of_episodes }} @lang('mediahub.episodes')
+                                        {{ $show->number_of_episodes }} {{ __('mediahub.episodes') }}
                                     </span>
                                 </div>
                                 <div class="card_body">

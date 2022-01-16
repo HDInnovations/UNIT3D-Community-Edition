@@ -18,14 +18,12 @@ class ResolutionFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name'     => $this->faker->name,
-            'slug'     => $this->faker->slug,
+            'name'     => $this->faker->name(),
+            'slug'     => $this->faker->slug(),
             'position' => $this->faker->randomNumber(),
         ];
     }

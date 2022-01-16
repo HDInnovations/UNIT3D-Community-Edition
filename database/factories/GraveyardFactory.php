@@ -20,16 +20,14 @@ class GraveyardFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'    => fn () => User::factory()->create()->id,
             'torrent_id' => fn () => Torrent::factory()->create()->id,
             'seedtime'   => $this->faker->randomNumber(),
-            'rewarded'   => $this->faker->boolean,
+            'rewarded'   => $this->faker->boolean(),
         ];
     }
 }

@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
         </a>
     </li>
 @endsection
@@ -14,23 +14,18 @@
             <div class="button-holder">
                 <div class="button-left">
                     <a href="{{ route('rss.create') }}"
-                       class="btn btn-sm btn-primary">@lang('rss.create-private-feed')</a>
+                       class="btn btn-sm btn-primary">{{ __('rss.create-private-feed') }}</a>
                 </div>
                 <div class="button-right">
 
                 </div>
             </div>
-            <div class="header gradient orange">
-                <div class="inner_content">
-                    <h1>{{ trans('rss.rss') }} {{ trans('rss.feeds') }}</h1>
-                </div>
-            </div>
             <div class="container-fluid p-0 some-padding">
                 <div class="block">
                     <ul class="nav nav-tabs" id="basetabs" role="tablist">
-                        <li id="public-tab" class="active"><a href="#public" data-toggle="tab">@lang('rss.public')</a>
+                        <li id="public-tab" class="active"><a href="#public" data-toggle="tab">{{ __('rss.public') }}</a>
                         </li>
-                        <li id="private-tab"><a href="#private" data-toggle="tab">@lang('rss.private')</a></li>
+                        <li id="private-tab"><a href="#private" data-toggle="tab">{{ __('rss.private') }}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="public">
@@ -38,14 +33,14 @@
                                 <table class="table table-hover rss-table middle-align">
                                     <thead>
                                     <tr>
-                                        <th>@lang('common.name')</th>
-                                        <th>@lang('common.categories')</th>
-                                        <th>@lang('common.types')</th>
-                                        <th>@lang('common.resolutions')</th>
-                                        <th>@lang('common.genres')</th>
-                                        <th>@lang('torrent.discounts')</th>
-                                        <th>@lang('common.special')</th>
-                                        <th>@lang('torrent.health')</th>
+                                        <th>{{ __('common.name') }}</th>
+                                        <th>{{ __('common.categories') }}</th>
+                                        <th>{{ __('common.types') }}</th>
+                                        <th>{{ __('common.resolutions') }}</th>
+                                        <th>{{ __('common.genres') }}</th>
+                                        <th>{{ __('torrent.discounts') }}</th>
+                                        <th>{{ __('common.special') }}</th>
+                                        <th>{{ __('torrent.health') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -119,15 +114,15 @@
                                 <table class="table table-hover rss-table middle-align">
                                     <thead>
                                     <tr>
-                                        <th>@lang('common.name')</th>
-                                        <th>@lang('common.categories')</th>
-                                        <th>@lang('common.types')</th>
-                                        <th>@lang('common.resolutions')</th>
-                                        <th>@lang('common.genres')</th>
-                                        <th>@lang('torrent.discounts')</th>
-                                        <th>@lang('common.special')</th>
-                                        <th>@lang('torrent.health')</th>
-                                        <th>@lang('common.action')</th>
+                                        <th>{{ __('common.name') }}</th>
+                                        <th>{{ __('common.categories') }}</th>
+                                        <th>{{ __('common.types') }}</th>
+                                        <th>{{ __('common.resolutions') }}</th>
+                                        <th>{{ __('common.genres') }}</th>
+                                        <th>{{ __('torrent.discounts') }}</th>
+                                        <th>{{ __('common.special') }}</th>
+                                        <th>{{ __('torrent.health') }}</th>
+                                        <th>{{ __('common.action') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -197,9 +192,9 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <a href="{{ route('rss.edit', ['id' => $rss->id]) }}"
-                                                           class="btn btn-warning">@lang('common.edit')</a>
+                                                           class="btn btn-warning">{{ __('common.edit') }}</a>
                                                         <button type="submit"
-                                                                class="btn btn-danger">@lang('common.delete')</button>
+                                                                class="btn btn-danger">{{ __('common.delete') }}</button>
                                                     </form>
                                                 </td>
                                             @endif

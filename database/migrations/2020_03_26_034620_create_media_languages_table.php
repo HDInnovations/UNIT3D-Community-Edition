@@ -19,10 +19,8 @@ class CreateMediaLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('media_languages', function (Blueprint $table) {
             $table->bigIncrements('id');

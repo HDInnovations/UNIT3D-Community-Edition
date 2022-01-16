@@ -27,7 +27,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function audibles_returns_an_ok_response()
+    public function audibles_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -44,7 +44,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function bot_messages_returns_an_ok_response()
+    public function bot_messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -80,7 +80,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function bots_returns_an_ok_response()
+    public function bots_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -101,7 +101,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function config_returns_an_ok_response()
+    public function config_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -118,7 +118,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function create_message_returns_an_ok_response()
+    public function create_message_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -148,7 +148,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function delete_bot_echo_returns_an_ok_response()
+    public function delete_bot_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -171,7 +171,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function delete_message_returns_an_ok_response()
+    public function delete_message_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -186,7 +186,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function delete_room_echo_returns_an_ok_response()
+    public function delete_room_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -208,7 +208,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function delete_target_echo_returns_an_ok_response()
+    public function delete_target_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -230,7 +230,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function echoes_returns_an_ok_response()
+    public function echoes_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -249,7 +249,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function messages_returns_an_ok_response()
+    public function messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -270,7 +270,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function private_messages_returns_an_ok_response()
+    public function private_messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -293,7 +293,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function rooms_returns_an_ok_response()
+    public function rooms_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -311,7 +311,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function statuses_returns_an_ok_response()
+    public function statuses_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -331,7 +331,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function toggle_bot_audible_returns_an_ok_response()
+    public function toggle_bot_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -353,7 +353,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function toggle_room_audible_returns_an_ok_response()
+    public function toggle_room_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -375,7 +375,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function toggle_target_audible_returns_an_ok_response()
+    public function toggle_target_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -397,7 +397,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function update_user_chat_status_returns_an_ok_response()
+    public function update_user_chat_status_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -417,7 +417,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function update_user_room_returns_an_ok_response()
+    public function update_user_room_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -435,7 +435,7 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
-    public function update_user_target_returns_an_ok_response()
+    public function update_user_target_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 

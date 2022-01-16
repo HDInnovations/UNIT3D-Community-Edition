@@ -19,13 +19,11 @@ class TorrentFileFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name'       => $this->faker->name,
+            'name'       => $this->faker->name(),
             'size'       => $this->faker->randomNumber(),
             'torrent_id' => fn () => Torrent::factory()->create()->id,
         ];

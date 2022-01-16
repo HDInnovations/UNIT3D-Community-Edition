@@ -4,7 +4,7 @@
 		<tr>
 			<th>
 				<div sortable wire:click="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null" role="button">
-					@lang('common.name')
+					{{ __('common.name') }}
 					@include('livewire.includes._sort-icon', ['field' => 'title'])
 				</div>
 			</th>

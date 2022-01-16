@@ -35,12 +35,8 @@ class NoteController extends Controller
 
     /**
      * Store A New User Note.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $username)
+    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -70,13 +66,9 @@ class NoteController extends Controller
     /**
      * Delete A User Note.
      *
-     * @param \App\Models\Note $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

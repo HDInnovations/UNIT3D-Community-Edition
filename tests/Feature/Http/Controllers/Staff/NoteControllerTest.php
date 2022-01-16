@@ -18,7 +18,7 @@ class NoteControllerTest extends TestCase
         parent::setUp();
     }
 
-    protected function createStaffUser()
+    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([
@@ -32,7 +32,7 @@ class NoteControllerTest extends TestCase
     /**
      * @test
      */
-    public function destroy_returns_an_ok_response()
+    public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -48,7 +48,7 @@ class NoteControllerTest extends TestCase
     /**
      * @test
      */
-    public function index_returns_an_ok_response()
+    public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -64,7 +64,7 @@ class NoteControllerTest extends TestCase
     /**
      * @test
      */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 

@@ -46,12 +46,8 @@ class PostController extends Controller
 
     /**
      * Store A New Post To A Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, $id)
+    public function reply(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -169,11 +165,8 @@ class PostController extends Controller
 
     /**
      * Edit Post Form.
-     *
-     * @param \App\Models\Topic $id
-     * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function postEditForm(int $id, int $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -190,12 +183,8 @@ class PostController extends Controller
 
     /**
      * Edit A Post In A Topic.
-     *
-     * @param \App\Models\Post $postId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postEdit(Request $request, $postId)
+    public function postEdit(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
@@ -212,13 +201,9 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \App\Models\Post $postId
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postDelete(Request $request, $postId)
+    public function postDelete(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);

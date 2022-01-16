@@ -27,17 +27,15 @@ class ChatroomTableSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->rooms as $room) {
             Chatroom::updateOrCreate($room);
         }
     }
 
-    private function getRooms()
+    private function getRooms(): array
     {
         return [
             [

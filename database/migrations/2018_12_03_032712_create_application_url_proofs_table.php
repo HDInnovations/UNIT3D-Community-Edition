@@ -19,10 +19,8 @@ class CreateApplicationUrlProofsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('application_url_proofs', function (Blueprint $table) {
             $table->increments('id');

@@ -36,9 +36,9 @@
                             <strong>Completed</strong>: {{ $data->times_completed }}<br>
                             <strong>Uploader</strong>:
                             @if(!$data->anon && $data->user)
-                                @lang('torrent.uploaded-by') {{ $data->user->username }}
+                                {{ __('torrent.uploaded-by') }} {{ $data->user->username }}
                             @else
-                                @lang('common.anonymous') @lang('torrent.uploader')
+                                {{ __('common.anonymous') }} {{ __('torrent.uploader') }}
                             @endif<br>
                             @if (($data->category->movie_meta || $data->category->tv_meta) && $data->imdb != 0)
                                 IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ $data->imdb }}"
@@ -55,9 +55,9 @@
                     </description>
                     <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">
                         @if(!$data->anon && $data->user)
-                            @lang('torrent.uploaded-by') {{ $data->user->username }}
+                            {{ __('torrent.uploaded-by') }} {{ $data->user->username }}
                         @else
-                            @lang('common.anonymous') @lang('torrent.uploader')
+                            {{ __('common.anonymous') }} {{ __('torrent.uploader') }}
                         @endif
                     </dc:creator>
                     <pubDate>{{ $data->created_at->toRssString() }}</pubDate>

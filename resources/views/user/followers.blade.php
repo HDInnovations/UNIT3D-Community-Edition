@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.followers') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.followers') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('user_followers', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.followers')</span>
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.followers') }}</span>
         </a>
     </li>
 @endsection
@@ -27,10 +27,10 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">@lang('user.not-authorized')</p>
+                        <p class="text-center">{{ __('user.not-authorized') }}</p>
                     </div>
                 </div>
             </div>
@@ -41,20 +41,13 @@
                 @else
                     @include('user.buttons.public')
                 @endif
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.followers')
-                        </h1>
-                    </div>
-                </div>
                 <div class="forum-categories">
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>@lang('user.avatar')</th>
-                            <th>@lang('user.user')</th>
-                            <th>@lang('common.created_at')</th>
+                            <th>{{ __('user.avatar') }}</th>
+                            <th>{{ __('user.user') }}</th>
+                            <th>{{ __('common.created_at') }}</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -1,28 +1,23 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('articles.articles') - {{ config('other.title') }}</title>
+    <title>{{ __('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('articles.meta-articles')">
+    <meta name="description" content="{{ __('articles.meta-articles') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <div class="header gradient light_blue">
-            <div class="inner_content">
-                <h1>@lang('articles.articles')</h1>
-            </div>
-        </div>
         @foreach ($articles as $article)
             <div class="well">
                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"
@@ -37,7 +32,7 @@
                 <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
                 <p class="text-muted">
-                    <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
+                    <em>{{ __('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
                 </p>
 
                 <p style="margin-top: 20px;">
@@ -46,7 +41,7 @@
 
                 <div class="text-center">
                     <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="btn btn-success">
-                        @lang('articles.read-more')
+                        {{ __('articles.read-more') }}
                     </a>
                 </div>
             </div>

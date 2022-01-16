@@ -30,14 +30,12 @@ class GenreController extends Controller
 
     /**
      * Show A Genre.
-     *
-     * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $genre = Genre::withCount(['tv', 'movie'])->findOrFail($id);
-        $shows = $genre->tv()->orderBy('name', 'asc')->paginate(25);
-        $movies = $genre->movie()->orderBy('title', 'asc')->paginate(25);
+        $shows = $genre->tv()->orderBy('name')->paginate(25);
+        $movies = $genre->movie()->orderBy('title')->paginate(25);
 
         return \view('mediahub.genre.show', [
             'genre'  => $genre,

@@ -19,17 +19,15 @@ class AuditFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'        => fn () => User::factory()->create()->id,
-            'model_name'     => $this->faker->word,
+            'model_name'     => $this->faker->word(),
             'model_entry_id' => $this->faker->randomNumber(),
-            'action'         => $this->faker->word,
-            'record'         => $this->faker->word,
+            'action'         => $this->faker->word(),
+            'record'         => $this->faker->word(),
         ];
     }
 }

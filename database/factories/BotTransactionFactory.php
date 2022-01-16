@@ -20,19 +20,17 @@ class BotTransactionFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'type'    => $this->faker->word,
+            'type'    => $this->faker->word(),
             'cost'    => $this->faker->randomFloat(),
             'user_id' => fn () => User::factory()->create()->id,
             'bot_id'  => fn () => Bot::factory()->create()->id,
-            'to_user' => $this->faker->boolean,
-            'to_bot'  => $this->faker->boolean,
-            'comment' => $this->faker->text,
+            'to_user' => $this->faker->boolean(),
+            'to_bot'  => $this->faker->boolean(),
+            'comment' => $this->faker->text(),
         ];
     }
 }

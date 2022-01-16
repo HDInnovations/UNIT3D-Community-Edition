@@ -42,11 +42,9 @@ class AutoPreWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exceptionl to seed it within 2 day(s) you will receive an automated WARNING!
-     *
-     * @return mixed
+     * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();

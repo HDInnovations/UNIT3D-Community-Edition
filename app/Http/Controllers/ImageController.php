@@ -24,10 +24,8 @@ class ImageController extends Controller
 {
     /**
      * Show Image Create Form.
-     *
-     * @param \App\Models\Album $id
      */
-    public function create($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::find($id);
 
@@ -36,11 +34,8 @@ class ImageController extends Controller
 
     /**
      * Store A New Image.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $image = new Image();
         $image->user_id = $request->user()->id;
@@ -77,12 +72,8 @@ class ImageController extends Controller
 
     /**
      * Download A Image.
-     *
-     * @param \App\Models\Image $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function download($id)
+    public function download(int $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $image = Image::findOrFail($id);
         $filename = $image->image;
@@ -101,13 +92,9 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param \App\Models\Image $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

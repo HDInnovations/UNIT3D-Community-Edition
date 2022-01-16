@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-header mb-4">
-        <h1>@lang('Dashboard')</h1>
+        <h1>{{ __('Dashboard') }}</h1>
     </div>
 
     <div class="row">
@@ -22,7 +22,7 @@
                             <div class="box-content">
                                 <span class="box-text">{{ $item['name'] }}</span>
                                 <span class="box-number">
-                                    {{ $item['count'] }} @lang('entries') - {!! $item['percent'] !!} %
+                                    {{ $item['count'] }} {{ __('entries') }} - {!! $item['percent'] !!} %
                                 </span>
                                 <div class="progress" style="height: 3px;">
                                     <div class="progress-bar" style="width: {{ $item['percent'] }}%;"></div>

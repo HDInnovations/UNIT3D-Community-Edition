@@ -18,25 +18,25 @@
                     </div>
                     <div class="form-group col-xs-3">
                         <button class="btn btn-md btn-primary" @click="open = ! open"
-                                x-text="open ? '@lang('common.search-hide')' : '@lang('common.search-advanced')'"></button>
+                                x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"></button>
                     </div>
                 </div>
                 <div x-show="open" id="torrent-advanced-search">
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-description">
-                            <label for="description" class="label label-default">@lang('torrent.description')</label>
+                            <label for="description" class="label label-default">{{ __('torrent.description') }}</label>
                             <input wire:model="description" type="text" class="form-control" placeholder="Description">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-mediainfo">
-                            <label for="mediainfo" class="label label-default">@lang('torrent.media-info')</label>
+                            <label for="mediainfo" class="label label-default">{{ __('torrent.media-info') }}</label>
                             <input wire:model="mediainfo" type="text" class="form-control" placeholder="Mediainfo">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-keywords">
-                            <label for="keywords" class="label label-default">@lang('torrent.keywords')</label>
+                            <label for="keywords" class="label label-default">{{ __('torrent.keywords') }}</label>
                             <input wire:model="keywords" type="text" class="form-control" placeholder="Keywords">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-uploader">
-                            <label for="uploader" class="label label-default">@lang('torrent.uploader')</label>
+                            <label for="uploader" class="label label-default">{{ __('torrent.uploader') }}</label>
                             <input wire:model="uploader" type="text" class="form-control" placeholder="Uploader">
                         </div>
                     </div>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-startYear">
-                            <label for="startYear" class="label label-default">@lang('torrent.start-year')</label>
+                            <label for="startYear" class="label label-default">{{ __('torrent.start-year') }}</label>
                             <input wire:model="startYear" type="text" class="form-control" placeholder="Start Year">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-endYear">
-                            <label for="endYear" class="label label-default">@lang('torrent.end-year')</label>
+                            <label for="endYear" class="label label-default">{{ __('torrent.end-year') }}</label>
                             <input wire:model="endYear" type="text" class="form-control" placeholder="End Year">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-playlist">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-categories">
-                            <label for="categories" class="label label-default">@lang('common.category')</label>
+                            <label for="categories" class="label label-default">{{ __('common.category') }}</label>
                             @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
                             @foreach ($categories as $category)
                                 <span class="badge-user">
@@ -104,7 +104,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-types">
-                            <label for="types" class="label label-default">@lang('common.type')</label>
+                            <label for="types" class="label label-default">{{ __('common.type') }}</label>
                             @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
                             @foreach ($types as $type)
                                 <span class="badge-user">
@@ -117,7 +117,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
-                            <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+                            <label for="resolutions" class="label label-default">{{ __('common.resolution') }}</label>
                             @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-genres">
-                            <label for="genres" class="label label-default">@lang('common.genre')</label>
+                            <label for="genres" class="label label-default">{{ __('common.genre') }}</label>
                             @foreach (App\Models\Genre::all()->sortBy('name') as $genre)
                                 <span class="badge-user">
 									<label class="inline">
@@ -214,7 +214,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-extra">
-                            <label for="extra" class="label label-default">@lang('common.extra')</label>
+                            <label for="extra" class="label label-default">{{ __('common.extra') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="internal" type="checkbox" value="1">
@@ -250,23 +250,23 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-health">
-                            <label for="health" class="label label-default">@lang('torrent.health')</label>
+                            <label for="health" class="label label-default">{{ __('torrent.health') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="alive" type="checkbox" value="1">
-									@lang('torrent.alive')
+									{{ __('torrent.alive') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="dying" type="checkbox" value="1">
-									@lang('torrent.dying-torrent')
+									{{ __('torrent.dying-torrent') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="dead" type="checkbox" value="1">
-									@lang('torrent.dead-torrent')
+									{{ __('torrent.dead-torrent') }}
 								</label>
 							</span>
                         </div>
@@ -274,7 +274,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-history">
-                            <label for="history" class="label label-default">@lang('torrent.history')</label>
+                            <label for="history" class="label label-default">{{ __('torrent.history') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model="notDownloaded" type="checkbox" value="1">
@@ -310,7 +310,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-quantity">
-                            <label for="quantity" class="label label-default">@lang('common.quantity')</label>
+                            <label for="quantity" class="label label-default">{{ __('common.quantity') }}</label>
                             <span>
 								<label class="inline">
 								<select wire:model="perPage" class="form-control">
@@ -340,7 +340,7 @@
 			</span>
         <div class="dropdown torrent-listings-action-bar">
             <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
-                @lang('common.publish') @lang('torrent.torrent')
+                {{ __('common.publish') }} {{ __('torrent.torrent') }}
                 <i class="fas fa-caret-circle-right"></i>
             </a>
             <ul class="dropdown-menu">
@@ -354,28 +354,18 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="{{ route('categories.index') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
-            </a>
             <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
+                <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ __('torrent.list') }}
             </a>
             <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
+                <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ __('torrent.cards') }}
             </a>
             <a href="#" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')
+                <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('torrent.groupings') }}
             </a>
             <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
-                <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss') @lang('rss.feeds')
+                <i class="{{ config('other.font-awesome') }} fa-rss"></i> {{ __('rss.rss') }} {{ __('rss.feeds') }}
             </a>
-        </div>
-        <div class="header gradient green" style="margin-top: 10px;">
-            <div class="inner_content">
-                <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                    @lang('torrent.torrents')
-                </h5>
-            </div>
         </div>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
@@ -385,7 +375,7 @@
                 <th class="torrents-filename torrent-listings-overview">
                     <div sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null"
                          role="button">
-                        @lang('common.name')
+                        {{ __('common.name') }}
                         @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </div>
                 </th>
@@ -430,7 +420,7 @@
                 <th class="torrent-listings-age">
                     <div sortable wire:click="sortBy('created_at')"
                          :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                        @lang('common.created_at')
+                        {{ __('common.created_at') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </div>
                 </th>
@@ -491,7 +481,7 @@
                         <div class="body_poster">
                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                                 <img src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/200x300' }}"
-                                     class="show-poster" alt="@lang('torrent.poster')">
+                                     class="show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
 
                             @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
@@ -499,27 +489,27 @@
                                      class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
                                      data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
-									     alt="@lang('torrent.poster')" style="height: 1000px;">'
-                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+									     alt="{{ __('torrent.poster') }}" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
 
                             @if ($torrent->category->music_meta)
                                 <img src="https://via.placeholder.com/200x300" class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">N/A</i>'
                                      data-image='<img src="https://via.placeholder.com/200x300"
-									     alt="@lang('torrent.poster')" style="height: 1000px;">'
-                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+									     alt="{{ __('torrent.poster') }}" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
 
                             @if ($torrent->category->no_meta)
                                 @if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg'))
                                     <img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
-                                         class="show-poster" alt="@lang('torrent.poster')">
+                                         class="show-poster" alt="{{ __('torrent.poster') }}">
                                 @else
                                     <img src="https://via.placeholder.com/200x300" class="show-poster"
                                          data-name='<i style="color: #a5a5a5;">N/A</i>'
-                                         data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('torrent.poster')" style="height: 1000px;">'
-                                         class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                         data-image='<img src="https://via.placeholder.com/200x300" alt="{{ __('torrent.poster') }}" style="height: 1000px;">'
+                                         class="torrent-poster-img-small show-poster" alt="{{ __('torrent.poster') }}">
                                 @endif
                             @endif
                         </div>
@@ -553,7 +543,7 @@
                         <div style="float: left;">
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                    @if ($user->id === $torrent->user->id || $user->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 												({{ $torrent->user->username }})
 											</a>
@@ -574,11 +564,11 @@
 								<i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
 								@if($torrent->category->movie_meta || $torrent->category->tv_meta)
                                 {{ round($meta->vote_average ?? 0) }}/10
-                                ({{ $meta->vote_count ?? 0 }} @lang('torrent.votes'))
+                                ({{ $meta->vote_count ?? 0 }} {{ __('torrent.votes') }})
                             @endif
                             @if($torrent->category->game_meta)
                                 {{ round($meta->rating ?? 0) }}/100
-                                ({{ $meta->rating_count ?? 0 }} @lang('torrent.votes'))
+                                ({{ $meta->rating_count ?? 0 }} {{ __('torrent.votes') }})
                             @endif
 							</span>
                     </div>
@@ -587,7 +577,7 @@
         @endforeach
         @if (! $torrents->count())
             <div class="margin-10 torrent-listings-no-result">
-                @lang('common.no-result')
+                {{ __('common.no-result') }}
             </div>
         @endif
         <br>
@@ -597,25 +587,25 @@
         <br>
         <div class="container-fluid well torrent-listings-legend">
             <div class="text-center">
-                <strong>@lang('common.legend'):</strong>
+                <strong>{{ __('common.legend') }}:</strong>
                 <button class='btn btn-success btn-circle torrent-listings-seeding' type='button' data-toggle='tooltip'
                         title=''
-                        data-original-title='@lang('torrent.currently-seeding')!'>
+                        data-original-title='{{ __('torrent.currently-seeding') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-arrow-up'></i>
                 </button>
                 <button class='btn btn-warning btn-circle torrent-listings-leeching' type='button' data-toggle='tooltip'
                         title=''
-                        data-original-title='@lang('torrent.currently-leeching')!'>
+                        data-original-title='{{ __('torrent.currently-leeching') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-arrow-down'></i>
                 </button>
                 <button class='btn btn-info btn-circle torrent-listings-incomplete' type='button' data-toggle='tooltip'
                         title=''
-                        data-original-title='@lang('torrent.not-completed')!'>
+                        data-original-title='{{ __('torrent.not-completed') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-spinner'></i>
                 </button>
                 <button class='btn btn-danger btn-circle torrent-listings-complete' type='button' data-toggle='tooltip'
                         title=''
-                        data-original-title='@lang('torrent.completed-not-seeding')!'>
+                        data-original-title='{{ __('torrent.completed-not-seeding') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-thumbs-down'></i>
                 </button>
             </div>

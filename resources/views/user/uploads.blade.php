@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.uploads') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.uploads') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('user_uploads', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.uploads')</span>
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.uploads') }}</span>
         </a>
     </li>
 @endsection
@@ -27,34 +27,27 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">@lang('user.not-authorized')</p>
+                        <p class="text-center">{{ __('user.not-authorized') }}</p>
                     </div>
                 </div>
             </div>
         @else
             <div class="block">
                 @include('user.buttons.public')
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.uploads')
-                        </h1>
-                    </div>
-                </div>
                 <div view="uploads">
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered">
                             <thead>
-                            <th>@lang('torrent.name')</th>
-                            <th>@lang('torrent.category')</th>
-                            <th>@lang('torrent.size')</th>
-                            <th>@lang('torrent.seeders')</th>
-                            <th>@lang('torrent.leechers')</th>
-                            <th>@lang('torrent.completed')</th>
-                            <th>@lang('torrent.created_at')</th>
+                            <th>{{ __('torrent.name') }}</th>
+                            <th>{{ __('torrent.category') }}</th>
+                            <th>{{ __('torrent.size') }}</th>
+                            <th>{{ __('torrent.seeders') }}</th>
+                            <th>{{ __('torrent.leechers') }}</th>
+                            <th>{{ __('torrent.completed') }}</th>
+                            <th>{{ __('torrent.created_at') }}</th>
                             </thead>
                             <tbody>
                             @foreach ($uploads as $upload)
@@ -72,8 +65,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a
-                                                href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                                        {{ $upload->category->name }}
                                     </td>
                                     <td>
                                         <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>
@@ -86,7 +78,7 @@
                                     </td>
                                     <td>
                                             <span class="badge-extra text-orange text-bold"> {{ $upload->times_completed }}
-                                                @lang('common.times')</span>
+                                                {{ __('common.times') }}</span>
                                     </td>
                                     <td>{{ $upload->created_at ? $upload->created_at->diffForHumans() : 'N/A' }}</td>
                                 </tr>

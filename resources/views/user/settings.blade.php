@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Settings - @lang('common.members') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - Settings - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -14,8 +14,8 @@
     <li>
         <a href="{{ route('user_settings', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.general')
-                @lang('user.settings')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.general') }}
+                {{ __('user.settings') }}</span>
         </a>
     </li>
 @endsection
@@ -24,11 +24,6 @@
     <div class="container">
         <div class="block">
             @include('user.buttons.settings')
-            <div class="header gradient red">
-                <div class="inner_content">
-                    <h1>{{ $user->username }} @lang('user.general-settings')</h1>
-                </div>
-            </div>
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#general" data-toggle="tab">General</a></li>
@@ -106,22 +101,22 @@
                             <label for="hidden" class="control-label">Language Censor Chat?</label>
                             <div class="radio-inline">
                                 <label><input type="radio" name="censor" @if ($user->censor == 1) checked
-                                              @endif value="1">@lang('common.yes')</label>
+                                              @endif value="1">{{ __('common.yes') }}</label>
                             </div>
                             <div class="radio-inline">
                                 <label><input type="radio" name="censor" @if ($user->censor == 0) checked @endif
-                                    value="0">@lang('common.no')</label>
+                                    value="0">{{ __('common.no') }}</label>
                             </div>
                             <br>
                             <br>
                             <label for="hidden" class="control-label">Hide Chat?</label>
                             <div class="radio-inline">
                                 <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 1) checked
-                                              @endif value="1">@lang('common.yes')</label>
+                                              @endif value="1">{{ __('common.yes') }}</label>
                             </div>
                             <div class="radio-inline">
                                 <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 0) checked
-                                              @endif value="0">@lang('common.no')</label>
+                                              @endif value="0">{{ __('common.no') }}</label>
                             </div>
                         </div>
 
@@ -136,11 +131,11 @@
                             <label for="poster" class="control-label">Show Posters On Torrent List View?</label>
                             <div class="radio-inline">
                                 <label><input type="radio" name="show_poster" @if ($user->show_poster == 1) checked
-                                              @endif value="1">@lang('common.yes')</label>
+                                              @endif value="1">{{ __('common.yes') }}</label>
                             </div>
                             <div class="radio-inline">
                                 <label><input type="radio" name="show_poster" @if ($user->show_poster == 0) checked
-                                              @endif value="0">@lang('common.no')</label>
+                                              @endif value="0">{{ __('common.no') }}</label>
                             </div>
                             <br>
                             <br>

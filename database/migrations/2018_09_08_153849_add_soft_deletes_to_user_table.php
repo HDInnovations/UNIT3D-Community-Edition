@@ -19,10 +19,8 @@ class AddSoftDeletesToUserTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dateTime('disabled_at')->after('last_login')->nullable();

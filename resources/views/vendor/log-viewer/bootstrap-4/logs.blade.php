@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="page-header mb-4">
-        <h1>@lang('Logs')</h1>
+        <h1>{{ __('Logs') }}</h1>
     </div>
 
     <div class="table-responsive">
@@ -22,7 +22,7 @@
                         @endif
                     </th>
                 @endforeach
-                <th scope="col" class="text-right">@lang('Actions')</th>
+                <th scope="col" class="text-right">{{ __('Actions') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
             @empty
                 <tr>
                     <td colspan="11" class="text-center">
-                        <span class="badge badge-secondary">@lang('The list of logs is empty!')</span>
+                        <span class="badge badge-secondary">{{ __('The list of logs is empty!') }}</span>
                     </td>
                 </tr>
             @endforelse
@@ -77,7 +77,7 @@
                 <input type="hidden" name="date" value="">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">@lang('Delete log file')</h5>
+                        <h5 class="modal-title">{{ __('Delete log file') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -87,9 +87,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary mr-auto"
-                                data-dismiss="modal">@lang('Cancel')</button>
+                                data-dismiss="modal">{{ __('Cancel') }}</button>
                         <button type="submit" class="btn btn-sm btn-danger"
-                                data-loading-text="@lang('Loading')&hellip;">@lang('Delete')</button>
+                                data-loading-text="{{ __('Loading') }}&hellip;">{{ __('Delete') }}</button>
                     </div>
                 </div>
             </form>

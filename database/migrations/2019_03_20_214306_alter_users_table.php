@@ -19,10 +19,8 @@ class AlterUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('read_rules')->default(0)->index()->after('ratings');

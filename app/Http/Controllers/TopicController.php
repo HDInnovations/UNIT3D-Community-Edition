@@ -48,12 +48,8 @@ class TopicController extends Controller
 
     /**
      * Show The Topic.
-     *
-     * @param \App\Models\Topic $id
-     * @param string            $page
-     * @param string            $post
      */
-    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function topic(int $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -97,10 +93,8 @@ class TopicController extends Controller
 
     /**
      * Topic Add Form.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function addForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $category = Forum::findOrFail($id);
@@ -120,12 +114,8 @@ class TopicController extends Controller
 
     /**
      * Create A New Topic In The Forum.
-     *
-     * @param \App\Models\Forum $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function newTopic(Request $request, $id)
+    public function newTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
@@ -229,10 +219,8 @@ class TopicController extends Controller
 
     /**
      * Topic Edit Form.
-     *
-     * @param \App\Models\Topic $id
      */
-    public function editForm($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editForm(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
@@ -242,12 +230,8 @@ class TopicController extends Controller
 
     /**
      * Edit Topic In The Forum.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editTopic(Request $request, $id)
+    public function editTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -265,12 +249,8 @@ class TopicController extends Controller
 
     /**
      * Close The Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function closeTopic(Request $request, $id)
+    public function closeTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -285,12 +265,8 @@ class TopicController extends Controller
 
     /**
      * Open The Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function openTopic(Request $request, $id)
+    public function openTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -306,13 +282,9 @@ class TopicController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @param \App\Models\Topic $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic(Request $request, $id)
+    public function deleteTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -328,12 +300,8 @@ class TopicController extends Controller
 
     /**
      * Pin The Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function pinTopic($id)
+    public function pinTopic(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -345,12 +313,8 @@ class TopicController extends Controller
 
     /**
      * Unpin The Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function unpinTopic($id)
+    public function unpinTopic(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;

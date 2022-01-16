@@ -1,32 +1,32 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('torrent.peers') - {{ config('other.title') }}</title>
+    <title>{{ __('torrent.peers') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('torrent.peers')">
+    <meta name="description" content="{{ __('torrent.peers') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrent')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.peers')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.peers') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container">
-        <h1 class="title">@lang('torrent.torrent') @lang('torrent.peers')</h1>
+        <h1 class="title">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h1>
         <div class="block">
             <div class="">
-                <p class="lead">@lang('torrent.peers') {{ strtolower(trans('common.for')) }}
+                <p class="lead">{{ __('torrent.peers') }} {{ strtolower(trans('common.for')) }}
                     <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
@@ -34,18 +34,18 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>@lang('common.user')</th>
-                        <th>@lang('torrent.progress')</th>
-                        <th>@lang('common.upload')</th>
-                        <th>@lang('common.download')</th>
-                        <th>@lang('torrent.left')</th>
-                        <th>@lang('torrent.client')</th>
-                        <th>@lang('common.ip')</th>
-                        <th>@lang('common.port')</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('torrent.progress') }}</th>
+                        <th>{{ __('common.upload') }}</th>
+                        <th>{{ __('common.download') }}</th>
+                        <th>{{ __('torrent.left') }}</th>
+                        <th>{{ __('torrent.client') }}</th>
+                        <th>{{ __('common.ip') }}</th>
+                        <th>{{ __('common.port') }}</th>
                         {{--<th>Connectable</th>--}}
-                        <th>@lang('torrent.started')</th>
-                        <th>@lang('torrent.last-update')</th>
-                        <th>@lang('common.status')</th>
+                        <th>{{ __('torrent.started') }}</th>
+                        <th>{{ __('torrent.last-update') }}</th>
+                        <th>{{ __('common.status') }}</th>
                     </tr>
                     </thead>
                     <tbody>

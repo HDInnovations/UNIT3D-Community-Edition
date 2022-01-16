@@ -5,7 +5,7 @@
         </div>
         <div style="float: right; display: inline-block;">
             <button id="create-backup" class="btn btn-primary btn-xs" style="margin-right: 16px;">
-                @lang('backup.create_a_new_backup')
+                {{ __('backup.create_a_new_backup') }}
             </button>
             <div class="dropdown" style="display: inline-block; margin-right: 16px;">
                 <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
@@ -15,11 +15,11 @@
                     <li role="presentation">
                         <a role="menuitem" class="dropdown-item" href="#" id="create-backup-only-db"
                            wire:click.prevent="">
-                            @lang('backup.create_a_new_db_backup')
+                            {{ __('backup.create_a_new_db_backup') }}
                         </a>
                         <a role="menuitem" class="dropdown-item" href="#" id="create-backup-only-files"
                            wire:click.prevent="">
-                            @lang('backup.create_a_new_files_backup')
+                            {{ __('backup.create_a_new_files_backup') }}
                         </a>
                     </li>
                 </ul>
@@ -70,15 +70,15 @@
 
                 <div class="shadow-sm">
                     <div class="text-center">
-                        @lang('backup.existing_backups')
+                        {{ __('backup.existing_backups') }}
                     </div>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th scope="col">@lang('backup.location')</th>
-                            <th scope="col">@lang('backup.date')</th>
-                            <th scope="col">@lang('backup.file_size')</th>
-                            <th scope="col">@lang('backup.actions')</th>
+                            <th scope="col">{{ __('backup.location') }}</th>
+                            <th scope="col">{{ __('backup.date') }}</th>
+                            <th scope="col">{{ __('backup.file_size') }}</th>
+                            <th scope="col">{{ __('backup.actions') }}</th>
                         </tr>
                         </thead>
                         <tbody>

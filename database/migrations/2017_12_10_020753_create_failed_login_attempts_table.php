@@ -18,10 +18,8 @@ class CreateFailedLoginAttemptsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('failed_login_attempts', function (Blueprint $table) {
             $table->increments('id');

@@ -152,14 +152,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
         });
 
-        // Categories System
-        Route::group(['prefix' => 'categories'], function () {
-            Route::name('categories.')->group(function () {
-                Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\CategoryController::class, 'show'])->name('show');
-            });
-        });
-
         // Contact Us System
         Route::group(['prefix' => 'contact'], function () {
             Route::name('contact.')->group(function () {

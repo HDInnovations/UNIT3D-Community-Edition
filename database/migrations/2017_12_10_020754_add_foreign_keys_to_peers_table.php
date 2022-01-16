@@ -18,10 +18,8 @@ class AddForeignKeysToPeersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('peers', function (Blueprint $table) {
             $table->foreign('torrent_id', 'fk_peers_torrents1')->references('id')->on('torrents')->onUpdate('RESTRICT')->onDelete('RESTRICT');

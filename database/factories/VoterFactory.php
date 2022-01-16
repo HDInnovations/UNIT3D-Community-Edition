@@ -20,15 +20,13 @@ class VoterFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'poll_id'    => fn () => Poll::factory()->create()->id,
             'user_id'    => fn () => User::factory()->create()->id,
-            'ip_address' => $this->faker->word,
+            'ip_address' => $this->faker->word(),
         ];
     }
 }

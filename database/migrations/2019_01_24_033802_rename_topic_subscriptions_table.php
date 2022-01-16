@@ -19,10 +19,8 @@ class RenameTopicSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::rename('topic_subscriptions', 'subscriptions');
         Schema::table('subscriptions', function (Blueprint $table) {

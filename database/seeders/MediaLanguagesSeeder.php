@@ -16,8 +16,6 @@ class MediaLanguagesSeeder extends Seeder
 
     /**
      * Run the database seeder.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -29,7 +27,7 @@ class MediaLanguagesSeeder extends Seeder
         }
     }
 
-    private function getLanguages()
+    private function getLanguages(): array
     {
         return [
             'aa' => 'Afar',

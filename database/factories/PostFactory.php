@@ -20,13 +20,11 @@ class PostFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'content'  => $this->faker->text,
+            'content'  => $this->faker->text(),
             'user_id'  => fn () => User::factory()->create()->id,
             'topic_id' => fn () => Topic::factory()->create()->id,
         ];

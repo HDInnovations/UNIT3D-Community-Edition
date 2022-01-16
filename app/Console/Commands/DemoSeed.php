@@ -40,10 +40,8 @@ class DemoSeed extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -500,7 +498,7 @@ Menu
         return (new TV($id))->getData();
     }
 
-    private function movie_ids()
+    private function movie_ids(): array
     {
         return [
             '15283',
@@ -606,7 +604,7 @@ Menu
         ];
     }
 
-    private function tv_ids()
+    private function tv_ids(): array
     {
         return [
             '119815',

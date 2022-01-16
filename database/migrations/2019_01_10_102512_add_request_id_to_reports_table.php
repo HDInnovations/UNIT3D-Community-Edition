@@ -19,10 +19,8 @@ class AddRequestIdToReportsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
             $table->integer('request_id')->unsigned()->default(0)->after('torrent_id');

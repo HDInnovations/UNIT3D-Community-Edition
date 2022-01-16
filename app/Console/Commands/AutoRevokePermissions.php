@@ -42,10 +42,8 @@ class AutoRevokePermissions extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -53,8 +51,8 @@ class AutoRevokePermissions extends Command
         $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
         $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
-        User::whereNotIn('group_id', [$bannedGroup[0], $validatingGroup[0], $leechGroup[0], $disabledGroup[0], $prunedGroup[0]])->update(['can_download' => '1', 'can_request' => '1']);
-        User::whereIn('group_id', [$bannedGroup[0], $validatingGroup[0], $leechGroup[0], $disabledGroup[0], $prunedGroup[0]])->update(['can_download' => '0', 'can_request' => '0']);
+        User::whereIntegerNotInRaw('group_id', [$bannedGroup[0], $validatingGroup[0], $leechGroup[0], $disabledGroup[0], $prunedGroup[0]])->update(['can_download' => '1', 'can_request' => '1']);
+        User::whereIntegerInRaw('group_id', [$bannedGroup[0], $validatingGroup[0], $leechGroup[0], $disabledGroup[0], $prunedGroup[0]])->update(['can_download' => '0', 'can_request' => '0']);
 
         $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.revoke'))->get();
 

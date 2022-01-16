@@ -25,25 +25,25 @@ class TorrentRequestSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
+    public string $name = '';
 
-    public $requestor = '';
+    public string $requestor = '';
 
-    public $categories = [];
+    public array $categories = [];
 
-    public $types = [];
+    public array $types = [];
 
-    public $resolutions = [];
+    public array $resolutions = [];
 
-    public $genres = [];
+    public array $genres = [];
 
-    public $tmdbId = '';
+    public string $tmdbId = '';
 
-    public $imdbId = '';
+    public string $imdbId = '';
 
-    public $tvdbId = '';
+    public string $tvdbId = '';
 
-    public $malId = '';
+    public string $malId = '';
 
     public $unfilled;
 
@@ -61,13 +61,13 @@ class TorrentRequestSearch extends Component
 
     public $myFilled;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $sortField = 'created_at';
+    public string $sortField = 'created_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
-    public $showFilters = false;
+    public bool $showFilters = false;
 
     protected $queryString = [
         'name'          => ['except' => ''],
@@ -108,7 +108,7 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty()
+    final public function getTorrentRequestStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -117,7 +117,7 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty()
+    final public function getTorrentRequestBountyStatProperty(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -134,19 +134,19 @@ class TorrentRequestSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->requestor, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username', 'ASC')->first();
+                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
             })
             ->when($this->categories, function ($query) {
-                $query->whereIn('category_id', $this->categories);
+                $query->whereIntegerInRaw('category_id', $this->categories);
             })
             ->when($this->types, function ($query) {
-                $query->whereIn('type_id', $this->types);
+                $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->whereIn('resolution_id', $this->resolutions);
+                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
             ->when($this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
@@ -181,11 +181,11 @@ class TorrentRequestSearch extends Component
             })
             ->when($this->myClaims, function ($query) {
                 $requestCliams = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
-                $query->whereIn('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
+                $query->whereIntegerInRaw('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) {
                 $requestVotes = TorrentRequestBounty::where('user_id', '=', \auth()->user()->id)->pluck('requests_id');
-                $query->whereIn('id', $requestVotes);
+                $query->whereIntegerInRaw('id', $requestVotes);
             })
             ->when($this->myFilled, function ($query) {
                 $query->where('filled_by', '=', \auth()->user()->id);

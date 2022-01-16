@@ -23,13 +23,11 @@ class CommentFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'content'       => $this->faker->text,
+            'content'       => $this->faker->text(),
             'anon'          => (int) $this->faker->boolean(),
             'torrent_id'    => fn () => Torrent::factory()->create()->id,
             'article_id'    => fn () => Article::factory()->create()->id,

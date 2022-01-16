@@ -7,10 +7,8 @@ class FixDatabaseIndexs extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         // New Indexs
         DB::statement('ALTER TABLE `history` ADD INDEX `history_idx_prewa_hitru_immun_activ_actua` (`prewarn`,`hitrun`,`immune`,`active`,`actual_downloaded`)');

@@ -18,10 +18,8 @@ class AddForeignKeysToHistoryTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('history', function (Blueprint $table) {
             $table->foreign('info_hash')->references('info_hash')->on('torrents')->onUpdate('RESTRICT')->onDelete('CASCADE');

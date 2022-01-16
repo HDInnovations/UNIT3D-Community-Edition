@@ -35,8 +35,6 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
 
     /**
      * ProcessCompletedAnnounceRequest Constructor.
-     *
-     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
@@ -46,10 +44,8 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
      * Execute the job.
      *
      * @throws \Exception
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)

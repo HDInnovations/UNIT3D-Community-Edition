@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.wishlist') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.wishlist') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
         <a href="{{ route('wishes.index', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.wishlist')</span>
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.wishlist') }}</span>
         </a>
     </li>
 @endsection
@@ -24,11 +24,6 @@
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.other')
-            <div class="header gradient pink">
-                <div class="inner_content">
-                    <h1>{{ $user->username }} @lang('user.wishlist')</h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row mb-20">
                     <div class="col-md-12">
@@ -41,7 +36,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-success mt-10">
-                                <span class="{{ config('other.font-awesome') }} fa-plus"></span> @lang('common.add')
+                                <span class="{{ config('other.font-awesome') }} fa-plus"></span> {{ __('common.add') }}
                             </button>
 
                         </form>
@@ -54,10 +49,10 @@
                             <table class="table table-condensed table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>@lang('torrent.title')</th>
+                                    <th>{{ __('torrent.title') }}</th>
                                     <th>TMDB</th>
-                                    <th>@lang('common.status')</th>
-                                    <th>@lang('common.delete')</th>
+                                    <th>{{ __('common.status') }}</th>
+                                    <th>{{ __('common.delete') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>

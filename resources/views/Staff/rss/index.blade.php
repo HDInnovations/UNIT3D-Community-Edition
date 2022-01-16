@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
         </a>
     </li>
 @endsection
@@ -16,23 +16,23 @@
 @section('content')
     <div class="container box">
         <div class="block">
-            <h2>@lang('rss.public') @lang('rss.rss-feed')</h2>
+            <h2>{{ __('rss.public') }} {{ __('rss.rss-feed') }}</h2>
             <a href="{{ route('staff.rss.create') }}"
-               class="btn btn-primary">@lang('common.create') @lang('rss.rss-feed')</a>
+               class="btn btn-primary">{{ __('common.create') }} {{ __('rss.rss-feed') }}</a>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>@lang('common.name')</th>
-                        <th>@lang('common.position')</th>
-                        <th>@lang('common.categories')</th>
-                        <th>@lang('common.types')</th>
-                        <th>@lang('common.resolutions')</th>
-                        <th>@lang('common.genres')</th>
-                        <th>@lang('torrent.discounts')</th>
-                        <th>@lang('common.special')</th>
-                        <th>@lang('torrent.health')</th>
-                        <th>@lang('common.action')</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.categories') }}</th>
+                        <th>{{ __('common.types') }}</th>
+                        <th>{{ __('common.resolutions') }}</th>
+                        <th>{{ __('common.genres') }}</th>
+                        <th>{{ __('torrent.discounts') }}</th>
+                        <th>{{ __('common.special') }}</th>
+                        <th>{{ __('torrent.health') }}</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,8 +81,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}"
-                                       class="btn btn-warning">@lang('common.edit')</a>
-                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                       class="btn btn-warning">{{ __('common.edit') }}</a>
+                                    <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                                 </form>
                             </td>
                         </tr>

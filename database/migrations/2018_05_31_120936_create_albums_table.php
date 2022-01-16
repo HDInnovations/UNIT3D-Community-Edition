@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAlbumsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');

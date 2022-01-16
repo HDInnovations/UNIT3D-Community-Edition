@@ -18,10 +18,8 @@ class CreateTypesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('types', function (Blueprint $table) {
             $table->integer('id', true);

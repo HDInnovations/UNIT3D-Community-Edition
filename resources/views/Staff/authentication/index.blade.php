@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Failed Login Log - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Failed Login Log - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Invites Log - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Invites Log - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.authentications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.failed-login-log')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.failed-login-log') }}</span>
         </a>
     </li>
 @endsection
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>@lang('staff.failed-login-log')</h2>
+            <h2>{{ __('staff.failed-login-log') }}</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -33,11 +33,11 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>@lang('common.no')</th>
-                                <th>@lang('user.user-id')</th>
-                                <th>@lang('common.username')</th>
-                                <th>@lang('common.ip')</th>
-                                <th>@lang('user.created-on')</th>
+                                <th>{{ __('common.no') }}</th>
+                                <th>{{ __('user.user-id') }}</th>
+                                <th>{{ __('common.username') }}</th>
+                                <th>{{ __('common.ip') }}</th>
+                                <th>{{ __('user.created-on') }}</th>
                             </tr>
                             </thead>
                             <tbody>

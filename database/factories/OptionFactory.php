@@ -19,14 +19,12 @@ class OptionFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'poll_id' => fn () => Poll::factory()->create()->id,
-            'name'    => $this->faker->name,
+            'name'    => $this->faker->name(),
             'votes'   => $this->faker->randomNumber(),
         ];
     }
