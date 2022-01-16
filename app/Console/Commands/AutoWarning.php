@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -49,6 +50,7 @@ class AutoWarning extends Command
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();
+            $userRequests = TorrentRequest::whereNotNull('filled_hash')->get()->toArray();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
                 ->where('prewarn', '=', 1)
@@ -92,26 +94,31 @@ class AutoWarning extends Command
                         $hr->user->hitandruns++;
                         $hr->user->save();
 
-                        // Send Private Message
-                        if ($hitrunRequests->contains('info_hash', $hr->torrent->info_hash)) {
-                            // When seedtime requirements for requested torrent
-                            $pm = new PrivateMessage();
-                            $pm->sender_id = 1;
-                            $pm->receiver_id = $hr->user->id;
-                            $pm->subject = \sprintf('Hit and Run Warning Received');
-                            $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to the Torrent:
-                                [u][url=/torrents/%s]%s[/url][/u].
-                                
-                                You have requested this torrent, this means it is subject to the extended seedtime 
-                                requirements defined in our [u][url=', $hr->torrent->id, $hr->torrent->name)
-                                .\config('other.request-rules_url')
-                                .\sprintf(']Request Rules[/url][/u].
-                                
-                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
-                                );
-                            $pm->save();
-                        } else {
-                            // When seedtime requirements for default torrent
+                        // When seedtime requirements for a requested torrent
+                        foreach ($userRequests as $userRequest) {
+                            if (in_array($hr->torrent->info_hash, $userRequest) && $hr->torrent->seedtime < config('hitrun.seedtime_requests')) {
+                                // Send Private Message
+                                $pm = new PrivateMessage();
+                                $pm->sender_id = 1;
+                                $pm->receiver_id = $hr->user->id;
+                                $pm->subject = \sprintf('Hit and Run Warning Incoming');
+                                $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to the Torrent:
+                                    [u][url=/torrents/%s]%s[/url][/u].
+                                    
+                                    You have requested this torrent, this means it is subject to the extended seedtime 
+                                    requirements defined in our [u][url=', $hr->torrent->id, $hr->torrent->name)
+                                    .\config('other.request-rules_url')
+                                    .\sprintf(']Request Rules[/url][/u].
+                                    
+                                    [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
+                                    );
+                                $pm->save();
+                            }
+                        }
+
+                        // When seedtime requirements for default torrent
+                        if (!$prewarnRequests->contains('info_hash', $hr->torrent->info_hash)) {
+                            // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
                             $pm->receiver_id = $hr->user->id;
