@@ -81,50 +81,18 @@
                                     <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
                                     <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
                                 <td>
-
-                                    @if($hpeers->user->privacy && $hpeers->user->privacy->show_peer != 1)
-                                        <span class="badge-user text-orange text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                    aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
-                                    @endif
-                                    <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
-                                                class="badge-user text-bold"
-                                                style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i
-                                                    class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $hpeers->user->group->name }}"></i>
-                                                {{ $hpeers->user->username }}</span></a>
-                                </td>
-                            @endif
-                            @if ($hpeers->active == 1)
-                                <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
-                            @if ($hpeers->seeder == 1)
-                                <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
-                            <td>
-                                    <span
-                                            class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded, 2) }}</span>
-                                <span class="badge-extra text-blue" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
-                            </td>
-                            <td>
-                                    <span
-                                            class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}</span>
-                                <span class="badge-extra text-orange" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
-                            </td>
-                            <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
-                            <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
-                            @if ($hpeers->seedtime < config('hitrun.seedtime'))
-                                <td>
-                                        <span
-                                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>
+                                    <span class="badge-extra text-green">
+                                        {{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded, 2) }}
+                                    </span>
+                                    <span class="badge-extra text-blue" data-toggle="tooltip"
+                                        data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
                                 </td>
                                 <td>
-                                    <span
-                                        class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}</span>
+                                    <span class="badge-extra text-red">
+                                        {{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}
+                                    </span>
                                     <span class="badge-extra text-orange" data-toggle="tooltip"
-                                        data-original-title="@lang('torrent.credited') {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
+                                        data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
                                 </td>
                                 <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                                 <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
