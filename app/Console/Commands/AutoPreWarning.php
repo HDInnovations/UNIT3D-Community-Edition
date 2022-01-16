@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -49,6 +50,7 @@ class AutoPreWarning extends Command
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();
+            $userRequests = TorrentRequest::whereNotNull('filled_hash')->get()->toArray();
             $prewarn = History::with(['user', 'torrent'])
                 ->where('prewarn', '=', 0)
                 ->where('hitrun', '=', 0)
@@ -68,9 +70,7 @@ class AutoPreWarning extends Command
                 ->where('seedtime', '>', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
-            $userRequests = TorrentRequest::where('user_id', '=', $user->id)->get();
             $merge = $prewarnRequests->merge($prewarn);
-
             
 
             foreach ($merge as $pre) {
@@ -89,9 +89,10 @@ class AutoPreWarning extends Command
                     if ($exsist === null) {
                         $timeleft = \config('hitrun.grace') - \config('hitrun.prewarn');
 
+                        // When seedtime requirements for a requested torrent
                         foreach ($userRequests as $userRequest) {
-                            if (in_array($pre->torrent->info_hash, $userRequest) && $his->seedtime < config('hitrun.seedtime_requests')) {
-                                // When seedtime requirements for requested torrent
+                            if (in_array($pre->torrent->info_hash, $userRequest) && $pre->torrent->seedtime < config('hitrun.seedtime_requests')) {
+                                // Send Private Message
                                 $pm = new PrivateMessage();
                                 $pm->sender_id = 1;
                                 $pm->receiver_id = $pre->user->id;
@@ -112,9 +113,9 @@ class AutoPreWarning extends Command
                             }
                         }
 
-                        // Send Private Message
+                        // When seedtime requirements for default torrent
                         if (!$prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
-                            // When seedtime requirements for default torrent
+                            // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
                             $pm->receiver_id = $pre->user->id;
