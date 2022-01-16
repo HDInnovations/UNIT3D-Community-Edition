@@ -42,7 +42,7 @@ class AutoPreWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws \Exceptionl to seed it within 2 day(s) you will receive an automated WARNING!
      *
      * @return mixed
      */
@@ -57,7 +57,7 @@ class AutoPreWarning extends Command
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<=', \config('hitrun.seedtime'))
+                ->where('seedtime', '<', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
             $prewarnRequests = History::with(['user', 'torrent'])
@@ -66,13 +66,12 @@ class AutoPreWarning extends Command
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<=', \config('hitrun.seedtime_requests'))
-                ->where('seedtime', '>', \config('hitrun.seedtime'))
+                ->where('seedtime', '<', \config('hitrun.seedtime_requests'))
+                ->where('seedtime', '>=', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
             $merge = $prewarnRequests->merge($prewarn);
             
-
             foreach ($merge as $pre) {
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
