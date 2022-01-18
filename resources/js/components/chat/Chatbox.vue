@@ -1006,6 +1006,9 @@ export default {
         },
         /* User defaults to System user */
         createMessage(message, save = true, user_id = 1, receiver_id = null, bot_id = null) {
+            // Prevent Users abusing BBCode size
+            const regex = new RegExp(/\[size=[0-9]{3,}\]/);
+            if (regex.test(message) == true) return;
             if (this.tab == 'userlist') return;
             axios
                 .post('/api/chat/messages', {
