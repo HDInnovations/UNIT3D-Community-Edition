@@ -218,7 +218,7 @@ class TorrentListSearch extends Component
                 $query->where('mediainfo', 'LIKE', '%'.$this->mediainfo.'%');
             })
             ->when($this->uploader, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->uploader.'%')->orderBy('username')->first();
+                $match = User::where('username', '=', $this->uploader)->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
