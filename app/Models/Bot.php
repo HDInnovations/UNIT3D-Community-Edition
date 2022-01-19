@@ -37,6 +37,4 @@ class Bot extends Model
     protected $casts = [
         'name' => 'string',
     ];
-
-
 }

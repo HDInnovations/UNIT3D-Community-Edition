@@ -51,7 +51,6 @@ class TwoStepAuth extends Model
      * @var array
      */
 
-
     /**
      * The Attributes That Are Mass Assignable.
      *

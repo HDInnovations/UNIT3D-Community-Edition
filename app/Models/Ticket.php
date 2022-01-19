@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+
     protected $casts = [
         'closed_at' => 'datetime',
         'reminded_at' => 'datetime',
