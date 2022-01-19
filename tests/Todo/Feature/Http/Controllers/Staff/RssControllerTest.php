@@ -48,7 +48,7 @@ class RssControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('staff.rss.destroy', ['id' => $rss->id]));
 
         $response->assertRedirect(withSuccess('RSS Feed Deleted!'));
-        $this->assertDeleted($staff);
+        $this->assertModelMissing($staff);
 
         // TODO: perform additional assertions
     }

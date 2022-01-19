@@ -58,7 +58,7 @@ class BackupControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('staff.backups.destroy'));
 
         $response->assertOk();
-        $this->assertDeleted($staff);
+        $this->assertModelMissing($staff);
 
         // TODO: perform additional assertions
     }

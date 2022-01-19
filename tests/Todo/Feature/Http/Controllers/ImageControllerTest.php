@@ -43,7 +43,7 @@ class ImageControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('images.destroy', ['id' => $image->id]));
 
         $response->assertRedirect(withSuccess('Image has successfully been deleted'));
-        $this->assertDeleted($images);
+        $this->assertModelMissing($images);
 
         // TODO: perform additional assertions
     }

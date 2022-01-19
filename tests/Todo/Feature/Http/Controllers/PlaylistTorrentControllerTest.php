@@ -24,7 +24,7 @@ class PlaylistTorrentControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('playlists.detach', ['id' => $playlist_torrent->id]));
 
         $response->assertRedirect(withSuccess('Torrent Has Successfully Been Detached From Your Playlist.'));
-        $this->assertDeleted($playlists);
+        $this->assertModelMissing($playlists);
 
         // TODO: perform additional assertions
     }
