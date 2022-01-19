@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBumpedAtToTorrentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,4 +15,4 @@ class AddBumpedAtToTorrentsTable extends Migration
             $table->dateTime('bumped_at')->nullable()->after('updated_at');
         });
     }
-}
+};

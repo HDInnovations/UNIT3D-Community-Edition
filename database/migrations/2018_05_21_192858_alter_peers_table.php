@@ -14,7 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AlterPeersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -25,4 +25,4 @@ class AlterPeersTable extends Migration
             $table->renameColumn('hash', 'info_hash');
         });
     }
-}
+};

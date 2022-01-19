@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+return new class extends Migration
 {
     public function up(): void
     {
@@ -31,4 +31,4 @@ class CreateImagesTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

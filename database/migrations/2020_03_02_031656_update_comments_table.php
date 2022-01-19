@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateCommentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,4 +15,4 @@ class UpdateCommentsTable extends Migration
             $table->integer('collection_id')->nullable()->index()->after('requests_id');
         });
     }
-}
+};

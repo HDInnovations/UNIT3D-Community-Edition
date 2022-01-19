@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddChatroomIdToUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,4 +26,4 @@ class AddChatroomIdToUsersTable extends Migration
             $table->integer('chatroom_id')->unsigned()->default(1)->after('rsskey');
         });
     }
-}
+};

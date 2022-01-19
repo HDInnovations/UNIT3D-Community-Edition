@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTicketIdToCommentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,4 +15,4 @@ class AddTicketIdToCommentsTable extends Migration
             $table->integer('ticket_id')->nullable()->index()->after('playlist_id');
         });
     }
-}
+};

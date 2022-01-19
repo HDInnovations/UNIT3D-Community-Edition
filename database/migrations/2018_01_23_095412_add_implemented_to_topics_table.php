@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImplementedToTopicsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,4 +26,4 @@ class AddImplementedToTopicsTable extends Migration
             $table->boolean('implemented')->default(0)->after('suggestion');
         });
     }
-}
+};

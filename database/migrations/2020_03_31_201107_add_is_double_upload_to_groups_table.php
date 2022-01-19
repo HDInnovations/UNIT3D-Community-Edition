@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsDoubleUploadToGroupsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,4 +15,4 @@ class AddIsDoubleUploadToGroupsTable extends Migration
             $table->boolean('is_double_upload')->after('is_freeleech')->default(0);
         });
     }
-}
+};

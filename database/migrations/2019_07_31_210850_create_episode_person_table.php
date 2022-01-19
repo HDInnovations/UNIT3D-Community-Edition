@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEpisodePersonTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -17,4 +17,4 @@ class CreateEpisodePersonTable extends Migration
             $table->primary(['episode_id', 'person_id']);
         });
     }
-}
+};

@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddResolutionIdToRequestsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,4 +26,4 @@ class AddResolutionIdToRequestsTable extends Migration
             $table->integer('resolution_id')->nullable()->index();
         });
     }
-}
+};

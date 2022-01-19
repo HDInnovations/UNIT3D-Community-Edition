@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBotIdToMessagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,4 +26,4 @@ class AddBotIdToMessagesTable extends Migration
             $table->integer('bot_id')->after('receiver_id')->unsigned()->nullable();
         });
     }
-}
+};

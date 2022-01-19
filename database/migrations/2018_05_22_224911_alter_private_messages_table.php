@@ -14,7 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AlterPrivateMessagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -25,4 +25,4 @@ class AlterPrivateMessagesTable extends Migration
             $table->renameColumn('reciever_id', 'receiver_id');
         });
     }
-}
+};

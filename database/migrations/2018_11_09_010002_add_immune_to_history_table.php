@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImmuneToHistoryTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -28,4 +28,4 @@ class AddImmuneToHistoryTable extends Migration
             $table->boolean('prewarn')->default(0)->index()->after('hitrun');
         });
     }
-}
+};

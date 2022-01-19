@@ -14,7 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AddLocaleColumn extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -25,4 +25,4 @@ class AddLocaleColumn extends Migration
             $table->string('locale')->default(config('app.locale'));
         });
     }
-}
+};

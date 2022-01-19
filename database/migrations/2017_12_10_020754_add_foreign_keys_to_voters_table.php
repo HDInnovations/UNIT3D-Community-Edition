@@ -14,7 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToVotersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -25,4 +25,4 @@ class AddForeignKeysToVotersTable extends Migration
             $table->foreign('poll_id')->references('id')->on('polls')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-}
+};

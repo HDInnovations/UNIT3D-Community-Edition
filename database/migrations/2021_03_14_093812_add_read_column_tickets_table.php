@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReadColumnTicketsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,4 +16,4 @@ class AddReadColumnTicketsTable extends Migration
             $table->tinyInteger('staff_read')->nullable()->after('user_read');
         });
     }
-}
+};

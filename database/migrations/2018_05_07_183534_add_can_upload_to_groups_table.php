@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCanUploadToGroupsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,4 +26,4 @@ class AddCanUploadToGroupsTable extends Migration
             $table->boolean('can_upload')->after('is_freeleech')->default(1);
         });
     }
-}
+};
