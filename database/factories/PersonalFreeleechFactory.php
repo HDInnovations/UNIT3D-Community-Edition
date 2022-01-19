@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\PersonalFreeleech;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PersonalFreeleechFactory extends Factory

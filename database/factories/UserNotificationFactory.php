@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\UserNotification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserNotificationFactory extends Factory

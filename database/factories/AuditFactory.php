@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Audit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

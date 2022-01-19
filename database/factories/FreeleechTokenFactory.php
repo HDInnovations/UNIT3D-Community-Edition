@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\FreeleechToken;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FreeleechTokenFactory extends Factory

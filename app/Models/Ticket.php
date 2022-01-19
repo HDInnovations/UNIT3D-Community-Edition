@@ -10,7 +10,7 @@ class Ticket extends Model
     use HasFactory;
 
     protected $casts = [
-        'closed_at' => 'datetime',
+        'closed_at'   => 'datetime',
         'reminded_at' => 'datetime',
     ];
 

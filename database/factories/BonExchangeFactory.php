@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\BonExchange;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BonExchangeFactory extends Factory

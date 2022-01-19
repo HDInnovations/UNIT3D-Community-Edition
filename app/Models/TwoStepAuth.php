@@ -72,11 +72,11 @@ class TwoStepAuth extends Model
      */
     protected $casts = [
         'requestDate' => 'datetime',
-        'authDate' => 'datetime',
-        'userId'     => 'integer',
-        'authCode'   => 'string',
-        'authCount'  => 'integer',
-        'authStatus' => 'boolean',    ];
+        'authDate'    => 'datetime',
+        'userId'      => 'integer',
+        'authCode'    => 'string',
+        'authCount'   => 'integer',
+        'authStatus'  => 'boolean',    ];
 
     /**
      * Get a validator for an incoming Request.

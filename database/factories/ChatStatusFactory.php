@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\ChatStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChatStatusFactory extends Factory

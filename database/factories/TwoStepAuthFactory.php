@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\TwoStepAuth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

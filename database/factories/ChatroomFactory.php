@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Chatroom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChatroomFactory extends Factory

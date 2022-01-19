@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\Torrent;
-use App\Models\TorrentFile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentFileFactory extends Factory

@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;

@@ -7,7 +7,6 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
-use App\Models\TorrentRequest;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

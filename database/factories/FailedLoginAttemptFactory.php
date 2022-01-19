@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\FailedLoginAttempt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FailedLoginAttemptFactory extends Factory

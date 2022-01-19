@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\UserActivation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserActivationFactory extends Factory

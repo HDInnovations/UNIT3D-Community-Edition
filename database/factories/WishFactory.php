@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\Wish;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WishFactory extends Factory

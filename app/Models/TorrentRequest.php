@@ -32,7 +32,7 @@ class TorrentRequest extends Model
      * @var array
      */
     protected $casts = [
-        'filled_when' => 'datetime',
+        'filled_when'   => 'datetime',
         'approved_when' => 'datetime',
     ];
 

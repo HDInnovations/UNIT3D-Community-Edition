@@ -54,7 +54,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'last_login' => 'datetime',
+        'last_login'  => 'datetime',
         'last_action' => 'datetime',
     ];
 

@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

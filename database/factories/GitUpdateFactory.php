@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\GitUpdate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GitUpdateFactory extends Factory

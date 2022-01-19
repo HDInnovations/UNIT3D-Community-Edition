@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\BonExchange;
-use App\Models\BonTransactions;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

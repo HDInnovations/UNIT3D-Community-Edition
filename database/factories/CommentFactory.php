@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\Article;
-use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;

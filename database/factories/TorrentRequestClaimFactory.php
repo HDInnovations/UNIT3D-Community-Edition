@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\TorrentRequestClaim;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentRequestClaimFactory extends Factory

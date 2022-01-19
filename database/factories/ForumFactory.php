@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Forum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ForumFactory extends Factory

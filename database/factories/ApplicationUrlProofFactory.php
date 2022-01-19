@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\Application;
-use App\Models\ApplicationUrlProof;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationUrlProofFactory extends Factory

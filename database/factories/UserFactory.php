@@ -7,7 +7,6 @@ namespace Database\Factories;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
