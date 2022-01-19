@@ -11,13 +11,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class PrivateMessageFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = PrivateMessage::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

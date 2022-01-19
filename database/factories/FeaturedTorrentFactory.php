@@ -12,13 +12,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class FeaturedTorrentFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = FeaturedTorrent::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
