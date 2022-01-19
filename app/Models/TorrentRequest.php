@@ -31,11 +31,9 @@ class TorrentRequest extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'filled_when',
-        'approved_when',
+    protected $casts = [
+        'filled_when' => 'datetime',
+        'approved_when' => 'datetime',
     ];
 
     /**
