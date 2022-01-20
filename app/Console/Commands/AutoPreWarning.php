@@ -50,6 +50,7 @@ class AutoPreWarning extends Command
             $carbon = new Carbon();
             $userRequests = TorrentRequest::whereNotNull('filled_hash')->get()->toArray();
             $prewarn = History::with(['user', 'torrent'])
+                ->whereHas('user')
                 ->where('prewarn', '=', 0)
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
@@ -59,6 +60,7 @@ class AutoPreWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
             $prewarnRequests = History::with(['user', 'torrent'])
+                ->whereHas('user')
                 ->where('prewarn', '=', 0)
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
