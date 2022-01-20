@@ -50,6 +50,7 @@ class AutoWarning extends Command
             $carbon = new Carbon();
             $userRequests = TorrentRequest::whereNotNull('filled_hash')->get()->toArray();
             $hitrun = History::with(['user', 'torrent'])
+                ->whereHas('user')
                 ->where('actual_downloaded', '>', 0)
                 ->where('prewarn', '=', 1)
                 ->where('hitrun', '=', 0)
@@ -59,6 +60,7 @@ class AutoWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
                 ->get();
             $hitrunRequests = History::with(['user', 'torrent'])
+                ->whereHas('user')
                 ->where('actual_downloaded', '>', 0)
                 ->where('prewarn', '=', 1)
                 ->where('hitrun', '=', 0)
@@ -70,7 +72,7 @@ class AutoWarning extends Command
                 ->get();
             $merge = $hitrunRequests->merge($hitrun);
 
-            foreach ($merge as $hr) {
+            foreach ($hitrun as $hr) {
                 if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
@@ -115,7 +117,7 @@ class AutoWarning extends Command
                         }
 
                         // When seedtime requirements for default torrent
-                        if (! $prewarnRequests->contains('info_hash', $hr->torrent->info_hash)) {
+                        if (! in_array($hr->torrent->info_hash, $userRequests)) {
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
