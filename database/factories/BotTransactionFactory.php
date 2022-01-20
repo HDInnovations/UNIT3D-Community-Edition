@@ -5,19 +5,11 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
-use App\Models\BotTransaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BotTransactionFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = BotTransaction::class;
-
     /**
      * Define the model's default state.
      */

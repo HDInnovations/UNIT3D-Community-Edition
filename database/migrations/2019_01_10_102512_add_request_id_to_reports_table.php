@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRequestIdToReportsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -27,4 +26,4 @@ class AddRequestIdToReportsTable extends Migration
             $table->integer('torrent_id')->unsigned()->default(0)->change();
         });
     }
-}
+};

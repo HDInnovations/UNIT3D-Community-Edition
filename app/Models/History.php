@@ -63,7 +63,9 @@ class History extends Model
      *
      * @var array
      */
-    protected $dates = ['completed_at'];
+    protected $casts = [
+        'completed_at' => 'datetime',
+    ];
 
     /**
      * Belongs To A User.

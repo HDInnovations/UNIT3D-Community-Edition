@@ -46,7 +46,7 @@ class ForumControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('staff.forums.destroy', ['id' => $forum->id]));
 
         $response->assertRedirect(withSuccess('Forum has been deleted successfully'));
-        $this->assertDeleted($staff);
+        $this->assertModelMissing($staff);
 
         // TODO: perform additional assertions
     }

@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTagTorrentTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -27,4 +26,4 @@ class CreateTagTorrentTable extends Migration
             $table->primary(['torrent_id', 'tag_id']);
         });
     }
-}
+};

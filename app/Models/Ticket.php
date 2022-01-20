@@ -9,9 +9,9 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    protected $dates = [
-        'closed_at',
-        'reminded_at',
+    protected $casts = [
+        'closed_at'   => 'datetime',
+        'reminded_at' => 'datetime',
     ];
 
     public function scopeStatus($query, $status)

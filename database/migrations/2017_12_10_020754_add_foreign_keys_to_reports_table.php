@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToReportsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,4 +25,4 @@ class AddForeignKeysToReportsTable extends Migration
             $table->foreign('staff_id', 'foreign_staff_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-}
+};

@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStandaloneCssToUsersTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,4 +25,4 @@ class AddStandaloneCssToUsersTable extends Migration
             $table->string('standalone_css')->after('custom_css')->nullable();
         });
     }
-}
+};

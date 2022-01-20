@@ -50,12 +50,6 @@ class TwoStepAuth extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'requestDate',
-        'authDate',
-    ];
 
     /**
      * The Attributes That Are Mass Assignable.
@@ -77,11 +71,12 @@ class TwoStepAuth extends Model
      * @var array
      */
     protected $casts = [
-        'userId'     => 'integer',
-        'authCode'   => 'string',
-        'authCount'  => 'integer',
-        'authStatus' => 'boolean',
-    ];
+        'requestDate' => 'datetime',
+        'authDate'    => 'datetime',
+        'userId'      => 'integer',
+        'authCode'    => 'string',
+        'authCount'   => 'integer',
+        'authStatus'  => 'boolean',    ];
 
     /**
      * Get a validator for an incoming Request.

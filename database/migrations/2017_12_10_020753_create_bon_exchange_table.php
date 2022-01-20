@@ -13,8 +13,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBonExchangeTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -31,4 +30,4 @@ class CreateBonExchangeTable extends Migration
             $table->boolean('invite')->default(0);
         });
     }
-}
+};

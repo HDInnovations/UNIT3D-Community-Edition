@@ -6,20 +6,12 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Resolution;
-use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Torrent::class;
-
     /**
      * Define the model's default state.
      */

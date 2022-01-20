@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLikesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -30,4 +29,4 @@ class CreateLikesTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

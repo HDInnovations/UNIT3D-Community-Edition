@@ -33,7 +33,7 @@ class FollowControllerTest extends TestCase
         $response->assertRedirect(route('users.show', ['username' => $userToFollow->username]))
             ->assertSessionHas('success', sprintf('You are no longer following %s', $userToFollow->username));
 
-        $this->assertDeleted($follow);
+        $this->assertModelMissing($follow);
     }
 
     /** @test */
