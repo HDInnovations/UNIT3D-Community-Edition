@@ -46,7 +46,7 @@
             </div>
             <br>
             <div class="text-center">
-                <p class="text-success">{!! trans('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')])
+                <p class="text-success">{!! __('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')])
                     !!}
                 </p>
                 <p class="text-danger">{{ __('torrent.announce-url-desc2') }}!</p>

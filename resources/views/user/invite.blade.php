@@ -56,7 +56,7 @@
                             <h2>{{ __('user.invites-count', ['count' => $user->invites]) }}</h2>
                             <p class="text-danger text-bold">{{ __('user.important') }}</p>
                             <ul>
-                                {!! trans('user.invites-rules') !!}
+                                {!! __('user.invites-rules') !!}
                             </ul>
                         </div>
 

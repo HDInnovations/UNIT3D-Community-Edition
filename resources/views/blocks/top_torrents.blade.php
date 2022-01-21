@@ -66,13 +66,13 @@
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $new->category->image) }}"
                                                  data-toggle="tooltip"
-                                                 data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 data-original-title="{{ $new->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                  alt="{{ $new->category->name }}">
                                         </div>
                                     @else
                                         <div class="text-center">
                                             <i class="{{ $new->category->icon }} torrent-icon" data-toggle="tooltip"
-                                               data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                               data-original-title="{{ $new->category->name }} {{ strtolower(__('torrent.torrent')) }}"></i>
                                         </div>
                                     @endif
                                 </td>
@@ -336,14 +336,14 @@
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $seed->category->image) }}"
                                                  data-toggle="tooltip"
-                                                 data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 data-original-title="{{ $seed->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                  alt="{{ $seed->category->name }}">
                                         </div>
                                     @else
                                         <div class="text-center">
                                             <i class="{{ $seed->category->icon }} torrent-icon"
                                                data-toggle="tooltip"
-                                               data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                               data-original-title="{{ $seed->category->name }} {{ strtolower(__('torrent.torrent')) }}"></i>
                                         </div>
                                     @endif
                                 </td>
@@ -607,14 +607,14 @@
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $leech->category->image) }}"
                                                  data-toggle="tooltip"
-                                                 data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 data-original-title="{{ $leech->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                  alt="{{ $leech->category->name }}">
                                         </div>
                                     @else
                                         <div class="text-center">
                                             <i class="{{ $leech->category->icon }} torrent-icon"
                                                data-toggle="tooltip"
-                                               data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                               data-original-title="{{ $leech->category->name }} {{ strtolower(__('torrent.torrent')) }}"></i>
                                         </div>
                                     @endif
                                 </td>
@@ -878,13 +878,13 @@
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $d->category->image) }}"
                                                  data-toggle="tooltip"
-                                                 data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 data-original-title="{{ $d->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                  alt="{{ $d->category->name }}">
                                         </div>
                                     @else
                                         <div class="text-center">
                                             <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
-                                               data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                               data-original-title="{{ $d->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                             ></i>
                                         </div>
                                     @endif
@@ -1149,13 +1149,13 @@
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $d->category->image) }}"
                                                  data-toggle="tooltip"
-                                                 data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 data-original-title="{{ $d->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                  alt="{{ $d->category->name }}">
                                         </div>
                                     @else
                                             <div class="text-center">
                                                 <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                   data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                   data-original-title="{{ $d->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                                 ></i>
                                             </div>
                                     @endif

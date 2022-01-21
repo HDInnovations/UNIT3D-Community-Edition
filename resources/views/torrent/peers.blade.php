@@ -26,7 +26,7 @@
         <h1 class="title">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h1>
         <div class="block">
             <div class="">
-                <p class="lead">{{ __('torrent.peers') }} {{ strtolower(trans('common.for')) }}
+                <p class="lead">{{ __('torrent.peers') }} {{ strtolower(__('common.for')) }}
                     <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
@@ -56,7 +56,7 @@
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                    aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                                    aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
                                     @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                     class="badge-user text-bold"
@@ -67,7 +67,7 @@
                                     @if($p->user->privacy && $p->user->privacy->show_peer != 1)
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                    aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                                    aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
                                     @endif
                                     <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                 class="badge-user text-bold"
@@ -124,11 +124,11 @@
                             <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                             <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                             <td> @if ($p->seeder == 0)
-                                    <span class='label label-danger'>{{ strtoupper(trans('torrent.leecher')) }}</span>
+                                    <span class='label label-danger'>{{ strtoupper(__('torrent.leecher')) }}</span>
                                 @elseif ($p->seeder == 1)
-                                    <span class='label label-success'>{{ strtoupper(trans('torrent.seeder')) }}</span>
+                                    <span class='label label-success'>{{ strtoupper(__('torrent.seeder')) }}</span>
                                 @else
-                                    <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
+                                    <span class='label label-warning'>{{ strtoupper(__('common.error')) }}</span>
                                 @endif
                             </td>
                         </tr>

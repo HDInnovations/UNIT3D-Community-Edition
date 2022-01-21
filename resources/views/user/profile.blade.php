@@ -446,7 +446,7 @@
                                             <div class="progress-bar progress-bar-danger progress-bar-striped active"
                                                  role="progressbar"
                                                  style="min-width: 80px; margin: 0 0 5px 5px; border-bottom-color: #8c0408;">
-                                                {{ strtoupper(trans('user.warning')) }}
+                                                {{ strtoupper(__('user.warning')) }}
                                             </div>
                                         @endforeach
                                     </div>

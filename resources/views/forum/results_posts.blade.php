@@ -361,19 +361,19 @@
                             <strong><a
                                         href="{{ route('forum_topic', ['id' => $r->topic->id]) }}">{{ $r->topic->name }}</a></strong>
                             @if ($r->topic->state == "close") <span
-                                    class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
+                                    class='label label-sm label-default'>{{ strtoupper(__('forum.closed')) }}</span> @endif
                             @if ($r->topic->approved == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
+                                    class='label label-sm label-success'>{{ strtoupper(__('forum.approved')) }}</span> @endif
                             @if ($r->topic->denied == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
+                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.denied')) }}</span> @endif
                             @if ($r->topic->solved == "1") <span
-                                    class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
+                                    class='label label-sm label-info'>{{ strtoupper(__('forum.solved')) }}</span> @endif
                             @if ($r->topic->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
+                                    class='label label-sm label-warning'>{{ strtoupper(__('forum.invalid')) }}</span> @endif
                             @if ($r->topic->bug == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
+                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.bug')) }}</span> @endif
                             @if ($r->topic->suggestion == "1") <span
-                                    class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
+                                    class='label label-sm label-primary'>{{ strtoupper(__('forum.suggestion')) }}</span>
                             @endif
                         </td>
                         <td class="f-display-topic-started"><a

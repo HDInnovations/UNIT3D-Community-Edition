@@ -77,30 +77,30 @@
         </div>
         <div class="well">
             <div class="text-center">
-                <strong>{{ __('common.ratio') }} {{ strtolower(trans('torrent.greater-than')) }} {{ config('other.ratio') }}
+                <strong>{{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }} {{ config('other.ratio') }}
                     : </strong>
                 @if ($user->getRatio() < config('other.ratio'))<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(trans('torrent.failed')) }}</span>
+                        {{ strtoupper(__('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(trans('torrent.passed')) }}</span>
+                            {{ strtoupper(__('torrent.passed')) }}</span>
                 @endif
                 <strong>{{ __('torrent.download-rights-active') }}: </strong>
                 @if ($user->can_download == 0 && $torrent->user_id != $user->id)<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(trans('torrent.failed')) }}</span>
+                            {{ strtoupper(__('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(trans('torrent.passed')) }}</span>
+                            {{ strtoupper(__('torrent.passed')) }}</span>
                 @endif
                 <strong>{{ __('torrent.moderation') }}: </strong>
                 @if ($torrent->isRejected())<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(trans('torrent.rejected')) }}</span>
+                            {{ strtoupper(__('torrent.rejected')) }}</span>
                 @elseif ($torrent->isPending())<span class="badge-extra text-orange"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(trans('torrent.pending')) }}</span>
+                            {{ strtoupper(__('torrent.pending')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(trans('torrent.approved')) }}</span>
+                            {{ strtoupper(__('torrent.approved')) }}</span>
                 @endif
             </div>
             <br>

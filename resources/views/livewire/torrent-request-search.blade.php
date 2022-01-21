@@ -258,7 +258,7 @@
                                     </a>
                                 </span>
                             @else
-                                <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                     @if ($user->group->is_modo || $torrentRequest->user->username === $user->username)
                                         <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                             ({{ $torrentRequest->user->username }})

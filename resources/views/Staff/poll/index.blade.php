@@ -22,7 +22,7 @@
         <h2>{{ __('poll.poll') }}</h2>
         <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('poll.poll') }}
         </a>
         <div class="table-responsive">

@@ -68,10 +68,10 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th class="text-left">{{ strtoupper(trans('forum.name')) }}</th>
-                            <th class="text-left">{{ strtoupper(trans('forum.posts')) }}</th>
-                            <th class="text-left">{{ strtoupper(trans('forum.topics')) }}</th>
-                            <th class="text-left">{{ strtoupper(trans('forum.latest')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.name')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.posts')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.topics')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.latest')) }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -90,7 +90,7 @@
                                     <td>{{ $categoryChild->num_topic }}</td>
                                     <td>
                                             <span>
-                                                <span>{{ __('forum.last-message') }} - {{ strtolower(trans('forum.author')) }}</span>
+                                                <span>{{ __('forum.last-message') }} - {{ strtolower(__('forum.author')) }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-user"></i>
                                                 @if ($categoryChild->last_post_user_username !== null)
                                                     <a href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">

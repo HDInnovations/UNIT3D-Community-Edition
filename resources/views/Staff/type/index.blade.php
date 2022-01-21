@@ -18,7 +18,7 @@
         <h2>{{ __('common.types') }}</h2>
         <a href="{{ route('staff.types.create') }}" class="btn btn-primary">
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('common.type') }}
         </a>
 

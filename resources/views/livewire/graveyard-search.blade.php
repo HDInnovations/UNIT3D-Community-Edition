@@ -269,7 +269,7 @@
                             @else
                                 <span class="badge-extra">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                                     @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -485,7 +485,7 @@
                                                 </button>
                                                 <h2>
                                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ __('graveyard.resurrect') }}
-                                                    {{ strtolower(trans('torrent.torrent')) }} ?
+                                                    {{ strtolower(__('torrent.torrent')) }} ?
                                                 </h2>
                                             </div>
 
@@ -500,7 +500,7 @@
                                                 </p>
                                                 <br>
                                                 <div class="text-center">
-                                                    <p>{!! trans('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
+                                                    <p>{!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
                                                         <span class="text-red text-bold">
                                                         @if (!$history)
                                                                 0
@@ -508,7 +508,7 @@
                                                                 {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                                                             @endif
                                                     </span>
-                                                        {{ strtolower(trans('graveyard.howto-hits')) }}
+                                                        {{ strtolower(__('graveyard.howto-hits')) }}
                                                         <span class="text-red text-bold">
                                                         @if (!$history)
                                                                 {{ App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) }}
@@ -516,7 +516,7 @@
                                                                 {{ App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
                                                             @endif
                                                     </span>
-                                                        {{ strtolower(trans('graveyard.howto-desc2')) }}
+                                                        {{ strtolower(__('graveyard.howto-desc2')) }}
                                                         <span class="badge-user text-bold text-pink"
                                                               style="background-image:url(/img/sparkels.gif);">
                                                         {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }} Token(s)!
@@ -553,7 +553,7 @@
                                 </div>
                             @else
                                 <button class="btn btn-xs btn-warning" disabled>
-                                    {{ strtolower(trans('graveyard.pending')) }}
+                                    {{ strtolower(__('graveyard.pending')) }}
                                 </button>
                             @endif
                         </td>

@@ -145,7 +145,7 @@
                                                             @endif
 
                                         @if (config('other.doubleup') == '1')
-                                                <p>{{ __('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}</p>
+                                                <p>{{ __('common.global') }} {{ strtolower(__('torrent.double-upload')) }}</p>
                                                             @endif
 
                                                 "
@@ -161,7 +161,7 @@
                                 @endif
                             @else
                                 <span class="badge-extra" data-toggle="tooltip" data-html="true"
-                                      title='{{ __("torrent.featured-until") }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!) {!! trans("torrent.featured-desc") !!}'>
+                                      title='{{ __("torrent.featured-until") }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!) {!! __("torrent.featured-desc") !!}'>
                                                     <i class="{{ config('other.font-awesome') }} fa-certificate text-orange"></i>
                                                 </span>
                             @endif
@@ -216,7 +216,7 @@
                         <div class="torrent-uploaded pull-right">
                             {{ __('torrent.uploaded-by') }}
                             @if ($torrent->anon == 1)
-                                <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                     @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
                                                             ({{ $uploader->username }}
@@ -276,7 +276,7 @@
                                 href="{{ route('peers', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-green"
                                 data-toggle="tooltip"
-                                title="{{ $torrent->seeders }} {{ strtolower(trans('torrent.seeders')) }}"
+                                title="{{ $torrent->seeders }} {{ strtolower(__('torrent.seeders')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}
                         </a>
@@ -284,7 +284,7 @@
                                 href="{{ route('peers', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-red"
                                 data-toggle="tooltip"
-                                title="{{ $torrent->leechers }} {{ strtolower(trans('torrent.leechers')) }}"
+                                title="{{ $torrent->leechers }} {{ strtolower(__('torrent.leechers')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}
                         </a>
@@ -292,7 +292,7 @@
                                 href="{{ route('history', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-info"
                                 data-toggle="tooltip"
-                                title="{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}"
+                                title="{{ $torrent->times_completed }} {{ strtolower(__('common.times')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i> {{ $torrent->times_completed }}
                         </a>
@@ -412,7 +412,7 @@
 
                             @if (config('other.doubleup') == '1')
                                 <span class="badge-extra text-bold">
-                                                <i class="{{ config('other.font-awesome') }} fa-globe text-green"></i> {{ __('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}
+                                                <i class="{{ config('other.font-awesome') }} fa-globe text-green"></i> {{ __('common.global') }} {{ strtolower(__('torrent.double-upload')) }}
                                             </span>
                             @endif
                         @else
@@ -435,7 +435,7 @@
                                         {{ __('torrent.featured-until') }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!)
                                     </span>
                         <span class="small">
-                                        <em>{!! trans('torrent.featured-desc') !!}</em>
+                                        <em>{!! __('torrent.featured-desc') !!}</em>
                                     </span>
                     </td>
                 </tr>
@@ -452,7 +452,7 @@
                 <td class="col-sm-2"><strong>{{ __('torrent.uploader') }}</strong></td>
                 <td>
                     @if ($torrent->anon == 1)
-                        <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                        <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                             @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
                                 <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
                                                 ({{ $uploader->username }}
@@ -600,7 +600,7 @@
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}
                                 </span>
                     <span class="badge-extra text-info">
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}
+                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(__('common.times')) }}
                                 </span>
                     <span class="badge-extra">
                                     <a href="{{ route('peers', ['id' => $torrent->id]) }}"

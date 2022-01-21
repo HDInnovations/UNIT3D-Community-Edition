@@ -18,7 +18,7 @@
         <h2>{{ __('torrent.categories') }}</h2>
         <a href="{{ route('staff.categories.create') }}" class="btn btn-primary">
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('torrent.category') }}
         </a>
 

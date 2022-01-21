@@ -32,7 +32,7 @@
                 <div class="panel panel-chat">
                     <div class="panel-heading">
                         {{ __('common.create') }}
-                        {{ __(trans_choice('common.a-an-art',false)) }}
+                        {{ trans_choice('common.a-an-art',false) }}
                         {{ __('poll.poll') }}
                     </div>
                     <div class="panel-body">

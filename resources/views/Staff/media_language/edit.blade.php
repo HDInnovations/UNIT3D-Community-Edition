@@ -46,7 +46,7 @@
             </div>
 
             <button type="submit" class="btn btn-default">
-                {{ trans('common.submit') }}
+                {{ __('common.submit') }}
             </button>
         </form>
     </div>

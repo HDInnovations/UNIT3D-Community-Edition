@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $forum->name . ' - ' . trans('forum.create-new-topic') }}">
+    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.create-new-topic') }}">
 @endsection
 
 @section('breadcrumb')

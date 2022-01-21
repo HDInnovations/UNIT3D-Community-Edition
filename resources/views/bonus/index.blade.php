@@ -47,7 +47,7 @@
                                     <td>
                                         <strong>{{ __('torrent.legendary-torrent') }}</strong><br>
                                         <small>{{ __('common.older-than') }} 12
-                                            {{ strtolower(trans('common.months')) }}</small>
+                                            {{ strtolower(__('common.months')) }}</small>
                                     </td>
                                     <td><strong>{{ $legendary }} x 1.5</strong></td>
                                     <td>
@@ -63,7 +63,7 @@
                                     <td>
                                         <strong>{{ __('torrent.old-torrent') }}</strong><br>
                                         <small>{{ __('common.older-than') }} 6
-                                            {{ strtolower(trans('common.months')) }}</small>
+                                            {{ strtolower(__('common.months')) }}</small>
                                     </td>
                                     <td><strong>{{ $old }} x 1</strong></td>
                                     <td>
@@ -97,7 +97,7 @@
                                         <strong>{{ __('common.large') }} {{ __('torrent.torrents') }}</strong><br>
                                         <small>{{ __('torrent.torrent') }} {{ __('torrent.size') }}<span
                                                     class="text-bold">>=</span>
-                                            25GiB {{ strtolower(trans('common.but')) }}
+                                            25GiB {{ strtolower(__('common.but')) }}
                                             < 100GiB </small></td>
                                     <td><strong>{{ $large }} x 0.50</strong></td>
                                     <td>
@@ -113,7 +113,7 @@
                                     <td>
                                         <strong>{{ __('common.everyday') }} {{ __('torrent.torrents') }}</strong><br>
                                         <small>{{ __('torrent.torrent') }} {{ __('torrent.size') }}<span class="text-bold">
-                                                    >=</span> 1GiB {{ strtolower(trans('common.but')) }}
+                                                    >=</span> 1GiB {{ strtolower(__('common.but')) }}
                                             < 25GiB </small></td>
                                     <td><strong>{{ $regular }} x 0.25</strong></td>
                                     <td>
@@ -130,7 +130,7 @@
                                     <td>
                                         <strong>{{ __('torrent.legendary-seeder') }}</strong><br>
                                         <small>{{ __('torrent.seed-time') }} <span class="text-bold">>=</span>
-                                            1 {{ strtolower(trans('common.year')) }}</small>
+                                            1 {{ strtolower(__('common.year')) }}</small>
                                     </td>
                                     <td><strong>{{ $legend }} x 2</strong></td>
                                     <td>
@@ -146,9 +146,9 @@
                                     <td>
                                         <strong>{{ __('torrent.mvp') }} {{ __('torrent.seeder') }}</strong><br>
                                         <small>{{ __('torrent.seed-time') }} <span class="text-bold">>=</span>
-                                            6 {{ strtolower(trans('common.months')) }}
-                                            {{ strtolower(trans('common.but')) }}
-                                            < 1 {{ strtolower(trans('common.year')) }}</small></td>
+                                            6 {{ strtolower(__('common.months')) }}
+                                            {{ strtolower(__('common.but')) }}
+                                            < 1 {{ strtolower(__('common.year')) }}</small></td>
                                     <td>
                                         <strong>{{ $mvp }} x 1</strong></td>
                                     <td>
@@ -164,9 +164,9 @@
                                     <td>
                                         <strong>{{ __('torrent.commited') }} {{ __('torrent.seeder') }}</strong><br>
                                         <small>{{ __('torrent.seed-time') }} <span class="text-bold">>=</span>
-                                            3 {{ strtolower(trans('common.months')) }}
-                                            {{ strtolower(trans('common.but')) }}
-                                            < 6 {{ strtolower(trans('common.months')) }}</small></td>
+                                            3 {{ strtolower(__('common.months')) }}
+                                            {{ strtolower(__('common.but')) }}
+                                            < 6 {{ strtolower(__('common.months')) }}</small></td>
                                     <td>
                                         <strong>{{ $committed }} x 0.75</strong></td>
                                     <td>
@@ -182,9 +182,9 @@
                                     <td>
                                         <strong>{{ __('torrent.team-player') }} {{ __('torrent.seeder') }}</strong><br>
                                         <small>{{ __('torrent.seed-time') }} <span class="text-bold">>=</span>
-                                            2 {{ strtolower(trans('common.months')) }}
-                                            {{ strtolower(trans('common.but')) }}
-                                            < 3 {{ strtolower(trans('common.months')) }}</small></td>
+                                            2 {{ strtolower(__('common.months')) }}
+                                            {{ strtolower(__('common.but')) }}
+                                            < 3 {{ strtolower(__('common.months')) }}</small></td>
                                     <td>
                                         <strong>{{ $teamplayer }} x 0.50</strong></td>
                                     <td>
@@ -200,9 +200,9 @@
                                     <td>
                                         <strong>{{ __('torrent.participant') }} {{ __('torrent.seeder') }}</strong><br>
                                         <small>{{ __('torrent.seed-time') }} <span class="text-bold">>=</span>
-                                            1 {{ strtolower(trans('common.month')) }}
-                                            {{ strtolower(trans('common.but')) }}
-                                            < 2 {{ strtolower(trans('common.months')) }}</small></td>
+                                            1 {{ strtolower(__('common.month')) }}
+                                            {{ strtolower(__('common.but')) }}
+                                            < 2 {{ strtolower(__('common.months')) }}</small></td>
                                     <td>
                                         <strong>{{ $participant }} x 0.25</strong></td>
                                     <td>

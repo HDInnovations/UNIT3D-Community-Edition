@@ -100,7 +100,7 @@
                         @else
                             <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                                 @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -472,7 +472,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -845,7 +845,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -1218,7 +1218,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -1591,7 +1591,7 @@
                         @else
                             <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                                 @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})

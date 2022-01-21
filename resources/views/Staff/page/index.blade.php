@@ -18,7 +18,7 @@
         <h2>{{ __('staff.pages') }}</h2>
         <a href="{{ route('staff.pages.create') }}" class="btn btn-primary">
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('common.new-adj') }}
             {{ __('staff.page') }}
         </a>

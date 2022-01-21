@@ -118,14 +118,14 @@
                                     <div class="text-center">
                                         <img src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
                                              data-toggle="tooltip"
-                                             data-original-title="{{$subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                             data-original-title="{{$subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                              alt="{{ $subtitle->torrent->category->name }}">
                                     </div>
                                 @else
                                     <div class="text-center">
                                         <i class="{{ $subtitle->torrent->category->icon }} torrent-icon"
                                            data-toggle="tooltip"
-                                           data-original-title="{{ $subtitle->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                           data-original-title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"></i>
                                     </div>
                                 @endif
                             </td>
@@ -149,7 +149,7 @@
                             <td>{{ $subtitle->created_at->diffForHumans() }}</td>
                             <td>
                                 @if ($subtitle->anon == true)
-                                    <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                    <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                         @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
                                             <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                                                 ({{ $subtitle->user->username }})

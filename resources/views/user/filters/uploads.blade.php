@@ -72,7 +72,7 @@
                         @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
                             <span class='label label-info'>{{ __('torrent.requires-reseed') }}</span>
                         @else
-                            <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
+                            <span class='label label-warning'>{{ strtoupper(__('common.error')) }}</span>
                         @endif
                     </td>
                 </tr>

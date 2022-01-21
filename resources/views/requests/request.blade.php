@@ -123,8 +123,8 @@
                             <td>
                                 <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
                                 </i>
-                                <strong>{{ $torrentRequest->bounty }}</strong> {{ __('bon.bon') }} {{ strtolower(trans('request.reward-from')) }}
-                                <strong>{{ $torrentRequest->requestBounty->count() }}</strong> {{ strtolower(trans('request.voters')) }}
+                                <strong>{{ $torrentRequest->bounty }}</strong> {{ __('bon.bon') }} {{ strtolower(__('request.reward-from')) }}
+                                <strong>{{ $torrentRequest->requestBounty->count() }}</strong> {{ strtolower(__('request.voters')) }}
                             </td>
                         </tr>
                         <tr>
@@ -151,7 +151,7 @@
                                     </a>
                                 </span>
                                 @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                    <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                         @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
                                             <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         ({{ $torrentRequest->user->username }})
@@ -196,7 +196,7 @@
                                         </a>
                                     </span>
                                     @else
-                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                             @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                                 ({{ $torrentRequestClaim->username }})
                                             @endif
@@ -249,7 +249,7 @@
                                         </a>
                                     </span>
                                     @else
-                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                             @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
                                                 <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                                 ({{ $torrentRequest->FillUser->username }})
@@ -285,7 +285,7 @@
                                         </a>
                                     </span>
                                     @else
-                                        <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                             @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
                                                 ({{ $torrentRequest->FillUser->username }})
                                             @endif
@@ -338,7 +338,7 @@
                                         {{ __('common.user') }}
                                     </th>
                                     <th>
-                                        {{ __('bon.bonus') }} {{ strtolower(trans('bon.points')) }}
+                                        {{ __('bon.bonus') }} {{ strtolower(__('bon.points')) }}
                                     </th>
                                     <th>
                                         {{ __('request.last-vote') }}
@@ -356,7 +356,7 @@
                                                 </a>
                                             </span>
                                             @else
-                                                <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                                <span class="badge-user">{{ strtoupper(__('common.anonymous')) }}
                                                     @if ($user->group->is_modo || $voter->user->username == $user->username)
                                                         <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                         ({{ $voter->user->username }})
@@ -403,7 +403,7 @@
                                                 @if ($comment->anon == 1)
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                        <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                            style="color:{{ $comment->user->group->color }};">(<span><i
                                                                         class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
@@ -468,13 +468,13 @@
                             <div class="form-group">
                                 <label for="content">{{ __('common.your-comment') }}:</label><span
                                         class="badge-extra">{{ __('common.type-verb') }}
-                                    <strong>":"</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span
-                                        class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
+                                    <strong>":"</strong> {{ strtolower(__('common.for')) }} emoji</span> <span
+                                        class="badge-extra">BBCode {{ strtolower(__('common.is-allowed')) }}</span>
                                 <textarea id="content" name="content" cols="30" rows="5"
                                           class="form-control"></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
-                            <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ strtolower(trans('common.comment')) }}
+                            <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ strtolower(__('common.comment')) }}
                                     :</strong></label>
                             <label>
                                 <input type="radio" value="1" name="anonymous">

@@ -181,10 +181,10 @@
                                 <td>
                                     @if ($download->seeder == 1)
                                         <span
-                                                class='label label-success'>{{ strtoupper(trans('torrent.downloaded')) }}</span>
+                                                class='label label-success'>{{ strtoupper(__('torrent.downloaded')) }}</span>
                                     @else
                                         <span
-                                                class='label label-danger'>{{ strtoupper(trans('torrent.not-downloaded')) }}</span>
+                                                class='label label-danger'>{{ strtoupper(__('torrent.not-downloaded')) }}</span>
                                     @endif
                                 </td>
                             </tr>

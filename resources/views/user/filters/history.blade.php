@@ -28,7 +28,7 @@
                     </td>
                     <td>
                             <span
-                                    class="badge-extra text-purple">{{ $his->agent ?: trans('common.unknown') }}</span>
+                                    class="badge-extra text-purple">{{ $his->agent ?: __('common.unknown') }}</span>
                     </td>
                     @if ($his->active == 1)
                         <td class="text-green">{{ __('common.yes') }}</td> @else
