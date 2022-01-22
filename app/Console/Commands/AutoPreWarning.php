@@ -73,6 +73,7 @@ class AutoPreWarning extends Command
             $merge = $prewarnRequests->merge($prewarn);
 
             foreach ($merge as $pre) {
+                $sent = 0;
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
                 if (is_null($pre->torrent)) {
@@ -109,11 +110,12 @@ class AutoPreWarning extends Command
                                     [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
                                     );
                                 $pm->save();
+                                $sent = 1;
                             }
                         }
 
                         // When seedtime requirements for default torrent
-                        if (! $prewarnRequests->contains('info_hash', $pre->torrent->info_hash)) {
+                        if ($sent != 1) {
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
@@ -127,6 +129,7 @@ class AutoPreWarning extends Command
                                 [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
                                 $pre->torrent->id, $pre->torrent->name, $timeleft);
                             $pm->save();
+                            $sent = 1;
                         }
 
                         // Set History Prewarn
