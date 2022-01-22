@@ -197,7 +197,7 @@
                                         @endif
                                     @endif
                                 @endforeach
-                                @if ($download->seedtime < config('hitrun.seedtime'))
+                                @if ($download->seedtime < config('hitrun.seedtime') && ! in_array($download->torrent->info_hash, $userRequest))
                                     <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
                                         seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
                                         prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
