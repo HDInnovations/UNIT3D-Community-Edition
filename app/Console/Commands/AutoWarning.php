@@ -66,13 +66,14 @@ class AutoWarning extends Command
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<', \config('hitrun.seedtime_requests'))
                 ->where('seedtime', '>=', \config('hitrun.seedtime'))
+                ->where('seedtime', '<', \config('hitrun.seedtime_requests'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
                 ->get();
             $merge = $hitrunRequests->merge($hitrun);
 
-            foreach ($hitrun as $hr) {
+            foreach ($merge as $hr) {
+                $sent = 0;
                 if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
@@ -101,7 +102,7 @@ class AutoWarning extends Command
                                 $pm = new PrivateMessage();
                                 $pm->sender_id = 1;
                                 $pm->receiver_id = $hr->user->id;
-                                $pm->subject = \sprintf('Hit and Run Warning Incoming');
+                                $pm->subject = \sprintf('Hit and Run Warning Received');
                                 $pm->message = \sprintf('You have received an automated [b]WARNING[/b] from the system, because you failed to follow the Hit and Run rules in relation to the Torrent:
                                     [u][url=/torrents/%s]%s[/url][/u].
                                     
@@ -113,11 +114,13 @@ class AutoWarning extends Command
                                     [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
                                     );
                                 $pm->save();
+                                $sent = 1;
                             }
                         }
 
                         // When seedtime requirements for default torrent
-                        if (! in_array($hr->torrent->info_hash, $userRequests)) {
+                        //if (! in_array($hr->torrent->info_hash, $userRequests)) {
+                        if ($sent != 1) {
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
@@ -132,6 +135,7 @@ class AutoWarning extends Command
                         }
 
                         $hr->save();
+                        $sent = 1;
                     }
                 }
             }
