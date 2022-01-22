@@ -5,18 +5,10 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\UserPrivacy;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserPrivacyFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = UserPrivacy::class;
-
     /**
      * Define the model's default state.
      */

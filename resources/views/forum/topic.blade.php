@@ -33,8 +33,8 @@
                 {{ $topic->first_post_user_username }}
             </a>,
             {{ date('M d Y H:m', strtotime($topic->created_at)) }}
-            <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
-            <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
+            <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(__('forum.replies')) }}</span>
+            <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(__('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
                 <form action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
                       method="POST" style="display: inline;">
@@ -278,7 +278,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.approved')) }}
                                     </button>
                                 </form>
                             @else
@@ -286,7 +286,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.approved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -295,7 +295,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.denied')) }}
                                     </button>
                                 </form>
                             @else
@@ -303,7 +303,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.denied')) }}
                                     </button>
                                 </form>
                             @endif
@@ -312,7 +312,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.solved')) }}
                                     </button>
                                 </form>
                             @else
@@ -320,7 +320,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.solved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -329,7 +329,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.invalid')) }}
                                     </button>
                                 </form>
                             @else
@@ -337,7 +337,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.invalid')) }}
                                     </button>
                                 </form>
                             @endif
@@ -346,7 +346,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.bug')) }}
                                     </button>
                                 </form>
                             @else
@@ -354,7 +354,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.bug')) }}
                                     </button>
                                 </form>
                             @endif
@@ -363,7 +363,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @else
@@ -371,7 +371,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @endif
@@ -380,7 +380,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.implemented')) }}
                                     </button>
                                 </form>
                             @else
@@ -388,7 +388,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.implemented')) }}
                                     </button>
                                 </form>
                             @endif

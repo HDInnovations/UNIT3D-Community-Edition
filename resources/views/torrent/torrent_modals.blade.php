@@ -2,12 +2,12 @@
     <div class="modal-dialog{{ modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>{{ __('common.report') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
+            <title>{{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}</title>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('common.close') }}"><span
                             aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">{{ __('common.report') }}
-                    {{ strtolower(trans('torrent.torrent')) }}
+                    {{ strtolower(__('torrent.torrent')) }}
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">
@@ -46,12 +46,12 @@
     <div class="modal-dialog{{ modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>{{ __('common.delete') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
+            <title>{{ __('common.delete') }} {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}</title>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('common.close') }}"><span
                             aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">{{ __('common.delete') }}
-                    {{ strtolower(trans('torrent.torrent')) }}
+                    {{ strtolower(__('torrent.torrent')) }}
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">

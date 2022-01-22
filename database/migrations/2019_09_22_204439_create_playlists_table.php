@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaylistsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -35,4 +34,4 @@ class CreatePlaylistsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

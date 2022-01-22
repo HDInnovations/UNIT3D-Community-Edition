@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="well" style="box-shadow: none !important;">
-                            <h4>{!! trans('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}
+                            <h4>{!! __('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}
                                 .</h4>
                             <span class="text-red text-bold">({{ __('torrent.torrent-tips-desc') }})</span>
                         </div>

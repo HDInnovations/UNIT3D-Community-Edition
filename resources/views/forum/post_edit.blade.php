@@ -6,7 +6,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $forum->name . ' - ' . trans('forum.edit-post') }}">
+    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.edit-post') }}">
 @endsection
 
 @section('breadcrumb')
@@ -42,7 +42,7 @@
 @section('content')
     <div class="forum box container">
         <div class="col-md-12">
-            <h2>{{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(trans('forum.in')) }}
+            <h2>{{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}
                 : {{ $forum->name }}</h2>
             <form role="form" method="POST"
                   action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">

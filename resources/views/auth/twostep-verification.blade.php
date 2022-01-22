@@ -240,16 +240,16 @@
                 case 0:
                   submitTrigger.addClass('btn-danger')
                   Swal.fire(
-                    "{{ trans('auth.verificationLockedTitle') }}",
-                    "{{ trans('auth.verificationLockedMessage') }}",
+                    "{{ __('auth.verificationLockedTitle') }}",
+                    "{{ __('auth.verificationLockedMessage') }}",
                     'error'
                   )
                   break
                 case 1:
                   submitTrigger.addClass('btn-danger')
                   Swal.fire(
-                    "{{ trans('auth.verificationWarningTitle') }}",
-                    "{{ trans('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
+                    "{{ __('auth.verificationWarningTitle') }}",
+                    "{{ __('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
                     'error'
                   )
                   break
@@ -264,7 +264,7 @@
                   break
               }
               if (remainingAttempts === 0) {
-                $('#verification_status_title').html('<h3>{{ trans('auth.titleFailed ') }}</h3>')
+                $('#verification_status_title').html('<h3>{{ __('auth.titleFailed ') }}</h3>')
                 varificationForm.fadeOut(100, function () {
                   $('#failed_login_alert').show()
                   setTimeout(function () {
@@ -332,7 +332,7 @@
             allowOutsideClick: false,
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-lg btn-' + status,
-            confirmButtonText: "{{ trans('auth.verificationModalConfBtn') }}",
+            confirmButtonText: "{{ __('auth.verificationModalConfBtn') }}",
           })
           self.removeClass('disabled').attr('disabled', false)
         }

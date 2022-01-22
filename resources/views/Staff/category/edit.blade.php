@@ -27,7 +27,7 @@
     <div class="container box">
         <h2>
             {{ __('common.edit') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('torrent.category') }}
         </h2>
         <form role="form" method="POST" action="{{ route('staff.categories.update', ['id' => $category->id]) }}"
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label for="image">
                     {{ __('common.select') }}
-                    {{ __(trans_choice('common.a-an-art',false)) }}
+                    {{ trans_choice('common.a-an-art',false) }}
                     {{ __('common.image') }}
                     (If Not Using A FontAwesome Icon)
                 </label>

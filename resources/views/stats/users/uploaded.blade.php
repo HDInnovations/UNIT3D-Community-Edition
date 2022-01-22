@@ -22,13 +22,13 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>{{ __('stat.top-uploaders') }} ({{ strtolower(trans('stat.by-volume')) }})</h2>
+            <h2>{{ __('stat.top-uploaders') }} ({{ strtolower(__('stat.by-volume')) }})</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
                     <p class="text-green"><strong><i
                                     class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ __('stat.top-uploaders') }}
-                        </strong> ({{ strtolower(trans('stat.by-volume')) }})</p>
+                        </strong> ({{ strtolower(__('stat.by-volume')) }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
@@ -49,7 +49,7 @@
                                     @if ($u->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
                                                     )</a></span>
                                     @endif

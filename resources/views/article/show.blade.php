@@ -66,7 +66,7 @@
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        style="color:{{ $comment->user->group->color }};">(<span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif

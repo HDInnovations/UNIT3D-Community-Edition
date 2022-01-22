@@ -17,7 +17,7 @@
                     <button type="submit" class="btn btn-primary btn-sm torrent-freeleech-token"
                             data-toggle=tooltip
                             data-html="true"
-                            title='{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
+                            title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
                         {{ __('torrent.use-fl-token') }}
                     </button>
                 </form>

@@ -22,7 +22,7 @@
 
         <a href="{{ route('staff.media_languages.create') }}" class="btn btn-primary">
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('common.media-language') }}
         </a>
 

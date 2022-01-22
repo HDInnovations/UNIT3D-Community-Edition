@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class FixDatabaseIndexs extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,4 +17,4 @@ class FixDatabaseIndexs extends Migration
         DB::statement('ALTER TABLE `peers` ADD INDEX `peers_idx_seeder_user_id` (`seeder`,`user_id`)');
         DB::statement('ALTER TABLE `torrents` ADD INDEX `torrents_idx_status_info_hash` (`status`,`info_hash`)');
     }
-}
+};

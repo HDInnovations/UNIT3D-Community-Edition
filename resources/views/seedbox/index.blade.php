@@ -29,7 +29,7 @@
                 <div class="well">
                     <p class="lead text-orange text-center"><i
                                 class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
-                        <strong>{{ strtoupper(trans('user.disclaimer')) }}</strong> <i
+                        <strong>{{ strtoupper(__('user.disclaimer')) }}</strong> <i
                                 class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i></p>
                     <p class="lead text-orange text-center">{{ __('user.disclaimer-info') }}
                         &nbsp;<br><strong>{{ __('user.disclaimer-info-bordered') }}</strong></p>

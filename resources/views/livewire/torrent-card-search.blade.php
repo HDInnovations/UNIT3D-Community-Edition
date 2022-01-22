@@ -542,7 +542,7 @@
                     <div class="card_footer">
                         <div style="float: left;">
                             @if ($torrent->anon == 1)
-                                <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                     @if ($user->id === $torrent->user->id || $user->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 												({{ $torrent->user->username }})

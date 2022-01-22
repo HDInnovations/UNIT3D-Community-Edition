@@ -44,7 +44,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
+            <button type="submit" class="btn btn-default">{{ __('common.add') }}</button>
         </form>
     </div>
 @endsection

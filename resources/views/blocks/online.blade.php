@@ -12,7 +12,7 @@
                 @if ($user->hidden == 1 || !$user->isVisible($user, 'other', 'show_online'))
                     <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                         <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i>
-                        {{ strtoupper(trans('common.hidden')) }}
+                        {{ strtoupper(__('common.hidden')) }}
                         @if (auth()->user()->group->is_modo)
                             <a href="{{ route('users.show', ['username' => $user->username]) }}">
                                 {{ $user->username }}
@@ -47,7 +47,7 @@
                     <div class="text-center">
                         <span class="badge-user text-orange text-bold">
                             <i class="{{ config('other.font-awesome') }} fa-eye-slash" aria-hidden="true"></i>
-                            {{ strtoupper(trans('common.hidden')) }}
+                            {{ strtoupper(__('common.hidden')) }}
                         </span>
                         @foreach ($groups as $group)
                             <span class="badge-user text-bold"

@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddChatHiddenToUsersTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,4 +25,4 @@ class AddChatHiddenToUsersTable extends Migration
             $table->boolean('chat_hidden')->default(0)->after('censor');
         });
     }
-}
+};

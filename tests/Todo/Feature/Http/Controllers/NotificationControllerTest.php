@@ -24,7 +24,7 @@ class NotificationControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('notifications.destroy', ['id' => $notification->id]));
 
         $response->assertRedirect(withSuccess('Notification Deleted!'));
-        $this->assertDeleted($notifications);
+        $this->assertModelMissing($notifications);
 
         // TODO: perform additional assertions
     }

@@ -128,7 +128,7 @@
                                 </td>
                                 <td>
                                         <span
-                                                class="badge-extra text-purple text-bold">{{ $p->agent ?: trans('common.unknown') }}</span>
+                                                class="badge-extra text-purple text-bold">{{ $p->agent ?: __('common.unknown') }}</span>
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $p->torrent->getSize() }}</span>

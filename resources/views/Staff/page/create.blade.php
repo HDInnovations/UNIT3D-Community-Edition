@@ -15,7 +15,7 @@
         <a href="{{ route('staff.types.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
                 {{ __('common.add') }}
-                {{ __(trans_choice('common.a-an-art',false)) }}
+                {{ trans_choice('common.a-an-art',false) }}
                 {{ __('common.new-adj') }}
                 {{ __('staff.page') }}
             </span>
@@ -27,7 +27,7 @@
     <div class="container box">
         <h2>
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('common.new-adj') }}
             {{ __('staff.page') }}
         </h2>

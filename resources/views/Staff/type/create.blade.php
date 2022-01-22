@@ -26,7 +26,7 @@
     <div class="container box">
         <h2>
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('torrent.torrent') }}
             {{ __('common.type') }}
         </h2>

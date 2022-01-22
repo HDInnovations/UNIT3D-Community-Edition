@@ -27,7 +27,7 @@ class GraveyardControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('graveyard.destroy', ['id' => $graveyard->id]));
 
         $response->assertRedirect(withSuccess('Resurrection Successfully Canceled!'));
-        $this->assertDeleted($graveyard);
+        $this->assertModelMissing($graveyard);
 
         // TODO: perform additional assertions
     }

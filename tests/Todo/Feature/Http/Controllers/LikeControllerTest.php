@@ -27,7 +27,7 @@ class LikeControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('dislike', ['postId' => $like->postId]));
 
         $response->assertRedirect(withErrors('You have already liked/disliked this post!'));
-        $this->assertDeleted($dislike);
+        $this->assertModelMissing($dislike);
 
         // TODO: perform additional assertions
     }

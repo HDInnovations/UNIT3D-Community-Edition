@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropIpCheckingInPollsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,4 +14,4 @@ class DropIpCheckingInPollsTable extends Migration
             $table->dropColumn('ip_checking');
         });
     }
-}
+};

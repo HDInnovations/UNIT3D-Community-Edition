@@ -204,7 +204,7 @@
                             <div class="card_footer">
                                 <div style="float: left;">
                                     @if ($t->torrent->anon == 1)
-                                        <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                        <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                             @if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                                             ({{ $t->torrent->user->username }})
@@ -257,7 +257,7 @@
                                                 @if ($comment->anon == 1)
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                        <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                            style="color:{{ $comment->user->group->color }};">(<span><i
                                                                         class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif

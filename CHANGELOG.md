@@ -1,8 +1,25 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
-## [v6.0.0] - 2021-12-05
+## [v6.0.0] - 2021-1-30
 
+- [#2057] (Add) Top 10 Torrents Feature, Thanks to [@HDVinnie]
+- [#2056] (Add) Missing Media Feature, Thanks to [@HDVinnie]
+- [#2049] (Add) Torrent Client Stats, Thanks to [@Alkl58]
+- [#2038] (Feature) Add more Buff options for Freeleech, Thanks to [@Obi-Wana]
+- [#2035] (Add) Torrent Cards Search, Thanks to [@HDVinnie]
+- [#2033] (Add) Torrent Regions and Distributors, Thanks to [@HDVinnie]
+- [#2073] (Chore) Code Style, Thanks to [@HDVinnie]
+- [#2051] (Chore) Reformat Views, Thanks to [@HDVinnie]
+- [#2048] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2047] (Update) Italian Lang, Thanks to [@Gideon75]
+- [#2046] (Update) Connectable Check: Use Cache instead of Peer Table DB, Thanks to [@Alkl58]
+- [#2043] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2041] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2037] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2034] (Update) Italian Lang, Thanks to [@Gideon75]
+- [#2042] (Fix) 500 Server Error if User Warning is Soft Deleted, Thanks to [@Alkl58]
+- [#2039] (Fix) Markdown Helper, Thanks to [@MiM-MiM]
 - [#2020] (Add) Manual User Warning [#1705], Thanks to [@Alkl58]
 - [#1998] (Add) Collection Torrents List button, Thanks to [@Roardom]
 - [#1958] (Add) Config to Disable / Enable Client Connectable Check, Thanks to [@Alkl58]
@@ -2024,3 +2041,20 @@
 [@Konrni]: https://github.com/Konrni
 [@K4Li]: https://github.com/K4Li
 [@Herman1994]: https://github.com/Herman1994
+[#2073]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2073
+[#2057]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2057
+[#2056]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2056
+[#2051]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2051
+[#2049]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2049
+[#2048]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2048
+[#2047]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2047
+[#2046]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2046
+[#2043]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2043
+[#2042]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2042
+[#2041]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2041
+[#2039]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2039
+[#2038]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2038
+[#2037]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2037
+[#2035]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2035
+[#2034]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2034
+[#2033]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2033

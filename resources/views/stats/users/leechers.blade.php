@@ -47,7 +47,7 @@
                                     @if ($l->user->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $l->user->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $l->user->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $l->user->username]) }}">({{ $l->user->username }}
                                                     )</a></span>
                                     @endif
