@@ -26,11 +26,11 @@ class TorrentResource extends JsonResource
     {
         $meta = null;
 
-        if ($this->category->tv_meta && ($this->tmdb || $this->tmdb !== 0)) {
+        if ($this->category->tv_meta && ($this->tmdb !== 0)) {
             $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 
-        if ($this->category->movie_meta && ($this->tmdb || $this->tmdb !== 0)) {
+        if ($this->category->movie_meta && ($this->tmdb !== 0)) {
             $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 

@@ -82,9 +82,7 @@ class Post extends Model
     public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
-        return $linkify->linky($bbcode->parse($this->content, true));
+        return (new Linkify())->linky($bbcode->parse($this->content, true));
     }
 
     /**

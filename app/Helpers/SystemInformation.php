@@ -111,7 +111,7 @@ class SystemInformation
         ];
     }
 
-    private function getDatabase()
+    private function getDatabase(): string
     {
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';

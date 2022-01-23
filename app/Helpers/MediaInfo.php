@@ -318,7 +318,7 @@ class MediaInfo
         return $pathParts['basename'];
     }
 
-    private function parseFileSize($string)
+    private function parseFileSize($string): float
     {
         $number = (float) $string;
         \preg_match('#[KMGTPEZ]#i', $string, $size);

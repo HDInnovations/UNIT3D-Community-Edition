@@ -184,7 +184,7 @@ class ChatRepository
         return $message;
     }
 
-    public function deleteMessage($id)
+    public function deleteMessage($id): void
     {
         $message = $this->message->find($id);
 
