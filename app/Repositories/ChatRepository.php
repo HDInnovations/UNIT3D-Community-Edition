@@ -349,8 +349,6 @@ class ChatRepository
 
     protected function htmlifyMessage($message)
     {
-        // Soon
-
         return $message;
     }
 }

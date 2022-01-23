@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 trait Auditable
 {
-    public static function bootAuditable()
+    public static function bootAuditable(): void
     {
         static::created(function ($model) {
             self::registerCreate($model);
@@ -140,7 +140,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerCreate($model)
+    protected static function registerCreate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -168,7 +168,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerUpdate($model)
+    protected static function registerUpdate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -196,7 +196,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerDelete($model)
+    protected static function registerDelete($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();

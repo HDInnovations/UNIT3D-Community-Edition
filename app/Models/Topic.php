@@ -97,7 +97,7 @@ class Topic extends Model
     /**
      * Does User Have Permission To View Topic.
      */
-    public function viewable()
+    public function viewable(): bool
     {
         if (\auth()->user()->group->is_modo) {
             return true;

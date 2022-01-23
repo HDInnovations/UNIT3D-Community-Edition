@@ -404,7 +404,7 @@ class BBCodeConverter
     /**
      * @brief Converts the provided BBCode text to an equivalent Markdown text.
      */
-    public function toMarkdown()
+    public function toMarkdown(): string
     {
         $this->replaceCenter();
         $this->replaceSize();

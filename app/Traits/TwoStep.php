@@ -83,7 +83,7 @@ trait TwoStep
      *
      * @throws \Exception
      */
-    private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
+    private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
         for ($i = 0; $i < $length; $i++) {
             $prefix .= \random_int(0, 1) !== 0 ? \chr(\random_int(65, 90)) : \random_int(0, 9);

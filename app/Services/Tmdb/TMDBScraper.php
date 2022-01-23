@@ -30,7 +30,7 @@ use Illuminate\Support\Str;
 class TMDBScraper implements ShouldQueue
 {
     /**
-     * @var mixed|mixed[]|string|null
+     * @var mixed|array|string|null
      */
     public $id;
 

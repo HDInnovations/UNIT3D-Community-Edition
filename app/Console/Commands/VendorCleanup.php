@@ -198,10 +198,6 @@ class VendorCleanup extends Command
 
     protected function out($message): void
     {
-        if ($this->option('check')) {
-            echo $message.PHP_EOL;
-        } else {
-            echo $message.PHP_EOL;
-        }
+        echo $message.PHP_EOL;
     }
 }

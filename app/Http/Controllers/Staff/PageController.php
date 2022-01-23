@@ -81,7 +81,7 @@ class PageController extends Controller
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');

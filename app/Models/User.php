@@ -501,7 +501,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->block_notifications && $target->block_notifications == 1) {
+        if ($target->block_notifications == 1) {
             return false;
         }
 
@@ -535,7 +535,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden && $target->hidden == 1) {
+        if ($target->hidden == 1) {
             return false;
         }
 
@@ -569,7 +569,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->private_profile && $target->private_profile == 1) {
+        if ($target->private_profile == 1) {
             return false;
         }
 
@@ -691,7 +691,7 @@ class User extends Authenticatable
      * Return the size (pretty formated) which can be safely downloaded
      * without falling under the minimum ratio.
      */
-    public function untilRatio($ratio)
+    public function untilRatio($ratio): string
     {
         if ($ratio == 0.0) {
             return '∞';
@@ -716,9 +716,8 @@ class User extends Authenticatable
     public function getSignature(): string
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $linkify->linky($bbcode->parse($this->signature, true));
+        return (new Linkify())->linky($bbcode->parse($this->signature, true));
     }
 
     /**
@@ -739,9 +738,8 @@ class User extends Authenticatable
         }
 
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $linkify->linky($bbcode->parse($this->about, true));
+        return (new Linkify())->linky($bbcode->parse($this->about, true));
     }
 
     /**
