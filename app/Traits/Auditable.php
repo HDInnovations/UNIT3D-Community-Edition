@@ -126,7 +126,7 @@ trait Auditable
     /**
      * Gets the current user ID, or null if guest.
      */
-    public static function getUserId(): void
+    public static function getUserId()
     {
         if (\auth()->guest()) {
             return null;
