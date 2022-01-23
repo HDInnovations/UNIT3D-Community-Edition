@@ -28,12 +28,10 @@ class TvShowController extends Controller
 
     /**
      * Show A TV Show.
-     *
-     * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $show = Tv::with(['seasons', 'genres', 'networks', 'companies'])->withCount('torrents')->findOrFail($id);
+        $show = Tv::with(['seasons', 'genres', 'networks', 'companies', 'torrents'])->withCount('torrents')->findOrFail($id);
 
         return \view('mediahub.tv.show', [
             'show' => $show,

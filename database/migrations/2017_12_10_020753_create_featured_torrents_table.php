@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFeaturedTorrentsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('featured_torrents', function (Blueprint $table) {
             $table->increments('id');
@@ -30,4 +27,4 @@ class CreateFeaturedTorrentsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

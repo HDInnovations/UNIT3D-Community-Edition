@@ -18,7 +18,7 @@ use Illuminate\Database\Seeder;
 
 class TicketPrioritiesTableSeeder extends Seeder
 {
-    private $priorities;
+    private array $priorities;
 
     public function __construct()
     {

@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCastMovieTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('cast_movie', function (Blueprint $table) {
             $table->unsignedInteger('cast_id');
@@ -19,4 +16,4 @@ class CreateCastMovieTable extends Migration
             $table->primary(['cast_id', 'movie_id']);
         });
     }
-}
+};

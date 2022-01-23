@@ -14,17 +14,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToVotersTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('voters', function (Blueprint $table) {
             $table->foreign('poll_id')->references('id')->on('polls')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
-}
+};

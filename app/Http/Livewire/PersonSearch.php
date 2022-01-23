@@ -42,7 +42,7 @@ class PersonSearch extends Component
     {
         return Person::select(['id', 'still', 'name'])
             ->whereNotNull('still')->where('name', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate(30);
     }
 

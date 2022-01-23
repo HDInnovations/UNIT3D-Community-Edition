@@ -24,9 +24,6 @@ class UnbanUser extends Mailable
 
     /**
      * UnbanUser Constructor.
-     *
-     * @param $email
-     * @param $ban
      */
     public function __construct(public $email, public $ban)
     {
@@ -34,10 +31,8 @@ class UnbanUser extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->markdown('emails.unban')
             ->subject('You Have Been Unbanned - '.\config('other.title'));

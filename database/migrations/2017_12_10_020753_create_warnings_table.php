@@ -13,14 +13,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateWarningsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('warnings', function (Blueprint $table) {
             $table->increments('id');
@@ -33,4 +30,4 @@ class CreateWarningsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

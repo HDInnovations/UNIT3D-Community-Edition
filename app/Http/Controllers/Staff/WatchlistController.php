@@ -60,8 +60,6 @@ class WatchlistController extends Controller
     /**
      * Delete A Watched User.
      *
-     * @param $id
-     *
      * @throws \Exception
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse

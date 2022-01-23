@@ -54,10 +54,8 @@ class AutoSoftDeleteDisabledUsers extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('pruning.user_pruning') == true) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));

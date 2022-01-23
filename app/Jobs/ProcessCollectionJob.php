@@ -29,8 +29,6 @@ class ProcessCollectionJob implements ShouldQueue
 
     /**
      * ProcessCollectionJob Constructor.
-     *
-     * @param $collection
      */
     public function __construct(public $collection)
     {
@@ -38,10 +36,8 @@ class ProcessCollectionJob implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->collection['parts'] as $parts) {
             $metadata = new TMDBScraper();

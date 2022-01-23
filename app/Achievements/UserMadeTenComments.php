@@ -35,14 +35,14 @@ class UserMadeTenComments extends Achievement
     /*
      * Triggers whenever an Achiever makes progress on this achievement
      */
-    public function whenProgress($progress)
+    public function whenProgress($progress): void
     {
     }
 
     /*
      * Triggers whenever an Achiever unlocks this achievement
      */
-    public function whenUnlocked($progress)
+    public function whenUnlocked($progress): void
     {
     }
 }

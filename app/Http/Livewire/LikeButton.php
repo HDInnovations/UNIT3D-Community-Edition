@@ -21,7 +21,7 @@ class LikeButton extends Component
 {
     public $post;
 
-    public $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     final public function mount($post): void
     {

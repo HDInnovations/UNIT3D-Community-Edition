@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
+    <title>{{ __('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('torrent.torrents') {{ config('other.title') }}">
+    <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}">
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
         </a>
     </li>
 @endsection

@@ -50,10 +50,8 @@ class AutoGraveyard extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         foreach (Graveyard::where('rewarded', '!=', 1)->oldest()->get() as $reward) {
             $user = User::where('id', '=', $reward->user_id)->first();

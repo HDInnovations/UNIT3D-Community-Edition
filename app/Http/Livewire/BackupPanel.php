@@ -26,15 +26,16 @@ use Spatie\Backup\BackupDestination\BackupDestination;
 use Spatie\Backup\Helpers\Format;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatus;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupPanel extends Component
 {
-    public $backupStatuses = [];
+    public array $backupStatuses = [];
 
     public $activeDisk = null;
 
-    public $disks = [];
+    public array $disks = [];
 
     public $files = [];
 
@@ -141,7 +142,7 @@ class BackupPanel extends Component
         $backup = $backupDestination->backups()->first(fn (Backup $backup) => $backup->path() === $filePath);
 
         if (! $backup) {
-            return response('Backup not found', Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $this->respondWithBackupStream($backup);

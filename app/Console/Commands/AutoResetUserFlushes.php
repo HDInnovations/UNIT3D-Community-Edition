@@ -34,10 +34,8 @@ class AutoResetUserFlushes extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         // Updates own_flushes for each user
         User::where('own_flushes', '<', '2')->update(['own_flushes' => '2']);

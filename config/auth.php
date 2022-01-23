@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "session"
     |
     */
 
@@ -114,21 +114,18 @@ return [
 
     'password_timeout' => 10800,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Settings
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define your 2fa settings
-    |
-    */
-
     'TwoStepEnabled'                  => true,
+
     'verificationEmailFrom'           => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+
     'verificationEmailFromName'       => ' 2-Step Verification',
+
     'TwoStepExceededCount'            => 3,
+
     'TwoStepExceededCountdownMinutes' => 60 * 24,
+
     'TwoStepVerifiedLifetimeMinutes'  => 6 * 60,
+
     'TwoStepTimeResetBufferSeconds'   => 6 * 60,
 
 ];

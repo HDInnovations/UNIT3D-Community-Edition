@@ -15,18 +15,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRequestIdToReportsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('reports', function (Blueprint $table) {
             $table->integer('request_id')->unsigned()->default(0)->after('torrent_id');
             $table->integer('torrent_id')->unsigned()->default(0)->change();
         });
     }
-}
+};

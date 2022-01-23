@@ -34,11 +34,8 @@ class ApplicationController extends Controller
 
     /**
      * Store A New Application.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $application = \resolve(Application::class);
         $application->type = $request->input('type');

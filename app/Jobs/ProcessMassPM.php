@@ -39,11 +39,6 @@ class ProcessMassPM implements ShouldQueue
 
     /**
      * ProcessMassPM Constructor.
-     *
-     * @param $sender_id
-     * @param $receiver_id
-     * @param $subject
-     * @param $message
      */
     public function __construct(protected $senderId, protected $receiverId, protected $subject, protected $message)
     {
@@ -51,10 +46,8 @@ class ProcessMassPM implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = $this->senderId;

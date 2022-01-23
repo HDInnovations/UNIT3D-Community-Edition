@@ -13,14 +13,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBonTransactionsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('bon_transactions', function (Blueprint $table) {
             $table->integer('id', true);
@@ -34,4 +31,4 @@ class CreateBonTransactionsTable extends Migration
             $table->timestamp('date_actioned')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
-}
+};

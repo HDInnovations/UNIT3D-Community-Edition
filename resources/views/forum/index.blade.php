@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>{{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - @lang('forum.forums')">
+    <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}">
 @endsection
 
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
 @endsection
@@ -28,10 +28,10 @@
                     <input type="hidden" name="direction" value="desc">
                     <label for="name"></label>
                     <input type="text" name="name" id="name"
-                        value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                        placeholder="@lang('forum.topic-quick-search')" class="form-control">
+                           value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
+                           placeholder="{{ __('forum.topic-quick-search') }}" class="form-control">
                     <button type="submit" class="btn btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
+                        <i class="{{ config('other.font-awesome') }} fa-search"></i> {{ __('common.search') }}
                     </button>
                 </form>
             </div>
@@ -42,55 +42,55 @@
                     @if ($category->getPermission() != null && $category->getPermission()->show_forum == true &&
                         $category->getForumsInCategory()->count() > 0)
                         <thead class="no-space">
-                            <tr class="no-space">
-                                <td colspan="5" class="no-space">
-                                    <div class="header gradient teal some-padding">
-                                        <div class="inner_content">
-                                            <h1 class="no-space">{{ $category->name }}</h1>
-                                        </div>
+                        <tr class="no-space">
+                            <td colspan="5" class="no-space">
+                                <div class="header gradient teal some-padding">
+                                    <div class="inner_content">
+                                        <h1 class="no-space">{{ $category->name }}</h1>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </thead>
                         <thead>
-                            <tr>
-                                <td colspan="5">
-                                    <div class="button-holder">
-                                        <div class="button-left"></div>
-                                        <div class="button-right">
-                                            <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
-                                                class="btn btn-sm btn-primary">@lang('forum.view-all')</a>
-                                        </div>
+                        <tr>
+                            <td colspan="5">
+                                <div class="button-holder">
+                                    <div class="button-left"></div>
+                                    <div class="button-right">
+                                        <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
+                                           class="btn btn-sm btn-primary">{{ __('forum.view-all') }}</a>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </thead>
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th class="text-left">{{ strtoupper(trans('forum.name')) }}</th>
-                                <th class="text-left">{{ strtoupper(trans('forum.posts')) }}</th>
-                                <th class="text-left">{{ strtoupper(trans('forum.topics')) }}</th>
-                                <th class="text-left">{{ strtoupper(trans('forum.latest')) }}</th>
-                            </tr>
+                        <tr>
+                            <th></th>
+                            <th class="text-left">{{ strtoupper(__('forum.name')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.posts')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.topics')) }}</th>
+                            <th class="text-left">{{ strtoupper(__('forum.latest')) }}</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
-                                @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
-                                    <tr>
-                                        <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
-                                        <td>
+                        @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
+                            @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
+                                <tr>
+                                    <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
+                                    <td>
                                             <span>
                                                 <h4><a href="{{ route('forums.show', ['id' => $categoryChild->id]) }}"><span
-                                                            class="text-bold">{{ $categoryChild->name }}</span></a></h4>
+                                                                class="text-bold">{{ $categoryChild->name }}</span></a></h4>
                                             </span>
-                                            <span class="">{{ $categoryChild->description }}</span>
-                                        </td>
-                                        <td>{{ $categoryChild->num_post }}</td>
-                                        <td>{{ $categoryChild->num_topic }}</td>
-                                        <td>
+                                        <span class="">{{ $categoryChild->description }}</span>
+                                    </td>
+                                    <td>{{ $categoryChild->num_post }}</td>
+                                    <td>{{ $categoryChild->num_topic }}</td>
+                                    <td>
                                             <span>
-                                                <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }}</span>
+                                                <span>{{ __('forum.last-message') }} - {{ strtolower(__('forum.author')) }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-user"></i>
                                                 @if ($categoryChild->last_post_user_username !== null)
                                                     <a href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
@@ -98,24 +98,24 @@
                                                     </a>
                                                 @endif
                                             </span>
-                                            <br>
-                                            <span>
-                                                <span>@lang('forum.topic')</span>
+                                        <br>
+                                        <span>
+                                                <span>{{ __('forum.topic') }}</span>
                                                 <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i>
                                                 @if ($categoryChild->last_topic_id !== null)
-                                                    <a href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
+                                                <a href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
                                                     {{ $categoryChild->last_topic_name }}</a>
-                                                @endif
+                                            @endif
                                             </span>
-                                            <br>
-                                            <span>
+                                        <br>
+                                        <span>
                                                 <span><i class="{{ config('other.font-awesome') }} fa-clock"></i></span>
                                                 {{ $categoryChild->updated_at->diffForHumans() }}
                                             </span>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                         </tbody>
                     @endif
                 @endforeach

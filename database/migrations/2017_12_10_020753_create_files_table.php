@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFilesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('files', function (Blueprint $table) {
             $table->bigInteger('id', true)->unsigned();
@@ -30,4 +27,4 @@ class CreateFilesTable extends Migration
             $table->bigInteger('torrent_id')->unsigned()->index('fk_files_torrents1_idx');
         });
     }
-}
+};

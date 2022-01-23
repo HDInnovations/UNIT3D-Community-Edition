@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('bonus') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('bon.bonus') @lang('bon.points')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bon.bonus') }} {{ __('bon.points') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('bonus_gift') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('bon.bonus') @lang('bon.send-gift')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bon.bonus') }} {{ __('bon.send-gift') }}</span>
         </a>
     </li>
 @endsection
@@ -17,11 +17,6 @@
     <div class="container">
         <div class="block">
             @include('bonus.buttons')
-            <div class="header gradient purple">
-                <div class="inner_content">
-                    <h1>@lang('bon.bon') @lang('bon.send-gift')</h1>
-                </div>
-            </div>
             <div class="some-padding">
                 <div class="row">
                     <div class="col-sm-8">
@@ -31,34 +26,35 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label for="to_username">@lang('bon.gift-to')</label>
+                                        <label for="to_username">{{ __('bon.gift-to') }}</label>
                                     </div>
                                     <div class="form-group">
-                                        <label for="users">@lang('pm.select')</label>
+                                        <label for="users">{{ __('pm.select') }}</label>
                                         <label>
                                             <input name="to_username" class="form-control"
-                                                placeholder="@lang('common.username')" required>
+                                                   placeholder="{{ __('common.username') }}" required>
                                         </label>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="bonus_points">@lang('bon.amount')</label>
+                                        <label for="bonus_points">{{ __('bon.amount') }}</label>
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control"
-                                            placeholder="@lang('common.enter') {{ strtolower(trans('common.amount')) }}"
-                                            name="bonus_points" type="number" id="bonus_points" required>
+                                               placeholder="{{ __('common.enter') }} {{ strtolower(__('common.amount')) }}"
+                                               name="bonus_points" type="number" id="bonus_points" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="bonus_message">@lang('pm.message')</label>
+                                        <label for="bonus_message">{{ __('pm.message') }}</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
+                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10"
+                                                  id="bonus_message"></textarea>
                                     </div>
 
                                     <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="@lang('common.submit')">
+                                        <input class="btn btn-primary" type="submit" value="{{ __('common.submit') }}">
                                     </div>
 
                                 </form>
@@ -68,12 +64,12 @@
                     <div class="col-sm-4">
 
                         <div class="text-blue well well-sm text-center">
-                            <h2><strong>@lang('bon.your-points'): <br></strong>{{ $userbon }}</h2>
+                            <h2><strong>{{ __('bon.your-points') }}: <br></strong>{{ $userbon }}</h2>
                         </div>
 
                         <div class="well well-sm mt-20">
-                            <p class="lead text-orange text-center">@lang('bon.exchange-warning')
-                                <br><strong>@lang('bon.no-refund')</strong>
+                            <p class="lead text-orange text-center">{{ __('bon.exchange-warning') }}
+                                <br><strong>{{ __('bon.no-refund') }}</strong>
                             </p>
                         </div>
                     </div>

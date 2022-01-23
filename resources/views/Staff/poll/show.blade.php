@@ -7,17 +7,17 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.polls.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.polls')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('poll.polls') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->title }} @lang('poll.results')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->title }} {{ __('poll.results') }}</span>
         </a>
     </li>
 @endsection
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container">
         <div class="page-title">
-            <h1>@lang('poll.poll') @lang('poll.results')</h1>
+            <h1>{{ __('poll.poll') }} {{ __('poll.results') }}</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -37,15 +37,15 @@
                         @foreach ($poll->options as $option)
                             <strong>{{ $option->name }}</strong><span class="pull-right">{{ $option->votes }}
                                 @if ($option->votes == 1)
-                                    @lang('poll.vote')
+                                    {{ __('poll.vote') }}
                                 @else
-                                    @lang('poll.votes')
+                                    {{ __('poll.votes') }}
                                 @endif
                                 </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                    aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ $option->votes }}%;">
+                                     aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ $option->votes }}%;">
                                     {{ $option->votes }}
                                 </div>
                             </div>
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

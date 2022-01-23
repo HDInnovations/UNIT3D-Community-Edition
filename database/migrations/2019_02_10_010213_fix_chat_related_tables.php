@@ -15,14 +15,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FixChatRelatedTables extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('user_echoes', function (Blueprint $table) {
             $table->integer('room_id')->change();
@@ -35,4 +32,4 @@ class FixChatRelatedTables extends Migration
             $table->integer('target_id')->change();
         });
     }
-}
+};

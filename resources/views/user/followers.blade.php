@@ -1,19 +1,21 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} @lang('user.followers') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} {{ __('user.followers') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_followers', ['username' => $user->username]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.followers')</span>
+           class="l-breadcrumb-item-link">
+            <span itemprop="title"
+                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.followers') }}</span>
         </a>
     </li>
 @endsection
@@ -25,10 +27,10 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">@lang('user.not-authorized')</p>
+                        <p class="text-center">{{ __('user.not-authorized') }}</p>
                     </div>
                 </div>
             </div>
@@ -39,45 +41,39 @@
                 @else
                     @include('user.buttons.public')
                 @endif
-                <div class="header gradient blue">
-                    <div class="inner_content">
-                        <h1>
-                            {{ $user->username }} @lang('user.followers')
-                        </h1>
-                    </div>
-                </div>
                 <div class="forum-categories">
                     <table class="table table-bordered table-hover">
                         <thead>
-                            <tr>
-                                <th>@lang('user.avatar')</th>
-                                <th>@lang('user.user')</th>
-                                <th>@lang('common.created_at')</th>
-                            </tr>
+                        <tr>
+                            <th>{{ __('user.avatar') }}</th>
+                            <th>{{ __('user.user') }}</th>
+                            <th>{{ __('common.created_at') }}</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($results as $f)
-                                <tr>
-                                    @if ($f->user->image != null)
-                                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                                <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar" data-toggle="tooltip"
-                                                    title="{{ $f->user->username }}" height="50px"
-                                                    data-original-title="{{ $f->user->username }}">
-                                            </a></td>
-                                    @else
-                                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                                <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
-                                                    title="{{ $f->user->username }}" height="50px"
-                                                    data-original-title="{{ $f->user->username }}">
-                                            </a></td>
-                                    @endif
+                        @foreach ($results as $f)
+                            <tr>
+                                @if ($f->user->image != null)
                                     <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <span class="badge-user text-bold"
-                                                style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                            <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
+                                                 data-toggle="tooltip"
+                                                 title="{{ $f->user->username }}" height="50px"
+                                                 data-original-title="{{ $f->user->username }}">
                                         </a></td>
-                                    <td>{{ $f->created_at }}</td>
-                                </tr>
-                            @endforeach
+                                @else
+                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                            <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
+                                                 title="{{ $f->user->username }}" height="50px"
+                                                 data-original-title="{{ $f->user->username }}">
+                                        </a></td>
+                                @endif
+                                <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                            <span class="badge-user text-bold"
+                                                  style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                    </a></td>
+                                <td>{{ $f->created_at }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -27,17 +27,15 @@ class ResolutionsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->resolutions as $resolution) {
             Resolution::updateOrCreate($resolution);
         }
     }
 
-    private function getResolutions()
+    private function getResolutions(): array
     {
         return [
             [

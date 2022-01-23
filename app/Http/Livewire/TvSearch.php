@@ -40,10 +40,10 @@ class TvSearch extends Component
 
     final public function getShowsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Tv::with('networks', 'genres')
-            ->withCount('torrents', 'seasons')
-            ->where('name', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('name', 'asc')
+        return Tv::with(['networks', 'genres'])
+            ->withCount('seasons')
+            ->when($this->search, fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
+            ->orderBy('name')
             ->paginate(30);
     }
 

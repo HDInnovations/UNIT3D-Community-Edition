@@ -15,14 +15,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImmuneToHistoryTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('history', function (Blueprint $table) {
             $table->boolean('immune')->default(0)->index()->after('seedtime');
@@ -30,4 +27,4 @@ class AddImmuneToHistoryTable extends Migration
             $table->boolean('prewarn')->default(0)->index()->after('hitrun');
         });
     }
-}
+};

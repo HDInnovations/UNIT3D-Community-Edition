@@ -152,14 +152,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
         });
 
-        // Categories System
-        Route::group(['prefix' => 'categories'], function () {
-            Route::name('categories.')->group(function () {
-                Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\CategoryController::class, 'show'])->name('show');
-            });
-        });
-
         // Contact Us System
         Route::group(['prefix' => 'contact'], function () {
             Route::name('contact.')->group(function () {
@@ -194,6 +186,7 @@ Route::group(['middleware' => 'language'], function () {
         // Extra-Stats System
         Route::group(['prefix' => 'stats'], function () {
             Route::get('/', [App\Http\Controllers\StatsController::class, 'index'])->name('stats');
+            Route::get('/user/clients', [App\Http\Controllers\StatsController::class, 'clients'])->name('clients');
             Route::get('/user/uploaded', [App\Http\Controllers\StatsController::class, 'uploaded'])->name('uploaded');
             Route::get('/user/downloaded', [App\Http\Controllers\StatsController::class, 'downloaded'])->name('downloaded');
             Route::get('/user/seeders', [App\Http\Controllers\StatsController::class, 'seeders'])->name('seeders');
@@ -251,6 +244,13 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
         });
 
+        // Top 10 System
+        Route::group(['prefix' => 'top10'], function () {
+            Route::name('top10.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Top10Controller::class, 'index'])->name('index');
+            });
+        });
+
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'uploadForm'])->name('upload_form');
@@ -260,6 +260,7 @@ Route::group(['middleware' => 'language'], function () {
 
         Route::group(['prefix' => 'torrents'], function () {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'torrents'])->name('torrents');
+            Route::get('/cards', [App\Http\Controllers\TorrentCardController::class, 'index'])->name('cards');
             Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'torrent'])->name('torrent');
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentController::class, 'peers'])->name('peers');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentController::class, 'history'])->name('history');
@@ -268,16 +269,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/delete', [App\Http\Controllers\TorrentController::class, 'deleteTorrent'])->name('delete');
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'editForm'])->name('edit_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit');
-            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentController::class, 'grantFL'])->name('torrent_fl');
-            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentController::class, 'grantDoubleUp'])->name('torrent_doubleup');
-            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentController::class, 'bumpTorrent'])->name('bumpTorrent');
-            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentController::class, 'sticky'])->name('torrent_sticky');
-            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentController::class, 'grantFeatured'])->name('torrent_feature');
-            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentController::class, 'revokeFeatured'])->name('torrent_revokefeature');
             Route::post('/{id}/reseed', [App\Http\Controllers\TorrentController::class, 'reseedTorrent'])->name('reseed');
             Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
-            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentController::class, 'freeleechToken'])->name('freeleech_token');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\TorrentController::class, 'similar'])->name('torrents.similar');
+        });
+
+        Route::group(['prefix' => 'torrent'], function () {
+            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl');
+            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup');
+            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent');
+            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentBuffController::class, 'sticky'])->name('torrent_sticky');
+            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature');
+            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
         });
 
         // Warnings System
@@ -460,6 +464,13 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/unassign', [App\Http\Controllers\TicketController::class, 'unassign'])->name('unassign');
                 Route::post('/{id}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('close');
                 Route::post('/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
+            });
+        });
+
+        // Missing System
+        Route::group(['prefix' => 'missing'], function () {
+            Route::name('missing.')->group(function () {
+                Route::get('/', [App\Http\Controllers\MissingController::class, 'index'])->name('index');
             });
         });
     });
@@ -890,7 +901,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/settings', [App\Http\Controllers\Staff\UserController::class, 'settings'])->name('user_setting');
             Route::post('/{username}/permissions', [App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('user_permissions');
             Route::post('/{username}/password', [App\Http\Controllers\Staff\UserController::class, 'password'])->name('user_password');
-            Route::get('/{username}/destroy', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
+            Route::delete('/{username}/destroy', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
             Route::post('/{username}/warn', [App\Http\Controllers\Staff\UserController::class, 'warnUser'])->name('user_warn');
         });
 

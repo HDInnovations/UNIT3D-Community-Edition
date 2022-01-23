@@ -35,8 +35,6 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
 
     /**
      * ProcessStoppedAnnounceRequest Constructor.
-     *
-     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
@@ -46,10 +44,8 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
      * Execute the job.
      *
      * @throws \Exception
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
@@ -102,8 +98,13 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
             ->where('torrent_id', '=', $this->torrent->id)
             ->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;
+        } elseif ($this->torrent->free >= 1) {
+            // FL value in DB are from 0% to 100%.
+            // Divide it by 100 and multiply it with "downloaded" to get discount download.
+            $fl_discount = $downloaded * $this->torrent->free / 100;
+            $modDownloaded = $downloaded - $fl_discount;
         } else {
             $modDownloaded = $downloaded;
         }

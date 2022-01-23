@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -12,21 +11,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class PostFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Post::class;
-
-    /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'content'  => $this->faker->text,
+            'content'  => $this->faker->text(),
             'user_id'  => fn () => User::factory()->create()->id,
             'topic_id' => fn () => Topic::factory()->create()->id,
         ];

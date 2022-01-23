@@ -25,69 +25,69 @@ trait ConsoleTools
      */
     protected $io;
 
-    private function cyan($line)
+    private function cyan($line): void
     {
         $this->io->writeln(\sprintf('<fg=cyan>%s</>', $line));
     }
 
-    private function white($line)
+    private function white($line): void
     {
         $this->io->writeln(PHP_EOL.$line);
     }
 
-    private function magenta($line)
+    private function magenta($line): void
     {
         $this->io->writeln(\sprintf('<fg=magenta>%s</>', $line));
     }
 
-    private function green($line)
+    private function green($line): void
     {
         $this->io->writeln(\sprintf('<fg=green>%s</>', $line));
     }
 
-    private function red($line)
+    private function red($line): void
     {
         $this->io->writeln(\sprintf('<fg=red>%s</>', $line));
     }
 
-    private function blue($line)
+    private function blue($line): void
     {
         $this->io->writeln(\sprintf('<fg=blue>%s</>', $line));
     }
 
-    private function done()
+    private function done(): void
     {
         $this->green('<fg=white>[</>Done<fg=white>]</>');
     }
 
-    private function header($line)
+    private function header($line): void
     {
         $this->blue(\str_repeat('=', 50));
         $this->io->write($line);
         $this->blue(\str_repeat('=', 50));
     }
 
-    private function alertSuccess($line)
+    private function alertSuccess($line): void
     {
         $this->io->writeln(\sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertDanger($line)
+    private function alertDanger($line): void
     {
         $this->io->writeln(\sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertInfo($line)
+    private function alertInfo($line): void
     {
         $this->io->writeln(\sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertWarning($line)
+    private function alertWarning($line): void
     {
         $this->io->writeln(\sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function commands(array $commands, $silent = false)
+    private function commands(array $commands, $silent = false): void
     {
         foreach ($commands as $command) {
             $process = $this->process($command, $silent);
@@ -99,7 +99,7 @@ trait ConsoleTools
         }
     }
 
-    private function process($command, $silent = false)
+    private function process($command, $silent = false): Process
     {
         if (! $silent) {
             $this->cyan($command);
@@ -138,10 +138,7 @@ trait ConsoleTools
         return $process;
     }
 
-    /**
-     * @return ProgressBar
-     */
-    protected function progressStart()
+    protected function progressStart(): ProgressBar
     {
         $bar = $this->io->createProgressBar();
         $bar->setBarCharacter('<fg=magenta>=</>');
@@ -153,7 +150,7 @@ trait ConsoleTools
         return $bar;
     }
 
-    protected function progressStop(ProgressBar $progressBar)
+    protected function progressStop(ProgressBar $progressBar): void
     {
         $progressBar->setMessage('<fg=green>Done!</>');
         $progressBar->finish();

@@ -21,12 +21,8 @@ class HiddenCaptcha
 {
     /**
      * Set the hidden captcha tags to put in your form.
-     *
-     * @param string $mustBeEmptyField
-     *
-     * @return string
      */
-    public static function render($mustBeEmptyField = '_username')
+    public static function render(string $mustBeEmptyField = '_username'): string
     {
         $ts = \time();
         $random = Str::random(16);
@@ -49,13 +45,8 @@ class HiddenCaptcha
 
     /**
      * Check the hidden captcha values.
-     *
-     * @param int $minLimit
-     * @param int $maxLimit
-     *
-     * @return bool
      */
-    public static function check(Validator $validator, $minLimit = 0, $maxLimit = 1_200)
+    public static function check(Validator $validator, int $minLimit = 0, int $maxLimit = 1_200): bool
     {
         $formData = $validator->getData();
 
@@ -88,10 +79,8 @@ class HiddenCaptcha
 
     /**
      * Get and check the token values.
-     *
-     * @param string $captcha
      */
-    private static function getToken($captcha): string|bool|array
+    private static function getToken(string $captcha): string|bool|array
     {
         // Get the token values
         try {

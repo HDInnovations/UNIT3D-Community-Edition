@@ -17,34 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Image.
- *
- * @property int                             $id
- * @property int                             $user_id
- * @property int                             $album_id
- * @property string                          $image
- * @property string                          $description
- * @property string                          $type
- * @property int|null                        $downloads
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereAlbumId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereDownloads($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereUserId($value)
- * @mixin \Eloquent
- */
 class Image extends Model
 {
     use HasFactory;
@@ -53,7 +25,7 @@ class Image extends Model
     /**
      * Belongs to User.
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

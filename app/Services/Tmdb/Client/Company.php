@@ -15,15 +15,9 @@ namespace App\Services\Tmdb\Client;
 
 class Company
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
 
-    /**
-     * @var int|mixed
-     */
-    public $page;
+    public ?int $page = null;
 
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
@@ -79,7 +73,7 @@ class Company
         return $this->data['id'];
     }
 
-    public function get_foto()
+    public function get_foto(): string
     {
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
@@ -124,7 +118,7 @@ class Company
         return $this->data['homepage'];
     }
 
-    public function get_movies()
+    public function get_movies(): array
     {
         $array = [];
         $this->page = 1;

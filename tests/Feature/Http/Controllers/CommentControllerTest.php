@@ -22,7 +22,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function article_returns_an_ok_response()
+    public function article_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -49,7 +49,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function delete_comment_returns_an_ok_response()
+    public function delete_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -73,7 +73,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function edit_comment_returns_an_ok_response()
+    public function edit_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -97,7 +97,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function playlist_returns_an_ok_response()
+    public function playlist_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -126,7 +126,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function quickthanks_returns_an_ok_response()
+    public function quickthanks_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -151,7 +151,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function request_returns_an_ok_response()
+    public function request_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -178,7 +178,7 @@ class CommentControllerTest extends TestCase
     /**
      * @test
      */
-    public function torrent_returns_an_ok_response()
+    public function torrent_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

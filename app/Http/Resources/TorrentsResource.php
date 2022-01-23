@@ -19,12 +19,8 @@ class TorrentsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'data' => TorrentResource::collection($this->collection),
@@ -33,12 +29,8 @@ class TorrentsResource extends ResourceCollection
 
     /**
      * Get additional data that should be returned with the resource array.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array
      */
-    public function with($request)
+    public function with($request): array
     {
         return [
             'links'    => [
@@ -49,13 +41,8 @@ class TorrentsResource extends ResourceCollection
 
     /**
      * Customize the outgoing response for the resource.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Illuminate\Http\Response $response
-     *
-     * @return void
      */
-    public function withResponse($request, $response)
+    public function withResponse($request, $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }

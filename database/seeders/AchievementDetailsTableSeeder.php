@@ -27,17 +27,15 @@ class AchievementDetailsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->achievementDetails as $ad) {
             AchievementDetail::updateOrCreate($ad);
         }
     }
 
-    private function getAchievementDetails()
+    private function getAchievementDetails(): array
     {
         return [
             [

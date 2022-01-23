@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTagTorrentTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('tag_torrent', function (Blueprint $table) {
             $table->bigInteger('torrent_id')->unsigned();
@@ -29,4 +26,4 @@ class CreateTagTorrentTable extends Migration
             $table->primary(['torrent_id', 'tag_id']);
         });
     }
-}
+};

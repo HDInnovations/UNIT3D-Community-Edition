@@ -18,7 +18,7 @@ use Illuminate\Database\Seeder;
 
 class TicketCategoriesTableSeeder extends Seeder
 {
-    private $categories;
+    private array $categories;
 
     public function __construct()
     {

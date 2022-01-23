@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePersonalFreeleechTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('personal_freeleech', function (Blueprint $table) {
             $table->increments('id');
@@ -29,4 +26,4 @@ class CreatePersonalFreeleechTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

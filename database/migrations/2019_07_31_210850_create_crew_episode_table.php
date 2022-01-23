@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCrewEpisodeTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('crew_episode', function (Blueprint $table) {
             $table->unsignedInteger('episode_id');
@@ -19,4 +16,4 @@ class CreateCrewEpisodeTable extends Migration
             $table->primary(['episode_id', 'person_id']);
         });
     }
-}
+};

@@ -38,14 +38,12 @@ class ProcessMovieJob implements ShouldQueue
 
     /**
      * ProcessMovieJob constructor.
-     *
-     * @param $movie
      */
     public function __construct(public $movie)
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $tmdb = new TMDB();
 
