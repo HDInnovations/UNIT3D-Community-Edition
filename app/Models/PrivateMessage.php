@@ -61,6 +61,7 @@ class PrivateMessage extends Model
     public function getMessageHtml(): string
     {
         $bbcode = new Bbcode();
+
         return (new Linkify())->linky($bbcode->parse($this->message, true));
     }
 }

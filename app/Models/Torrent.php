@@ -239,6 +239,7 @@ class Torrent extends Model
     public function getDescriptionHtml(): string
     {
         $bbcode = new Bbcode();
+
         return (new Linkify())->linky($bbcode->parse($this->description, true));
     }
 

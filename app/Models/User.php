@@ -716,6 +716,7 @@ class User extends Authenticatable
     public function getSignature(): string
     {
         $bbcode = new Bbcode();
+
         return (new Linkify())->linky($bbcode->parse($this->signature, true));
     }
 
@@ -737,6 +738,7 @@ class User extends Authenticatable
         }
 
         $bbcode = new Bbcode();
+
         return (new Linkify())->linky($bbcode->parse($this->about, true));
     }
 

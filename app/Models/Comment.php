@@ -91,6 +91,7 @@ class Comment extends Model
     public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
+
         return (new Linkify())->linky($bbcode->parse($this->content, true));
     }
 

@@ -1350,7 +1350,6 @@ class UserController extends Controller
                 } elseif ($order == 'asc') {
                     $order = 'desc';
                 }
-
             }
             $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
 
