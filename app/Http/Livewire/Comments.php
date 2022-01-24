@@ -25,15 +25,15 @@ class Comments extends Component
     public $anon;
 
     protected $listeners = [
-        'refresh' => '$refresh'
+        'refresh' => '$refresh',
     ];
 
     public $newCommentState = [
-        'body' => ''
+        'body' => '',
     ];
 
     protected $validationAttributes = [
-        'newCommentState.body' => 'comment'
+        'newCommentState.body' => 'comment',
     ];
 
     final public function postComment(): void
@@ -45,7 +45,7 @@ class Comments extends Component
         }
 
         $this->validate([
-            'newCommentState.body' => 'required'
+            'newCommentState.body' => 'required',
         ]);
 
         $comment = $this->model->comments()->make($this->newCommentState);
@@ -54,7 +54,7 @@ class Comments extends Component
         $comment->save();
 
         $this->newCommentState = [
-            'body' => ''
+            'body' => '',
         ];
 
         $this->goToPage(1);
@@ -70,7 +70,7 @@ class Comments extends Component
             ->paginate(10);
 
         return \view('livewire.comments', [
-            'comments' => $comments
+            'comments' => $comments,
         ]);
     }
 }

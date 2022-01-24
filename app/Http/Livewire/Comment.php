@@ -34,33 +34,33 @@ class Comment extends Component
     public $anon;
 
     protected $listeners = [
-        'refresh' => '$refresh'
+        'refresh' => '$refresh',
     ];
 
     protected $validationAttributes = [
-        'replyState.body' => 'reply'
+        'replyState.body' => 'reply',
     ];
 
     public $isReplying = false;
 
     public $replyState = [
-        'body' => ''
+        'body' => '',
     ];
 
     public $isEditing = false;
 
     public $editState = [
-        'body' => ''
+        'body' => '',
     ];
 
     final public function updatedIsEditing($isEditing): void
     {
-        if (!$isEditing) {
+        if (! $isEditing) {
             return;
         }
 
         $this->editState = [
-            'body' => $this->comment->body
+            'body' => $this->comment->body,
         ];
     }
 
@@ -103,7 +103,7 @@ class Comment extends Component
         }
 
         $this->validate([
-            'replyState.body' => 'required'
+            'replyState.body' => 'required',
         ]);
 
         $reply = $this->comment->children()->make($this->replyState);
@@ -128,7 +128,7 @@ class Comment extends Component
         }
 
         $this->replyState = [
-            'body' => ''
+            'body' => '',
         ];
 
         $this->isReplying = false;
