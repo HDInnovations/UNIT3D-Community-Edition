@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Livewire\Comments;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +14,7 @@ return new class() extends Migration {
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
             $table->morphs('commentable');
 
-            $comments = Comments::all();
+            $comments = Comment::all();
             foreach ($comments as $comment) {
                 if ($comment->torrent_id !== null) {
                     $comment->commentable_id = $comment->torrent_id;
