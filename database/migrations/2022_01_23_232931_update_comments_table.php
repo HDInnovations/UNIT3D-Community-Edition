@@ -12,6 +12,11 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
+            $table->dropIndex('fk_comments_torrents_1');
+            $table->dropIndex('fk_comments_articles_1');
+            $table->dropIndex('comments_playlist_id_index');
+            $table->dropIndex('comments_collection_id_index');
+            $table->dropIndex('comments_ticket_id_index');
             $table->bigIncrements('id')->change();
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
             $table->morphs('commentable');
