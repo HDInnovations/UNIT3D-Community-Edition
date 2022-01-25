@@ -3,6 +3,7 @@
 use App\Models\Comment;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class() extends Migration {
@@ -12,11 +13,14 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
             $table->dropIndex('fk_comments_torrents_1');
             $table->dropIndex('fk_comments_articles_1');
             $table->dropIndex('comments_playlist_id_index');
             $table->dropIndex('comments_collection_id_index');
             $table->dropIndex('comments_ticket_id_index');
+
             $table->bigIncrements('id')->change();
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
             $table->morphs('commentable');
@@ -61,6 +65,8 @@ return new class() extends Migration {
             }
 
             $table->dropColumn('torrent_id', 'article_id', 'requests_id', 'collection_id', 'playlist_id', 'ticket_id');
+
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         });
     }
 };
