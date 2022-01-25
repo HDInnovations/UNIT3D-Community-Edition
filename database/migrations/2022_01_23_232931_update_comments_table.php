@@ -13,16 +13,7 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-            $table->dropIndex('fk_comments_torrents_1');
-            $table->dropIndex('fk_comments_articles_1');
-            $table->dropIndex('comments_playlist_id_index');
-            $table->dropIndex('comments_collection_id_index');
-            $table->dropIndex('comments_ticket_id_index');
-
-            $table->bigIncrements('id')->change();
-            $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->after('user_id')->nullable();
             $table->morphs('commentable');
 
             $comments = Comment::all();
@@ -64,8 +55,8 @@ return new class() extends Migration {
                 }
             }
 
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             $table->dropColumn('torrent_id', 'article_id', 'requests_id', 'collection_id', 'playlist_id', 'ticket_id');
-
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         });
     }
