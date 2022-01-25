@@ -12,6 +12,7 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
+            $table->bigIncrements('id')->change();
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
             $table->morphs('commentable');
 
