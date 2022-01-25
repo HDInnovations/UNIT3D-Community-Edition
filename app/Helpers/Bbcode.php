@@ -138,19 +138,19 @@ class Bbcode
 
         'image' => [
             'pattern' => '/\[img\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$1" class="img-responsive" style="display: inline !important;">',
+            'replace' => '<img src="$1" loading="lazy" class="img-responsive" style="display: inline !important;">',
             'content' => '$1',
         ],
 
         'sized-image' => [
             'pattern' => '/\[img width\=(.*?)\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$2" width="$1px">',
+            'replace' => '<img src="$2" loading="lazy" width="$1px">',
             'content' => '$1',
         ],
 
         'sized-image2' => [
             'pattern' => '/\[img\=(.*?)\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$2" width="$1px">',
+            'replace' => '<img src="$2" loading="lazy" width="$1px">',
             'content' => '$1',
         ],
 
