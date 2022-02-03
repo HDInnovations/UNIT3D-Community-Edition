@@ -416,6 +416,7 @@ class TorrentController extends Controller
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
                 Subtitle::where('torrent_id', '=', $id)->delete();
                 Graveyard::where('torrent_id', '=', $id)->delete();
+                FreeleechToken::where('torrent_id', '=', $id)->delete();
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
