@@ -615,6 +615,12 @@
                                            data-toggle='tooltip'
                                            title='' data-original-title='{{ __('torrent.double-upload') }}'></i>
                                     </span>
+                                    @if ($torrent->du_until !== null)
+                                        <span class='badge-extra text-bold torrent-listings-double-upload'>
+                                            <i class='{{ config('other.font-awesome') }} fa-clock' data-toggle='tooltip'
+                                               data-original-title='{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
+                                        </span>
+                                    @endif
                                 @endif
 
                                 @if ($torrent->free >= '90')
@@ -663,6 +669,12 @@
                                             <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
                                 @endif
+                                    @if ($torrent->fl_until !== null)
+                                        <span class='badge-extra text-bold torrent-listings-freeleech'>
+                                            <i class='{{ config('other.font-awesome') }} fa-clock' data-toggle='tooltip'
+                                               data-original-title='{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
+                                        </span>
+                                    @endif
                             @endif
 
                             @if ($personalFreeleech)
@@ -801,6 +813,7 @@
                                     </span>
                             @endif
                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                <div id="imdb_id" style="display: none;">tt{{ $torrent->imdb }}</div>
                                 <span class='badge-extra'>
 	                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
 											<img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id"
