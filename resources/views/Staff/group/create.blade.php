@@ -31,6 +31,7 @@
                             <th>{{ __('common.name') }}</th>
                             <th>{{ __('common.position') }}</th>
                             <th>Level</th>
+                            <th>DL Slots</th>
                             <th>Color</th>
                             <th>Icon</th>
                             <th>Effect</th>
@@ -65,6 +66,12 @@
                             <td>
                                 <label>
                                     <input type="number" name="level" value="" placeholder="Level"
+                                           class="form-control"/>
+                                </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input type="number" name="download_slots" value="" placeholder="Download Slots"
                                            class="form-control"/>
                                 </label>
                             </td>
