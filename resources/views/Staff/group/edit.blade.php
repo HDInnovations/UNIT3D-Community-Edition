@@ -33,6 +33,7 @@
                             <th>{{ __('common.name') }}</th>
                             <th>{{ __('common.position') }}</th>
                             <th>Level</th>
+                            <th>DL Slots</th>
                             <th>Color</th>
                             <th>Icon</th>
                             <th>Effect</th>
@@ -57,6 +58,12 @@
                                 </label></td>
                             <td><label>
                                     <input type="text" name="position" value="{{ $group->position }}"
+                                           class="form-control"/>
+                                </label>
+                            </td>
+                            <td>
+                                <label>
+                                    <input type="text" name="download_slots" value="{{ $group->download_slots }}"
                                            class="form-control"/>
                                 </label>
                             </td>

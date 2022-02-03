@@ -70,4 +70,20 @@ return [
 
     'connectable_check_interval' => 60 * 30,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Download Slots System
+    |--------------------------------------------------------------------------
+    |
+    | Enables download slots for user groups set in group settings via staff dashboard
+    | Make sure you have a slot value set for EVERY group before enabling. This system is disabled
+    | by default and groups download_slots are null. Null equals unlimited slots. Groups like banned should be
+    | set to 0
+    |
+    */
+
+    'slots_system' => [
+        'enabled' => false,
+    ],
+
 ];

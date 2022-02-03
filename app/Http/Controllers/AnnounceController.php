@@ -109,7 +109,9 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            //$this->checkDownloadSlots($user);
+            if (\config('announce.slots_system.enabled')) {
+                $this->checkDownloadSlots($user);
+            }
 
             /**
              * Generate A Response For The Torrent Clent.
@@ -399,16 +401,14 @@ class AnnounceController extends Controller
      */
     private function checkDownloadSlots($user): void
     {
-        if (\config('announce.slots_system.enabled')) {
-            $max = $user->group->download_slots;
+        $max = $user->group->download_slots;
 
-            if ($max > 0) {
-                $count = Peer::where('user_id', '=', $user->id)
-                    ->where('seeder', '=', 0)
-                    ->count();
-                if ($count >= $max) {
-                    throw new TrackerException(164, [':max' => $max]);
-                }
+        if ($max !== null && $max >= 0) {
+            $count = Peer::where('user_id', '=', $user->id)
+                ->where('seeder', '=', 0)
+                ->count();
+            if ($count >= $max) {
+                throw new TrackerException(164, [':max' => $max]);
             }
         }
     }

@@ -62,6 +62,7 @@ class GroupController extends Controller
         $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
+        $group->download_slots = $request->input('download_slots');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
@@ -138,6 +139,7 @@ class GroupController extends Controller
         $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
+        $group->download_slots = $request->input('download_slots');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
