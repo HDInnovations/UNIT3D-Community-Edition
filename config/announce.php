@@ -77,7 +77,8 @@ return [
     |
     | Enables download slots for user groups set in group settings via staff dashboard
     | Make sure you have a slot value set for EVERY group before enabling. This system is disabled
-    | by default and groups download_slots are null.
+    | by default and groups download_slots are null. Null equals unlimited slots. Groups like banned should be
+    | set to 0
     |
     */
 
