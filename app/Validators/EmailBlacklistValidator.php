@@ -27,7 +27,7 @@ class EmailBlacklistValidator
     /**
      * Generate the error message on validation failure.
      */
-    public function message($message, $attribute, $rule, $parameters): string
+    public function message($attribute): string
     {
         return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
     }
@@ -37,7 +37,7 @@ class EmailBlacklistValidator
      *
      * @throws \Exception
      */
-    public function validate(string $attribute, string $value, array $parameters): bool
+    public function validate(?string $value): bool
     {
         // Load blacklisted domains
         $this->refresh();
