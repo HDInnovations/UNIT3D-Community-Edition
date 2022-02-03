@@ -56,7 +56,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
         $flTorrents = Torrent::whereNotNull('fl_until')->get();
 
         foreach ($flTorrents as $torrent) {
-            if (isset($torrent) && $torrent->where('fl_until', '>', $current->toDateTimeString())) {
+            if (isset($torrent) && $torrent->where('fl_until', '>', $current)) {
                 $torrent->free = 0;
                 $torrent->fl_until = null;
                 $torrent->save();
@@ -71,7 +71,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
         $duTorrents = Torrent::whereNotNull('du_until')->get();
 
         foreach ($duTorrents as $torrent) {
-            if (isset($torrent) && $torrent->where('du_until', '>', $current->toDateTimeString())) {
+            if (isset($torrent) && $torrent->where('du_until', '>', $current)) {
                 $torrent->doubleup = 0;
                 $torrent->du_until = null;
                 $torrent->save();
