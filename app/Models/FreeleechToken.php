@@ -22,7 +22,6 @@ class FreeleechToken extends Model
     use HasFactory;
     use Auditable;
 
-
     /**
      * Belongs To A Torrent.
      */
