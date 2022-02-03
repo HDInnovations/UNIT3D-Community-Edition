@@ -82,7 +82,7 @@ return [
     */
 
     'slots_system' => [
-        'enabled' => false
+        'enabled' => false,
     ],
 
 ];
