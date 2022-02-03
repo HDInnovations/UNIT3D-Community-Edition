@@ -50,13 +50,12 @@ class AutoRemoveTimedTorrentBuffs extends Command
      */
     public function handle(): void
     {
-        $current = Carbon::now();
         $appurl = \config('app.url');
 
-        $flTorrents = Torrent::whereNotNull('fl_until')->get();
+        $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now()->toDateTimeString())->get();
 
         foreach ($flTorrents as $torrent) {
-            if (isset($torrent) && $torrent->where('fl_until', '>', $current)) {
+            if (isset($torrent)) {
                 $torrent->free = 0;
                 $torrent->fl_until = null;
                 $torrent->save();
@@ -68,10 +67,10 @@ class AutoRemoveTimedTorrentBuffs extends Command
             }
         }
 
-        $duTorrents = Torrent::whereNotNull('du_until')->get();
+        $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now()->toDateTimeString())->get();
 
         foreach ($duTorrents as $torrent) {
-            if (isset($torrent) && $torrent->where('du_until', '>', $current)) {
+            if (isset($torrent)) {
                 $torrent->doubleup = 0;
                 $torrent->du_until = null;
                 $torrent->save();
