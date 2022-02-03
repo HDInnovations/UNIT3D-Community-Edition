@@ -135,7 +135,9 @@ class TorrentController extends BaseController
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
+        $torrent->du_until = $user->group->is_modo || $user->group->is_internal ? Carbon::now()->addDays($request->input('du_until')) : null;
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->fl_until = $user->group->is_modo || $user->group->is_internal ? Carbon::now()->addDays($request->input('fl_until')) : null;
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
