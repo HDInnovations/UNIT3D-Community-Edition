@@ -168,6 +168,8 @@ class PollController extends Controller
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();
+        
+        Option::where('poll_id', '=', $id)->delete();
 
         return \redirect()->route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');
