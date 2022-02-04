@@ -350,3 +350,100 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="doubleup-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ modal_style() }}">
+        <div class="modal-content">
+            <div class="container-fluid">
+                <form action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}" method="POST">
+                @csrf
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Double Upload Buff</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="du_until">Buff Time</label>
+                            <label>
+                                <select name="du_until" class="form-control">
+                                    <option value="">No Limit</option>
+                                    <option value="1">1 Day</option>
+                                    <option value="2">2 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="4">4 Days</option>
+                                    <option value="5">5 Days</option>
+                                    <option value="6">6 Days</option>
+                                    <option value="7">7 Days</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Save">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="freeleech-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ modal_style() }}">
+        <div class="modal-content">
+            <div class="container-fluid">
+                <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Double Upload Buff</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" x-data="{total_value:0}">
+                            <div style="display: flex; margin-bottom: 5px;">
+                                <label for="freeleech"><span x-text="total_value"></span>% {{ __('torrent.freeleech') }}</label>
+                                <input type="range"
+                                       x-model="total_value" min="0" max="100" step="25" list="steplist"
+                                       name="freeleech" value="{{ $torrent->free ?? '0' }}"
+                                />
+                                <datalist id="steplist">
+                                    <option>0</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                    <option>100</option>
+                                </datalist>
+                            </div>
+                            <br>
+                            <label for="fl_until">Buff Time</label>
+                            <label>
+                                <select name="fl_until" class="form-control">
+                                    <option value="">No Limit</option>
+                                    <option value="1">1 Day</option>
+                                    <option value="2">2 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="4">4 Days</option>
+                                    <option value="5">5 Days</option>
+                                    <option value="6">6 Days</option>
+                                    <option value="7">7 Days</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Save">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
