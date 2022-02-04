@@ -248,6 +248,9 @@ class UserController extends Controller
         foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
             $peer->delete();
         }
+        
+        // Remove all History records for user
+        History::where('user_id', '=', $user->id)->delete();
 
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
