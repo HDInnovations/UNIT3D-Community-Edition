@@ -265,6 +265,9 @@ class UserController extends Controller
         foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
             $peer->delete();
         }
+        
+        // Remove all History records for user
+        History::where('user_id', '=', $user->id)->delete();
 
         if ($user->delete()) {
             return \redirect()->route('staff.dashboard.index')
