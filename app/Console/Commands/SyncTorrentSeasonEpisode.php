@@ -59,7 +59,6 @@ class SyncTorrentSeasonEpisode extends Command
                 $torrent->episode_number = (int) $match['episode'];
                 $torrent->save();
             }
-
         }
 
         $this->comment('Torrent Season Episode Sync Command Complete');
