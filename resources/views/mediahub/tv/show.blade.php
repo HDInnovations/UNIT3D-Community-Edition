@@ -71,7 +71,7 @@
                                             <div class="card_footer text-center">
                                                 <a data-toggle="collapse" data-target="#{{ $season->season_number }}">
                                                     <i class="fas fa-chevron-double-down"></i> <span
-                                                            class="badge-user text-bold"> {{ $season->torrents()->count() }} Torrents Matched</span>
+                                                            class="badge-user text-bold"> {{ $season->torrents->where('season_number', '=', $season->season_number)->count() }} Torrents Matched</span>
                                                     <i class="fas fa-chevron-double-down"></i>
                                                 </a>
                                             </div>
@@ -89,7 +89,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($season->torrents->sortByDesc('created_at') as $torrent)
+                                                            @foreach($season->torrents->where('season_number', '=', $season->season_number)->sortByDesc('created_at') as $torrent)
                                                                 <tr>
                                                                     <td>
                                                                         <a href="{{ route('torrent', ['id' => $torrent->id]) }}"
