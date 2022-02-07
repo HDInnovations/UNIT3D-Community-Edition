@@ -370,15 +370,15 @@ class RequestController extends Controller
             'filled_anon' => 'required',
         ]);
 
+        if ($v->fails()) {
+            return \redirect()->route('request', ['id' => $request->input('request_id')])
+                ->withErrors($v->errors());
+        }
+
         $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent->isApproved() === false) {
             return \redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors(\trans('request.pending-moderation'));
-        }
-
-        if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors($v->errors());
         }
 
         $torrentRequest->save();
