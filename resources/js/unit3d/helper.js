@@ -49,7 +49,7 @@ class uploadExtensionBuilder {
         title = title.replace(/ (TrueHD|Atmos) (\d) (\d)/i, ' $1 $2.$3');
         // Fix Atmos
         if (!title.includes(' DD+ ')) {
-            title = title.replace(/ (TrueHD ?)?Atmos (\d)([ .])(\d)/i, 'TrueHD $2.$4 Atmos');
+            title = title.replace(/ (TrueHD ?)?Atmos (\d)([ .])(\d)/i, ' TrueHD $2.$4 Atmos');
         }
         title = title.replace(/ +DTSMA /i, ' DTS-HD MA ');
         // Fix for parenthesis around year.
