@@ -39,7 +39,7 @@
         "spatie/laravel-cookie-consent": "^3.0",
         "spatie/laravel-image-optimizer": "^1.6",
         "spatie/ssl-certificate": "^1.12",
-        "symfony/dom-crawler": "^2.7|^3.0",
+        "symfony/dom-crawler": "^6.0",
         "theodorejb/polycast": "^1.0",
         "voku/anti-xss": "^4.1",
         "vstelmakh/url-highlight": "^3.0",
