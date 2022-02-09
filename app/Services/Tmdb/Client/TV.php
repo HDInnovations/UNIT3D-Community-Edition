@@ -89,6 +89,11 @@ class TV
         return $this->data['id'];
     }
 
+    public function get_imdb_id()
+    {
+        return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
+    }
+
     public function get_in_production()
     {
         return $this->data['in_production'];
