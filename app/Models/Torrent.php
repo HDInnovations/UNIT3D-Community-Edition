@@ -23,28 +23,13 @@ use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 use voku\helper\AntiXSS;
 
 class Torrent extends Model
 {
     use HasFactory;
     use Moderatable;
-    use Sortable;
     use Auditable;
-
-    /**
-     * The Columns That Are Sortable.
-     */
-    public array $sortable = [
-        'id',
-        'name',
-        'size',
-        'seeders',
-        'leechers',
-        'times_completed',
-        'created_at',
-    ];
 
     /**
      * Belongs To A User.

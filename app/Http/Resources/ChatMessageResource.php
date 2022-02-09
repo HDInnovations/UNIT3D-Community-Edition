@@ -13,7 +13,7 @@
 
 namespace App\Http\Resources;
 
-use andkab\LaravelJoyPixels\LaravelJoyPixels;
+use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use App\Helpers\Bbcode;
 use Illuminate\Http\Resources\Json\JsonResource;
 

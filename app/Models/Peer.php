@@ -15,25 +15,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class Peer extends Model
 {
     use HasFactory;
-    use Sortable;
-
-    /**
-     * The Columns That Are Sortable.
-     */
-    public array $sortable = [
-        'id',
-        'agent',
-        'uploaded',
-        'downloaded',
-        'left',
-        'seeder',
-        'created_at',
-    ];
 
     /**
      * Belongs To A User.

@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use andkab\LaravelJoyPixels\LaravelJoyPixels;
+use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
 use App\Helpers\Linkify;

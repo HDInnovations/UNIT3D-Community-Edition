@@ -107,14 +107,14 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({})
       })
     </script>
 
     @if (isset($trailer))
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
           $('.show-trailer').each(function () {
             $(this).off('click')
             $(this).on('click', function (e) {

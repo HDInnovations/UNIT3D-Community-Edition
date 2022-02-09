@@ -52,7 +52,7 @@
 </form>
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
 
       let options = parseInt({{ $poll->options->count() }}) // Get the size of options passing in
       const langOption = "{{ __('poll.option') }} "

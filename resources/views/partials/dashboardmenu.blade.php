@@ -209,13 +209,6 @@
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ __('staff.user-notes') }}
                 </a>
             </li>
-            @if (auth()->user()->group->is_owner)
-                <li>
-                    <a href="/staff/log-viewer">
-                        <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ __('staff.laravel-log') }}
-                    </a>
-                </li>
-            @endif
             <li>
                 <a href="{{ route('staff.reports.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ __('staff.reports-log') }}

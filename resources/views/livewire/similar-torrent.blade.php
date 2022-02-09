@@ -353,7 +353,7 @@
 
 @section('javascripts')
     @if ($user->group->is_modo)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
           window.addEventListener('swal:modal', event => {
             Swal.fire({
               title: event.detail.message,

@@ -898,7 +898,7 @@
     </div>
 </div>
 
-<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
   document.addEventListener('livewire:load', function () {
     let myOptions = [
             @foreach($regions as $region)
