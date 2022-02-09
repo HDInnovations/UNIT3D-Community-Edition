@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23eb05da08c2fddcfb2d1fd0cbfad885",
+    "content-hash": "e480301e042ce888f9800acca025c472",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -1679,16 +1679,16 @@
         },
         {
             "name": "hdvinnie/laravel-security-headers",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/HDVinnie/laravel-security-headers.git",
-                "reference": "6e547c94ff2e80ed22fea792cfeefc54f8ce6ca2"
+                "reference": "6003ed2a609eef307794de03132b43750f1ce209"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/HDVinnie/laravel-security-headers/zipball/6e547c94ff2e80ed22fea792cfeefc54f8ce6ca2",
-                "reference": "6e547c94ff2e80ed22fea792cfeefc54f8ce6ca2",
+                "url": "https://api.github.com/repos/HDVinnie/laravel-security-headers/zipball/6003ed2a609eef307794de03132b43750f1ce209",
+                "reference": "6003ed2a609eef307794de03132b43750f1ce209",
                 "shasum": ""
             },
             "require": {
@@ -1750,9 +1750,9 @@
             ],
             "support": {
                 "issues": "https://github.com/HDVinnie/laravel-security-headers/issues",
-                "source": "https://github.com/HDVinnie/laravel-security-headers/tree/v1.0.0"
+                "source": "https://github.com/HDVinnie/laravel-security-headers/tree/v1.0.1"
             },
-            "time": "2022-02-09T04:26:32+00:00"
+            "time": "2022-02-09T04:56:20+00:00"
         },
         {
             "name": "hootlex/laravel-moderation",
@@ -10353,7 +10353,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
