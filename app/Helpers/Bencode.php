@@ -211,12 +211,12 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function get_infohash($t)
+    public static function get_infohash($t): string
     {
         return \sha1(self::bencode($t['info']));
     }
 
-    public static function get_meta($t)
+    public static function get_meta($t): array
     {
         $result = [];
         $size = 0;
@@ -239,5 +239,10 @@ class Bencode
         $result['size'] = $size;
 
         return $result;
+    }
+
+    public static function is_v2_or_hybrid($t): bool
+    {
+        return isset($t['piece layers']);
     }
 }

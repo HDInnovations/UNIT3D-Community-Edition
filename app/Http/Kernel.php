@@ -34,7 +34,7 @@ class Kernel extends HttpKernel
         \Fruitcake\Cors\HandleCors::class,
 
         // Extra
-        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
+        \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
         \App\Http\Middleware\Http2ServerPush::class,
     ];
 

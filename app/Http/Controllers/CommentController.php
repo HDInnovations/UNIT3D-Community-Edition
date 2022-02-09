@@ -55,26 +55,22 @@ class CommentController extends Controller
 
     /**
      * Add A Comment To A Collection.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function collection(Request $request, $id)
+    public function collection(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $collection = Collection::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('collection-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('collection.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('collection-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('collection.show', ['id' => $collection->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -154,31 +150,27 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
+                ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Article.
-     *
-     * @param \App\Models\Article $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $id)
+    public function article(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('article-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('articles.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('article-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('articles.show', ['id' => $article->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -256,31 +248,27 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('articles.show', ['id' => $article->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Playlist.
-     *
-     * @param \App\Models\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function playlist(Request $request, $id)
+    public function playlist(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $playlist = Playlist::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('playlist-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('playlists.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('playlist-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -358,31 +346,27 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Torrent.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -465,31 +449,27 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $tr = TorrentRequest::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('request-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('request', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('request-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('request', ['id' => $tr->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -572,24 +552,20 @@ class CommentController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function ticket(Request $request, $id)
+    public function ticket(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('ticket-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('tickets.show', ['id' => $id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('ticket-comment:'.$user->id);
@@ -624,31 +600,27 @@ class CommentController extends Controller
         $ticket->save();
 
         return \redirect()->route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(Request $request, $id)
+    public function quickthanks(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Slow Down - Too Many Comments!');
+                ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
             return \redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Been Revoked!');
+                ->withErrors(\trans('comment.rights-revoked'));
         }
 
         $comment = new Comment();
@@ -717,17 +689,13 @@ class CommentController extends Controller
         );
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
-            ->withSuccess('Your Comment Has Been Added!');
+            ->withSuccess(\trans('comment.added'));
     }
 
     /**
      * Edit A Comment.
-     *
-     * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editComment(Request $request, $commentId)
+    public function editComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
@@ -746,17 +714,13 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Edited.');
+        return \redirect()->back()->withSuccess(\trans('comment.edited'));
     }
 
     /**
      * Delete A Comment.
-     *
-     * @param $commentId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $commentId)
+    public function deleteComment(Request $request, int $commentId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
@@ -764,6 +728,6 @@ class CommentController extends Controller
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return \redirect()->back()->withSuccess('Comment Has Been Deleted.');
+        return \redirect()->back()->withSuccess(\trans('comment.deleted'));
     }
 }

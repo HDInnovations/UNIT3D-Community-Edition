@@ -13,10 +13,8 @@
 if (! function_exists('language')) {
     /**
      * Get the language instance.
-     *
-     * @return App\Models\Language
      */
-    function language()
+    function language(): App\Models\Language
     {
         return app('language');
     }

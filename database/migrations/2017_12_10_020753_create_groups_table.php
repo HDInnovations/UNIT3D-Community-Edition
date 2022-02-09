@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateGroupsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->integer('id', true);
@@ -39,4 +36,4 @@ class CreateGroupsTable extends Migration
             $table->boolean('autogroup')->default(0);
         });
     }
-}
+};

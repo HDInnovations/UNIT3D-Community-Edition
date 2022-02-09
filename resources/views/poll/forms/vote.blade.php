@@ -34,10 +34,10 @@
 
     <div class="poll form-group">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">@lang('poll.vote')</button>
+            <button type="submit" class="btn btn-primary">{{ __('poll.vote') }}</button>
             <a class="btn btn-success" href="{{ route('poll_results', ['id' => $poll->id]) }}" role="button"><i
                         class="{{ config('other.font-awesome') }} fa-bar-chart"
-                        aria-hidden="true"> @lang('poll.results')</i></a>
+                        aria-hidden="true"> {{ __('poll.results') }}</i></a>
         </div>
     </div>
 </form>

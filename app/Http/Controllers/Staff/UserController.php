@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
+use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Invite;
@@ -57,10 +58,8 @@ class UserController extends Controller
 
     /**
      * User Edit Form.
-     *
-     * @param \App\Models\User $username
      */
-    public function settings($username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -77,12 +76,8 @@ class UserController extends Controller
 
     /**
      * Edit A User.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $username)
+    public function edit(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -132,12 +127,8 @@ class UserController extends Controller
 
     /**
      * Edit A Users Permissions.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function permissions(Request $request, $username)
+    public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->can_upload = $request->input('can_upload');
@@ -154,12 +145,8 @@ class UserController extends Controller
 
     /**
      * Edit A Users Password.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function password(Request $request, $username)
+    protected function password(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $user->password = Hash::make($request->input('new_password'));
@@ -171,12 +158,8 @@ class UserController extends Controller
 
     /**
      * Delete A User.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function destroy($username)
+    protected function destroy(string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -266,6 +249,14 @@ class UserController extends Controller
             $peer->delete();
         }
 
+        // Remove all History records for user
+        History::where('user_id', '=', $user->id)->delete();
+
+        // Removes all FL Tokens for user
+        foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
+            $token->delete();
+        }
+
         if ($user->delete()) {
             return \redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
@@ -277,12 +268,8 @@ class UserController extends Controller
 
     /**
      * Manually warn a user.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function warnUser(Request $request, $username)
+    protected function warnUser(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $carbon = new Carbon();

@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTypesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('types', function (Blueprint $table) {
             $table->integer('id', true);
@@ -30,4 +27,4 @@ class CreateTypesTable extends Migration
             $table->integer('position');
         });
     }
-}
+};

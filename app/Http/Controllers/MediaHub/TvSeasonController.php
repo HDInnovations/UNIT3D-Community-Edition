@@ -20,24 +20,12 @@ use App\Models\Tv;
 class TvSeasonController extends Controller
 {
     /**
-     * Display All TV Seasons.
-     *
-     * @return void
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show A TV Season.
-     *
-     * @param $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $season = Season::with(['episodes'])->findOrFail($id);
-        $show = Tv::whereId($season->tv_id)->first();
+        $season = Season::with(['episodes', 'torrents'])->findOrFail($id);
+        $show = Tv::where('id', '=', $season->tv_id)->first();
 
         return \view('mediahub.tv.season.show', [
             'season' => $season,

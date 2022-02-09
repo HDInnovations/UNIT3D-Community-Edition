@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserActivationsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('user_activations', function (Blueprint $table) {
             $table->bigInteger('id', true)->unsigned();
@@ -30,4 +27,4 @@ class CreateUserActivationsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

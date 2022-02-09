@@ -22,21 +22,15 @@ class NotifyStaffCommentWasCreated
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Handle the event.
-     *
-     *
-     * @return void
      */
-    public function handle(CommentCreated $event)
+    public function handle(CommentCreated $event): void
     {
         $staff = User::where(['is_modo' => 1])->limit(1)->get();
         Notification::send($staff, new StaffCommentCreated($event->comment));

@@ -32,12 +32,8 @@ class GraveyardController extends Controller
 
     /**
      * Resurrect A Torrent.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
@@ -45,12 +41,12 @@ class GraveyardController extends Controller
 
         if ($resurrected) {
             return \redirect()->route('graveyard.index')
-                ->withErrors('Torrent Resurrection Failed! This torrent is already pending a resurrection.');
+                ->withErrors(\trans('graveyard.resurrect-failed-pending'));
         }
 
         if ($user->id === $torrent->user_id) {
             return \redirect()->route('graveyard.index')
-                ->withErrors('Torrent Resurrection Failed! You cannot resurrect your own uploads.');
+                ->withErrors(\trans('graveyard.resurrect-failed-own'));
         }
 
         $graveyard = new Graveyard();
@@ -72,19 +68,16 @@ class GraveyardController extends Controller
         $graveyard->save();
 
         return \redirect()->route('graveyard.index')
-            ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
+            ->withSuccess(\trans('graveyard.resurrect-complete'));
     }
 
     /**
      * Cancel A Ressurection.
      *
-     * @param int $id
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);
@@ -93,6 +86,6 @@ class GraveyardController extends Controller
         $resurrection->delete();
 
         return \redirect()->route('graveyard.index')
-            ->withSuccess('Resurrection Successfully Canceled!');
+            ->withSuccess(\trans('graveyard.resurrect-canceled'));
     }
 }

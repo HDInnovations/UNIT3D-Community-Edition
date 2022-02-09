@@ -4,7 +4,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -12,25 +11,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class LikeFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Like::class;
-
-    /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'     => fn () => User::factory()->create()->id,
             'post_id'     => fn () => Post::factory()->create()->id,
             'subtitle_id' => $this->faker->randomNumber(),
-            'like'        => $this->faker->boolean,
-            'dislike'     => $this->faker->boolean,
+            'like'        => $this->faker->boolean(),
+            'dislike'     => $this->faker->boolean(),
         ];
     }
 }

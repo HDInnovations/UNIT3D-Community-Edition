@@ -9,12 +9,12 @@
         @else
             <div data-alert class="alert-box {{ $message['level'] }} {{ $styleClass ?? '' }}">
                 @if (is_a($message['message'], 'Illuminate\Support\MessageBag'))
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                <ul>
-                    @foreach ($message['message']->all('<li>:message</li>') as $error)
-                        {!! $error !!}
-                    @endforeach
-                </ul>
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($message['message']->all('<li>:message</li>') as $error)
+                            {!! $error !!}
+                        @endforeach
+                    </ul>
                 @else
                     @if ( isset($message['title']) )
                         <strong>{!! $message['title'] !!}</strong>

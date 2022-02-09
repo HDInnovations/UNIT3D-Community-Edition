@@ -26,18 +26,14 @@ class FollowController extends Controller
 {
     /**
      * Follow A User.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $username)
+    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
         if ($request->user()->id == $user->id) {
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('Nice try, but sadly you can not follow yourself.');
+                ->withErrors(\trans('user.follow-yourself'));
         }
 
         if (! $request->user()->isFollowing($user->id)) {
@@ -50,21 +46,17 @@ class FollowController extends Controller
             }
 
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(\sprintf('You are now following %s', $user->username));
+                ->withSuccess(\sprintf(\trans('user.follow-user'), $user->username));
         }
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withErrors('You are already following this user');
+            ->withErrors(\trans('user.follow-already'));
     }
 
     /**
      * Un Follow A User.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $username)
+    public function destroy(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -76,10 +68,10 @@ class FollowController extends Controller
             }
 
             return \redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(\sprintf('You are no longer following %s', $user->username));
+                ->withSuccess(\sprintf(\trans('user.follow-revoked'), $user->username));
         }
 
         return \redirect()->route('users.show', ['username' => $user->username])
-            ->withErrors('You are not following this user to begin with');
+            ->withErrors(\trans('user.follow-not-to-begin-with'));
     }
 }

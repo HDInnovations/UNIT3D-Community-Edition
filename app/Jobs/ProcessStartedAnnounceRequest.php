@@ -33,8 +33,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
 
     /**
      * ProcessStartedAnnounceRequest Constructor.
-     *
-     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
@@ -42,26 +40,22 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
 
     /**
      * Get the middleware the job should pass through.
-     *
-     * @return array
      */
-    public function middleware()
+    public function middleware(): array
     {
         return [new WithoutOverlapping($this->user->id.'.'.$this->queries['info_hash'])];
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $this->queries['peer_id'])
-            ->where('user_id', '=', $this->user->id)
-            ->first();
+                ->where('peer_id', $this->queries['peer_id'])
+                ->where('user_id', '=', $this->user->id)
+                ->first();
 
         // Creates a new peer if not existing
         if ($peer === null) {
@@ -73,7 +67,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+        $history = History::where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -81,6 +75,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         if ($history === null) {
             $history = new History();
             $history->user_id = $this->user->id;
+            $history->torrent_id = $this->torrent->id;
             $history->info_hash = $this->queries['info_hash'];
         }
 

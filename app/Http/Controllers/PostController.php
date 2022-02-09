@@ -46,12 +46,8 @@ class PostController extends Controller
 
     /**
      * Store A New Post To A Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, $id)
+    public function reply(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -61,7 +57,7 @@ class PostController extends Controller
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
             return \redirect()->route('forums.index')
-                ->withErrors('You Cannot Reply To This Topic!');
+                ->withErrors(\trans('forum.reply-topic-error'));
         }
 
         $post = new Post();
@@ -164,16 +160,13 @@ class PostController extends Controller
         $user->addProgress(new UserMade900Posts(), 1);
 
         return \redirect()->to($realUrl)
-            ->withSuccess('Post Successfully Posted');
+            ->withSuccess(\trans('forum.reply-topic-success'));
     }
 
     /**
      * Edit Post Form.
-     *
-     * @param \App\Models\Topic $id
-     * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function postEditForm(int $id, int $postId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -190,12 +183,8 @@ class PostController extends Controller
 
     /**
      * Edit A Post In A Topic.
-     *
-     * @param \App\Models\Post $postId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postEdit(Request $request, $postId)
+    public function postEdit(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
@@ -206,19 +195,15 @@ class PostController extends Controller
         $post->save();
 
         return \redirect()->to($postUrl)
-            ->withSuccess('Post Successfully Edited!');
+            ->withSuccess(\trans('forum.edit-post-success'));
     }
 
     /**
      * Delete A Post.
      *
-     * @param \App\Models\Post $postId
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postDelete(Request $request, $postId)
+    public function postDelete(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
@@ -227,6 +212,6 @@ class PostController extends Controller
         $post->delete();
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])
-            ->withSuccess('This Post Is Now Deleted!');
+            ->withSuccess(\trans('forum.delete-post-success'));
     }
 }

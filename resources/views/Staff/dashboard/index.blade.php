@@ -1,36 +1,26 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>{{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('staff.staff-dashboard')">
+    <meta name="description" content="{{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container-fluid">
-        <div class="box">
-            <div class="header gradient pink">
-                <div class="inner_content">
-                    <h1>@lang('staff.staff-dashboard')</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="container-fluid">
         <div class="row">
             @include('partials.dashboardmenu')
-    
+
             <div class="col-sm-5 col-lg-5">
                 <div class="block" id="vue">
                     <div class="panel-body">
@@ -43,7 +33,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
@@ -74,7 +64,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -83,7 +73,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -95,7 +85,7 @@
                                     <i class="fal fa-magnet black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Peers</h1>
@@ -106,7 +96,7 @@
                                     <i class="fal fa-wifi black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Users</h1>
@@ -118,11 +108,11 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -131,7 +121,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
@@ -142,7 +132,7 @@
                                     <i class="fal fa-desktop black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">PHP</h1>
@@ -152,7 +142,7 @@
                                     <i class="fal fa-terminal black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DATABASE</h1>
@@ -162,7 +152,7 @@
                                     <i class="fal fa-database black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LARAVEL</h1>
@@ -173,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -185,7 +175,7 @@
                                     <i class="fal fa-memory black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DISK</h1>
@@ -196,7 +186,7 @@
                                     <i class="fal fa-hdd black-icon text-green"></i>
                                 </div>
                             </div>
-    
+
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LOAD</h1>
@@ -207,11 +197,11 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-    
+
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -220,42 +210,42 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-    
+
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th width="80%">Directory</th>
-                                    <th>Current</th>
-                                    <th>Recommended</th>
-                                </tr>
+                            <tr>
+                                <th width="80%">Directory</th>
+                                <th>Current</th>
+                                <th>Recommended</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($file_permissions as $permission)
-                                    <tr>
-                                        <td>{{ $permission['directory'] }}</td>
-                                        <td>
-                                            @if ($permission['permission'] == $permission['recommended'])
-                                                <span class="bold text-success">
+                            @foreach ($file_permissions as $permission)
+                                <tr>
+                                    <td>{{ $permission['directory'] }}</td>
+                                    <td>
+                                        @if ($permission['permission'] == $permission['recommended'])
+                                            <span class="bold text-success">
                                                     <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
                                                     {{ $permission['permission'] }}
                                                 </span>
-                                            @else
-                                                <span class="bold text-danger">
+                                        @else
+                                            <span class="bold text-danger">
                                                     <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
                                                     {{ $permission['permission'] }}
                                                 </span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $permission['recommended'] }}</td>
-                                    </tr>
-                                @endforeach
+                                        @endif
+                                    </td>
+                                    <td>{{ $permission['recommended'] }}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
-    
+
                     </div>
                 </div>
             </div>
-    
+
         </div>
     </div>
 @endsection

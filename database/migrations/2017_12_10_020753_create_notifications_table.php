@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNotificationsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->char('id', 36)->primary();
@@ -34,4 +31,4 @@ class CreateNotificationsTable extends Migration
             $table->index(['notifiable_id', 'notifiable_type']);
         });
     }
-}
+};

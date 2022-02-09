@@ -17,31 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Like.
- *
- * @property int                             $id
- * @property int                             $user_id
- * @property int                             $post_id
- * @property int|null                        $like
- * @property int|null                        $dislike
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Post $post
- * @property-read \App\Models\User $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereDislike($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereLike($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like wherePostId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereUserId($value)
- * @mixin \Eloquent
- */
 class Like extends Model
 {
     use HasFactory;
@@ -49,10 +24,8 @@ class Like extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -62,10 +35,8 @@ class Like extends Model
 
     /**
      * Belongs To A Post.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function post()
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Post::class);
     }

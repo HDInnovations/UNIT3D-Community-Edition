@@ -19,10 +19,8 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call([
             GroupsTableSeeder::class,
@@ -42,6 +40,8 @@ class DatabaseSeeder extends Seeder
             ResolutionsTableSeeder::class,
             TicketCategoriesTableSeeder::class,
             TicketPrioritiesTableSeeder::class,
+            DistributorsTableSeeder::class,
+            RegionsTableSeeder::class,
         ]);
     }
 }

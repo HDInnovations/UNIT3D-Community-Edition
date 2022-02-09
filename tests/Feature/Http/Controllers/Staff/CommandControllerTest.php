@@ -17,7 +17,7 @@ class CommandControllerTest extends TestCase
         parent::setUp();
     }
 
-    protected function createStaffUser()
+    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([
@@ -31,7 +31,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function clear_all_cache_returns_an_ok_response()
+    public function clear_all_cache_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -45,7 +45,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function clear_cache_returns_an_ok_response()
+    public function clear_cache_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -59,7 +59,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function clear_config_returns_an_ok_response()
+    public function clear_config_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -73,7 +73,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function clear_route_returns_an_ok_response()
+    public function clear_route_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -87,7 +87,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function clear_view_returns_an_ok_response()
+    public function clear_view_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -101,7 +101,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function index_returns_an_ok_response()
+    public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -116,7 +116,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function maintance_disable_returns_an_ok_response()
+    public function maintance_disable_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -130,7 +130,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function set_all_cache_returns_an_ok_response()
+    public function set_all_cache_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 
@@ -144,7 +144,7 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_email_returns_an_ok_response()
+    public function test_email_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
 

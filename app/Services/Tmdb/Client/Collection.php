@@ -15,10 +15,7 @@ namespace App\Services\Tmdb\Client;
 
 class Collection
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
 
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
@@ -68,7 +65,7 @@ class Collection
         return $this->data['id'];
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -77,7 +74,7 @@ class Collection
         return null;
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];

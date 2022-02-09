@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateForumsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->integer('id', true);
@@ -40,4 +37,4 @@ class CreateForumsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

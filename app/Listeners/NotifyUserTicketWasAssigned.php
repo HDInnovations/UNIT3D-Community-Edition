@@ -19,22 +19,15 @@ class NotifyUserTicketWasAssigned
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Handle the event.
-     *
-     *
-     * @return void
      */
-    public function handle(TicketAssigned $event)
+    public function handle(TicketAssigned $event): void
     {
-        //
     }
 }

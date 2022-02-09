@@ -20,33 +20,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
-/**
- * App\Models\Post.
- *
- * @property int                             $id
- * @property string                          $content
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int                             $user_id
- * @property int                             $topic_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
- * @property-read int|null $likes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
- * @property-read int|null $tips_count
- * @property-read \App\Models\Topic $topic
- * @property-read \App\Models\User $user
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereTopicId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
- * @mixin \Eloquent
- */
 class Post extends Model
 {
     use HasFactory;
@@ -54,20 +27,16 @@ class Post extends Model
 
     /**
      * Belongs To A Topic.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -77,69 +46,50 @@ class Post extends Model
 
     /**
      * A Post Has Many Likes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes()
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('like', '=', 1);
     }
 
     /**
      * A Post Has Many Dislikes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function dislikes()
+    public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class)->where('dislike', '=', 1);
     }
 
     /**
      * A Post Has Many Tips.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tips()
+    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BonTransactions::class);
     }
 
     /**
      * Set The Posts Content After Its Been Purified.
-     *
-     * @param string $value
-     *
-     * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
      * Parse Content And Return Valid HTML.
-     *
-     * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $linkify->linky($bbcode->parse($this->content, true));
+        return (new Linkify())->linky($bbcode->parse($this->content, true));
     }
 
     /**
-     * Post Trimming.
-     *
-     * @param int  $length
-     * @param bool $ellipses
-     * @param bool $stripHtml
-     *
-     * @return string Formatted And Trimmed Content
+     * Post Trimming.t.
      */
-    public function getBrief($length = 100, $ellipses = true, $stripHtml = false)
+    public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
         //strip tags, if desired
@@ -166,20 +116,16 @@ class Post extends Model
 
     /**
      * Get A Post From A ID.
-     *
-     * @return string
      */
-    public function getPostNumber()
+    public function getPostNumber(): string
     {
         return $this->topic->postNumberFromId($this->id);
     }
 
     /**
      * Get A Posts Page Number.
-     *
-     * @return string
      */
-    public function getPageNumber()
+    public function getPageNumber(): float
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
 

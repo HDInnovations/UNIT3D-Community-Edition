@@ -28,9 +28,6 @@ class CommentCreated
 
     /**
      * Create a new event instance.
-     *
-     *
-     * @return mixed
      */
     public function __construct(public Comment $comment, public User $user)
     {
@@ -39,7 +36,7 @@ class CommentCreated
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\Channel|array
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('channel-name');
     }

@@ -21,9 +21,9 @@ class AttachmentUpload extends Component
 {
     use WithFileUploads;
 
-    public $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    public $ticket;
+    public ?int $ticket = null;
 
     public $attachment;
 

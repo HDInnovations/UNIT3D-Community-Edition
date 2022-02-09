@@ -13,14 +13,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateHistoryTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('history', function (Blueprint $table) {
             $table->increments('id');
@@ -40,4 +37,4 @@ class CreateHistoryTable extends Migration
             $table->dateTime('completed_at')->nullable();
         });
     }
-}
+};

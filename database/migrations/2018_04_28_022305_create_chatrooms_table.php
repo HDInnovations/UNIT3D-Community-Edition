@@ -15,14 +15,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChatroomsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('chatrooms', function (Blueprint $table) {
             $table->increments('id');
@@ -30,4 +27,4 @@ class CreateChatroomsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

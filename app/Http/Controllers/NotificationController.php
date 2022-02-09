@@ -34,12 +34,9 @@ class NotificationController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     *
      * @throws \Throwable
-     *
-     * @return array
      */
-    public function faceted(Request $request)
+    public function faceted(Request $request): string
     {
         $user = $request->user();
 
@@ -131,90 +128,72 @@ class NotificationController extends Controller
 
     /**
      * Show A Notification And Mark As Read.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
         return \redirect()->to($notification->data['url'])
-            ->withSuccess('Notification Marked As Read!');
+            ->withSuccess(\trans('notification.marked-read'));
     }
 
     /**
      * Set A Notification To Read.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
         if (! $notification) {
             return \redirect()->route('notifications.index')
-                ->withErrors('Notification Does Not Exist!');
+                ->withErrors(\trans('notification.not-existent'));
         }
 
         if ($notification->read_at != null) {
             return \redirect()->route('notifications.index')
-                ->withErrors('Notification Already Marked As Read!');
+                ->withErrors(\trans('notification.already-marked-read'));
         }
 
         $notification->markAsRead();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('Notification Marked As Read!');
+            ->withSuccess(\trans('notification.marked-read'));
     }
 
     /**
      * Mass Update All Notification's To Read.
      *
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateAll(Request $request)
+    public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('All Notifications Marked As Read!');
+            ->withSuccess(\trans('notification.all-marked-read'));
     }
 
     /**
      * Delete A Notification.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('Notification Deleted!');
+            ->withSuccess(\trans('notification.deleted'));
     }
 
     /**
      * Mass Delete All Notification's.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroyAll(Request $request)
+    public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->delete();
 
         return \redirect()->route('notifications.index')
-            ->withSuccess('All Notifications Deleted!');
+            ->withSuccess(\trans('notification.all-deleted'));
     }
 }

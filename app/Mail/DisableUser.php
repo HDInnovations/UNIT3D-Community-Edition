@@ -24,8 +24,6 @@ class DisableUser extends Mailable
 
     /**
      * DisableUser Constructor.
-     *
-     * @param $email
      */
     public function __construct(public $email)
     {
@@ -33,10 +31,8 @@ class DisableUser extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->markdown('emails.disabled')
             ->subject('Your Account Has Been Disabled - '.\config('other.title'));

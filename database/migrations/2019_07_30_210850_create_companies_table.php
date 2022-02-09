@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompaniesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -23,4 +20,4 @@ class CreateCompaniesTable extends Migration
             $table->string('origin_country')->nullable();
         });
     }
-}
+};

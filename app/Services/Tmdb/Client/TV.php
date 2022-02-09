@@ -15,10 +15,7 @@ namespace App\Services\Tmdb\Client;
 
 class TV
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
 
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
@@ -53,7 +50,7 @@ class TV
         return $this->data;
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -90,6 +87,11 @@ class TV
     public function get_id()
     {
         return $this->data['id'];
+    }
+
+    public function get_imdb_id()
+    {
+        return \preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
     }
 
     public function get_in_production()
@@ -152,7 +154,7 @@ class TV
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
@@ -191,7 +193,7 @@ class TV
         return $this->data['vote_count'];
     }
 
-    public function get_trailer()
+    public function get_trailer(): ?string
     {
         if (! empty($this->data['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'][0]['key'];
@@ -200,7 +202,7 @@ class TV
         return null;
     }
 
-    public function get_videos()
+    public function get_videos(): ?string
     {
         if ($this->data['videos']['results']) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'];
@@ -209,7 +211,7 @@ class TV
         return null;
     }
 
-    public function get_images()
+    public function get_images(): ?string
     {
         if ($this->data['images']['results']) {
             return 'https://www.youtube.com/embed/'.$this->data['images']['results'];

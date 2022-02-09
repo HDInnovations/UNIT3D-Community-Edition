@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
@@ -20,43 +20,44 @@
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>@lang('common.name')</th>
-                        <th>Icon</th>
-                        <th>Effect</th>
-                        <th width="15%">@lang('common.action')</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ __('common.name') }}</th>
+                    <th>Icon</th>
+                    <th>Effect</th>
+                    <th width="15%">{{ __('common.action') }}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($internals as $internal)
-                        <tr>
-                            <td>
-                                {{ $internal->id }}
-                            </td>
-                            <td>
-                                {{ $internal->name }}
-                            </td>
+                @foreach ($internals as $internal)
+                    <tr>
+                        <td>
+                            {{ $internal->id }}
+                        </td>
+                        <td>
+                            {{ $internal->name }}
+                        </td>
 
-                            <td>
-                                {{ $internal->icon }}
-                            </td>
+                        <td>
+                            {{ $internal->icon }}
+                        </td>
 
-                            <td>
-                                {{ $internal->effect }}
-                            </td>
+                        <td>
+                            {{ $internal->effect }}
+                        </td>
 
-                            <td>
-                                <form action="{{ route('staff.internals.destroy', ['id' => $internal->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('staff.internals.edit', ['id' => $internal->id]) }}"
-                                        class="btn btn-warning">@lang('common.edit')</a>
-                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                        <td>
+                            <form action="{{ route('staff.internals.destroy', ['id' => $internal->id]) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('staff.internals.edit', ['id' => $internal->id]) }}"
+                                   class="btn btn-warning">{{ __('common.edit') }}</a>
+                                <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

@@ -17,14 +17,14 @@ use Illuminate\Contracts\Validation\Rule;
 
 class BackupDisk implements Rule
 {
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $configuredBackupDisks = config('backup.backup.destination.disks');
 
         return in_array($value, $configuredBackupDisks);
     }
 
-    public function message()
+    public function message(): string
     {
         return 'Current disk is not configured as a backup disk';
     }

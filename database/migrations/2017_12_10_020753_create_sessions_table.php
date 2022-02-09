@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSessionsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->unique();
@@ -32,4 +29,4 @@ class CreateSessionsTable extends Migration
             $table->integer('last_activity');
         });
     }
-}
+};

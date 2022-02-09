@@ -21,20 +21,16 @@ class TorrentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param $request
-     *
-     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $meta = null;
 
-        if ($this->category->tv_meta && ($this->tmdb || $this->tmdb !== 0)) {
+        if ($this->category->tv_meta && ($this->tmdb !== 0)) {
             $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 
-        if ($this->category->movie_meta && ($this->tmdb || $this->tmdb !== 0)) {
+        if ($this->category->movie_meta && ($this->tmdb !== 0)) {
             $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
         }
 
@@ -50,7 +46,7 @@ class TorrentResource extends JsonResource
                 'resolution'      => $this->resolution->name ?? '',
                 'size'            => $this->size,
                 'num_file'        => $this->num_file,
-                'freeleech'       => $this->free,
+                'freeleech'       => $this->free.'%',
                 'double_upload'   => $this->doubleup,
                 'internal'        => $this->internal,
                 'uploader'        => $this->anon ? 'Anonymous' : $this->user->username,
@@ -72,13 +68,8 @@ class TorrentResource extends JsonResource
 
     /**
      * Customize the outgoing response for the resource.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Illuminate\Http\Response $response
-     *
-     * @return void
      */
-    public function withResponse($request, $response)
+    public function withResponse($request, $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }

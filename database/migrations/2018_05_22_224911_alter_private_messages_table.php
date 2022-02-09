@@ -14,17 +14,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AlterPrivateMessagesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('private_messages', function ($table) {
             $table->renameColumn('reciever_id', 'receiver_id');
         });
     }
-}
+};

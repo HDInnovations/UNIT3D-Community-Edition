@@ -47,7 +47,7 @@ class PlaylistController extends Controller
                 ->orWhere(function ($query) {
                     $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
                 });
-        })->orderBy('name', 'ASC')->paginate(24);
+        })->orderBy('name')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -62,11 +62,8 @@ class PlaylistController extends Controller
 
     /**
      * Store A New Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 
@@ -110,20 +107,18 @@ class PlaylistController extends Controller
         }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Was Created Successfully!');
+            ->withSuccess(\trans('playlist.published-success'));
     }
 
     /**
      * Show A Playlist.
-     *
-     * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
         if ($playlist->is_private) {
-            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
+            \abort_unless($playlist->user_id === \auth()->id(), 403, \trans('playlist.private-error'));
         }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
@@ -159,10 +154,8 @@ class PlaylistController extends Controller
 
     /**
      * Show Playlist Update Form.
-     *
-     * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -174,12 +167,8 @@ class PlaylistController extends Controller
 
     /**
      * Update A Playlist.
-     *
-     * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -216,37 +205,35 @@ class PlaylistController extends Controller
         $playlist->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Has Successfully Been Updated!');
+            ->withSuccess(\trans('playlist.update-success'));
     }
 
     /**
      * Delete A Playlist.
      *
-     * @param \App\Playlist $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
-        $playlist = Playlist::findOrFail($id);
+        $playlist = Playlist::with('torrents')->findOrFail($id);
 
         \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+
+        foreach ($playlist->torrents as $playlistTorrent) {
+            $playlistTorrent->delete();
+        }
 
         $playlist->delete();
 
         return \redirect()->route('playlists.index')
-            ->withSuccess('Playlist Deleted!');
+            ->withSuccess(\trans('playlist.deleted'));
     }
 
     /**
      * Download All Playlist Torrents.
-     *
-     * @param $id
      */
-    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function downloadPlaylist(int $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);
@@ -327,6 +314,6 @@ class PlaylistController extends Controller
             }
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return \redirect()->back()->withErrors(\trans('common.something-went-wrong'));
     }
 }

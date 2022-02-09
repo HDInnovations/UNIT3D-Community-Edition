@@ -27,17 +27,15 @@ class ChatStatusSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->statuses as $status) {
             ChatStatus::updateOrCreate($status);
         }
     }
 
-    private function getStatuses()
+    private function getStatuses(): array
     {
         return [
             [

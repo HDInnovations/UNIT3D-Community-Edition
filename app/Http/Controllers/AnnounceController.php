@@ -61,13 +61,9 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param \App\Models\User $passkey
-     *
      * @throws \Exception
-     *
-     * @return string
      */
-    public function index(Request $request, $passkey)
+    public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
         try {
             /**
@@ -103,7 +99,7 @@ class AnnounceController extends Controller
             /**
              * Lock Min Announce Interval.
              */
-            $this->checkMinInterval($queries, $user);
+            $this->checkMinInterval($torrent, $queries, $user);
 
             /**
              * Check User Max Connections Per Torrent.
@@ -113,7 +109,9 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            //$this->checkDownloadSlots($user);
+            if (\config('announce.slots_system.enabled')) {
+                $this->checkDownloadSlots($user);
+            }
 
             /**
              * Generate A Response For The Torrent Clent.
@@ -176,8 +174,6 @@ class AnnounceController extends Controller
 
     /**
      * Check Passkey Exist and Valid.
-     *
-     * @param $passkey
      *
      * @throws \App\Exceptions\TrackerException
      */
@@ -278,9 +274,6 @@ class AnnounceController extends Controller
     /**
      * Get User Via Validated Passkey.
      *
-     * @param $passkey
-     * @param $queries
-     *
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkUser($passkey, $queries): object
@@ -325,14 +318,12 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $infoHash
-     *
      * @throws \App\Exceptions\TrackerException
      */
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed'])
+        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
             ->first();
@@ -365,23 +356,21 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        if (! Peer::where('torrent_id', '=', $torrent->id)
-            ->where('peer_id', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->exists() && \strtolower($queries['event']) === 'completed') {
+        if (\strtolower($queries['event']) === 'completed' &&
+            ! Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->exists()) {
             throw new TrackerException(152);
         }
     }
 
     /**
-     * @param $queries
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
-    private function checkMinInterval($queries, $user): void
+    private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::where('info_hash', '=', $queries['info_hash'])
+        $prevAnnounce = Peer::where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->pluck('updated_at');
@@ -393,9 +382,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $torrent
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
     private function checkMaxConnections($torrent, $user): void
@@ -412,31 +398,23 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $user
-     *
      * @throws \App\Exceptions\TrackerException
      */
     private function checkDownloadSlots($user): void
     {
-        if (\config('announce.slots_system.enabled')) {
-            $max = $user->group->download_slots;
+        $max = $user->group->download_slots;
 
-            if ($max > 0) {
-                $count = Peer::where('user_id', '=', $user->id)
-                    ->where('seeder', '=', 0)
-                    ->count();
-                if ($count >= $max) {
-                    throw new TrackerException(164, [':max' => $max]);
-                }
+        if ($max !== null && $max >= 0) {
+            $count = Peer::where('user_id', '=', $user->id)
+                ->where('seeder', '=', 0)
+                ->count();
+            if ($count >= $max) {
+                throw new TrackerException(164, [':max' => $max]);
             }
         }
     }
 
     /**
-     * @param $queries
-     * @param $torrent
-     * @param $user
-     *
      * @throws \Exception
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
@@ -483,11 +461,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $queries
-     * @param $user
-     * @param $torrent
-     *
-     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
+     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html).
      */
     private function sendAnnounceJob($queries, $user, $torrent): void
     {
@@ -511,10 +485,7 @@ class AnnounceController extends Controller
         ];
     }
 
-    /**
-     * @param $repDict
-     */
-    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    protected function sendFinalAnnounceResponse($repDict): \Illuminate\Http\Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -522,13 +493,7 @@ class AnnounceController extends Controller
             ->withHeaders(['Pragma' => 'no-cache']);
     }
 
-    /**
-     * @param     $peers
-     * @param     $compact
-     * @param     $noPeerId
-     * @param int $filterFlag
-     */
-    private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string|array
+    private function givePeers($peers, $compact, $noPeerId, int $filterFlag = FILTER_FLAG_IPV4): string|array
     {
         if ($compact) {
             $pcomp = '';

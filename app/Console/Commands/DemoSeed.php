@@ -40,10 +40,8 @@ class DemoSeed extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -80,19 +78,25 @@ class DemoSeed extends Command
                         $year = (int) \substr($movie['release_date'], 0, 4);
                     }
 
+                    $freeleech = ['0', '25', '50', '75', '100'];
+                    $selected = \random_int(0, \count($freeleech) - 1);
+
                     Torrent::factory()->create([
-                        'user_id'       => $uid,
-                        'tmdb'          => $id,
-                        'name'          => $movie['title'].' ('.$year.')',
-                        'slug'          => Str::slug($movie['title']),
-                        'description'   => $movie['overview'],
-                        'category_id'   => 1,
-                        'type_id'       => \rand(1, 6),
-                        'resolution_id' => \rand(1, 10),
-                        'featured'      => false,
-                        'sticky'        => 0,
-                        'release_year'  => $year,
-                        'mediainfo'     => '
+                        'user_id'        => $uid,
+                        'tmdb'           => $id,
+                        'name'           => $movie['title'].' ('.$year.')',
+                        'slug'           => Str::slug($movie['title']),
+                        'description'    => $movie['overview'],
+                        'category_id'    => 1,
+                        'type_id'        => \rand(1, 6),
+                        'resolution_id'  => \rand(1, 10),
+                        'region_id'      => \rand(1, 242),
+                        'distributor_id' => \rand(1, 965),
+                        'free'           => $freeleech[$selected],
+                        'featured'       => false,
+                        'sticky'         => 0,
+                        'release_year'   => $year,
+                        'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -284,19 +288,25 @@ Menu
                         $year = (int) \substr($tv['first_air_date'], 0, 4);
                     }
 
+                    $freeleech = ['0', '25', '50', '75', '100'];
+                    $selected = \random_int(0, \count($freeleech) - 1);
+
                     Torrent::factory()->create([
-                        'user_id'       => $uid,
-                        'tmdb'          => $id,
-                        'name'          => $tv['name'].' ('.$year.')',
-                        'slug'          => Str::slug($tv['name']),
-                        'description'   => $tv['overview'],
-                        'category_id'   => 2,
-                        'type_id'       => \rand(1, 6),
-                        'resolution_id' => \rand(1, 10),
-                        'featured'      => false,
-                        'sticky'        => 0,
-                        'release_year'  => $year,
-                        'mediainfo'     => '
+                        'user_id'        => $uid,
+                        'tmdb'           => $id,
+                        'name'           => $tv['name'].' ('.$year.')',
+                        'slug'           => Str::slug($tv['name']),
+                        'description'    => $tv['overview'],
+                        'category_id'    => 2,
+                        'type_id'        => \rand(1, 6),
+                        'resolution_id'  => \rand(1, 10),
+                        'region_id'      => \rand(1, 242),
+                        'distributor_id' => \rand(1, 965),
+                        'free'           => $freeleech[$selected],
+                        'featured'       => false,
+                        'sticky'         => 0,
+                        'release_year'   => $year,
+                        'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -488,7 +498,7 @@ Menu
         return (new TV($id))->getData();
     }
 
-    private function movie_ids()
+    private function movie_ids(): array
     {
         return [
             '15283',
@@ -594,7 +604,7 @@ Menu
         ];
     }
 
-    private function tv_ids()
+    private function tv_ids(): array
     {
         return [
             '119815',

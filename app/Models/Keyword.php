@@ -26,10 +26,8 @@ class Keyword extends Model
 
     /**
      * Belongs To Many Torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Torrent::class);
     }

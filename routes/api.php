@@ -31,7 +31,7 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 // Torrents System
-Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents'], function () {
+Route::group(['middleware' => ['auth:api', 'banned'], 'prefix' => 'torrents'], function () {
     Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('torrents.index');
     Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
     Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');

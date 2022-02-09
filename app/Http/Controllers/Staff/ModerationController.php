@@ -53,12 +53,8 @@ class ModerationController extends Controller
 
     /**
      * Approve A Torrent.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve($id)
+    public function approve(int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->first();
 
@@ -91,11 +87,8 @@ class ModerationController extends Controller
 
     /**
      * Postpone A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postpone(Request $request)
+    public function postpone(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
@@ -128,11 +121,8 @@ class ModerationController extends Controller
 
     /**
      * Reject A Torrent.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request)
+    public function reject(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',

@@ -14,17 +14,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AlterPeersTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('peers', function ($table) {
             $table->renameColumn('hash', 'info_hash');
         });
     }
-}
+};

@@ -42,17 +42,15 @@ class AutoDisableInactiveUsers extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('pruning.user_pruning') == true) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 
-            $matches = User::whereIn('group_id', \config('pruning.group_ids'))->get();
+            $matches = User::whereIntegerInRaw('group_id', \config('pruning.group_ids'))->get();
 
             $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())
                 ->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())

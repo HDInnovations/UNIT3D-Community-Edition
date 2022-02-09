@@ -17,28 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Resolution.
- *
- * @property int    $id
- * @property string $name
- * @property string $slug
- * @property int    $position
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution wherePosition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution whereSlug($value)
- * @mixin \Eloquent
- *
- * @property-read int|null $requests_count
- * @property-read int|null $torrents_count
- */
 class Resolution extends Model
 {
     use HasFactory;
@@ -53,20 +31,16 @@ class Resolution extends Model
 
     /**
      * Has Many Torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class);
     }
 
     /**
      * Has Many Torrent Requests.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requests()
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }

@@ -36,10 +36,8 @@ class EmailBlacklistUpdate extends Command
      * Execute the console command.
      *
      * @throws \JsonException
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $count = EmailBlacklistUpdater::update();
 

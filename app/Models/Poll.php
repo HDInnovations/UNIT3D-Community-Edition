@@ -18,34 +18,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-/**
- * App\Models\Poll.
- *
- * @property int                             $id
- * @property int                             $user_id
- * @property string                          $title
- * @property string                          $slug
- * @property int                             $multiple_choice
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $options
- * @property-read int|null $options_count
- * @property-read \App\Models\User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Voter[] $voters
- * @property-read int|null $voters_count
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereMultipleChoice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUserId($value)
- * @mixin \Eloquent
- */
 class Poll extends Model
 {
     use HasFactory;
@@ -64,10 +36,8 @@ class Poll extends Model
 
     /**
      * Belongs To A User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -77,44 +47,32 @@ class Poll extends Model
 
     /**
      * A Poll Has Many Options.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function options()
+    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Option::class);
     }
 
     /**
      * A Poll Has Many Voters.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function voters()
+    public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Voter::class);
     }
 
     /**
      * Set The Poll's Title.
-     *
-     * @param $title
-     *
-     * @return string
      */
-    public function setTitleAttribute($title)
+    public function setTitleAttribute($title): string
     {
         return $this->attributes['title'] = $title;
     }
 
     /**
      * Create A Poll Title Slug.
-     *
-     * @param $title
-     *
-     * @return string
      */
-    public function makeSlugFromTitle($title)
+    public function makeSlugFromTitle($title): string
     {
         $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', '%'.$slug.'%')->count();
@@ -124,10 +82,8 @@ class Poll extends Model
 
     /**
      * Get Total Votes On A Poll Option.
-     *
-     * @return string
      */
-    public function totalVotes()
+    public function totalVotes(): int
     {
         $result = 0;
         foreach ($this->options as $option) {
@@ -137,7 +93,7 @@ class Poll extends Model
         return $result;
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
         self::creating(function ($poll) {

@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
+    <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('seedtime') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-seedtime')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.top-seedtime') }}</span>
         </a>
     </li>
 @endsection
@@ -22,18 +22,20 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>@lang('stat.top-seedtime')</h2>
+            <h2>{{ __('stat.top-seedtime') }}</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-purple"><strong><i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('stat.top-seedtime')</strong>
+                    <p class="text-purple"><strong><i
+                                    class="{{ config('other.font-awesome') }} fa-star"></i> {{ __('stat.top-seedtime') }}
+                        </strong>
                     </p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('torrent.seedtime')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('torrent.seedtime') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,7 +48,7 @@
                                     @if ($s->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $s->username]) }}">({{ $s->username }}</a></span>
                                     @endif
                                     @else

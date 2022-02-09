@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTwoStepAuthTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('twostep_auth', function (Blueprint $table) {
             $table->increments('id');
@@ -34,4 +31,4 @@ class CreateTwoStepAuthTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

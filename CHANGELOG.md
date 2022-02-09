@@ -1,6 +1,121 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v6.0.0] - 2021-1-30
+
+- [#2057] (Add) Top 10 Torrents Feature, Thanks to [@HDVinnie]
+- [#2056] (Add) Missing Media Feature, Thanks to [@HDVinnie]
+- [#2049] (Add) Torrent Client Stats, Thanks to [@Alkl58]
+- [#2038] (Feature) Add more Buff options for Freeleech, Thanks to [@Obi-Wana]
+- [#2035] (Add) Torrent Cards Search, Thanks to [@HDVinnie]
+- [#2033] (Add) Torrent Regions and Distributors, Thanks to [@HDVinnie]
+- [#2073] (Chore) Code Style, Thanks to [@HDVinnie]
+- [#2051] (Chore) Reformat Views, Thanks to [@HDVinnie]
+- [#2048] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2047] (Update) Italian Lang, Thanks to [@Gideon75]
+- [#2046] (Update) Connectable Check: Use Cache instead of Peer Table DB, Thanks to [@Alkl58]
+- [#2043] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2041] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2037] (Update) Move Hardcoded Controller sentences to Lang files & German / French Translations, Thanks to [@Alkl58]
+- [#2034] (Update) Italian Lang, Thanks to [@Gideon75]
+- [#2042] (Fix) 500 Server Error if User Warning is Soft Deleted, Thanks to [@Alkl58]
+- [#2039] (Fix) Markdown Helper, Thanks to [@MiM-MiM]
+- [#2020] (Add) Manual User Warning [#1705], Thanks to [@Alkl58]
+- [#1998] (Add) Collection Torrents List button, Thanks to [@Roardom]
+- [#1958] (Add) Config to Disable / Enable Client Connectable Check, Thanks to [@Alkl58]
+- [#1957] (Add) RSS filter: bookmark, Thanks to [@ReileenKawahara]
+- [#1934] (Add) Auth User Caching, Thanks to [@HDVinnie]
+- [#1887] (Add) hierarchical file list, Thanks to [@Roardom]
+- [#1885] (Add) Rate Limiting to Comments, Thanks to [@clandestine8]
+- [#1868] (Add) HTML ID to torrent page, Thanks to [@Roardom]
+- [#1865] (Add) HTML classes to torrent page, Thanks to [@Roardom]
+- [#1862] (Add) Hide Closed Tickets by default, Thanks to [@Alkl58]
+- [#1858] (Add) HTML classes and IDs to list search, Thanks to [@Roardom]
+- [#1855] (Add) Client List in User Profile with Connectable Check, Thanks to [@Alkl58]
+- [#1854] (Fix) Don't add imgbb button under bdinfo, trigger image insert for wysibb, Thanks to [@Oha-you]
+- [#1852] (Feature) Add Internals System for Staff, Thanks to [@Obi-Wana]
+- [#1840] (Add) personal_release to torrent upload api, Thanks to [@Alkl58]
+- [#1833] (Add) Missed imports, Thanks to [@imanghafoori1]
+- [#1830] (Add) Flush Peers for Users, Thanks to [@Alkl58]
+- [#1825] (Fix) Add missing poster image size to Helpers, Thanks to [@Oha-you]
+- [#1844] [Improvement] Set default value for personal_release, Thanks to [@Obi-Wana]
+- [#1954] [Snyk] Upgrade alpinejs from 3.4.1 to 3.4.2, Thanks to [@snyk-bot]
+- [#1949] [Snyk] Upgrade alpinejs from 3.4.0 to 3.4.1, Thanks to [@snyk-bot]
+- [#1948] [Snyk] Upgrade alpinejs from 3.3.5 to 3.4.0, Thanks to [@snyk-bot]
+- [#1945] [Snyk] Upgrade alpinejs from 3.3.4 to 3.3.5, Thanks to [@snyk-bot]
+- [#2028] Update TorrentController.php, Thanks to [@K4Li]
+- [#2017] (Update) Italian Lang, Thanks to [@Gideon75]
+- [#2005] (Update) Allow "tt" in imdb searches, Thanks to [@Roardom]
+- [#1997] (Update) Redirect to intended page upon login, Thanks to [@Roardom]
+- [#1995] (Update) Peerlist generation, Thanks to [@Roardom]
+- [#1956] (Update) Private Playlists Access Controlled and Displayed in User Playlists Page, Thanks to [@apoorvpal01]
+- [#1955] CI Generator, Thanks to [@HDVinnie]
+- [#1952] (Update) move raw mediainfo above parsed mediainfo, Thanks to [@Roardom]
+- [#1943] (Deps) Upgrade alpinejs from 3.3.3 to 3.3.4, Thanks to [@snyk-bot]
+- [#1936] (Update) Select current forum type as default when updating forums, Thanks to [@Roardom]
+- [#1935] (Optimize) Database, Thanks to [@HDVinnie]
+- [#1926] (Refactor) Newline After Statements, Thanks to [@HDVinnie]
+- [#1892] security: CVE-2021-3749, Thanks to [@dependabot][bot]
+- [#1886] (Refactor) Quick Search Livewire Component for Improved Usability, Thanks to [@clandestine8]
+- [#1884] (Update) Condense and rearrange torrent general info, Thanks to [@Roardom]
+- [#1882] (Update) Reseed requests, Thanks to [@Roardom]
+- [#1866] (Update) start/end year placeholder in search, Thanks to [@Roardom]
+- [#1853] (Security) Switch uniqid for random_bytes, Thanks to [@michaellrowley]
+- [#1850] (Update) zh-CN Translations, Thanks to [@hucstar]
+- [#1849] (Update) zh-CN Translations, Thanks to [@hucstar]
+- [#1848] (Update) side_nav.blade.php, Thanks to [@hucstar]
+- [#1838] (Refactor) Routes, Thanks to [@HDVinnie]
+- [#1836] (Refactor) Convert simple closures to arrow functions, Thanks to [@HDVinnie]
+- [#1818] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1817] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1816] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1815] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1814] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1813] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1812] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1811] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1810] (Update) Norwegian Lang, Thanks to [@brusfest]
+- [#1801] (Refactor) Backup Manager, Thanks to [@HDVinnie]
+- [#1797] (Feature) Custom Torrent Banner for "No-Meta Torrents", Thanks to [@Alkl58]
+- [#1792] (Feature) Custom Torrent Poster for "No-Meta Torrents", Thanks to [@Alkl58]
+- [#1786] (Update) Simple correction of Italian slang, Thanks to [@Gideon75]
+- [#2029] (Fix) Attempt to read property "size" on null in AutoPreWarning, Thanks to [@Alkl58]
+- [#2016] (Fix) German Translations, Thanks to [@Konrni]
+- [#1981] (Fix) [#1980], Thanks to [@fmohican]
+- [#1971] (Fix) Torrent Game Page Crash, Thanks to [@fmohican]
+- [#1968] [#1781] - fix 405 error during twostep workflow from user settings page, Thanks to [@glennforrest]
+- [#1965] (Fix) extra border below mediainfo tracks, Thanks to [@Roardom]
+- [#1964] fix: [#1946], Thanks to [@HDVinnie]
+- [#1962] (Fix) Auto Nerd Stat, Thanks to [@tomhatzer]
+- [#1961] Fixes 1950 [Bug]Error 500 when try to delete old version of torrents, Thanks to [@clandestine8]
+- [#1951] (Fix) Compact sidenav expanding on page load, Thanks to [@Roardom]
+- [#1933] (Fix) Keywords, Thanks to [@HDVinnie]
+- [#1928] fixes [#1925], Thanks to [@maxpayneovh]
+- [#1908] (Fix) helper.js, Thanks to [@MiM-MiM]
+- [#1907] (Security) Fix CVE-2021-3803, Thanks to [@dependabot][bot]
+- [#1902] (Fix) helper.js, Thanks to [@MiM-MiM]
+- [#1891] fix: [#1890], Thanks to [@Obi-Wana]
+- [#1864] (Fix) Missing " in torrent-list-search.blade.php, Thanks to [@Alkl58]
+- [#1863] (Fix) MediaHub Movie Collection Hardcoded Category ID, Thanks to [@Alkl58]
+- [#1861] (Fix) flushOwnGhostPeers, Thanks to [@Alkl58]
+- [#1857] (Fix) ShoutBox PM not working when clicking on Username, Thanks to [@Alkl58]
+- [#1856] (fix) allow internal_id to be nullable, Thanks to [@Obi-Wana]
+- [#1847] (Fix) Czech Translations, Thanks to [@Herman1994]
+- [#1845] (Fix) Language Flags Mapping, Thanks to [@f-o]
+- [#1835] (Fix) Incorrect Type in BonusController, Thanks to [@Alkl58]
+- [#1832] (Fix) function_exists, Thanks to [@imanghafoori1]
+- [#1831] (Fix) .env.testing, Thanks to [@imanghafoori1]
+- [#1798] (Fix) Custom "No-Meta Torrents" Banner not displayed in "Featured", Thanks to [@Alkl58]
+- [#1794] (Fix) Fix buttons in staff panel and fix for SIGINT, Thanks to [@Spidi]
+- [#1789] (Fix) Better breakdown and calculation of profile stats, show negative values, Thanks to [@Oha-you]
+- [#1788] (Fix) Make whole playlist cards clickable, fix styles, Thanks to [@Oha-you]
+- [#1787] (Fix) Mediahub: genres, companies, networks, persons, tv/movies, Thanks to [@Oha-you]
+- [#1932] Remove duplication of borders in CSS to get back user status circle in chat, Thanks to [@Obi-Wana]
+- [#1837] (Remove) Down migrations, Thanks to [@HDVinnie]
+- [#1782] build(deps): bump ws from 7.4.4 to 7.4.6, Thanks to [@dependabot][bot]
+
+
+<!-- dumped content start -->
 ## [v5.3.0] - 2021-05-29
 
 - [#1775] (Fix) Remove line breaks from BBcode, fix URLs without scheme in Linkify, add noreferrer, Thanks to [@Oha-you]
@@ -1671,6 +1786,7 @@
 [v5.1.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.0.0...v5.1.0
 [v5.2.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.1.0...v5.2.0
 [v5.3.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.2.0...v5.3.0
+[v6.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.3.0...v6.0.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1813,3 +1929,132 @@
 [@Oha-you]: https://github.com/Oha-you
 [@LewdNeko-chan]: https://github.com/LewdNeko-chan
 [@Alkl58]: https://github.com/Alkl58
+[#2029]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2029
+[#2028]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2028
+[#2020]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2020
+[#2017]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2017
+[#2016]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2016
+[#2005]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2005
+[#1998]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1998
+[#1997]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1997
+[#1995]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1995
+[#1981]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1981
+[#1980]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1980
+[#1971]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1971
+[#1968]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1968
+[#1965]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1965
+[#1964]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1964
+[#1962]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1962
+[#1961]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1961
+[#1958]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1958
+[#1957]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1957
+[#1956]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1956
+[#1955]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1955
+[#1954]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1954
+[#1952]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1952
+[#1951]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1951
+[#1949]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1949
+[#1948]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1948
+[#1946]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1946
+[#1945]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1945
+[#1943]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1943
+[#1936]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1936
+[#1935]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1935
+[#1934]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1934
+[#1933]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1933
+[#1932]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1932
+[#1928]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1928
+[#1926]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1926
+[#1925]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1925
+[#1908]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1908
+[#1907]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1907
+[#1902]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1902
+[#1892]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1892
+[#1891]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1891
+[#1890]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1890
+[#1887]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1887
+[#1886]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1886
+[#1885]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1885
+[#1884]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1884
+[#1882]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1882
+[#1868]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1868
+[#1866]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1866
+[#1865]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1865
+[#1864]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1864
+[#1863]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1863
+[#1862]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1862
+[#1861]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1861
+[#1858]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1858
+[#1857]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1857
+[#1856]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1856
+[#1855]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1855
+[#1854]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1854
+[#1853]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1853
+[#1852]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1852
+[#1850]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1850
+[#1849]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1849
+[#1848]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1848
+[#1847]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1847
+[#1845]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1845
+[#1844]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1844
+[#1840]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1840
+[#1838]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1838
+[#1837]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1837
+[#1836]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1836
+[#1835]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1835
+[#1833]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1833
+[#1832]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1832
+[#1831]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1831
+[#1830]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1830
+[#1825]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1825
+[#1818]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1818
+[#1817]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1817
+[#1816]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1816
+[#1815]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1815
+[#1814]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1814
+[#1813]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1813
+[#1812]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1812
+[#1811]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1811
+[#1810]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1810
+[#1801]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1801
+[#1798]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1798
+[#1797]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1797
+[#1794]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1794
+[#1792]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1792
+[#1789]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1789
+[#1788]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1788
+[#1787]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1787
+[#1786]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1786
+[#1781]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1781
+[#1705]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1705
+[@tomhatzer]: https://github.com/tomhatzer
+[@snyk-bot]: https://github.com/snyk-bot
+[@michaellrowley]: https://github.com/michaellrowley
+[@maxpayneovh]: https://github.com/maxpayneovh
+[@imanghafoori1]: https://github.com/imanghafoori1
+[@hucstar]: https://github.com/hucstar
+[@glennforrest]: https://github.com/glennforrest
+[@f-o]: https://github.com/f-o
+[@apoorvpal01]: https://github.com/apoorvpal01
+[@ReileenKawahara]: https://github.com/ReileenKawahara
+[@MiM-MiM]: https://github.com/MiM-MiM
+[@Konrni]: https://github.com/Konrni
+[@K4Li]: https://github.com/K4Li
+[@Herman1994]: https://github.com/Herman1994
+[#2073]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2073
+[#2057]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2057
+[#2056]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2056
+[#2051]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2051
+[#2049]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2049
+[#2048]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2048
+[#2047]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2047
+[#2046]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2046
+[#2043]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2043
+[#2042]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2042
+[#2041]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2041
+[#2039]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2039
+[#2038]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2038
+[#2037]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2037
+[#2035]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2035
+[#2034]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2034
+[#2033]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/2033
