@@ -1781,8 +1781,7 @@ class UserController extends Controller
 
         $active = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
-        }])->sortable(['created_at' => 'desc'])
-            ->where('user_id', '=', $user->id)
+        }])->where('user_id', '=', $user->id)
             ->distinct('info_hash')
             ->paginate(50);
 
@@ -1995,8 +1994,7 @@ class UserController extends Controller
 
         $active = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
-        }])->sortable(['created_at' => 'desc'])
-            ->where('user_id', '=', $user->id)
+        }])->where('user_id', '=', $user->id)
             ->where('ip', '=', $ip)
             ->where('port', '=', $port)
             ->distinct('info_hash')
