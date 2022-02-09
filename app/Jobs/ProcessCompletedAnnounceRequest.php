@@ -70,7 +70,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $history = History::where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
-        
+
         // If no History record found then create one
         if ($history === null) {
             $history = new History();
