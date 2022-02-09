@@ -1537,16 +1537,16 @@
         },
         {
             "name": "hdvinnie/laravel-html-purifier",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/HDVinnie/laravel-html-purifier.git",
-                "reference": "64cf5d03ce7791cfa2c30ed8824e468e11f42995"
+                "reference": "59cb9b849c9808b9e2cd00cebf14733fd9172288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/HDVinnie/laravel-html-purifier/zipball/64cf5d03ce7791cfa2c30ed8824e468e11f42995",
-                "reference": "64cf5d03ce7791cfa2c30ed8824e468e11f42995",
+                "url": "https://api.github.com/repos/HDVinnie/laravel-html-purifier/zipball/59cb9b849c9808b9e2cd00cebf14733fd9172288",
+                "reference": "59cb9b849c9808b9e2cd00cebf14733fd9172288",
                 "shasum": ""
             },
             "require": {
@@ -1608,9 +1608,9 @@
             ],
             "support": {
                 "issues": "https://github.com/HDVinnie/laravel-html-purifier/issues",
-                "source": "https://github.com/HDVinnie/laravel-html-purifier/tree/v1.0.0"
+                "source": "https://github.com/HDVinnie/laravel-html-purifier/tree/v1.0.1"
             },
-            "time": "2022-02-09T03:08:56+00:00"
+            "time": "2022-02-09T05:10:01+00:00"
         },
         {
             "name": "hdvinnie/laravel-joypixel-emojis",
