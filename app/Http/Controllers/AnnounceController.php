@@ -99,7 +99,7 @@ class AnnounceController extends Controller
             /**
              * Lock Min Announce Interval.
              */
-            $this->checkMinInterval($queries, $user);
+            $this->checkMinInterval($torrent, $queries, $user);
 
             /**
              * Check User Max Connections Per Torrent.
@@ -356,10 +356,11 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        if (! Peer::where('torrent_id', '=', $torrent->id)
-            ->where('peer_id', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->exists() && \strtolower($queries['event']) === 'completed') {
+        if (\strtolower($queries['event']) === 'completed' &&
+            ! Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->exists()) {
             throw new TrackerException(152);
         }
     }
@@ -367,9 +368,9 @@ class AnnounceController extends Controller
     /**
      * @throws \App\Exceptions\TrackerException
      */
-    private function checkMinInterval($queries, $user): void
+    private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::where('info_hash', '=', $queries['info_hash'])
+        $prevAnnounce = Peer::where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->pluck('updated_at');

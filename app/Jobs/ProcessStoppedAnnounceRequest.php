@@ -49,9 +49,9 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $this->queries['peer_id'])
-            ->where('user_id', '=', $this->user->id)
-            ->first();
+                ->where('peer_id', $this->queries['peer_id'])
+                ->where('user_id', '=', $this->user->id)
+                ->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
@@ -67,7 +67,7 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+        $history = History::where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -75,6 +75,7 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         if ($history === null) {
             $history = new History();
             $history->user_id = $this->user->id;
+            $history->torrent_id = $this->torrent->id;
             $history->info_hash = $this->queries['info_hash'];
         }
 
