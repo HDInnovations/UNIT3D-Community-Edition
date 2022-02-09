@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
 use App\Helpers\Linkify;
@@ -47,6 +46,7 @@ use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
+use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
