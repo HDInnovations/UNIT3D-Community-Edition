@@ -490,7 +490,7 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      */
-    public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool $type = false): bool
+    public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         if ($sender->id === $target->id) {
@@ -501,7 +501,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->block_notifications == 1) {
+        if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
 
@@ -523,7 +523,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      */
-    public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
+    public function isVisible(self $target, string $group = 'profile', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
@@ -535,7 +535,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden == 1) {
+        if ($target->hidden && $target->hidden == 1) {
             return false;
         }
 
@@ -557,7 +557,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      */
-    public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
+    public function isAllowed(self $target, string $group = 'profile', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
@@ -569,7 +569,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->private_profile == 1) {
+        if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
 
