@@ -31,13 +31,13 @@ class SystemBot
 
     private $chat;
 
-    private ?\App\Models\User $target = null;
+    private $target;
 
     private $type;
 
-    private ?string $message = null;
+    private $message;
 
-    private ?int $targeted = null;
+    private $targeted;
 
     private $log;
 
@@ -80,7 +80,7 @@ class SystemBot
     /**
      * Send Gift.
      */
-    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
+    public function putGift($receiver = '', $amount = 0, $note = ''): string
     {
         $output = \implode(' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
@@ -132,7 +132,7 @@ class SystemBot
     /**
      * Process Message.
      */
-    public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
+    public function process($type, User $user, $message = '', $targeted = 0): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->target = $user;
         $x = $type == 'message' ? 0 : 1;
@@ -173,7 +173,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
+    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;
