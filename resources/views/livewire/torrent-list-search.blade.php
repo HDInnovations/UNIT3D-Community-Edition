@@ -526,7 +526,7 @@
                                href="{{ route('torrent', ['id' => $torrent->id]) }}">
                                 {{ $torrent->name }}
                             </a>
-                            @if ($current = $user->history->where('info_hash', $torrent->info_hash)->first())
+                            @if ($current = $user->history->where('torrent_id', $torrent->id)->first())
                                 @if ($current->seeder == 1 && $current->active == 1)
                                     <button class="btn btn-success btn-circle torrent-listings-seeding" type="button"
                                             data-toggle="tooltip"

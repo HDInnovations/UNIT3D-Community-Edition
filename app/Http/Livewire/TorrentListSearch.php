@@ -394,7 +394,7 @@ class TorrentListSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.torrent-list-search', [
-            'user'              => User::with(['history:id,seeder,active,completed_at,info_hash', 'group'])->findOrFail(\auth()->user()->id),
+            'user'              => User::with(['history:id,seeder,active,completed_at,torrent_id', 'group'])->findOrFail(\auth()->user()->id),
             'torrents'          => $this->torrents,
             'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,

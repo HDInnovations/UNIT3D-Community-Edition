@@ -118,7 +118,7 @@ class GraveyardSearch extends Component
                 $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->v('resolution_id', $this->resolutions);
+                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
             ->when($this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);
