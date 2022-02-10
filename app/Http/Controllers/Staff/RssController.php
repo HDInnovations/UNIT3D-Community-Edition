@@ -230,7 +230,7 @@ class RssController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\Response
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
