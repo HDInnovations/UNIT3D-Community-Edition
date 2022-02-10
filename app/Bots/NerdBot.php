@@ -34,19 +34,19 @@ class NerdBot
 
     private $chat;
 
-    private ?\App\Models\User $target = null;
+    private $target;
 
     private $type;
 
-    private ?string $message = null;
+    private $message;
 
-    private ?int $targeted = null;
+    private $targeted;
 
     private $log;
 
-    private \Carbon\Carbon $expiresAt;
+    private $expiresAt;
 
-    private \Carbon\Carbon $current;
+    private $current;
 
     /**
      * NerdBot Constructor.
@@ -62,12 +62,12 @@ class NerdBot
     /**
      * Replace Vars.
      */
-    public function replaceVars($output): array|string
+    public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
@@ -81,10 +81,10 @@ class NerdBot
     /**
      * Get Banker.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getBanker(string $duration = 'default'): string
+    public function getBanker($duration = 'default')
     {
         $banker = \cache()->get('nerdbot-banker');
         if (! $banker) {
@@ -98,10 +98,10 @@ class NerdBot
     /**
      * Get Snatched.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getSnatched(string $duration = 'default'): string
+    public function getSnatched($duration = 'default')
     {
         $snatched = \cache()->get('nerdbot-snatched');
         if (! $snatched) {
@@ -115,10 +115,10 @@ class NerdBot
     /**
      * Get Leeched.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getLeeched(string $duration = 'default'): string
+    public function getLeeched($duration = 'default')
     {
         $leeched = \cache()->get('nerdbot-leeched');
         if (! $leeched) {
@@ -132,10 +132,10 @@ class NerdBot
     /**
      * Get Seeded.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getSeeded(string $duration = 'default'): string
+    public function getSeeded($duration = 'default')
     {
         $seeded = \cache()->get('nerdbot-seeded');
         if (! $seeded) {
@@ -149,10 +149,10 @@ class NerdBot
     /**
      * Get FL.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getFreeleech(string $duration = 'default'): string
+    public function getFreeleech($duration = 'default')
     {
         $fl = \cache()->get('nerdbot-fl');
         if (! $fl) {
@@ -166,10 +166,10 @@ class NerdBot
     /**
      * Get DU.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getDoubleUpload(string $duration = 'default'): string
+    public function getDoubleUpload($duration = 'default')
     {
         $du = \cache()->get('nerdbot-doubleup');
         if (! $du) {
@@ -183,10 +183,10 @@ class NerdBot
     /**
      * Get Peers.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getPeers(string $duration = 'default'): string
+    public function getPeers($duration = 'default')
     {
         $peers = \cache()->get('nerdbot-peers');
         if (! $peers) {
@@ -200,10 +200,10 @@ class NerdBot
     /**
      * Get Bans.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getBans(string $duration = 'default'): string
+    public function getBans($duration = 'default')
     {
         $bans = \cache()->get('nerdbot-bans');
         if (! $bans) {
@@ -217,10 +217,10 @@ class NerdBot
     /**
      * Get Warnings.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getWarnings(string $duration = 'default'): string
+    public function getWarnings($duration = 'default')
     {
         $warnings = \cache()->get('nerdbot-warnings');
         if (! $warnings) {
@@ -234,10 +234,10 @@ class NerdBot
     /**
      * Get Uploads.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getUploads(string $duration = 'default'): string
+    public function getUploads($duration = 'default')
     {
         $uploads = \cache()->get('nerdbot-uploads');
         if (! $uploads) {
@@ -251,10 +251,10 @@ class NerdBot
     /**
      * Get Logins.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getLogins(string $duration = 'default'): string
+    public function getLogins($duration = 'default')
     {
         $logins = \cache()->get('nerdbot-logins');
         if (! $logins) {
@@ -268,10 +268,10 @@ class NerdBot
     /**
      * Get Registrations.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getRegistrations(string $duration = 'default'): string
+    public function getRegistrations($duration = 'default')
     {
         $registrations = \cache()->get('nerdbot-users');
         if (! $registrations) {
@@ -285,10 +285,10 @@ class NerdBot
     /**
      * Get Bot Donations.
      *
-     *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function getDonations(string $duration = 'default'): string
+    public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('nerdbot-donations');
         if (! $donations) {
@@ -309,7 +309,7 @@ class NerdBot
     /**
      * Get Help.
      */
-    public function getHelp(): array|string
+    public function getHelp()
     {
         return $this->replaceVars($this->bot->help);
     }
@@ -317,7 +317,7 @@ class NerdBot
     /**
      * Get King.
      */
-    public function getKing(): string
+    public function getKing()
     {
         return \config('other.title').' Is King!';
     }
@@ -325,10 +325,9 @@ class NerdBot
     /**
      * Send Bot Donation.
      *
-     *
      * @throws \Exception
      */
-    public function putDonate(int $amount = 0, string $note = ''): string
+    public function putDonate($amount = 0, $note = '')
     {
         $output = \implode(' ', $note);
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
@@ -365,9 +364,10 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
+    public function process($type, User $user, $message = '', $targeted = 0)
     {
         $this->target = $user;
         if ($type == 'message') {
@@ -476,7 +476,7 @@ class NerdBot
     /**
      * Output Message.
      */
-    public function pm(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
+    public function pm()
     {
         $type = $this->type;
         $target = $this->target;
