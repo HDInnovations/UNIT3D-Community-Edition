@@ -1987,16 +1987,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.0.0",
+            "version": "v9.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fbe7ed828819eadabb3cb9f95847a2ffe8846fd6"
+                "reference": "4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fbe7ed828819eadabb3cb9f95847a2ffe8846fd6",
-                "reference": "fbe7ed828819eadabb3cb9f95847a2ffe8846fd6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9",
+                "reference": "4c7cd8c4e95d161c0c6ada6efa0a5af4d0d487c9",
                 "shasum": ""
             },
             "require": {
@@ -2162,7 +2162,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-02-08T15:48:31+00:00"
+            "time": "2022-02-10T15:07:46+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2540,16 +2540,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "9f8b4260031bfef5497477da53dd57b2aaff0e06"
+                "reference": "aef771741948595bfbed8e0342dd340695a368ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/9f8b4260031bfef5497477da53dd57b2aaff0e06",
-                "reference": "9f8b4260031bfef5497477da53dd57b2aaff0e06",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/aef771741948595bfbed8e0342dd340695a368ff",
+                "reference": "aef771741948595bfbed8e0342dd340695a368ff",
                 "shasum": ""
             },
             "require": {
@@ -2609,7 +2609,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.0.3"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.0.4"
             },
             "funding": [
                 {
@@ -2625,7 +2625,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-31T19:41:04+00:00"
+            "time": "2022-02-10T16:14:03+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -4222,20 +4222,19 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "8.0.1",
+            "version": "8.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "06ac2608af05924efd38f3031a16a8b06834ff8e"
+                "reference": "dff7f4a028a9ffd3be71fbbbd919d36634dc4fea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/06ac2608af05924efd38f3031a16a8b06834ff8e",
-                "reference": "06ac2608af05924efd38f3031a16a8b06834ff8e",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/dff7f4a028a9ffd3be71fbbbd919d36634dc4fea",
+                "reference": "dff7f4a028a9ffd3be71fbbbd919d36634dc4fea",
                 "shasum": ""
             },
             "require": {
-                "ext-pcntl": "*",
                 "ext-zip": "^1.14.0",
                 "illuminate/console": "^9.0",
                 "illuminate/contracts": "^9.0",
@@ -4243,7 +4242,7 @@
                 "illuminate/filesystem": "^9.0",
                 "illuminate/notifications": "^9.0",
                 "illuminate/support": "^9.0",
-                "league/flysystem": "^2.0|^3.0",
+                "league/flysystem": "^3.0",
                 "php": "^8.0",
                 "spatie/db-dumper": "^3.0",
                 "spatie/laravel-package-tools": "^1.6.2",
@@ -4254,6 +4253,7 @@
             },
             "require-dev": {
                 "composer-runtime-api": "^2.0",
+                "ext-pcntl": "*",
                 "laravel/slack-notification-channel": "^2.4",
                 "league/flysystem-aws-s3-v3": "^2.0|^3.0",
                 "mockery/mockery": "^1.4",
@@ -4272,12 +4272,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Spatie\\Backup\\": "src"
-                },
                 "files": [
                     "src/Helpers/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Spatie\\Backup\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4301,7 +4301,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-backup/issues",
-                "source": "https://github.com/spatie/laravel-backup/tree/8.0.1"
+                "source": "https://github.com/spatie/laravel-backup/tree/8.0.3"
             },
             "funding": [
                 {
@@ -4313,7 +4313,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2022-01-21T07:25:06+00:00"
+            "time": "2022-02-10T21:56:03+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -9514,16 +9514,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
                 "shasum": ""
             },
             "require": {
@@ -9566,7 +9566,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.4"
             },
             "funding": [
                 {
@@ -9574,7 +9574,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-10T07:01:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
@@ -10171,16 +10171,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "68250225a9f83b086462c2af1b1139dfde48fbd2"
+                "reference": "ca49c7f74022de49910715e8f1ac5ce52123eb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/68250225a9f83b086462c2af1b1139dfde48fbd2",
-                "reference": "68250225a9f83b086462c2af1b1139dfde48fbd2",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/ca49c7f74022de49910715e8f1ac5ce52123eb3e",
+                "reference": "ca49c7f74022de49910715e8f1ac5ce52123eb3e",
                 "shasum": ""
             },
             "require": {
@@ -10254,7 +10254,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-04T15:25:56+00:00"
+            "time": "2022-02-10T08:50:40+00:00"
         },
         {
             "name": "styleci/cli",
