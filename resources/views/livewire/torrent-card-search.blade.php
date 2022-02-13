@@ -484,11 +484,11 @@
                                      class="show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
 
-                            @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $meta->cover->image_id }}.jpg"
+                            @if ($torrent->category->game_meta && isset($meta) && $meta->cover['image_id'] && $meta->name)
+                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $meta->cover['image_id'] }}.jpg"
                                      class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
-                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover['image_id'] }}.jpg"
 									     alt="{{ __('torrent.poster') }}" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
