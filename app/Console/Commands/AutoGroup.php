@@ -72,7 +72,7 @@ class AutoGroup extends Command
             }
 
             // PowerUser >= 1TiB and account 1 month old
-            if ($user->uploaded >= $byteUnits->bytesFromUnit('1TiB') && $user->getRatio() >= \config('other.ratio') && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id !=  UserGroups::POWERUSER) {
+            if ($user->uploaded >= $byteUnits->bytesFromUnit('1TiB') && $user->getRatio() >= \config('other.ratio') && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != UserGroups::POWERUSER) {
                 $user->group_id = UserGroups::POWERUSER;
                 $user->save();
             }

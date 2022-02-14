@@ -28,4 +28,3 @@ enum UserGroups: int
     case DISABLED = 20;
     case PRUNED = 21;
 }
-
