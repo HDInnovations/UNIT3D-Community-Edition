@@ -135,7 +135,8 @@ Use this command to generate demo users and torrents for testing purposes:
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 5.x.x       |  Active Support :rocket: | >= 8.0
+ 6.x.x       |  Active Support :rocket: | >= 8.1
+ 5.x.x       |  End Of Life :skull: | >= 8.0
  4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4
  2.3.0 to 2.7.0|  End Of Life :skull: | >= 7.4
