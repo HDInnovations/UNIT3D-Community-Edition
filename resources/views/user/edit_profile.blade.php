@@ -46,14 +46,14 @@
                         <div class="form-group">
                             <label for="about">{{ __('user.about-me') }} <span class="badge-extra">BBCode
                                     {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="about" id="about" cols="30" rows="10"
+                            <textarea name="about" id="editor" cols="30" rows="10"
                                       class="form-control">{{ $user->about }}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="signature">{{ __('user.forum-signature') }} <span class="badge-extra">BBCode
                                     {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="signature" id="signature" cols="30" rows="10"
+                            <textarea name="signature" id="editor" cols="30" rows="10"
                                       class="form-control">{{ $user->signature }}</textarea>
                         </div>
 
@@ -72,12 +72,4 @@
         </div>
     </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#about, #signature').wysibb({})
-      })
-    </script>
 @endsection

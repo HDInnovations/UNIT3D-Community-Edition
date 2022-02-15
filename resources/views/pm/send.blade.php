@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label for="">{{ __('pm.message') }}</label>
                             <label for="message"></label>
-                            <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea id="editor" name="message" cols="30" rows="10" class="form-control"></textarea>
                         </div>
 
                         <button class="btn btn-primary">
@@ -51,13 +51,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#message').wysibb({})
-      })
-
-    </script>
 @endsection

@@ -160,7 +160,7 @@
                     <div class="form-group">
                         <label for="description">{{ __('request.description') }}</label>
                         <label for="request-form-description"></label>
-                        <textarea id="request-form-description" name="description" cols="30" rows="10"
+                        <textarea id="editor" name="description" cols="30" rows="10"
                                   class="form-control">{{ $torrentRequest->description }}</textarea>
                     </div>
 
@@ -189,13 +189,4 @@
             </form>
     </div>
     @endif
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#request-form-description').wysibb({})
-      })
-
-    </script>
 @endsection

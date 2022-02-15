@@ -36,20 +36,11 @@
 
             <div class="form-group">
                 <label for="content">{{ __('common.content') }}</label>
-                <textarea name="content" id="content" cols="30" rows="10"
+                <textarea name="content" id="editor" cols="30" rows="10"
                           class="form-control">{{ $page->content }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-default">{{ __('common.save') }}</button>
         </form>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-
-    </script>
 @endsection
