@@ -144,6 +144,6 @@ $(document).ready(function () {
 
 // Emoji Picker
 const input = document.getElementById('editor');
-document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
+document.querySelector('emoji-picker').addEventListener('emoji-click', (e) => {
     textFieldEdit.insert(input, e.detail.unicode);
 });
