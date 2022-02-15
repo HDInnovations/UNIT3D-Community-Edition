@@ -42,7 +42,9 @@
                         <th>{{ __('torrent.client') }}</th>
                         <th>{{ __('common.ip') }}</th>
                         <th>{{ __('common.port') }}</th>
-                        {{--<th>Connectable</th>--}}
+                        @if (\config('announce.connectable_check') == true)
+                        <th>Connectable</th>
+                        @endif
                         <th>{{ __('torrent.started') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('common.status') }}</th>
@@ -120,7 +122,15 @@
                                 <td> ---</td>
                                 <td> ---</td>
                             @endif
-                            {{--<td><span class="badge-extra text-bold {{ $p->connectable ? 'text-success' : 'text-danger' }}">{{ $p->connectable ? 'Yes' : 'No' }}</span></td>--}}
+                            @if (\config('announce.connectable_check') == true)
+                                @php
+                                    $connectable = false;
+                                    if (cache()->has('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent)) {
+                                        $connectable = cache()->get('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent);
+                                    }
+                                @endphp
+                                <td><span class="badge-extra text-bold {{ $connectable ? 'text-success' : 'text-danger' }}">@choice('user.client-connectable-state', $connectable)</span></td>
+                            @endif
                             <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                             <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                             <td> @if ($p->seeder == 0)
