@@ -83,7 +83,7 @@ class StringHelper
     /**
      * @method timeRemaining
      */
-    public static function timeRemaining(int $seconds): string
+    public static function timeRemaining(int $seconds, $fromRequest): string
     {
         $minutes = 0;
         $hours = 0;
@@ -92,7 +92,11 @@ class StringHelper
         $months = 0;
         $years = 0;
 
-        $seconds = \config('hitrun.seedtime') - $seconds;
+        if ($fromRequest) {
+            $seconds = \config('hitrun.seedtime_requests') - $seconds;
+        } else {
+            $seconds = \config('hitrun.seedtime') - $seconds;
+        }
 
         if ($seconds == 0) {
             return 'N/A';

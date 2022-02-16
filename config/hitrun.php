@@ -37,6 +37,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Seedtime Requested Torrents
+    |--------------------------------------------------------------------------
+    |
+    | Min Seedtime Required In Seconds
+    | For Filled Torrent Requests.
+    | Does Only Apply To The "Requester" When Downloaded.
+    | Set To 0 To Disable.
+    |
+    */
+
+    'seedtime_requests' => 1209600,
+
+    /*
+    |--------------------------------------------------------------------------
     | Max Warnings
     |--------------------------------------------------------------------------
     |

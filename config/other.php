@@ -195,6 +195,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Request Rules Page URL
+    |--------------------------------------------------------------------------
+    | Example: 3
+    | Can Specify Specific URL To Your Request Rules Page, If Applicable.
+    | Default: Point To Rules Page URL
+    */
+    'request-rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/1',
+
+    /*
+    |--------------------------------------------------------------------------
     | Upload Guide Page URL For Upload Page
     |--------------------------------------------------------------------------
     | Example: 4

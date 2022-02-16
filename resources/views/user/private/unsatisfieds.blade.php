@@ -106,89 +106,165 @@
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
-                        <th>{{ __('torrent.name') }}</th>
-                        <th>{{ __('torrent.category') }}</th>
-                        <th>{{ __('torrent.size') }}</th>
-                        <th>{{ __('torrent.seeders') }}</th>
-                        <th>{{ __('torrent.leechers') }}</th>
-                        <th>{{ __('torrent.completed') }}</th>
-                        <th>{{ __('torrent.completed_at') }}</th>
-                        <th>{{ __('torrent.satisfied_in') }}</th>
-                        <th>{{ __('torrent.seedtime') }}</th>
-                        <th>{{ __('torrent.status') }}</th>
+                            <th>{{ __('torrent.name') }}</th>
+                            <th>{{ __('torrent.category') }}</th>
+                            <th>{{ __('torrent.size') }}</th>
+                            <th>{{ __('torrent.seeders') }}</th>
+                            <th>{{ __('torrent.leechers') }}</th>
+                            <th>{{ __('torrent.completed') }}</th>
+                            <th>{{ __('torrent.completed_at') }}</th>
+                            <th>{{ __('torrent.satisfied_in') }}</th>
+                            <th>{{ __('torrent.seedtime') }}</th>
+                            <th>{{ __('torrent.status') }}</th>
                         </thead>
                         <tbody>
-                        @foreach ($downloads as $download)
-                            <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
-                                seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
-                                prewarned="{{ $download->prewarn ? '1' : '0' }}"
-                                hr="{{ $download->hitrun ? '1' : '0' }}"
-                                immune="{{ $download->immune ? '1' : '0' }}">
-                                <td>
-                                    <a class="view-torrent"
-                                       href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
-                                        {{ $download->torrent->name }}
-                                    </a>
-                                    <div class="pull-right">
-                                        <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
-                                            <button class="btn btn-primary btn-circle" type="button"><i
-                                                        class="{{ config('other.font-awesome') }} fa-download"></i>
-                                            </button>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td>
-                                    {{ $download->torrent->category->name }}
-                                </td>
-                                <td>
-                                        <span class="badge-extra text-blue text-bold">
-                                            {{ $download->torrent->getSize() }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge-extra text-green text-bold"> {{ $download->torrent->seeders }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge-extra text-red text-bold"> {{ $download->torrent->leechers }}</span>
-                                </td>
-                                <td>
-                                        <span class="badge-extra text-orange text-bold">
-                                            {{ $download->torrent->times_completed }} {{ __('common.times') }}</span>
-                                </td>
-                                <td>{{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
-                                </td>
-                                @if ($download->seedtime < config('hitrun.seedtime'))
-                                    <td>
-                                            <span
-                                                    class="badge-extra text-red">{{ App\Helpers\StringHelper::timeRemaining($download->seedtime) }}</span>
-                                    </td>
-                                @else
-                                    <td>
-                                                <span
-                                                        class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
-                                    </td>
-                                @endif
-                                @if ($download->seedtime < config('hitrun.seedtime'))
-                                    <td>
-                                                <span
-                                                        class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
-                                    </td>
-                                @else
-                                    <td>
-                                                    <span
-                                                            class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
-                                    </td>
-                                @endif
-                                <td>
-                                    @if ($download->seeder == 1)
-                                        <span
-                                                class='label label-success'>{{ strtoupper(__('torrent.downloaded')) }}</span>
-                                    @else
-                                        <span
-                                                class='label label-danger'>{{ strtoupper(__('torrent.not-downloaded')) }}</span>
+                            @foreach ($downloads as $download)
+                                @foreach ($userRequests as $userRequest)
+                                    @if (count($userRequests) > 0)
+                                        @if (in_array($download->torrent->info_hash, $userRequest))
+                                            @if ($download->seedtime < config('hitrun.seedtime_requests'))
+                                                <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
+                                                    seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
+                                                    prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
+                                                    immune="{{ $download->immune ? '1' : '0' }}">
+                                                    <td>
+                                                        <a class="view-torrent" href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
+                                                            {{ $download->torrent->name }}
+                                                        </a>
+                                                        <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" 
+                                                                title="" data-original-title="
+                                                                    You have requested this torrent, this means it is subject to the extended seedtime 
+                                                                    requirements defined in our Request Rules.
+                                                                "></i>
+                                                        <div class="pull-right">
+                                                            <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
+                                                                <button class="btn btn-primary btn-circle" type="button"><i
+                                                                        class="{{ config('other.font-awesome') }} fa-download"></i></button>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{ $download->torrent->category->name }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge-extra text-blue text-bold">
+                                                            {{ $download->torrent->getSize() }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge-extra text-green text-bold"> {{ $download->torrent->seeders }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge-extra text-red text-bold"> {{ $download->torrent->leechers }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge-extra text-orange text-bold">
+                                                            {{ $download->torrent->times_completed }} {{ __('common.times') }}</span>
+                                                    </td>
+                                                    <td>
+                                                        {{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
+                                                    </td>
+                                                    @if ($download->seedtime < config('hitrun.seedtime_requests')) <td>
+                                                        <span
+                                                            class="badge-extra text-red">{{ App\Helpers\StringHelper::timeRemaining($download->seedtime, $fromRequest = true) }}</span>
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            <span
+                                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                                        </td>
+                                                    @endif
+                                                    @if ($download->seedtime < config('hitrun.seedtime_requests')) <td>
+                                                        <span
+                                                            class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            <span
+                                                                class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                                        </td>
+                                                    @endif
+                                                    <td>
+                                                        @if ($download->seeder == 1)
+                                                            <span
+                                                                class='label label-success'>{{ strtoupper(__('torrent.downloaded')) }}</span>
+                                                        @else
+                                                            <span
+                                                                class='label label-danger'>{{ strtoupper(__('torrent.not-downloaded')) }}</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endif
                                     @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                                @endforeach
+                                @if ($download->seedtime < config('hitrun.seedtime') && ! in_array($download->torrent->info_hash, $userRequest))
+                                    <tr class="userFiltered" active="{{ $download->active ? '1' : '0' }}"
+                                        seeding="{{ $download->seeder == 1 ? '1' : '0' }}"
+                                        prewarned="{{ $download->prewarn ? '1' : '0' }}" hr="{{ $download->hitrun ? '1' : '0' }}"
+                                        immune="{{ $download->immune ? '1' : '0' }}">
+                                        <td>
+                                            <a class="view-torrent" href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
+                                                {{ $download->torrent->name }}
+                                            </a>
+                                            <div class="pull-right">
+                                                <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
+                                                    <button class="btn btn-primary btn-circle" type="button"><i
+                                                            class="{{ config('other.font-awesome') }} fa-download"></i></button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ $download->torrent->category->name }}
+                                        </td>
+                                        <td>
+                                            <span class="badge-extra text-blue text-bold">
+                                                {{ $download->torrent->getSize() }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge-extra text-green text-bold"> {{ $download->torrent->seeders }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge-extra text-red text-bold"> {{ $download->torrent->leechers }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge-extra text-orange text-bold">
+                                                {{ $download->torrent->times_completed }} {{ __('common.times') }}</span>
+                                        </td>
+                                        <td>
+                                            {{ $download->completed_at && $download->completed_at != null ? $download->completed_at->diffForHumans() : 'N/A' }}
+                                        </td>
+                                        @if ($download->seedtime < config('hitrun.seedtime')) <td>
+                                            <span
+                                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeRemaining($download->seedtime, $fromRequest = false) }}</span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <span
+                                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                            </td>
+                                        @endif
+                                        @if ($download->seedtime < config('hitrun.seedtime')) <td>
+                                            <span
+                                                class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <span
+                                                    class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($download->seedtime) }}</span>
+                                            </td>
+                                        @endif
+                                        <td>
+                                            @if ($download->seeder == 1)
+                                                <span
+                                                    class='label label-success'>{{ strtoupper(__('torrent.downloaded')) }}</span>
+                                            @else
+                                                <span
+                                                    class='label label-danger'>{{ strtoupper(__('torrent.not-downloaded')) }}</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="text-center">

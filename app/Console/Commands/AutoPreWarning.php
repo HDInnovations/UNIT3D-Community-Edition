@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -47,17 +48,32 @@ class AutoPreWarning extends Command
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();
+            $userRequests = TorrentRequest::whereNotNull('filled_hash')->get()->toArray();
             $prewarn = History::with(['user', 'torrent'])
+                ->whereHas('user')
                 ->where('prewarn', '=', 0)
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<=', \config('hitrun.seedtime'))
+                ->where('seedtime', '<', \config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
+            $prewarnRequests = History::with(['user', 'torrent'])
+                ->whereHas('user')
+                ->where('prewarn', '=', 0)
+                ->where('hitrun', '=', 0)
+                ->where('immune', '=', 0)
+                ->where('actual_downloaded', '>', 0)
+                ->where('active', '=', 0)
+                ->where('seedtime', '<', \config('hitrun.seedtime_requests'))
+                ->where('seedtime', '>=', \config('hitrun.seedtime'))
+                ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.prewarn'))->toDateTimeString())
+                ->get();
+            $merge = $prewarnRequests->merge($prewarn);
 
-            foreach ($prewarn as $pre) {
+            foreach ($merge as $pre) {
+                $sent = 0;
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
                 if (is_null($pre->torrent)) {
@@ -73,15 +89,48 @@ class AutoPreWarning extends Command
                     if ($exsist === null) {
                         $timeleft = \config('hitrun.grace') - \config('hitrun.prewarn');
 
-                        // Send Private Message
-                        $pm = new PrivateMessage();
-                        $pm->sender_id = 1;
-                        $pm->receiver_id = $pre->user->id;
-                        $pm->subject = 'Hit and Run Warning Incoming';
-                        $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.\config('hitrun.prewarn').\sprintf(' days on Torrent %s
-                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).\config('other.title').\sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).\config('hitrun.expire').' days![/b]
-                                            [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                        $pm->save();
+                        // When seedtime requirements for a requested torrent
+                        foreach ($userRequests as $userRequest) {
+                            if (in_array($pre->torrent->info_hash, $userRequest) && $pre->torrent->seedtime < config('hitrun.seedtime_requests')) {
+                                // Send Private Message
+                                $pm = new PrivateMessage();
+                                $pm->sender_id = 1;
+                                $pm->receiver_id = $pre->user->id;
+                                $pm->subject = \sprintf('Hit and Run Warning Incoming');
+                                $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for ').\config('hitrun.prewarn').\sprintf(' days on Torrent 
+                                    [u][url=/torrents/%s]%s[/url][/u].
+
+                                    If you fail to seed it within %s day(s) you will receive an automated WARNING!
+
+                                    You have requested this torrent, this means it is subject to the extended seedtime 
+                                    requirements defined in our [u][url=', $pre->torrent->id, $pre->torrent->name, $timeleft)
+                                    .\config('other.request-rules_url')
+                                    .\sprintf(']Request Rules[/url][/u].
+                                    
+                                    [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]'
+                                    );
+                                $pm->save();
+                                $sent = 1;
+                            }
+                        }
+
+                        // When seedtime requirements for default torrent
+                        if ($sent != 1) {
+                            // Send Private Message
+                            $pm = new PrivateMessage();
+                            $pm->sender_id = 1;
+                            $pm->receiver_id = $pre->user->id;
+                            $pm->subject = 'Hit and Run Warning Incoming';
+                            $pm->message = \sprintf('You have received an automated [b]PRE-WARNING PM[/b] from the system, because [b]you have been disconnected[/b] for
+                                ').\config('hitrun.prewarn').\sprintf(' days on Torrent [u][url=/torrents/%s]%s[/url][/u].
+
+                                If you fail to seed it within %s day(s) you will receive an automated WARNING!
+                                
+                                [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+                                $pre->torrent->id, $pre->torrent->name, $timeleft);
+                            $pm->save();
+                            $sent = 1;
+                        }
 
                         // Set History Prewarn
                         $pre->prewarn = 1;
