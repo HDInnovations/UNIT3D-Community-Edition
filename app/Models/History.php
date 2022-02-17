@@ -62,6 +62,6 @@ class History extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class, 'info_hash', 'info_hash');
+        return $this->belongsTo(Torrent::class);
     }
 }
