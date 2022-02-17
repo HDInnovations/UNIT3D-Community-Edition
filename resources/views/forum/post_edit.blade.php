@@ -57,11 +57,3 @@
         </div>
     </div>
 @endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#content').wysibb()
-      })
-    </script>
-@endsection
