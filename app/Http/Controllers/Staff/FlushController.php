@@ -41,10 +41,10 @@ class FlushController extends Controller
     public function peers(): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
-        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
+        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($peers as $peer) {
-            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
+            $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
             if ($history) {
                 $history->active = false;
                 $history->save();
