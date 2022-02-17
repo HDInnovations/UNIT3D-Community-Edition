@@ -164,7 +164,7 @@ class TorrentController extends Controller
         $comments = $torrent->comments()->latest()->paginate(10);
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
-        $lastSeedActivity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
+        $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $meta = null;
         $trailer = null;
@@ -368,7 +368,7 @@ class TorrentController extends Controller
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
             if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
-                foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
+                foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
@@ -395,7 +395,7 @@ class TorrentController extends Controller
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
                 Peer::where('torrent_id', '=', $id)->delete();
-                History::where('info_hash', '=', $torrent->info_hash)->delete();
+                History::where('torrent_id', '=', $id)->delete();
                 Warning::where('torrent', '=', $id)->delete();
                 TorrentFile::where('torrent_id', '=', $id)->delete();
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
@@ -441,7 +441,7 @@ class TorrentController extends Controller
     public function history(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->get();
+        $history = History::with(['user'])->where('torrent_id', '=', $id)->latest()->get();
 
         return \view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -780,7 +780,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
-        $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
+        $reseed = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
 
         if ($torrent->seeders <= 2) {
             // Send Notification
