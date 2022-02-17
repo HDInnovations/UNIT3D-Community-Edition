@@ -613,7 +613,7 @@
                                             <td>@choice('user.client-connectable-state', $connectable)</td>
                                         @endif
                                     </tr>
-                                    @php array_push($peer_array, [$p->ip, $p->port]) @endphp
+                                    @php $peer_array[] = [$p->ip, $p->port] @endphp
                                 @endif
                             @endforeach
                             </tbody>

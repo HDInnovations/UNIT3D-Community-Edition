@@ -1,7 +1,7 @@
 php:
   preset: recommended
   risky: true
-  version: 8
+  version: 8.1
   enabled:
     - method_argument_space
     - not_operator_with_successor_space

@@ -35,19 +35,10 @@
 
             <div class="form-group">
                 <label for="message">{{ __('pm.message') }}</label>
-                <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                <textarea id="editor" name="message" cols="30" rows="10" class="form-control"></textarea>
             </div>
 
             <button type="submit" class="btn btn-default">{{ __('pm.send') }}</button>
         </form>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#message').wysibb({})
-      })
-
-    </script>
 @endsection

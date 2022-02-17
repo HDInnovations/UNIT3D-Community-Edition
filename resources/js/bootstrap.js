@@ -7,7 +7,7 @@ window._ = require('lodash');
  */
 
 try {
-    // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
+    // Note: Eventually we will end up 100% jQuery free.
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
@@ -60,18 +60,21 @@ window.Echo = new Echo({
 });
 
 /*
- * jQuery Extensions
- *
- * Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
+ * NPM Packages
  */
-// wysibb editor
+// WYSIBB Dditor
 require('./wysibb/jquery.wysibb');
 
-//alerts
+// Sweet Alert
 window.Swal = require('sweetalert2');
 
-//carousel
+// Keen Slider
 window.KeenSlider = require('keen-slider/keen-slider');
 
-//vibrant
+// Vibrant
 window.Vibrant = require('node-vibrant');
+
+// Emoji Picker
+import 'emoji-picker-element';
+
+window.textFieldEdit = require('text-field-edit');

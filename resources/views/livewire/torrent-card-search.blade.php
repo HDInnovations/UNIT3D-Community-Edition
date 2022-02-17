@@ -519,13 +519,22 @@
                                     {{ $torrent->name }}
                                 </a>
                             </h3>
-                            @if (isset($meta->genres) && $meta->genres->isNotEmpty())
+                            @if (isset($meta->genres) && ($torrent->category->movie_meta || $torrent->category->tv_meta))
                                 @foreach ($meta->genres as $genre)
                                     <span class="genre-label">
-                                            <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
-                                                <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
-                                            </a>
-                                        </span>
+                                        <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
+                                        </a>
+                                    </span>
+                                @endforeach
+                            @endif
+                            @if (isset($meta->genres) && $torrent->category->game_meta)
+                                @foreach ($meta->genres as $genre)
+                                    <span class="genre-label">
+                                        <a href="{{ route('mediahub.genres.show', ['id' => $genre['id']]) }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre['name'] }}
+                                        </a>
+                                    </span>
                                 @endforeach
                             @endif
                             <p class="description_plot">

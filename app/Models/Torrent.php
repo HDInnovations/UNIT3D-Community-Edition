@@ -135,7 +135,7 @@ class Torrent extends Model
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(History::class, 'info_hash', 'info_hash');
+        return $this->hasMany(History::class);
     }
 
     /**

@@ -192,7 +192,14 @@
                     <div class="form-group">
                         <label for="content">{{ __('common.your-comment') }}:</label>
                         <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                        <span class="pull-right" x-data="{ emoji: false }">
+                            <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                            <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                                <emoji-picker></emoji-picker>
+                            </div>
+                        </span>
+                        <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
                     <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
@@ -204,12 +211,4 @@
             <!-- /Add comment -->
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

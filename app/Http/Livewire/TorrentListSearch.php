@@ -334,12 +334,12 @@ class TorrentListSearch extends Component
                 $query->where('seeders', '=', 0);
             })
             ->when($this->notDownloaded, function ($query) {
-                $history = History::where('user_id', '=', \auth()->user()->id)->pluck('info_hash')->toArray();
+                $history = History::where('user_id', '=', \auth()->user()->id)->pluck('torrent_id')->toArray();
                 if (! $history || ! \is_array($history)) {
                     $history = [];
                 }
 
-                $query->whereNotIn('info_hash', $history);
+                $query->whereIntegerNotInRaw('id', $history);
             })
             ->when($this->downloaded, function ($query) {
                 $query->whereHas('history', function ($query) {
@@ -394,7 +394,7 @@ class TorrentListSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.torrent-list-search', [
-            'user'              => User::with(['history:id,seeder,active,completed_at,torrent_id', 'group'])->findOrFail(\auth()->user()->id),
+            'user'              => User::with(['history:id,seeder,active,completed_at,torrent_id,user_id', 'group'])->findOrFail(\auth()->user()->id),
             'torrents'          => $this->torrents,
             'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,

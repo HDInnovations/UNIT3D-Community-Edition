@@ -226,7 +226,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="content">{{ __('common.your-comment') }}:</label>
-                            <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                         <button type="submit" class="btn btn-success">{{ __('common.submit') }}</button>
                     </form>

@@ -761,7 +761,7 @@ class User extends Authenticatable
     {
         return Peer::where('user_id', '=', $this->id)
             ->where('seeder', '=', '1')
-            ->distinct('info_hash')
+            ->distinct('torrent_id')
             ->count();
     }
 
@@ -801,7 +801,7 @@ class User extends Authenticatable
     {
         return Peer::where('user_id', '=', $this->id)
             ->where('left', '>', '0')
-            ->distinct('info_hash')
+            ->distinct('torrent_id')
             ->count();
     }
 

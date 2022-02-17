@@ -59,7 +59,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="message"></label>
-                                        <textarea id="message" name="message" cols="30" rows="10"
+                                        <textarea id="editor" name="message" cols="30" rows="10"
                                                   class="form-control"></textarea>
                                         <button type="submit" class="btn btn-primary"
                                                 style="float:right;">{{ __('pm.reply') }}</button>
@@ -70,13 +70,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#message').wysibb({})
-      })
-
-    </script>
 @endsection
