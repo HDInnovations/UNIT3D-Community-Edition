@@ -200,7 +200,7 @@
                 </thead>
                 <tbody>
                 @foreach($torrents as $torrent)
-                    @php $history = App\Models\History::where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->first() @endphp
+                    @php $history = App\Models\History::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->first() @endphp
                     @php $meta = null @endphp
                     @if ($torrent->category->tv_meta)
                         @if ($torrent->tmdb || $torrent->tmdb != 0)

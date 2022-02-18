@@ -1062,8 +1062,13 @@ class UserController extends Controller
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
-                ->where('peers.seeder', '=', 1)->groupBy('torrents.info_hash');
+            }])->selectRaw('distinct(torrents.id),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.torrent_id) as history_torrent_id,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')
+                ->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')
+                ->leftJoin('history', 'history.torrent_id', '=', 'torrents.id')
+                ->where('peers.user_id', '=', $user->id)
+                ->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
+                ->where('peers.seeder', '=', 1)
+                ->groupBy('torrents.id');
             $order = null;
             $sorting = null;
             $history->where(function ($query) use ($request) {
@@ -1868,7 +1873,7 @@ class UserController extends Controller
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
+        $historyTorrents = History::where('user_id', '=', $user->id)->pluck('torrent_id');
 
         if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
@@ -1877,7 +1882,9 @@ class UserController extends Controller
             $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
                 // Get Torrent
-                $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
+                $torrent = Torrent::withAnyStatus()
+                    ->where('id', '=', $historyTorrent)
+                    ->first();
 
                 // Define The Torrent Filename
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
@@ -1954,19 +1961,24 @@ class UserController extends Controller
         $carbon = new Carbon();
 
         // Get Peer List from User
-        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('user_id', '=', $request->user()->id)->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())->get();
+        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])
+            ->where('user_id', '=', $user->id)
+            ->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())
+            ->get();
 
         // Return with Error if no Peer exists
         if ($peers->isEmpty()) {
             return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
         }
 
-        $new_value = $request->user()->own_flushes - 1;
+        $new_value = $user->own_flushes - 1;
         User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
 
         // Iterate over Peers
         foreach ($peers as $peer) {
-            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
+            $history = History::where('torrent_id', '=', $peer->torrent_id)
+                ->where('user_id', '=', $peer->user_id)
+                ->first();
             if ($history) {
                 $history->active = false;
                 $history->save();
@@ -1997,7 +2009,7 @@ class UserController extends Controller
         }])->where('user_id', '=', $user->id)
             ->where('ip', '=', $ip)
             ->where('port', '=', $port)
-            ->distinct('info_hash')
+            ->distinct('torrent_id')
             ->paginate(50);
 
         return \view('user.private.active', ['user' => $user,

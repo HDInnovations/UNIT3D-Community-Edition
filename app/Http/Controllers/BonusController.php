@@ -578,7 +578,7 @@ class BonusController extends Controller
 
         return DB::table('history')
             ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000)
             ->where('history.seedtime', '<', 2_592_000 * 2)
@@ -595,7 +595,7 @@ class BonusController extends Controller
 
         return DB::table('history')
             ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 2)
             ->where('history.seedtime', '<', 2_592_000 * 3)
@@ -612,7 +612,7 @@ class BonusController extends Controller
 
         return DB::table('history')
             ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 3)
             ->where('history.seedtime', '<', 2_592_000 * 6)
@@ -629,7 +629,7 @@ class BonusController extends Controller
 
         return DB::table('history')
             ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 6)
             ->where('history.seedtime', '<', 2_592_000 * 12)
@@ -646,7 +646,7 @@ class BonusController extends Controller
 
         return DB::table('history')
             ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
