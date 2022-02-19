@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecommendationsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('recommendations', function (Blueprint $table) {
             $table->id();
@@ -37,4 +34,4 @@ class CreateRecommendationsTable extends Migration
             $table->unique(['tv_id', 'recommendation_tv_id']);
         });
     }
-}
+};

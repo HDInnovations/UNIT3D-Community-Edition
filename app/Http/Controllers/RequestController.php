@@ -62,10 +62,8 @@ class RequestController extends Controller
 
     /**
      * Display The Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
      */
-    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function request(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('request_can_view'), 403);
 
@@ -105,12 +103,8 @@ class RequestController extends Controller
 
     /**
      * Torrent Request Add Form.
-     *
-     * @param string $title
-     * @param int    $imdb
-     * @param int    $tmdb
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addRequestForm(Request $request, string $title = '', int $imdb = 0, int $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('request_can_create'), 403);
 
@@ -129,11 +123,8 @@ class RequestController extends Controller
 
     /**
      * Store A New Torrent Request.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function addrequest(Request $request)
+    public function addrequest(Request $request): \Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('request_can_create'), 403);
         $user = $request->user();
@@ -217,15 +208,13 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('requests.index')
-            ->withSuccess('Request Added.');
+            ->withSuccess(\trans('request.added-request'));
     }
 
     /**
      * Torrent Request Edit Form.
-     *
-     * @param \App\Models\TorrentRequest $id
      */
-    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editRequestForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -242,12 +231,8 @@ class RequestController extends Controller
 
     /**
      * Edit A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editrequest(Request $request, $id)
+    public function editrequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -309,17 +294,13 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $torrentRequest->id])
-            ->withSuccess('Request Edited Successfully.');
+            ->withSuccess(\trans('request.edited-request'));
     }
 
     /**
      * Add Bounty To A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function addBonus(Request $request, $id)
+    public function addBonus(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -374,17 +355,13 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your bonus has been successfully added.');
+            ->withSuccess(\trans('request.added-bonus'));
     }
 
     /**
      * Fill A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function fillRequest(Request $request, $id)
+    public function fillRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -400,15 +377,15 @@ class RequestController extends Controller
             'filled_anon' => 'required',
         ]);
 
-        $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
-        if ($torrent->isApproved() === false) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
-        }
-
         if ($v->fails()) {
             return \redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
+        }
+
+        $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
+        if ($torrent->isApproved() === false) {
+            return \redirect()->route('request', ['id' => $request->input('request_id')])
+                ->withErrors(\trans('request.pending-moderation'));
         }
 
         $torrentRequest->save();
@@ -420,17 +397,13 @@ class RequestController extends Controller
         }
 
         return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your request fill is pending approval by the Requester.');
+            ->withSuccess(\trans('request.pending-approval'));
     }
 
     /**
      * Approve A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function approveRequest(Request $request, $id)
+    public function approveRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -439,7 +412,7 @@ class RequestController extends Controller
         if ($user->id == $tr->user_id || $request->user()->hasPrivilegeTo('request_can_approve')) {
             if ($tr->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already approved');
+                    ->withErrors(\trans('request.already-approved'));
             }
 
             $tr->approved_by = $user->id;
@@ -489,25 +462,21 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fillUser->username));
+                    ->withSuccess(\sprintf(\trans('request.approved-user'), $tr->name, $fillUser->username));
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
+                ->withSuccess(\sprintf(\trans('request.approved-anon'), $tr->name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
+                ->withErrors(\trans('request.access-error'));
     }
 
     /**
      * Reject A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function rejectRequest(Request $request, $id)
+    public function rejectRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -515,7 +484,7 @@ class RequestController extends Controller
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already rejected');
+                    ->withErrors(\trans('request.already-rejected'));
             }
 
             $requester = User::findOrFail($torrentRequest->filled_by);
@@ -529,23 +498,19 @@ class RequestController extends Controller
             $torrentRequest->save();
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('This request has been reset.');
+                ->withSuccess(\trans('request.request-reset'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess("You don't have access to approve this request");
+            ->withSuccess(\trans('request.access-error'));
     }
 
     /**
      * Delete A Torrent Request.
      *
-     * @param \App\Models\TorrentRequest $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteRequest(Request $request, $id)
+    public function deleteRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -555,21 +520,17 @@ class RequestController extends Controller
             $torrentRequest->delete();
 
             return \redirect()->route('requests.index')
-                ->withSuccess(\sprintf('You have deleted %s', $name));
+                ->withSuccess(\sprintf(\trans('request.deleted'), $name));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors("You don't have access to delete this request.");
+            ->withErrors(\trans('request.access-delete-error'));
     }
 
     /**
      * Claim A Torrent Request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function claimRequest(Request $request, $id)
+    public function claimRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::with('user')->findOrFail($id);
@@ -592,23 +553,19 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Claimed');
+                ->withSuccess(\trans('request.claimed-success'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Someone else has already claimed this request buddy.');
+            ->withErrors(\trans('request.already-claimed'));
     }
 
     /**
      * Uncliam A Torrent Request.
      *
-     * @param \App\Models\TorrentRequest $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function unclaimRequest(Request $request, $id)
+    public function unclaimRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -632,21 +589,17 @@ class RequestController extends Controller
             }
 
             return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Un-Claimed');
+                ->withSuccess(\trans('request.unclaimed-success'));
         }
 
         return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Nothing To Unclaim.');
+            ->withErrors(\trans('request.unclaim-error'));
     }
 
     /**
      * Resets the filled and approved attributes on a given request.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function resetRequest(Request $request, $id)
+    public function resetRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->hasPrivilegeTo('request_can_reset'), 403);
@@ -660,6 +613,6 @@ class RequestController extends Controller
         $torrentRequest->save();
 
         return \redirect()->route('request', ['id' => $id])
-            ->withSuccess('The request has been reset!');
+            ->withSuccess(\trans('request.request-reset'));
     }
 }

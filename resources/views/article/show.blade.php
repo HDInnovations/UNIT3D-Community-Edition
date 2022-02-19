@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $article->title }} - @lang('articles.articles') - {{ config('other.title') }}</title>
+    <title>{{ $article->title }} - {{ __('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
         </a>
     </li>
     <li>
@@ -36,7 +36,7 @@
         <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
         <p class="text-muted">
-            <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
+            <em>{{ __('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
         </p>
 
         <p style="margin-top: 20px;">@joypixels($article->getContentHtml())</p>
@@ -49,14 +49,15 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading border-light">
                         <h4 class="panel-title">
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
                         </h4>
                     </div>
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
                             @if (count($article->comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!</h4>
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
+                                        !</h4>
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
@@ -65,8 +66,10 @@
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                       style="color:{{ $comment->user->group->color }};">(<span><i
+                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px;">
@@ -78,23 +81,27 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                                            style="color:{{ $comment->user->group->color }};"><span><i
+                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                    <div class="pull-right" style="display: inline-block;">
-                                                        <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
-                                                            <button class="btn btn-circle btn-info">
-                                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}" method="POST" style="display: inline-block;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-circle btn-danger">
-                                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                <div class="pull-right" style="display: inline-block;">
+                                                    <a data-toggle="modal"
+                                                       data-target="#modal-comment-edit-{{ $comment->id }}">
+                                                        <button class="btn btn-circle btn-info">
+                                                            <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                        </button>
+                                                    </a>
+                                                    <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
+                                                          method="POST" style="display: inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-circle btn-danger">
+                                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             @endif
                                             <div class="pt-5">
                                                 @joypixels($comment->getContentHtml())
@@ -115,30 +122,28 @@
                 <form role="form" method="POST" action="{{ route('comment_article', ['id' => $article->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="content">@lang('common.your-comment'):</label>
-                        <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
-                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                        <label for="content">{{ __('common.your-comment') }}:</label>
+                        <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
+                        <span class="pull-right" x-data="{ emoji: false }">
+                            <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                            <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                                <emoji-picker></emoji-picker>
+                            </div>
+                        </span>
+                        <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
-                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+                    <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
+                    <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
                             :</strong></label>
                     <label>
                         <input type="radio" value="1" name="anonymous">
-                    </label> @lang('common.yes')
+                    </label> {{ __('common.yes') }}
                     <label>
                         <input type="radio" value="0" checked="checked" name="anonymous">
-                    </label> @lang('common.no')
+                    </label> {{ __('common.no') }}
                 </form>
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-
-        $('#content').wysibb({});
-      })
-    </script>
 @endsection

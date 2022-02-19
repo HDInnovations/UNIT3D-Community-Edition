@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->integer('id', true);
@@ -32,4 +29,4 @@ class CreateCategoriesTable extends Migration
             $table->integer('num_torrent')->default(0);
         });
     }
-}
+};

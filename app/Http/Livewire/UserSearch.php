@@ -21,13 +21,13 @@ class UserSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $search = '';
+    public string $search = '';
 
-    public $sortField = 'created_at';
+    public string $sortField = 'created_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     final public function paginationView(): string
     {

@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('auth.exceededTitle') - {{ config('other.title') }}</title>
+    <title>{{ __('auth.exceededTitle') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('auth.exceededTitle') - {{ config('other.title') }}">
+    <meta name="description" content="{{ __('auth.exceededTitle') }} - {{ config('other.title') }}">
 @endsection
 
 @section('stylesheets')
@@ -15,7 +15,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('auth.exceededTitle')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('auth.exceededTitle') }}</span>
         </a>
     </li>
 @endsection
@@ -28,32 +28,32 @@
                     <div class="panel-heading text-center">
                         <i class="glyphicon glyphicon-lock locked-icon text-danger" aria-hidden="true"></i>
                         <h3>
-                            @lang('auth.exceededTitle')
+                            {{ __('auth.exceededTitle') }}
                         </h3>
                     </div>
                     <div class="panel-body">
                         <h4 class="text-center text-danger">
                             <em>
-                                @lang('auth.lockedUntil')
+                                {{ __('auth.lockedUntil') }}
                             </em>
-                            <br />
+                            <br/>
                             <strong>
                                 {{ $timeUntilUnlock }}
                             </strong>
-                            <br />
+                            <br/>
                             <small>
-                                @lang('auth.tryAgainIn') {{ $timeCountdownUnlock }} &hellip;
+                                {{ __('auth.tryAgainIn') }} {{ $timeCountdownUnlock }} &hellip;
                             </small>
                         </h4>
                         <p class="text-center">
                             <a class="btn btn-info" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                tabindex="6">
-                                <i class="glyphicon glyphicon-home" aria-hidden="true"></i> @lang('auth.returnButton')
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                               tabindex="6">
+                                <i class="glyphicon glyphicon-home" aria-hidden="true"></i> {{ __('auth.returnButton') }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                         </p>
                     </div>
                 </div>

@@ -30,7 +30,7 @@ use Illuminate\Support\Str;
 class TMDBScraper implements ShouldQueue
 {
     /**
-     * @var mixed|mixed[]|string|null
+     * @var mixed|array|string|null
      */
     public $id;
 
@@ -43,7 +43,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function tv($id = null)
+    public function tv($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -57,6 +57,7 @@ class TMDBScraper implements ShouldQueue
                 'episode_run_time'   => $tmdb->ifHasItems('episode_run_time', $tv),
                 'first_air_date'     => $tmdb->ifExists('first_air_date', $tv),
                 'homepage'           => $tv['homepage'],
+                'imdb_id'            => \substr($tv['external_ids']['imdb_id'] ?? '', 2),
                 'in_production'      => $tv['in_production'],
                 'last_air_date'      => $tmdb->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),
@@ -82,7 +83,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function movie($id = null)
+    public function movie($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -104,7 +105,7 @@ class TMDBScraper implements ShouldQueue
                 'backdrop'          => $tmdb->image('backdrop', $movie),
                 'budget'            => $movie['budget'] ?? null,
                 'homepage'          => $movie['homepage'] ?? null,
-                'imdb_id'           => $movie['imdb_id'] ?? null,
+                'imdb_id'           => \substr($movie['imdb_id'] ?? '', 2),
                 'original_language' => $movie['original_language'] ?? null,
                 'original_title'    => $movie['original_title'] ?? null,
                 'overview'          => $movie['overview'] ?? null,
@@ -129,7 +130,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function collection($id = null)
+    public function collection($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -151,7 +152,7 @@ class TMDBScraper implements ShouldQueue
         //return ['message' => 'Collection with id: ' . $id . ' Has been added  to the database, But movies are loaded with the queue'];
     }
 
-    public function company($id = null)
+    public function company($id = null): void
     {
         if ($id == null) {
             $id = $this->id;

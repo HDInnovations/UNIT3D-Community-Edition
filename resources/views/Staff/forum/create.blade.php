@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Add Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Add Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Add Forums - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Add Forums - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Add a new Forum</h2>
-    
+
         <form role="form" method="POST" action="{{ route('staff.forums.store') }}">
             @csrf
             <div class="form-group">
@@ -36,21 +36,21 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <label>
                     <input type="text" name="title" class="form-control">
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="description">Description</label>
                 <label>
                     <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
                 </label>
             </div>
-    
+
             <div class="form-group">
                 <label for="parent_id">Parent forum</label>
                 <label>
@@ -62,46 +62,46 @@
                     </select>
                 </label>
             </div>
-    
+
             <div class="form-group">
-                <label for="position">@lang('common.position')</label>
+                <label for="position">{{ __('common.position') }}</label>
                 <label>
                     <input type="text" name="position" class="form-control" placeholder="The position number">
                 </label>
             </div>
-    
+
             <h3>Permissions</h3>
             <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>Groups</th>
-                        <th>View the forum</th>
-                        <th>Read topics</th>
-                        <th>Start new topic</th>
-                        <th>Reply to topics</th>
-                    </tr>
+                <tr>
+                    <th>Groups</th>
+                    <th>View the forum</th>
+                    <th>Read topics</th>
+                    <th>Start new topic</th>
+                    <th>Reply to topics</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach ($groups as $g)
-                        <tr>
-                            <td>{{ $g->name }}</td>
-                            <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked>
-                                </label></td>
-                            <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked>
-                                </label></td>
-                            <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked>
-                                </label></td>
-                            <td><label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked>
-                                </label></td>
-                        </tr>
-                    @endforeach
+                @foreach ($groups as $g)
+                    <tr>
+                        <td>{{ $g->name }}</td>
+                        <td><label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked>
+                            </label></td>
+                        <td><label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked>
+                            </label></td>
+                        <td><label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked>
+                            </label></td>
+                        <td><label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked>
+                            </label></td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
-    
+
             <button type="submit" class="btn btn-default">Save Forum</button>
         </form>
     </div>

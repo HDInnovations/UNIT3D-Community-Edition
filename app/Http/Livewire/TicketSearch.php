@@ -21,17 +21,17 @@ class TicketSearch extends Component
 {
     use WithPagination;
 
-    public $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    public $show = false;
+    public bool $show = false;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $search = '';
+    public string $search = '';
 
-    public $sortField = 'updated_at';
+    public string $sortField = 'updated_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     protected $queryString = [
         'search' => ['except' => ''],

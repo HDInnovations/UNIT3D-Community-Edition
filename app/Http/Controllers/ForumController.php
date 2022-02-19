@@ -63,12 +63,12 @@ class ForumController extends Controller
 
         if ($request->has('body') && $request->input('body') != '') {
             $logger = 'forum.results_posts';
-            $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests);
+            $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereIntegerNotInRaw('topics.forum_id', $pests);
         }
 
         if (! isset($logger)) {
             $logger = 'forum.results_topics';
-            $result = Topic::whereNotIn('topics.forum_id', $pests);
+            $result = Topic::whereIntegerNotInRaw('topics.forum_id', $pests);
         }
 
         if ($request->has('body') && $request->input('body') != '') {
@@ -81,10 +81,10 @@ class ForumController extends Controller
 
         if ($request->has('subscribed') && $request->input('subscribed') == 1) {
             $result->where(function ($query) use ($topicNeos, $forumNeos) {
-                $query->whereIn('topics.id', $topicNeos)->orWhereIn('topics.forum_id', $forumNeos);
+                $query->whereIntegerInRaw('topics.id', $topicNeos)->orWhereIntegerInRaw('topics.forum_id', $forumNeos);
             });
         } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
-            $result->whereNotIn('topics.id', $topicNeos)->whereNotIn('topics.forum_id', $forumNeos);
+            $result->whereIntegerNotInRaw('topics.id', $topicNeos)->whereIntegerNotInRaw('topics.forum_id', $forumNeos);
         }
 
         if ($request->has('implemented') && $request->input('implemented') == 1) {
@@ -143,8 +143,6 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
-
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = \sprintf('topics.%s', $request->input('sorting'));
@@ -153,9 +151,8 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
-
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
+        $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -203,11 +200,11 @@ class ForumController extends Controller
             $forumNeos = [];
         }
 
-        $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
-            $query->whereIn('topics.id', $topicNeos)->orWhereIn('forums.id', $forumNeos);
+        $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereIntegerNotInRaw('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
+            $query->whereIntegerInRaw('topics.id', $topicNeos)->orWhereIntegerInRaw('forums.id', $forumNeos);
         })->groupBy('forums.id');
 
-        $results = $builder->orderBy('topic_created_at', 'desc')->paginate(25);
+        $results = $builder->orderByDesc('topic_created_at')->paginate(25);
         $results->setPath('?name='.$request->input('name'));
 
         // Total Forums Count
@@ -245,7 +242,7 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $results = Topic::with(['forum'])->whereNotIn('topics.forum_id', $pests)->latest()->paginate(25);
+        $results = Topic::with(['forum'])->whereIntegerNotInRaw('topics.forum_id', $pests)->latest()->paginate(25);
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -275,7 +272,7 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereIntegerNotInRaw('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -330,10 +327,8 @@ class ForumController extends Controller
 
     /**
      * Show Forums And Topics Inside.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         // Find the topic

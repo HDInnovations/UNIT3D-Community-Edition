@@ -1337,7 +1337,7 @@ class Markdown
 
     protected function inlineSpecialCharacter($Excerpt)
     {
-        if (\substr($Excerpt['text'], 1, 1) !== ' ' && \str_contains($Excerpt['text'], ';') && \preg_match('#^&(#?+[0-9a-zA-Z]++);#', $Excerpt['text'], $matches)
+        if (\substr($Excerpt['text'], 1, 1) !== ' ' && \str_contains($Excerpt['text'], ';') && \preg_match('/^&(#?+[0-9a-zA-Z]++);/', $Excerpt['text'], $matches)
         ) {
             return [
                 'element' => ['rawHtml' => '&'.$matches[1].';'],
@@ -1612,14 +1612,8 @@ class Markdown
     /**
      * Replace occurrences $regexp with $Elements in $text. Return an array of
      * elements representing the replacement.
-     *
-     * @param $regexp
-     * @param $Elements
-     * @param $text
-     *
-     * @return array
      */
-    protected static function pregReplaceElements($regexp, $Elements, $text)
+    protected static function pregReplaceElements($regexp, $Elements, $text): array
     {
         $newElements = [];
 

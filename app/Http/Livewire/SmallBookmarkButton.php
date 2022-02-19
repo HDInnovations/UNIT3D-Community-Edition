@@ -20,7 +20,7 @@ class SmallBookmarkButton extends Component
 {
     public $torrent;
 
-    public $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     final public function mount($torrent): void
     {

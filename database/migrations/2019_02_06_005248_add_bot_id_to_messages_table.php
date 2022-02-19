@@ -15,17 +15,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBotIdToMessagesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->integer('bot_id')->after('receiver_id')->unsigned()->nullable();
         });
     }
-}
+};

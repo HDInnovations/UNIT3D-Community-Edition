@@ -29,10 +29,8 @@ class UsersTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->users as $user) {
             $new = User::updateOrCreate($user);
@@ -40,7 +38,7 @@ class UsersTableSeeder extends Seeder
         }
     }
 
-    private function getUsers()
+    private function getUsers(): array
     {
         return [
             [

@@ -23,7 +23,7 @@ use App\Models\UserActivation;
  */
 class ActivationController extends Controller
 {
-    public function activate($token)
+    public function activate($token): \Illuminate\Http\RedirectResponse
     {
         $member = Role::where('slug', 'user')->firstOrFail();
         $validating = Role::where('slug', 'validating')->firstOrFail();

@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v5.3.0',
+    'powered-by' => 'Powered By UNIT3D Community Edition v6.0.1',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'version' => 'v5.3.0',
+    'version' => 'v6.0.1',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,5 +64,5 @@ return [
     'root_url_override' => env('FORCE_ROOT_URL', false),
 
     //Global Rate Limit for Comments - X Per Minute
-    'comment-rate-limit' => env('COMMENTS_PER_MINUTE', 2),
+    'comment-rate-limit' => env('COMMENTS_PER_MINUTE', 3),
 ];

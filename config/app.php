@@ -178,8 +178,6 @@ return [
         Assada\Achievements\AchievementsServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Hootlex\Moderation\ModerationServiceProvider::class,
-        Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*

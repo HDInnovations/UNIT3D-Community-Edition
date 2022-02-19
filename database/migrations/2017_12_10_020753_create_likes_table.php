@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLikesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->increments('id');
@@ -32,4 +29,4 @@ class CreateLikesTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

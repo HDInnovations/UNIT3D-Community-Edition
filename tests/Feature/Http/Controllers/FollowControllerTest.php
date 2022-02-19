@@ -14,7 +14,7 @@ use Tests\TestCase;
 class FollowControllerTest extends TestCase
 {
     /** @test */
-    public function destroy_returns_an_ok_response()
+    public function destroy_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -33,11 +33,11 @@ class FollowControllerTest extends TestCase
         $response->assertRedirect(route('users.show', ['username' => $userToFollow->username]))
             ->assertSessionHas('success', sprintf('You are no longer following %s', $userToFollow->username));
 
-        $this->assertDeleted($follow);
+        $this->assertModelMissing($follow);
     }
 
     /** @test */
-    public function store_returns_an_ok_response()
+    public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

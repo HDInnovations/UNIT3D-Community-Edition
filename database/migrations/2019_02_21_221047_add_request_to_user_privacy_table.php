@@ -15,14 +15,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRequestToUserPrivacyTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('user_privacy', function (Blueprint $table) {
             $table->boolean('show_profile_request_extra')->index()->default(1)->after('show_profile_forum_extra');
@@ -33,4 +30,4 @@ class AddRequestToUserPrivacyTable extends Migration
             $table->boolean('show_requested')->index()->default(1)->after('show_rank');
         });
     }
-}
+};

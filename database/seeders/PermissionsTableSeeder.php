@@ -27,17 +27,15 @@ class PermissionsTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->permissions as $permission) {
             Permission::updateOrCreate($permission);
         }
     }
 
-    private function getPermissions()
+    private function getPermissions(): array
     {
         return [
             [

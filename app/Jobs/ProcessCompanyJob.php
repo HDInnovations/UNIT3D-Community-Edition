@@ -29,8 +29,6 @@ class ProcessCompanyJob implements ShouldQueue
 
     /**
      * ProcessCompanyJob Constructor.
-     *
-     * @param $company
      */
     public function __construct(public $company)
     {
@@ -38,10 +36,8 @@ class ProcessCompanyJob implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->company['movie'] as $movie) {
             $metadata = new TMDBScraper();

@@ -1,23 +1,23 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('common.edit') @lang('forum.post') - {{ $topic->name }}
+    <title>{{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }}
         - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $forum->name . ' - ' . trans('forum.edit-post') }}">
+    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.edit-post') }}">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
+           class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }}</span>
         </a>
     </li>
@@ -33,8 +33,8 @@
     </li>
     <li>
         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $post->id]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') @lang('forum.post')</span>
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.edit') }} {{ __('forum.post') }}</span>
         </a>
     </li>
 @endsection
@@ -42,24 +42,18 @@
 @section('content')
     <div class="forum box container">
         <div class="col-md-12">
-            <h2>@lang('common.edit') @lang('forum.post') {{ strtolower(trans('forum.in')) }}
+            <h2>{{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}
                 : {{ $forum->name }}</h2>
             <form role="form" method="POST"
-                action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">
+                  action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">
                 @csrf
                 <div class="form-group">
-                    <label for="content"></label><textarea id="content" name="content" cols="30" rows="10" class="form-control">{{ $post->content }}</textarea>
+                    <label for="content"></label>
+                    <textarea id="editor" name="content" cols="30" rows="10"
+                              class="form-control">{{ $post->content }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
+                <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
             </form>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        $(document).ready(function() {
-            $('#content').wysibb();
-        })
-    </script>
 @endsection

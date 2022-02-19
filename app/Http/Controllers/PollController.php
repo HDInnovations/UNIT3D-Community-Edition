@@ -45,10 +45,8 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('polls_can_view'), 403);
         $poll = Poll::findOrFail($id);
@@ -57,7 +55,7 @@ class PollController extends Controller
 
         if ($userHasVoted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withInfo('You have already vote on this poll. Here are the results.');
+                ->withInfo(\trans('poll.already-voted-result'));
         }
 
         return \view('poll.show', ['poll' => $poll]);
@@ -65,9 +63,6 @@ class PollController extends Controller
 
     /**
      * Vote On A Poll.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function vote(Request $request, VoteOnPoll $voteOnPoll)
     {
@@ -79,7 +74,7 @@ class PollController extends Controller
             ->exists();
         if ($voted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
-                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
+                ->withErrors(\trans('poll.already-voted-error'));
         }
 
         // Operate options after validation
@@ -101,13 +96,11 @@ class PollController extends Controller
         );
 
         return \redirect()->route('poll_results', ['id' => $poll->id])
-            ->withSuccess('Your vote has been counted.');
+            ->withSuccess(\trans('poll.vote-counted'));
     }
 
     /**
      * Show A Polls Results.
-     *
-     * @param \App\Models\Poll $id
      */
     public function result(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {

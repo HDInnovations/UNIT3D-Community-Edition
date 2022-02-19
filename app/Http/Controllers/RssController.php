@@ -30,15 +30,13 @@ class RssController extends Controller
 {
     /**
      * Display a listing of the RSS resource.
-     *
-     * @param null $hash
      */
     public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('user_can_rss'), 403);
         $user = $request->user();
 
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
         $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [
@@ -123,11 +121,11 @@ class RssController extends Controller
             $rss->json_torrent = \array_merge($expected, $params);
             $rss->is_private = 1;
             $rss->save();
-            $success = 'Private RSS Feed Created';
+            $success = \trans('rss.created');
         }
 
         if ($success === null) {
-            $error = 'Unable To Process Request';
+            $error = \trans('rss.error');
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -143,14 +141,9 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     * @param int    $id
-     * @param string $rsskey
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function show($id, $rsskey)
+    public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         \abort_unless($user->hasPrivilegeTo('user_can_rss') && $user->hasPrivilegeTo('active_user'), 403);
@@ -242,27 +235,27 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->categories && \is_array($rss->object_torrent->categories)) {
-            $builder->whereIn('category_id', $categories);
+            $builder->whereIntegerInRaw('category_id', $categories);
         }
 
         if ($rss->object_torrent->types && \is_array($rss->object_torrent->types)) {
-            $builder->whereIn('type_id', $types);
+            $builder->whereIntegerInRaw('type_id', $types);
         }
 
         if ($rss->object_torrent->resolutions && \is_array($rss->object_torrent->resolutions)) {
-            $builder->whereIn('resolution_id', $resolutions);
+            $builder->whereIntegerInRaw('resolution_id', $resolutions);
         }
 
         if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $genres)->pluck('tv_id');
-            $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $genres)->pluck('movie_id');
+            $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $genres)->pluck('tv_id');
+            $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $genres)->pluck('movie_id');
             $mergedCollection = $tvCollection->merge($movieCollection);
 
             $builder->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
-            $builder->where('free', '=', $freeleech);
+            $builder->where('free', '>=', $freeleech);
         }
 
         if ($rss->object_torrent->doubleupload && $rss->object_torrent->doubleupload != null) {
@@ -290,7 +283,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
-            $builder->whereIn('id', $user->bookmarks->pluck('id'));
+            $builder->whereIntegerInRaw('id', $user->bookmarks->pluck('id'));
         }
 
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
@@ -312,10 +305,8 @@ class RssController extends Controller
 
     /**
      * Show the form for editing the specified RSS resource.
-     *
-     * @param int $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('user_can_rss'), 403);
         $user = $request->user();
@@ -334,10 +325,8 @@ class RssController extends Controller
 
     /**
      * Update the specified RSS resource in storage.
-     *
-     * @param int $id
      */
-    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         \abort_unless($request->user()->hasPrivilegeTo('user_can_rss') && $request->user()->id === $rss->user_id, 403);
@@ -386,11 +375,11 @@ class RssController extends Controller
             $rss->json_torrent = \array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
             $rss->save();
-            $success = 'Private RSS Feed Updated';
+            $success = \trans('rss.updated');
         }
 
         if ($success === null) {
-            $error = 'Unable To Process Request';
+            $error = \trans('rss.error');
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -406,11 +395,7 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @param int $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
@@ -419,6 +404,6 @@ class RssController extends Controller
         $rss->delete();
 
         return \redirect()->route('rss.index', ['hash' => 'private'])
-            ->withSuccess('RSS Feed Deleted!');
+            ->withSuccess(\trans('rss.deleted'));
     }
 }

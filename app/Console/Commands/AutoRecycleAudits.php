@@ -38,10 +38,8 @@ class AutoRecycleAudits extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $audits = Audit::where('created_at', '<', $current->copy()->subDays(\config('audit.recycle'))->toDateTimeString())->get();

@@ -17,27 +17,24 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\FreeleechToken.
- *
- * @property int                             $id
- * @property int                             $user_id
- * @property int                             $torrent_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereTorrentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereUserId($value)
- * @mixin \Eloquent
- */
 class FreeleechToken extends Model
 {
     use HasFactory;
     use Auditable;
+
+    /**
+     * Belongs To A Torrent.
+     */
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A User.
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

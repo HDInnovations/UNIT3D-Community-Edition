@@ -46,10 +46,8 @@ class AutoBan extends Command
      * Execute the console command.
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $canLogin = Privilege::where('slug', 'can_login')->firstOrFail();
         $activeUser = Privilege::where('slug', 'active_user')->firstOrFail();

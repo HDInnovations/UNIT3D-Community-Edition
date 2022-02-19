@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
+    <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('uploaded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-uploaders')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.top-uploaders') }}</span>
         </a>
     </li>
 @endsection
@@ -22,20 +22,21 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>@lang('stat.top-uploaders') ({{ strtolower(trans('stat.by-volume')) }})</h2>
+            <h2>{{ __('stat.top-uploaders') }} ({{ strtolower(__('stat.by-volume')) }})</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('stat.top-uploaders')
-                        </strong> ({{ strtolower(trans('stat.by-volume')) }})</p>
+                    <p class="text-green"><strong><i
+                                    class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ __('stat.top-uploaders') }}
+                        </strong> ({{ strtolower(__('stat.by-volume')) }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.upload')</th>
-                            <th>@lang('common.download')</th>
-                            <th>@lang('common.ratio')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('common.upload') }}</th>
+                            <th>{{ __('common.download') }}</th>
+                            <th>{{ __('common.ratio') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,7 +49,7 @@
                                     @if ($u->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $u->username]) }}">({{ $u->username }}
                                                     )</a></span>
                                     @endif

@@ -27,10 +27,8 @@ class PagesTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->pages as $page) {
             if (Page::find($page['id']) == null) {
@@ -41,7 +39,7 @@ class PagesTableSeeder extends Seeder
         }
     }
 
-    private function getPages()
+    private function getPages(): array
     {
         return [
             [

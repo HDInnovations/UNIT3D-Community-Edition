@@ -48,20 +48,17 @@ class AlbumController extends Controller
 
     /**
      * Store A New Album.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
 
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
-        if ($meta === null || ! $meta) {
+        if (! $meta) {
             return \redirect()->route('albums.create')
-                ->withErrors('Meta Data Not Found. Gallery System Is Being Refactored');
+                ->withErrors(\trans('gallery.no-meta'));
         }
 
         $album = new Album();
@@ -93,15 +90,13 @@ class AlbumController extends Controller
         $album->save();
 
         return \redirect()->route('albums.show', ['id' => $album->id])
-            ->withSuccess('Your album has successfully published!');
+            ->withSuccess(\trans('gallery.success'));
     }
 
     /**
      * Show A Album.
-     *
-     * @param \App\Models\Album $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -112,13 +107,9 @@ class AlbumController extends Controller
     /**
      * Delete A Album.
      *
-     * @param \App\Models\Album $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);
@@ -127,6 +118,6 @@ class AlbumController extends Controller
         $album->delete();
 
         return \redirect()->route('albums.index')
-            ->withSuccess('Album has successfully been deleted');
+            ->withSuccess(\trans('gallery.deleted'));
     }
 }

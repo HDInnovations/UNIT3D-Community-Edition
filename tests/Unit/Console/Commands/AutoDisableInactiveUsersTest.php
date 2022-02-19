@@ -12,7 +12,7 @@ class AutoDisableInactiveUsersTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:disable_inactive_users')
             ->expectsOutput('Automated User Disable Command Complete')

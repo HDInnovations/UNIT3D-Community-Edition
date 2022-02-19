@@ -8,29 +8,34 @@
     "production": "mix --production"
   },
   "devDependencies": {
-    "ajv": "^8.8.2",
+    "ajv": "^8.10.0",
     "axios": "^0.21.4",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0.3",
     "jquery": "^3.6.0",
     "laravel-echo": "^1.11.3",
-    "laravel-mix": "^6.0.39",
+    "laravel-mix": "^6.0.41",
     "lodash": "^4.17.21",
-    "postcss": "^8.3.11",
-    "resolve-url-loader": "4.0.0",
-    "sass": "^1.43.4",
-    "sass-loader": "^12.3.0",
+    "postcss": "^8.4.6",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.49.7",
+    "sass-loader": "^12.4.0",
     "socket.io": "^2.4.0",
     "socket.io-client": "^2.3.1",
-    "sweetalert2": "^11.2.0",
+    "sweetalert2": "^11.4.0",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "alpinejs": "^3.5.1",
+    "@soketi/soketi": "^0.30.2",
+    "alpinejs": "^3.9.0",
     "dayjs": "^1.10.7",
+    "emoji-picker-element": "^1.10.1",
     "keen-slider": "^5.5.1",
-    "node-vibrant": "^3.1.6"
+    "node-vibrant": "^3.1.6",
+    "pusher-js": "^7.0.6",
+    "text-field-edit": "^3.1.2022",
+    "virtual-select-plugin": "^1.0.18"
   }
 }

@@ -40,13 +40,13 @@ class SimilarTorrent extends Component
 
     public $checked = [];
 
-    public $selectPage = false;
+    public bool $selectPage = false;
 
-    public $selectAll = false;
+    public bool $selectAll = false;
 
-    public $sortField = 'bumped_at';
+    public string $sortField = 'bumped_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
 
@@ -71,7 +71,7 @@ class SimilarTorrent extends Component
         return in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection
+    final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
         $category = Category::findOrFail($this->categoryId);
 

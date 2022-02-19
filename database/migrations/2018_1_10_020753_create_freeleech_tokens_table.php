@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFreeleechTokensTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('freeleech_tokens', function (Blueprint $table) {
             $table->increments('id');
@@ -30,4 +27,4 @@ class CreateFreeleechTokensTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

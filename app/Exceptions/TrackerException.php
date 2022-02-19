@@ -74,9 +74,6 @@ class TrackerException extends \Exception
 
     /**
      * TrackerException constructor.
-     *
-     * @param array|null      $replace
-     * @param \Throwable|null $throwable
      */
     public function __construct(int $code = 999, array $replace = null, Throwable $throwable = null)
     {

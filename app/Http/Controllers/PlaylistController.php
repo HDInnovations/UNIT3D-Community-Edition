@@ -48,7 +48,7 @@ class PlaylistController extends Controller
                 ->orWhere(function ($query) {
                     $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
                 });
-        })->orderBy('name', 'ASC')->paginate(24);
+        })->orderBy('name')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -65,11 +65,8 @@ class PlaylistController extends Controller
 
     /**
      * Store A New Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->hasPrivilegeTo('playlist_can_create'), 403);
@@ -113,13 +110,11 @@ class PlaylistController extends Controller
         }
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Was Created Successfully!');
+            ->withSuccess(\trans('playlist.published-success'));
     }
 
     /**
      * Show A Playlist.
-     *
-     * @param \App\Playlist $id
      */
     public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -128,7 +123,7 @@ class PlaylistController extends Controller
         $playlist = Playlist::findOrFail($id);
 
         if ($playlist->is_private) {
-            \abort_unless($playlist->user_id === \auth()->id(), 403, 'This is a private playlist! You do not have access to other users\' private playlists!');
+            \abort_unless($playlist->user_id === \auth()->id(), 403, \trans('playlist.private-error'));
         }
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
@@ -164,8 +159,6 @@ class PlaylistController extends Controller
 
     /**
      * Show Playlist Update Form.
-     *
-     * @param \App\Playlist $id
      */
     public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -179,12 +172,8 @@ class PlaylistController extends Controller
 
     /**
      * Update A Playlist.
-     *
-     * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $playlist = Playlist::findOrFail($id);
@@ -221,17 +210,13 @@ class PlaylistController extends Controller
         $playlist->save();
 
         return \redirect()->route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess('Your Playlist Has Successfully Been Updated!');
+            ->withSuccess(\trans('playlist.update-success'));
     }
 
     /**
      * Delete A Playlist.
      *
-     * @param \App\Playlist $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {
@@ -241,16 +226,18 @@ class PlaylistController extends Controller
         //Privilege Check
         \abort_unless($user->id == $playlist->user_id || $user->hasPrivilegeTo('playlist_can_delete'), 403);
 
+        foreach ($playlist->torrents as $playlistTorrent) {
+            $playlistTorrent->delete();
+        }
+
         $playlist->delete();
 
         return \redirect()->route('playlists.index')
-            ->withSuccess('Playlist Deleted!');
+            ->withSuccess(\trans('playlist.deleted'));
     }
 
     /**
      * Download All Playlist Torrents.
-     *
-     * @param $id
      */
     public function downloadPlaylist(Request $request, $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
@@ -336,6 +323,6 @@ class PlaylistController extends Controller
             }
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return \redirect()->back()->withErrors(\trans('common.something-went-wrong'));
     }
 }

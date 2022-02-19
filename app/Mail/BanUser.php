@@ -24,9 +24,6 @@ class BanUser extends Mailable
 
     /**
      * BanUser Constructor.
-     *
-     * @param $email
-     * @param $ban
      */
     public function __construct(public $email, public $ban)
     {
@@ -34,10 +31,8 @@ class BanUser extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
         return $this->markdown('emails.ban')
             ->subject('You Have Been Banned - '.\config('other.title'));

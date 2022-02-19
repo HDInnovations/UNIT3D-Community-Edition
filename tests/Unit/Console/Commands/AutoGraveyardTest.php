@@ -12,7 +12,7 @@ class AutoGraveyardTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('auto:graveyard')
             ->expectsOutput('Automated Graveyard Rewards Command Complete')

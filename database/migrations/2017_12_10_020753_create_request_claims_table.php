@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRequestClaimsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('request_claims', function (Blueprint $table) {
             $table->increments('id');
@@ -31,4 +28,4 @@ class CreateRequestClaimsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

@@ -19,21 +19,9 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-
-    ];
-
-    /**
      * Define the application's command schedule.
-     *
-     *
-     * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
@@ -58,6 +46,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:sync_peers')->daily();
         $schedule->command('auto:email-blacklist-update')->weekends();
         $schedule->command('auto:reset_user_flushes')->daily();
+        $schedule->command('auto:stats_clients')->daily();
+        $schedule->command('auto:remove_torrent_buffs')->hourly();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();
@@ -65,10 +55,8 @@ class Kernel extends ConsoleKernel
 
     /**
      * Register the Closure based commands for the application.
-     *
-     * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 

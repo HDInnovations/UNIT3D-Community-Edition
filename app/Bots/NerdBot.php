@@ -61,10 +61,6 @@ class NerdBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
     public function replaceVars($output)
     {
@@ -85,11 +81,8 @@ class NerdBot
     /**
      * Get Banker.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getBanker($duration = 'default')
     {
@@ -105,11 +98,8 @@ class NerdBot
     /**
      * Get Snatched.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getSnatched($duration = 'default')
     {
@@ -125,11 +115,8 @@ class NerdBot
     /**
      * Get Leeched.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getLeeched($duration = 'default')
     {
@@ -145,11 +132,8 @@ class NerdBot
     /**
      * Get Seeded.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getSeeded($duration = 'default')
     {
@@ -165,11 +149,8 @@ class NerdBot
     /**
      * Get FL.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getFreeleech($duration = 'default')
     {
@@ -185,11 +166,8 @@ class NerdBot
     /**
      * Get DU.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getDoubleUpload($duration = 'default')
     {
@@ -205,11 +183,8 @@ class NerdBot
     /**
      * Get Peers.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getPeers($duration = 'default')
     {
@@ -225,11 +200,8 @@ class NerdBot
     /**
      * Get Bans.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getBans($duration = 'default')
     {
@@ -245,11 +217,8 @@ class NerdBot
     /**
      * Get Warnings.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getWarnings($duration = 'default')
     {
@@ -265,11 +234,8 @@ class NerdBot
     /**
      * Get Uploads.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getUploads($duration = 'default')
     {
@@ -285,11 +251,8 @@ class NerdBot
     /**
      * Get Logins.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getLogins($duration = 'default')
     {
@@ -305,11 +268,8 @@ class NerdBot
     /**
      * Get Registrations.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getRegistrations($duration = 'default')
     {
@@ -325,11 +285,8 @@ class NerdBot
     /**
      * Get Bot Donations.
      *
-     * @param string $duration
-     *
-     * @throws \Exception
-     *
-     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function getDonations($duration = 'default')
     {
@@ -368,12 +325,7 @@ class NerdBot
     /**
      * Send Bot Donation.
      *
-     * @param int    $amount
-     * @param string $note
-     *
      * @throws \Exception
-     *
-     * @return string
      */
     public function putDonate($amount = 0, $note = '')
     {
@@ -412,13 +364,8 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
-     *
-     * @throws \Exception
-     *
-     * @return bool
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function process($type, User $user, $message = '', $targeted = 0)
     {

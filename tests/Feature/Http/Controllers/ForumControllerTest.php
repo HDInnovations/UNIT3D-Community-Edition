@@ -15,7 +15,7 @@ use Tests\TestCase;
 class ForumControllerTest extends TestCase
 {
     /** @test */
-    public function index_returns_an_ok_response()
+    public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -32,7 +32,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function latest_posts_returns_an_ok_response()
+    public function latest_posts_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -50,7 +50,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function latest_topics_returns_an_ok_response()
+    public function latest_topics_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -68,7 +68,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function search_topics_returns_an_ok_response()
+    public function search_topics_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -90,7 +90,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function search_posts_returns_an_ok_response()
+    public function search_posts_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
@@ -112,7 +112,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function show_category_returns_an_ok_response()
+    public function show_category_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -151,7 +151,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function show_forum_returns_an_ok_response()
+    public function show_forum_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
 
@@ -179,7 +179,7 @@ class ForumControllerTest extends TestCase
     }
 
     /** @test */
-    public function subscriptions_returns_an_ok_response()
+    public function subscriptions_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);

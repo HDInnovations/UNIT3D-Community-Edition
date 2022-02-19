@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('poll.results') - {{ config('other.title') }}</title>
+    <title>{{ __('poll.results') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('polls') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.polls')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('poll.polls') }}</span>
         </a>
     </li>
     <li>
@@ -17,7 +17,7 @@
     </li>
     <li>
         <a href="{{ route('poll_results', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.results')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('poll.results') }}</span>
         </a>
     </li>
 @endsection
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container">
         <div class="page-title">
-            <h1>@lang('poll.results')</h1>
+            <h1>{{ __('poll.results') }}</h1>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -36,20 +36,20 @@
                     <div class="panel-body">
                         @foreach ($poll->options as $option)
                             @php
-                            $vote_value = $total_votes !== 0 ? ($option->votes / $total_votes) * 100 : 0;
-                            $vote_value = round($vote_value, 2);
+                                $vote_value = $total_votes !== 0 ? ($option->votes / $total_votes) * 100 : 0;
+                                $vote_value = round($vote_value, 2)
                             @endphp
                             <strong>{{ $option->name }}</strong><span class="pull-right">{{ $option->votes }}
                                 @if ($option->votes == 1)
-                                    @lang('poll.vote')
+                                    {{ __('poll.vote') }}
                                 @else
-                                    @lang('poll.votes')
+                                    {{ __('poll.votes') }}
                                 @endif
                             </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                    aria-valuenow="{{ $vote_value }}" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{ $vote_value }}%;">
+                                     aria-valuenow="{{ $vote_value }}" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ $vote_value }}%;">
                                     {{ $vote_value }}%
                                 </div>
                             </div>

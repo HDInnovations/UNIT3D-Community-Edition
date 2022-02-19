@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePrivateMessagesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('private_messages', function (Blueprint $table) {
             $table->increments('id');
@@ -35,4 +32,4 @@ class CreatePrivateMessagesTable extends Migration
             $table->index(['sender_id', 'read']);
         });
     }
-}
+};

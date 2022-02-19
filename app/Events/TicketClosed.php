@@ -27,9 +27,6 @@ class TicketClosed
 
     /**
      * Create a new event instance.
-     *
-     *
-     * @return mixed
      */
     public function __construct(public Ticket $ticket)
     {
@@ -38,7 +35,7 @@ class TicketClosed
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): \Illuminate\Broadcasting\Channel|array
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('channel-name');
     }

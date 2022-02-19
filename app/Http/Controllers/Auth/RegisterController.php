@@ -39,8 +39,6 @@ class RegisterController extends Controller
 
     /**
      * Registration Form.
-     *
-     * @param $code
      */
     public function registrationForm($code = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
@@ -59,7 +57,7 @@ class RegisterController extends Controller
         return \view('auth.register', ['code' => $code]);
     }
 
-    public function register(Request $request, $code = null)
+    public function register(Request $request, $code = null): \Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();

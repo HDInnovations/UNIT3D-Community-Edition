@@ -12,7 +12,7 @@ class ClearCacheTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_successfully()
+    public function it_runs_successfully(): void
     {
         $this->artisan('clear:all_cache')
             ->expectsOutput('Clearing several common cache\'s ...')

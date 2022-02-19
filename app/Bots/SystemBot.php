@@ -52,17 +52,13 @@ class SystemBot
 
     /**
      * Replace Vars.
-     *
-     * @param $output
-     *
-     * @return mixed
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
@@ -76,21 +72,15 @@ class SystemBot
     /**
      * Get Help.
      */
-    public function getHelp()
+    public function getHelp(): array|string
     {
         return $this->replaceVars($this->bot->help);
     }
 
     /**
      * Send Gift.
-     *
-     * @param string $receiver
-     * @param int    $amount
-     * @param string $note
-     *
-     * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift($receiver = '', $amount = 0, $note = ''): string
     {
         $output = \implode(' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
@@ -141,14 +131,8 @@ class SystemBot
 
     /**
      * Process Message.
-     *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
-     *
-     * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, $message = '', $targeted = 0): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->target = $user;
         $x = $type == 'message' ? 0 : 1;
@@ -189,7 +173,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;

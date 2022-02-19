@@ -14,14 +14,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBookmarksTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->increments('id');
@@ -30,4 +27,4 @@ class CreateBookmarksTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

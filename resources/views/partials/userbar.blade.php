@@ -7,23 +7,23 @@
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
-                                aria-hidden="true" data-toggle="tooltip"
-                                data-original-title="@lang('common.active-warning')"></i>
+                               aria-hidden="true" data-toggle="tooltip"
+                               data-original-title="{{ __('common.active-warning') }}"></i>
                         @endif
                     </span>
                 </a>
             </li>
             <li>
                 <span class="badge-user text-bold"
-                    style="color:{{ \App\Models\Role::find(auth()->user()->role_id)->color }}; background-image:{{ \App\Models\Role::find(auth()->user()->role_id)->effects }};">
-                    <i class="{{ \App\Models\Role::find(auth()->user()->role_id)->icon }}"></i>
-                    <strong> {{ \App\Models\Role::find(auth()->user()->role_id)->name }}</strong>
+                      style="color:{{ auth()->user()->primaryRole->color }}; background-image:{{ auth()->user()->primaryRole->effect }};">
+                    <i class="{{ auth()->user()->primaryRole->icon }}"></i>
+                    <strong> {{ auth()->user()->primaryRole->name }}</strong>
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                    @lang('common.upload') : {{ auth()
+                    {{ __('common.upload') }} : {{ auth()
                         ->user()
                         ->getUploaded() }}
                 </span>
@@ -31,7 +31,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                    @lang('common.download') : {{ auth()
+                    {{ __('common.download') }} : {{ auth()
                         ->user()
                         ->getDownloaded() }}
                 </span>
@@ -39,7 +39,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                    @lang('common.ratio') : {{ auth()
+                    {{ __('common.ratio') }} : {{ auth()
                         ->user()
                         ->getRatioString() }}
                 </span>
@@ -47,7 +47,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-exchange text-orange"></i>
-                    @lang('common.buffer') : {{ auth()
+                    {{ __('common.buffer') }} : {{ auth()
                         ->user()
                         ->untilRatio(config('other.ratio')) }}
                 </span>
@@ -56,8 +56,8 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-upload text-green"></i>
                     <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
-                        title="@lang('torrent.my-active-torrents')">
-                        <span class="text-blue"> @lang('torrent.seeding'):</span>
+                       title="{{ __('torrent.my-active-torrents') }}">
+                        <span class="text-blue"> {{ __('torrent.seeding') }}:</span>
                     </a>
                     {{ auth()
                         ->user()
@@ -68,8 +68,8 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-download text-red"></i>
                     <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
-                        title="@lang('torrent.my-active-torrents')">
-                        <span class="text-blue"> @lang('torrent.leeching'):</span>
+                       title="{{ __('torrent.my-active-torrents') }}">
+                        <span class="text-blue"> {{ __('torrent.leeching') }}:</span>
                     </a>
                     {{ auth()
                         ->user()
@@ -79,8 +79,8 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"></i>
-                    <a href="#" title="@lang('torrent.hit-and-runs')">
-                        <span class="text-blue"> @lang('common.warnings'):</span>
+                    <a href="#" title="{{ __('torrent.hit-and-runs') }}">
+                        <span class="text-blue"> {{ __('common.warnings') }}:</span>
                     </a>
                     {{ auth()
                         ->user()
@@ -90,8 +90,8 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
-                    <a href="{{ route('bonus') }}" title="@lang('user.my-bonus-points')">
-                        <span class="text-blue"> @lang('bon.bon'):</span>
+                    <a href="{{ route('bonus') }}" title="{{ __('user.my-bonus-points') }}">
+                        <span class="text-blue"> {{ __('bon.bon') }}:</span>
                     </a>
                     {{ auth()
                         ->user()
@@ -102,8 +102,8 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                     <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}"
-                        title="@lang('user.my-fl-tokens')">
-                        <span class="text-blue"> @lang('common.fl_tokens') :</span>
+                       title="{{ __('user.my-fl-tokens') }}">
+                        <span class="text-blue"> {{ __('common.fl_tokens') }} :</span>
                     </a>
                     {{ auth()->user()->fl_tokens }}
                 </span>

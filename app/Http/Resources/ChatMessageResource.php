@@ -13,8 +13,8 @@
 
 namespace App\Http\Resources;
 
-use andkab\LaravelJoyPixels\LaravelJoyPixels;
 use App\Helpers\Bbcode;
+use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ChatMessageResource extends JsonResource
@@ -22,29 +22,23 @@ class ChatMessageResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $emojiOne = \app()->make(LaravelJoyPixels::class);
 
         $logger = null;
-        if ($this->user_id && $this->user_id == 1) {
-            $bbcode = new Bbcode();
+        $bbcode = new Bbcode();
+        if ($this->user_id == 1) {
             $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
             $logger = $emojiOne->toImage($logger);
             $logger = \str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
-            $logger = \htmlspecialchars_decode($logger);
         } else {
-            $bbcode = new Bbcode();
             $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
             $logger = $emojiOne->toImage($logger);
-            $logger = \htmlspecialchars_decode($logger);
         }
+        $logger = \htmlspecialchars_decode($logger);
 
         return [
             'id'         => $this->id,

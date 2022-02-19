@@ -24,10 +24,8 @@ class ImageController extends Controller
 {
     /**
      * Show Image Create Form.
-     *
-     * @param \App\Models\Album $id
      */
-    public function create(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
         $album = Album::find($id);
@@ -37,11 +35,8 @@ class ImageController extends Controller
 
     /**
      * Store A New Image.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_create'), 403);
 
@@ -75,17 +70,13 @@ class ImageController extends Controller
         $image->save();
 
         return \redirect()->route('albums.show', ['id' => $request->input('album_id')])
-            ->withSuccess('Your image has successfully published!');
+            ->withSuccess(\trans('gallery.image-published-success'));
     }
 
     /**
      * Download A Image.
-     *
-     * @param \App\Models\Image $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function download(Request $request, $id)
+    public function download(int $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('album_can_view'), 403);
 
@@ -94,7 +85,7 @@ class ImageController extends Controller
 
         if (! \file_exists(\getcwd().'/files/img/'.$filename)) {
             return \redirect()->route('show_album', ['id' => $image->album_id])
-                ->withErrors('Image File Not Found! Please Report This To Staff!');
+                ->withErrors(\trans('gallery.image-album-not-found'));
         }
 
         $image->downloads++;
@@ -106,13 +97,9 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param \App\Models\Image $id
-     *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);
@@ -121,6 +108,6 @@ class ImageController extends Controller
         $image->delete();
 
         return \redirect()->route('albums.show', ['id' => $image->album_id])
-            ->withSuccess('Image has successfully been deleted');
+            ->withSuccess(\trans('gallery.image-album-deleted-success'));
     }
 }

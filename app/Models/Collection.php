@@ -25,18 +25,13 @@ class Collection extends Model
 
     /**
      * Has Many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class, 'collection_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function movie()
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);
     }

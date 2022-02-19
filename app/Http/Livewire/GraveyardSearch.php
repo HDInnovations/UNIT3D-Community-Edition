@@ -22,21 +22,21 @@ class GraveyardSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
+    public string $name = '';
 
-    public $categories = [];
+    public array $categories = [];
 
-    public $types = [];
+    public array $types = [];
 
-    public $resolutions = [];
+    public array $resolutions = [];
 
-    public $tmdbId = '';
+    public string $tmdbId = '';
 
-    public $imdbId = '';
+    public string $imdbId = '';
 
-    public $tvdbId = '';
+    public string $tvdbId = '';
 
-    public $malId = '';
+    public string $malId = '';
 
     public $free;
 
@@ -52,13 +52,13 @@ class GraveyardSearch extends Component
 
     public $internal;
 
-    public $perPage = 25;
+    public int $perPage = 25;
 
-    public $sortField = 'created_at';
+    public string $sortField = 'created_at';
 
-    public $sortDirection = 'desc';
+    public string $sortDirection = 'desc';
 
-    public $showFilters = false;
+    public bool $showFilters = false;
 
     protected $queryString = [
         'name'          => ['except' => ''],
@@ -112,13 +112,13 @@ class GraveyardSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->categories, function ($query) {
-                $query->whereIn('category_id', $this->categories);
+                $query->whereIntegerInRaw('category_id', $this->categories);
             })
             ->when($this->types, function ($query) {
-                $query->whereIn('type_id', $this->types);
+                $query->whereIntegerInRaw('type_id', $this->types);
             })
             ->when($this->resolutions, function ($query) {
-                $query->whereIn('resolution_id', $this->resolutions);
+                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
             ->when($this->tmdbId, function ($query) {
                 $query->where('tmdb', '=', $this->tmdbId);

@@ -1,5 +1,5 @@
 @component('mail::message')
-# @lang('email.unban-header')!
+# {{ __('email.unban-header') }}!
 **Reason:** {{ $ban->unban_reason }}
-*@lang('email.unban-footer')*
+*{{ __('email.unban-footer') }}*
 @endcomponent
