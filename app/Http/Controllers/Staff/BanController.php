@@ -17,7 +17,6 @@ use App\Http\Controllers\Controller;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
 use App\Models\Ban;
-
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\User;

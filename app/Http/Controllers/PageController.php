@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
 
