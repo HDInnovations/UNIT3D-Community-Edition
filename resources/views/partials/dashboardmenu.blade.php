@@ -71,11 +71,6 @@
                     <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
-                <li>
-                    <a href="{{ route('staff.groups.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-users"></i> {{ __('staff.groups') }}
-                    </a>
-                </li>
             <li>
                 <a href="{{ route('staff.forums.index') }}">
                     <i class="fab fa-wpforms"></i> @lang('staff.forums')

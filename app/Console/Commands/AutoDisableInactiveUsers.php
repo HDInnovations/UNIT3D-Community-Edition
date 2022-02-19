@@ -14,7 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\SendDisableUserMail;
-use App\Models\Group;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -46,11 +46,11 @@ class AutoDisableInactiveUsers extends Command
     public function handle(): void
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 
-            $matches = User::whereIntegerInRaw('group_id', \config('pruning.group_ids'))->get();
+            $matches = User::whereIntegerInRaw('role_id', \config('pruning.group_ids'))->get();
 
             $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())
                 ->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())
@@ -58,7 +58,7 @@ class AutoDisableInactiveUsers extends Command
 
             foreach ($users as $user) {
                 if ($user->getSeeding() === 0) {
-                    $user->group_id = $disabledGroup[0];
+                    $user->role_id = $disabledGroup[0];
                     $user->can_upload = 0;
                     $user->can_download = 0;
                     $user->can_comment = 0;

@@ -237,7 +237,7 @@ class ForumController extends Controller
     {
         $user = $request->user();
 
-        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        $pests = $user->primaryRole->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! \is_array($pests)) {
             $pests = [];
         }
@@ -267,7 +267,7 @@ class ForumController extends Controller
     {
         $user = $request->user();
 
-        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        $pests = $user->primaryRole->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! \is_array($pests)) {
             $pests = [];
         }

@@ -40,7 +40,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_bump'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
@@ -73,7 +73,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_sticky'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
         $torrent->save();
@@ -89,7 +89,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_freeleech'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = \href_torrent($torrent);
         $torrentFlAmount = $request->input('freeleech');
@@ -139,7 +139,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_feature'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($torrent->featured == 0) {
@@ -174,7 +174,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_revoke_feature'), 403);
 
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
 
@@ -206,7 +206,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasPrivilegeTo('torrent_can_doubleupload'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = \href_torrent($torrent);
 

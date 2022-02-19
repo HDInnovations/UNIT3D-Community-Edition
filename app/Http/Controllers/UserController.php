@@ -18,11 +18,11 @@ use App\Models\Ban;
 use App\Models\BonTransactions;
 use App\Models\Follow;
 use App\Models\Graveyard;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
-        $groups = Group::all();
+        $groups = Role::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
@@ -508,7 +508,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -539,7 +539,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -570,7 +570,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -601,7 +601,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -633,7 +633,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -664,7 +664,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -700,7 +700,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -732,7 +732,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -763,7 +763,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -794,7 +794,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -826,7 +826,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -863,7 +863,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -896,7 +896,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -931,7 +931,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -962,7 +962,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;

@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Mail\BanUser;
 use App\Models\Ban;
-use App\Models\Group;
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\Warning;

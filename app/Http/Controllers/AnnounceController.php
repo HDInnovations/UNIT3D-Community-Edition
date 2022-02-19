@@ -402,7 +402,7 @@ class AnnounceController extends Controller
      */
     private function checkDownloadSlots($user): void
     {
-        $max = $user->group->download_slots;
+        $max = $user->primaryRole->download_slots;
 
         if ($max !== null && $max >= 0) {
             $count = Peer::where('user_id', '=', $user->id)

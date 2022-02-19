@@ -637,9 +637,9 @@ class CommentController extends Controller
             $uploaderUrl = \href_profile($uploader);
 
             $thankArray = [
-                \sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploaderUrl, $uploader->group->color, $uploader->username),
-                \sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploaderUrl, $uploader->group->color, $uploader->username),
-                \sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploaderUrl, $uploader->primaryRole->color, $uploader->username),
+                \sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploaderUrl, $uploader->primaryRole->color, $uploader->username),
+                \sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploaderUrl, $uploader->primaryRole->color, $uploader->username),
             ];
         }
 

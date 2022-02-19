@@ -17,10 +17,10 @@ use App\Models\Article;
 use App\Models\Bookmark;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
@@ -106,7 +106,7 @@ class HomeController extends Controller
             ->where('last_action', '>', \now()->subMinutes(5))
             ->get());
 
-        $groups = \cache()->remember('user-groups', $expiresAt, fn () => Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
+        $groups = \cache()->remember('user-groups', $expiresAt, fn () => Role::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
 
         // Featured Torrents Block
         $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent')->get());

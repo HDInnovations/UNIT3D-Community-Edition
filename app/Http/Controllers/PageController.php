@@ -47,7 +47,7 @@ class PageController extends Controller
      */
     public function staff(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $staff = Group::with('users:id,username,group_id,title')->where('is_modo', '=', 1)->orWhere('is_admin', '=', 1)->get()->sortByDesc('position');
+        $staff = Role::with('users:id,username,group_id,title')->where('is_modo', '=', 1)->orWhere('is_admin', '=', 1)->get()->sortByDesc('position');
 
         return \view('page.staff', ['staff' => $staff]);
     }

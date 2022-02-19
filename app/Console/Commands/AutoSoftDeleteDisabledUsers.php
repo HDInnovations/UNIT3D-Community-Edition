@@ -16,7 +16,7 @@ namespace App\Console\Commands;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
 use App\Models\Follow;
-use App\Models\Group;
+use App\Models\Role;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
@@ -58,11 +58,11 @@ class AutoSoftDeleteDisabledUsers extends Command
     public function handle(): void
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+            $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
-            $users = User::where('group_id', '=', $disabledGroup[0])
+            $users = User::where('role_id', '=', $disabledGroup[0])
                 ->where('disabled_at', '<', $current->copy()->subDays(\config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
@@ -76,7 +76,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->can_invite = 0;
                 $user->can_request = 0;
                 $user->can_chat = 0;
-                $user->group_id = $prunedGroup[0];
+                $user->role_id = $prunedGroup[0];
                 $user->deleted_by = 1;
                 $user->save();
 
