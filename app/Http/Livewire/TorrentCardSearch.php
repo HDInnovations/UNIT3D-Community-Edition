@@ -334,12 +334,12 @@ class TorrentCardSearch extends Component
                 $query->where('seeders', '=', 0);
             })
             ->when($this->notDownloaded, function ($query) {
-                $history = History::where('user_id', '=', \auth()->user()->id)->pluck('info_hash')->toArray();
+                $history = History::where('user_id', '=', \auth()->user()->id)->pluck('torrent_id')->toArray();
                 if (! $history || ! \is_array($history)) {
                     $history = [];
                 }
 
-                $query->whereNotIn('info_hash', $history);
+                $query->whereIntergerNotIn('id', $history);
             })
             ->when($this->downloaded, function ($query) {
                 $query->whereHas('history', function ($query) {
