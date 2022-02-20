@@ -1391,8 +1391,8 @@ class UserController extends Controller
         if ($request->has('view') && $request->input('view') == 'downloads') {
             $history = History::selectRaw('distinct(history.torrent_id), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')
                 ->with(['torrent' => function ($query) {
-                $query->withAnyStatus();
-            }])->leftJoin('torrents', 'torrents.id', '=', 'history.torrent_id')->where('actual_downloaded', '>', 0)
+                    $query->withAnyStatus();
+                }])->leftJoin('torrents', 'torrents.id', '=', 'history.torrent_id')->where('actual_downloaded', '>', 0)
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.enabled') == true ? (\config('hitrun.buffer') / 100) : 0).'))')
                 ->groupBy('history.torrent_id');
             $order = null;
