@@ -501,7 +501,7 @@
                                       title="" data-original-title="{{ __('user.certified-downloader-desc') }}"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> {{ __('user.certified-downloader') }}!</span>
                             @endif
-                            @if ($user->getSeedbonus() >= '50,000')
+                            @if ($user->seedbonus >= 50_000)
                                 <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);"
                                       data-toggle="tooltip"
                                       title="" data-original-title="{{ __('user.certified-banker-desc') }}"><i
