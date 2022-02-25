@@ -59,7 +59,7 @@
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                     aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
-                                    @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
+                                    @if (auth()->user()->id == $p->user->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                     class="badge-user text-bold"
                                                     style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
