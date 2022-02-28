@@ -743,7 +743,7 @@ class TorrentController extends Controller
         }
 
         // Define the filename for the download
-        $tmpFileName = \str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.\config('torrent.source').']'.$torrent->name.'.torrent');
+        $tmpFileName = \str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.\config('torrent.source').']['.$user->id.']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
         if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
