@@ -94,7 +94,7 @@ class TMDBScraper implements ShouldQueue
 
         if (\array_key_exists('title', $movie)) {
             $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
-            \preg_match($re, $movie['title'], $matches);
+            \preg_match($re, (string) $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
             $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''],
