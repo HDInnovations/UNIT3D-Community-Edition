@@ -65,6 +65,7 @@ class AnnounceController extends Controller
      */
     public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
+        $repDict = null;
         try {
             /**
              * Check client.
@@ -157,12 +158,12 @@ class AnnounceController extends Controller
         $userAgent = $request->header('User-Agent');
 
         // Should also block User-Agent strings that are to long. (For Database reasons)
-        if (\strlen($userAgent) > 64) {
+        if (\strlen((string) $userAgent) > 64) {
             throw new TrackerException(123);
         }
 
         // Block Browser by checking it's User-Agent
-        if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $userAgent)) {
+        if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', (string) $userAgent)) {
             throw new TrackerException(121);
         }
 
@@ -185,7 +186,7 @@ class AnnounceController extends Controller
         }
 
         // If Passkey Lenght Is Wrong
-        if (\strlen($passkey) !== 32) {
+        if (\strlen((string) $passkey) !== 32) {
             throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
@@ -215,7 +216,7 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            if (\strlen($queries[$item]) !== 20) {
+            if (\strlen((string) $queries[$item]) !== 20) {
                 throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
             }
         }
@@ -421,7 +422,7 @@ class AnnounceController extends Controller
     {
         // Build Response For Bittorrent Client
         $repDict = [
-            'interval'     => \rand(self::MIN, self::MAX),
+            'interval'     => random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,

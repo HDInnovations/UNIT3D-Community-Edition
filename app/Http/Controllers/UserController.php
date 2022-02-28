@@ -181,7 +181,7 @@ class UserController extends Controller
         $maxUpload = \config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
-            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && \preg_match('#image/*#', $image->getMimeType())) {
+            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && \preg_match('#image/*#', (string) $image->getMimeType())) {
                 if ($maxUpload >= $image->getSize()) {
                     $filename = $user->username.'.'.$image->getClientOriginalExtension();
                     $path = \public_path('/files/img/'.$filename);
@@ -209,7 +209,7 @@ class UserController extends Controller
 
         // Prevent User from abusing BBCODE Font Size (max. 99)
         $aboutTemp = $request->input('about');
-        if (\str_contains($aboutTemp, '[size=') && \preg_match('/\[size=[0-9]{3,}\]/', $aboutTemp)) {
+        if (\str_contains((string) $aboutTemp, '[size=') && \preg_match('/\[size=[0-9]{3,}\]/', (string) $aboutTemp)) {
             return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('Font size is too big!');
         }

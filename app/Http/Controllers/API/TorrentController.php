@@ -48,7 +48,7 @@ class TorrentController extends BaseController
     /**
      * TorrentController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -337,7 +337,7 @@ class TorrentController extends BaseController
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->has('name'), function ($query) use ($request) {
-                $terms = \explode(' ', $request->input('name'));
+                $terms = \explode(' ', (string) $request->input('name'));
                 $search = '';
                 foreach ($terms as $term) {
                     $search .= '%'.$term.'%';
@@ -487,7 +487,7 @@ class TorrentController extends BaseController
      */
     private static function parseKeywords(?string $text): array
     {
-        $parts = \explode(', ', $text);
+        $parts = \explode(', ', (string) $text);
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);

@@ -106,6 +106,7 @@ class PrivateMessageController extends Controller
      */
     public function sendPrivateMessage(Request $request): \Illuminate\Http\RedirectResponse
     {
+        $v = null;
         $user = $request->user();
 
         $dest = 'default';

@@ -28,7 +28,7 @@ class ForumController extends Controller
     /**
      * ForumController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -37,6 +37,7 @@ class ForumController extends Controller
      */
     public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $result = null;
         $categories = Forum::all()->sortBy('position');
 
         $user = $request->user();

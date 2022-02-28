@@ -40,7 +40,7 @@ class ReportController extends Controller
     {
         $report = Report::findOrFail($id);
 
-        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
+        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
 
         return \view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }

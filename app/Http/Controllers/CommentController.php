@@ -49,7 +49,7 @@ class CommentController extends Controller
     /**
      * CommentController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -642,7 +642,7 @@ class CommentController extends Controller
             ];
         }
 
-        $selected = \mt_rand(0, (\is_countable($thankArray) ? \count($thankArray) : 0) - 1);
+        $selected = random_int(0, (\is_countable($thankArray) ? \count($thankArray) : 0) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;

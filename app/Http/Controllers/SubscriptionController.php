@@ -28,6 +28,7 @@ class SubscriptionController extends Controller
      */
     public function subscribeTopic(Request $request, string $route, Topic $topic): \Illuminate\Http\RedirectResponse
     {
+        $params = null;
         if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
@@ -57,6 +58,7 @@ class SubscriptionController extends Controller
      */
     public function unsubscribeTopic(Request $request, string $route, Topic $topic): \Illuminate\Http\RedirectResponse
     {
+        $params = null;
         if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
@@ -84,6 +86,7 @@ class SubscriptionController extends Controller
      */
     public function subscribeForum(Request $request, string $route, Forum $forum): \Illuminate\Http\RedirectResponse
     {
+        $params = null;
         if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
@@ -113,6 +116,7 @@ class SubscriptionController extends Controller
      */
     public function unsubscribeForum(Request $request, string $route, Forum $forum): \Illuminate\Http\RedirectResponse
     {
+        $params = null;
         if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];

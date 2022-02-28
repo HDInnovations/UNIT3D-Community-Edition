@@ -185,19 +185,19 @@ class RssController extends Controller
         $dying = $rss->object_torrent->dying;
         $dead = $rss->object_torrent->dead;
 
-        $terms = \explode(' ', $search);
+        $terms = \explode(' ', (string) $search);
         $search = '';
         foreach ($terms as $term) {
             $search .= '%'.$term.'%';
         }
 
-        $usernames = \explode(' ', $uploader);
+        $usernames = \explode(' ', (string) $uploader);
         $uploader = '';
         foreach ($usernames as $username) {
             $uploader .= '%'.$username.'%';
         }
 
-        $keywords = \explode(' ', $description);
+        $keywords = \explode(' ', (string) $description);
         $description = '';
         foreach ($keywords as $keyword) {
             $description .= '%'.$keyword.'%';
@@ -227,7 +227,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->imdb && $rss->object_torrent->imdb != null) {
-            if (\preg_match('/tt0*?(?=(\d{7,8}))/', $imdb, $matches)) {
+            if (\preg_match('/tt0*?(?=(\d{7,8}))/', (string) $imdb, $matches)) {
                 $builder->where('imdb', '=', $matches[1]);
             } else {
                 $builder->where('imdb', '=', $imdb);
