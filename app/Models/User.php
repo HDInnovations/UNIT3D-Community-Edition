@@ -863,7 +863,7 @@ class User extends Authenticatable
             ->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())
             ->where('active', '=', 1)
             ->where('seeder', '=', 1)
-            ->where('seedtime', '>=', 1296000)
+            ->where('seedtime', '>=', 1_296_000)
             ->pluck('torrent_id');
 
         return Torrent::whereIntergerIn('id', $seeding)->sum('size');

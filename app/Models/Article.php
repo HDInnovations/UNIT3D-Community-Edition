@@ -56,7 +56,7 @@ class Article extends Model
         }
 
         //no need to trim, already shorter than trim length
-        if (\strlen($input) <= $length) {
+        if (\strlen((string) $input) <= $length) {
             return $input;
         }
 
