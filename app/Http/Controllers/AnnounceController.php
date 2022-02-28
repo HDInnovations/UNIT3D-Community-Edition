@@ -66,6 +66,7 @@ class AnnounceController extends Controller
     public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
         $repDict = null;
+
         try {
             /**
              * Check client.
