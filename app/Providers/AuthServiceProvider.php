@@ -33,6 +33,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-        Auth::provider('cache-user', fn() => resolve(CacheUserProvider::class));
+        Auth::provider('cache-user', fn () => resolve(CacheUserProvider::class));
     }
 }
