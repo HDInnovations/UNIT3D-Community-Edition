@@ -25,7 +25,7 @@ class StaffTicketCreated extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(private Ticket $ticket)
+    public function __construct(private readonly Ticket $ticket)
     {
     }
 

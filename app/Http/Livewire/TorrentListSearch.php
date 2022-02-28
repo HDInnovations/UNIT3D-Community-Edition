@@ -368,7 +368,7 @@ class TorrentListSearch extends Component
 
     private static function parseKeywords($text): array
     {
-        $parts = \explode(', ', $text);
+        $parts = \explode(', ', (string) $text);
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);

@@ -27,7 +27,7 @@ class ChatRoomController extends Controller
     /**
      * ChatController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 

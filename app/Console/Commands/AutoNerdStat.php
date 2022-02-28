@@ -30,7 +30,7 @@ class AutoNerdStat extends Command
     /**
      * AutoNerdStat Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
         parent::__construct();
     }
@@ -131,7 +131,7 @@ class AutoNerdStat extends Command
                 \config('other.title').\sprintf(' Birthday Is [b]%s[/b]!', $bday),
                 \config('other.title').' Is King!',
             ];
-            $selected = \mt_rand(0, \count($statArray) - 1);
+            $selected = random_int(0, \count($statArray) - 1);
 
             // Auto Shout Nerd Stat
             $this->chatRepository->systemMessage($statArray[$selected], 2);

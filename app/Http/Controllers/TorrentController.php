@@ -62,7 +62,7 @@ class TorrentController extends Controller
     /**
      * TorrentController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -134,7 +134,7 @@ class TorrentController extends Controller
      */
     private static function parseKeywords($text): array
     {
-        $parts = \explode(', ', $text);
+        $parts = \explode(', ', (string) $text);
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);

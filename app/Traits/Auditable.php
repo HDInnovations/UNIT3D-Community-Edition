@@ -70,8 +70,6 @@ trait Auditable
     {
         $data = [];
         switch ($action) {
-            default:
-                throw new \InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
             case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
@@ -116,6 +114,8 @@ trait Auditable
                 }
 
                 break;
+            default:
+                throw new \InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
         }
 
         $clean = \array_filter($data);

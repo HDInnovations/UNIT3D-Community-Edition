@@ -32,7 +32,7 @@ class ChatRepository
     /**
      * ChatRepository Constructor.
      */
-    public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $userEcho, private UserAudible $userAudible)
+    public function __construct(private readonly Message $message, private readonly Chatroom $chatroom, private readonly ChatStatus $chatStatus, private readonly User $user, private readonly Bot $bot, private readonly UserEcho $userEcho, private readonly UserAudible $userAudible)
     {
     }
 
@@ -314,6 +314,7 @@ class ChatRepository
 
     public function status($user)
     {
+        $status = null;
         if ($user instanceof User) {
             $status = $this->chatStatus->where('user_id', '=', $user->id)->first();
         }
@@ -333,7 +334,7 @@ class ChatRepository
     protected function censorMessage($message): string
     {
         foreach (\config('censor.redact') as $word) {
-            if (\preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {
+            if (\preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
                 $message = \str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), $message);
             }
         }

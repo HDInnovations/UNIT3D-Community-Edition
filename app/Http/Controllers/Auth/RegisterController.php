@@ -33,7 +33,7 @@ class RegisterController extends Controller
     /**
      * RegisterController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -149,7 +149,7 @@ class RegisterController extends Controller
             \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
             'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
         ];
-        $selected = \mt_rand(0, \count($welcomeArray) - 1);
+        $selected = random_int(0, \count($welcomeArray) - 1);
         $this->chatRepository->systemMessage(
             $welcomeArray[$selected]
         );

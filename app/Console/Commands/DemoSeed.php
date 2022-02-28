@@ -57,7 +57,7 @@ class DemoSeed extends Command
 
             $uid = User::factory()->create([
                 'chatroom_id'    => 1,
-                'group_id'       => \rand(1, 20),
+                'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
                 'image'          => null,
                 'custom_css'     => null,
@@ -65,7 +65,7 @@ class DemoSeed extends Command
             ])->id;
 
             // random boolean
-            if ([false, true][\rand(0, 1)]) {
+            if ([false, true][random_int(0, 1)]) {
                 $movie = $this->fetchMovie($id);
 
                 // Torrents
@@ -88,10 +88,10 @@ class DemoSeed extends Command
                         'slug'           => Str::slug($movie['title']),
                         'description'    => $movie['overview'],
                         'category_id'    => 1,
-                        'type_id'        => \rand(1, 6),
-                        'resolution_id'  => \rand(1, 10),
-                        'region_id'      => \rand(1, 242),
-                        'distributor_id' => \rand(1, 965),
+                        'type_id'        => random_int(1, 6),
+                        'resolution_id'  => random_int(1, 10),
+                        'region_id'      => random_int(1, 242),
+                        'distributor_id' => random_int(1, 965),
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
@@ -267,7 +267,7 @@ Menu
 
             $uid = User::factory()->create([
                 'chatroom_id'    => 1,
-                'group_id'       => \rand(1, 20),
+                'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
                 'image'          => null,
                 'custom_css'     => null,
@@ -275,7 +275,7 @@ Menu
             ])->id;
 
             // random boolean
-            if ([false, true][\rand(0, 1)]) {
+            if ([false, true][random_int(0, 1)]) {
                 $tv = $this->fetchTv($id);
 
                 // Torrents
@@ -298,10 +298,10 @@ Menu
                         'slug'           => Str::slug($tv['name']),
                         'description'    => $tv['overview'],
                         'category_id'    => 2,
-                        'type_id'        => \rand(1, 6),
-                        'resolution_id'  => \rand(1, 10),
-                        'region_id'      => \rand(1, 242),
-                        'distributor_id' => \rand(1, 965),
+                        'type_id'        => random_int(1, 6),
+                        'resolution_id'  => random_int(1, 10),
+                        'region_id'      => random_int(1, 242),
+                        'distributor_id' => random_int(1, 965),
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
