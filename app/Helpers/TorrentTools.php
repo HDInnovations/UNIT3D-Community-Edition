@@ -98,6 +98,7 @@ class TorrentTools
      */
     public static function getTorrentFiles($decodedTorrent): array
     {
+        $files = [];
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
@@ -188,10 +189,10 @@ class TorrentTools
     public static function isValidFilename($filename): bool
     {
         $result = true;
-        if (\strlen($filename) > 255 ||
-            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', $filename) ||
-            \preg_match('#(^\.+|[\. ]+)$#', $filename) ||
-            \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', $filename)) {
+        if (\strlen((string) $filename) > 255 ||
+            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
+            \preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
+            \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', (string) $filename)) {
             $result = false;
         }
 
