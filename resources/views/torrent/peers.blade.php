@@ -54,7 +54,8 @@
                     @foreach ($peers as $p)
                         <tr>
                             @if ($p->user->hidden == 1 || $p->user->peer_hidden == 1 ||
-                                !auth()->user()->isAllowed($p->user,'torrent','show_peer'))
+                                !auth()->user()->isAllowed($p->user,'torrent','show_peer') ||
+                                ($p->user->id == $torrent->user->id && $torrent->anon == 1))
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
