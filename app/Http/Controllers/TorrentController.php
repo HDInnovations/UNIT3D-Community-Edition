@@ -154,7 +154,7 @@ class TorrentController extends Controller
      * @throws \ReflectionException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
-    public function torrent(Request $request, ?int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrent(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $uploader = $torrent->user;
