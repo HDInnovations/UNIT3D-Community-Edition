@@ -306,7 +306,7 @@ class UserController extends Controller
 
         $user = \auth()->user();
 
-        \abort(403);
+        \abort_unless(\config('auth.TwoStepEnabled') == true, 403);
         $user->twostep = $request->input('twostep');
         $user->save();
 
@@ -321,7 +321,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort(403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $v = \validator($request->all(), [
             'current_password'          => 'required',
