@@ -1,8 +1,7 @@
 <?php
 /**
- * Preloader Script 2.x
+ * Preloader Script 2.x.
  */
-
 $files = [
     '/var/www/html/app/Helpers/BackupEncryption.php',
     '/var/www/html/app/Helpers/Helpers.php',
@@ -215,16 +214,15 @@ $files = [
 
 foreach ($files as $file) {
     try {
-        if (!(is_file($file) && is_readable($file))) {
+        if (! (is_file($file) && is_readable($file))) {
             continue;
         }
         opcache_compile_file($file);
     } catch (\Throwable $e) {
-        echo 'Preloader Script has stopped with an error:' . \PHP_EOL;
-        echo 'Message: ' . $e->getMessage() . \PHP_EOL;
-        echo 'File: ' . $file . \PHP_EOL;
+        echo 'Preloader Script has stopped with an error:'.\PHP_EOL;
+        echo 'Message: '.$e->getMessage().\PHP_EOL;
+        echo 'File: '.$file.\PHP_EOL;
 
         throw $e;
     }
 }
-
