@@ -18,7 +18,8 @@
                     </div>
                     <div class="form-group col-xs-3">
                         <button class="btn btn-md btn-primary" @click="open = ! open"
-                                x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"></button>
+                                x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'">
+                        </button>
                     </div>
                 </div>
                 <div x-show="open" id="torrent-advanced-search">
@@ -144,7 +145,8 @@
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-genres">
                             <label for="genres" class="label label-default">{{ __('common.genre') }}</label>
-                            @foreach (App\Models\Genre::all()->sortBy('name') as $genre)
+                            @php $genres = cache()->remember('genres', 3_600, fn () => App\Models\Genre::all()->sortBy('name')) @endphp
+                            @foreach ($genres as $genre)
                                 <span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model.prefetch="genres" value="{{ $genre->id }}"> {{ $genre->name }}
@@ -346,11 +348,11 @@
     </div>
     <br>
     <div class="table-responsive block">
-			<span class="badge-user torrent-listings-stats" style="float: right;">
-				<strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
-				<strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
-				<strong>Dead:</strong> {{ number_format($torrentsStat->dead) }} |
-			</span>
+        <span class="badge-user torrent-listings-stats" style="float: right;">
+            <strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
+            <strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
+            <strong>Dead:</strong> {{ number_format($torrentsStat->dead) }}
+        </span>
         <div class="dropdown torrent-listings-action-bar">
             <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
                 {{ __('common.publish') }} {{ __('torrent.torrent') }}
@@ -468,27 +470,27 @@
                                 <div class="torrent-poster pull-left">
                                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                                         <img src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
-                                             class="torrent-poster-img-small" alt="{{ __('torrent.poster') }}">
+                                             class="torrent-poster-img-small" loading="lazy" alt="{{ __('torrent.poster') }}">
                                     @endif
 
                                     @if ($torrent->category->game_meta)
                                         <img style="height: 80px;"
                                              src="{{ isset($meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/'.$meta->cover['image_id'].'.png' : 'https://via.placeholder.com/90x135' }}"
-                                             class="torrent-poster-img-small" alt="{{ __('torrent.poster') }}">
+                                             class="torrent-poster-img-small" loading="lazy" alt="{{ __('torrent.poster') }}">
                                     @endif
 
                                     @if ($torrent->category->music_meta)
                                         <img src="https://via.placeholder.com/90x135" class="torrent-poster-img-small"
-                                             alt="{{ __('torrent.poster') }}">
+                                             loading="lazy" alt="{{ __('torrent.poster') }}">
                                     @endif
 
                                     @if ($torrent->category->no_meta)
                                         @if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg'))
                                             <img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
-                                                 class="torrent-poster-img-small" alt="{{ __('torrent.poster') }}">
+                                                 class="torrent-poster-img-small" loading="lazy" alt="{{ __('torrent.poster') }}">
                                         @else
                                             <img src="https://via.placeholder.com/400x600"
-                                                 class="torrent-poster-img-small" alt="{{ __('torrent.poster') }}">
+                                                 class="torrent-poster-img-small" loading="lazy" alt="{{ __('torrent.poster') }}">
                                         @endif
                                     @endif
                                 </div>
@@ -514,10 +516,10 @@
                             @endif
                         </td>
                         <td class="torrent-listings-overview" style="vertical-align: middle;">
-                            @if($user->group->is_modo || $user->id === $torrent->user_id)
+                            @if($user->group->is_modo || $user->id === $torrent->user_id || $user->group->id === 29)
                                 <a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
-                                    <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="{{ __('common.edit') }}">
+                                    <button class="btn btn-primary btn-circle" type="button"
+                                            title="{{ __('common.edit') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
                                     </button>
                                 </a>
@@ -526,39 +528,6 @@
                                href="{{ route('torrent', ['id' => $torrent->id]) }}">
                                 {{ $torrent->name }}
                             </a>
-                            @if ($current = $user->history->where('torrent_id', $torrent->id)->first())
-                                @if ($current->seeder == 1 && $current->active == 1)
-                                    <button class="btn btn-success btn-circle torrent-listings-seeding" type="button"
-                                            data-toggle="tooltip"
-                                            data-original-title="{{ __('torrent.currently-seeding') }}!">
-                                        <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                                    </button>
-                                @endif
-
-                                @if ($current->seeder == 0 && $current->active == 1)
-                                    <button class="btn btn-warning btn-circle torrent-listings-leeching" type="button"
-                                            data-toggle="tooltip"
-                                            data-original-title="{{ __('torrent.currently-leeching') }}!">
-                                        <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                                    </button>
-                                @endif
-
-                                @if ($current->seeder == 0 && $current->active == 0 && $current->completed_at == null)
-                                    <button class="btn btn-info btn-circle torrent-listings-incomplete" type="button"
-                                            data-toggle="tooltip"
-                                            data-original-title="{{ __('torrent.not-completed') }}!">
-                                        <i class="{{ config('other.font-awesome') }} fa-spinner"></i>
-                                    </button>
-                                @endif
-
-                                @if ($current->seeder == 1 && $current->active == 0 && $current->completed_at != null)
-                                    <button class="btn btn-danger btn-circle torrent-listings-complete" type="button"
-                                            data-toggle="tooltip"
-                                            data-original-title="{{ __('torrent.completed-not-seeding') }}!">
-                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
-                                    </button>
-                                @endif
-                            @endif
                             <br>
                             @if ($torrent->anon === 0)
                                 <span class="badge-extra torrent-listings-uploader">
@@ -579,32 +548,30 @@
                                 </span>
                             @endif
                             <span class='badge-extra text-pink torrent-listings-thanks'>
-                                    <i class="{{ config('other.font-awesome') }} fa-heartbeat"></i> {{ $torrent->thanks_count }}
-                                </span>
+                                <i class="{{ config('other.font-awesome') }} fa-heartbeat"></i> {{ $torrent->thanks_count }}
+                            </span>
                             <span class='badge-extra text-green torrent-listings-comments'>
-									<i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i> {{ $torrent->comments_count }}
-								</span>
+                                <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i> {{ $torrent->comments_count }}
+                            </span>
                             @if ($torrent->internal == 1)
                                 <span class='badge-extra text-bold torrent-listings-internal'>
-                                    <i class='{{ config('other.font-awesome') }} fa-magic' data-toggle='tooltip'
-                                       title=''
-                                       data-original-title='{{ __('torrent.internal-release') }}'
+                                    <i class='{{ config('other.font-awesome') }} fa-magic'
+                                       title='{{ __('torrent.internal-release') }}'
                                        style="color: #baaf92;"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->personal_release == 1)
                                 <span class='badge-extra text-bold torrent-listings-personal'>
-                                    <i class='{{ config('other.font-awesome') }} fa-user-plus' data-toggle='tooltip'
-                                       title=''
-                                       data-original-title='Personal Release' style="color: #865be9;"></i>
+                                    <i class='{{ config('other.font-awesome') }} fa-user-plus'
+                                       title='Personal Release' style="color: #865be9;"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->stream == 1)
                                 <span class='badge-extra text-bold torrent-listings-stream-optimized'>
-                                    <i class='{{ config('other.font-awesome') }} fa-play text-red' data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.stream-optimized') }}'></i>
+                                    <i class='{{ config('other.font-awesome') }} fa-play text-red'
+                                       title='{{ __('torrent.stream-optimized') }}'></i>
                                 </span>
                             @endif
 
@@ -612,22 +579,21 @@
                                 @if ($torrent->doubleup == 1)
                                     <span class='badge-extra text-bold torrent-listings-double-upload'>
                                         <i class='{{ config('other.font-awesome') }} fa-gem text-green'
-                                           data-toggle='tooltip'
-                                           title='' data-original-title='{{ __('torrent.double-upload') }}'></i>
+                                           title='{{ __('torrent.double-upload') }}'></i>
                                     </span>
                                     @if ($torrent->du_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-double-upload'>
-                                            <i class='{{ config('other.font-awesome') }} fa-clock' data-toggle='tooltip'
-                                               data-original-title='{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
+                                            <i class='{{ config('other.font-awesome') }} fa-clock'
+                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
                                         </span>
                                     @endif
                                 @endif
 
                                 @if ($torrent->free >= '90')
-                                    <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
-                                          title='' data-original-title='{{ $torrent->free }}% {{ __('common.free') }}'>
-                                            <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                                        </span>
+                                    <span class="badge-extra text-bold torrent-listings-freeleech"
+                                          title='{{ $torrent->free }}% {{ __('common.free') }}'>
+                                        <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                    </span>
                                 @elseif ($torrent->free < '90' && $torrent->free >= '30')
                                     <style>
                                         .star50 {
@@ -644,10 +610,10 @@
                                             color: #FFB800;
                                         }
                                     </style>
-                                    <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
-                                          title='' data-original-title='{{ $torrent->free }}% {{ __('common.free') }}'>
-                                            <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
-                                        </span>
+                                    <span class="badge-extra text-bold torrent-listings-freeleech"
+                                          title='{{ $torrent->free }}% {{ __('common.free') }}'>
+                                        <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
+                                    </span>
                                 @elseif ($torrent->free < '30' && $torrent->free != '0')
                                     <style>
                                         .star30 {
@@ -664,15 +630,15 @@
                                             color: #FFB800;
                                         }
                                     </style>
-                                    <span class="badge-extra text-bold torrent-listings-freeleech" data-toggle="tooltip"
-                                          title='' data-original-title='{{ $torrent->free }}% {{ __('common.free') }}'>
-                                            <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
-                                        </span>
+                                    <span class="badge-extra text-bold torrent-listings-freeleech"
+                                          title='{{ $torrent->free }}% {{ __('common.free') }}'>
+                                        <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
+                                    </span>
                                 @endif
                                     @if ($torrent->fl_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-freeleech'>
-                                            <i class='{{ config('other.font-awesome') }} fa-clock' data-toggle='tooltip'
-                                               data-original-title='{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
+                                            <i class='{{ config('other.font-awesome') }} fa-clock'
+                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
                                         </span>
                                     @endif
                             @endif
@@ -680,16 +646,14 @@
                             @if ($personalFreeleech)
                                 <span class='badge-extra text-bold torrent-listings-personal-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-id-badge text-orange'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.personal-freeleech') }}'></i>
+                                       title='{{ __('torrent.personal-freeleech') }}'></i>
                                 </span>
                             @endif
 
                             @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
                                 <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.freeleech-token') }}'></i>
+                                       title='{{ __('torrent.freeleech-token') }}'></i>
                                 </span>
                             @endif
 
@@ -697,132 +661,124 @@
                                 <span class='badge-extra text-bold torrent-listings-featured'
                                       style='background-image:url(/img/sparkels.gif);'>
                                     <i class='{{ config('other.font-awesome') }} fa-certificate text-pink'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.featured') }}'></i>
+                                       title='{{ __('torrent.featured') }}'></i>
                                 </span>
                             @endif
 
                             @if ($user->group->is_freeleech == 1)
                                 <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.special-freeleech') }}'></i>
+                                       title='{{ __('torrent.special-freeleech') }}'></i>
                                 </span>
                             @endif
 
                             @if (config('other.freeleech') == 1)
                                 <span class='badge-extra text-bold torrent-listings-global-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-globe text-blue'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.global-freeleech') }}'></i>
+                                       title='{{ __('torrent.global-freeleech') }}'></i>
                                 </span>
                             @endif
 
                             @if (config('other.doubleup') == 1)
                                 <span class='badge-extra text-bold torrent-listings-global-double-upload'>
                                     <i class='{{ config('other.font-awesome') }} fa-globe text-green'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.global-double-upload') }}'></i>
+                                       title='{{ __('torrent.global-double-upload') }}'></i>
                                 </span>
                             @endif
 
                             @if ($user->group->is_double_upload == 1)
                                 <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
-                                       data-toggle='tooltip' title=''
-                                       data-original-title='{{ __('torrent.special-double_upload') }}'></i>
+                                       title='{{ __('torrent.special-double_upload') }}'></i>
 								</span>
                             @endif
 
                             @if ($torrent->leechers >= 5)
                                 <span class='badge-extra text-bold torrent-listings-hot'>
                                     <i class='{{ config('other.font-awesome') }} fa-fire text-orange'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('common.hot') }}'></i>
+                                       title='{{ __('common.hot') }}'></i>
                                 </span>
                             @endif
 
                             @if ($torrent->sticky == 1)
                                 <span class='badge-extra text-bold torrent-listings-sticky'>
                                     <i class='{{ config('other.font-awesome') }} fa-thumbtack text-black'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.sticky') }}'></i>
+                                       title='{{ __('torrent.sticky') }}'></i>
                                 </span>
                             @endif
 
                             @if ($torrent->highspeed == 1)
                                 <span class='badge-extra text-bold torrent-listings-high-speed'>
 									<i class='{{ config('other.font-awesome') }} fa-tachometer text-red'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('common.high-speeds') }}'></i>
+                                       title='{{ __('common.high-speeds') }}'></i>
 								</span>
                             @endif
 
                             @if ($torrent->sd == 1)
                                 <span class='badge-extra text-bold torrent-listings-sd'>
 									<i class='{{ config('other.font-awesome') }} fa-ticket text-orange'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.sd-content') }}'></i>
+                                       title='{{ __('torrent.sd-content') }}'></i>
 								</span>
                             @endif
 
                             @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
                                 <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
-                                       data-toggle='tooltip'
-                                       title='' data-original-title='{{ __('torrent.recent-bumped') }}'></i>
+                                       title='{{ __('torrent.recent-bumped') }}'></i>
                                 </span>
                             @endif
                         </td>
                         <td class="torrent-listings-download" style="vertical-align: middle;">
                             @if (config('torrent.download_check_page') == 1)
                                 <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
-                                    <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="{{ __('common.download') }}">
+                                    <button class="btn btn-primary btn-circle" type="button"
+                                            title="{{ __('common.download') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                     </button>
                                 </a>
                             @else
                                 <a href="{{ route('download', ['id' => $torrent->id]) }}">
-                                    <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="{{ __('common.download') }}">
+                                    <button class="btn btn-primary btn-circle" type="button"
+                                            title="{{ __('common.download') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                     </button>
                                 </a>
                             @endif
                             @if (config('torrent.magnet') == 1)
                                 <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
-                                    <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            data-original-title="{{ __('common.magnet') }}">
+                                    <button class="btn btn-primary btn-circle" type="button"
+                                            title="{{ __('common.magnet') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
                                     </button>
                                 </a>
                             @endif
-                            <div>
-                                @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
-                            </div>
                         </td>
                         <td class="torrent-listings-tmdb" style="vertical-align: middle;">
                             @if ($torrent->category->game_meta)
                                 <span class='badge-extra'>
-										<img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;"
-                                             width="24px" height="24px"> {{ $torrent->igdb }}
-	                                    <br>
-										<span class="{{ rating_color($meta->rating ?? 'text-white') }}"><i
-                                                    class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ round($meta->rating ?? 0) }}/100 </span>
+                                    <img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;"
+                                         width="24px" height="24px"> {{ $torrent->igdb }}
+                                    <br>
+                                    <span class="{{ rating_color($meta->rating ?? 'text-white') }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i>
+                                        {{ round($meta->rating ?? 0) }}/100
                                     </span>
+                                </span>
                             @endif
                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                                 <div id="imdb_id" style="display: none;">tt{{ $torrent->imdb }}</div>
                                 <span class='badge-extra'>
-	                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
-											<img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id"
-                                                 style="margin-left: -5px;" width="24px" height="24px"> {{ $torrent->tmdb }}
-	                                    </a>
-	                                    <br>
-										<span class="{{ rating_color($meta->vote_average ?? 'text-white') }}"><i
-                                                    class="{{ config('other.font-awesome') }} fa-star-half-alt"></i> {{ $meta->vote_average ?? 0 }}/10 </span>
+                                    <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
+                                        <img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id"
+                                             style="margin-left: -5px;" width="24px" height="24px">
+                                        {{ $torrent->tmdb }}
+                                    </a>
+                                    <br>
+                                    <span class="{{ rating_color($meta->vote_average ?? 'text-white') }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i>
+                                        {{ $meta->vote_average ?? 0 }}/10
                                     </span>
+                                </span>
                             @endif
                         </td>
                         <td class="torrent-listings-size" style="vertical-align: middle;">
@@ -832,23 +788,23 @@
                         </td>
                         <td class="torrent-listings-seeders" style="vertical-align: middle;">
                             <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                                    <span class='badge-extra text-green'>
-	                                    {{ $torrent->seeders }}
-                                    </span>
+                                <span class='badge-extra text-green'>
+                                    {{ $torrent->seeders }}
+                                </span>
                             </a>
                         </td>
                         <td class="torrent-listings-leechers" style="vertical-align: middle;">
                             <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                                    <span class='badge-extra text-red'>
-	                                    {{ $torrent->leechers }}
-                                    </span>
+                                <span class='badge-extra text-red'>
+                                    {{ $torrent->leechers }}
+                                </span>
                             </a>
                         </td>
                         <td class="torrent-listings-completed" style="vertical-align: middle;">
                             <a href="{{ route('history', ['id' => $torrent->id]) }}">
-                                    <span class='badge-extra text-orange'>
-	                                    {{ $torrent->times_completed }}
-                                    </span>
+                                <span class='badge-extra text-orange'>
+                                    {{ $torrent->times_completed }}
+                                </span>
                             </a>
                         </td>
                         <td class="torrent-listings-age" style="vertical-align: middle;">
@@ -873,24 +829,20 @@
         <div class="container-fluid well torrent-listings-legend">
             <div class="text-center">
                 <strong>{{ __('common.legend') }}:</strong>
-                <button class='btn btn-success btn-circle torrent-listings-seeding' type='button' data-toggle='tooltip'
-                        title=''
-                        data-original-title='{{ __('torrent.currently-seeding') }}!'>
+                <button class='btn btn-success btn-circle torrent-listings-seeding' type='button'
+                        title='{{ __('torrent.currently-seeding') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-arrow-up'></i>
                 </button>
-                <button class='btn btn-warning btn-circle torrent-listings-leeching' type='button' data-toggle='tooltip'
-                        title=''
-                        data-original-title='{{ __('torrent.currently-leeching') }}!'>
+                <button class='btn btn-warning btn-circle torrent-listings-leeching' type='button'
+                        title='{{ __('torrent.currently-leeching') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-arrow-down'></i>
                 </button>
-                <button class='btn btn-info btn-circle torrent-listings-incomplete' type='button' data-toggle='tooltip'
-                        title=''
-                        data-original-title='{{ __('torrent.not-completed') }}!'>
+                <button class='btn btn-info btn-circle torrent-listings-incomplete' type='button'
+                        title='{{ __('torrent.not-completed') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-spinner'></i>
                 </button>
-                <button class='btn btn-danger btn-circle torrent-listings-complete' type='button' data-toggle='tooltip'
-                        title=''
-                        data-original-title='{{ __('torrent.completed-not-seeding') }}!'>
+                <button class='btn btn-danger btn-circle torrent-listings-complete' type='button'
+                        title='{{ __('torrent.completed-not-seeding') }}!'>
                     <i class='{{ config('other.font-awesome') }} fa-thumbs-down'></i>
                 </button>
             </div>
