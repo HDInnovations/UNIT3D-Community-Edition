@@ -36,7 +36,7 @@ class RssController extends Controller
     {
         $user = $request->user();
 
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
         $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [
@@ -128,11 +128,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('rss.create')
+            return \to_route('rss.create')
                 ->withErrors($error);
         }
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return \to_route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -395,11 +395,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('rss.edit', ['id' => $id])
+            return \to_route('rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return \to_route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -413,7 +413,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
-        return \redirect()->route('rss.index', ['hash' => 'private'])
+        return \to_route('rss.index', ['hash' => 'private'])
             ->withSuccess(\trans('rss.deleted'));
     }
 }

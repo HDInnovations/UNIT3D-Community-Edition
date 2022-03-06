@@ -60,13 +60,13 @@ class ImageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('images.create', ['id' => $request->input('album_id')])
+            return \to_route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
         }
 
         $image->save();
 
-        return \redirect()->route('albums.show', ['id' => $request->input('album_id')])
+        return \to_route('albums.show', ['id' => $request->input('album_id')])
             ->withSuccess(\trans('gallery.image-published-success'));
     }
 
@@ -79,7 +79,7 @@ class ImageController extends Controller
         $filename = $image->image;
 
         if (! \file_exists(\getcwd().'/files/img/'.$filename)) {
-            return \redirect()->route('show_album', ['id' => $image->album_id])
+            return \to_route('show_album', ['id' => $image->album_id])
                 ->withErrors(\trans('gallery.image-album-not-found'));
         }
 
@@ -102,7 +102,7 @@ class ImageController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
         $image->delete();
 
-        return \redirect()->route('albums.show', ['id' => $image->album_id])
+        return \to_route('albums.show', ['id' => $image->album_id])
             ->withSuccess(\trans('gallery.image-album-deleted-success'));
     }
 }

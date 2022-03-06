@@ -89,7 +89,7 @@ class ApplicationController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('application.create')
+            return \to_route('application.create')
                 ->withErrors($v->errors());
         }
 
@@ -101,7 +101,7 @@ class ApplicationController extends Controller
         $urls = \collect($request->input('links'))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($urls);
 
-        return \redirect()->route('login')
+        return \to_route('login')
             ->withSuccess(\trans('auth.application-submitted'));
     }
 }

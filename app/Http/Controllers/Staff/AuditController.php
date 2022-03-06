@@ -45,7 +45,7 @@ class AuditController extends Controller
         \abort_unless($user->group->is_modo, 403);
         $audit->delete();
 
-        return \redirect()->route('staff.audits.index')
+        return \to_route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

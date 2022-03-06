@@ -85,7 +85,7 @@ class ApplicationController extends Controller
             }
 
             if ($v->fails()) {
-                return \redirect()->route('staff.applications.index')
+                return \to_route('staff.applications.index')
                     ->withErrors($v->errors());
             }
 
@@ -93,11 +93,11 @@ class ApplicationController extends Controller
             $invite->save();
             $application->markApproved();
 
-            return \redirect()->route('staff.applications.index')
+            return \to_route('staff.applications.index')
                 ->withSuccess('Application Approved');
         }
 
-        return \redirect()->route('staff.applications.index')
+        return \to_route('staff.applications.index')
                 ->withErrors('Application Already Approved');
     }
 
@@ -117,11 +117,11 @@ class ApplicationController extends Controller
             $application->markRejected();
             Mail::to($application->email)->send(new DenyApplication($deniedMessage));
 
-            return \redirect()->route('staff.applications.index')
+            return \to_route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         }
 
-        return \redirect()->route('staff.applications.index')
+        return \to_route('staff.applications.index')
             ->withErrors('Application Already Rejected');
     }
 }

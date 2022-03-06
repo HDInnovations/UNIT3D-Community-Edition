@@ -52,7 +52,7 @@ class AlbumController extends Controller
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
         if (! $meta) {
-            return \redirect()->route('albums.create')
+            return \to_route('albums.create')
                 ->withErrors(\trans('gallery.no-meta'));
         }
 
@@ -77,14 +77,14 @@ class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('albums.create')
+            return \to_route('albums.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $album->save();
 
-        return \redirect()->route('albums.show', ['id' => $album->id])
+        return \to_route('albums.show', ['id' => $album->id])
             ->withSuccess(\trans('gallery.success'));
     }
 
@@ -112,7 +112,7 @@ class AlbumController extends Controller
         \abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
-        return \redirect()->route('albums.index')
+        return \to_route('albums.index')
             ->withSuccess(\trans('gallery.deleted'));
     }
 }

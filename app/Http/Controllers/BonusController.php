@@ -49,7 +49,7 @@ class BonusController extends Controller
         $userbon = $user->getSeedbonus();
         $gifttransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) use ($user) {
             $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id);
-        })->where('name', '=', 'gift')->orderByDesc('date_actioned')->paginate(25);
+        })->where('name', '=', 'gift')->latest('date_actioned')->paginate(25);
 
         $giftsSent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
         $giftsReceived = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
@@ -72,7 +72,7 @@ class BonusController extends Controller
         $userbon = $user->getSeedbonus();
         $bontransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) use ($user) {
             $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id);
-        })->where('name', '=', 'tip')->orderByDesc('date_actioned')->paginate(25);
+        })->where('name', '=', 'tip')->latest('date_actioned')->paginate(25);
 
         $tipsSent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
         $tipsReceived = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
@@ -95,7 +95,7 @@ class BonusController extends Controller
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $BonExchange = new BonExchange();
-        $bontransactions = BonTransactions::with('exchange')->where('sender', '=', $user->id)->where('itemID', '>', 0)->orderByDesc('date_actioned')->limit(25)->get();
+        $bontransactions = BonTransactions::with('exchange')->where('sender', '=', $user->id)->where('itemID', '>', 0)->latest('date_actioned')->limit(25)->get();
         $uploadOptions = $BonExchange->getUploadOptions();
         $downloadOptions = $BonExchange->getDownloadOptions();
         $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
@@ -205,18 +205,18 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (! $flag) {
-                return \redirect()->route('bonus_store')
+                return \to_route('bonus_store')
                     ->withErrors(\trans('bon.failed'));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return \redirect()->route('bonus_store')
+            return \to_route('bonus_store')
                 ->withErrors(\trans('bon.failed'));
         }
 
-        return \redirect()->route('bonus_store')
+        return \to_route('bonus_store')
             ->withSuccess(\trans('bon.success'));
     }
 
@@ -301,7 +301,7 @@ class BonusController extends Controller
             $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return \redirect()->route('bonus_store')
+                return \to_route('bonus_store')
                     ->withErrors(\trans('bon.failed-user-not-found'));
             }
 
@@ -334,11 +334,11 @@ class BonusController extends Controller
             );
 
             if ($dest == 'profile') {
-                return \redirect()->route('users.show', ['username' => $recipient->username])
+                return \to_route('users.show', ['username' => $recipient->username])
                     ->withSuccess(\trans('bon.gift-sent'));
             }
 
-            return \redirect()->route('bonus_gift')
+            return \to_route('bonus_gift')
                 ->withSuccess(\trans('bon.gift-sent'));
         }
 
@@ -349,20 +349,20 @@ class BonusController extends Controller
             $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return \redirect()->route('bonus_store')
+                return \to_route('bonus_store')
                     ->withErrors(\trans('bon.failed-user-not-found'));
             }
 
             if ($dest == 'profile') {
-                return \redirect()->route('users.show', ['username' => $recipient->username])
+                return \to_route('users.show', ['username' => $recipient->username])
                     ->withErrors(\trans('bon.failed-amount-message'));
             }
 
-            return \redirect()->route('bonus_gift')
+            return \to_route('bonus_gift')
                 ->withErrors(\trans('bon.failed-amount-message'));
         }
 
-        return \redirect()->route('bonus_store')
+        return \to_route('bonus_store')
             ->withErrors(\trans('bon.failed-user-not-found'));
     }
 
@@ -377,17 +377,17 @@ class BonusController extends Controller
 
         $tipAmount = $request->input('tip');
         if ($tipAmount > $user->seedbonus) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('bon.failed-funds-uploader'));
         }
 
         if ($user->id == $torrent->user_id) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('bon.failed-yourself'));
         }
 
         if ($tipAmount <= 0) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('bon.failed-negative'));
         }
 
@@ -411,7 +411,7 @@ class BonusController extends Controller
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tipAmount, $torrent));
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess(\trans('bon.success-tip'));
     }
 
@@ -431,17 +431,17 @@ class BonusController extends Controller
 
         $tipAmount = $request->input('tip');
         if ($tipAmount > $user->seedbonus) {
-            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \to_route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors(\trans('bon.failed-funds-poster'));
         }
 
         if ($user->id == $poster->id) {
-            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \to_route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors(\trans('bon.failed-yourself'));
         }
 
         if ($tipAmount <= 0) {
-            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \to_route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors(\trans('bon.failed-negative'));
         }
 
@@ -463,7 +463,7 @@ class BonusController extends Controller
 
         $poster->notify(new NewPostTip('forum', $user->username, $tipAmount, $post));
 
-        return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return \to_route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess(\trans('bon.success-tip'));
     }
 

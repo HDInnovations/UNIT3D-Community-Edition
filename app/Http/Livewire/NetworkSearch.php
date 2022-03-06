@@ -42,7 +42,7 @@ class NetworkSearch extends Component
     {
         return Network::withCount('tv')
             ->where('name', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('name')
+            ->oldest('name')
             ->paginate(30);
     }
 

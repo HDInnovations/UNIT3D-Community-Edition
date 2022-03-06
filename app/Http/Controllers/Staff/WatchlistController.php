@@ -47,13 +47,13 @@ class WatchlistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.watchlist.index')
+            return \to_route('staff.watchlist.index')
                 ->withErrors($v->errors());
         }
 
         $watchedUser->save();
 
-        return \redirect()->route('staff.watchlist.index')
+        return \to_route('staff.watchlist.index')
             ->withSuccess('User Successfully Being Watched');
     }
 
@@ -67,7 +67,7 @@ class WatchlistController extends Controller
         $watchedUser = Watchlist::findOrFail($id);
         $watchedUser->delete();
 
-        return \redirect()->route('staff.watchlist.index')
+        return \to_route('staff.watchlist.index')
             ->withSuccess('Successfully Stopped Watching User');
     }
 }

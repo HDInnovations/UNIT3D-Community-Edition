@@ -58,8 +58,8 @@ class TorrentController extends BaseController
     public function index(): TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
-            ->orderByDesc('sticky')
-            ->orderByDesc('bumped_at')
+            ->latest('sticky')
+            ->latest('bumped_at')
             ->paginate(25));
     }
 
@@ -357,7 +357,7 @@ class TorrentController extends BaseController
                 });
             })
             ->when($request->has('uploader'), function ($query) use ($request) {
-                $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->orderBy('username')->first();
+                $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->oldest('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
@@ -446,7 +446,7 @@ class TorrentController extends BaseController
             ->when($request->has('dead'), function ($query) {
                 $query->orWhere('seeders', '=', 0);
             })
-            ->orderByDesc('sticky')
+            ->latest('sticky')
             ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
             ->paginate($request->input('perPage') ?? $this->perPage);
 

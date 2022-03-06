@@ -32,7 +32,7 @@ class FollowController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         if ($request->user()->id == $user->id) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors(\trans('user.follow-yourself'));
         }
 
@@ -45,11 +45,11 @@ class FollowController extends Controller
                 $user->notify(new NewFollow('user', $request->user(), $user, $follow));
             }
 
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withSuccess(\sprintf(\trans('user.follow-user'), $user->username));
         }
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withErrors(\trans('user.follow-already'));
     }
 
@@ -67,11 +67,11 @@ class FollowController extends Controller
                 $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));
             }
 
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withSuccess(\sprintf(\trans('user.follow-revoked'), $user->username));
         }
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withErrors(\trans('user.follow-not-to-begin-with'));
     }
 }

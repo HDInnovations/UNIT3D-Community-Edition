@@ -361,7 +361,7 @@ class TorrentCardSearch extends Component
                     $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', false)->where('seeder', '=', false)->where('seedtime', '=', '0');
                 });
             })
-            ->orderByDesc('sticky')
+            ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

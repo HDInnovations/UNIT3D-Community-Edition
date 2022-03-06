@@ -81,13 +81,13 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.categories.index')
+            return \to_route('staff.categories.index')
                 ->withErrors($v->errors());
         }
 
         $category->save();
 
-        return \redirect()->route('staff.categories.index')
+        return \to_route('staff.categories.index')
             ->withSuccess('Category Successfully Added');
     }
 
@@ -138,13 +138,13 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.categories.index')
+            return \to_route('staff.categories.index')
                 ->withErrors($v->errors());
         }
 
         $category->save();
 
-        return \redirect()->route('staff.categories.index')
+        return \to_route('staff.categories.index')
             ->withSuccess('Category Successfully Modified');
     }
 
@@ -158,7 +158,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return \redirect()->route('staff.categories.index')
+        return \to_route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');
     }
 }

@@ -71,13 +71,13 @@ class InternalController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.internals.index')
+            return \to_route('staff.internals.index')
                 ->withErrors($v->errors());
         }
 
         $internal->save();
 
-        return \redirect()->route('staff.internals.index')
+        return \to_route('staff.internals.index')
             ->withSuccess('Internal Group Was Updated Successfully!');
     }
 
@@ -109,13 +109,13 @@ class InternalController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.internals.index')
+            return \to_route('staff.internals.index')
                 ->withErrors($v->errors());
         }
 
         $internal->save();
 
-        return \redirect()->route('staff.internals.index')
+        return \to_route('staff.internals.index')
             ->withSuccess('New Internal Group added!');
     }
 
@@ -130,7 +130,7 @@ class InternalController extends Controller
         \abort_unless($user->group->is_admin, 403);
         $internal->delete();
 
-        return \redirect()->route('staff.internals.index')
+        return \to_route('staff.internals.index')
             ->withSuccess('Group Has Been Removed.');
     }
 }

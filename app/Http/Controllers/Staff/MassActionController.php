@@ -59,7 +59,7 @@ class MassActionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.mass-pm.create')
+            return \to_route('staff.mass-pm.create')
                 ->withErrors($v->errors());
         }
 
@@ -67,7 +67,7 @@ class MassActionController extends Controller
             ProcessMassPM::dispatch(self::SENDER_ID, $userId, $subject, $message);
         }
 
-        return \redirect()->route('staff.mass-pm.create')
+        return \to_route('staff.mass-pm.create')
             ->withSuccess('MassPM Sent');
     }
 
@@ -91,7 +91,7 @@ class MassActionController extends Controller
             $user->save();
         }
 
-        return \redirect()->route('staff.dashboard.index')
+        return \to_route('staff.dashboard.index')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

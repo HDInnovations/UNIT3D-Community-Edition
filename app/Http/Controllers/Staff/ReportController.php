@@ -54,7 +54,7 @@ class ReportController extends Controller
 
         $report = Report::findOrFail($id);
         if ($report->solved == 1) {
-            return \redirect()->route('staff.reports.index')
+            return \to_route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
@@ -68,7 +68,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.reports.show', ['id' => $report->id])
+            return \to_route('staff.reports.show', ['id' => $report->id])
                 ->withErrors($v->errors());
         }
 
@@ -86,7 +86,7 @@ class ReportController extends Controller
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $privateMessage->save();
 
-        return \redirect()->route('staff.reports.index')
+        return \to_route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');
     }
 }
