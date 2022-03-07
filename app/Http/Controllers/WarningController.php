@@ -68,7 +68,7 @@ class WarningController extends Controller
         $privateMessage->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
 
-        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \to_route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deactivated');
     }
 
@@ -95,7 +95,7 @@ class WarningController extends Controller
         $privateMessage->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
 
-        return \redirect()->route('warnings.show', ['username' => $user->username])
+        return \to_route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deactivated');
     }
 
@@ -124,7 +124,7 @@ class WarningController extends Controller
         $warning->save();
         $warning->delete();
 
-        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \to_route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deleted');
     }
 
@@ -152,7 +152,7 @@ class WarningController extends Controller
         $privateMessage->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
 
-        return \redirect()->route('warnings.show', ['username' => $user->username])
+        return \to_route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
 
@@ -166,7 +166,7 @@ class WarningController extends Controller
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();
 
-        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \to_route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Restored');
     }
 }

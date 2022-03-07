@@ -43,7 +43,7 @@ class MovieSearch extends Component
         return Movie::query()
             ->with(['companies', 'genres'])
             ->when($this->search, fn ($query) => $query->where('title', 'LIKE', '%'.$this->search.'%'))
-            ->orderBy('title')
+            ->oldest('title')
             ->paginate(30);
     }
 

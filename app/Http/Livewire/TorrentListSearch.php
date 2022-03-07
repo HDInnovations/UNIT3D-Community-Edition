@@ -361,7 +361,7 @@ class TorrentListSearch extends Component
                     $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', false)->where('seeder', '=', false)->where('seedtime', '=', '0');
                 });
             })
-            ->orderByDesc('sticky')
+            ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -394,7 +394,7 @@ class TorrentListSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.torrent-list-search', [
-            'user'              => User::with(['history:id,seeder,active,completed_at,torrent_id,user_id', 'group'])->findOrFail(\auth()->user()->id),
+            'user'              => User::with(['group'])->findOrFail(\auth()->user()->id),
             'torrents'          => $this->torrents,
             'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,

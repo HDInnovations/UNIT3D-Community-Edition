@@ -56,7 +56,7 @@ class ChatRepository
         ])->where(function ($query) use ($userId) {
             $query->where('user_id', '=', $userId);
         })
-            ->orderBy('id')
+            ->oldest('id')
             ->get();
     }
 
@@ -207,7 +207,7 @@ class ChatRepository
         ])->where(function ($query) use ($roomId) {
             $query->where('chatroom_id', '=', $roomId);
         })
-            ->orderByDesc('id')
+            ->latest('id')
             ->limit(\config('chat.message_limit'))
             ->get();
     }
@@ -226,7 +226,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $systemUserId) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
         })->where('bot_id', '=', $botId)
-            ->orderByDesc('id')
+            ->latest('id')
             ->limit(\config('chat.message_limit'))
             ->get();
     }
@@ -243,7 +243,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $targetId) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
         })
-            ->orderByDesc('id')
+            ->latest('id')
             ->limit(\config('chat.message_limit'))
             ->get();
     }

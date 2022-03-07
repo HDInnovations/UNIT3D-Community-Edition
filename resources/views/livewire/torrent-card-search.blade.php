@@ -333,11 +333,11 @@
     </div>
     <br>
     <div class="table-responsive block">
-			<span class="badge-user torrent-listings-stats" style="float: right;">
-				<strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
-				<strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
-				<strong>Dead:</strong> {{ number_format($torrentsStat->dead) }} |
-			</span>
+        <span class="badge-user torrent-listings-stats" style="float: right;">
+            <strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
+            <strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
+            <strong>Dead:</strong> {{ number_format($torrentsStat->dead) }}
+        </span>
         <div class="dropdown torrent-listings-action-bar">
             <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
                 {{ __('common.publish') }} {{ __('torrent.torrent') }}

@@ -53,7 +53,7 @@ class FlushController extends Controller
             $peer->delete();
         }
 
-        return \redirect()->route('staff.dashboard.index')
+        return \to_route('staff.dashboard.index')
             ->withSuccess('Ghost Peers Have Been Flushed');
     }
 
@@ -73,7 +73,7 @@ class FlushController extends Controller
             'Chatbox Has Been Flushed! :broom:'
         );
 
-        return \redirect()->route('staff.dashboard.index')
+        return \to_route('staff.dashboard.index')
             ->withSuccess('Chatbox Has Been Flushed');
     }
 }

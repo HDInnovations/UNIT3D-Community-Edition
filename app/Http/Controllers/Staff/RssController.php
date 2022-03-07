@@ -31,7 +31,7 @@ class RssController extends Controller
      */
     public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $publicRss = Rss::where('is_private', '=', 0)->orderBy('position')->get();
+        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
 
         return \view('Staff.rss.index', [
             'hash'       => $hash,
@@ -124,11 +124,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('staff.rss.create')
+            return \to_route('staff.rss.create')
                 ->withErrors($error);
         }
 
-        return \redirect()->route('staff.rss.index')
+        return \to_route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -217,11 +217,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \redirect()->route('staff.rss.edit', ['id' => $id])
+            return \to_route('staff.rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return \redirect()->route('staff.rss.index')
+        return \to_route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -235,7 +235,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
-        return \redirect()->route('staff.rss.index')
+        return \to_route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

@@ -157,7 +157,7 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('requests.index')
+            return \to_route('requests.index')
                 ->withErrors($v->errors())->withInput();
         }
 
@@ -202,7 +202,7 @@ class RequestController extends Controller
             );
         }
 
-        return \redirect()->route('requests.index')
+        return \to_route('requests.index')
             ->withSuccess(\trans('request.added-request'));
     }
 
@@ -271,7 +271,7 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('requests.index')
+            return \to_route('requests.index')
                 ->withErrors($v->errors());
         }
 
@@ -286,7 +286,7 @@ class RequestController extends Controller
             $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
-        return \redirect()->route('request', ['id' => $torrentRequest->id])
+        return \to_route('request', ['id' => $torrentRequest->id])
             ->withSuccess(\trans('request.edited-request'));
     }
 
@@ -307,7 +307,7 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $tr->id])
+            return \to_route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         }
 
@@ -347,7 +347,7 @@ class RequestController extends Controller
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
 
-        return \redirect()->route('request', ['id' => $request->input('request_id')])
+        return \to_route('request', ['id' => $request->input('request_id')])
             ->withSuccess(\trans('request.added-bonus'));
     }
 
@@ -371,13 +371,13 @@ class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
+            return \to_route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
         }
 
         $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent->isApproved() === false) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
+            return \to_route('request', ['id' => $request->input('request_id')])
                 ->withErrors(\trans('request.pending-moderation'));
         }
 
@@ -389,7 +389,7 @@ class RequestController extends Controller
             $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
         }
 
-        return \redirect()->route('request', ['id' => $request->input('request_id')])
+        return \to_route('request', ['id' => $request->input('request_id')])
             ->withSuccess(\trans('request.pending-approval'));
     }
 
@@ -404,7 +404,7 @@ class RequestController extends Controller
 
         if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
             if ($tr->approved_by != null) {
-                return \redirect()->route('request', ['id' => $id])
+                return \to_route('request', ['id' => $id])
                     ->withErrors(\trans('request.already-approved'));
             }
 
@@ -454,15 +454,15 @@ class RequestController extends Controller
             }
 
             if ($tr->filled_anon == 0) {
-                return \redirect()->route('request', ['id' => $id])
+                return \to_route('request', ['id' => $id])
                     ->withSuccess(\sprintf(\trans('request.approved-user'), $tr->name, $fillUser->username));
             }
 
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withSuccess(\sprintf(\trans('request.approved-anon'), $tr->name));
         }
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
                 ->withErrors(\trans('request.access-error'));
     }
 
@@ -476,7 +476,7 @@ class RequestController extends Controller
 
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
-                return \redirect()->route('request', ['id' => $id])
+                return \to_route('request', ['id' => $id])
                     ->withErrors(\trans('request.already-rejected'));
             }
 
@@ -490,11 +490,11 @@ class RequestController extends Controller
             $torrentRequest->filled_hash = null;
             $torrentRequest->save();
 
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withSuccess(\trans('request.request-reset'));
         }
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withSuccess(\trans('request.access-error'));
     }
 
@@ -512,11 +512,11 @@ class RequestController extends Controller
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
-            return \redirect()->route('requests.index')
+            return \to_route('requests.index')
                 ->withSuccess(\sprintf(\trans('request.deleted'), $name));
         }
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withErrors(\trans('request.access-delete-error'));
     }
 
@@ -545,11 +545,11 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
             }
 
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withSuccess(\trans('request.claimed-success'));
         }
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withErrors(\trans('request.already-claimed'));
     }
 
@@ -581,11 +581,11 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
 
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withSuccess(\trans('request.unclaimed-success'));
         }
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withErrors(\trans('request.unclaim-error'));
     }
 
@@ -605,7 +605,7 @@ class RequestController extends Controller
         $torrentRequest->approved_when = null;
         $torrentRequest->save();
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withSuccess(\trans('request.request-reset'));
     }
 }

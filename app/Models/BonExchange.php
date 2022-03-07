@@ -54,7 +54,7 @@ class BonExchange extends Model
     public function getDownloadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('download', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -64,7 +64,7 @@ class BonExchange extends Model
     public function getUploadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('upload', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -74,7 +74,7 @@ class BonExchange extends Model
     public function getPersonalFreeleechOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('personal_freeleech', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -84,7 +84,7 @@ class BonExchange extends Model
     public function getInviteOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('invite', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 

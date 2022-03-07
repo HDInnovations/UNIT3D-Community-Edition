@@ -67,14 +67,14 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.create')
+            return \to_route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('ticket.created-success'));
     }
 
@@ -126,14 +126,14 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.create')
+            return \to_route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('ticket.updated-success'));
     }
 
@@ -150,7 +150,7 @@ class TicketController extends Controller
         TicketAttachment::where('ticket_id', '=', $id)->delete();
         $ticket->delete();
 
-        return \redirect()->route('tickets.index')
+        return \to_route('tickets.index')
             ->withSuccess(\trans('ticket.deleted-success'));
     }
 
@@ -168,13 +168,13 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.show', ['id' => $ticket->id])
+            return \to_route('tickets.show', ['id' => $ticket->id])
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('ticket.assigned-success'));
     }
 
@@ -187,7 +187,7 @@ class TicketController extends Controller
         $ticket->staff_id = null;
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('ticket.unassigned-success'));
     }
 
@@ -200,7 +200,7 @@ class TicketController extends Controller
         $ticket->closed_at = \now();
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('ticket.closed-success'));
     }
 }

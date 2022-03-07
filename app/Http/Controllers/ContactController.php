@@ -42,7 +42,7 @@ class ContactController extends Controller
         $input = $request->all();
         Mail::to($user->email)->send(new Contact($input));
 
-        return \redirect()->route('home.index')
+        return \to_route('home.index')
             ->withSuccess('Your Message Was Successfully Sent');
     }
 }

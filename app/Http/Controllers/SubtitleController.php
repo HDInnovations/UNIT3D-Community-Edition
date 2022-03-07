@@ -97,7 +97,7 @@ class SubtitleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('subtitles.create', ['torrent_id' => $request->input('torrent_id')])
+            return \to_route('subtitles.create', ['torrent_id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
 
@@ -133,7 +133,7 @@ class SubtitleController extends Controller
         $user->addProgress(new UserUploaded900Subtitles(), 1);
         $user->addProgress(new UserUploaded1000Subtitles(), 1);
 
-        return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])
+        return \to_route('torrent', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Added');
     }
 
@@ -155,13 +155,13 @@ class SubtitleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])
+            return \to_route('torrent', ['id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
 
         $subtitle->save();
 
-        return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])
+        return \to_route('torrent', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Updated');
     }
 
@@ -183,7 +183,7 @@ class SubtitleController extends Controller
 
         $subtitle->delete();
 
-        return \redirect()->route('torrent', ['id' => $request->input('torrent_id')])
+        return \to_route('torrent', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Deleted');
     }
 
@@ -197,7 +197,7 @@ class SubtitleController extends Controller
 
         // User's download rights are revoked
         if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
-            return \redirect()->route('torrent', ['id' => $subtitle->torrent->id])
+            return \to_route('torrent', ['id' => $subtitle->torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 

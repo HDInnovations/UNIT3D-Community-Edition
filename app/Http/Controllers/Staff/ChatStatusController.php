@@ -59,13 +59,13 @@ class ChatStatusController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.statuses.index')
+            return \to_route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
 
         $chatstatus->save();
 
-        return \redirect()->route('staff.statuses.index')
+        return \to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
     }
 
@@ -86,13 +86,13 @@ class ChatStatusController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.statuses.index')
+            return \to_route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
 
         $chatstatus->save();
 
-        return \redirect()->route('staff.statuses.index')
+        return \to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
     }
 
@@ -106,7 +106,7 @@ class ChatStatusController extends Controller
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return \redirect()->route('staff.statuses.index')
+        return \to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

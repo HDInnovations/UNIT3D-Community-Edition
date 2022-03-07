@@ -55,13 +55,13 @@ class ResolutionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.resolutions.index')
+            return \to_route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
 
         $resolution->save();
 
-        return \redirect()->route('staff.resolutions.index')
+        return \to_route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Added');
     }
 
@@ -92,13 +92,13 @@ class ResolutionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.resolutions.index')
+            return \to_route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
 
         $resolution->save();
 
-        return \redirect()->route('staff.resolutions.index')
+        return \to_route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Modified');
     }
 
@@ -112,7 +112,7 @@ class ResolutionController extends Controller
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();
 
-        return \redirect()->route('staff.resolutions.index')
+        return \to_route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Deleted');
     }
 }

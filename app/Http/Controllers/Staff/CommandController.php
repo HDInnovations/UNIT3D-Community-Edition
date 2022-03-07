@@ -43,7 +43,7 @@ class CommandController extends Controller
 
         Artisan::call('down');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -57,7 +57,7 @@ class CommandController extends Controller
 
         Artisan::call('up');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -71,7 +71,7 @@ class CommandController extends Controller
 
         Artisan::call('cache:clear');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -85,7 +85,7 @@ class CommandController extends Controller
 
         Artisan::call('view:clear');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -99,7 +99,7 @@ class CommandController extends Controller
 
         Artisan::call('route:clear');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -113,7 +113,7 @@ class CommandController extends Controller
 
         Artisan::call('config:clear');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -127,7 +127,7 @@ class CommandController extends Controller
 
         Artisan::call('clear:all_cache');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -141,7 +141,7 @@ class CommandController extends Controller
 
         Artisan::call('set:all_cache');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
     }
 
@@ -155,7 +155,7 @@ class CommandController extends Controller
 
         Artisan::call('test:email');
 
-        return \redirect()->route('staff.commands.index')
+        return \to_route('staff.commands.index')
             ->withInfo(\trim(\str_replace(["\r", "\n", '*'], '', Artisan::output())));
     }
 }

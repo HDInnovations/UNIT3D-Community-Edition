@@ -54,13 +54,13 @@ class SeedboxController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('seedboxes.index', ['username' => $user->username])
+            return \to_route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
         $seedbox->save();
 
-        return \redirect()->route('seedboxes.index', ['username' => $user->username])
+        return \to_route('seedboxes.index', ['username' => $user->username])
             ->withSuccess(\trans('user.seedbox-added-success'));
     }
 
@@ -78,7 +78,7 @@ class SeedboxController extends Controller
 
         $seedbox->delete();
 
-        return \redirect()->route('seedboxes.index', ['username' => $user->username])
+        return \to_route('seedboxes.index', ['username' => $user->username])
             ->withSuccess(\trans('user.seedbox-deleted-success'));
     }
 }

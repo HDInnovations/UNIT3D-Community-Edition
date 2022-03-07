@@ -72,13 +72,13 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.articles.index')
+            return \to_route('staff.articles.index')
                 ->withErrors($v->errors());
         }
 
         $article->save();
 
-        return \redirect()->route('staff.articles.index')
+        return \to_route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
 
@@ -120,13 +120,13 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.articles.index')
+            return \to_route('staff.articles.index')
                 ->withErrors($v->errors());
         }
 
         $article->save();
 
-        return \redirect()->route('staff.articles.index')
+        return \to_route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }
 
@@ -143,7 +143,7 @@ class ArticleController extends Controller
         }
         $article->delete();
 
-        return \redirect()->route('staff.articles.index')
+        return \to_route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }
