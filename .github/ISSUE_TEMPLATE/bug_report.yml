@@ -10,10 +10,18 @@ body:
         Thanks for taking the time to fill out this bug report!
         The more detailed this bug report is, the faster it can be reviewed and fixed.
   - type: input
+    id: version-unit3d
+    attributes:
+      label: UNIT3D Version
+      description: UNIT3D version your using?
+      placeholder: 6.0.3
+    validations:
+      required: true
+  - type: input
     id: version-php-os
     attributes:
       label: PHP & Platform
-      description: Exact PHP and Platform (OS) versions using this package.
+      description: Exact PHP and Platform (OS) versions your using.
       placeholder: 8.1.2 - Ubuntu 22.04 x64
     validations:
       required: true
