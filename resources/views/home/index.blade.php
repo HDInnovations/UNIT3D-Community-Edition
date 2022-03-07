@@ -12,12 +12,11 @@
         @endif
 
         @include('blocks.featured')
-	    @livewire('random-media')
         @include('blocks.poll')
-	    {{--@include('blocks.top_torrents')--}}
-	    {{--@include('blocks.top_uploaders')--}}
-	    @include('blocks.latest_topics')
-	    @include('blocks.latest_posts')
-	    @include('blocks.online')
+        @include('blocks.top_torrents')
+        @include('blocks.top_uploaders')
+        @include('blocks.latest_topics')
+        @include('blocks.latest_posts')
+        @include('blocks.online')
     </div>
 @endsection
