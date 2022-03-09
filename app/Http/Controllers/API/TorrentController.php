@@ -141,7 +141,7 @@ class TorrentController extends BaseController
         }
         $torrent->free = $user->hasPrivilegeTo('torrent_can_freeleech') ? $request->input('free') : 0;
         $fl_until = $request->input('fl_until');
-        if (($user->hasPrivilegeTo('torrent_can_freeleech')) && isset($fl_until)) {
+        if (isset($fl_until) && $user->hasPrivilegeTo('torrent_can_freeleech')) {
             $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
         }
         $torrent->sticky = $user->hasPrivilegeTo('torrent_can_sticky') ? $request->input('sticky') : 0;
