@@ -136,7 +136,7 @@ class TorrentController extends BaseController
         $torrent->doubleup = $user->hasPrivilegeTo('torrent_can_doubleupload') ? $request->input('doubleup') : 0;
         $torrent->personal_release = $request->input('personal_release') ?? 0;
         $du_until = $request->input('du_until');
-        if (($user->hasPrivilegeTo('torrent_can_doubleupload') && isset($du_until)) {
+        if (isset($du_until) && $user->hasPrivilegeTo('torrent_can_doubleupload')) {
             $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
         }
         $torrent->free = $user->hasPrivilegeTo('torrent_can_freeleech') ? $request->input('free') : 0;
