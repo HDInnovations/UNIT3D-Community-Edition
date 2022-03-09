@@ -57,7 +57,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: Run PHPUnit Tests
-        run: php artisan test --parallel
+        run: vendor/bin/phpunit --verbose
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
