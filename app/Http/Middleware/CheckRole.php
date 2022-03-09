@@ -9,6 +9,7 @@
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @credits    clandestine8 <https://github.com/clandestine8>
  */
 
 namespace App\Http\Middleware;
