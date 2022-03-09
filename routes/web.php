@@ -816,7 +816,7 @@ Route::group(['middleware' => 'language'], function () {
         // Privilege Panel - for Managing the Privileges of Roles and Users
         Route::group(['prefix' => 'privileges'], function () {
             Route::name('staff.privileges.')->group(function () {
-                Route::get('/', [\App\Http\Controllers\Staff\Privileges::class, 'index'])->name('index');
+                Route::get('/', [App\Http\Controllers\Staff\PrivilegeController::class, 'index'])->name('index');
             });
         });
 
