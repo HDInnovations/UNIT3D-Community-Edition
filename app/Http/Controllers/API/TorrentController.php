@@ -311,7 +311,6 @@ class TorrentController extends BaseController
             }
 
             TorrentHelper::approveHelper($torrent->id);
-            \info('New API Upload', [\sprintf('User %s has uploaded %s', $user->username, $torrent->name)]);
         }
 
         return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
