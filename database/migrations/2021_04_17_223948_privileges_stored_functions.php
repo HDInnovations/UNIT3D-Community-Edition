@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class PrivilegesStoredFunctions extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -55,4 +55,4 @@ class PrivilegesStoredFunctions extends Migration
         DB::unprepared('drop PROCEDURE if exists UsersWithPrivilege;');
         DB::unprepared('drop PROCEDURE if exists UsersWithoutPrivilege;');
     }
-}
+};
