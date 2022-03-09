@@ -23,23 +23,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      - name: Setup PHP 8.1
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
           coverage: none
-      - name: Prepare the environment
+      - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Install composer dependencies
+      - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-        run: composer dumpautoload -o --no-interaction
       - name: Install NPM Dependencies
         run: npm install
       - name: Generate Application Key
