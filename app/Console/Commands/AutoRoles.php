@@ -39,25 +39,11 @@ class AutoRoles extends Command
     //private $roles;
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->rules = \App\Models\AutoRoles::all();
-    }
-
-    /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): void
     {
-        foreach ($this->rules as $rule) {
+        foreach (\App\Models\AutoRoles::latest()->get() as $rule) {
             if ($rule->enabled) {
                 $query = [];
                 if ($rule->buffer || $rule->download || $rule->upload || $rule->ratio || $rule->accountAge) {
