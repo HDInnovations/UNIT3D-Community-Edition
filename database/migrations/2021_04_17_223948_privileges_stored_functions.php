@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class PrivilegesStoredFunctions extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      *
@@ -43,16 +42,4 @@ class PrivilegesStoredFunctions extends Migration
         DB::unprepared('drop PROCEDURE if exists UsersWithoutPrivilege;');
         DB::unprepared('create procedure UsersWithoutPrivilege(IN privilege_slug varchar(255)) BEGIN DECLARE privilege BIGINT; DROP TEMPORARY TABLE IF EXISTS UsersWithPrivilege; DROP TEMPORARY TABLE IF EXISTS Users; SELECT id INTO privilege FROM privileges WHERE ((slug LIKE privilege_slug) COLLATE utf8mb4_unicode_ci); CREATE TEMPORARY TABLE UsersWithPrivilege AS SELECT user_id FROM user_role WHERE role_id IN (SELECT role_id FROM role_privilege WHERE privilege_id = privilege) UNION SELECT user_id from user_privilege where privilege_id = privilege; DELETE FROM UsersWithPrivilege WHERE user_id IN (SELECT user_id from user_restricted_privilege WHERE privilege_id = privilege); CREATE TEMPORARY TABLE Users AS SELECT * FROM users WHERE id NOT IN (SELECT user_id FROM UsersWithPrivilege); SELECT DISTINCT * FROM Users; END;');
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        DB::unprepared('drop function if exists UserHasPrivilegeTo;');
-        DB::unprepared('drop PROCEDURE if exists UsersWithPrivilege;');
-        DB::unprepared('drop PROCEDURE if exists UsersWithoutPrivilege;');
-    }
-}
+};
