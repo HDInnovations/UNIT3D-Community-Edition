@@ -20,14 +20,4 @@ return new class extends Migration
             $table->unique('rsskey');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
 };

@@ -23,18 +23,4 @@ return new class() extends Migration {
             $table->integer('internal_id')->index('fk_users_internal_idx')->after('role_id')->nullable();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //Delete Table
-        Schema::dropIfExists('internals');
-
-        //Update Users Table
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('internal_id');
-        });
-    }
 };
