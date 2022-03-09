@@ -15,50 +15,52 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: unit3d
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis:5.0
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP
+      - name: Setup PHP 8.1
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
           coverage: none
-      - name: Prepare the environment
+      - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Setup composer cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-      - name: Install composer dependencies
+      - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Install NPM Dependencies
         run: npm install
-      - name: Compile Assets
+      - name: Build Assets Via Mix
         run: npx mix -p
-      - name: Generate application key
-        run: php artisan key:generate --env=testing
-      - name: Run tests
-        run: php artisan test --parallel
+      - name: Generate Application Key
+        run: php artisan key:generate
+      - name: Clear Application Cache
+        run: php artisan optimize:clear
+      - name: Run PHPUnit Tests
+        run: vendor/bin/phpunit --verbose
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           DB_USERNAME: root
-          DB_DATABASE: test
+          DB_DATABASE: unit3d
           DB_PASSWORD: null
