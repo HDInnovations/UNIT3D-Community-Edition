@@ -36,7 +36,7 @@ class Tv extends Model
     public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Season::class)
-            ->orderBy('season_number');
+            ->oldest('season_number');
     }
 
     public function persons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

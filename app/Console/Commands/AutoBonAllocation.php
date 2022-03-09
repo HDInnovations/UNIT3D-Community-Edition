@@ -43,7 +43,7 @@ class AutoBonAllocation extends Command
     public function handle(ByteUnits $byteUnits): void
     {
         $dyingTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('torrents.seeders', 1)
             ->where('torrents.times_completed', '>', 2)
@@ -54,7 +54,7 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $legendaryTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
@@ -64,7 +64,7 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $oldTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
@@ -75,7 +75,7 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $hugeTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('100GiB'))
@@ -85,7 +85,7 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $largeTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('25GiB'))
@@ -96,7 +96,7 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $regularTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('1GiB'))
@@ -107,8 +107,8 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $participaintSeeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->select(DB::raw('count(DISTINCT(history.torrent_id)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.id', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000)
             ->where('history.seedtime', '<', 2_592_000 * 2)
@@ -117,8 +117,8 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $teamplayerSeeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->select(DB::raw('count(DISTINCT(history.torrent_id)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.id', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 2)
             ->where('history.seedtime', '<', 2_592_000 * 3)
@@ -127,8 +127,8 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $commitedSeeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->select(DB::raw('count(DISTINCT(history.torrent_id)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.id', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 3)
             ->where('history.seedtime', '<', 2_592_000 * 6)
@@ -137,8 +137,8 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $mvpSeeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->select(DB::raw('count(DISTINCT(history.torrent_id)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.id', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 6)
             ->where('history.seedtime', '<', 2_592_000 * 12)
@@ -147,8 +147,8 @@ class AutoBonAllocation extends Command
             ->toArray();
 
         $legendarySeeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->select(DB::raw('count(DISTINCT(history.torrent_id)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.id', 'history.torrent_id')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->groupBy('history.user_id')

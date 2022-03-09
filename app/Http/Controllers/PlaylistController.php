@@ -33,7 +33,7 @@ class PlaylistController extends Controller
     /**
      * PlaylistController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -48,7 +48,7 @@ class PlaylistController extends Controller
                 ->orWhere(function ($query) {
                     $query->where('is_private', '=', 1)->where('user_id', '=', \auth()->id());
                 });
-        })->orderBy('name')->paginate(24);
+        })->oldest('name')->paginate(24);
 
         return \view('playlist.index', ['playlists' => $playlists]);
     }
@@ -95,7 +95,7 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.create')
+            return \to_route('playlists.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
@@ -109,7 +109,7 @@ class PlaylistController extends Controller
             );
         }
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id])
+        return \to_route('playlists.show', ['id' => $playlist->id])
             ->withSuccess(\trans('playlist.published-success'));
     }
 
@@ -202,14 +202,14 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.edit', ['id' => $playlist->id])
+            return \to_route('playlists.edit', ['id' => $playlist->id])
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $playlist->save();
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id])
+        return \to_route('playlists.show', ['id' => $playlist->id])
             ->withSuccess(\trans('playlist.update-success'));
     }
 
@@ -232,7 +232,7 @@ class PlaylistController extends Controller
 
         $playlist->delete();
 
-        return \redirect()->route('playlists.index')
+        return \to_route('playlists.index')
             ->withSuccess(\trans('playlist.deleted'));
     }
 

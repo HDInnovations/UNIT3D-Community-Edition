@@ -13,6 +13,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-zip": "*",
+        "ext-zend-opcache": "*",
         "appstract/laravel-opcache": "^4.0",
         "assada/laravel-achievements": "^2.3",
         "doctrine/dbal": "^2.10",

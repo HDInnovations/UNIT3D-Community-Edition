@@ -58,13 +58,13 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.types.index')
+            return \to_route('staff.types.index')
                 ->withErrors($v->errors());
         }
 
         $type->save();
 
-        return \redirect()->route('staff.types.index')
+        return \to_route('staff.types.index')
             ->withSuccess('Type Successfully Added');
     }
 
@@ -95,13 +95,13 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.types.index')
+            return \to_route('staff.types.index')
                 ->withErrors($v->errors());
         }
 
         $type->save();
 
-        return \redirect()->route('staff.types.index')
+        return \to_route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
     }
 
@@ -115,7 +115,7 @@ class TypeController extends Controller
         $type = Type::findOrFail($id);
         $type->delete();
 
-        return \redirect()->route('staff.types.index')
+        return \to_route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');
     }
 }

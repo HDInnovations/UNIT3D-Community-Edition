@@ -42,7 +42,7 @@ class TopicController extends Controller
     /**
      * TopicController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -76,7 +76,7 @@ class TopicController extends Controller
         // The user can post a topic here ?
         if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_read_topic') || $user->hasPrivilegeTo('forums_sudo'))) {
             // Redirect him to the forum index
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
         }
 
@@ -96,7 +96,7 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      */
-    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function addForm(Request $request, $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -105,7 +105,7 @@ class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
@@ -127,7 +127,7 @@ class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if (! ($user->hasPrivilegeTo('forum_'.$category->slug.'_start_topic') || $user->hasPrivilegeTo('forums_sudo')) || ! $user->hasPrivilegeTo('forums_can_create_topic')) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
@@ -159,7 +159,7 @@ class TopicController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors($v->errors());
         }
 
@@ -174,7 +174,7 @@ class TopicController extends Controller
             'topic_id' => 'required',
         ]);
         if ($v->fails()) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors($v->errors());
         }
 
@@ -217,7 +217,7 @@ class TopicController extends Controller
         $user->addProgress(new UserMade800Posts(), 1);
         $user->addProgress(new UserMade900Posts(), 1);
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
                 ->withSuccess('Topic Created Successfully!');
     }
 
@@ -247,7 +247,7 @@ class TopicController extends Controller
         $topic->forum_id = $forumId;
         $topic->save();
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
     }
 
@@ -263,7 +263,7 @@ class TopicController extends Controller
         $topic->state = 'close';
         $topic->save();
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Closed!');
     }
 
@@ -279,7 +279,7 @@ class TopicController extends Controller
         $topic->state = 'open';
         $topic->save();
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Open!');
     }
 
@@ -298,7 +298,7 @@ class TopicController extends Controller
         $posts->delete();
         $topic->delete();
 
-        return \redirect()->route('forums.show', ['id' => $topic->forum->id])
+        return \to_route('forums.show', ['id' => $topic->forum->id])
             ->withSuccess('This Topic Is Now Deleted!');
     }
 
@@ -312,7 +312,7 @@ class TopicController extends Controller
         $topic->pinned = 1;
         $topic->save();
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Pinned!');
     }
 
@@ -326,7 +326,7 @@ class TopicController extends Controller
         $topic->pinned = 0;
         $topic->save();
 
-        return \redirect()->route('forum_topic', ['id' => $topic->id])
+        return \to_route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
     }
 }

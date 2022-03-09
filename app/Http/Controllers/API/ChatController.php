@@ -40,7 +40,7 @@ class ChatController extends Controller
     /**
      * ChatController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository, private Factory $authFactory)
+    public function __construct(private readonly ChatRepository $chatRepository, private readonly Factory $authFactory)
     {
     }
 
@@ -113,6 +113,7 @@ class ChatController extends Controller
     /* MESSAGES */
     public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
+        $runbot = null;
         $bot = Bot::where('id', '=', $botId)->firstOrFail();
         if ($bot->is_systembot) {
             $runbot = new SystemBot($this->chatRepository);
@@ -127,6 +128,7 @@ class ChatController extends Controller
 
     public function createMessage(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool|ChatMessageResource
     {
+        $bot = null;
         $user = $this->authFactory->user();
 
         $userId = $user->id;
@@ -149,7 +151,7 @@ class ChatController extends Controller
         $botDirty = 0;
         $bots = \cache()->get('bots');
         if (! $bots || ! \is_array($bots) || \count($bots) < 1) {
-            $bots = Bot::where('active', '=', 1)->orderBy('position')->get();
+            $bots = Bot::where('active', '=', 1)->oldest('position')->get();
             $botDirty = 1;
         }
 
@@ -164,7 +166,7 @@ class ChatController extends Controller
         $trip = 'msg';
         if ($message && \str_starts_with($message, '/'.$trip)) {
             $which = 'skip';
-            $command = @\explode(' ', $message);
+            $command = @\explode(' ', (string) $message);
             if (\array_key_exists(1, $command)) {
                 $receiverId = User::where('username', 'like', $command[1])->firstOrFail()->id;
                 $clone = $command;
@@ -180,7 +182,7 @@ class ChatController extends Controller
         if ($message && \str_starts_with($message, '/'.$trip)) {
             $which = 'echo';
             $target = 'system';
-            $message = '/bot gift'.\substr($message, \strlen($trip) + 1, \strlen($message));
+            $message = '/bot gift'.\substr($message, \strlen($trip) + 1, \strlen((string) $message));
         }
 
         if ($target == 'system') {
@@ -194,19 +196,19 @@ class ChatController extends Controller
                 } elseif ($message && \str_starts_with($message, '!'.$bot->command)) {
                     $which = 'public';
                 } elseif ($message && \str_starts_with($message, '@'.$bot->command)) {
-                    $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
+                    $message = \substr($message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     $which = 'private';
                 } elseif ($message && $receiverId == 1 && $bot->id == $botId) {
                     if (\str_starts_with($message, '/'.$bot->command)) {
-                        $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
+                        $message = \substr($message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     }
 
                     if ($message && \str_starts_with($message, '!'.$bot->command)) {
-                        $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
+                        $message = \substr($message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     }
 
                     if ($message && \str_starts_with($message, '@'.$bot->command)) {
-                        $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
+                        $message = \substr($message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     }
 
                     $which = 'message';

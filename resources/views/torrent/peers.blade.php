@@ -54,12 +54,13 @@
                     @foreach ($peers as $p)
                         <tr>
                             @if ($p->user->hidden == 1 || $p->user->peer_hidden == 1 ||
-                                !auth()->user()->isAllowed($p->user,'torrent','show_peer'))
+                                !auth()->user()->isAllowed($p->user,'torrent','show_peer') ||
+                                ($p->user->id == $torrent->user->id && $torrent->anon == 1))
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                     aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
-                                        @if (auth()->user()->id == $p->id || auth()->user()->hasPrivilegeTo('users_view_private'))
+                                        @if (auth()->user()->id == $p->user->id || auth()->user()->hasPrivilegeTo('users_view_private'))
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                     class="badge-user text-bold"
                                                     style="color:{{ $p->user->primaryRole->color }};">({{ $p->user->username }}

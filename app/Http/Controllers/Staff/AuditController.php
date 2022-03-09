@@ -47,7 +47,7 @@ class AuditController extends Controller
         \abort_unless($user->hasPrivilegeTo('dashboard_can_audit_log'), 403);
         $audit->delete();
 
-        return \redirect()->route('staff.audits.index')
+        return \to_route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

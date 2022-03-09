@@ -84,10 +84,8 @@ class UserController extends Controller
 
         $sendto = (int) $request->input('role_id');
 
-        // Hard coded until group change.
-
         if (! $staff->hasPrivilegeTo('users_edit_personal') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -101,7 +99,7 @@ class UserController extends Controller
         $user->internal_id = (int) $request->input('internal_id');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -126,7 +124,7 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -142,7 +140,7 @@ class UserController extends Controller
         $user->password = Hash::make($newPassword);
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -249,11 +247,11 @@ class UserController extends Controller
         }
 
         if ($user->delete()) {
-            return \redirect()->route('staff.dashboard.index')
+            return \to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        return \redirect()->route('staff.dashboard.index')
+        return \to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }
 
@@ -281,7 +279,7 @@ class UserController extends Controller
         $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
         $pm->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Warning issued successfully!');
     }
 }

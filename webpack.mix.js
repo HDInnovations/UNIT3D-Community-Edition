@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ mix.options({
      */
     .js('resources/js/app.js', 'public/js').vue({ version: 2 })
     .sass('resources/sass/app.scss', 'public/css')
+    .purgeCss()
 
     /*
      * Themes
@@ -72,4 +74,5 @@ mix.options({
      */
     .js('resources/js/unit3d/imgbb.js', 'public/js')
     .js('resources/js/vendor/alpine.js', 'public/js')
-    .js('resources/js/vendor/virtual-select.js', 'public/js');
+    .js('resources/js/vendor/virtual-select.js', 'public/js')
+    .js('resources/js/unit3d/chat.js', 'public/js');

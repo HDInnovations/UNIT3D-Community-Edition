@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v6.0.1',
+    'powered-by' => 'Powered By UNIT3D Community Edition v6.0.3',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'version' => 'v6.0.1',
+    'version' => 'v6.0.3',
 
     /*
     |--------------------------------------------------------------------------

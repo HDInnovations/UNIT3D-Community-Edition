@@ -313,7 +313,7 @@ class Bbcode
      */
     protected function searchAndReplace(string $pattern, string $replace, string $source): ?string
     {
-        while (\preg_match($pattern, $source)) {
+        while (\preg_match($pattern, (string) $source)) {
             $source = \preg_replace($pattern, $replace, $source);
         }
 

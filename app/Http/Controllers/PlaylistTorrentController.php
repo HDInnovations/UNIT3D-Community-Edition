@@ -42,13 +42,13 @@ class PlaylistTorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.show', ['id' => $playlist->id])
+            return \to_route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         }
 
         $playlistTorrent->save();
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id])
+        return \to_route('playlists.show', ['id' => $playlist->id])
             ->withSuccess(\trans('playlist.attached-success'));
     }
 
@@ -65,7 +65,7 @@ class PlaylistTorrentController extends Controller
         \abort_unless($user->hasPrivilegeTo('playlist_can_update') || $user->id === $playlistTorrent->playlist->user_id, 403);
         $playlistTorrent->delete();
 
-        return \redirect()->route('playlists.show', ['id' => $playlistTorrent->playlist->id])
+        return \to_route('playlists.show', ['id' => $playlistTorrent->playlist->id])
             ->withSuccess(\trans('playlist.detached-success'));
     }
 }

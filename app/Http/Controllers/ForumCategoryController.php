@@ -40,13 +40,13 @@ class ForumCategoryController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
-            return \redirect()->route('forums.show', ['id' => $forum->id]);
+            return \to_route('forums.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
         if ($user->hasPrivilegeTo('forum_'.$category->slug.'_show_forum') != true) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Category!');
         }
 

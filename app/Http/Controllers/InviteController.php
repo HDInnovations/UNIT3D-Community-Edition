@@ -48,16 +48,17 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (\config('other.invite-only') == false) {
-            return \redirect()->route('home.index')
+            return \to_route('home.index')
             ->withErrors(\trans('user.invites-disabled'));
         }
+
         if (! $user->hasPrivilegeTo('user_can_invite')) {
-            return \redirect()->route('home.index')
+            return \to_route('home.index')
             ->withErrors(\trans('user.invites-banned'));
         }
 
         if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
-            return \redirect()->route('home.index')
+            return \to_route('home.index')
                 ->withErrors(\trans('user.invites-disabled-group'));
         }
 
@@ -75,19 +76,19 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (! $user->hasPrivilegeTo('user_can_invite')) {
-            return \redirect()->route('home.index')
+            return \to_route('home.index')
                 ->withErrors(\trans('user.invites-disabled-group'));
         }
 
         if ($user->invites <= 0) {
-            return \redirect()->route('invites.create')
+            return \to_route('invites.create')
                 ->withErrors(\trans('user.not-enough-invites'));
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
-            return \redirect()->route('invites.create')
+            return \to_route('invites.create')
                 ->withErrors(\trans('user.invite-already-sent'));
         }
 
@@ -112,7 +113,7 @@ class InviteController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('invites.create')
+            return \to_route('invites.create')
                 ->withErrors($v->errors());
         }
 
@@ -121,7 +122,7 @@ class InviteController extends Controller
         $user->invites--;
         $user->save();
 
-        return \redirect()->route('invites.create')
+        return \to_route('invites.create')
             ->withSuccess(\trans('user.invite-sent-success'));
     }
 
@@ -136,13 +137,13 @@ class InviteController extends Controller
         \abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return \redirect()->route('invites.index', ['username' => $user->username])
+            return \to_route('invites.index', ['username' => $user->username])
                 ->withErrors(\trans('user.invite-already-used'));
         }
 
         Mail::to($invite->email)->send(new InviteUser($invite));
 
-        return \redirect()->route('invites.index', ['username' => $user->username])
+        return \to_route('invites.index', ['username' => $user->username])
             ->withSuccess(\trans('user.invite-resent-success'));
     }
 }

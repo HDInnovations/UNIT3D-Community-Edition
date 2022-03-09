@@ -40,12 +40,12 @@ class GraveyardController extends Controller
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return \redirect()->route('graveyard.index')
+            return \to_route('graveyard.index')
                 ->withErrors(\trans('graveyard.resurrect-failed-pending'));
         }
 
         if ($user->id === $torrent->user_id) {
-            return \redirect()->route('graveyard.index')
+            return \to_route('graveyard.index')
                 ->withErrors(\trans('graveyard.resurrect-failed-own'));
         }
 
@@ -61,13 +61,13 @@ class GraveyardController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('graveyard.index')
+            return \to_route('graveyard.index')
                 ->withErrors($v->errors());
         }
 
         $graveyard->save();
 
-        return \redirect()->route('graveyard.index')
+        return \to_route('graveyard.index')
             ->withSuccess(\trans('graveyard.resurrect-complete'));
     }
 
@@ -85,7 +85,7 @@ class GraveyardController extends Controller
         \abort_unless($user->hasPrivilegeTo('graveyard_can_cancel') || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return \redirect()->route('graveyard.index')
+        return \to_route('graveyard.index')
             ->withSuccess(\trans('graveyard.resurrect-canceled'));
     }
 }

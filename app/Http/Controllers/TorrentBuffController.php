@@ -29,7 +29,7 @@ class TorrentBuffController extends Controller
     /**
      * TorrentController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -62,7 +62,7 @@ class TorrentBuffController extends Controller
             $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s]', $torrentUrl));
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
     }
 
@@ -78,7 +78,7 @@ class TorrentBuffController extends Controller
         $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
         $torrent->save();
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
     }
 
@@ -99,7 +99,7 @@ class TorrentBuffController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
 
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
 
@@ -159,11 +159,11 @@ class TorrentBuffController extends Controller
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withErrors('Torrent Is Already Featured!');
     }
 
@@ -195,7 +195,7 @@ class TorrentBuffController extends Controller
 
         $featured_torrent->delete();
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Revoked featured from Torrent!');
     }
 
@@ -232,7 +232,7 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
 
@@ -254,11 +254,11 @@ class TorrentBuffController extends Controller
             $user->fl_tokens -= '1';
             $user->save();
 
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
 }

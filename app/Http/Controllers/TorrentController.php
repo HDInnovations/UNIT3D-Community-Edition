@@ -62,7 +62,7 @@ class TorrentController extends Controller
     /**
      * TorrentController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -134,7 +134,7 @@ class TorrentController extends Controller
      */
     private static function parseKeywords($text): array
     {
-        $parts = \explode(', ', $text);
+        $parts = \explode(', ', (string) $text);
         $result = [];
         foreach ($parts as $part) {
             $part = \trim($part);
@@ -154,7 +154,7 @@ class TorrentController extends Controller
      * @throws \ReflectionException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
-    public function torrent(Request $request, ?int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function torrent(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -314,7 +314,7 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
 
@@ -345,7 +345,7 @@ class TorrentController extends Controller
             $tmdbScraper->movie($torrent->tmdb);
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Successfully Edited!');
     }
 
@@ -408,7 +408,7 @@ class TorrentController extends Controller
 
                 $torrent->delete();
 
-                return \redirect()->route('torrents')
+                return \to_route('torrents')
                     ->withSuccess('Torrent Has Been Deleted!');
             }
         } else {
@@ -419,7 +419,7 @@ class TorrentController extends Controller
 
             Log::notice(\sprintf('Deletion of torrent failed due to: %s', $errors));
 
-            return \redirect()->route('home.index')
+            return \to_route('home.index')
                 ->withErrors('Unable to delete Torrent');
         }
     }
@@ -498,12 +498,12 @@ class TorrentController extends Controller
 
         $requestFile = $request->file('torrent');
         if ($request->hasFile('torrent') == false) {
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
+            return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
 
         if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() != 'torrent') {
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
+            return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('Supplied Torrent File Is Corrupt!')->withInput();
         }
 
@@ -513,20 +513,20 @@ class TorrentController extends Controller
 
         $v2 = Bencode::is_v2_or_hybrid($decodedTorrent);
         if ($v2) {
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
+            return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('BitTorrent v2 (BEP 52) is not supported!')->withInput();
         }
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
         } catch (\Exception) {
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
+            return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
 
         foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
             if (! TorrentTools::isValidFilename($name)) {
-                return \redirect()->route('upload_form', ['category_id' => $category->id])
+                return \to_route('upload_form', ['category_id' => $category->id])
                     ->withErrors('Invalid Filenames In Torrent Files!')->withInput();
             }
         }
@@ -618,7 +618,7 @@ class TorrentController extends Controller
                 \unlink(\getcwd().'/files/torrents/'.$fileName);
             }
 
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
+            return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors($v->errors())->withInput();
         }
 
@@ -697,7 +697,7 @@ class TorrentController extends Controller
             TorrentHelper::approveHelper($torrent->id);
         }
 
-        return \redirect()->route('download_check', ['id' => $torrent->id])
+        return \to_route('download_check', ['id' => $torrent->id])
             ->withSuccess('Your torrent file is ready to be downloaded and seeded!');
     }
 
@@ -726,28 +726,28 @@ class TorrentController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < \config('other.ratio')) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && $torrent->user_id != $user->id) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }
 
         // Define the filename for the download
-        $tmpFileName = \str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.\config('torrent.source').']'.$torrent->name.'.torrent');
+        $tmpFileName = \str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.\config('torrent.source').']['.$user->id.']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
         if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
 
@@ -764,7 +764,7 @@ class TorrentController extends Controller
             // Remove Other announce url
             unset($dict['announce-list']);
         } else {
-            return \redirect()->route('login');
+            return \to_route('login');
         }
 
         $fileToDownload = Bencode::bencode($dict);
@@ -795,11 +795,11 @@ class TorrentController extends Controller
                 \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
             );
 
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
 }

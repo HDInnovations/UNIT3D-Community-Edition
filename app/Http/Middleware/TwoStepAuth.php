@@ -45,7 +45,7 @@ class TwoStepAuth
                 \session(['nextUri' => $nextUri]);
 
                 if (\config('auth.TwoStepEnabled') && $user->twostep == 1 && ! $this->twoStepVerification()) {
-                    return \redirect()->route('verificationNeeded');
+                    return \to_route('verificationNeeded');
                 }
 
                 break;

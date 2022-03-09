@@ -27,7 +27,7 @@ class PollController extends Controller
     /**
      * PollController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -77,7 +77,7 @@ class PollController extends Controller
             \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
         );
 
-        return \redirect()->route('staff.polls.index')
+        return \to_route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
     }
 
@@ -140,7 +140,7 @@ class PollController extends Controller
 
         $poll->save();
 
-        return \redirect()->route('staff.polls.index')
+        return \to_route('staff.polls.index')
             ->withSuccess('Your poll has been edited.');
     }
 
@@ -156,7 +156,7 @@ class PollController extends Controller
 
         Option::where('poll_id', '=', $id)->delete();
 
-        return \redirect()->route('staff.polls.index')
+        return \to_route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');
     }
 }

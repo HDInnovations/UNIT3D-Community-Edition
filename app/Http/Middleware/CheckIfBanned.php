@@ -30,11 +30,11 @@ class CheckIfBanned
             \auth()->logout();
             $request->session()->flush();
             if ($user->hasRole('banned')) {
-                return \redirect()->route('login')
+                return \to_route('login')
                     ->withErrors('This account is Banned!');
             }
 
-            return \redirect()->route('login')
+            return \to_route('login')
                     ->withErrors('Your account is not allowed to sign in. If you recently registered - Check your email for an Activation link.');
         }
 

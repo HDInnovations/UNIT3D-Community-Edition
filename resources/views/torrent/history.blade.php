@@ -48,7 +48,8 @@
                     @foreach ($history as $hpeers)
                         <tr>
                             @if ($hpeers->user->hidden == 1 || $hpeers->user->peer_hidden == 1 ||
-                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer'))
+                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer') ||
+                                ($hpeers->user->id == $torrent->user->id && $torrent->anon == 1))
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"

@@ -27,7 +27,7 @@ class ReportController extends Controller
     /**
      * ReportController Constructor.
      */
-    public function __construct(private Report $report)
+    public function __construct(private readonly Report $report)
     {
     }
 
@@ -47,7 +47,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -62,7 +62,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('request', ['id' => $id])
+        return \to_route('request', ['id' => $id])
             ->withSuccess(\trans('user.report-sent'));
     }
 
@@ -82,7 +82,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $id])
+            return \to_route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -97,7 +97,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('torrent', ['id' => $id])
+        return \to_route('torrent', ['id' => $id])
             ->withSuccess(\trans('user.report-sent'));
     }
 
@@ -116,7 +116,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $username])
+            return \to_route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         }
 
@@ -131,7 +131,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \redirect()->route('users.show', ['username' => $username])
+        return \to_route('users.show', ['username' => $username])
             ->withSuccess(\trans('user.report-sent'));
     }
 }

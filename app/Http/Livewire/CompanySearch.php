@@ -42,7 +42,7 @@ class CompanySearch extends Component
     {
         return Company::withCount('tv', 'movie')
             ->where('name', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('name')
+            ->oldest('name')
             ->paginate(30);
     }
 

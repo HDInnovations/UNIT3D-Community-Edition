@@ -15,6 +15,7 @@
     "jquery": "^3.6.0",
     "laravel-echo": "^1.11.3",
     "laravel-mix": "^6.0.41",
+    "laravel-mix-purgecss": "^6.0.0",
     "lodash": "^4.17.21",
     "postcss": "^8.4.6",
     "resolve-url-loader": "^5.0.0",

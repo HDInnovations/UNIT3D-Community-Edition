@@ -80,7 +80,7 @@ class ForumController extends Controller
             $request->user()->privilege()->attach($createTopic);
         }
 
-        return \redirect()->route('staff.forums.index')
+        return \to_route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -120,7 +120,7 @@ class ForumController extends Controller
         $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
-        return \redirect()->route('staff.forums.index')
+        return \to_route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
@@ -146,7 +146,7 @@ class ForumController extends Controller
         $replyTopic->delete();
         $createTopic->delete();
 
-        return \redirect()->route('staff.forums.index')
+        return \to_route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

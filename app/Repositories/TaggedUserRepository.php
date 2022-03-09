@@ -34,13 +34,13 @@ class TaggedUserRepository
     /**
      * TaggedUserRepository Constructor.
      */
-    public function __construct(private User $user, private PrivateMessage $privateMessage)
+    public function __construct(private readonly User $user, private readonly PrivateMessage $privateMessage)
     {
     }
 
     public function getTags($content): mixed
     {
-        \preg_match_all($this->regex, $content, $tagged);
+        \preg_match_all($this->regex, (string) $content, $tagged);
 
         return $tagged[0];
     }

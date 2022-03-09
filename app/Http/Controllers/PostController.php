@@ -40,7 +40,7 @@ class PostController extends Controller
     /**
      * PostController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -58,7 +58,7 @@ class PostController extends Controller
 
         // The user has the right to create a post here?
         if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_reply_topic') || ! $user->hasPrivilegeTo('forums_sudo') || ($topic->state == 'close' && ! $user->hasPrivilegeTo('forums_sudo'))) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors(\trans('forum.reply-topic-error'));
         }
 
@@ -74,7 +74,7 @@ class PostController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('forum_topic', ['id' => $topic->id])
+            return \to_route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         }
 
@@ -214,7 +214,7 @@ class PostController extends Controller
         \abort_unless($user->hasPrivilegeTo('forums_can_delete_topic') || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return \redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return \to_route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess(\trans('forum.delete-post-success'));
     }
 }

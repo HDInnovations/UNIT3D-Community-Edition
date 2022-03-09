@@ -127,4 +127,22 @@
           })
         </script>
     @endif
+
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
+      $('.torrent-freeleech-token').on('click', function (event) {
+        event.preventDefault();
+        let form = $(this).parents('form');
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'This will use one of your Freeleech Tokens!',
+          icon: 'warning',
+          showConfirmButton: true,
+          showCloseButton: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit();
+          }
+        });
+      });
+    </script>
 @endsection

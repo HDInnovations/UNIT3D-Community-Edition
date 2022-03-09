@@ -836,8 +836,13 @@ class User extends Authenticatable
     public function getSpecialSeedingSize(): int
     {
         $current = Carbon::now();
-        $seeding = History::where('user_id', '=', $this->id)->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())->where('active', '=', 1)->where('seeder', '=', 1)->where('seedtime', '>=', 1296000)->pluck('info_hash');
+        $seeding = History::where('user_id', '=', $this->id)
+            ->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())
+            ->where('active', '=', 1)
+            ->where('seeder', '=', 1)
+            ->where('seedtime', '>=', 1_296_000)
+            ->pluck('torrent_id');
 
-        return Torrent::whereIn('info_hash', $seeding)->sum('size');
+        return Torrent::whereIntergerIn('id', $seeding)->sum('size');
     }
 }

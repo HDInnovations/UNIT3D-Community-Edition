@@ -84,7 +84,7 @@
                                                 </a>
                                             @endif
 
-                                            @php $history = App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first() @endphp
+                                            @php $history = App\Models\History::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first() @endphp
                                             @if ($history)
                                                 @if ($history->seeder == 1 && $history->active == 1)
                                                     <button class="btn btn-success btn-circle" type="button"
