@@ -58,7 +58,7 @@ class DemoSeed extends Command
             $role = random_int(8, 27);
             $user = User::factory()->create([
                 'chatroom_id'    => 1,
-                'role_id'       => $role,
+                'role_id'        => $role,
                 'chat_status_id' => 1,
                 'image'          => null,
                 'custom_css'     => null,

@@ -240,7 +240,7 @@ class ForumController extends Controller
 
         $pests = [];
         foreach (Forum::all() as $F) {
-            if(!$user->hasPrivilegeTo('forum_'.$F->slug.'_show_forum')){
+            if (! $user->hasPrivilegeTo('forum_'.$F->slug.'_show_forum')) {
                 $pests[] = $F->id;
             }
         }
@@ -335,7 +335,7 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      */
-    public function show(Request$request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         // Find the topic
