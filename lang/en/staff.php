@@ -63,6 +63,7 @@ return [
     'user-notes'              => 'User Notes Log',
     'user-search'             => 'User Search',
     'user-tools'              => 'User Tools',
+    'users-roles-privileges'  => 'Users, Roles & Privileges',
     'warnings-log'            => 'Warnings Log',
     'you-have'                => 'You Have',
     'possible-leech-cheaters' => 'Possible Cheaters',

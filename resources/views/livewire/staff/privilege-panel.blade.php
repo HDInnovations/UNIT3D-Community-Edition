@@ -47,7 +47,7 @@
                     @foreach ($users as $user)
                         <div class="ppBadge">
 						<span class="text-bold"
-                              style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
+                              style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};">
                             <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->username }}
                         </span>
                         </div>
@@ -55,7 +55,7 @@
                             @foreach($user->roles as $role)
                                 @if($role->slug === $user->primaryRole->slug)
                                     <span class="text-bold"
-                                          style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }}; background-color: #1e1e1e">
+                                          style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};">
                                                     <i class="{{ $user->primaryRole->icon }}"></i> {{ $user->primaryRole->name }}</span>
                                 @else
                                     <span class="ppBadgeSmall">{{$role->name}}</span>

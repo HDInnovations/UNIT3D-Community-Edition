@@ -20,8 +20,8 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.users-roles-privileges')</span>
+        <a href="{{ route('staff.privileges.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.users-roles-privileges')</span>
         </a>
     </li>
 @endsection

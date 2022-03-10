@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Role;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Tmdb\Client\Movie;
@@ -54,16 +55,17 @@ class DemoSeed extends Command
         foreach ($this->movie_ids() as $key => $id) {
             // Users
             $this->info('Creating User Account');
-
-            $uid = User::factory()->create([
+            $role = random_int(8, 27);
+            $user = User::factory()->create([
                 'chatroom_id'    => 1,
-                'group_id'       => random_int(1, 20),
+                'role_id'       => $role,
                 'chat_status_id' => 1,
                 'image'          => null,
                 'custom_css'     => null,
                 'locale'         => 'en',
-            ])->id;
-
+            ]);
+            $user->roles()->attach(Role::find($role));
+            $uid = $user->id;
             // random boolean
             if ([false, true][random_int(0, 1)]) {
                 $movie = $this->fetchMovie($id);

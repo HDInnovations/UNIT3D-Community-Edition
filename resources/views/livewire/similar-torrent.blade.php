@@ -2,7 +2,7 @@
     <table class="table table-condensed table-striped table-bordered" id="torrent-similar">
         <thead>
         <tr>
-            @if ($user->group->is_modo)
+            @if ($user->hasPrivilegeTo('torrent_can_moderate'))
                 <th><input type="checkbox" wire:model="selectPage" style="vertical-align: middle;"></th>
             @endif
             <th class="torrents-filename">
@@ -53,7 +53,7 @@
     </table>
 
     <div>
-        @if ($checked && $user->group->is_modo)
+        @if ($checked && $user->hasPrivilegeTo('torrent_can_moderate'))
             <div class="dropdown">
                 <a class="dropdown btn btn-xs btn-warning" data-toggle="dropdown" href="#" aria-expanded="true">
                     With Checked ({{ count($checked) }})
@@ -62,7 +62,7 @@
                 <ul class="dropdown-menu">
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="#" wire:click="alertConfirm()">
-                            <span class="menu-text">Delete</span>
+                            @privilege('torrent_can_delete')<span class="menu-text">Delete</span>@endprivilege
                             <span class="selected"></span>
                         </a>
                     </li>
@@ -96,7 +96,7 @@
                     <tbody>
                     @foreach($torrents->where('type_id', '=', $type->id)->where('resolution_id', '=', $resolution->id) as $torrent)
                         <tr>
-                            @if ($user->group->is_modo)
+                            @if ($user->hasPrivilegeTo('torrent_can_moderate'))
                                 <td><input type="checkbox" value="{{ $torrent->id }}" wire:model="checked"
                                            style="vertical-align: middle;"></td>
                             @endif

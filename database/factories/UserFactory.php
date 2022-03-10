@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,7 +23,7 @@ class UserFactory extends Factory
             'email'               => $this->faker->unique()->safeEmail(),
             'password'            => \bcrypt('secret'),
             'passkey'             => \md5(\random_bytes(60)),
-            'group_id'            => fn () => Group::factory()->create()->id,
+            'role_id'            => fn () => Role::factory()->create()->id,
             'active'              => true,
             'uploaded'            => $this->faker->randomNumber(),
             'downloaded'          => $this->faker->randomNumber(),

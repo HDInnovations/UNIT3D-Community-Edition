@@ -139,7 +139,7 @@
             </li>
             <li>
                 <a href="{{ route('staff.privileges.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-user-lock"></i> @lang('user.users-roles-privileges')
+                    <i class="{{ config('other.font-awesome') }} fa-user-lock"></i>{{ __('staff.users-roles-privileges')}}
                 </a>
             </li>
             <li>
