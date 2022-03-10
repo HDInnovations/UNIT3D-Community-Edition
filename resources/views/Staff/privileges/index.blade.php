@@ -2,7 +2,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('user.users-roles-privileges') Manager - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>@lang('staff.users-roles-privileges') Manager - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

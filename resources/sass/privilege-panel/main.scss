@@ -11,20 +11,22 @@
         flex: auto;
         justify-items: center;
         background-color: #0f0f0f;
+        margin: 5px;
+        gap: 5px;
         > div {
-            margin: 5px 2px 0 2px;
-            padding: 7px 25px;
+            max-width: fit-content;
+            padding: 7px 50px;
             background-color: #efefef;
             cursor: pointer;
-            flex: 1 1 0%;
             text-align: center;
             border-radius: 5px 5px 0 0;
+            transition: all linear 200ms;
             &:hover {
                 background-color: rgba(239, 239, 239, 0.85);
             }
             &:active {
                 background-color: rgba(239, 239, 239, 0.5);
-                transform: scale(1.02);
+                transform: scaleY(1.02) scaleX(1.05);
                 transform-origin: bottom center;
             }
 
@@ -264,16 +266,19 @@
     .ppPaginate {
         .pagination > li > a,
         .pagination > li > span {
-            font-size: 14px;
-            line-height: 14px;
+            background-color: rgba(0, 0, 0, 0.8);
             display: inline-block;
-            padding: 5px 10px;
-            background-color: #0f0f0f;
-            cursor: pointer;
-            border-radius: 5px 0 5px 0;
-            color: white;
+            padding: 4px 6px 1px 6px;
+            font-size: 13px;
             font-weight: 700;
-            margin-inline: 3px;
+            border-radius: 5px 0 5px 0;
+            box-shadow: 2px 2px 2px #000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-inline: 1px;
+            background-blend-mode: color-dodge;
+            user-select: none;
+            cursor: pointer;
+            color: #72a9e5;;
             &:hover,
             &:active {
                 border: 1px solid #ffffff;
@@ -281,11 +286,22 @@
         }
         .pagination > .active > a,
         .pagination > .active > span {
-            background-color: #ffffff !important;
-            color: #0f0f0f;
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            color: white;
             border: 1px solid #0f0f0f;
             margin-top: 0;
         }
+        & > nav > span {
+            padding: 3px 7px 1px 7px;
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            color: white;
+            border: 1px solid #0f0f0f;
+            max-width: fit-content;
+            .text-bright{
+                color: white;;
+            }
+        }
+        margin: 5px;
     }
     [pp-tooltip] {
         position: relative;
