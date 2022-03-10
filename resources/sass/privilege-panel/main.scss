@@ -291,16 +291,25 @@
             border: 1px solid #0f0f0f;
             margin-top: 0;
         }
-        & > nav > span {
-            padding: 3px 7px 1px 7px;
+        nav > span {
+            padding: 5px 7px 2px 7px !important;
             background-color: rgba(0, 0, 0, 0.8) !important;
             color: white;
             border: 1px solid #0f0f0f;
             max-width: fit-content;
+            max-height: fit-content;
             .text-bright {
                 color: white;
             }
         }
+        nav {
+            display: flex !important;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+        }
+
         margin: 5px;
     }
     [pp-tooltip] {
