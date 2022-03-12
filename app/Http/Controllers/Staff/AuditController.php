@@ -28,7 +28,7 @@ class AuditController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $audits = Audit::with('user')->latest()->paginate(50);
-        
+
         foreach ($audits as $audit) {
             $audit->values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR);
         }
