@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Permission;
 use App\Models\User;
 use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
