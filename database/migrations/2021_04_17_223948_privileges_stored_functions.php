@@ -11,6 +11,7 @@ return new class() extends Migration {
      */
     public function up()
     {
+        DB::unprepared('ALTER DATABASE '.config('database.connections.mysql.database').' CHARACTER SET '.config('database.connections.mysql.charset').' COLLATE '.config('database.connections.mysql.collation'));
         DB::unprepared('drop function if exists UserHasPrivilegeTo;');
         DB::unprepared('CREATE FUNCTION UserHasPrivilegeTo(USER INT UNSIGNED, privilege_slug VARCHAR(255)) RETURNS INT UNSIGNED DETERMINISTIC READS SQL DATA BEGIN DECLARE result INT(1) DEFAULT 0; DECLARE role BIGINT; DECLARE privilege BIGINT; DECLARE bDone INT(1) DEFAULT 0;
     DECLARE countUR INT; DECLARE countR INT; DECLARE countU INT; DECLARE countRR INT;
