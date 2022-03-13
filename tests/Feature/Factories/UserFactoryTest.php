@@ -23,7 +23,7 @@ class UserFactoryTest extends TestCase
         $this->assertArrayHasKey('email', $user);
         $this->assertArrayHasKey('password', $user);
         $this->assertArrayHasKey('passkey', $user);
-        $this->assertArrayHasKey('group_id', $user);
+        $this->assertArrayHasKey('role_id', $user);
         $this->assertArrayHasKey('active', $user);
         $this->assertArrayHasKey('uploaded', $user);
         $this->assertArrayHasKey('downloaded', $user);
