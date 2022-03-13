@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'email'               => $this->faker->unique()->safeEmail(),
             'password'            => \bcrypt('secret'),
             'passkey'             => \md5(\random_bytes(60)),
-            'role_id'             => fn ()  => Role::factory()->create()->id,
+            'role_id'             => fn () => Role::factory()->create()->id,
             'active'              => true,
             'uploaded'            => $this->faker->randomNumber(),
             'downloaded'          => $this->faker->randomNumber(),

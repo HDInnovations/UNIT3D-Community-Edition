@@ -54,7 +54,7 @@ class AutoBan extends Command
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
-            if (! $ban->warneduser->hasRole('banned') || $ban->warneduser->hasPrivilegeTo('can_login') || ($ban->warneduser->hasPrivilegeTo('active_user') && !$ban->warneduser->hasPrivilegeTo('user_special_immune'))) {
+            if (! $ban->warneduser->hasRole('banned') || $ban->warneduser->hasPrivilegeTo('can_login') || ($ban->warneduser->hasPrivilegeTo('active_user') && ! $ban->warneduser->hasPrivilegeTo('user_special_immune'))) {
                 $ban->warneduser->UserRestrictedPrivileges()->attach($canLogin);
                 $ban->warneduser->UserRestrictedPrivileges()->attach($activeUser);
                 $ban->warneduser->roles()->attach($banned);
