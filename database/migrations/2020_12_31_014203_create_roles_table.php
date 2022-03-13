@@ -22,6 +22,7 @@ return new class() extends Migration {
             $table->string('icon')->nullable();
             $table->string('effect')->default('none')->nullable();
             $table->integer('rule_id')->nullable();
+            $table->integer('download_slots')->nullable()->index();
             $table->boolean('system_required')->default(false);
             $table->timestamps();
         });
