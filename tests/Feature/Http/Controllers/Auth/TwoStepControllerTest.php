@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\TwoStepAuth;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -19,7 +19,7 @@ class TwoStepControllerTest extends TestCase
     {
         config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create([
             'twostep' => true,
@@ -40,7 +40,7 @@ class TwoStepControllerTest extends TestCase
     {
         config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create([
             'twostep' => true,
@@ -62,7 +62,7 @@ class TwoStepControllerTest extends TestCase
     {
         config(['auth.TwoStepEnabled' => true]);
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create([
             'twostep' => true,

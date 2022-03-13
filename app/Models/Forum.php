@@ -78,14 +78,6 @@ class Forum extends Model
     }
 
     /**
-     * Has Many Permissions.
-     */
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Permission::class);
-    }
-
-    /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      */
     public function notifySubscribers($poster, $topic): void

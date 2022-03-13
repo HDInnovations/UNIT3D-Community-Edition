@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
-use App\Models\Group;
+use App\Models\Privilege;
+use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -19,12 +20,14 @@ class GiftControllerTest extends TestCase
 
     protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
     {
+        $role = Role::factory()->create();
+        $privileges = Privilege::all();
+        foreach ($privileges as $privilege) {
+            $role->privileges()->attach($privilege);
+        }
+
         return User::factory()->create([
-            'group_id' => fn () => Group::factory()->create([
-                'is_owner' => true,
-                'is_admin' => true,
-                'is_modo'  => true,
-            ])->id,
+            'role_id' => $role->id,
         ]);
     }
 
@@ -33,7 +36,7 @@ class GiftControllerTest extends TestCase
      */
     public function index_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -48,7 +51,7 @@ class GiftControllerTest extends TestCase
      */
     public function store_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $staff = $this->createStaffUser();
         $user = User::factory()->create();

@@ -3,9 +3,8 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Permission;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
 
@@ -18,7 +17,7 @@ class ForumControllerTest extends TestCase
     public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -35,7 +34,7 @@ class ForumControllerTest extends TestCase
     public function latest_posts_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -53,7 +52,7 @@ class ForumControllerTest extends TestCase
     public function latest_topics_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -71,7 +70,7 @@ class ForumControllerTest extends TestCase
     public function search_topics_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -93,7 +92,7 @@ class ForumControllerTest extends TestCase
     public function search_posts_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -115,28 +114,17 @@ class ForumControllerTest extends TestCase
     /*public function show_category_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         // This Forum has a parent Forum, which makes it a "Forum Category".
 
         $parentForum = Forum::factory()->create();
 
-        $permissions = Permission::factory()->create([
-            'forum_id'   => $parentForum->id,
-            'show_forum' => true,
-        ]);
-
         $forum = Forum::factory()->create([
             'parent_id' => $parentForum->id,
         ]);
 
-        // Note that permissions are not necessary on the parent Forum, and
-        // the Group ID is instead derived from the child ("Forum Category")
-        // permissions.
-
-        $user = User::factory()->create([
-            'group_id' => $permissions['group_id'],
-        ]);
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))
             ->assertViewIs('forum.display')
@@ -152,7 +140,7 @@ class ForumControllerTest extends TestCase
     public function show_forum_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         // This Forum does not have a parent, which makes it a proper Forum
         // (and not a "Forum Category").
@@ -161,14 +149,7 @@ class ForumControllerTest extends TestCase
             'parent_id' => 0,
         ]);
 
-        $permissions = Permission::factory()->create([
-            'forum_id'   => $forum->id,
-            'show_forum' => true,
-        ]);
-
-        $user = User::factory()->create([
-            'group_id' => $permissions['group_id'],
-        ]);
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))
             ->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
@@ -178,7 +159,7 @@ class ForumControllerTest extends TestCase
     public function subscriptions_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 

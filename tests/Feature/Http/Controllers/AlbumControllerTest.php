@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -15,7 +15,7 @@ class AlbumControllerTest extends TestCase
     /** @test */
     public function create_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -28,7 +28,7 @@ class AlbumControllerTest extends TestCase
     /** @test */
     public function destroy_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -45,7 +45,7 @@ class AlbumControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -58,7 +58,7 @@ class AlbumControllerTest extends TestCase
     /** @test */
     public function show_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -77,7 +77,7 @@ class AlbumControllerTest extends TestCase
     /** @test */
     public function store_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 

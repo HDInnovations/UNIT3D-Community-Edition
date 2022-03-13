@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Follow;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
 
@@ -17,7 +17,7 @@ class FollowControllerTest extends TestCase
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -40,7 +40,7 @@ class FollowControllerTest extends TestCase
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 

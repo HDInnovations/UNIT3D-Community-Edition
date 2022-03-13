@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\UserActivation;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -16,7 +16,7 @@ class ActivationControllerTest extends TestCase
      */
     public function activate_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $activation = UserActivation::factory()->create();
 

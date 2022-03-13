@@ -4,7 +4,7 @@ namespace Tests\Todo\Feature\Http\Controllers;
 
 use App\Models\Bookmark;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -16,7 +16,7 @@ class BookmarkControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
     }
 
     /** @test */
