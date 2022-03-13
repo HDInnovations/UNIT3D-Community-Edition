@@ -8,7 +8,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Database\Seeders\BotsTableSeeder;
 use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
 
@@ -21,7 +21,7 @@ class BonusControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
     }
 
     /** @test */

@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -17,7 +17,7 @@ class ArticleControllerTest extends TestCase
      */
     public function index_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -33,7 +33,7 @@ class ArticleControllerTest extends TestCase
      */
     public function show_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $article = Article::factory()->create();
         $user = User::factory()->create();

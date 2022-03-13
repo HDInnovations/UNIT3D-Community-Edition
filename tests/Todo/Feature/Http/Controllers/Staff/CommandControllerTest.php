@@ -4,7 +4,7 @@ namespace Tests\Todo\Feature\Http\Controllers\Staff;
 
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use function route;
 use Tests\TestCase;
 
@@ -36,7 +36,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -52,7 +52,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -68,7 +68,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -84,7 +84,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -100,7 +100,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -116,7 +116,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -133,7 +133,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -149,7 +149,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -165,7 +165,7 @@ class CommandControllerTest extends TestCase
     {
         $this->markTestIncomplete('This test is incomplete.');
 
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 

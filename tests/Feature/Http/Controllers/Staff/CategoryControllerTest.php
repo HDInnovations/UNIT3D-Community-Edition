@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Privilege;
 use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -37,7 +37,7 @@ class CategoryControllerTest extends TestCase
      */
     public function create_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -52,7 +52,7 @@ class CategoryControllerTest extends TestCase
      */
     public function destroy_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $category = Category::factory()->create();
         $user = $this->createStaffUser();
@@ -67,7 +67,7 @@ class CategoryControllerTest extends TestCase
      */
     public function edit_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
         $category = Category::factory()->create();
@@ -84,7 +84,7 @@ class CategoryControllerTest extends TestCase
      */
     public function index_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
 
@@ -100,7 +100,7 @@ class CategoryControllerTest extends TestCase
      */
     public function store_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = $this->createStaffUser();
         $category = Category::factory()->make();
@@ -126,7 +126,7 @@ class CategoryControllerTest extends TestCase
      */
     public function update_returns_an_ok_response(): void
     {
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $category = Category::factory()->create();
         $user = $this->createStaffUser();

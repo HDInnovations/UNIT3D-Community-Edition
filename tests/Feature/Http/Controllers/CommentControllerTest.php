@@ -10,7 +10,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Database\Seeders\BotsTableSeeder;
 use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class CommentControllerTest extends TestCase
     public function article_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
@@ -52,7 +52,7 @@ class CommentControllerTest extends TestCase
     public function delete_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
@@ -76,7 +76,7 @@ class CommentControllerTest extends TestCase
     public function edit_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create([
             'can_comment' => true,
@@ -100,7 +100,7 @@ class CommentControllerTest extends TestCase
     public function playlist_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
@@ -129,7 +129,7 @@ class CommentControllerTest extends TestCase
     public function quickthanks_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
@@ -154,7 +154,7 @@ class CommentControllerTest extends TestCase
     public function request_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
@@ -181,7 +181,7 @@ class CommentControllerTest extends TestCase
     public function torrent_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 

@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
 
@@ -16,7 +16,7 @@ class ContactControllerTest extends TestCase
     public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
@@ -30,7 +30,7 @@ class ContactControllerTest extends TestCase
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
 
         $user = User::factory()->create();
 
