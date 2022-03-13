@@ -205,8 +205,8 @@
                                                 @endif
                                                 <strong>
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }};">
-                                                        <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
+                                                       style="color:{{ $comment->user->primaryRole->color }};">
+                                                        <span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>
                                                     </a>
                                                 </strong>
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>

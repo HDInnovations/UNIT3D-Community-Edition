@@ -92,7 +92,7 @@
                         <br>
                         @if ($torrent->anon === 0)
                             <span class="badge-extra torrent-listings-uploader">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
@@ -212,7 +212,7 @@
                                 </span>
                         @endif
 
-                        @if ($user->group->is_freeleech == 1)
+                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                             <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
@@ -236,7 +236,7 @@
                                 </span>
                         @endif
 
-                        @if ($user->group->is_double_upload == 1)
+                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                             <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''
@@ -464,7 +464,7 @@
                     <br>
                     @if ($torrent->anon === 0)
                         <span class="badge-extra torrent-listings-uploader">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
@@ -584,7 +584,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_freeleech == 1)
+                    @if ($user->hasPrivilegeTo('user_special_freeleech'))
                         <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
@@ -608,7 +608,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_double_upload == 1)
+                    @if ($user->hasPrivilegeTo('user_special_double_upload'))
                         <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''
@@ -837,7 +837,7 @@
                     <br>
                     @if ($torrent->anon === 0)
                         <span class="badge-extra torrent-listings-uploader">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
@@ -957,7 +957,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_freeleech == 1)
+                    @if ($user->hasPrivilegeTo('user_special_freeleech'))
                         <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
@@ -981,7 +981,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_double_upload == 1)
+                    @if ($user->hasPrivilegeTo('user_special_double_upload'))
                         <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''
@@ -1210,7 +1210,7 @@
                     <br>
                     @if ($torrent->anon === 0)
                         <span class="badge-extra torrent-listings-uploader">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
@@ -1330,7 +1330,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_freeleech == 1)
+                    @if ($user->hasPrivilegeTo('user_special_freeleech'))
                         <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
@@ -1354,7 +1354,7 @@
                                 </span>
                     @endif
 
-                    @if ($user->group->is_double_upload == 1)
+                    @if ($user->hasPrivilegeTo('user_special_double_upload'))
                         <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''
@@ -1583,7 +1583,7 @@
                         <br>
                         @if ($torrent->anon === 0)
                             <span class="badge-extra torrent-listings-uploader">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
@@ -1703,7 +1703,7 @@
                                 </span>
                         @endif
 
-                        @if ($user->group->is_freeleech == 1)
+                        @if ($user->hasPrivilegeTo('user_special_freeleech'))
                             <span class='badge-extra text-bold torrent-listings-special-freeleech'>
                                     <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip'
@@ -1727,7 +1727,7 @@
                                 </span>
                         @endif
 
-                        @if ($user->group->is_double_upload == 1)
+                        @if ($user->hasPrivilegeTo('user_special_double_upload'))
                             <span class='badge-extra text-bold torrent-listings-special-double-upload'>
 									<i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
                                        data-toggle='tooltip' title=''

@@ -164,10 +164,10 @@
                             <span>
                                 [{{ __('common.moderated-by') }}
                                 <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
-                                   style="color:{{ $torrent->moderated->group->color }};">
-                                    <i class="{{ $torrent->moderated->group->icon }}"
+                                   style="color:{{ $torrent->moderated->primaryRole->color }};">
+                                    <i class="{{ $torrent->moderated->primaryRole->icon }}"
                                        data-toggle="tooltip"
-                                       data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                                       data-original-title="{{ $torrent->moderated->primaryRole->name }}"></i> {{ $torrent->moderated->username }}
                                 </a>]
                             </span>
                         </div>

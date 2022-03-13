@@ -101,7 +101,7 @@
         </a>
     </div>
     <div class="button-right-decreased">
-        @if(!$user->group || !$user->group->is_immune)
+        @if(!$user->group || !$user->hasPrivilegeTo('user_special_immune'))
             <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> {{ __('user.unsatisfieds') }}
             </a>

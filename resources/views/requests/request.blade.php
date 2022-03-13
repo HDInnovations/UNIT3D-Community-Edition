@@ -409,7 +409,7 @@
                                                         <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> 
                                                         @if ($user->id == $comment->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" 
-                                                        style="color:{{ $comment->user->group->color }};">(<span><i 
+                                                        style="color:{{ $comment->user->primaryRole->color }};">(<span><i
                                                         class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                         @endif
                                                 @else
@@ -424,7 +424,7 @@
                                                              alt="{{ $comment->user->username }}"
                                                              class="img-avatar-48"></a>
                                                     @endif
-                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
+                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->primaryRole->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                         <div class="pull-right" style="display: inline-block;">

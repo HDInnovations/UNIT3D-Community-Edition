@@ -10,7 +10,7 @@
                 <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
             </a>
 
-            @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
+            @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && !$user->hasPrivilegeTo('user_special_freeleech') && !$freeleech_token)
                 <form action="{{ route('freeleech_token', ['id' => $torrent->id]) }}" method="POST"
                       style="display: inline;">
                     @csrf

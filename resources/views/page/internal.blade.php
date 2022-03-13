@@ -28,7 +28,7 @@
                     </div>
                     @foreach ($internal->users as $user)
                             <div class="col-xs-6 col-sm-4 col-md-3">
-                                <div class="text-center oper-item" style="background-color: {{ $user->group->color }}; background-image: {{ $internal->effect }};">
+                                <div class="text-center oper-item" style="background-color: {{ $user->primaryRole->color }}; background-image: {{ $internal->effect }};">
                                     <a href="{{ route('users.show', ['username' => $user->username]) }}" style="color:#ffffff;">
                                         <h1>{{ $user->username }}</h1>
                                     </a>
@@ -39,7 +39,7 @@
                                     @else
                                         <span class="badge-user" style="visibility:hidden;"></span>
                                     @endif
-                                    <i class="fal {{ $user->group->icon }} oper-icon"></i>
+                                    <i class="fal {{ $user->primaryRole->icon }} oper-icon"></i>
                                 </div>
                             </div>
                     @endforeach

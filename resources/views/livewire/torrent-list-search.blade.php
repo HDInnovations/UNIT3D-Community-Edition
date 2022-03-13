@@ -516,7 +516,7 @@
                             @endif
                         </td>
                         <td class="torrent-listings-overview" style="vertical-align: middle;">
-                            @if($user->group->is_modo || $user->id === $torrent->user_id || $user->group->id === 29)
+                            @if($user->group->is_modo || $user->id === $torrent->user_id)
                                 <a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button"
                                             title="{{ __('common.edit') }}">

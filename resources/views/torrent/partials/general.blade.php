@@ -44,14 +44,14 @@
                         </div>
                         <div class="torrent-discounts" style="display: inline-block">
                             @if ($torrent->featured == '0')
-                                @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || $torrent->free > '1' || config('other.freeleech') == '1' || $torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
-                                    @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || config('other.freeleech') == '1')
+                                @if ($freeleech_token || $user->hasPrivilegeTo('user_special_freeleech') || $personal_freeleech || $torrent->free > '1' || config('other.freeleech') == '1' || $torrent->doubleup == '1' || $user->hasPrivilegeTo('user_special_double_upload') || config('other.doubleup') == '1')
+                                    @if ($freeleech_token || $user->hasPrivilegeTo('user_special_freeleech') || $personal_freeleech || config('other.freeleech') == '1')
                                         <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
                                                 @if ($freeleech_token)
                                                     <p>{{ __('common.fl_token') }}</p>
                                                 @endif
 
-                                                @if ($user->group->is_freeleech == '1')
+                                                @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                                     <p>{{ __('common.special') }} {{ __('torrent.freeleech') }}</p>
                                                 @endif
 
@@ -117,13 +117,13 @@
                                         @endif
                                     @endif
 
-                                    @if ($torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
+                                    @if ($torrent->doubleup == '1' || $user->hasPrivilegeTo('user_special_double_upload') || config('other.doubleup') == '1')
                                         <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
                                                 @if ($torrent->doubleup == '1')
                                                     <p>{{ __('torrent.double-upload') }}</p>
                                                 @endif
 
-                                                @if ($user->group->is_double_upload == '1')
+                                                @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                                     <p>{{ __('common.special') }} {{ __('torrent.double-upload') }}</p>
                                                 @endif
 
@@ -202,9 +202,9 @@
                                 </span>
                             @else
                                 <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                                    <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
-                                        <i class="{{ $uploader->group->icon }}" data-toggle="tooltip"
-                                           data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
+                                    <span class="badge-user text-bold" style="color:{{ $uploader->primaryRole->color }}; background-image:{{ $uploader->primaryRole->effect }};">
+                                        <i class="{{ $uploader->primaryRole->icon }}" data-toggle="tooltip"
+                                           data-original-title="{{ $uploader->primaryRole->name }}"></i> {{ $uploader->username }}
                                     </span>
                                 </a>
                             @endif
@@ -304,14 +304,14 @@
                         <strong>{{ __('torrent.discounts') }}</strong>
                     </td>
                     <td>
-                        @if ($torrent->doubleup == '1' || $torrent->free > '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
+                        @if ($torrent->doubleup == '1' || $torrent->free > '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->hasPrivilegeTo('user_special_freeleech') || $freeleech_token)
                             @if ($freeleech_token)
                                 <span class="badge-extra text-bold">
                                     <i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i> {{ __('common.fl_token') }}
                                 </span>
                             @endif
 
-                            @if ($user->group->is_freeleech == '1')
+                            @if ($user->hasPrivilegeTo('user_special_freeleech'))
                                 <span class="badge-extra text-bold">
                                     <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> {{ __('common.special') }} {{ __('torrent.freeleech') }}
                                 </span>
@@ -329,7 +329,7 @@
                                 </span>
                             @endif
 
-                            @if ($user->group->is_double_upload == '1')
+                            @if ($user->hasPrivilegeTo('user_special_double_upload'))
                                 <span class="badge-extra text-bold">
                                     <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> {{ __('common.special') }} {{ __('torrent.double-upload') }}
                                 </span>
@@ -438,9 +438,9 @@
                         </span>
                     @else
                         <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                            <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
-                                <i class="{{ $uploader->group->icon }}" data-toggle="tooltip"
-                                   data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
+                            <span class="badge-user text-bold" style="color:{{ $uploader->primaryRole->color }}; background-image:{{ $uploader->primaryRole->effect }};">
+                                <i class="{{ $uploader->primaryRole->icon }}" data-toggle="tooltip"
+                                   data-original-title="{{ $uploader->primaryRole->name }}"></i> {{ $uploader->username }}
                             </span>
                         </a>
                     @endif
