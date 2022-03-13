@@ -127,7 +127,7 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-upload"
                                                    data-toggle="tooltip"
                                                    data-original-title="Uploaded By"></i> {{ __('common.anonymous') }}
-                                            @if ($user->id == $new->user->id || $user->group->is_modo)
+                                            @if ($user->id == $new->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                 <a href="{{ route('users.show', ['username' => $new->user->username]) }}">
                                                         ({{ $new->user->username }})
                                                     </a>
@@ -397,7 +397,7 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-upload"
                                                    data-toggle="tooltip"
                                                    data-original-title="Uploaded By"></i> {{ __('common.anonymous') }}
-                                            @if ($user->id == $seed->user->id || $user->group->is_modo)
+                                            @if ($user->id == $seed->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                 <a href="{{ route('users.show', ['username' => $seed->user->username]) }}">
                                                         ({{ $seed->user->username }})
                                                     </a>
@@ -668,7 +668,7 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-upload"
                                                    data-toggle="tooltip"
                                                    data-original-title="Uploaded By"></i> {{ __('common.anonymous') }}
-                                            @if ($user->id == $leech->user->id || $user->group->is_modo)
+                                            @if ($user->id == $leech->user->id || $user->hasPrivilegeTo('users_view_private'))
                                                 <a href="{{ route('users.show', ['username' => $leech->user->username]) }}">
                                                         ({{ $leech->user->username }})
                                                     </a>
