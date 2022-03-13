@@ -57,7 +57,7 @@ class InviteController extends Controller
             ->withErrors(\trans('user.invites-banned'));
         }
 
-        if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'), true)) {
+        if (\config('other.invites_restriced') == true && ! \in_array($user->role->name, \config('other.invite_roles'), true)) {
             return \to_route('home.index')
                 ->withErrors(\trans('user.invites-disabled-group'));
         }

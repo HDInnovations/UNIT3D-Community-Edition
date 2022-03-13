@@ -40,7 +40,7 @@ class BanController extends Controller
     }
 
     /**
-     * Ban A User (current_group -> banned).
+     * Ban A User (current_role -> banned).
      *
      * @throws \Exception
      */
@@ -83,7 +83,7 @@ class BanController extends Controller
     }
 
     /**
-     * Unban A User (banned -> new_group).
+     * Unban A User (banned -> new_role).
      */
     public function update(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
@@ -108,7 +108,7 @@ class BanController extends Controller
         $ban->removed_at = Carbon::now();
 
         $v = \validator($request->all(), [
-            'group_id'     => 'required',
+            'role_id'     => 'required',
             'unban_reason' => 'required',
         ]);
 

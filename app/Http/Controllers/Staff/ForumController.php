@@ -15,8 +15,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
-use App\Models\Group;
 use App\Models\Privilege;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -30,8 +30,7 @@ class ForumController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
@@ -43,13 +42,15 @@ class ForumController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
+        $roles = Role::all();
 
-        return \view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return \view('Staff.forum.create', [
+            'categories' => $categories,
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -58,7 +59,6 @@ class ForumController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
-        $groups = Group::all();
 
         $forum = new Forum();
         $forum->name = $request->input('title');
@@ -89,16 +89,15 @@ class ForumController extends Controller
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
+        $roles = Role::all();
 
         return \view('Staff.forum.edit', [
             'categories' => $categories,
-            'groups'     => $groups,
+            'roles'      => $roles,
             'forum'      => $forum,
         ]);
     }
@@ -108,11 +107,9 @@ class ForumController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_forums'), 403);
 
         $forum = Forum::findOrFail($id);
-
         $forum->name = $request->input('title');
         $forum->position = $request->input('position');
         $forum->slug = Str::slug($request->input('title'));

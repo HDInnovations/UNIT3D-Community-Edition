@@ -280,14 +280,14 @@ class AnnounceController extends Controller
      */
     protected function checkUser($passkey, $queries): object
     {
-        // Caached System Required Groups
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+        // Caached System Required Roles
+        $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $validatingRole = \cache()->rememberForever('validating_role', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
 
         // Check Passkey Against Users Table
-        $user = User::with('group')
-            ->select(['id', 'group_id', 'active', 'can_download', 'uploaded', 'downloaded'])
+        $user = User::with('role')
+            ->select(['id', 'role_id', 'active', 'can_download', 'uploaded', 'downloaded'])
             ->where('passkey', '=', $passkey)
             ->first();
 
@@ -297,7 +297,7 @@ class AnnounceController extends Controller
         }
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        if ($user->active === 0 || $user->role_id === $validatingGroup[0]) {
+        if ($user->active === 0 || $user->role_id === $validatingRole[0]) {
             throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
         }
 
@@ -307,12 +307,12 @@ class AnnounceController extends Controller
         }
 
         // If User Is Banned Return Error to Client
-        if ($user->role_id === $bannedGroup[0]) {
+        if ($user->role_id === $bannedRole[0]) {
             throw new TrackerException(141, [':status' => 'Banned']);
         }
 
         // If User Is Disabled Return Error to Client
-        if ($user->role_id === $disabledGroup[0]) {
+        if ($user->role_id === $disabledRole[0]) {
             throw new TrackerException(141, [':status' => 'Disabled']);
         }
 

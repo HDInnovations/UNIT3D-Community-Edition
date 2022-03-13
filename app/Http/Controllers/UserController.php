@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
-        $groups = Role::all();
+        $roles = Role::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
@@ -85,7 +85,7 @@ class UserController extends Controller
         return \view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
-            'groups'       => $groups,
+            'roles'        => $roles,
             'followers'    => $followers,
             'history'      => $history,
             'warnings'     => $warnings,
@@ -508,10 +508,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_other_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -539,10 +539,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_request_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -570,10 +570,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_achievement_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -601,10 +601,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_forum_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -633,10 +633,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_follower_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -664,10 +664,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_torrent_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
@@ -700,10 +700,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_account_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -732,10 +732,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_following_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -763,10 +763,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_bon_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -794,10 +794,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_subscription_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -826,10 +826,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_request_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -863,10 +863,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_torrent_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -896,10 +896,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_mention_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -931,10 +931,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $notification->json_forum_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
@@ -962,10 +962,10 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Role::all();
+        $roles = Role::all();
         $tomerge = [];
-        foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
+        foreach ($roles as $role) {
+            $tomerge[$role->id] = \is_array($approved) && \in_array($role->id, $approved) ? 1 : 0;
         }
 
         $privacy->json_profile_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);

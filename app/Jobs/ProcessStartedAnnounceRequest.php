@@ -103,7 +103,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $history->agent = $this->queries['user-agent'];
         $history->active = 1;
         $history->seeder = $this->queries['left'] == 0;
-        $history->immune = $this->user->group->is_immune == 1;
+        $history->immune = $this->user->hasPrivilegeTo('user_special_immune');
         $history->uploaded += 0;
         $history->actual_uploaded += 0;
         $history->client_uploaded = $realUploaded;

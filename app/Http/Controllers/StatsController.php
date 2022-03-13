@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Language;
 use App\Models\Peer;
@@ -67,7 +66,7 @@ class StatsController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
-        // Total Members Count (All Groups)
+        // Total Members Count (All Roles)
         $allUser = \cache()->remember('all_user', $this->carbon, fn () => User::withTrashed()->count());
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
@@ -77,23 +76,23 @@ class StatsController extends Controller
 
         // Total Disabled Members Count
         $disabledUser = \cache()->remember('disabled_user', $this->carbon, function () {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::select('id')->where('slug', '=', 'disabled')->first());
+            $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::select('id')->where('slug', '=', 'disabled')->first());
 
-            return User::where('role_id', '=', $disabledGroup)->count();
+            return User::where('role_id', '=', $disabledRole)->count();
         });
 
         // Total Pruned Members Count
         $prunedUser = \cache()->remember('pruned_user', $this->carbon, function () {
-            $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Role::select('id')->where('slug', '=', 'pruned')->first());
+            $prunedRole = \cache()->rememberForever('pruned_role', fn () => Role::select('id')->where('slug', '=', 'pruned')->first());
 
-            return User::onlyTrashed()->where('role_id', '=', $prunedGroup)->count();
+            return User::onlyTrashed()->where('role_id', '=', $prunedRole)->count();
         });
 
         // Total Banned Members Count
         $bannedUser = \cache()->remember('banned_user', $this->carbon, function () {
-            $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::select('id')->where('slug', '=', 'banned')->first());
+            $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::select('id')->where('slug', '=', 'banned')->first());
 
-            return User::where('role_id', '=', $bannedGroup[0])->count();
+            return User::where('role_id', '=', $bannedRole)->count();
         });
 
         // Total Torrents Count
@@ -230,13 +229,13 @@ class StatsController extends Controller
     public function bankers(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
+        $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $validatingRole = \cache()->rememberForever('validating_role', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedRole = \cache()->rememberForever('pruned_role', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereIntegerNotInRaw('group_id', [$validatingRole[0], $bannedRole[0], $disabledRole[0], $prunedRole[0]])->take(100)->get();
 
         return \view('stats.users.bankers', ['bankers' => $bankers]);
     }
@@ -338,28 +337,28 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups.
+     * Show Extra-Stats Roles.
      */
     public function roles(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
-        // Fetch Groups User Counts
-        $groups = Role::OrderBy('position')->get();
+        // Fetch Role User Counts
+        $roles = Role::OrderBy('position')->get();
 
-        return \view('stats.roles.roles', ['groups' => $groups]);
+        return \view('stats.roles.roles', ['roles' => $roles]);
     }
 
     /**
-     * Show Extra-Stats Groups.
+     * Show Extra-Stats Roles.
      */
     public function group(Request $request, $id)
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Users In Group
-        $group = Role::findOrFail($id);
-        $users = User::withTrashed()->where('role_id', '=', $group->id)->latest()->paginate(100);
+        $role = Role::findOrFail($id);
+        $users = User::withTrashed()->where('role_id', '=', $role->id)->latest()->paginate(100);
 
-        return \view('stats.roles.role', ['users' => $users, 'group' => $group]);
+        return \view('stats.roles.role', ['users' => $users, 'role' => $role]);
     }
 
     /**

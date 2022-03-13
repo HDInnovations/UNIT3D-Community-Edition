@@ -333,7 +333,7 @@ class TorrentController extends BaseController
      */
     public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->has('name'), function ($query) use ($request) {
                 $terms = \explode(' ', (string) $request->input('name'));

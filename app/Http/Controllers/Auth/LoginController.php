@@ -68,10 +68,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Role::where('slug', '=', 'user')->pluck('id'));
+        $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+        $memberRole = \cache()->rememberForever('member_role', fn () => Role::where('slug', '=', 'user')->pluck('id'));
 
         if (! $user->hasPrivilegeTo('active_user')) {
             $this->guard()->logout();
@@ -81,7 +80,7 @@ class LoginController extends Controller
                 ->withErrors(\trans('auth.not-activated'));
         }
 
-        if ($user->role_id == $bannedGroup[0]) {
+        if ($user->role_id === $bannedRole[0]) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
@@ -89,8 +88,8 @@ class LoginController extends Controller
                 ->withErrors(\trans('auth.banned'));
         }
 
-        if ($user->role_id == $disabledGroup[0]) {
-            $user->role_id = $memberGroup[0];
+        if ($user->role_id === $disabledRole[0]) {
+            $user->role_id = $memberRole[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
@@ -104,8 +103,8 @@ class LoginController extends Controller
                 ->withSuccess(\trans('auth.welcome-restore'));
         }
 
-        if (\auth()->viaRemember() && $user->role_id == $disabledGroup[0]) {
-            $user->role_id = $memberGroup[0];
+        if (\auth()->viaRemember() && $user->role_id === $disabledRole[0]) {
+            $user->role_id = $memberRole[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;

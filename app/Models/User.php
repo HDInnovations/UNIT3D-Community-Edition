@@ -489,8 +489,8 @@ class User extends Authenticatable
         }
 
         if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
+            if (\array_key_exists($sender->role->id, $target->notification->$targetGroup['default_groups'])) {
+                return $target->notification->$targetGroup['default_groups'][$sender->role->id] == 1;
             }
 
             return true;
@@ -522,8 +522,8 @@ class User extends Authenticatable
         }
 
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
+            if (\array_key_exists($sender->role->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->role->id] == 1;
             }
 
             return true;
@@ -555,8 +555,8 @@ class User extends Authenticatable
         }
 
         if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
+            if (\array_key_exists($sender->role->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->role->id] == 1;
             }
 
             return true;

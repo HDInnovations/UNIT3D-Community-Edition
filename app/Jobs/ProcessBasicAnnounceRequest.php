@@ -101,7 +101,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
             ->where('torrent_id', '=', $this->torrent->id)
             ->first();
 
-        if (\config('other.freeleech') == 1 || $personalFreeleech || $this->user->group->is_freeleech == 1 || $freeleechToken) {
+        if (\config('other.freeleech') == 1 || $personalFreeleech || $this->user->hasPrivilegeTo('user_special_freeleech') || $freeleechToken) {
             $modDownloaded = 0;
         } elseif ($this->torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
@@ -112,7 +112,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
             $modDownloaded = $downloaded;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $this->user->group->is_double_upload == 1) {
+        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $this->user->hasPrivilegeTo('user_special_double_upload') == 1) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;

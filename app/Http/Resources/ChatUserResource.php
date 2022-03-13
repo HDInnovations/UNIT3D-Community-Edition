@@ -28,9 +28,9 @@ class ChatUserResource extends JsonResource
             'chat_status'    => $this->whenLoaded('chatStatus'),
             'chat_status_id' => $this->chat_status_id,
             'chatroom_id'    => $this->chatroom_id,
-            'group'          => $this->whenLoaded('group'),
+            'role'           => $this->whenLoaded('role'),
             'echoes'         => $this->whenLoaded('echoes'),
-            'group_id'       => $this->group_id,
+            'role_id'        => $this->role_id,
             'title'          => $this->title,
             'image'          => $this->image,
         ];

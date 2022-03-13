@@ -66,7 +66,7 @@ class RegisterController extends Controller
                 ->withErrors(\trans('auth.invalid-key'));
         }
 
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $validatingRole = \cache()->rememberForever('validating_role', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
@@ -78,7 +78,7 @@ class RegisterController extends Controller
         $user->downloaded = \config('other.default_download');
         $user->style = \config('other.default_style', 0);
         $user->locale = \config('app.locale');
-        $user->role_id = $validatingGroup[0];
+        $user->role_id = $validatingRole[0];
 
         if (\config('email-blacklist.enabled') == true) {
             if (\config('captcha.enabled') == false) {
@@ -116,7 +116,7 @@ class RegisterController extends Controller
         }
 
         $user->save();
-        $user->roles()->attach($validatingGroup[0]);
+        $user->roles()->attach($validatingRole[0]);
         $userPrivacy = new UserPrivacy();
         $userPrivacy->setDefaultValues();
         $userPrivacy->user_id = $user->id;

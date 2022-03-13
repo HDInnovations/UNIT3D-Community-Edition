@@ -25,8 +25,10 @@ class SeedboxController extends Controller
     /**
      * Display All Registered Seedboxes.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_seedboxes'), 403);
+
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
         return \view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
@@ -39,10 +41,9 @@ class SeedboxController extends Controller
      */
     public function destroy(Request $request, Seedbox $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        $seedbox = Seedbox::findOrFail($id);
+        \abort_unless($request->user()->hasPrivilegeTo('dashboard_can_seedboxes'), 403);
 
-        \abort_unless($user->group->is_modo, 403);
+        $seedbox = Seedbox::findOrFail($id);
         $seedbox->delete();
 
         return \to_route('staff.seedboxes.index')

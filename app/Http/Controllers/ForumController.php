@@ -42,12 +42,11 @@ class ForumController extends Controller
 
         $user = $request->user();
 
-        //$pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         $pests = [];
         if (! $user->hasRole('root') && ! $user->hasRole('sudo')) {
             foreach ($categories as $forum) {
                 if (! $user->hasPrivilegeTo('forum_'.$forum->slug.'_show_forum')) {
-                    array_push($pests, $forum->id);
+                    $pests[] = $forum->id;
                 }
             }
         }
