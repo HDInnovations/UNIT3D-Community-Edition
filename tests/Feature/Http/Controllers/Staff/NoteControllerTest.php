@@ -21,7 +21,7 @@ class NoteControllerTest extends TestCase
 
     protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
     {
-        $role = Role::factory() - create();
+        $role = Role::factory()->create();
         $privileges = Privilege::all();
         foreach ($privileges as $privilege) {
             $role->privileges()->attach($privilege);
