@@ -49,7 +49,7 @@ class ForumController extends Controller
 
         return \view('Staff.forum.create', [
             'categories' => $categories,
-            'roles' => $roles
+            'roles'      => $roles,
         ]);
     }
 
