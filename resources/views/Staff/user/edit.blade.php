@@ -105,8 +105,8 @@
                         <label>
                             <select name="role_id" class="form-control">
                                 <option value="{{ $user->primaryRole->id }}">{{ $user->primaryRole->name }} (Current)</option>
-                                @foreach ($user->roles as $g)
-                                    <option value="{{ $g->id }}">{{ $g->name }}</option>
+                                @foreach ($user->roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
                         </label>

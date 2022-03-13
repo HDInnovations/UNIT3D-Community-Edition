@@ -74,7 +74,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Groups</th>
+                    <th>Roles</th>
                     <th>View the forum</th>
                     <th>Read topics</th>
                     <th>Start new topic</th>
@@ -82,20 +82,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($groups as $g)
+                @foreach ($roles as $role)
                     <tr>
-                        <td>{{ $g->name }}</td>
+                        <td>{{ $role->name }}</td>
                         <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked>
+                                <input type="checkbox" name="permissions[{{ $role->id }}][show_forum]" value="1" checked>
                             </label></td>
                         <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked>
+                                <input type="checkbox" name="permissions[{{ $role->id }}][read_topic]" value="1" checked>
                             </label></td>
                         <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked>
+                                <input type="checkbox" name="permissions[{{ $role->id }}][start_topic]" value="1" checked>
                             </label></td>
                         <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked>
+                                <input type="checkbox" name="permissions[{{ $role->id }}][reply_topic]" value="1" checked>
                             </label></td>
                     </tr>
                 @endforeach

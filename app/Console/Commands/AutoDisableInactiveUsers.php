@@ -46,11 +46,11 @@ class AutoDisableInactiveUsers extends Command
     public function handle(): void
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+            $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 
-            $matches = User::whereIntegerInRaw('role_id', \config('pruning.group_ids'))->get();
+            $matches = User::whereIntegerInRaw('role_id', \config('pruning.role_ids'))->get();
 
             $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())
                 ->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())
@@ -58,13 +58,7 @@ class AutoDisableInactiveUsers extends Command
 
             foreach ($users as $user) {
                 if ($user->getSeeding() === 0) {
-                    $user->role_id = $disabledGroup[0];
-                    $user->can_upload = 0;
-                    $user->can_download = 0;
-                    $user->can_comment = 0;
-                    $user->can_invite = 0;
-                    $user->can_request = 0;
-                    $user->can_chat = 0;
+                    $user->role_id = $disabledRole[0];
                     $user->disabled_at = Carbon::now();
                     $user->save();
 

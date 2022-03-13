@@ -17,7 +17,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Invite;
 use App\Models\Like;
@@ -26,6 +25,7 @@ use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Role;
 use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
@@ -62,13 +62,13 @@ class UserController extends Controller
     public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $groups = Group::all();
+        $roles = Role::all();
         $internals = Internal::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('Staff.user.edit', [
             'user'      => $user,
-            'groups'    => $groups,
+            'roles'     => $roles,
             'internals' => $internals,
             'notes'     => $notes,
         ]);
@@ -101,31 +101,6 @@ class UserController extends Controller
 
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
-    }
-
-    /**
-     * Edit A Users Permissions.
-     */
-    public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = $request->user();
-
-        if (! $staff->hasPrivilegeTo('users_edit_privileges') && ! ($staff->primaryRole->position > $user->primaryRole->position || $staff->hasRole('root') || $staff->hasRole('sudo'))) {
-            return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You Are Not Authorized To Perform This Action!');
-        }
-
-        $user->can_upload = $request->input('can_upload');
-        $user->can_download = $request->input('can_download');
-        $user->can_comment = $request->input('can_comment');
-        $user->can_invite = $request->input('can_invite');
-        $user->can_request = $request->input('can_request');
-        $user->can_chat = $request->input('can_chat');
-        $user->save();
-
-        return \to_route('users.show', ['username' => $user->username])
-            ->withSuccess('Account Permissions Successfully Edited');
     }
 
     /**

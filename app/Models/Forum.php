@@ -101,7 +101,8 @@ class Forum extends Model
      */
     public function notifyStaffers($poster, $topic): void
     {
-        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
+        /*TODO: Fix for RBAC*/
+        $staffers = User::leftJoin('roles', 'users.role_id', '=', 'roles.id')
             ->select('users.id')
             ->where('users.id', '<>', $poster->id)
             ->where('groups.is_modo', 1)
@@ -163,10 +164,10 @@ class Forum extends Model
     /**
      * Returns The Permission Field.
      */
-    public function getPermission(): object
+    public function getPermission(): objects
     {
-        $group = \auth()->check() ? \auth()->user()->group : Group::where('slug', 'guest')->first();
+        $role = \auth()->check() ? \auth()->user()->role : Role::where('slug', 'guest')->first();
 
-        return $group->permissions->where('forum_id', $this->id)->first();
+        return $role->permissions->where('forum_id', $this->id)->first();
     }
 }

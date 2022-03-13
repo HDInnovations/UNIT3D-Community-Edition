@@ -39,7 +39,7 @@
 					<div style="width: 98%; padding: 10px; margin: 6px auto auto auto; height: 100%; border-radius: 2px; border: 1px solid transparent;">
 						<div style="width: 100%; margin: 6px auto 6px auto; text-align: center;">
 							<div style="padding-bottom: 6px; margin-bottom: 6px; border-bottom: 1px solid #333333;">
-								<h4 style="color:{{ $group->color }}; font-size: 13px; margin-bottom: 0px; text-transform: uppercase;">{{ $role->name }}</h4>
+								<h4 style="color:{{ $role->color }}; font-size: 13px; margin-bottom: 0px; text-transform: uppercase;">{{ $role->name }}</h4>
 							</div>
 							<div style="padding: 16px 0;"><i class="{{ $role->icon }}" style="color:{{ $role->color }}; font-size: 36px;"></i></div>
 							<div style="padding-top: 6px; margin-top: 6px; border-top: 1px solid #333333;"></div>

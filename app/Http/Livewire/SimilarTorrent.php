@@ -76,7 +76,7 @@ class SimilarTorrent extends Component
         $category = Category::findOrFail($this->categoryId);
 
         $query = Torrent::query();
-        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $query = $query->with(['user:id,username,role_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments']);
         if ($category->movie_meta == true) {
             $query = $query->whereHas('category', function ($q) {

@@ -28,16 +28,16 @@
                 (@lang('stat.users-per-group'))</p>
             <div class="row">
                 @php $cols = 0;  @endphp
-                @foreach ($groups as $group)
+                @foreach ($roles as $role)
                     <div class="col-sm-12 col-md-6 col-lg-4" style="margin: auto">
                         <div class="well" style="margin: 10px;">
                             <div class="text-center">
-                                <a href="{{ route('group', ['id' => $group->id]) }}">
-                                    <h2 style="color:{{ $group->color }};">
-                                        <i class="{{ $group->icon }}" aria-hidden="true"></i>&nbsp;{{ $group->name }}</h2>
+                                <a href="{{ route('group', ['id' => $role->id]) }}">
+                                    <h2 style="color:{{ $role->color }};">
+                                        <i class="{{ $role->icon }}" aria-hidden="true"></i>&nbsp;{{ $role->name }}</h2>
                                 </a>
-                                <p class="text-blue text-bold">Primary Users: {{ \App\Models\User::where('role_id','=', $group->id)->count()  }}</p>
-                                <p class="text-black">Total Users: {{ $group
+                                <p class="text-blue text-bold">Primary Users: {{ \App\Models\User::where('role_id','=', $role->id)->count()  }}</p>
+                                <p class="text-black">Total Users: {{ $role
                                             ->users()
                                             ->withTrashed()
                                             ->count() }}

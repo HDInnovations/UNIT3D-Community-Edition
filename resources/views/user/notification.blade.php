@@ -90,15 +90,15 @@
                                     <div class="help-block">{{ __('user.notification-from-account-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -107,20 +107,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_account_groups ||
-                                                            $group->isAllowed($user->notification->json_account_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_account_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -170,15 +170,15 @@
                                     <div class="help-block">{{ __('user.notification-from-following-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -187,20 +187,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_following_groups ||
-                                                            $group->isAllowed($user->notification->json_following_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_following_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -269,15 +269,15 @@
                                     <div class="help-block">{{ __('user.notification-from-subscription-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -286,21 +286,21 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_subscription_groups
                                                             ||
-                                                            $group->isAllowed($user->notification->json_subscription_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_subscription_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -349,15 +349,15 @@
                                     <div class="help-block">{{ __('user.notification-from-forum-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -366,20 +366,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_forum_groups ||
-                                                            $group->isAllowed($user->notification->json_forum_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_forum_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -541,15 +541,15 @@
                                     <div class="help-block">{{ __('user.notification-from-request-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -558,20 +558,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_request_groups ||
-                                                            $group->isAllowed($user->notification->json_request_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_request_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -657,15 +657,15 @@
                                     <div class="help-block">{{ __('user.notification-from-torrent-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -674,20 +674,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_torrent_groups ||
-                                                            $group->isAllowed($user->notification->json_torrent_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_torrent_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -736,15 +736,15 @@
                                     <div class="help-block">{{ __('user.notification-from-bon-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -753,20 +753,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_bon_groups ||
-                                                            $group->isAllowed($user->notification->json_bon_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_bon_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>
@@ -876,15 +876,15 @@
                                     <div class="help-block">{{ __('user.notification-from-mention-help') }}.</div>
                                     <hr>
                                     <div class="form-group">
-                                        @foreach(\App\Models\Role::orderBy('position')->get() as $group)
-                                            @if(in_array($group->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
+                                        @foreach(\App\Models\Role::orderBy('position')->get() as $role)
+                                            @if(in_array($role->slug, ['root', 'sudo', 'admin', 'moderator', 'coder', 'bot', 'internal', 'fls'] ))
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         <label>
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}"
+                                                            <input type="checkbox" name="approved[]" value="{{ $role->id }}"
                                                                    CHECKED DISABLED/>
                                                         </label>
                                                     </div>
@@ -893,20 +893,20 @@
                                             @else
                                                 <div class="button-holder">
                                                     <div class="button-left">
-                                                        {{ $group->name }}
+                                                        {{ $role->name }}
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_mention_groups ||
-                                                            $group->isAllowed($user->notification->json_mention_groups,$group->id))
+                                                            $role->isAllowed($user->notification->json_mention_groups,$role->id))
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"
+                                                                       value="{{ $role->id }}"
                                                                        CHECKED/>
                                                             </label>
                                                         @else
                                                             <label>
                                                                 <input type="checkbox" name="approved[]"
-                                                                       value="{{ $group->id }}"/>
+                                                                       value="{{ $role->id }}"/>
                                                             </label>
                                                         @endif
                                                     </div>

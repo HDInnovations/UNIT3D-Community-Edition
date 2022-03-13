@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('group', ['id' => $group->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('group', ['id' => $role->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.group') }}</span>
         </a>
     </li>
@@ -26,12 +26,12 @@
     <div class="container">
         @include('partials.statsgroupmenu')
         <div class="block">
-            <h2>{{ $group->name }} {{ __('stat.group') }}</h2>
+            <h2>{{ $role->name }} {{ __('stat.group') }}</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
                     <p class="text-red"><strong><i
-                                    class="{{ $group->icon }}"></i> {{ $group->name }} {{ __('stat.group') }}
+                                    class="{{ $role->icon }}"></i> {{ $role->name }} {{ __('stat.group') }}
                         </strong> ({{ __('stat.users-in-group') }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

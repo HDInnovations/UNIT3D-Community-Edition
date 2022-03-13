@@ -47,9 +47,9 @@ class AutoBanDisposableUsers extends Command
      */
     public function handle(): void
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
-        User::where('role_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup) {
+        User::where('role_id', '!=', $bannedRole[0])->chunkById(100, function ($users) use ($bannedRole) {
             foreach ($users as $user) {
                 $v = \validator([
                     'email' => $user->email,
@@ -58,14 +58,8 @@ class AutoBanDisposableUsers extends Command
                 ]);
 
                 if ($v->fails()) {
-                    // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->role_id = $bannedGroup[0];
-                    $user->can_upload = 0;
-                    $user->can_download = 0;
-                    $user->can_comment = 0;
-                    $user->can_invite = 0;
-                    $user->can_request = 0;
-                    $user->can_chat = 0;
+                    // If User Is Using A Disposable Email Set The Users Role To Banned
+                    $user->role_id = $bannedRole[0];
                     $user->save();
 
                     // Log The Ban To Ban Log

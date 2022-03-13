@@ -90,12 +90,6 @@ class LoginController extends Controller
 
         if ($user->role_id === $disabledRole[0]) {
             $user->role_id = $memberRole[0];
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->can_request = 1;
-            $user->can_chat = 1;
             $user->disabled_at = null;
             $user->save();
 
@@ -105,12 +99,6 @@ class LoginController extends Controller
 
         if (\auth()->viaRemember() && $user->role_id === $disabledRole[0]) {
             $user->role_id = $memberRole[0];
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->can_request = 1;
-            $user->can_chat = 1;
             $user->disabled_at = null;
             $user->save();
 

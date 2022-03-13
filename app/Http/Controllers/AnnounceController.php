@@ -287,7 +287,7 @@ class AnnounceController extends Controller
 
         // Check Passkey Against Users Table
         $user = User::with('role')
-            ->select(['id', 'role_id', 'active', 'can_download', 'uploaded', 'downloaded'])
+            ->select(['id', 'role_id', 'active', 'uploaded', 'downloaded'])
             ->where('passkey', '=', $passkey)
             ->first();
 

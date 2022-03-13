@@ -172,14 +172,14 @@
                                       id="unban_reason"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="report_reason">New Group</label>
+                            <label for="report_reason">New Role</label>
                         </div>
                         <div class="form-group">
                             <label>
                                 <select name="group_id" class="form-control">
                                     <option value="{{ $user->primaryRole->id }}">{{ $user->primaryRole->name }} (Default)</option>
-                                    @foreach (\App\Models\Role::all() as $g)
-                                        <option value="{{ $g->id }}">{{ $g->name }}</option>
+                                    @foreach (\App\Models\Role::all() as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </label>

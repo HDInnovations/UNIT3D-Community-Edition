@@ -49,10 +49,10 @@
                             <i class="{{ config('other.font-awesome') }} fa-eye-slash" aria-hidden="true"></i>
                             {{ strtoupper(__('common.hidden')) }}
                         </span>
-                        @foreach ($groups as $group)
+                        @foreach ($roles as $role)
                             <span class="badge-user text-bold"
-                                  style="color:{{ $group->color }}; background-image:{{ $group->effect }};">
-                                <i class="{{ $group->icon }}" aria-hidden="true"></i> {{ $group->name }}
+                                  style="color:{{ $role->color }}; background-image:{{ $role->effect }};">
+                                <i class="{{ $role->icon }}" aria-hidden="true"></i> {{ $role->name }}
                             </span>
                         @endforeach
                     </div>

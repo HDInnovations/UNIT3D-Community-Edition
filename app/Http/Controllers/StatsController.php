@@ -235,7 +235,7 @@ class StatsController extends Controller
         $prunedRole = \cache()->rememberForever('pruned_role', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->whereIntegerNotInRaw('group_id', [$validatingRole[0], $bannedRole[0], $disabledRole[0], $prunedRole[0]])->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereIntegerNotInRaw('role_id', [$validatingRole[0], $bannedRole[0], $disabledRole[0], $prunedRole[0]])->take(100)->get();
 
         return \view('stats.users.bankers', ['bankers' => $bankers]);
     }
@@ -354,7 +354,7 @@ class StatsController extends Controller
     public function group(Request $request, $id)
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
-        // Fetch Users In Group
+        // Fetch Users In Role
         $role = Role::findOrFail($id);
         $users = User::withTrashed()->where('role_id', '=', $role->id)->latest()->paginate(100);
 

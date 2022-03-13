@@ -1030,7 +1030,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->latest('level')->get();
+        $groups = Role::where('level', '>', 0)->latest('level')->get();
 
         return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
     }
@@ -1044,7 +1044,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->latest('level')->get();
+        $groups = Role::where('level', '>', 0)->latest('level')->get();
 
         return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }

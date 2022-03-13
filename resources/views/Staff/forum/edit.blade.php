@@ -85,7 +85,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Groups</th>
+                    <th>Roles</th>
                     <th>View the forum</th>
                     <th>Read topics</th>
                     <th>Start new topic</th>
@@ -93,54 +93,54 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($groups as $g)
+                @foreach ($roles as $role)
                     <tr>
-                        <td>{{ $g->name }}</td>
+                        <td>{{ $role->name }}</td>
                         <td>
-                            @if ($g->getPermissionsByForum($forum)->show_forum == true)
+                            @if ($role->getPermissionsByForum($forum)->show_forum == true)
                                 <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]"
+                                    <input type="checkbox" checked name="permissions[{{ $role->id }}][show_forum]"
                                            value="1">
                                 </label>
                             @else
                                 <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
+                                    <input type="checkbox" name="permissions[{{ $role->id }}][show_forum]" value="1">
                                 </label>
                             @endif
                         </td>
                         <td>
-                            @if ($g->getPermissionsByForum($forum)->read_topic == true)
+                            @if ($role->getPermissionsByForum($forum)->read_topic == true)
                                 <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]"
+                                    <input type="checkbox" checked name="permissions[{{ $role->id }}][read_topic]"
                                            value="1">
                                 </label>
                             @else
                                 <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
+                                    <input type="checkbox" name="permissions[{{ $role->id }}][read_topic]" value="1">
                                 </label>
                             @endif
                         </td>
                         <td>
-                            @if ($g->getPermissionsByForum($forum)->start_topic == true)
+                            @if ($role->getPermissionsByForum($forum)->start_topic == true)
                                 <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]"
+                                    <input type="checkbox" checked name="permissions[{{ $role->id }}][start_topic]"
                                            value="1">
                                 </label>
                             @else
                                 <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
+                                    <input type="checkbox" name="permissions[{{ $role->id }}][start_topic]" value="1">
                                 </label>
                             @endif
                         </td>
                         <td>
-                            @if ($g->getPermissionsByForum($forum)->reply_topic == true)
+                            @if ($role->getPermissionsByForum($forum)->reply_topic == true)
                                 <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]"
+                                    <input type="checkbox" checked name="permissions[{{ $role->id }}][reply_topic]"
                                            value="1">
                                 </label>
                             @else
                                 <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                                    <input type="checkbox" name="permissions[{{ $role->id }}][reply_topic]" value="1">
                                 </label>
                             @endif
                         </td>

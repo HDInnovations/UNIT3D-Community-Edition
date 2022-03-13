@@ -18,7 +18,7 @@ use App\Models\Internal;
 use Illuminate\Http\Request;
 
 /**
- * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
+ * @see \Tests\Feature\Http\Controllers\Staff\InternalControllerTest
  */
 class InternalController extends Controller
 {

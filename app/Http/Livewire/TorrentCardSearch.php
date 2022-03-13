@@ -200,7 +200,7 @@ class TorrentCardSearch extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+        return Torrent::with(['user:id,username,role_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($this->name, function ($query) {
                 $terms = \explode(' ', $this->name);

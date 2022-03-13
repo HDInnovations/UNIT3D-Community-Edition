@@ -43,11 +43,11 @@ class MassActionController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
-        $users = User::whereNotIn('role_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
+        $bannedRole = \cache()->rememberForever('banned_role', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $validatingRole = \cache()->rememberForever('validating_role', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedRole = \cache()->rememberForever('pruned_role', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
+        $users = User::whereNotIn('role_id', [$validatingRole[0], $bannedRole[0], $disabledRole[0], $prunedRole[0]])->pluck('id');
 
         $subject = $request->input('subject');
         $message = $request->input('message');
@@ -77,16 +77,11 @@ class MassActionController extends Controller
      */
     public function update(): \Illuminate\Http\RedirectResponse
     {
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Role::where('slug', '=', 'user')->pluck('id'));
-        foreach (User::where('role_id', '=', $validatingGroup[0])->get() as $user) {
-            $user->role_id = $memberGroup[0];
+        $validatingRole = \cache()->rememberForever('validating_role', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $memberRole = \cache()->rememberForever('member_role', fn () => Role::where('slug', '=', 'user')->pluck('id'));
+        foreach (User::where('role_id', '=', $validatingRole[0])->get() as $user) {
+            $user->role_id = $memberRole[0];
             $user->active = 1;
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_request = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
             $user->save();
         }
 
