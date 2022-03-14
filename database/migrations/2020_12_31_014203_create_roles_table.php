@@ -21,6 +21,7 @@ return new class() extends Migration {
             $table->string('color')->default('rgb(0,0,0)');
             $table->string('icon')->nullable();
             $table->string('effect')->default('none')->nullable();
+            $table->integer('level')->nullable();
             $table->integer('rule_id')->nullable();
             $table->integer('download_slots')->nullable()->index();
             $table->boolean('system_required')->default(false);
