@@ -1912,7 +1912,7 @@ class UserController extends Controller
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $historyTorrents = History::with(['torrent' => function($query) {
+        $historyTorrents = History::with(['torrent' => function ($query) {
             $query->select('id', 'name', 'file_name', 'info_hash', 'slug');
         }])
             ->where('user_id', '=', $user->id)->get('info_hash');
@@ -1924,7 +1924,7 @@ class UserController extends Controller
             $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
 
-                if (! isset($historyTorrent->torrent->id)) { 
+                if (! isset($historyTorrent->torrent->id)) {
                     Log::warning("History info_hash $historyTorrent->info_hash has no torrent table entry.");
                     continue;
                 }
@@ -1933,7 +1933,7 @@ class UserController extends Controller
                 // Define The Torrent Path and Filename
                 $tmpPath = \getcwd().'/files/tmp/'.$user->id.'/';
                 if (! is_dir($tmpPath)) {
-                    mkdir($tmpPath,0700,true);
+                    mkdir($tmpPath, 0700,true);
                 }
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
 
