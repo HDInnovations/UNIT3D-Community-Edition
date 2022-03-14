@@ -1923,7 +1923,6 @@ class UserController extends Controller
 ';
             $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
-
                 if (! isset($historyTorrent->torrent->id)) {
                     Log::warning("History info_hash $historyTorrent->info_hash has no torrent table entry.");
                     continue;
