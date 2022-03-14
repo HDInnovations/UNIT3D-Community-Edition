@@ -22,7 +22,7 @@ class EpisodeFactory extends Factory
             'season_id'       => \App\Models\Season::factory(),
             'season_number'   => $this->faker->randomNumber,
             'still'           => $this->faker->word,
-            'tv_id'           => $this->faker->integer,
+            'tv_id'           => $this->faker->randomNumber,
             'type'            => $this->faker->word,
             'vote_average'    => $this->faker->word,
             'vote_count'      => $this->faker->randomNumber,

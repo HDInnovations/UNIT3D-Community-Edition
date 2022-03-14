@@ -21,7 +21,7 @@ class PersonFactory extends Factory
             'deathday'             => $this->faker->word,
             'gender'               => $this->faker->word,
             'homepage'             => $this->faker->word,
-            'imdb_id'              => $this->faker->integer,
+            'imdb_id'              => $this->faker->randomNumber,
             'known_for_department' => $this->faker->word,
             'name'                 => $this->faker->name,
             'place_of_birth'       => $this->faker->word,

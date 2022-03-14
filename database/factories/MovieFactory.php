@@ -18,7 +18,7 @@ class MovieFactory extends Factory
             'backdrop'          => $this->faker->word,
             'budget'            => $this->faker->word,
             'homepage'          => $this->faker->word,
-            'imdb_id'           => $this->faker->integer,
+            'imdb_id'           => $this->faker->randomNumber,
             'original_language' => $this->faker->word,
             'original_title'    => $this->faker->word,
             'overview'          => $this->faker->text,
@@ -31,7 +31,7 @@ class MovieFactory extends Factory
             'tagline'           => $this->faker->word,
             'title'             => $this->faker->sentence,
             'title_sort'        => $this->faker->word,
-            'tmdb_id'           => $this->faker->integer,
+            'tmdb_id'           => $this->faker->randomNumber,
             'vote_average'      => $this->faker->word,
             'vote_count'        => $this->faker->randomNumber,
         ];

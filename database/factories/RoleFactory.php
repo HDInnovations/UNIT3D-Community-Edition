@@ -22,7 +22,7 @@ class RoleFactory extends Factory
             'level'           => $this->faker->randomNumber,
             'name'            => $this->faker->name,
             'position'        => $this->faker->randomNumber,
-            'rule_id'         => $this->faker->integer,
+            'rule_id'         => $this->faker->randomNumber,
             'slug'            => $this->faker->unique()->slug,
             'system_required' => $this->faker->boolean,
         ];
