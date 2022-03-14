@@ -12,12 +12,11 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import Vue from 'vue';
-import version from './components/Version';
 import chatbox from './components/chat/Chatbox';
 
 if (document.getElementById('vue')) {
     new Vue({
         el: '#vue',
-        components: { version: version, chatbox: chatbox },
+        components: { chatbox: chatbox },
     });
 }

@@ -136,9 +136,9 @@ class ChatRepository
 
         $message = Message::with([
             'bot',
-            'user.role',
+            'user.primaryRole',
             'user.chatStatus',
-            'receiver.role',
+            'receiver.primaryRole',
             'receiver.chatStatus',
         ])->find($save->id);
 
@@ -165,9 +165,9 @@ class ChatRepository
 
         $message = Message::with([
             'bot',
-            'user.role',
+            'user.primaryRole',
             'user.chatStatus',
-            'receiver.role',
+            'receiver.primaryRole',
             'receiver.chatStatus',
         ])->find($save->id);
 

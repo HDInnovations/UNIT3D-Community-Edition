@@ -286,7 +286,7 @@ class AnnounceController extends Controller
         $disabledRole = \cache()->rememberForever('disabled_role', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
 
         // Check Passkey Against Users Table
-        $user = User::with('role')
+        $user = User::with('primaryRole')
             ->select(['id', 'role_id', 'active', 'uploaded', 'downloaded'])
             ->where('passkey', '=', $passkey)
             ->first();

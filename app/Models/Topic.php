@@ -64,7 +64,7 @@ class Topic extends Model
      */
     public function notifySubscribers($poster, $topic, $post): void
     {
-        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.role_id) as role_id')->with('role')->where('users.id', '!=', $poster->id)
+        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.role_id) as role_id')->with('primaryRole')->where('users.id', '!=', $poster->id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
             ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
             ->where('subscriptions.topic_id', '=', $topic->id)

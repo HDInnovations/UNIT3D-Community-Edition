@@ -22,14 +22,13 @@
             @include('partials.dashboardmenu')
 
             <div class="col-sm-5 col-lg-5">
-                <div class="block" id="vue">
+                <div class="block">
                     <div class="panel-body">
                         <h2 class="text-bold text-center text-green">
                             <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Codebase
                         </h2>
-                        <h3 class="text-bold text-center">Currently Running {{ config('unit3d.codebase') }}
-                            {{ config('unit3d.version') }}</h3>
-                        <version></version>
+                        <h3 class="text-bold text-center">Currently Running</h3>
+                        <h3 class="text-bold text-center">{{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h3>
                     </div>
                 </div>
             </div>

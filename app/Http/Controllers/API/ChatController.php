@@ -384,7 +384,7 @@ class ChatController extends Controller
         $echo = UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->firstOrFail();
         $echo->delete();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($userId);
         $room = $this->chatRepository->roomFindOrFail($request->input('room_id'));
 
         $user->chatroom()->dissociate();
@@ -406,7 +406,7 @@ class ChatController extends Controller
         $echo = UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->firstOrFail();
         $echo->delete();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($userId);
         $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
 
         $expiresAt = Carbon::now()->addMinutes(60);
@@ -421,7 +421,7 @@ class ChatController extends Controller
         $echo = UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->firstOrFail();
         $echo->delete();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($userId);
         $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
 
         $expiresAt = Carbon::now()->addMinutes(60);
@@ -437,7 +437,7 @@ class ChatController extends Controller
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'audibles', 'audibles'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'audibles', 'audibles'])->findOrFail($userId);
         $senderAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
 
         $expiresAt = Carbon::now()->addMinutes(60);
@@ -453,7 +453,7 @@ class ChatController extends Controller
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'audibles', 'audibles'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'audibles', 'audibles'])->findOrFail($userId);
         $senderAudibles = UserAudible::with(['target', 'room', 'bot'])->where('user_id', $userId)->get();
 
         $expiresAt = Carbon::now()->addMinutes(60);
@@ -469,7 +469,7 @@ class ChatController extends Controller
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'audibles', 'audibles'])->findOrFail($userId);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'audibles', 'audibles'])->findOrFail($userId);
         $senderAudibles = UserAudible::with(['bot', 'room', 'bot'])->where('user_id', $userId)->get();
 
         $expiresAt = Carbon::now()->addMinutes(60);
@@ -484,7 +484,7 @@ class ChatController extends Controller
     {
         $systemUser = User::where('username', 'System')->firstOrFail();
 
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($id);
         $status = $this->chatRepository->statusFindOrFail($request->input('status_id'));
 
         $log = '[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]';
@@ -501,7 +501,7 @@ class ChatController extends Controller
 
     public function updateUserRoom(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($id);
         $room = $this->chatRepository->roomFindOrFail($request->input('room_id'));
 
         $user->chatroom()->dissociate();
@@ -542,14 +542,14 @@ class ChatController extends Controller
 
     public function updateUserTarget($id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($id);
 
         return \response($user);
     }
 
     public function updateBotTarget($id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $user = User::with(['chatStatus', 'chatroom', 'role', 'echoes'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'primaryRole', 'echoes'])->findOrFail($id);
 
         return \response($user);
     }
