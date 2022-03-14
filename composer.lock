@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7647a68b45a5ea4280ec9c30e49670c",
+    "content-hash": "d8ee1342111ba9f27c80d1ec78f48ae5",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -8350,6 +8350,110 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "jasonmccreary/laravel-test-assertions",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
+                "reference": "7d2fa95fb7e873b222469708979e4c9c57d98062"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/7d2fa95fb7e873b222469708979e4c9c57d98062",
+                "reference": "7d2fa95fb7e873b222469708979e4c9c57d98062",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/testing": "^8.0|^9.0",
+                "mockery/mockery": "^1.4.2",
+                "php": ">=7.3|^8.0",
+                "phpunit/phpunit": "^9.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JMac\\Testing\\AdditionalAssertionsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JMac\\Testing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason McCreary",
+                    "email": "jason@pureconcepts.net"
+                }
+            ],
+            "description": "A set of helpful assertions when testing Laravel applications.",
+            "support": {
+                "issues": "https://github.com/jasonmccreary/laravel-test-assertions/issues",
+                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/v2.1.0"
+            },
+            "time": "2022-02-09T12:43:23+00:00"
+        },
+        {
+            "name": "laravel-shift/factory-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-shift/factory-generator.git",
+                "reference": "b0eac8a80572177f87bacf47dce4e2945bb548e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-shift/factory-generator/zipball/b0eac8a80572177f87bacf47dce4e2945bb548e2",
+                "reference": "b0eac8a80572177f87bacf47dce4e2945bb548e2",
+                "shasum": ""
+            },
+            "require": {
+                "fakerphp/faker": "^1.9.1",
+                "illuminate/support": "^8.0|^9.0",
+                "naoray/eloquent-model-analyzer": "^2.0|^3.0",
+                "nikic/php-parser": "^4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0"
+            },
+            "default-branch": true,
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Shift\\FactoryGenerator\\FactoryGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Shift\\FactoryGenerator\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate factories from existing models",
+            "keywords": [
+                "factory",
+                "laravel",
+                "model",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel-shift/factory-generator/issues",
+                "source": "https://github.com/laravel-shift/factory-generator/tree/master"
+            },
+            "time": "2022-02-10T13:57:13+00:00"
+        },
+        {
             "name": "laravel/sail",
             "version": "v1.13.6",
             "source": {
@@ -8605,6 +8709,57 @@
                 }
             ],
             "time": "2022-03-03T13:19:32+00:00"
+        },
+        {
+            "name": "naoray/eloquent-model-analyzer",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Naoray/eloquent-model-analyzer.git",
+                "reference": "d94c15d745d348597c3ba1f3c13b22cc48a7274f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Naoray/eloquent-model-analyzer/zipball/d94c15d745d348597c3ba1f3c13b22cc48a7274f",
+                "reference": "d94c15d745d348597c3ba1f3c13b22cc48a7274f",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.6|^3.0",
+                "illuminate/database": "^8.40.0|^9.0",
+                "illuminate/support": "^8.24.0|^9.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0"
+            },
+            "type": "pakage",
+            "autoload": {
+                "psr-4": {
+                    "Naoray\\EloquentModelAnalyzer\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Krishan Koenig",
+                    "email": "krishan.koenig@googlemail.com"
+                }
+            ],
+            "description": "Helpful methods to gain more information about eloquent model classes.",
+            "support": {
+                "issues": "https://github.com/Naoray/eloquent-model-analyzer/issues",
+                "source": "https://github.com/Naoray/eloquent-model-analyzer/tree/v3.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/naoray",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-08T08:48:31+00:00"
         },
         {
             "name": "nunomaduro/collision",
@@ -10865,7 +11020,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel-shift/factory-generator": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -10880,5 +11037,5 @@
     "platform-overrides": {
         "ext-mcrypt": "1.0"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }

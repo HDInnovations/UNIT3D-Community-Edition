@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use JMac\Testing\Traits\AdditionalAssertions;
 use App\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, AdditionalAssertions;
     use RefreshDatabase;
 
     /**

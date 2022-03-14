@@ -52,7 +52,9 @@
         "phpunit/phpunit": "^9.5.10",
         "styleci/cli": "^1.2",
         "spatie/laravel-ignition": "^1.0",
-        "laravel/sail": "^1.0.1"
+        "laravel/sail": "^1.0.1",
+        "jasonmccreary/laravel-test-assertions": "^2.0",
+        "laravel-shift/factory-generator": "dev-master"
     },
     "config": {
         "preferred-install": "dist",
