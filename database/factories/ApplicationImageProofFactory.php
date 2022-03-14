@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationImageProof;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationImageProofFactory extends Factory
 {
@@ -23,7 +23,7 @@ class ApplicationImageProofFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Application::factory(),
-            'image' => $this->faker->image,
+            'image'          => $this->faker->image,
         ];
     }
 }

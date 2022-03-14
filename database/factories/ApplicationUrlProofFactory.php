@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationUrlProof;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationUrlProofFactory extends Factory
 {
@@ -23,7 +23,7 @@ class ApplicationUrlProofFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Application::factory(),
-            'url' => $this->faker->url,
+            'url'            => $this->faker->url,
         ];
     }
 }

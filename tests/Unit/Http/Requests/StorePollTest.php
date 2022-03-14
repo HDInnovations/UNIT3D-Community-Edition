@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Http\Requests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
@@ -43,9 +41,9 @@ class StorePollTest extends TestCase
         $actual = $this->subject->rules();
 
         $this->assertValidationRules([
-            'title' => 'required|min:10',
+            'title'     => 'required|min:10',
             'options.*' => 'filled',
-            'options' => 'min:2',
+            'options'   => 'min:2',
         ], $actual);
     }
 

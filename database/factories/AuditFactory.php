@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Audit;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AuditFactory extends Factory
 {
@@ -22,11 +22,11 @@ class AuditFactory extends Factory
     public function definition()
     {
         return [
-            'action' => $this->faker->word,
+            'action'         => $this->faker->word,
             'model_entry_id' => $this->faker->integer,
-            'model_name' => $this->faker->word,
-            'record' => $this->faker->word,
-            'user_id' => \App\Models\User::factory(),
+            'model_name'     => $this->faker->word,
+            'record'         => $this->faker->word,
+            'user_id'        => \App\Models\User::factory(),
         ];
     }
 }

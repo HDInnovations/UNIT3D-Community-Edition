@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArticleFactory extends Factory
 {
@@ -23,8 +23,8 @@ class ArticleFactory extends Factory
     {
         return [
             'content' => $this->faker->text,
-            'slug' => $this->faker->slug,
-            'title' => $this->faker->sentence,
+            'slug'    => $this->faker->slug,
+            'title'   => $this->faker->sentence,
             'user_id' => \App\Models\User::factory(),
         ];
     }

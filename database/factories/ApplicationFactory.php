@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Application;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationFactory extends Factory
 {
@@ -22,11 +22,11 @@ class ApplicationFactory extends Factory
     public function definition()
     {
         return [
-            'email' => $this->faker->unique()->email,
+            'email'        => $this->faker->unique()->email,
             'moderated_by' => \App\Models\User::factory(),
-            'status' => $this->faker->boolean,
-            'type' => $this->faker->word,
-            'user_id' => \App\Models\User::factory(),
+            'status'       => $this->faker->boolean,
+            'type'         => $this->faker->word,
+            'user_id'      => \App\Models\User::factory(),
         ];
     }
 }
