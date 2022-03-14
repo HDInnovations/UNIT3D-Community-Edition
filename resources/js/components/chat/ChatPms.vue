@@ -4,9 +4,9 @@
             <li class="sent" v-for="pm in pms">
                 <h4 class="list-group-item-heading">
                     <span class="badge-user text-bold" :style="userStyles(pm.user)">
-                        <i :class="pm.user.group.icon"> </i>
+                        <i :class="pm.user.role.icon"> </i>
 
-                        <a :style="groupColor(pm.user)">
+                        <a :style="roleColor(pm.user)">
                             {{ pm.user.username }}
                         </a>
 
@@ -49,10 +49,10 @@ export default {
             axios.post(`/api/chat/message/${id}/delete`);
         },
         userStyles(user) {
-            return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`;
+            return `cursor: pointer; color: ${user.role.color}; background-image: ${user.role.effect};`;
         },
-        groupColor(user) {
-            return `color: ${user.group.color};`;
+        roleColor(user) {
+            return `color: ${user.role.color};`;
         },
     },
     created() {

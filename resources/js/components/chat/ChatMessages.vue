@@ -16,7 +16,7 @@
                     <span class="badge-user text-bold" :style="userStyles(message.user)">
                         <i
                             v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)"
-                            :class="message.user.group.icon"
+                            :class="message.user.role.icon"
                         >
                         </i>
                         <i
@@ -28,14 +28,14 @@
                         <a
                             v-if="message.user && message.user.id > 1"
                             @click="pmUser(message.user)"
-                            :style="groupColor(message.user)"
+                            :style="roleColor(message.user)"
                         >
                             {{ message.user.username }}
                         </a>
 
                         <a
                             v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
-                            :style="groupColor(message.user)"
+                            :style="roleColor(message.user)"
                         >
                             {{ message.bot.name }}
                         </a>
@@ -107,21 +107,15 @@ export default {
             }
         },
         canMod(message) {
-            /*
+          /* FIX!!!
           A user can Mod his own messages
-          A user in a is_modo group can Mod messages
+          A user in is_modo group can Mod messages
           A is_modo CAN NOT Mod another is_modo message
-      */
+          */
 
             return (
-                /* Owner can mod all */
-                this.$parent.auth.group.id === 10 ||
                 /* User can mod his own message */
-                message.user.id === this.$parent.auth.id ||
-                /* is_admin can mod messages except for Owner messages */
-                (this.$parent.auth.group.is_admin && message.user.group.id !== 10) ||
-                /* Mods CAN NOT mod other mods messages */
-                (this.$parent.auth.group.is_modo && !message.user.group.is_modo)
+                message.user.id === this.$parent.auth.id
             );
         },
         editMessage(message) {},
@@ -129,11 +123,11 @@ export default {
             axios.post(`/api/chat/message/${id}/delete`);
         },
         userStyles(user) {
-            return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`;
+            return `cursor: pointer; color: ${user.role.color}; background-image: ${user.role.effect};`;
         },
-        groupColor(user) {
-            return user && user.group && user.group.hasOwnProperty('color')
-                ? `color: ${user.group.color};`
+        roleColor(user) {
+            return user && user.role && user.role.hasOwnProperty('color')
+                ? `color: ${user.role.color};`
                 : `cursor: pointer;`;
         },
     },

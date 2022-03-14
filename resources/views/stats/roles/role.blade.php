@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('group', ['id' => $role->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('role', ['id' => $role->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.group') }}</span>
         </a>
     </li>

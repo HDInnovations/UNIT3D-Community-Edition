@@ -202,7 +202,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/torrent/dead', [App\Http\Controllers\StatsController::class, 'dead'])->name('dead');
             Route::get('/request/bountied', [App\Http\Controllers\StatsController::class, 'bountied'])->name('bountied');
             Route::get('/roles', [App\Http\Controllers\StatsController::class, 'roles'])->name('groups');
-            Route::get('/roles/role/{id}', [App\Http\Controllers\StatsController::class, 'group'])->name('group');
+            Route::get('/roles/role/{id}', [App\Http\Controllers\StatsController::class, 'role'])->name('role');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
         });
 

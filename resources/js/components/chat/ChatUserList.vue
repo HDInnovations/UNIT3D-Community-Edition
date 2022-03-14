@@ -21,9 +21,9 @@
                             </a>
                             <h4 class="list-group-item-heading">
                                 <span class="badge-user text-bold" :style="userStyles(user)">
-                                    <i :class="user.group.icon"> </i>
+                                    <i :class="user.role.icon"> </i>
 
-                                    <a :style="groupColor(user)" @click="pmUser(user)">
+                                    <a :style="roleColor(user)" @click="pmUser(user)">
                                         {{ user.username }}
                                     </a>
                                 </span>
@@ -46,13 +46,13 @@ export default {
     mixins: [pmMethods],
     methods: {
         userStyles(user) {
-            return user && user.group && user.group.hasOwnProperty('color')
-                ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+            return user && user.role && user.role.hasOwnProperty('color')
+                ? `cursor: pointer; color: ${user.role.color}; background-image: ${user.role.effect};`
                 : `cursor: pointer;`;
         },
-        groupColor(user) {
-            return user && user.group && user.group.hasOwnProperty('color')
-                ? `color: ${user.group.color};`
+        roleColor(user) {
+            return user && user.role && user.role.hasOwnProperty('color')
+                ? `color: ${user.role.color};`
                 : `cursor: pointer;`;
         },
     },

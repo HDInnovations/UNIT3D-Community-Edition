@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
-                'role_id'   => 1,
+                'role_id'   => 3,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(random_bytes(60)),
                 'rsskey'    => md5(random_bytes(60)),

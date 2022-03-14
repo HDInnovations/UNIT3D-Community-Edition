@@ -32,7 +32,7 @@
                     <div class="col-sm-12 col-md-6 col-lg-4" style="margin: auto">
                         <div class="well" style="margin: 10px;">
                             <div class="text-center">
-                                <a href="{{ route('group', ['id' => $role->id]) }}">
+                                <a href="{{ route('role', ['id' => $role->id]) }}">
                                     <h2 style="color:{{ $role->color }};">
                                         <i class="{{ $role->icon }}" aria-hidden="true"></i>&nbsp;{{ $role->name }}</h2>
                                 </a>

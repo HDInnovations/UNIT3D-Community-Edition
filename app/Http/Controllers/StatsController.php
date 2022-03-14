@@ -351,7 +351,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Roles.
      */
-    public function group(Request $request, $id)
+    public function role(Request $request, int $id)
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Users In Role
