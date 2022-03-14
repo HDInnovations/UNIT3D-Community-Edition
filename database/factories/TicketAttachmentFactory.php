@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\TicketAttachment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketAttachmentFactory extends Factory

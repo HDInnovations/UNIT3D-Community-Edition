@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\MediaLanguage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MediaLanguageFactory extends Factory

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Movie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovieFactory extends Factory

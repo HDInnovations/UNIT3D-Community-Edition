@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Recommendation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RecommendationFactory extends Factory

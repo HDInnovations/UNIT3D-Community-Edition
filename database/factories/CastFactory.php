@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Cast;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CastFactory extends Factory

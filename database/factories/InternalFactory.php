@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Internal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InternalFactory extends Factory

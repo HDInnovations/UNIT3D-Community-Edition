@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\AutoRoles;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AutoRolesFactory extends Factory

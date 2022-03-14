@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\AutoPrivileges;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AutoPrivilegesFactory extends Factory

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Subtitle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubtitleFactory extends Factory

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Tv;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TvFactory extends Factory

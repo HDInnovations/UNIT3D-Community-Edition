@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Watchlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WatchlistFactory extends Factory

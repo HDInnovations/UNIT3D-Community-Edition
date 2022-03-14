@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Crew;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CrewFactory extends Factory

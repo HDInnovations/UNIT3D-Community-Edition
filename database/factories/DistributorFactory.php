@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Distributor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DistributorFactory extends Factory

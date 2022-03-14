@@ -3,14 +3,15 @@
 namespace Tests;
 
 use App\Console\Kernel;
-use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, LazilyRefreshDatabase;
+    use CreatesApplication;
+    use LazilyRefreshDatabase;
     use AdditionalAssertions;
     use RefreshDatabase;
 
