@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoDisableInactiveUsersTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:disable_inactive_users')

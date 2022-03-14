@@ -13,9 +13,7 @@ use Tests\TestCase;
  */
 class AnnounceControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function announce_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

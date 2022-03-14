@@ -10,9 +10,7 @@ use Tests\TestCase;
  */
 class ApplicationControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function create_returns_an_ok_response(): void
     {
         $this->get(route('application.create'))
@@ -20,9 +18,7 @@ class ApplicationControllerTest extends TestCase
             ->assertViewIs('auth.application.create');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         config(['captcha.enabled' => false]);

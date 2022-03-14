@@ -11,9 +11,7 @@ use Tests\TestCase;
  */
 class AchievementsControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -30,9 +28,7 @@ class AchievementsControllerTest extends TestCase
             ->assertViewHas('pending');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function show_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

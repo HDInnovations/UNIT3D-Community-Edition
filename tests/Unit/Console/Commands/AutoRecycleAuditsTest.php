@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleAuditsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_activity_log')

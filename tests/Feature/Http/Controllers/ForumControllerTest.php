@@ -110,7 +110,6 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('params');
     }
 
-    /** @test */
     /*public function show_category_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

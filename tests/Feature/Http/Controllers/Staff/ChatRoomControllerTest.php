@@ -32,9 +32,7 @@ class ChatRoomControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -47,9 +45,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.rooms.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -63,9 +59,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertViewHas('chatrooms');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -80,9 +74,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.rooms.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function update_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

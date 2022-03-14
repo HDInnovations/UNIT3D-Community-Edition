@@ -32,9 +32,7 @@ class MassActionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function create_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -47,9 +45,7 @@ class MassActionControllerTest extends TestCase
         $response->assertViewIs('Staff.masspm.index');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -69,9 +65,7 @@ class MassActionControllerTest extends TestCase
         $response->assertRedirect(route('staff.mass-pm.create'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function update_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

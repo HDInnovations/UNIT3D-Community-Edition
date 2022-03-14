@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoCorrectHistoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:correct_history')

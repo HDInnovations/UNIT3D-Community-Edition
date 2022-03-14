@@ -18,9 +18,7 @@ use Tests\TestCase;
  */
 class TorrentControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function filter_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -49,9 +47,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -80,9 +76,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function show_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -101,9 +95,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

@@ -13,7 +13,7 @@ class UserFactoryTest extends TestCase
     }
 
     /** @test */
-    public function factoryReturnsCorrectValuesWhenCreated(): void
+    public function factory_returns_correct_values_when_created(): void
     {
         $user = User::factory()->create();
 

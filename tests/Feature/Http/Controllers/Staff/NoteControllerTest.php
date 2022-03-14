@@ -32,9 +32,7 @@ class NoteControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -48,9 +46,7 @@ class NoteControllerTest extends TestCase
         $response->assertRedirect(route('users.show', ['username' => $user->username]));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -64,9 +60,7 @@ class NoteControllerTest extends TestCase
         $response->assertViewHas('notes');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

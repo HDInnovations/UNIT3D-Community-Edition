@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleClaimedTorrentRequestsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_claimed_torrent_requests')

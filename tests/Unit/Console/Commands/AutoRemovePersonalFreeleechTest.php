@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoRemovePersonalFreeleechTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:remove_personal_freeleech')

@@ -31,9 +31,7 @@ class CheaterControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

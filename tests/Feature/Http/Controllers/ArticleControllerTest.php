@@ -12,9 +12,7 @@ use Tests\TestCase;
  */
 class ArticleControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -28,9 +26,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('articles');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function show_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

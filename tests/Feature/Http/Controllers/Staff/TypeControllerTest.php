@@ -32,9 +32,7 @@ class TypeControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function create_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -47,9 +45,7 @@ class TypeControllerTest extends TestCase
         $response->assertViewIs('Staff.type.create');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -62,9 +58,7 @@ class TypeControllerTest extends TestCase
         $response->assertRedirect(route('staff.types.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -79,9 +73,7 @@ class TypeControllerTest extends TestCase
         $response->assertViewHas('type');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -95,9 +87,7 @@ class TypeControllerTest extends TestCase
         $response->assertViewHas('types');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -114,9 +104,7 @@ class TypeControllerTest extends TestCase
         $response->assertRedirect(route('staff.types.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function update_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

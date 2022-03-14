@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoRecycleFailedLoginsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_failed_logins')

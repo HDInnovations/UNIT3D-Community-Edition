@@ -11,9 +11,7 @@ use Tests\TestCase;
  */
 class ActivationControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function activate_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);

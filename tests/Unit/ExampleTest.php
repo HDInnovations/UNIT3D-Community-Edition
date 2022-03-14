@@ -8,8 +8,10 @@ class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
+     *
+     * @test
      */
-    public function testBasicTest(): void
+    public function basic_test(): void
     {
         $this->assertTrue(true);
     }

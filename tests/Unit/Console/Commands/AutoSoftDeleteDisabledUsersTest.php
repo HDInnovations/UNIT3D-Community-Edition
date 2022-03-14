@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class AutoSoftDeleteDisabledUsersTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:softdelete_disabled_users')

@@ -19,9 +19,7 @@ use Tests\TestCase;
  */
 class CommentControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function article_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -46,9 +44,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function delete_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -70,9 +66,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Comment Has Been Deleted.');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function edit_comment_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -94,9 +88,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Comment Has Been Edited.');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function playlist_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -123,9 +115,7 @@ class CommentControllerTest extends TestCase
         ]))->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function quickthanks_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -148,9 +138,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function request_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -175,9 +163,7 @@ class CommentControllerTest extends TestCase
             ->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function torrent_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

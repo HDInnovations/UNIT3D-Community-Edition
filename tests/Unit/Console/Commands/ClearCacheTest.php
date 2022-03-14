@@ -9,9 +9,7 @@ use Tests\TestCase;
  */
 class ClearCacheTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_runs_successfully(): void
     {
         $this->artisan('clear:all_cache')

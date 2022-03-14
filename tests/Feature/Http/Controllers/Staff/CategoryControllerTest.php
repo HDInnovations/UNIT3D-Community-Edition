@@ -32,9 +32,7 @@ class CategoryControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function create_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -47,9 +45,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewIs('Staff.category.create');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -62,9 +58,7 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect(route('staff.categories.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -79,9 +73,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('category');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function index_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -95,9 +87,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('categories');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function store_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
@@ -121,9 +111,7 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect(route('staff.categories.index'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function update_returns_an_ok_response(): void
     {
         $this->seed(RolesTableSeeder::class);
