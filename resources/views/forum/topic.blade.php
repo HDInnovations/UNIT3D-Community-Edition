@@ -133,7 +133,7 @@
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">{{ __('common.edit') }}</button></a>
                                     @endif
-                                    @if (auth()->user()->hasPrivilegeTo('forums_can_delete_topic')  || ($p->user_id == auth()->user()->id && $topic->state ==
+                                    @if (($p->user_id === auth()->user()->id && $topic->state === 'open') || auth()->user()->hasPrivilegeTo('forums_can_delete_topic'))
                                         <form role="form" method="POST"
                                               action="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"
                                               style="display: inline;">
