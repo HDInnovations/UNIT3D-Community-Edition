@@ -1933,7 +1933,7 @@ class UserController extends Controller
                 // Define The Torrent Path and Filename
                 $tmpPath = \getcwd().'/files/tmp/'.$user->id.'/';
                 if (! is_dir($tmpPath)) {
-                    mkdir($tmpPath, 0700,true);
+                    mkdir($tmpPath, 0700, true);
                 }
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
 
