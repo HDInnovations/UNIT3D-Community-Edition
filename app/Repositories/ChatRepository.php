@@ -32,7 +32,7 @@ class ChatRepository
     /**
      * ChatRepository Constructor.
      */
-    public function __construct(private readonly Message $message, private readonly Chatroom $chatroom, private readonly ChatStatus $chatStatus, private readonly User $user, private readonly Bot $bot, private readonly UserEcho $userEcho, private readonly UserAudible $userAudible)
+    public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $userEcho, private UserAudible $userAudible)
     {
     }
 

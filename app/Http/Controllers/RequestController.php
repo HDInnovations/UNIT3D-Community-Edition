@@ -48,7 +48,7 @@ class RequestController extends Controller
     /**
      * RequestController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
     }
 

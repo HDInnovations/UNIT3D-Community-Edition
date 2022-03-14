@@ -26,7 +26,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
     /**
      * AutoRemoveTimedTorrentBuffs Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         parent::__construct();
     }

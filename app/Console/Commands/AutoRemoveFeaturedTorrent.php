@@ -27,7 +27,7 @@ class AutoRemoveFeaturedTorrent extends Command
     /**
      * AutoRemoveFeaturedTorrent Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         parent::__construct();
     }

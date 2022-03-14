@@ -23,7 +23,7 @@ class WishRepository implements WishInterface
     /**
      * WishRepository Constructor.
      */
-    public function __construct(private readonly Wish $wish, private readonly User $user, private readonly Torrent $torrent)
+    public function __construct(private Wish $wish, private User $user, private Torrent $torrent)
     {
     }
 

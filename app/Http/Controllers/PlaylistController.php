@@ -33,7 +33,7 @@ class PlaylistController extends Controller
     /**
      * PlaylistController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
     }
 

@@ -26,7 +26,7 @@ class WishController extends Controller
     /**
      * WishController Constructor.
      */
-    public function __construct(private readonly WishInterface $wish)
+    public function __construct(private WishInterface $wish)
     {
     }
 

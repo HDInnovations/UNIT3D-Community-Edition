@@ -49,7 +49,7 @@ class CommentController extends Controller
     /**
      * CommentController Constructor.
      */
-    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
+    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
     }
 

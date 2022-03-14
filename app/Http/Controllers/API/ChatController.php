@@ -40,7 +40,7 @@ class ChatController extends Controller
     /**
      * ChatController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository, private readonly Factory $authFactory)
+    public function __construct(private ChatRepository $chatRepository, private Factory $authFactory)
     {
     }
 
