@@ -14,9 +14,6 @@ return new class() extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('group_id', 'role_id');
-            $table->unique('username');
-            $table->unique('passkey');
-            $table->unique('rsskey');
         });
     }
 };
