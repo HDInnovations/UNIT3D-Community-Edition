@@ -107,7 +107,7 @@ export default {
             }
         },
         canMod(message) {
-          /* FIX!!!
+            /* FIX!!!
           A user can Mod his own messages
           A user in is_modo group can Mod messages
           A is_modo CAN NOT Mod another is_modo message
