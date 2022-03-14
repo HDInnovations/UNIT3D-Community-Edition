@@ -30,7 +30,7 @@ class AutoNerdStat extends Command
     /**
      * AutoNerdStat Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
         parent::__construct();
     }

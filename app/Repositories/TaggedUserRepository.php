@@ -34,7 +34,7 @@ class TaggedUserRepository
     /**
      * TaggedUserRepository Constructor.
      */
-    public function __construct(private User $user, private PrivateMessage $privateMessage)
+    public function __construct(private readonly User $user, private readonly PrivateMessage $privateMessage)
     {
     }
 

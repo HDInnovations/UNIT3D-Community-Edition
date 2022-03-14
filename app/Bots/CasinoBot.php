@@ -40,14 +40,14 @@ class CasinoBot
 
     private ?string $log = null;
 
-    private \Carbon\Carbon $expiresAt;
+    private readonly \Carbon\Carbon $expiresAt;
 
-    private \Carbon\Carbon $current;
+    private readonly \Carbon\Carbon $current;
 
     /**
      * NerdBot Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
         $bot = Bot::where('id', '=', '3')->firstOrFail();
         $this->bot = $bot;

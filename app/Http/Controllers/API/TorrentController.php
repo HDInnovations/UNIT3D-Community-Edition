@@ -48,7 +48,7 @@ class TorrentController extends BaseController
     /**
      * TorrentController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 

@@ -27,7 +27,7 @@ class ReportController extends Controller
     /**
      * ReportController Constructor.
      */
-    public function __construct(private Report $report)
+    public function __construct(private readonly Report $report)
     {
     }
 

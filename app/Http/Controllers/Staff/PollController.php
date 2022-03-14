@@ -27,7 +27,7 @@ class PollController extends Controller
     /**
      * PollController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
