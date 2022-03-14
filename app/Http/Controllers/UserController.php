@@ -1901,7 +1901,7 @@ class UserController extends Controller
         $zipPath = \getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (!File::isDirectory($zipPath)) {
+        if (! File::isDirectory($zipPath)) {
             File::makeDirectory($zipPath, 0755, true, true);
         }
 
@@ -1923,7 +1923,7 @@ class UserController extends Controller
             $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
 
-                if (!isset($historyTorrent->torrent->id)) { 
+                if (! isset($historyTorrent->torrent->id)) { 
                     Log::warning("History info_hash $historyTorrent->info_hash has no torrent table entry.") ; 
                     continue;
                 } else {
@@ -1932,14 +1932,14 @@ class UserController extends Controller
 
                 // Define The Torrent Path and Filename
                 $tmpPath = \getcwd().'/files/tmp/'.$user->id.'/';
-                if (!is_dir($tmpPath)) mkdir($tmpPath,0700,true);
+                if (! is_dir($tmpPath)) mkdir($tmpPath,0700,true);
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
                 
                 // Define the torrent file path
                 $torrentPath = getcwd().'/files/torrents/';
 
                 // The Torrent File Exist?
-                if (!\is_file($torrentPath.$torrent->file_name)) {
+                if (! \is_file($torrentPath.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
 ';
                     $failCount++;
@@ -1975,11 +1975,11 @@ class UserController extends Controller
         }
 
         // Delete temporary files and directory
-        if(!empty($tmpPath) && is_dir($tmpPath) ) {
+        if(! empty($tmpPath) && is_dir($tmpPath) ) {
             $dirObj = new \RecursiveDirectoryIterator($tmpPath, \RecursiveDirectoryIterator::SKIP_DOTS);
             $files = new \RecursiveIteratorIterator($dirObj, \RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($files as $filePath)
-                $filePath->isDir() && !$filePath->isLink() ? rmdir($filePath->getPathname()) : unlink($filePath->getPathname());
+                $filePath->isDir() && ! $filePath->isLink() ? rmdir($filePath->getPathname()) : unlink($filePath->getPathname());
             rmdir($tmpPath);
         }
 
