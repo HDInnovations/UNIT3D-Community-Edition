@@ -13,7 +13,6 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use LazilyRefreshDatabase;
     use AdditionalAssertions;
-    use RefreshDatabase;
 
     /**
      * @inheritdoc
