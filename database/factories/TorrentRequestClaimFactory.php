@@ -4,10 +4,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ApplicationImageProofFactory extends Factory
+class TorrentRequestClaimFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +14,9 @@ class ApplicationImageProofFactory extends Factory
     public function definition(): array
     {
         return [
-            'application_id' => fn () => Application::factory()->create()->id,
-            'image'          => $this->faker->word(),
+            'request_id' => $this->faker->randomNumber(),
+            'username'   => $this->faker->userName(),
+            'anon'       => $this->faker->randomNumber(),
         ];
     }
 }

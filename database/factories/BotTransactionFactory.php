@@ -4,10 +4,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Bot;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ArticleFactory extends Factory
+class BotTransactionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,11 +16,13 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'   => $this->faker->word(),
-            'slug'    => $this->faker->slug(),
-            'image'   => $this->faker->word(),
-            'content' => $this->faker->text(),
+            'type'    => $this->faker->word(),
+            'cost'    => $this->faker->randomFloat(),
             'user_id' => fn () => User::factory()->create()->id,
+            'bot_id'  => fn () => Bot::factory()->create()->id,
+            'to_user' => $this->faker->boolean(),
+            'to_bot'  => $this->faker->boolean(),
+            'comment' => $this->faker->text(),
         ];
     }
 }

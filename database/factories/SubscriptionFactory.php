@@ -4,10 +4,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Forum;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ArticleFactory extends Factory
+class SubscriptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,11 +17,9 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'   => $this->faker->word(),
-            'slug'    => $this->faker->slug(),
-            'image'   => $this->faker->word(),
-            'content' => $this->faker->text(),
-            'user_id' => fn () => User::factory()->create()->id,
+            'user_id'  => fn () => User::factory()->create()->id,
+            'forum_id' => fn () => Forum::factory()->create()->id,
+            'topic_id' => fn () => Topic::factory()->create()->id,
         ];
     }
 }

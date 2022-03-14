@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Album;
+use App\Models\Internal;
 
-class AlbumFactory extends Factory
+class InternalFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Album::class;
+    protected $model = Internal::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,9 @@ class AlbumFactory extends Factory
     public function definition()
     {
         return [
-            'cover_image' => $this->faker->word,
-            'description' => $this->faker->text,
-            'imdb' => $this->faker->word,
-            'name' => $this->faker->name,
-            'user_id' => \App\Models\User::factory(),
+            'effect' => $this->faker->word,
+            'icon' => $this->faker->word,
+            'name' => $this->faker->unique()->name,
         ];
     }
 }

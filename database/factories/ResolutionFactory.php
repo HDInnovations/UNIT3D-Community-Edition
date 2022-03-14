@@ -4,10 +4,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ApplicationImageProofFactory extends Factory
+class ResolutionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +14,9 @@ class ApplicationImageProofFactory extends Factory
     public function definition(): array
     {
         return [
-            'application_id' => fn () => Application::factory()->create()->id,
-            'image'          => $this->faker->word(),
+            'name'     => $this->faker->name(),
+            'slug'     => $this->faker->slug(),
+            'position' => $this->faker->randomNumber(),
         ];
     }
 }

@@ -4,10 +4,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ArticleFactory extends Factory
+class PageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,11 +14,9 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'   => $this->faker->word(),
+            'name'    => $this->faker->name(),
             'slug'    => $this->faker->slug(),
-            'image'   => $this->faker->word(),
             'content' => $this->faker->text(),
-            'user_id' => fn () => User::factory()->create()->id,
         ];
     }
 }

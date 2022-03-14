@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Album;
+use App\Models\TicketAttachment;
 
-class AlbumFactory extends Factory
+class TicketAttachmentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Album::class;
+    protected $model = TicketAttachment::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +22,7 @@ class AlbumFactory extends Factory
     public function definition()
     {
         return [
-            'cover_image' => $this->faker->word,
-            'description' => $this->faker->text,
-            'imdb' => $this->faker->word,
-            'name' => $this->faker->name,
+            'ticket_id' => \App\Models\Ticket::factory(),
             'user_id' => \App\Models\User::factory(),
         ];
     }
