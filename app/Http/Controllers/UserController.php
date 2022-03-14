@@ -1913,7 +1913,8 @@ class UserController extends Controller
 
         // Get Users History
         $historyTorrents = History::with(['torrent' => function($query){
-            $query->select('id', 'name', 'file_name', 'info_hash', 'slug');}])
+            $query->select('id', 'name', 'file_name', 'info_hash', 'slug');
+        }])
             ->where('user_id','=', $user->id)->get('info_hash');
 
         if ($zipArchive->open($zipPath.$zipFileName, ZipArchive::CREATE) === true) {
@@ -1924,17 +1925,18 @@ class UserController extends Controller
             foreach ($historyTorrents as $historyTorrent) {
 
                 if (! isset($historyTorrent->torrent->id)) { 
-                    Log::warning("History info_hash $historyTorrent->info_hash has no torrent table entry.") ; 
+                    Log::warning("History info_hash $historyTorrent->info_hash has no torrent table entry."); 
                     continue;
-                } else {
-                    $torrent = $historyTorrent->torrent;
                 }
+                $torrent = $historyTorrent->torrent;
 
                 // Define The Torrent Path and Filename
                 $tmpPath = \getcwd().'/files/tmp/'.$user->id.'/';
-                if (! is_dir($tmpPath)) mkdir($tmpPath,0700,true);
+                if (! is_dir($tmpPath)){
+                    mkdir($tmpPath,0700,true);
+                }
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
-                
+
                 // Define the torrent file path
                 $torrentPath = getcwd().'/files/torrents/';
 
@@ -1975,11 +1977,12 @@ class UserController extends Controller
         }
 
         // Delete temporary files and directory
-        if(! empty($tmpPath) && is_dir($tmpPath) ) {
+        if(! empty($tmpPath) && is_dir($tmpPath)) {
             $dirObj = new \RecursiveDirectoryIterator($tmpPath, \RecursiveDirectoryIterator::SKIP_DOTS);
             $files = new \RecursiveIteratorIterator($dirObj, \RecursiveIteratorIterator::CHILD_FIRST);
-            foreach ($files as $filePath)
+            foreach ($files as $filePath) {
                 $filePath->isDir() && ! $filePath->isLink() ? rmdir($filePath->getPathname()) : unlink($filePath->getPathname());
+            }
             rmdir($tmpPath);
         }
 
