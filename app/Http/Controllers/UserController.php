@@ -1913,7 +1913,8 @@ class UserController extends Controller
 
         // Get Users History
         $historyTorrents = History::with(['torrent' => function($query){
-            $query->select('id', 'name', 'file_name', 'info_hash', 'slug');}])->where('user_id','=', $user->id)->get('info_hash');
+            $query->select('id', 'name', 'file_name', 'info_hash', 'slug');}])
+            ->where('user_id','=', $user->id)->get('info_hash');
 
         if ($zipArchive->open($zipPath.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
