@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Ticket;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketFactory extends Factory
 {
@@ -22,12 +22,12 @@ class TicketFactory extends Factory
     public function definition()
     {
         return [
-            'body' => $this->faker->text,
+            'body'        => $this->faker->text,
             'category_id' => \App\Models\TicketCategory::factory(),
             'priority_id' => \App\Models\TicketPriority::factory(),
-            'staff_id' => \App\Models\User::factory(),
-            'subject' => $this->faker->word,
-            'user_id' => \App\Models\User::factory(),
+            'staff_id'    => \App\Models\User::factory(),
+            'subject'     => $this->faker->word,
+            'user_id'     => \App\Models\User::factory(),
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Recommendation;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RecommendationFactory extends Factory
 {
@@ -23,8 +23,8 @@ class RecommendationFactory extends Factory
     {
         return [
             'movie_id' => \App\Models\Movie::factory(),
-            'title' => $this->faker->sentence,
-            'tv_id' => \App\Models\Tv::factory(),
+            'title'    => $this->faker->sentence,
+            'tv_id'    => \App\Models\Tv::factory(),
         ];
     }
 }

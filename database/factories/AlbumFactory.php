@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Album;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AlbumFactory extends Factory
 {
@@ -24,9 +24,9 @@ class AlbumFactory extends Factory
         return [
             'cover_image' => $this->faker->word,
             'description' => $this->faker->text,
-            'imdb' => $this->faker->word,
-            'name' => $this->faker->name,
-            'user_id' => \App\Models\User::factory(),
+            'imdb'        => $this->faker->word,
+            'name'        => $this->faker->name,
+            'user_id'     => \App\Models\User::factory(),
         ];
     }
 }

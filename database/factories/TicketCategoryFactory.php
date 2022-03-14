@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketCategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketCategoryFactory extends Factory
 {
@@ -22,7 +22,7 @@ class TicketCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name'     => $this->faker->name,
             'position' => $this->faker->randomNumber,
         ];
     }

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CollectionFactory extends Factory
 {
@@ -22,7 +22,7 @@ class CollectionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name'      => $this->faker->name,
             'name_sort' => $this->faker->word,
         ];
     }

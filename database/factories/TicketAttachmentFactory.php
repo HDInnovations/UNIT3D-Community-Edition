@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketAttachment;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketAttachmentFactory extends Factory
 {
@@ -23,7 +23,7 @@ class TicketAttachmentFactory extends Factory
     {
         return [
             'ticket_id' => \App\Models\Ticket::factory(),
-            'user_id' => \App\Models\User::factory(),
+            'user_id'   => \App\Models\User::factory(),
         ];
     }
 }

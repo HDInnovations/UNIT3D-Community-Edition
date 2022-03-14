@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Episode;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EpisodeFactory extends Factory
 {
@@ -22,18 +22,18 @@ class EpisodeFactory extends Factory
     public function definition()
     {
         return [
-            'air_date' => $this->faker->word,
-            'episode_number' => $this->faker->randomNumber,
-            'name' => $this->faker->name,
-            'overview' => $this->faker->text,
+            'air_date'        => $this->faker->word,
+            'episode_number'  => $this->faker->randomNumber,
+            'name'            => $this->faker->name,
+            'overview'        => $this->faker->text,
             'production_code' => $this->faker->word,
-            'season_id' => \App\Models\Season::factory(),
-            'season_number' => $this->faker->randomNumber,
-            'still' => $this->faker->word,
-            'tv_id' => $this->faker->integer,
-            'type' => $this->faker->word,
-            'vote_average' => $this->faker->word,
-            'vote_count' => $this->faker->randomNumber,
+            'season_id'       => \App\Models\Season::factory(),
+            'season_number'   => $this->faker->randomNumber,
+            'still'           => $this->faker->word,
+            'tv_id'           => $this->faker->integer,
+            'type'            => $this->faker->word,
+            'vote_average'    => $this->faker->word,
+            'vote_count'      => $this->faker->randomNumber,
         ];
     }
 }

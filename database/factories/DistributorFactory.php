@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Distributor;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DistributorFactory extends Factory
 {
@@ -22,9 +22,9 @@ class DistributorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name'     => $this->faker->name,
             'position' => $this->faker->randomNumber,
-            'slug' => $this->faker->slug,
+            'slug'     => $this->faker->slug,
         ];
     }
 }

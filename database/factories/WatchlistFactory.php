@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Watchlist;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WatchlistFactory extends Factory
 {
@@ -22,9 +22,9 @@ class WatchlistFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->text,
+            'message'  => $this->faker->text,
             'staff_id' => \App\Models\User::factory(),
-            'user_id' => \App\Models\User::factory(),
+            'user_id'  => \App\Models\User::factory(),
         ];
     }
 }

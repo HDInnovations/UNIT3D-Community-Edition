@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Internal;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InternalFactory extends Factory
 {
@@ -23,8 +23,8 @@ class InternalFactory extends Factory
     {
         return [
             'effect' => $this->faker->word,
-            'icon' => $this->faker->word,
-            'name' => $this->faker->unique()->name,
+            'icon'   => $this->faker->word,
+            'name'   => $this->faker->unique()->name,
         ];
     }
 }

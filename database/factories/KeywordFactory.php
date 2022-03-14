@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Keyword;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class KeywordFactory extends Factory
 {
@@ -22,7 +22,7 @@ class KeywordFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name,
+            'name'       => $this->faker->unique()->name,
             'torrent_id' => $this->faker->unique()->integer,
         ];
     }
