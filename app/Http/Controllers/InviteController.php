@@ -111,7 +111,7 @@ class InviteController extends Controller
                     'unique:invites',
                     'unique:users',
                     'unique:applications',
-                    new EmailBlacklist()
+                    new EmailBlacklist(),
                 ],
                 'custom' => 'required',
             ]);

@@ -82,7 +82,7 @@ class ApplicationController extends Controller
                         'max:70',
                         'unique:invites',
                         'unique:users',
-                        new EmailBlacklist()
+                        new EmailBlacklist(),
                     ],
                     'approve' => 'required',
                 ]);

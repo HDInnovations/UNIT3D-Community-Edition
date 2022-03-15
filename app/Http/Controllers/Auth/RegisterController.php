@@ -86,26 +86,26 @@ class RegisterController extends Controller
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email' => [
+                    'email'    => [
                         'required',
                         'string',
                         'email',
                         'max:70',
                         'unique:users',
-                        new EmailBlacklist()
+                        new EmailBlacklist(),
                     ],
                 ]);
             } else {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email' => [
+                    'email'    => [
                         'required',
                         'string',
                         'email',
                         'max:70',
                         'unique:users',
-                        new EmailBlacklist()
+                        new EmailBlacklist(),
                     ],
                     'captcha'  => 'hiddencaptcha',
                 ]);

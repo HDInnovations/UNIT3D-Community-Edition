@@ -60,8 +60,8 @@ class AutoBanDisposableUsers extends Command
                         'string',
                         'email',
                         'max:70',
-                        new EmailBlacklist()
-                    ]
+                        new EmailBlacklist(),
+                    ],
                 ]);
 
                 if ($v->fails()) {

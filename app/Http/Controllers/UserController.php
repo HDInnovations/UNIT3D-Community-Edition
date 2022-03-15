@@ -362,7 +362,7 @@ class UserController extends Controller
                     'email',
                     'max:70',
                     'unique:users',
-                    new EmailBlacklist()
+                    new EmailBlacklist(),
                 ],
             ]);
         } else {

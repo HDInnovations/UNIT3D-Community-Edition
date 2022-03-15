@@ -47,7 +47,7 @@ class ApplicationController extends Controller
             if (\config('captcha.enabled') == false) {
                 $v = \validator($request->all(), [
                     'type'     => 'required',
-                    'email' => [
+                    'email'    => [
                         'required',
                         'string',
                         'email',
@@ -55,7 +55,7 @@ class ApplicationController extends Controller
                         'unique:invites',
                         'unique:users',
                         'unique:applications',
-                        new EmailBlacklist()
+                        new EmailBlacklist(),
                     ],
                     'referrer' => 'required',
                     'images.*' => 'filled',
@@ -66,7 +66,7 @@ class ApplicationController extends Controller
             } else {
                 $v = \validator($request->all(), [
                     'type'     => 'required',
-                    'email' => [
+                    'email'    => [
                         'required',
                         'string',
                         'email',
@@ -74,7 +74,7 @@ class ApplicationController extends Controller
                         'unique:invites',
                         'unique:users',
                         'unique:applications',
-                        new EmailBlacklist()
+                        new EmailBlacklist(),
                     ],
                     'referrer' => 'required',
                     'images.*' => 'filled',

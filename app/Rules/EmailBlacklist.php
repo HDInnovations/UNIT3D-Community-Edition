@@ -26,7 +26,7 @@ class EmailBlacklist implements Rule
         $domain = Str::after(\strtolower($value), '@');
 
         // Run validation check
-        return !\in_array($domain, $this->domains, true);
+        return ! \in_array($domain, $this->domains, true);
     }
 
     /**
