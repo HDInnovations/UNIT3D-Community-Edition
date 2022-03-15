@@ -18,6 +18,7 @@ use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
+use App\Rules\EmailBlacklist;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -54,7 +55,13 @@ class AutoBanDisposableUsers extends Command
                 $v = \validator([
                     'email' => $user->email,
                 ], [
-                    'email' => 'required|string|email|max:70|blacklist',
+                    'email' => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        new EmailBlacklist()
+                    ]
                 ]);
 
                 if ($v->fails()) {

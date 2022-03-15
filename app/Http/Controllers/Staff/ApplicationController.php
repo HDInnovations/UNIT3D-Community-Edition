@@ -18,6 +18,7 @@ use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
+use App\Rules\EmailBlacklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -74,7 +75,15 @@ class ApplicationController extends Controller
 
             if (\config('email-blacklist.enabled') == true) {
                 $v = \validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
+                    'email' => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:invites',
+                        'unique:users',
+                        new EmailBlacklist()
+                    ],
                     'approve' => 'required',
                 ]);
             } else {

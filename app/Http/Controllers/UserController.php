@@ -30,6 +30,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use App\Rules\EmailBlacklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -355,7 +356,14 @@ class UserController extends Controller
 
         if (\config('email-blacklist.enabled') == true) {
             $v = \validator($request->all(), [
-                'email' => 'required|string|email|max:70|blacklist|unique:users',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:70',
+                    'unique:users',
+                    new EmailBlacklist()
+                ],
             ]);
         } else {
             $v = \validator($request->all(), [

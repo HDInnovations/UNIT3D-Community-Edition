@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
+use App\Rules\EmailBlacklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -102,7 +103,16 @@ class InviteController extends Controller
 
         if (\config('email-blacklist.enabled')) {
             $v = \validator($invite->toArray(), [
-                'email'  => 'required|string|email|max:70|blacklist|unique:users',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:70',
+                    'unique:invites',
+                    'unique:users',
+                    'unique:applications',
+                    new EmailBlacklist()
+                ],
                 'custom' => 'required',
             ]);
         } else {
