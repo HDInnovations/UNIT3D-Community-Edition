@@ -9,13 +9,13 @@ class UserFactory extends Factory
 {
     public function setupRole()
     {
-        $role = \App\Models\Role::factory();
+        $role = \App\Models\Role::factory()->create();
         $privileges = \App\Models\Privilege::all();
         foreach ($privileges as $privilege) {
             $role->privileges()->attach($privilege);
         }
 
-        return $role;
+        return $role->id;
     }
 
     /**
@@ -38,8 +38,8 @@ class UserFactory extends Factory
             'can_upload'          => $this->faker->boolean,
             'censor'              => $this->faker->boolean,
             'chat_hidden'         => $this->faker->boolean,
-            'chat_status_id'      => \App\Models\ChatStatus::factory(),
-            'chatroom_id'         => \App\Models\Chatroom::factory(),
+            'chat_status_id'      => \App\Models\ChatStatus::factory()->create()->id,
+            'chatroom_id'         => \App\Models\Chatroom::factory()->create()->id,
             'custom_css'          => $this->faker->word,
             'deleted_by'          => $this->faker->randomNumber,
             'disabled_at'         => $this->faker->dateTime,
@@ -49,7 +49,7 @@ class UserFactory extends Factory
             'hidden'              => $this->faker->boolean,
             'hitandruns'          => $this->faker->randomNumber,
             'image'               => $this->faker->image,
-            'internal_id'         => \App\Models\Internal::factory(),
+            'internal_id'         => \App\Models\Internal::factory()->create()->id,
             'invites'             => $this->faker->randomNumber,
             'last_action'         => $this->faker->dateTime,
             'last_login'          => $this->faker->dateTime,
@@ -63,7 +63,7 @@ class UserFactory extends Factory
             'ratings'             => $this->faker->boolean,
             'read_rules'          => $this->faker->boolean,
             'remember_token'      => $this->faker->word,
-            'role_id'             => $this->setupRole()->id,
+            'role_id'             => $this->setupRole(),
             'rsskey'              => $this->faker->unique()->word,
             'seedbonus'           => $this->faker->randomFloat,
             'show_poster'         => $this->faker->boolean,
