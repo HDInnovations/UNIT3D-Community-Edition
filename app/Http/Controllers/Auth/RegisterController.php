@@ -23,6 +23,7 @@ use App\Models\UserActivation;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
+use App\Rules\EmailBlacklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -85,13 +86,27 @@ class RegisterController extends Controller
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:users',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:users',
+                        new EmailBlacklist(),
+                    ],
                 ]);
             } else {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:users',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:users',
+                        new EmailBlacklist(),
+                    ],
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }

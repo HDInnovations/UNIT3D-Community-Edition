@@ -8,7 +8,6 @@ $files = [
     '/var/www/html/app/Http/Kernel.php',
     '/var/www/html/app/Providers/AuthServiceProvider.php',
     '/var/www/html/app/Providers/BroadcastServiceProvider.php',
-    '/var/www/html/app/Providers/EmailBlacklistServiceProvider.php',
     '/var/www/html/app/Traits/UsersOnlineTrait.php',
     '/var/www/html/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
     '/var/www/html/app/Http/Middleware/TrimStrings.php',
