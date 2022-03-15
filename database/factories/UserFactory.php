@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
+    public function setupRole()
+    {
+        $role = \App\Models\Role::factory();
+        $privileges = \App\Models\Privilege::all();
+        foreach ($privileges as $privilege) {
+            $role->privileges()->attach($privilege);
+        }
+
+        return $role;
+    }
+
     /**
      * Define the model's default state.
      *
@@ -52,7 +63,7 @@ class UserFactory extends Factory
             'ratings'             => $this->faker->boolean,
             'read_rules'          => $this->faker->boolean,
             'remember_token'      => $this->faker->word,
-            'role_id'             => \App\Models\Role::factory(),
+            'role_id'             => $this->setupRole()->id,
             'rsskey'              => $this->faker->unique()->word,
             'seedbonus'           => $this->faker->randomFloat,
             'show_poster'         => $this->faker->boolean,

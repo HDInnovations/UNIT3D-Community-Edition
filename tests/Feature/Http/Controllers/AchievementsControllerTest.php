@@ -12,7 +12,9 @@ class AchievementsControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $response = $this->get(route('achievements.index'));
+        $user = \App\Models\User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('achievements.index'));
 
         $response->assertOk();
         $response->assertViewIs('achievement.index');
@@ -27,7 +29,7 @@ class AchievementsControllerTest extends TestCase
     {
         $user = \App\Models\User::factory()->create();
 
-        $response = $this->get(route('achievements.show', ['username' => $username]));
+        $response = $this->actingAs($user)->get(route('achievements.show', ['username' => $user->username]));
 
         $response->assertOk();
         $response->assertViewIs('achievement.show');
