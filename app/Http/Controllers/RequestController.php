@@ -89,7 +89,7 @@ class RequestController extends Controller
                 'videos'   => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
-                'platforms',])
+                'platforms', ])
                 ->find($torrentRequest->igdb);
         }
 

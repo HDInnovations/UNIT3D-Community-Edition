@@ -187,7 +187,7 @@ class TorrentController extends Controller
                 'videos'   => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
-                'platforms',])
+                'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
             $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
