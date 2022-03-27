@@ -43,7 +43,7 @@ jobs:
       - name: Configure NPM
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
       - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
