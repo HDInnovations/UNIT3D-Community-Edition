@@ -187,7 +187,7 @@ class StatsController extends Controller
     public function seeders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select(DB::raw('user_id, count(distinct info_hash) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return \view('stats.users.seeders', ['seeders' => $seeders]);
     }
