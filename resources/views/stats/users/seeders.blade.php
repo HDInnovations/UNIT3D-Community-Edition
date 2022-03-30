@@ -57,7 +57,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="text-green">{{ $s->user->getSeeding() }}</span>
+                                    <span class="text-green">{{ $s->value }}</span>
                                 </td>
                             </tr>
                         @endforeach
