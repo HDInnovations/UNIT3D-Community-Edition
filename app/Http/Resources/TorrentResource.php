@@ -27,11 +27,11 @@ class TorrentResource extends JsonResource
         $meta = null;
 
         if ($this->category->tv_meta && ($this->tmdb !== 0)) {
-            $meta = Tv::with('genres')->where('id', '=', $this->tmdb)->first();
+            $meta = Tv::where('id', '=', $this->tmdb)->first();
         }
 
         if ($this->category->movie_meta && ($this->tmdb !== 0)) {
-            $meta = Movie::with('genres')->where('id', '=', $this->tmdb)->first();
+            $meta = Movie::where('id', '=', $this->tmdb)->first();
         }
 
         return [
@@ -43,9 +43,15 @@ class TorrentResource extends JsonResource
                 'release_year'    => $this->release_year,
                 'category'        => $this->category->name,
                 'type'            => $this->type->name,
-                'resolution'      => $this->resolution->name ?? '',
+                'resolution'      => $this->when(isset($this->resolution_id), $this->resolution->name ?? ''),
+                'distributor'     => $this->when(isset($this->distributor_id), $this->distributor->name ?? ''),
+                'region'          => $this->when(isset($this->region_id), $this->region->name ?? ''),
+                'media_info'      => $this->mediainfo,
+                'bd_info'         => $this->bdinfo,
+                'description'     => $this->description,
+                'info_hash'       => $this->info_hash,
                 'size'            => $this->size,
-                'num_file'        => $this->num_file,
+                'num_file'         => $this->num_file,
                 'freeleech'       => $this->free.'%',
                 'double_upload'   => $this->doubleup,
                 'internal'        => $this->internal,
@@ -58,6 +64,11 @@ class TorrentResource extends JsonResource
                 'tvdb_id'         => $this->tvdb,
                 'mal_id'          => $this->mal,
                 'igdb_id'         => $this->igdb,
+                'category_id'     => $this->category_id,
+                'type_id'         => $this->type_id,
+                'resolution_id'   => $this->when($this->resolution_id !== null, $this->resolution_id),
+                'distributor_id'  => $this->when($this->distributor_id !== null, $this->distributor_id),
+                'region_id'       => $this->when($this->region_id !== null, $this->region_id),
                 'created_at'      => $this->created_at,
                 'download_link'   => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
                 'magnet_link'     => $this->when(\config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => \auth('api')->user()->passkey]).'&xl='.$this->size),
