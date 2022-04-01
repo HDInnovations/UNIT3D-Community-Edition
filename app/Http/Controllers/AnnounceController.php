@@ -410,7 +410,7 @@ class AnnounceController extends Controller
             $count = Peer::where('user_id', '=', $user->id)
                 ->where('seeder', '=', 0)
                 ->count();
-            if ($count >= $max ) {
+            if ($count >= $max) {
                 throw new TrackerException(164, [':max' => $max]);
             }
         }
