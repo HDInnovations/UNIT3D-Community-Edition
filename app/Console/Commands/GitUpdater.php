@@ -264,9 +264,10 @@ class GitUpdater extends Command
         $this->header('Compiling Assets ...');
 
         $this->commands([
+            'npm install npm -g',
             'rm -rf node_modules',
             'npm cache clean --force',
-            'npm install',
+            'npm install --no-audit',
             'npx mix -p',
         ]);
 
