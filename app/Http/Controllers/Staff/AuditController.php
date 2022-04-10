@@ -31,6 +31,10 @@ class AuditController extends Controller
         \abort_unless($user->hasPrivilegeTo('dashboard_can_audit_log'), 403);
         $audits = Audit::with('user')->latest()->paginate(50);
 
+        foreach ($audits as $audit) {
+            $audit->values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR);
+        }
+
         return \view('Staff.audit.index', ['audits' => $audits]);
     }
 

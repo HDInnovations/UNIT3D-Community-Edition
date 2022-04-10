@@ -61,7 +61,16 @@
                        title="{{ __('torrent.my-active-torrents') }}">
                         <span class="text-blue"> {{ __('torrent.leeching') }}:</span>
                     </a>
-                    {{ auth()->user()->getLeeching() }} out of {{ auth()->user()->group->download_slots ?? '∞' }}
+                    {{ auth()->user()->getLeeching() }}
+                </span>
+            </li>
+            <li>
+                <span class="badge-user text-bold">
+                    <i class="{{ config('other.font-awesome') }} fa-wifi text-blue"></i>
+                    <span> DL Slots:</span>
+                    @if (\config('announce.slots_system.enabled') == true)
+                        {{ auth()->user()->group->download_slots ?? '∞' }}
+                    @endif
                 </span>
             </li>
             <li>

@@ -499,8 +499,18 @@
                         @endif
                         <td class="torrent-listings-format" style="width: 5%; text-align: center;">
                             <div class="text-center">
-                                <i class="{{ $torrent->category->icon }} torrent-icon"
-                                   style="@if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif font-size: 24px;"></i>
+                                @if ($torrent->category->image !== null)
+                                    <div class="text-center">
+                                        <img src="{{ url('files/img/' . $torrent->category->image) }}"
+                                             title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
+                                             alt="{{ $torrent->category->name }}"
+                                             loading="lazy"
+                                             style="height: 32px; @if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif">
+                                    </div>
+                                @else
+                                    <i class="{{ $torrent->category->icon }} torrent-icon"
+                                       style="@if ($torrent->category->movie_meta || $torrent->category->tv_meta) padding-top: 1px; @else padding-top: 15px; @endif font-size: 24px;"></i>
+                                @endif
                             </div>
                             <div class="text-center">
                                 <span class="label label-success" style="font-size: 13px">
@@ -757,7 +767,7 @@
                             @if ($torrent->category->game_meta)
                                 <span class='badge-extra'>
                                     <img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;"
-                                         width="24px" height="24px"> {{ $torrent->igdb }}
+                                         width="24px" height="24px" loading="lazy"> {{ $torrent->igdb }}
                                     <br>
                                     <span class="{{ rating_color($meta->rating ?? 'text-white') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-star-half-alt"></i>
@@ -770,7 +780,7 @@
                                 <span class='badge-extra'>
                                     <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
                                         <img src="{{ url('img/tmdb_small.png') }}" alt="tmdb_id"
-                                             style="margin-left: -5px;" width="24px" height="24px">
+                                             style="margin-left: -5px;" width="24px" height="24px" loading="lazy">
                                         {{ $torrent->tmdb }}
                                     </a>
                                     <br>

@@ -1,23 +1,13 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
 
-namespace App\Validators;
+namespace App\Rules;
 
 use App\Helpers\EmailBlacklistUpdater;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class EmailBlacklistValidator
+class EmailBlacklist implements Rule
 {
     /**
      * Array of blacklisted domains.
@@ -25,19 +15,9 @@ class EmailBlacklistValidator
     private array $domains = [];
 
     /**
-     * Generate the error message on validation failure.
+     * Determine if the validation rule passes.
      */
-    public function message($attribute): string
-    {
-        return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
-    }
-
-    /**
-     * Execute the validation routine.
-     *
-     * @throws \Exception
-     */
-    public function validate(?string $value): bool
+    public function passes($attribute, $value): bool
     {
         // Load blacklisted domains
         $this->refresh();
@@ -50,7 +30,7 @@ class EmailBlacklistValidator
     }
 
     /**
-     * Retrive latest selection of blacklisted domains and cache them.
+     * Retrive the latest selection of blacklisted domains and cache them.
      */
     public function refresh(): void
     {
@@ -59,6 +39,9 @@ class EmailBlacklistValidator
         $this->appendCustomDomains();
     }
 
+    /**
+     * Should update blacklist?.
+     */
     protected function shouldUpdate(): void
     {
         $autoupdate = \config('email-blacklist.auto-update');
@@ -71,6 +54,9 @@ class EmailBlacklistValidator
         }
     }
 
+    /**
+     * Append custom defined blacklisted domains.
+     */
     protected function appendCustomDomains(): void
     {
         $appendList = \config('email-blacklist.append');
@@ -80,5 +66,13 @@ class EmailBlacklistValidator
 
         $appendDomains = \explode('|', \strtolower($appendList));
         $this->domains = \array_merge($this->domains, $appendDomains);
+    }
+
+    /**
+     * Get the validation error message.
+     */
+    public function message(): string
+    {
+        return 'Email domain is not allowed. Throwaway email providers are blacklisted.';
     }
 }

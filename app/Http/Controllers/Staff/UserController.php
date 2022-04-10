@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\FreeleechToken;
+use App\Models\History;
 use App\Models\Internal;
 use App\Models\Invite;
 use App\Models\Like;
@@ -214,7 +215,9 @@ class UserController extends Controller
         }
 
         // Remove all History records for user
-        History::where('user_id', '=', $user->id)->delete();
+        foreach (History::where('user_id', '=', $user->id)->get() as $history) {
+            $history->delete();
+        }
 
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {

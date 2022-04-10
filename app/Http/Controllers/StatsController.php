@@ -193,7 +193,7 @@ class StatsController extends Controller
     {
         \abort_unless($request->user()->hasPrivilegeTo('stats_can_view'), 403);
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select(DB::raw('user_id, count(distinct torrent_id) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return \view('stats.users.seeders', ['seeders' => $seeders]);
     }
