@@ -11,6 +11,7 @@ class UserFactory extends Factory
     public function setupRole()
     {
         $role = Role::find(random_int(8, Role::orderByDesc('id')->select('id')->first()->id));
+
         return $role->id;
     }
 
