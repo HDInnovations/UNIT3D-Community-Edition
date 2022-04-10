@@ -22,8 +22,8 @@ use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Faker\Generator;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class DemoSeed extends Command
 {
@@ -60,16 +60,16 @@ class DemoSeed extends Command
             $tv_ids[] = $faker->unique()->numberBetween(100000, 96900);
             $role = Role::find(random_int(8, Role::orderByDesc('id')->select('id')->first()->id));
             $user = User::factory()->create([
-                'chatroom_id' => 1,
-                'role_id' => $role->id,
+                'chatroom_id'    => 1,
+                'role_id'        => $role->id,
                 'chat_status_id' => 1,
-                'image' => null,
-                'custom_css' => null,
-                'locale' => 'en',
+                'image'          => null,
+                'custom_css'     => null,
+                'locale'         => 'en',
             ]);
             $user->roles()->attach($role);
             $uids[] = $user->id;
-            $this->info('Created User Account with ID#'. $user->id .' & Primary Role of '.$role->slug);
+            $this->info('Created User Account with ID#'.$user->id.' & Primary Role of '.$role->slug);
         }
         foreach ($movie_ids as $id) {
             //Random User ID
@@ -79,34 +79,35 @@ class DemoSeed extends Command
                 $movie = $this->fetchMovie($id);
 
                 // Torrents
-                if (!empty($movie) && array_key_exists('title', $movie)) {
-                    $this->info('Creating Movie Torrents for Account ID #' . $uid);
+                if (! empty($movie) && array_key_exists('title', $movie)) {
+                    $this->info('Creating Movie Torrents for Account ID #'.$uid);
+
                     try {
                         $year = 1901;
 
                         if (\array_key_exists('release_date', $movie)) {
-                            $year = (int)\substr($movie['release_date'], 0, 4) > 1900 ? (int)\substr($movie['release_date'], 0, 4) : 1901;
+                            $year = (int) \substr($movie['release_date'], 0, 4) > 1900 ? (int) \substr($movie['release_date'], 0, 4) : 1901;
                         }
 
                         $freeleech = ['0', '25', '50', '75', '100'];
                         $selected = \random_int(0, \count($freeleech) - 1);
 
                         Torrent::factory()->create([
-                            'user_id' => $uid,
-                            'tmdb' => $id,
-                            'name' => $movie['title'] . ' (' . $year . ')',
-                            'slug' => Str::slug($movie['title']),
-                            'description' => $movie['overview'],
-                            'category_id' => 1,
-                            'type_id' => random_int(1, 6),
-                            'resolution_id' => random_int(1, 10),
-                            'region_id' => random_int(1, 242),
+                            'user_id'        => $uid,
+                            'tmdb'           => $id,
+                            'name'           => $movie['title'].' ('.$year.')',
+                            'slug'           => Str::slug($movie['title']),
+                            'description'    => $movie['overview'],
+                            'category_id'    => 1,
+                            'type_id'        => random_int(1, 6),
+                            'resolution_id'  => random_int(1, 10),
+                            'region_id'      => random_int(1, 242),
                             'distributor_id' => random_int(1, 965),
-                            'free' => $freeleech[$selected],
-                            'featured' => false,
-                            'sticky' => 0,
-                            'release_year' => $year,
-                            'mediainfo' => '
+                            'free'           => $freeleech[$selected],
+                            'featured'       => false,
+                            'sticky'         => 0,
+                            'release_year'   => $year,
+                            'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -254,7 +255,7 @@ Menu
 01:44:15.249                             : en:End Credits
                         ',
                             'created_at' => \now(),
-                            'bumped_at' => \now(),
+                            'bumped_at'  => \now(),
                             'updated_at' => \now(),
                         ]);
                     } catch (Exception $exception) {
@@ -265,9 +266,7 @@ Menu
                         break;
                     }
                 }
-
             }
-
 
             if ($abort) {
                 break;
@@ -281,34 +280,35 @@ Menu
             if ([false, true][random_int(0, 1)]) {
                 $tv = $this->fetchTv($id);
                 // Torrents
-                if (!empty($tv) && array_key_exists('name', $tv)) {
-                    $this->info('Creating TV Torrents for Account ID #' . $uid);
+                if (! empty($tv) && array_key_exists('name', $tv)) {
+                    $this->info('Creating TV Torrents for Account ID #'.$uid);
+
                     try {
                         $year = 1901;
 
                         if (\array_key_exists('first_air_date', $tv)) {
-                            $year = (int)\substr($tv['first_air_date'], 0, 4) > 1900 ? (int)\substr($movie['first_air_date'], 0, 4) : 1901;;
+                            $year = (int) \substr($tv['first_air_date'], 0, 4) > 1900 ? (int) \substr($movie['first_air_date'], 0, 4) : 1901;
                         }
 
                         $freeleech = ['0', '25', '50', '75', '100'];
                         $selected = \random_int(0, \count($freeleech) - 1);
 
                         Torrent::factory()->create([
-                            'user_id' => $uid,
-                            'tmdb' => $id,
-                            'name' => $tv['name'] . ' (' . $year . ')',
-                            'slug' => Str::slug($tv['name']),
-                            'description' => $tv['overview'],
-                            'category_id' => 2,
-                            'type_id' => random_int(1, 6),
-                            'resolution_id' => random_int(1, 10),
-                            'region_id' => random_int(1, 242),
+                            'user_id'        => $uid,
+                            'tmdb'           => $id,
+                            'name'           => $tv['name'].' ('.$year.')',
+                            'slug'           => Str::slug($tv['name']),
+                            'description'    => $tv['overview'],
+                            'category_id'    => 2,
+                            'type_id'        => random_int(1, 6),
+                            'resolution_id'  => random_int(1, 10),
+                            'region_id'      => random_int(1, 242),
                             'distributor_id' => random_int(1, 965),
-                            'free' => $freeleech[$selected],
-                            'featured' => false,
-                            'sticky' => 0,
-                            'release_year' => $year,
-                            'mediainfo' => '
+                            'free'           => $freeleech[$selected],
+                            'featured'       => false,
+                            'sticky'         => 0,
+                            'release_year'   => $year,
+                            'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -456,7 +456,7 @@ Menu
 01:44:15.249                             : en:End Credits
                         ',
                             'created_at' => \now(),
-                            'bumped_at' => \now(),
+                            'bumped_at'  => \now(),
                             'updated_at' => \now(),
                         ]);
                     } catch (Exception $exception) {
@@ -497,5 +497,4 @@ Menu
 
         return (new TV($id))->getData();
     }
-
 }
