@@ -14,7 +14,7 @@ class ChatroomFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->words(2, true),
         ];
     }
 }

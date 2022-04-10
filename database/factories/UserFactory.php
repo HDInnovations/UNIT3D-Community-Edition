@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -9,12 +10,7 @@ class UserFactory extends Factory
 {
     public function setupRole()
     {
-        $role = \App\Models\Role::factory()->create();
-        $privileges = \App\Models\Privilege::all();
-        foreach ($privileges as $privilege) {
-            $role->privileges()->attach($privilege);
-        }
-
+        $role = Role::find(random_int(8, Role::orderByDesc('id')->select('id')->first()->id));
         return $role->id;
     }
 
@@ -28,7 +24,7 @@ class UserFactory extends Factory
         return [
             'about'               => $this->faker->text,
             'active'              => $this->faker->boolean,
-            'api_token'           => $this->faker->unique()->word,
+            'api_token'           => $this->faker->unique()->lexify('??????????????????????'),
             'block_notifications' => $this->faker->boolean,
             'can_chat'            => $this->faker->boolean,
             'can_comment'         => $this->faker->boolean,
@@ -56,7 +52,7 @@ class UserFactory extends Factory
             'locale'              => $this->faker->locale,
             'nav'                 => $this->faker->boolean,
             'own_flushes'         => $this->faker->boolean,
-            'passkey'             => $this->faker->unique()->word,
+            'passkey'             => $this->faker->unique()->lexify('??????????????????????'),
             'password'            => Hash::make('password'),
             'peer_hidden'         => $this->faker->boolean,
             'private_profile'     => $this->faker->boolean,
@@ -64,7 +60,7 @@ class UserFactory extends Factory
             'read_rules'          => $this->faker->boolean,
             'remember_token'      => $this->faker->word,
             'role_id'             => $this->setupRole(),
-            'rsskey'              => $this->faker->unique()->word,
+            'rsskey'              => $this->faker->unique()->lexify('??????????????????????'),
             'seedbonus'           => $this->faker->randomFloat,
             'show_poster'         => $this->faker->boolean,
             'signature'           => $this->faker->text,
