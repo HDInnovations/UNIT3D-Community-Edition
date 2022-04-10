@@ -2,8 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Chatroom;
+use App\Models\ChatStatus;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
@@ -34,8 +37,8 @@ class UserFactory extends Factory
             'can_upload'          => $this->faker->boolean,
             'censor'              => $this->faker->boolean,
             'chat_hidden'         => $this->faker->boolean,
-            'chat_status_id'      => \App\Models\ChatStatus::factory()->create()->id,
-            'chatroom_id'         => \App\Models\Chatroom::factory()->create()->id,
+            'chat_status_id'      => Arr::random(ChatStatus::pluck('id')->toArray()),
+            'chatroom_id'         => Arr::random(Chatroom::pluck('id')->toArray()),
             'custom_css'          => $this->faker->word,
             'deleted_by'          => $this->faker->randomNumber,
             'disabled_at'         => $this->faker->dateTime,
