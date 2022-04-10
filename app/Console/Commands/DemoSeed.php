@@ -86,7 +86,7 @@ class DemoSeed extends Command
                         $year = 1901;
 
                         if (\array_key_exists('release_date', $movie)) {
-                            $year = (int) \substr($movie['release_date'], 0, 4) > 1900 ? (int) \substr($movie['release_date'], 0, 4) : 1901;
+                            $year = (int) \substr($movie['release_date'], 0, 4) > 1900 ? (int) \substr($movie['release_date'], 0, 4) : 0000;
                         }
 
                         $freeleech = ['0', '25', '50', '75', '100'];
@@ -287,7 +287,7 @@ Menu
                         $year = 1901;
 
                         if (\array_key_exists('first_air_date', $tv)) {
-                            $year = (int) \substr($tv['first_air_date'], 0, 4) > 1900 ? (int) \substr($movie['first_air_date'], 0, 4) : 1901;
+                            $year = (int) \substr($tv['first_air_date'], 0, 4) > 1900 ? (int) \substr($movie['first_air_date'], 0, 4) : 0000;
                         }
 
                         $freeleech = ['0', '25', '50', '75', '100'];
