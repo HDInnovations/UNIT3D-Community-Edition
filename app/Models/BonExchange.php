@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
 class BonExchange extends Model
 {
     use HasFactory;
-    use Auditable;
 
     /**
      * The Database Table Used By The Model.

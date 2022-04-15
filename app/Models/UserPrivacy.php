@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserPrivacy extends Model
 {
     use HasFactory;
-    use Auditable;
 
     /**
      * Indicates If The Model Should Be Timestamped.
