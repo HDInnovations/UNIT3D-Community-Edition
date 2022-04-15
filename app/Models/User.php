@@ -18,6 +18,7 @@ use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\HasPrivilege;
 use App\Traits\HasRole;
+use App\Traits\Auditable;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
 use Carbon\Carbon;
@@ -37,6 +38,7 @@ class User extends Authenticatable
     use UsersOnlineTrait;
     use HasPrivilege;
     use HasRole;
+    use Auditable;
 
     /**
      * The Attributes Excluded From The Model's JSON Form.
