@@ -68,7 +68,7 @@
                                         <h1 class="movie-title">{{ $feature->torrent->name }}</h1>
                                     </a>
                                     <h4 class="movie-info">
-                                        @if (isset($meta) && isset($meta->genres))
+                                        @if (isset($meta, $meta->genres) && count($meta->genres) > 0)
                                             @foreach ($meta->genres as $genre)
                                                 @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
                                                     | {{ $genre->name }}
