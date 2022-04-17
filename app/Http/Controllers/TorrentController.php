@@ -394,6 +394,7 @@ class TorrentController extends Controller
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
+                Comment::where('torrent_id', '=', $id)->delete();
                 Peer::where('torrent_id', '=', $id)->delete();
                 History::where('torrent_id', '=', $id)->delete();
                 Warning::where('torrent', '=', $id)->delete();
