@@ -39,8 +39,7 @@ class AutoStatsClients extends Command
     public function handle(): void
     {
         $clients = Peer::selectRaw('agent, count(*) as count')
-            ->fromSub(fn ($sub) =>
-                $sub
+            ->fromSub(fn ($sub) => $sub
                     ->select(['agent', 'user_id'])
                     ->from('peers')
                     ->groupBy('agent', 'user_id'),
