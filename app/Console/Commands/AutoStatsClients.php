@@ -38,30 +38,20 @@ class AutoStatsClients extends Command
      */
     public function handle(): void
     {
-        $peers = Peer::where('seeder', '=', 1)->get();
-
-        $user_id = [];
-        $clients = [];
-        $clients_tmp = [];
-
-        // Goal is to calculate the number of users and not the peer count
-        foreach ($peers as $peer) {
-            if (! \in_array($peer->user_id, $user_id)) {
-                $user_id[] = $peer->user_id;
-                $clients_tmp[] = $peer->agent;
-                $clients[(string) $peer->agent] = 1;
-            } elseif (! \in_array($peer->agent, $clients_tmp) && \in_array($peer->user_id, $user_id)) {
-                $clients_tmp[] = $peer->agent;
-                $clients[(string) $peer->agent] = 1;
-            } else {
-                $clients[(string) $peer->agent]++;
-            }
-        }
+        $clients = Peer::selectRaw('agent, count(*) as count')
+            ->fromSub(fn ($sub) => $sub
+                    ->select(['agent', 'user_id'])
+                    ->from('peers')
+                    ->groupBy('agent', 'user_id'),
+                'distinct_agent_user'
+            )
+            ->groupBy('agent')
+            ->orderBy('agent')
+            ->get()
+            ->mapWithKeys(fn ($item, $key) => [$item['agent'] => $item['count']])
+            ->toArray();
 
         if (! empty($clients)) {
-            // Sort Clients by Array Key Alphabetically
-            \ksort($clients);
-
             \cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 
