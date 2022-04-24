@@ -150,7 +150,7 @@ class TorrentController extends BaseController
 
         // Set freeleech and doubleup if featured
         if ($torrent->featured == 1) {
-            $torrent->free = '1';
+            $torrent->free = '100';
             $torrent->doubleup = '1';
         }
 
