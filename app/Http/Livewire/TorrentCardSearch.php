@@ -280,20 +280,34 @@ class TorrentCardSearch extends Component
                 $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
                 $query->whereIntegerInRaw('category_id', $categories)->whereIntegerInRaw('tmdb', $collection);
             })
-            ->when($this->free0 === '0' || $this->free0, function ($query) {
-                $query->where('free', '=', 0);
-            })
-            ->when($this->free25, function ($query) {
-                $query->orWhere('free', '=', 25);
-            })
-            ->when($this->free50, function ($query) {
-                $query->orWhere('free', '=', 50);
-            })
-            ->when($this->free75, function ($query) {
-                $query->orWhere('free', '=', 75);
-            })
-            ->when($this->free100, function ($query) {
-                $query->orWhere('free', '=', 100);
+            ->when($this->free0 === '0' || $this->free0 || $this->free25 || $this->free50 || $this->free75 || $this->free100, function ($query) {
+                $query->where(function ($query) {
+                    $query->where(function ($query) {
+                        if ($this->free0 === '0' || $this->free0) {
+                            $query->where('free', '=', 0);
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->free25) {
+                            $query->where('free', '=', 25);
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->free50) {
+                            $query->where('free', '=', 50);
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->free75) {
+                            $query->where('free', '=', 75);
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->free100) {
+                            $query->where('free', '=', 100);
+                        }
+                    });
+                });
             })
             ->when($this->doubleup, function ($query) {
                 $query->where('doubleup', '=', 1);
