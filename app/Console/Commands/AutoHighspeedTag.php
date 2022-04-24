@@ -45,10 +45,10 @@ class AutoHighspeedTag extends Command
     {
         DB::statement('UPDATE torrents SET highspeed = 0');
 
-        $seedboxUsers = Seedbox::select(['user_id'])->get()->toArray();
+        $seedboxUsers = Seedbox::pluck('user_id');
 
-        if (\is_array($seedboxUsers) && $seedboxUsers !== []) {
-            $torid = Peer::select(['torrent_id'])->whereIntegerInRaw('user_id', $seedboxUsers)->where('seeder', '=', 1)->get()->toArray();
+        if ($seedboxUsers) {
+            $torid = Peer::whereIntegerInRaw('user_id', $seedboxUsers)->where('seeder', '=', 1)->pluck('torrent_id');
 
             foreach ($torid as $id) {
                 $torrent = Torrent::select(['id', 'highspeed'])->where('id', '=', $id)->first();
