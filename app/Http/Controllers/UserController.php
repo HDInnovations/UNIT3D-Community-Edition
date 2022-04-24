@@ -30,6 +30,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use App\Rules\EmailBlacklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -355,7 +356,14 @@ class UserController extends Controller
 
         if (\config('email-blacklist.enabled') == true) {
             $v = \validator($request->all(), [
-                'email' => 'required|string|email|max:70|blacklist|unique:users',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:70',
+                    'unique:users',
+                    new EmailBlacklist(),
+                ],
             ]);
         } else {
             $v = \validator($request->all(), [
@@ -1897,12 +1905,12 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         \abort_unless($request->user()->id == $user->id, 403);
 
-        // Define Dir Folder
-        $path = \getcwd().'/files/tmp_zip/';
+        // Define Dir For Zip
+        $zipPath = \getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($path)) {
-            File::makeDirectory($path, 0755, true, true);
+        if (! File::isDirectory($zipPath)) {
+            File::makeDirectory($zipPath, 0755, true, true);
         }
 
         // Zip File Name
@@ -1912,9 +1920,11 @@ class UserController extends Controller
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $historyTorrents = History::where('user_id', '=', $user->id)->pluck('torrent_id');
+        $historyTorrents = History::whereHas('torrent')
+            ->where('user_id', '=', $user->id)
+            ->pluck('torrent_id');
 
-        if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
+        if ($zipArchive->open($zipPath.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
             $failCSV = '"Name","URL","ID","info_hash"
 ';
@@ -1930,7 +1940,7 @@ class UserController extends Controller
 
                 // The Torrent File Exist?
                 if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
+                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$torrent->info_hash.'"
 ';
                     $failCount++;
                 } else {
@@ -1964,7 +1974,7 @@ class UserController extends Controller
             $zipArchive->close();
         }
 
-        $zipFile = $path.'/'.$zipFileName;
+        $zipFile = $zipPath.'/'.$zipFileName;
 
         if (\file_exists($zipFile)) {
             return \response()->download($zipFile)->deleteFileAfterSend(true);

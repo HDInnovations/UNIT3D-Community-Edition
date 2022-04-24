@@ -111,8 +111,8 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            if (\config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($user);
+            if (\config('announce.slots_system.enabled') == true) {
+                $this->checkDownloadSlots($queries, $user);
             }
 
             /**
@@ -402,11 +402,11 @@ class AnnounceController extends Controller
     /**
      * @throws \App\Exceptions\TrackerException
      */
-    private function checkDownloadSlots($user): void
+    private function checkDownloadSlots($queries, $user): void
     {
         $max = $user->group->download_slots;
 
-        if ($max !== null && $max >= 0) {
+        if ($max !== null && $max >= 0 && $queries['left'] != 0) {
             $count = Peer::where('user_id', '=', $user->id)
                 ->where('seeder', '=', 0)
                 ->count();

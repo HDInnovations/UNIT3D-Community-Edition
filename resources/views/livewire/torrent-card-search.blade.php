@@ -449,7 +449,7 @@
             @endif
             @if ($torrent->category->game_meta)
                 @if ($torrent->igdb || $torrent->igdb != 0)
-                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb) @endphp
+                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb) @endphp
                 @endif
             @endif
 
@@ -531,9 +531,7 @@
                             @if (isset($meta->genres) && $torrent->category->game_meta)
                                 @foreach ($meta->genres as $genre)
                                     <span class="genre-label">
-                                        <a href="{{ route('mediahub.genres.show', ['id' => $genre['id']]) }}">
-                                            <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre['name'] }}
-                                        </a>
+                                        <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre['name'] }}
                                     </span>
                                 @endforeach
                             @endif

@@ -86,7 +86,11 @@ class RequestController extends Controller
                 'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
                 'genres'   => ['name'],
-            ])->find($torrentRequest->igdb);
+                'videos'   => ['video_id', 'name'],
+                'involved_companies.company',
+                'involved_companies.company.logo',
+                'platforms', ])
+                ->find($torrentRequest->igdb);
         }
 
         return \view('requests.request', [

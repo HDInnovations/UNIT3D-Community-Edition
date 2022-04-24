@@ -13,14 +13,12 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserNotification extends Model
 {
     use HasFactory;
-    use Auditable;
 
     /**
      * Indicates If The Model Should Be Timestamped.

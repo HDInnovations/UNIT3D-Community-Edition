@@ -394,6 +394,7 @@ class TorrentController extends Controller
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
+                Comment::where('torrent_id', '=', $id)->delete();
                 Peer::where('torrent_id', '=', $id)->delete();
                 History::where('torrent_id', '=', $id)->delete();
                 Warning::where('torrent', '=', $id)->delete();
@@ -721,17 +722,16 @@ class TorrentController extends Controller
         if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
-
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-
+        $hasHistory = $user->history()->where([['info_hash', '=', $torrent->info_hash], ['seeder', '=', 1]])->count();
         // User's ratio is too low
-        if ($user->getRatio() < \config('other.ratio')) {
+        if ($user->getRatio() < \config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && $torrent->user_id != $user->id) {
+        if ($user->can_download == 0 && ! ($torrent->user_id === $user->id || $hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
