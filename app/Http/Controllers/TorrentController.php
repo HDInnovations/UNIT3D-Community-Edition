@@ -21,6 +21,7 @@ use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Models\BonTransactions;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Distributor;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
