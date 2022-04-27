@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ auth()->user()->locale }}">
-
 <head>
     @include('partials.head')
 </head>
-
 <body>
-<div id="hoeapp-wrapper">
+<header>
     @include('partials.top_nav')
-    <div id="hoeapp-container">
-        <section id="main-content">
-            @include('partials.userbar')
-            @include('partials.breadcrumb')
-            @include('cookie-consent::index')
-            @include('partials.alerts')
-            @if (Session::has('achievement'))
-                @include('partials.achievement_modal')
-            @endif
-            @if ($errors->any())
-                <div id="ERROR_COPY" style="display: none;">
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}<br>
-                    @endforeach
-                </div>
-            @endif
-            @yield('content')
-            @include('partials.footer')
-        </section>
-    </div>
-</div>
+    @include('partials.breadcrumb')
+    @include('cookie-consent::index')
+    @include('partials.alerts')
+    @if (Session::has('achievement'))
+        @include('partials.achievement_modal')
+    @endif
+    @if ($errors->any())
+        <div id="ERROR_COPY" style="display: none;">
+            @foreach ($errors->all() as $error)
+                {{ $error }}<br>
+            @endforeach
+        </div>
+    @endif
+</header>
+<main>
+    <article>
+        @yield('content')
+    </article>
+</main>
+@include('partials.footer')
 
 <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
 <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
