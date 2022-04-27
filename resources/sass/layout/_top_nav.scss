@@ -160,7 +160,7 @@
 }
 
 .top-nav__dropdown > ul::before {
-    content: "";
+    content: '';
     display: block;
     height: 5px;
     left: 0;
@@ -323,7 +323,7 @@
         & > li:last-child {
             width: 100%;
 
-            & > a ,
+            & > a,
             & > ul > li > a > i,
             & > ul > li > form > button > i {
                 display: none;
@@ -425,7 +425,7 @@
         display: none;
 
         &.expanded {
-            display: inline-block
+            display: inline-block;
         }
     }
 }
