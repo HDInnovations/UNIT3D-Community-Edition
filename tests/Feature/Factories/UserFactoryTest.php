@@ -41,7 +41,6 @@ class UserFactoryTest extends TestCase
         $this->assertArrayHasKey('chat_hidden', $user);
         $this->assertArrayHasKey('hidden', $user);
         $this->assertArrayHasKey('style', $user);
-        $this->assertArrayHasKey('nav', $user);
         $this->assertArrayHasKey('torrent_layout', $user);
         $this->assertArrayHasKey('torrent_filters', $user);
         $this->assertArrayHasKey('custom_css', $user);
