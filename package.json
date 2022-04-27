@@ -29,7 +29,6 @@
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "@soketi/soketi": "^0.32.0",
     "alpinejs": "^3.9.1",
     "dayjs": "^1.11.0",
     "emoji-picker-element": "^1.11.0",
