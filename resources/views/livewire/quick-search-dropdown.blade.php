@@ -9,6 +9,7 @@
                 <input
                     type="radio"
                     class="quick-search__radio"
+                    name="quick-search"
                     x-on:click="
                         search = 'movie';
                         $wire.set('series', '');
@@ -25,6 +26,7 @@
                 <input
                     type="radio"
                     class="quick-search__radio"
+                    name="quick-search"
                     x-on:click="
                         search = 'series';
                         $wire.set('movie', '');
@@ -41,6 +43,7 @@
                 <input
                     type="radio"
                     class="quick-search__radio"
+                    name="quick-search"
                     x-on:click="
                         search = 'person';
                         $wire.set('movie', '');
