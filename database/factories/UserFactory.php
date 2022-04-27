@@ -40,7 +40,6 @@ class UserFactory extends Factory
             'chat_hidden'         => $this->faker->boolean(),
             'hidden'              => $this->faker->boolean(),
             'style'               => $this->faker->boolean(),
-            'nav'                 => $this->faker->boolean(),
             'torrent_layout'      => $this->faker->boolean(),
             'torrent_filters'     => $this->faker->boolean(),
             'custom_css'          => $this->faker->word(),

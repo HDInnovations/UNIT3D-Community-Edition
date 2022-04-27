@@ -1,7 +1,12 @@
 .quick-search {
     position: relative;
     max-width: 280px;
-    margin-top: 8px;
+    flex-grow: 1;
+    z-index: 5;
+
+    @media screen and (max-width: 1280px) {
+        display: none;
+    }
 }
 
 .quick-search:active,
@@ -20,7 +25,6 @@
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid transparent;
-    height: 32px;
 }
 
 .quick-search:active .quick-search__inputs,
