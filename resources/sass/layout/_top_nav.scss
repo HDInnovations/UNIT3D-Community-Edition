@@ -47,20 +47,23 @@
 .top-nav__branding {
     grid-area: branding;
     text-decoration: none;
-    color: #999;
+    color: #9682de;
     display: flex;
     gap: 5px;
     align-items: center;
+    font-size: 3rem;
 }
 
 .top-nav__site-logo {
     background-color: #4281da;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-image: linear-gradient(90deg, #343ce6 4%, #34a8e6 19%, #56e2b5 39%, #62e080, #d195cb, #e646dd);
+    background-image: radial-gradient(circle, rgba(21,225,237,1) 0%, rgba(175,99,228,1) 44%, rgba(141,0,255,1) 86%);
     font-weight: 900;
-    font-size: 18px;
+    font-size: 2.5rem;
     text-shadow: rgba(52, 160, 230, 0.55) 0 0 1px;
+    font-family: Comfortaa,Helvetica Neue,Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
 }
 
 /* Main menus
