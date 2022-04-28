@@ -263,6 +263,16 @@
                 </a>
             </li>
         </ul> 
+        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+            <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
+                <i class="{{ auth()->user()->group->icon }}"></i>
+                {{ auth()->user()->username }}
+                @if (auth()->user()->getWarning() > 0)
+                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                        title="{{ __('common.active-warning') }}"></i>
+                @endif
+            </span>
+        </a>
         <ul class="top-nav__icon-bar" x-bind:class="expanded && 'mobile'">
             @if (auth()->user()->group->is_modo)
                 <li>
@@ -315,6 +325,18 @@
                     >
                 </a>
                 <ul>
+                    <li>
+                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                            <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
+                                <i class="{{ auth()->user()->group->icon }}"></i>
+                                {{ auth()->user()->username }}
+                                @if (auth()->user()->getWarning() > 0)
+                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                       title="{{ __('common.active-warning') }}"></i>
+                                @endif
+                            </span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i>

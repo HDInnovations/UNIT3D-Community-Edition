@@ -285,7 +285,7 @@
         grid-template-rows: auto;
         grid-template-columns: repeat(8, auto);
         font-size: 12px;
-        margin: 0 48px;
+        margin: 0 40px;
     }
 
     @media screen and (max-width: 767px) {
@@ -470,5 +470,28 @@
         &.mobile {
             display: inline-block;
         }
+    }
+}
+
+/* Username and rank
+******************************************************************************/
+
+.top-nav__username.top-nav__username {
+    text-align: center;
+    padding: 12px 0 2px 0;
+    grid-template-columns: auto;
+}
+
+.top-nav__username--highresolution {
+    display: none;
+    align-items: center;
+    font-size: 14px;
+    
+    > span {
+        white-space: nowrap;
+    }
+
+    @media screen and (min-width: 1900px) {
+        display: flex;
     }
 }
