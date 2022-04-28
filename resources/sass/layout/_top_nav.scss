@@ -24,7 +24,7 @@
         gap: 16px;
     }
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (max-width: 767px) {
         & .top-nav__site-logo,
         & .top-nav__branding i {
             font-size: 22px;
@@ -38,6 +38,11 @@
     display: flex;
     gap: 36px;
     justify-content: end;
+
+    &.mobile {
+        display: flex;
+        flex-direction: column;
+    }
 
     @media screen and (max-width: 1280px) {
         gap: 16px;
@@ -264,7 +269,7 @@
     grid-template-rows: repeat(2, auto);
     grid-template-columns: repeat(4, auto);
     grid-auto-flow: column;
-    font-size: 10px;
+    font-size: 11px;
     list-style-type: none;
     color: #ddd;
     align-content: center;
@@ -272,8 +277,24 @@
     padding: 0;
     margin: 0;
 
-    @media screen and (max-width: 767px) {
+    @media screen and (min-width: 767px) and (max-width: 1280px) {
         display: none;
+    }
+
+    @media screen and (min-width: 1800px) {
+        grid-template-rows: auto;
+        grid-template-columns: repeat(8, auto);
+        font-size: 12px;
+        margin: 0 48px;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 12px;
+        display: none;
+
+        &.mobile {
+            display: grid;
+        }
     }
 }
 
@@ -400,7 +421,7 @@
 ******************************************************************************/
 
 .top-nav__stats {
-    display: grid;
+    display: none;
     grid-template: 'up down ratio' auto 'up down ratio' auto / auto auto auto;
     column-gap: 18px;
     align-items: center;
@@ -413,25 +434,24 @@
     margin: 0;
     padding: 0;
 
-    @media screen and (max-width: 1280px) {
-        display: none;
+    @media screen and (min-width: 1023px) and (max-width: 1280px) {
+        display: grid;
     }
 }
 
 .top-nav__stats-up {
     grid-area: up;
+    white-space: nowrap;
 }
 
 .top-nav__stats-down {
     grid-area: down;
+    white-space: nowrap;
 }
 
 .top-nav__stats-ratio {
     grid-area: ratio;
-}
-
-.top-nav__stats-user {
-    grid-area: user;
+    white-space: nowrap;
 }
 
 /* Menu toggle
@@ -444,10 +464,10 @@
     border: none;
     color: #999;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 767px) {
         display: none;
 
-        &.expanded {
+        &.mobile {
             display: inline-block;
         }
     }
