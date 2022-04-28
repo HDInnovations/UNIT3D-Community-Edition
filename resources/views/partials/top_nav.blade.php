@@ -28,7 +28,7 @@
                 <li>
                     <a href="{{ route('upload_form', ['category_id' => 1]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                        {{ __('common.publish') }}
+                        {{ __('common.upload') }}
                     </a>
                 </li>
                 <li>
@@ -200,7 +200,7 @@
                 <li>
                     <a href="{{ route('internal') }}">
                         <i class="{{ config('other.font-awesome') }} fa-star-shooting"></i>
-                        {{ __('common.staff') }}
+                        {{ __('common.internal') }}
                     </a>
                 </li>
             </ul>
