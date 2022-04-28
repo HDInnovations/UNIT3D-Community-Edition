@@ -5,6 +5,9 @@
     grid-template: 'left menus right toggle' 48px / 1fr auto 1fr auto;
     align-items: center;
     padding: 0 14px;
+    position: fixed;
+    width: 100vw;
+    z-index: 6;
 
     &.mobile {
         grid-template: 'left toggle' 'menus menus' 'right right' auto / 1fr auto;
