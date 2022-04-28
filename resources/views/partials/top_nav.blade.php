@@ -8,7 +8,12 @@
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a tabindex="0">
+            <a class="top-nav__dropdown--nontouch"  href="{{ route('torrents') }}">
+                <div class="top-nav--left__container">
+                    {{ __('torrent.torrents') }}
+                </div>
+            </a>
+            <a class="top-nav__dropdown--touch" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
@@ -23,7 +28,7 @@
                 <li>
                     <a href="{{ route('upload_form', ['category_id' => 1]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                        {{ __('common.publish') }}
+                        {{ __('common.upload') }}
                     </a>
                 </li>
                 <li>
@@ -41,7 +46,12 @@
             </ul>
         </li>
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a tabindex="0">
+            <a class="top-nav__dropdown--nontouch"  href="{{ route('forums.index') }}">
+                <div class="top-nav--left__container">
+                    {{ __('common.community') }}
+                </div>
+            </a>
+            <a class="top-nav__dropdown--touch" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>
@@ -190,7 +200,7 @@
                 <li>
                     <a href="{{ route('internal') }}">
                         <i class="{{ config('other.font-awesome') }} fa-star-shooting"></i>
-                        {{ __('common.staff') }}
+                        {{ __('common.internal') }}
                     </a>
                 </li>
             </ul>
@@ -211,6 +221,58 @@
                 {{ auth()->user()->getRatioString() }}
             </li>
         </ul> 
+        <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
+            <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
+                <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                {{ auth()->user()->getUploaded() }}
+            </li>
+            <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
+                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                {{ auth()->user()->getDownloaded() }}
+            </li>
+            <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
+                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-upload"></i>
+                    {{ auth()->user()->getSeeding() }}
+                </a>
+            </li>
+            <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
+                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                    {{ auth()->user()->getLeeching() }}
+                </a>
+            </li>
+            <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
+                <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
+                {{ auth()->user()->untilRatio(config('other.ratio')) }}
+            </li>
+            <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
+                <a href="{{ route('bonus') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-coins" ></i>
+                    {{ auth()->user()->getSeedbonus() }}
+                </a>
+            </li>
+            <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
+                <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
+                {{ auth()->user()->getRatioString() }}
+            </li>
+            <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
+                <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                    {{ auth()->user()->fl_tokens }}
+                </a>
+            </li>
+        </ul> 
+        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+            <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
+                <i class="{{ auth()->user()->group->icon }}"></i>
+                {{ auth()->user()->username }}
+                @if (auth()->user()->getWarning() > 0)
+                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                        title="{{ __('common.active-warning') }}"></i>
+                @endif
+            </span>
+        </a>
         <ul class="top-nav__icon-bar" x-bind:class="expanded && 'mobile'">
             @if (auth()->user()->group->is_modo)
                 <li>
@@ -264,48 +326,16 @@
                 </a>
                 <ul>
                     <li>
-                        <ul class="top-nav__ratio-bar">
-                            <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                                <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                                {{ auth()->user()->getUploaded() }}
-                            </li>
-                            <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                                <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                                {{ auth()->user()->getDownloaded() }}
-                            </li>
-                            <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-upload text-green"></i>
-                                    {{ auth()->user()->getSeeding() }}
-                                </a>
-                            </li>
-                            <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-download text-red"></i>
-                                    {{ auth()->user()->getLeeching() }}
-                                </a>
-                            </li>
-                            <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                                <i class="{{ config('other.font-awesome') }} fa-exchange text-orange"></i>
-                                {{ auth()->user()->untilRatio(config('other.ratio')) }}
-                            </li>
-                            <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
-                                <a href="{{ route('bonus') }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-coins text-gold" ></i>
-                                    {{ auth()->user()->getSeedbonus() }}
-                                </a>
-                            </li>
-                            <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                                <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                                {{ auth()->user()->getRatioString() }}
-                            </li>
-                            <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
-                                <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
-                                    <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                                    {{ auth()->user()->fl_tokens }}
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                            <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
+                                <i class="{{ auth()->user()->group->icon }}"></i>
+                                {{ auth()->user()->username }}
+                                @if (auth()->user()->getWarning() > 0)
+                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                       title="{{ __('common.active-warning') }}"></i>
+                                @endif
+                            </span>
+                        </a>
                     </li>
                     <li>
                         <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
@@ -376,7 +406,7 @@
     </div>
     <button
         class="top-nav__toggle {{ \config('other.font-awesome') }}"
-        x-bind:class="expanded ? 'fa-times' : 'fa-bars'"
+        x-bind:class="expanded ? 'fa-times mobile' : 'fa-bars'"
         x-on:click="expanded = !expanded"
     ></button>
 </nav>
