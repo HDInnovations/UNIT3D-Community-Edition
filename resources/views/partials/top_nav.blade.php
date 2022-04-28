@@ -8,7 +8,12 @@
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a tabindex="0">
+            <a class="top-nav__dropdown--nontouch"  href="{{ route('torrents') }}">
+                <div class="top-nav--left__container">
+                    {{ __('torrent.torrents') }}
+                </div>
+            </a>
+            <a class="top-nav__dropdown--touch" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
@@ -41,7 +46,12 @@
             </ul>
         </li>
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a tabindex="0">
+            <a class="top-nav__dropdown--nontouch"  href="{{ route('forums.index') }}">
+                <div class="top-nav--left__container">
+                    {{ __('common.community') }}
+                </div>
+            </a>
+            <a class="top-nav__dropdown--touch" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>

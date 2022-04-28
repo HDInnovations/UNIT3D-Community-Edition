@@ -130,6 +130,18 @@
     text-decoration: none;
 }
 
+@media (hover: none) {
+    .top-nav__dropdown--nontouch {
+        display: none !important;
+    }
+}
+
+@media (hover: hover) {
+    .top-nav__dropdown--touch {
+        display: none !important;
+    }
+}
+
 .top-nav__dropdown > a > .top-nav--left__container {
     display: grid;
     align-items: center;
