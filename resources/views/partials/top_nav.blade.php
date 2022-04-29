@@ -168,12 +168,6 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{ route('bonus') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-shopping-cart"></i>
-                        {{ __('bon.bon') }} {{ __('bon.store') }}
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('subtitles.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
                         {{ __('common.subtitles') }}
