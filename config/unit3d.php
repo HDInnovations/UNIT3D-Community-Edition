@@ -77,5 +77,5 @@ return [
 
     'chat-link-name' => 'Discord',
     'chat-link-icon' => 'fab fa-discord',
-    'chat-link-url'  => ''
+    'chat-link-url'  => '',
 ];
