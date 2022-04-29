@@ -87,6 +87,14 @@
                         {{ __('common.news') }}
                     </a>
                 </li>
+                @if (!empty(config('unit3d.chat-link-url')))
+                    <li>
+                        <a  href="{{ config('unit3d.chat-link-url') }}">
+                            <i class="{{ config('unit3d.chat-link-icon') }}"></i>
+                            {{ config('unit3d.chat-link-name') ?: __('common.chat') }}
+                        </a>
+                    </li>
+                @endif
             </ul>
         </li>
         <li class="top-nav__dropdown">
