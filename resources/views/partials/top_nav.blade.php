@@ -270,14 +270,14 @@
         <ul class="top-nav__icon-bar" x-bind:class="expanded && 'mobile'">
             @if (auth()->user()->group->is_modo)
                 <li>
-                    <a class="top-nav--right__icon-link" href="{{ route('staff.dashboard.index') }}">
+                    <a class="top-nav--right__icon-link" href="{{ route('staff.dashboard.index') }}" title="{{ __('staff.staff-dashboard') }}">
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
                     </a>
                 </li>
             @endif
             @if (auth()->user()->group->is_modo)
                 <li>
-                    <a class="top-nav--right__icon-link" href="{{ route('staff.moderation.index') }}">
+                    <a class="top-nav--right__icon-link" href="{{ route('staff.moderation.index') }}" title="{{ __('staff.torrent-moderation') }}">
                         <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
                         @php
                             $torrents_unmoderated = DB::table('torrents')->where('status', '=', '0')->count()
@@ -295,7 +295,7 @@
                         ->where('read', '=', '0')
                         ->count()
                 @endphp
-                <a class="top-nav--right__icon-link" href="{{ route('inbox') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('inbox') }}" title="{{ __('pm.inbox') }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
                     @if ($pm > 0)
                         <x-animation.notification />
@@ -303,7 +303,7 @@
                 </a>
             </li>
             <li>
-                <a class="top-nav--right__icon-link" href="{{ route('notifications.index') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('notifications.index') }}" title="{{ __('user.notifications') }}">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if (auth()->user()->unreadNotifications->count() > 0)
                         <x-animation.notification />
