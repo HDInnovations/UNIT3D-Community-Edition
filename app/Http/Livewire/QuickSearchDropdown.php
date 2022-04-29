@@ -15,23 +15,26 @@ class QuickSearchDropdown extends Component
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
+        $search = '%'.str_replace(' ', '%', $this->quicksearchText).'%';
         $search_results = match ($this->quicksearchRadio) {
             'movies' => Movie::query()
                 ->select(['id', 'poster', 'title', 'release_date'])
-                ->where('title', 'LIKE', '%'.$this->quicksearchText.'%')
+                ->selectRaw("concat(title, ' ', release_date) as title_and_year")
+                ->having('title_and_year', 'LIKE', $search)
                 ->oldest('title')
                 ->take(10)
                 ->get(),
             'series' => Tv::query()
                 ->select(['id', 'poster', 'name', 'first_air_date'])
-                ->where('name', 'LIKE', '%'.$this->quicksearchText.'%')
+                ->selectRaw("concat(name, ' ', first_air_date) as title_and_year")
+                ->having('title_and_year', 'LIKE', $search)
                 ->oldest('name')
                 ->take(10)
                 ->get(),
             'persons' => Person::query()
                 ->select(['id', 'still', 'name'])
                 ->whereNotNull('still')
-                ->where('name', 'LIKE', '%'.$this->quicksearchText.'%')
+                ->where('name', 'LIKE', $search)
                 ->oldest('name')
                 ->take(10)
                 ->get(),
