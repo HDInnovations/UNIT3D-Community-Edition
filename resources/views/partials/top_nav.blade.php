@@ -319,7 +319,14 @@
                 </a>
             </li>
             <li class="top-nav__dropdown">
-                <a>
+                <a class="top-nav__dropdown--nontouch" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                    <img
+                        src="{{ url(auth()->user()->image ? 'files/img/'.auth()->user()->image : 'img/profile.png')}}"
+                        alt="{{ auth()->user()->username }}"
+                        class="top-nav__profile-image"
+                    >
+                </a>
+                <a class="top-nav__dropdown--touch" tabindex="0">
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/'.auth()->user()->image : 'img/profile.png')}}"
                         alt="{{ auth()->user()->username }}"
@@ -328,7 +335,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                        <a class="top-nav__username" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
                             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
