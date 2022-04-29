@@ -217,12 +217,16 @@
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                {{ auth()->user()->getUploaded() }}
+                <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                    {{ auth()->user()->getUploaded() }}
+                </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                {{ auth()->user()->getDownloaded() }}
+                <a href="{{ route('user_downloads', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                    {{ auth()->user()->getDownloaded() }}
+                </a>
             </li>
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
@@ -231,14 +235,16 @@
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('user_unsatisfieds', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                     {{ auth()->user()->getLeeching() }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
+                    {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
                 <a href="{{ route('bonus') }}">
@@ -247,8 +253,10 @@
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                {{ auth()->user()->getRatioString() }}
+                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
+                    {{ auth()->user()->getRatioString() }}
+                </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
                 <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
