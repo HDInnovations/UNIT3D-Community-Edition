@@ -9,43 +9,34 @@ use Livewire\Component;
 
 class QuickSearchDropdown extends Component
 {
-    public string $movie = '';
+    public string $quicksearchRadio = 'movies';
 
-    public string $series = '';
-
-    public string $person = '';
+    public string $quicksearchText = '';
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $search_results = [];
-
-        if (strlen($this->movie) >= 3) {
-            $search_results = Movie::query()
+        $search_results = match ($this->quicksearchRadio) {
+            'movies' => Movie::query()
                 ->select(['id', 'poster', 'title', 'release_date'])
-                ->where('title', 'LIKE', '%'.$this->movie.'%')
+                ->where('title', 'LIKE', '%'.$this->quicksearchText.'%')
                 ->oldest('title')
                 ->take(10)
-                ->get();
-        }
-
-        if (strlen($this->series) >= 3) {
-            $search_results = Tv::query()
+                ->get(),
+            'series' => Tv::query()
                 ->select(['id', 'poster', 'name', 'first_air_date'])
-                ->where('name', 'LIKE', '%'.$this->series.'%')
+                ->where('name', 'LIKE', '%'.$this->quicksearchText.'%')
                 ->oldest('name')
                 ->take(10)
-                ->get();
-        }
-
-        if (strlen($this->person) >= 3) {
-            $search_results = Person::query()
+                ->get(),
+            'persons' => Person::query()
                 ->select(['id', 'still', 'name'])
                 ->whereNotNull('still')
-                ->where('name', 'LIKE', '%'.$this->person.'%')
+                ->where('name', 'LIKE', '%'.$this->quicksearchText.'%')
                 ->oldest('name')
                 ->take(10)
-                ->get();
-        }
+                ->get(),
+            default  => [],
+        };
 
         return \view('livewire.quick-search-dropdown', [
             'search_results' => $search_results,
