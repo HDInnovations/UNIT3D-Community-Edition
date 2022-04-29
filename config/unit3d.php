@@ -65,4 +65,17 @@ return [
 
     // Global Rate Limit for Comments - X Per Minute
     'comment-rate-limit' => env('COMMENTS_PER_MINUTE', 3),
+
+    /*
+    |--------------------------------------------------------------------------
+    | External Chat Platform
+    |--------------------------------------------------------------------------
+    |
+    | Settings to configure an external chat platform
+    |
+    */
+
+    'chat-link-name' => 'Discord',
+    'chat-link-icon' => 'fab fa-discord',
+    'chat-link-url'  => '',
 ];
