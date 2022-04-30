@@ -7,7 +7,9 @@
     padding: 0 14px;
     position: fixed;
     width: 100vw;
-    z-index: 6;
+    top: 0;
+    left: 0;
+    z-index: 10;
 
     &.mobile {
         grid-template: 'left toggle' 'menus menus' 'right right' auto / 1fr auto;
