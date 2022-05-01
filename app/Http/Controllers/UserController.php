@@ -272,8 +272,6 @@ class UserController extends Controller
 
         $user->standalone_css = $standaloneCss;
 
-        $user->nav = $request->input('sidenav');
-
         // Torrent Settings
         $user->torrent_layout = (int) $request->input('torrent_layout');
         $user->show_poster = $request->input('show_poster');

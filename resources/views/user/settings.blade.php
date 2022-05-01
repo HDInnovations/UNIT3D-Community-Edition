@@ -84,15 +84,6 @@
                                            placeholder="CSS URL">
                                 </label>
                             </div>
-                            <label for="sidenav" class="control-label">Side Navigation</label>
-                            <div class="radio-inline">
-                                <label><input type="radio" name="sidenav" @if ($user->nav == 1) checked
-                                              @endif value="1">Expanded</label>
-                            </div>
-                            <div class="radio-inline">
-                                <label><input type="radio" name="sidenav" @if ($user->nav == 0) checked
-                                              @endif value="0">Compact</label>
-                            </div>
                         </div>
 
                         <div class="well">
