@@ -76,7 +76,7 @@
                         <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('playlist.download-all') }}
                     </span>
                     </a>
-                    <a href="{{ route('torrents') }}?perPage=25&playlistId={{ $playlist->id }}" role="button"
+                    <a href="{{ route('torrents', ['playlistId' => $playlist->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Playlist Torrents List

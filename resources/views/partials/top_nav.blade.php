@@ -397,7 +397,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('torrents') }}?bookmarked=1">
+                        <a href="{{ route('torrents', ['bookmarked' => 1]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
                         </a>
