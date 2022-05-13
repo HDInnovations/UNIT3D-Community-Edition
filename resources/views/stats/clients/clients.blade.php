@@ -22,16 +22,31 @@
         <div class="block">
             <h2>Clients</h2>
             <hr>
-            <div class="row col-md-offset-1">
-                @foreach ($clients as $key => $value)
-                    @php if (\strlen($key) > 26) { $key = substr($key, 0, 23).'...'; } @endphp
-                    <div class="well col-md-3" style="margin: 10px;">
-                        <div class="text-center">
-                            <h3 class="text-success">{{ $key }}</h3>
-                            <span class="badge-extra text-blue">Used by {{ $value }} User(s)</span>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-condensed table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th class="text-right">{{ __('common.users') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($clients as $client => $count)
+                            <tr>
+                                <td class="text-success">
+                                    {{ $client }}
+                                </td>
+                                <td>
+                                    <p class="text-blue text-right">
+                                        Used by {{ $count }} users(s)
+                                    </p>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
