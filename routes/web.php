@@ -302,16 +302,12 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/banlog', [App\Http\Controllers\UserController::class, 'getBans'])->name('banlog');
             Route::post('/{username}/userFilters', [App\Http\Controllers\UserController::class, 'myFilter'])->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
-            Route::get('/{username}/seeds', [App\Http\Controllers\UserController::class, 'seeds'])->name('user_seeds');
             Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
             Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
-            Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
-            Route::get('/{username}/downloads', [App\Http\Controllers\UserController::class, 'downloads'])->name('user_downloads');
-            Route::get('/{username}/unsatisfieds', [App\Http\Controllers\UserController::class, 'unsatisfieds'])->name('user_unsatisfieds');
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');

@@ -13,16 +13,6 @@
                 {{ __('user.followers') }}
             </a>
         @endif
-        @if (auth()->user()->isAllowed($user,'torrent','show_upload'))
-            <a href="{{ route('user_uploads', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-                {{ __('user.uploads') }}
-            </a>
-        @endif
-        @if (auth()->user()->isAllowed($user,'torrent','show_download'))
-            <a href="{{ route('user_downloads', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-                {{ __('user.downloads') }}
-            </a>
-        @endif
         @if (auth()->user()->isAllowed($user,'forum','show_post'))
             <a href="{{ route('user_posts', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
                 {{ __('user.posts') }}
