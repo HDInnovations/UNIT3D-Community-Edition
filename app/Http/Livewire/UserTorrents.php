@@ -29,19 +29,19 @@ class UserTorrents extends Component
 
     public string $name = '';
 
-    public string $unsatisfied = '';
+    public string $unsatisfied = 'any';
 
-    public string $active = '';
+    public string $active = 'any';
 
-    public string $completed = '';
+    public string $completed = 'any';
 
-    public string $uploaded = '';
+    public string $uploaded = 'any';
 
-    public string $hitrun = '';
+    public string $hitrun = 'any';
 
-    public string $prewarn = '';
+    public string $prewarn = 'any';
 
-    public string $immune = '';
+    public string $immune = 'any';
 
     public array $status = [];
 
@@ -56,13 +56,13 @@ class UserTorrents extends Component
         'name'              => ['except' => ''],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
-        'unsatisfied'       => ['except' => ''],
-        'active'            => ['except' => ''],
-        'completed'         => ['except' => ''],
-        'prewarn'           => ['except' => ''],
-        'hitrun'            => ['except' => ''],
-        'immune'            => ['except' => ''],
-        'uploaded'          => ['except' => ''],
+        'unsatisfied'       => ['except' => 'any'],
+        'active'            => ['except' => 'any'],
+        'completed'         => ['except' => 'any'],
+        'prewarn'           => ['except' => 'any'],
+        'hitrun'            => ['except' => 'any'],
+        'immune'            => ['except' => 'any'],
+        'uploaded'          => ['except' => 'any'],
         'status'            => ['except' => []],
         'showMorePrecision' => ['except' => false]
     ];

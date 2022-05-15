@@ -29,7 +29,7 @@ class UserActive extends Component
 
     public string $name = '';
 
-    public string $seeding = '';
+    public string $seeding = 'any';
 
     public string $sortField = 'created_at';
 
@@ -40,7 +40,7 @@ class UserActive extends Component
     protected $queryString = [
         'perPage'           => ['except' => 50],
         'name'              => ['except' => ''],
-        'seeding'           => ['except' => ''],
+        'seeding'           => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false]
