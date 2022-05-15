@@ -94,9 +94,10 @@
     color: var(--text-color);
 }
 
-// input[type="checkbox"] {
-//     all: revert !important;
-// }
-input[type="checkbox"]:indeterminate {
+.user-torrents__checkbox {
+    all: revert !important;
+}
+
+.user-torrents__checkbox:indeterminate {
     all: revert !important;
 }

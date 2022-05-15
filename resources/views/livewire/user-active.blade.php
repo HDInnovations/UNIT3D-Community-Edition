@@ -14,6 +14,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('seeding'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-active__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state);"
                                 x-bind:checked="state === 'include'"
@@ -28,7 +29,7 @@
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="showMorePrecision">
+                            <input type="checkbox" class="user-active__checkbox" wire:model="showMorePrecision">
                             Show more precision
                         </label>
                     </span>

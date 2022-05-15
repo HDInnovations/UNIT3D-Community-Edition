@@ -16,6 +16,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('unsatisfied'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -27,6 +28,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('active'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -38,6 +40,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('completed'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -49,6 +52,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('prewarn'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -60,6 +64,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('hitrun'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -71,6 +76,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('immune'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -82,6 +88,7 @@
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('uploaded'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
+                                class="user-torrents__checkbox"
                                 x-init="updateTernaryCheckboxProperties($el, state)"
                                 x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
                                 x-bind:checked="state === 'include'"
@@ -98,25 +105,25 @@
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="status" value="0">
+                            <input type="checkbox" class="user-torrents__checkbox" wire:model="status" value="0">
                             {{ __('torrent.pending') }}
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="status" value="1">
+                            <input type="checkbox" class="user-torrents__checkbox" wire:model="status" value="1">
                             {{ __('torrent.approved') }}
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="status" value="2">
+                            <input type="checkbox" class="user-torrents__checkbox" wire:model="status" value="2">
                             {{ __('torrent.rejected') }}
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="status" value="3">
+                            <input type="checkbox" class="user-torrents__checkbox" wire:model="status" value="3">
                             Postponed
                         </label>
                     </span>
@@ -127,7 +134,7 @@
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" wire:model="showMorePrecision">
+                            <input type="checkbox" class="user-torrents__checkbox" wire:model="showMorePrecision">
                             Show more precision
                         </label>
                     </span>
