@@ -70,7 +70,7 @@
                     {{ __('torrent.client') }}
                     @include('livewire.includes._sort-icon', ['field' => 'agent'])
                 </th>
-                @if (!\config('announce.connectable_check'))
+                @if (\config('announce.connectable_check'))
                     <th class="user-active__connectable-header">
                         <i class="{{ config('other.font-awesome') }} fa-wifi" title="Connectable"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'connectable'])
@@ -141,7 +141,7 @@
                         <td class="user-active__agent">
                             {{ $active->agent ?: __('common.unknown') }}
                         </td>
-                        @if (!\config('announce.connectable_check'))
+                        @if (\config('announce.connectable_check'))
                             <td class="user-active__connectable">
                                 @if ($active->connectable === 1)
                                     <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Connectable"></i>
