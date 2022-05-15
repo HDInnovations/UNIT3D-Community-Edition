@@ -15,7 +15,6 @@ namespace App\Http\Livewire;
 
 use App\Models\History;
 use App\Models\User;
-
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -64,7 +63,7 @@ class UserTorrents extends Component
         'immune'            => ['except' => 'any'],
         'uploaded'          => ['except' => 'any'],
         'status'            => ['except' => []],
-        'showMorePrecision' => ['except' => false]
+        'showMorePrecision' => ['except' => false],
     ];
 
     final public function mount($userId): void
@@ -148,7 +147,7 @@ class UserTorrents extends Component
             ->when($this->immune === 'exclude', fn ($query) => $query->where('immune', '=', 0))
             ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', $this->user->id))
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
-            ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
+            ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

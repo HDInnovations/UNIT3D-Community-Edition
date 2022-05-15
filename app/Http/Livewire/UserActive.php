@@ -15,7 +15,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
-
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -43,7 +42,7 @@ class UserActive extends Component
         'seeding'           => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
-        'showMorePrecision' => ['except' => false]
+        'showMorePrecision' => ['except' => false],
     ];
 
     final public function mount($userId): void
