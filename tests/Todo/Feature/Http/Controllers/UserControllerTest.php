@@ -47,7 +47,6 @@ class UserControllerTest extends TestCase
         $response->assertViewIs('user.private.active');
         $response->assertViewHas('user');
         $response->assertViewHas('route');
-        $response->assertViewHas('active');
         $response->assertViewHas('his_upl');
         $response->assertViewHas('his_upl_cre');
         $response->assertViewHas('his_downl');
