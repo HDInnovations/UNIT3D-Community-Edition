@@ -611,7 +611,6 @@ class UserControllerTest extends TestCase
         $response->assertViewIs('user.private.torrents');
         $response->assertViewHas('route');
         $response->assertViewHas('user');
-        $response->assertViewHas('history');
         $response->assertViewHas('his_upl');
         $response->assertViewHas('his_upl_cre');
         $response->assertViewHas('his_downl');
