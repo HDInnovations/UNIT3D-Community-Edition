@@ -250,7 +250,7 @@
                                 <h3><strong>{{ $monthly }}</strong> {{ __('bon.per-month') }}</h3>
                                 <h3><strong>{{ $yearly }}</strong> {{ __('bon.per-year') }}</h3>
                             </div>
-                            <a href="{{ route('user_seeds', ['username' => auth()->user()->username]) }}"
+                            <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'completed' => 'include', 'active' => 'include']) }}"
                                class="btn btn-sm btn-primary">
                                 {{ __('bon.review-seeds') }}
                             </a>

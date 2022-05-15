@@ -84,12 +84,6 @@
         <a href="{{ route('user_followers', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             {{ __('user.followers') }}
         </a>
-        <a href="{{ route('user_uploads', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-            {{ __('user.uploads') }}
-        </a>
-        <a href="{{ route('user_downloads', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-            {{ __('user.downloads') }}
-        </a>
         <a href="{{ route('user_posts', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             {{ __('user.posts') }}
         </a>
@@ -101,19 +95,11 @@
         </a>
     </div>
     <div class="button-right-decreased">
-        @if(!$user->group || !$user->group->is_immune)
-            <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> {{ __('user.unsatisfieds') }}
-            </a>
-        @endif
         <a href="{{ route('user_torrents', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             {{ __('user.torrents') }}
         </a>
         <a href="{{ route('user_active', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             {{ __('user.active') }}
-        </a>
-        <a href="{{ route('user_seeds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-            {{ __('user.seeds') }}
         </a>
         @if(auth()->user()->id == $user->id)
             <a href="{{ route('bonus') }}" class="btn btn-sm btn-primary">
