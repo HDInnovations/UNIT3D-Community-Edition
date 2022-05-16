@@ -71,6 +71,8 @@ class UserActive extends Component
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
             ->select(
                 'peers.id',
+                'peers.ip',
+                'peers.port',
                 'peers.agent',
                 'peers.uploaded',
                 'peers.downloaded',
@@ -80,7 +82,6 @@ class UserActive extends Component
                 'peers.updated_at',
                 'peers.torrent_id',
                 'peers.user_id',
-                'peers.connectable',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',
