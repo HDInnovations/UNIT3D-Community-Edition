@@ -17,7 +17,7 @@
 .user-torrents__prewarned-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
-.user-torrents__uploaded-header,
+.user-torrents__uploader-header,
 .user-torrents__status-header {
     cursor: pointer;
     white-space: nowrap;
@@ -46,7 +46,7 @@
 .user-torrents__prewarned,
 .user-torrents__warned,
 .user-torrents__immune,
-.user-torrents__uploaded,
+.user-torrents__uploader,
 .user-torrents__status {
     font-size: 11px;
 }
@@ -77,14 +77,14 @@
 .user-torrents__prewarned-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
-.user-torrents__uploaded-header,
+.user-torrents__uploader-header,
 .user-torrents__status-header,
 .user-torrents__seeding,
 .user-torrents__leeching,
 .user-torrents__prewarned,
 .user-torrents__warned,
 .user-torrents__immune,
-.user-torrents__uploaded,
+.user-torrents__uploader,
 .user-torrents__status {
     text-align: center;
 }
