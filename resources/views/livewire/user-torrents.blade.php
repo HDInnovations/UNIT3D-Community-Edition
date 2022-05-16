@@ -371,8 +371,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-times text-red" title="Not immune"></i>
                             @endif
                         </td>
-                        <td class="user-torrents__uploaded">
-                            @if ($history->uploaded == 1)
+                        <td class="user-torrents__uploader">
+                            @if ($history->uploader == 1)
                                 <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.uploaded') }}"></i>
                             @else
                                 <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.uploaded') }}"></i>
