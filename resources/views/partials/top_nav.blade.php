@@ -38,6 +38,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('rss.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-rss"></i>
+                        {{ __('rss.rss') }}
+                    </a>
+                </li>                
+                <li>
                     <a href="{{ route('mediahub.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
                         MediaHub
