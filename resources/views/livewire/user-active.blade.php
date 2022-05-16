@@ -71,10 +71,17 @@
                     {{ __('torrent.client') }}
                     @include('livewire.includes._sort-icon', ['field' => 'agent'])
                 </th>
+                <th class="user-active__ip-header" wire:click="sortBy('ip')" role="columnheader button">
+                    {{ __('common.ip') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'ip'])
+                </th>
+                <th class="user-active__port-header" wire:click="sortBy('port')" role="columnheader button">
+                    {{ __('common.port') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'port'])
+                </th>
                 @if (\config('announce.connectable_check'))
                     <th class="user-active__connectable-header">
                         <i class="{{ config('other.font-awesome') }} fa-wifi" title="Connectable"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'connectable'])
                     </th>
                 @endif
                 <th class="user-active__seeding-header" wire:click="sortBy('size')" role="columnheader button" title="{{ __('torrent.seeding') }}">
@@ -142,12 +149,28 @@
                         <td class="user-active__agent">
                             {{ $active->agent ?: __('common.unknown') }}
                         </td>
+                        <td class="user-active__ip">
+                            {{ $active->ip ?: __('common.unknown') }}
+                        </td>
+                        <td class="user-active__port">
+                            {{ $active->port ?: __('common.unknown') }}
+                        </td>
                         @if (\config('announce.connectable_check'))
                             <td class="user-active__connectable">
-                                @if ($active->connectable === 1)
-                                    <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Connectable"></i>
+                                @php
+                                    $connectable = null;
+                                    if (cache()->has('peers:connectable:'.$active->ip.'-'.$active->port.'-'.$active->agent)) {
+                                        $connectable = cache()->get('peers:connectable:'.$active->ip.'-'.$active->port.'-'.$active->agent);
+                                    }
+                                @endphp
+                                @if ($connectable === null)
+                                    <i class="{{ config('other.font-awesome') }} text-blue fa-question" title="Unknown Connectable Status"></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not Connectable"></i>
+                                    @if ($connectable)
+                                        <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Connectable"></i>
+                                    @else
+                                        <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not Connectable"></i>
+                                    @endif
                                 @endif
                             </td>
                         @endif
