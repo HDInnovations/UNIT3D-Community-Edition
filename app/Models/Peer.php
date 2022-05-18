@@ -69,7 +69,7 @@ class Peer extends Model
             $cache = Redis::connection('cache')->get($key);
             $ttl = 0;
             if (isset($cache)) {
-                $ttl = Redis::connection('cache')->command('TTL', ['unit3d_cache:peers:connectable:192.168.2.25-55706-qBittorrent/4.4.2']);
+                $ttl = Redis::connection('cache')->command('TTL', [$key]);
             }
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
