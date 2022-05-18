@@ -15,6 +15,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Peer extends Model
 {
@@ -57,19 +58,22 @@ class Peer extends Model
      */
     public function updateConnectableStateIfNeeded(): void
     {
-        if (\config('announce.connectable_check') == true) {
+        if (\config('announce.connectable_check')) {
             $tmp_ip = $this->ip;
-
             // IPv6 Check
             if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $tmp_ip = '['.$tmp_ip.']';
             }
-
-            if (! \cache()->has('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent)) {
+            $key = strtolower(config('app.name')).'_cache:peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent;
+            $cache = Redis::get($key);
+            $ttl = 0;
+            if($cache) {
+                $ttl = Redis::ttl($key);
+            }
+            if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
-
                 $this->connectable = \is_resource($con);
-                \cache()->put('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addSeconds(config('announce.connectable_check_interval')));
+                \cache()->put('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addSeconds(config('announce.connectable_check_interval')+60*60*2));
 
                 if (\is_resource($con)) {
                     \fclose($con);
