@@ -59,7 +59,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
         'announce' => [
-            'throttle:1000,1',
+            'throttle:announce',
             'bindings',
         ]
     ];
