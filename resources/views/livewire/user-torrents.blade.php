@@ -349,8 +349,10 @@
                                     {{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}
                                 @endif
                             </td>
-                            <td class="user-torrents__seedtime {{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
-                                {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                            <td class="user-torrents__seedtime">
+                                <span class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
+                                    {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                </span>
                             </td>
                             <td class="user-torrents__created-at">
                                 @if ($history->updated_at === null)
@@ -369,11 +371,13 @@
                                     {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
                                 @endif
                             </td>
-                            <td class="user-torrents__seedtime {{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
+                            <td class="user-torrents__seedtime">
                                 @if ($history->seedtime === null)
                                     N/A
                                 @else
-                                    {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                                    <span class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
+                                        {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                                    </span>
                                 @endif
                             </td>
                             <td class="user-torrents__created-at">
