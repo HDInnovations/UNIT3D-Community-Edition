@@ -64,17 +64,18 @@ class Peer extends Model
             if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $tmp_ip = '['.$tmp_ip.']';
             }
-            $cache = Redis::connection('cache');
+
             $key = strtolower(config('app.name')).'_cache:peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent;
-            $cache = $cache->get($key);
+            $cache = Redis::connection('cache')->get($key);
             $ttl = 0;
-            if($cache) {
-                $ttl = $cache->ttl($key);
+            if(isset($cache)) {
+                $ttl = Redis::connection('cache')->command('TTL', ['unit3d_cache:peers:connectable:192.168.2.25-55706-qBittorrent/4.4.2']);
             }
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
                 $this->connectable = \is_resource($con);
-                \cache()->put('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addSeconds(config('announce.connectable_check_interval')+60*60*2));
+                Redis::connection('cache')->set($key, serialize($this->connectable));
+                Redis::connection('cache')->expire($key, \config('announce.connectable_check_interval') +3600);
                 if (\is_resource($con)) {
                     \fclose($con);
                 }
