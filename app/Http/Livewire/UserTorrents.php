@@ -134,7 +134,10 @@ class UserTorrents extends Component
             ->selectRaw('CAST(history.actual_uploaded AS float) / CAST((history.actual_downloaded + 1) AS float) AS actual_ratio')
             ->where(fn ($query) => $query
                 ->where('history.user_id', '=', $this->user->id)
-                ->orWhere('torrents.user_id', '=', $this->user->id)
+                ->orWhere(fn ($query) => $query
+                    ->where('torrents.user_id', '=', $this->user->id)
+                    ->whereNull('history.user_id')
+                )
             )
             ->when($this->name, fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
