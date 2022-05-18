@@ -59,7 +59,7 @@ class UserTorrents extends Component
     protected $queryString = [
         'perPage'           => ['except' => ''],
         'name'              => ['except' => ''],
-        'sortField'         => ['except' => 'initial_sort'],
+        'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
         'unsatisfied'       => ['except' => 'any'],
         'active'            => ['except' => 'any'],
@@ -69,7 +69,9 @@ class UserTorrents extends Component
         'immune'            => ['except' => 'any'],
         'uploaded'          => ['except' => 'any'],
         'downloaded'        => ['except' => 'any'],
+        'hasHistory'        => ['except' => 'any'],
         'status'            => ['except' => []],
+        'unapprovedOnTop'   => ['except' => true],
         'showMorePrecision' => ['except' => false],
     ];
 
