@@ -27,7 +27,6 @@ use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
@@ -377,9 +376,7 @@ class AnnounceController extends Controller
 
         if ($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds(\config('announce.min_interval.interval')))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped') {
-
             throw new TrackerException(162, [':min' => (int) \config('announce.min_interval.interval') ?? self::MIN]);
-
         }
     }
 
