@@ -42,6 +42,8 @@ class UserTorrents extends Component
 
     public string $immune = 'any';
 
+    public string $downloaded = 'any';
+
     public string $hasHistory = 'any';
 
     public array $status = [];
@@ -163,6 +165,8 @@ class UserTorrents extends Component
             ->when($this->hasHistory === 'exclude', fn ($query) => $query->whereNull('history.updated_at'))
             ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', $this->user->id))
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
+            ->when($this->downloaded === 'include', fn ($query) => $query->where('history.actual_downloaded', '>', 0))
+            ->when($this->downloaded === 'exclude', fn ($query) => $query->where('history.actual_downloaded', '=', 0))
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->when($this->unapprovedOnTop, fn ($query) => $query->orderByRaw('IF(status = 1, 1, 0)'))
             ->orderBy($this->sortField, $this->sortDirection)

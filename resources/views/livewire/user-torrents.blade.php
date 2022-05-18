@@ -97,6 +97,18 @@
                         </label>
                     </span>
                     <span class="badge-user">
+                        <label style="user-select: none" class="inline" x-data="{ state: @entangle('downloaded'), ...ternaryCheckbox() }">
+                            <input
+                                type="checkbox"
+                                class="user-torrents__checkbox"
+                                x-init="updateTernaryCheckboxProperties($el, state)"
+                                x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                                x-bind:checked="state === 'include'"
+                            >
+                            {{ __('torrent.downloaded') }}
+                        </label>
+                    </span>
+                    <span class="badge-user">
                         <label style="user-select: none" class="inline" x-data="{ state: @entangle('hasHistory'), ...ternaryCheckbox() }">
                             <input
                                 type="checkbox"
