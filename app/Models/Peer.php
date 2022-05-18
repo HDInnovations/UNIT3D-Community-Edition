@@ -65,7 +65,7 @@ class Peer extends Model
                 $tmp_ip = '['.$tmp_ip.']';
             }
 
-            $key = strtolower(config('app.name')).'_cache:peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent;
+            $key = config('cache.prefix').':peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent;
             $cache = Redis::connection('cache')->get($key);
             $ttl = 0;
             if (isset($cache)) {
