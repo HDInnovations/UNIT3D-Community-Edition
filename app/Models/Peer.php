@@ -64,17 +64,17 @@ class Peer extends Model
             if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $tmp_ip = '['.$tmp_ip.']';
             }
+            $cache = Redis::connection('cache');
             $key = strtolower(config('app.name')).'_cache:peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent;
-            $cache = Redis::get($key);
+            $cache = $cache->get($key);
             $ttl = 0;
             if($cache) {
-                $ttl = Redis::ttl($key);
+                $ttl = $cache->ttl($key);
             }
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
                 $this->connectable = \is_resource($con);
                 \cache()->put('peers:connectable:'.$tmp_ip.'-'.$this->port.'-'.$this->agent, $this->connectable, now()->addSeconds(config('announce.connectable_check_interval')+60*60*2));
-
                 if (\is_resource($con)) {
                     \fclose($con);
                 }
