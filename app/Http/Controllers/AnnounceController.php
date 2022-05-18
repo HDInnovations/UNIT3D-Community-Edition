@@ -34,14 +34,11 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
-
     protected const REJECTED = 2;
-
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 2_400;
-
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -101,8 +98,9 @@ class AnnounceController extends Controller
             /**
              * Lock Min Announce Interval.
              */
-            $this->checkMinInterval($torrent, $queries, $user);
-
+            if (\config('announce.min_interval.enabled')) {
+                $this->checkMinInterval($torrent, $queries, $user);
+            }
             /**
              * Check User Max Connections Per Torrent.
              */
@@ -111,7 +109,7 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            if (\config('announce.slots_system.enabled') == true) {
+            if (\config('announce.slots_system.enabled')) {
                 $this->checkDownloadSlots($queries, $user);
             }
 
@@ -377,9 +375,11 @@ class AnnounceController extends Controller
             ->where('user_id', '=', $user->id)
             ->pluck('updated_at');
 
-        $carbon = new Carbon();
-        if ($prevAnnounce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
-            throw new TrackerException(162, [':min' => self::MIN]);
+        if ($prevAnnounce->greaterThan(Carbon::now()->subSeconds(\config('announce.min_interval.interval')))
+            && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped') {
+
+            throw new TrackerException(162, [':min' => \config('announce.min_interval.interval') ?? self::MIN]);
+
         }
     }
 

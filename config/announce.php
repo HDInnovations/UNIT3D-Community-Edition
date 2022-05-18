@@ -33,8 +33,13 @@ return [
     |
     */
 
-    'min_interval' => '(60 * 30)',
+    'min_interval' => [
 
+        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
+
+        'interval' => (int) env('MIN_ANNOUNCE_INTERVAL', 60 * 10)
+
+    ],
     /*
     |--------------------------------------------------------------------------
     | Rate Limit
