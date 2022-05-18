@@ -142,13 +142,13 @@ class UserTorrents extends Component
                     ->where(fn ($query) => $query
                         ->where('seedtime', '>', \config('hitrun.seedtime'))
                         ->orWhere('immune', '=', 1)
-                        ->orWhereRaw('actual_downloaded < torrents.size * ?', [\config('hitrun.buffer')])
+                        ->orWhereRaw('actual_downloaded < (torrents.size * ? / 100)', [\config('hitrun.buffer')])
                     )
                 )
                 ->when($this->unsatisfied === 'include', fn ($query) => $query
                     ->where('seedtime', '<', \config('hitrun.seedtime'))
                     ->where('immune', '=', 0)
-                    ->whereRaw('actual_downloaded > torrents.size * ?', [\config('hitrun.buffer')])
+                    ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [\config('hitrun.buffer')])
                 )
             )
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
