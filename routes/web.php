@@ -69,9 +69,6 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['before' => 'auth'], function () {
-        // Announce (Pass Key Auth)
-        Route::get('/announce/{passkey}', [App\Http\Controllers\AnnounceController::class, 'index'])->name('announce');
-
         // RSS (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
         Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentController::class, 'download'])->name('torrent.download.rsskey');
