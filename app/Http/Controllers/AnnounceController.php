@@ -370,15 +370,15 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::where('torrent_id', '=', $torrent->id)
+        $prevAnnounce = Peer::select('updated_at')->where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
-            ->pluck('updated_at');
+            ->first();
 
-        if ($prevAnnounce->greaterThan(Carbon::now()->subSeconds(\config('announce.min_interval.interval')))
+        if ($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds(\config('announce.min_interval.interval')))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped') {
 
-            throw new TrackerException(162, [':min' => \config('announce.min_interval.interval') ?? self::MIN]);
+            throw new TrackerException(162, [':min' => (int) \config('announce.min_interval.interval') ?? self::MIN]);
 
         }
     }
