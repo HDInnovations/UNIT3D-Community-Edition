@@ -229,15 +229,6 @@ class TorrentTools
      */
     public static function parseKeywords($text): array
     {
-        $parts = \explode(', ', (string) $text);
-        $result = [];
-        foreach ($parts as $part) {
-            $part = \trim($part);
-            if ($part !== '') {
-                $result[] = $part;
-            }
-        }
-
-        return array_unique($result);
+        return \array_filter(\array_map('trim', explode(',', $text)));
     }
 }

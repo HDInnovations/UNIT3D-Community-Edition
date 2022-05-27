@@ -233,20 +233,6 @@ class TorrentCardSearch extends Component
             ->paginate($this->perPage);
     }
 
-    private static function parseKeywords($text): array
-    {
-        $parts = \explode(', ', (string) $text);
-        $result = [];
-        foreach ($parts as $part) {
-            $part = \trim($part);
-            if ($part !== '') {
-                $result[] = $part;
-            }
-        }
-
-        return $result;
-    }
-
     final public function sortBy($field): void
     {
         if ($this->sortField === $field) {

@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Helpers\Bencode;
-use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Http\Resources\TorrentResource;
@@ -29,7 +28,6 @@ use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -106,7 +104,7 @@ class TorrentController extends BaseController
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
-        $torrent->mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
+        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
@@ -243,7 +241,7 @@ class TorrentController extends BaseController
         }
 
         // Torrent Keywords System
-        foreach (self::parseKeywords($request->input('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
             $tag = new Keyword();
             $tag->name = $keyword;
             $tag->torrent_id = $torrent->id;
@@ -374,47 +372,5 @@ class TorrentController extends BaseController
         }
 
         return $this->sendResponse('404', 'No Torrents Found');
-    }
-
-    /**
-     * Anonymize A Torrent Media Info.
-     */
-    private static function anonymizeMediainfo(?string $mediainfo): array|string|null
-    {
-        if ($mediainfo === null) {
-            return null;
-        }
-
-        $completeNameI = \strpos($mediainfo, 'Complete name');
-        if ($completeNameI !== false) {
-            $pathI = \strpos($mediainfo, ': ', $completeNameI);
-            if ($pathI !== false) {
-                $pathI += 2;
-                $endI = \strpos($mediainfo, "\n", $pathI);
-                $path = \substr($mediainfo, $pathI, $endI - $pathI);
-                $newPath = MediaInfo::stripPath($path);
-
-                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
-            }
-        }
-
-        return $mediainfo;
-    }
-
-    /**
-     * Parse Torrent Keywords.
-     */
-    private static function parseKeywords(?string $text): array
-    {
-        $parts = \explode(', ', (string) $text);
-        $result = [];
-        foreach ($parts as $part) {
-            $part = \trim($part);
-            if ($part !== '') {
-                $result[] = $part;
-            }
-        }
-
-        return array_unique($result);
     }
 }
