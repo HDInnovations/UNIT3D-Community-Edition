@@ -49,6 +49,6 @@ class DbLoad extends Command
 
         \exec($cmd, $output, $return);
 
-        throw_if($return !== 0, new \RuntimeException(\sprintf('Could not load database from file %s', $input)));
+        \throw_if($return !== 0, new \RuntimeException(\sprintf('Could not load database from file %s', $input)));
     }
 }
