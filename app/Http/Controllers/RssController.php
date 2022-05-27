@@ -148,171 +148,51 @@ class RssController extends Controller
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-        if ($user->group->id == $bannedGroup[0]) {
-            \abort(404);
-        }
+        abort_if($user->group->id == $bannedGroup[0] || $user->group->id == $disabledGroup[0] || ! $user->active, 404);
 
-        if ($user->group->id == $disabledGroup[0]) {
-            \abort(404);
-        }
+        $rss = Rss::query()
+            ->where('id', '=', $id)
+            ->where(fn ($query) => $query
+                ->where('user_id', '=', $user->id)
+                ->orWhere('is_private', '=', 0)
+            )
+            ->firstOrFail();
 
-        if ($user->active == 0) {
-            \abort(404);
-        }
+        $search = $rss->object_torrent;
 
-        $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
+        $torrents = Torrent::with('user', 'category', 'type', 'resolution')
+            ->when($search->search       !== null, fn ($query) => $query->ofName($search->search))
+            ->when($search->description  !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($rss->mediainfo))
+            ->when($search->uploader     !== null, fn ($query) => $query->ofUploader($search->uploader))
+            ->when($search->categories   !== null, fn ($query) => $query->ofCategory($search->categories))
+            ->when($search->types        !== null, fn ($query) => $query->ofType($search->types))
+            ->when($search->resolutions  !== null, fn ($query) => $query->ofResolution($search->resolutions))
+            ->when($search->genres       !== null, fn ($query) => $query->ofGenre($search->genres))
+            ->when($search->tmdb         !== null, fn ($query) => $query->ofTmdb($search->tmdb))
+            ->when($search->imdb         !== null, fn ($query) => $query->ofImdb(\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb))
+            ->when($search->tvdb         !== null, fn ($query) => $query->ofTvdb($rss->tvdb))
+            ->when($search->mal          !== null, fn ($query) => $query->ofMal($rss->mal))
+            ->when($search->freeleech    !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+            ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
+            ->when($search->featured     !== null, fn ($query) => $query->featured())
+            ->when($search->stream       !== null, fn ($query) => $query->streamOptimized())
+            ->when($search->sd           !== null, fn ($query) => $query->sd())
+            ->when($search->highspeed    !== null, fn ($query) => $query->highspeed())
+            ->when($search->bookmark     !== null, fn ($query) => $query->bookmarkedBy($user))
+            ->when($search->internal     !== null, fn ($query) => $query->internal())
+            ->when($search->alive        !== null, fn ($query) => $query->alive())
+            ->when($search->dying        !== null, fn ($query) => $query->dying())
+            ->when($search->dead         !== null, fn ($query) => $query->dead())
+            ->latest()
+            ->take(50)
+            ->get();
 
-        $search = $rss->object_torrent->search;
-        $description = $rss->object_torrent->description;
-        $uploader = $rss->object_torrent->uploader;
-        $imdb = $rss->object_torrent->imdb;
-        $tvdb = $rss->object_torrent->tvdb;
-        $tmdb = $rss->object_torrent->tmdb;
-        $mal = $rss->object_torrent->mal;
-        $categories = $rss->object_torrent->categories;
-        $types = $rss->object_torrent->types;
-        $resolutions = $rss->object_torrent->resolutions;
-        $genres = $rss->object_torrent->genres;
-        $freeleech = $rss->object_torrent->freeleech;
-        $doubleupload = $rss->object_torrent->doubleupload;
-        $featured = $rss->object_torrent->featured;
-        $stream = $rss->object_torrent->stream;
-        $highspeed = $rss->object_torrent->highspeed;
-        $sd = $rss->object_torrent->sd;
-        $internal = $rss->object_torrent->internal;
-        $bookmark = $rss->object_torrent->bookmark;
-        $alive = $rss->object_torrent->alive;
-        $dying = $rss->object_torrent->dying;
-        $dead = $rss->object_torrent->dead;
-
-        $terms = \explode(' ', (string) $search);
-        $search = '';
-        foreach ($terms as $term) {
-            $search .= '%'.$term.'%';
-        }
-
-        $usernames = \explode(' ', (string) $uploader);
-        $uploader = '';
-        foreach ($usernames as $username) {
-            $uploader .= '%'.$username.'%';
-        }
-
-        $keywords = \explode(' ', (string) $description);
-        $description = '';
-        foreach ($keywords as $keyword) {
-            $description .= '%'.$keyword.'%';
-        }
-
-        $builder = Torrent::with(['user', 'category', 'type', 'resolution']);
-
-        if ($rss->object_torrent->search) {
-            $builder->where(function ($query) use ($search) {
-                $query->where('name', 'like', $search);
-            });
-        }
-
-        if ($rss->object_torrent->description) {
-            $builder->where(function ($query) use ($description) {
-                $query->where('description', 'like', $description)->orWhere('mediainfo', 'like', $description);
-            });
-        }
-
-        if ($rss->object_torrent->uploader && $rss->object_torrent->uploader != null) {
-            $match = User::where('username', 'like', $uploader)->first();
-            if (null === $match) {
-                return ['result' => [], 'count' => 0];
-            }
-
-            $builder->where('user_id', '=', $match->id)->where('anon', '=', 0);
-        }
-
-        if ($rss->object_torrent->imdb && $rss->object_torrent->imdb != null) {
-            if (\preg_match('/tt0*?(?=(\d{7,8}))/', (string) $imdb, $matches)) {
-                $builder->where('imdb', '=', $matches[1]);
-            } else {
-                $builder->where('imdb', '=', $imdb);
-            }
-        }
-
-        if ($rss->object_torrent->tvdb && $rss->object_torrent->tvdb != null) {
-            $builder->where('tvdb', '=', $tvdb);
-        }
-
-        if ($rss->object_torrent->tmdb && $rss->object_torrent->tmdb != null) {
-            $builder->where('tmdb', '=', $tmdb);
-        }
-
-        if ($rss->object_torrent->mal && $rss->object_torrent->mal != null) {
-            $builder->where('mal', '=', $mal);
-        }
-
-        if ($rss->object_torrent->categories && \is_array($rss->object_torrent->categories)) {
-            $builder->whereIntegerInRaw('category_id', $categories);
-        }
-
-        if ($rss->object_torrent->types && \is_array($rss->object_torrent->types)) {
-            $builder->whereIntegerInRaw('type_id', $types);
-        }
-
-        if ($rss->object_torrent->resolutions && \is_array($rss->object_torrent->resolutions)) {
-            $builder->whereIntegerInRaw('resolution_id', $resolutions);
-        }
-
-        if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $genres)->pluck('tv_id');
-            $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $genres)->pluck('movie_id');
-            $mergedCollection = $tvCollection->merge($movieCollection);
-
-            $builder->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
-        }
-
-        if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
-            $builder->where('free', '>=', $freeleech);
-        }
-
-        if ($rss->object_torrent->doubleupload && $rss->object_torrent->doubleupload != null) {
-            $builder->where('doubleup', '=', $doubleupload);
-        }
-
-        if ($rss->object_torrent->featured && $rss->object_torrent->featured != null) {
-            $builder->where('featured', '=', $featured);
-        }
-
-        if ($rss->object_torrent->stream && $rss->object_torrent->stream != null) {
-            $builder->where('stream', '=', $stream);
-        }
-
-        if ($rss->object_torrent->highspeed && $rss->object_torrent->highspeed != null) {
-            $builder->where('highspeed', '=', $highspeed);
-        }
-
-        if ($rss->object_torrent->sd && $rss->object_torrent->sd != null) {
-            $builder->where('sd', '=', $sd);
-        }
-
-        if ($rss->object_torrent->internal && $rss->object_torrent->internal != null) {
-            $builder->where('internal', '=', $internal);
-        }
-
-        if ($rss->object_torrent->bookmark && $rss->object_torrent->bookmark != null) {
-            $builder->whereIntegerInRaw('id', $user->bookmarks->pluck('id'));
-        }
-
-        if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
-            $builder->where('seeders', '>=', $alive);
-        }
-
-        if ($rss->object_torrent->dying && $rss->object_torrent->dying != null) {
-            $builder->where('seeders', '=', $dying)->where('times_completed', '>=', 3);
-        }
-
-        if ($rss->object_torrent->dead && $rss->object_torrent->dead != null) {
-            $builder->where('seeders', '=', $dead);
-        }
-
-        $torrents = $builder->latest()->take(50)->get();
-
-        return \response()->view('rss.show', ['torrents' => $torrents, 'user' => $user, 'rss' => $rss])->header('Content-Type', 'text/xml');
+        return \response()->view('rss.show', [
+                'torrents' => $torrents,
+                'user' => $user,
+                'rss' => $rss
+            ])
+            ->header('Content-Type', 'text/xml');
     }
 
     /**

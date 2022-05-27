@@ -335,116 +335,37 @@ class TorrentController extends BaseController
     {
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
-            ->when($request->has('name'), function ($query) use ($request) {
-                $terms = \explode(' ', (string) $request->input('name'));
-                $search = '';
-                foreach ($terms as $term) {
-                    $search .= '%'.$term.'%';
-                }
-
-                $query->where('name', 'LIKE', $search);
-            })
-            ->when($request->has('description'), function ($query) use ($request) {
-                $query->where('description', 'LIKE', '%'.$request->input('description').'%');
-            })
-            ->when($request->has('mediainfo'), function ($query) use ($request) {
-                $query->where('mediainfo', 'LIKE', '%'.$request->input('mediainfo').'%');
-            })
-            ->when($request->has('file_name'), function ($query) use ($request) {
-                $query->whereHas('files', function ($q) use ($request) {
-                    $q->where('name', $request->input('file_name'));
-                });
-            })
-            ->when($request->has('uploader'), function ($query) use ($request) {
-                $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->oldest('username')->first();
-                if ($match) {
-                    $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
-                }
-            })
-            ->when($request->has('keywords'), function ($query) use ($request) {
-                $keywords = self::parseKeywords($request->input('keywords'));
-                $keyword = Keyword::select(['torrent_id'])->whereIn('name', $keywords)->get();
-                $query->whereIntegerInRaw('id', $keyword->torrent_id);
-            })
-            ->when($request->has('startYear') && $request->has('endYear'), function ($query) use ($request) {
-                $query->whereBetween('release_year', [$request->input('startYear'), $request->input('endYear')]);
-            })
-            ->when($request->has('categories'), function ($query) use ($request) {
-                $query->whereIntegerInRaw('category_id', $request->input('categories'));
-            })
-            ->when($request->has('types'), function ($query) use ($request) {
-                $query->whereIntegerInRaw('type_id', $request->input('types'));
-            })
-            ->when($request->has('resolutions'), function ($query) use ($request) {
-                $query->whereIntegerInRaw('resolution_id', $request->input('resolutions'));
-            })
-            ->when($request->has('genres'), function ($query) use ($request) {
-                $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $request->input('genres'))->pluck('tv_id');
-                $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $request->input('genres'))->pluck('movie_id');
-                $mergedCollection = $tvCollection->merge($movieCollection);
-
-                $query->whereIn('tmdb', $mergedCollection);
-            })
-            ->when($request->has('tmdbId'), function ($query) use ($request) {
-                $query->where('tmdb', '=', $request->input('tmdbId'));
-            })
-            ->when($request->has('imdbId'), function ($query) use ($request) {
-                $query->where('imdb', '=', $request->input('imdbId'));
-            })
-            ->when($request->has('tvdbId'), function ($query) use ($request) {
-                $query->where('tvdb', '=', $request->input('tvdbId'));
-            })
-            ->when($request->has('malId'), function ($query) use ($request) {
-                $query->where('mal', '=', $request->input('malId'));
-            })
-            ->when($request->has('seasonNumber'), function ($query) use ($request) {
-                $query->where('season_number', '=', $request->input('seasonNumber'));
-            })
-            ->when($request->has('episodeNumber'), function ($query) use ($request) {
-                $query->where('episode_number', '=', $request->input('episodeNumber'));
-            })
-            ->when($request->has('playlistId'), function ($query) use ($request) {
-                $playlist = PlaylistTorrent::where('playlist_id', '=', $request->input('playlistId'))->pluck('torrent_id');
-                $query->whereIntegerInRaw('id', $playlist);
-            })
-            ->when($request->has('collectionId'), function ($query) use ($request) {
-                $categories = Category::where('movie_meta', '=', 1)->pluck('id');
-                $collection = DB::table('collection_movie')->where('collection_id', '=', $request->input('collectionId'))->pluck('movie_id');
-                $query->whereIntegerInRaw('category_id', $categories)->whereIn('tmdb', $collection);
-            })
-            ->when($request->has('free'), function ($query) {
-                $query->where('free', '>=', 1);
-            })
-            ->when($request->has('doubleup'), function ($query) {
-                $query->where('doubleup', '=', 1);
-            })
-            ->when($request->has('featured'), function ($query) {
-                $query->where('featured', '=', 1);
-            })
-            ->when($request->has('stream'), function ($query) {
-                $query->where('stream', '=', 1);
-            })
-            ->when($request->has('sd'), function ($query) {
-                $query->where('sd', '=', 1);
-            })
-            ->when($request->has('highspeed'), function ($query) {
-                $query->where('highspeed', '=', 1);
-            })
-            ->when($request->has('internal'), function ($query) {
-                $query->where('internal', '=', 1);
-            })
-            ->when($request->has('personalRelease'), function ($query) {
-                $query->where('personal_release', '=', 1);
-            })
-            ->when($request->has('alive'), function ($query) {
-                $query->orWhere('seeders', '>=', 1);
-            })
-            ->when($request->has('dying'), function ($query) {
-                $query->orWhere('seeders', '=', 1)->where('times_completed', '>=', 3);
-            })
-            ->when($request->has('dead'), function ($query) {
-                $query->orWhere('seeders', '=', 0);
-            })
+            ->when($request->has('name')            , fn ($query) => $query->ofName($request->name))
+            ->when($request->has('description')     , fn ($query) => $query->ofDescription($request->description))
+            ->when($request->has('mediainfo')       , fn ($query) => $query->ofMediainfo($request->mediainfo))
+            ->when($request->has('uploader')        , fn ($query) => $query->ofUploader($request->uploader))
+            ->when($request->has('keywords')        , fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $request->keywords))))
+            ->when($request->has('startYear')       , fn ($query) => $query->releasedAfterOrIn($request->startYear))
+            ->when($request->has('endYear')         , fn ($query) => $query->releasedBeforeOrIn($request->endYear))
+            ->when($request->has('categories')      , fn ($query) => $query->ofCategory($request->categories))
+            ->when($request->has('types')           , fn ($query) => $query->ofType($request->types))
+            ->when($request->has('resolutions')     , fn ($query) => $query->ofResolution($request->resolutions))
+            ->when($request->has('genres')          , fn ($query) => $query->ofGenre($request->genres))
+            ->when($request->has('tmdbId')          , fn ($query) => $query->ofTmdb($request->tmdbId))
+            ->when($request->has('imdbId')          , fn ($query) => $query->ofImdb($request->imdbId))
+            ->when($request->has('tvdbId')          , fn ($query) => $query->ofTvdb($request->tvdbId))
+            ->when($request->has('malId')           , fn ($query) => $query->ofMal($request->malId))
+            ->when($request->has('playlistId')      , fn ($query) => $query->ofPlaylist($request->playlistId))
+            ->when($request->has('collectionId')    , fn ($query) => $query->ofCollection($request->collectionId))
+            ->when($request->has('free')            , fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+            ->when($request->has('doubleup')        , fn ($query) => $query->doubleup())
+            ->when($request->has('featured')        , fn ($query) => $query->featured())
+            ->when($request->has('stream')          , fn ($query) => $query->streamOptimized())
+            ->when($request->has('sd')              , fn ($query) => $query->sd())
+            ->when($request->has('highspeed')       , fn ($query) => $query->highspeed())
+            ->when($request->has('internal')        , fn ($query) => $query->internal())
+            ->when($request->has('personalRelease') , fn ($query) => $query->personalRelease())
+            ->when($request->has('alive')           , fn ($query) => $query->alive())
+            ->when($request->has('dying')           , fn ($query) => $query->dying())
+            ->when($request->has('dead')            , fn ($query) => $query->dead())
+            ->when($request->has('file_name')       , fn ($query) => $query->ofFilename($request->file_name))
+            ->when($request->has('seasonNumber')    , fn ($query) => $query->ofSeason($request->seasonNumber))
+            ->when($request->has('episodeNumber')   , fn ($query) => $query->ofEpisode($request->episodeNumber))
             ->latest('sticky')
             ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
             ->paginate($request->input('perPage') ?? $this->perPage);
