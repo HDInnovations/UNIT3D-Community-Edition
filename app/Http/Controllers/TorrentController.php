@@ -84,9 +84,7 @@ class TorrentController extends Controller
             ->where('tmdb', '=', $tmdbId)
             ->first();
 
-        if (! $torrent || $torrent->count() === 0) {
-            \abort(404, 'No Similar Torrents Found');
-        }
+        abort_if(! $torrent || $torrent->count() === 0, \404, 'No Similar Torrents Found');
 
         $meta = null;
         if ($torrent->category->tv_meta) {

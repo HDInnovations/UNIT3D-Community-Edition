@@ -92,9 +92,7 @@ class TwoStepController extends Controller
      */
     public function showVerification(): \Illuminate\Contracts\View\View
     {
-        if (! \config('auth.TwoStepEnabled')) {
-            \abort(404);
-        }
+        abort_if(! \config('auth.TwoStepEnabled'), \404);
 
         $twoStepAuth = $this->twoStepAuth;
         $authStatus = $this->authStatus;
@@ -147,9 +145,7 @@ class TwoStepController extends Controller
      */
     public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
-        if (! \config('auth.TwoStepEnabled')) {
-            \abort(404);
-        }
+        abort_if(! \config('auth.TwoStepEnabled'), \404);
 
         if ($request->ajax()) {
             $validator = \validator($request->all(), [
@@ -192,9 +188,7 @@ class TwoStepController extends Controller
      */
     public function resend(): \Illuminate\Http\JsonResponse
     {
-        if (! \config('auth.TwoStepEnabled')) {
-            \abort(404);
-        }
+        abort_if(! \config('auth.TwoStepEnabled'), \404);
 
         $twoStepAuth = $this->twoStepAuth;
         $this->sendVerificationCodeNotification($twoStepAuth);

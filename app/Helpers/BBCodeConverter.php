@@ -111,9 +111,7 @@ class BBCodeConverter
                 $buffer = '';
 
                 $list = \preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
-                if (\is_null($list)) {
-                    throw new \RuntimeException('Text has malformed BBCode lists');
-                }
+                throw_if(\is_null($list), new \RuntimeException('Text has malformed BBCode lists'));
 
                 $items = \preg_split('#\[\*\]#u', $list);
 
