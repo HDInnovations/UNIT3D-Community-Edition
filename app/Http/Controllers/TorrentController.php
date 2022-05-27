@@ -43,7 +43,6 @@ use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Warning;
-use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
