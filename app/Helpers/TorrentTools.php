@@ -198,4 +198,46 @@ class TorrentTools
 
         return $result;
     }
+
+    /**
+     * Anonymize A Torrent Media Info.
+     */
+    public static function anonymizeMediainfo($mediainfo): array|string|null
+    {
+        if ($mediainfo === null) {
+            return null;
+        }
+
+        $completeNameI = \strpos($mediainfo, 'Complete name');
+        if ($completeNameI !== false) {
+            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            if ($pathI !== false) {
+                $pathI += 2;
+                $endI = \strpos($mediainfo, "\n", $pathI);
+                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $newPath = MediaInfo::stripPath($path);
+
+                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
+            }
+        }
+
+        return $mediainfo;
+    }
+
+    /**
+     * Parse Torrent Keywords.
+     */
+    public static function parseKeywords($text): array
+    {
+        $parts = \explode(', ', (string) $text);
+        $result = [];
+        foreach ($parts as $part) {
+            $part = \trim($part);
+            if ($part !== '') {
+                $result[] = $part;
+            }
+        }
+
+        return array_unique($result);
+    }
 }
