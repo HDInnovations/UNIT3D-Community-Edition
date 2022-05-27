@@ -54,22 +54,22 @@ trait TorrentFilter
             ->whereIn('user_id', User::select('id')->where('username', '=', $username))
             ->where('anon', '=', 0);
     }
-    
+
     public function scopeOfKeywords(Builder $query, array $keywords): Builder
     {
         return $query->whereIn('id', Keyword::select('torrent_id')->whereIn('name', $keywords));
     }
-    
+
     public function scopeReleasedAfterOrIn(Builder $query, int $year): Builder
     {
         return $query->where('release_year', '>=', $year);
     }
-    
+
     public function scopeReleasedBeforeOrIn(Builder $query, int $year): Builder
     {
         return $query->where('release_year', '<=', $year);
     }
-    
+
     public function scopeOfCategory(Builder $query, array $categories): Builder
     {
         return $query->whereIntegerInRaw('category_id', $categories);

@@ -22,7 +22,6 @@ use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -161,37 +160,37 @@ class RssController extends Controller
         $search = $rss->object_torrent;
 
         $torrents = Torrent::with('user', 'category', 'type', 'resolution')
-            ->when($search->search       !== null, fn ($query) => $query->ofName($search->search))
-            ->when($search->description  !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($rss->mediainfo))
-            ->when($search->uploader     !== null, fn ($query) => $query->ofUploader($search->uploader))
-            ->when($search->categories   !== null, fn ($query) => $query->ofCategory($search->categories))
-            ->when($search->types        !== null, fn ($query) => $query->ofType($search->types))
-            ->when($search->resolutions  !== null, fn ($query) => $query->ofResolution($search->resolutions))
-            ->when($search->genres       !== null, fn ($query) => $query->ofGenre($search->genres))
-            ->when($search->tmdb         !== null, fn ($query) => $query->ofTmdb($search->tmdb))
-            ->when($search->imdb         !== null, fn ($query) => $query->ofImdb(\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb))
-            ->when($search->tvdb         !== null, fn ($query) => $query->ofTvdb($rss->tvdb))
-            ->when($search->mal          !== null, fn ($query) => $query->ofMal($rss->mal))
-            ->when($search->freeleech    !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+            ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
+            ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($rss->mediainfo))
+            ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
+            ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
+            ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
+            ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
+            ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
+            ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb($search->tmdb))
+            ->when($search->imdb !== null, fn ($query) => $query->ofImdb(\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb))
+            ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb($rss->tvdb))
+            ->when($search->mal !== null, fn ($query) => $query->ofMal($rss->mal))
+            ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
             ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
-            ->when($search->featured     !== null, fn ($query) => $query->featured())
-            ->when($search->stream       !== null, fn ($query) => $query->streamOptimized())
-            ->when($search->sd           !== null, fn ($query) => $query->sd())
-            ->when($search->highspeed    !== null, fn ($query) => $query->highspeed())
-            ->when($search->bookmark     !== null, fn ($query) => $query->bookmarkedBy($user))
-            ->when($search->internal     !== null, fn ($query) => $query->internal())
-            ->when($search->alive        !== null, fn ($query) => $query->alive())
-            ->when($search->dying        !== null, fn ($query) => $query->dying())
-            ->when($search->dead         !== null, fn ($query) => $query->dead())
+            ->when($search->featured !== null, fn ($query) => $query->featured())
+            ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
+            ->when($search->sd !== null, fn ($query) => $query->sd())
+            ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
+            ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
+            ->when($search->internal !== null, fn ($query) => $query->internal())
+            ->when($search->alive !== null, fn ($query) => $query->alive())
+            ->when($search->dying !== null, fn ($query) => $query->dying())
+            ->when($search->dead !== null, fn ($query) => $query->dead())
             ->latest()
             ->take(50)
             ->get();
 
         return \response()->view('rss.show', [
-                'torrents' => $torrents,
-                'user' => $user,
-                'rss' => $rss
-            ])
+            'torrents' => $torrents,
+            'user'     => $user,
+            'rss'      => $rss,
+        ])
             ->header('Content-Type', 'text/xml');
     }
 
