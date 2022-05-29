@@ -138,7 +138,7 @@
 
 .breadcrumbV2:not(:first-child)::before,
 .breadcrumb--active:not(:first-child)::before {
-    content: "\f105";
+    content: '\f105';
     font-family: 'Font Awesome 5 Pro';
     opacity: 60%;
     padding-left: 0.5ch;
