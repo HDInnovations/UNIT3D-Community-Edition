@@ -1,20 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.resolutions.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.torrent-resolutions') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.resolutions.index') }}" class="breadcrumb__link">
+            {{ __('staff.torrent-resolutions') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.resolutions.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Add Torrent Resolution</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 

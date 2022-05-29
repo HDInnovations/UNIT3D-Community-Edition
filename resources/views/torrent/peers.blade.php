@@ -8,19 +8,21 @@
     <meta name="description" content="{{ __('torrent.peers') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.peers') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.peers') }}
     </li>
 @endsection
-
 @section('content')
     <div class="container">
         <h1 class="title">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h1>

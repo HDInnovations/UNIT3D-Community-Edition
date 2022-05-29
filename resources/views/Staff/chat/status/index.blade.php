@@ -1,15 +1,30 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.statuses.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('staff.chat') }} {{ __('staff.statuses') }}</span>
+    <li class="breadcrumb--active">
+        {{ __('staff.chat') }} {{ __('staff.statuses') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('staff.statuses.index') }}">
+            {{ __('staff.statuses') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+            {{ __('staff.rooms') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}">
+            {{ __('staff.bots') }}
         </a>
     </li>
 @endsection

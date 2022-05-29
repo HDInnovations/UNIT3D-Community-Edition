@@ -8,11 +8,9 @@
     <meta name="description" content="{{ __('common.gallery') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.gallery') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('common.gallery') }}
     </li>
 @endsection
 

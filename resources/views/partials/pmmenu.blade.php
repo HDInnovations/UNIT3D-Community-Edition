@@ -1,10 +1,24 @@
-<div class="col-md-2">
-    <div class="block">
-        <a href="{{ route('create') }}" class="btn btn-primary btn-block">{{ __('pm.new') }}</a>
-        <div class="separator"></div>
-        <div class="list-group">
-            <a href="{{ route('inbox') }}" class="btn btn-primary btn-block">{{ __('pm.inbox') }}</a>
-            <a href="{{ route('outbox') }}" class="btn btn-primary btn-block">{{ __('pm.outbox') }}</a>
-        </div>
-    </div>
-</div>
+<li class="{{ Route::is('inbox') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('inbox') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('inbox') }}"
+    >
+        {{ __('pm.inbox') }}
+    </a>
+</li>
+<li class="{{ Route::is('outbox') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('outbox') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('outbox') }}"
+    >
+        {{ __('pm.outbox') }}
+    </a>
+</li>
+<li class="{{ Route::is('create') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('create') }}"
+    >
+        {{ __('pm.new') }}
+    </a>
+</li>

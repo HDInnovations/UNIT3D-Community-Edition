@@ -4,16 +4,14 @@
     <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('requests.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.requests') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('requests.index') }}" class="breadcrumb__link">
+            {{ __('request.requests') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('request', ['id' => $torrentRequest->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.request-details') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $torrentRequest->name }}
     </li>
 @endsection
 

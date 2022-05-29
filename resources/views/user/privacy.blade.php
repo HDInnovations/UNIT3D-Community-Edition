@@ -4,26 +4,29 @@
     <title>{{ $user->username }} - Privacy - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('user_privacy', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.privacy') }}
-                {{ __('user.settings') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ __('user.settings') }}
         </a>
     </li>
+    <li class="breadcrumb--active">
+        {{ __('user.privacy') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container">
         <div class="block">
-            @include('user.buttons.settings')
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist" id="basetabs">
                     <li class="active"><a href="#profile_tab" data-toggle="tab">Profile</a></li>

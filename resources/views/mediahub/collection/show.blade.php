@@ -8,22 +8,19 @@
     <meta name="description" content="{{ $collection->name }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.collections.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.collections') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.collections.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.collections') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $collection->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $collection->name }}
     </li>
 @endsection
 

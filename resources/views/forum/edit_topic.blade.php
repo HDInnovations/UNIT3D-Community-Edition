@@ -8,22 +8,24 @@
     <meta name="description" content="{{ __('forum.edit-topic') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" class="breadcrumb__link">
+            {{ $topic->name }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_edit_topic', ['id' => $topic->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.edit-topic') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')

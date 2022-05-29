@@ -1,10 +1,8 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        Pages
     </li>
 @endsection
 

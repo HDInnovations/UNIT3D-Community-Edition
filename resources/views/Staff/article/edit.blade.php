@@ -4,23 +4,19 @@
     <title>Articles - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.articles') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.articles.index') }}" class="breadcrumb__link">
+            {{ __('staff.articles') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.articles.update', ['id' => $article->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('common.article') }} {{ __('common.edit') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 

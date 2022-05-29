@@ -1,30 +1,27 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $owner->username }} - {{ __('user.invites') }} - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - {{ __('user.invites') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $owner->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $owner->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('invites.index', ['username' => $owner->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $owner->username }} {{ __('user.invites') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.invites') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            @php $user = $owner @endphp
-            @include('user.buttons.invite')
             <div class="some-padding">
                 <div class="row">
                     <div class="col-sm-12">

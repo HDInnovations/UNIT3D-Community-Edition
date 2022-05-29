@@ -4,27 +4,25 @@
     <title>{{ $user->username }} {{ __('user.active') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('user_active', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.active') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.active-torrents') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
 
     <div class="container-fluid">
         <div class="block">
-            @include('user.buttons.stats')
             <div class="button-holder some-padding">
                 <div class="button-left">
 

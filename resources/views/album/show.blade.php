@@ -8,16 +8,14 @@
     <meta name="description" content="{{ __('common.album') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.gallery') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('albums.index') }}" class="breadcrumb__link">
+            {{ __('common.gallery') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('albums.create', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $album->name }} {{ __('common.album') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $album->id }}
     </li>
 @endsection
 
