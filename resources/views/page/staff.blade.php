@@ -1,11 +1,8 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
-                {{ __('common.staff') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ config('other.title') }} {{ __('common.staff') }}
     </li>
 @endsection
 

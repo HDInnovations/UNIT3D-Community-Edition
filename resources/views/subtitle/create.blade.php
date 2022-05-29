@@ -4,18 +4,14 @@
     <title>{{ __('common.upload') }} {{ __('common.subtitle') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('subtitles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('subtitles.index') }}" class="breadcrumb__link">
+            {{ __('common.subtitles') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('common.upload') }} {{ __('common.subtitle') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 

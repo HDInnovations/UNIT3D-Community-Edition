@@ -8,20 +8,19 @@
     <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}">
 @endsection
 
-
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('forum.forums') }}
     </li>
 @endsection
 
+@section('nav-tabs')
+    @include('forum.buttons')
+@endsection
 
 @section('content')
     <div class="box container">
         <div class="button-holder">
-            @include('forum.buttons')
             <div class="button-right">
                 <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
                     <input type="hidden" name="sorting" value="created_at">

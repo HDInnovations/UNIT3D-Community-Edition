@@ -4,16 +4,19 @@
     <title>{{ __('request.edit-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ url('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.requests') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('requests.index') }}" class="breadcrumb__link">
+            {{ __('request.requests') }}
         </a>
     </li>
-    <li>
-        <a href="{{ url('edit_request') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.edit-request') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('requests', ['id' => $torrentRequest->id]) }}" class="breadcrumb__link">
+            {{ $torrentRequest->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 

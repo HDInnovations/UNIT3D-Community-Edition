@@ -4,16 +4,46 @@
     <title>Upload - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('upload_form', ['category_id' => $category_id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.upload') }}</span>
+    <li class="breadcrumb--active">
+        {{ __('common.upload') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('torrents') }}">
+            List
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('cards') }}">
+            Cards
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="#">
+            Grouped
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('top10.index') }}">
+            Top 10
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('rss.index') }}">
+            {{ __('rss.rss') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+            {{ __('common.upload') }}
         </a>
     </li>
 @endsection

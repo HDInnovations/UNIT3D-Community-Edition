@@ -338,35 +338,6 @@
             <strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
             <strong>Dead:</strong> {{ number_format($torrentsStat->dead) }}
         </span>
-        <div class="dropdown torrent-listings-action-bar">
-            <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
-                {{ __('common.publish') }} {{ __('torrent.torrent') }}
-                <i class="fas fa-caret-circle-right"></i>
-            </a>
-            <ul class="dropdown-menu">
-                @foreach($categories as $category)
-                    <li role="presentation">
-                        <a role="menuitem" tabindex="-1" target="_blank"
-                           href="{{ route('upload_form', ['category_id' => $category->id]) }}">
-                            <span class="menu-text">{{ $category->name }}</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ __('torrent.list') }}
-            </a>
-            <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ __('torrent.cards') }}
-            </a>
-            <a href="#" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('torrent.groupings') }}
-            </a>
-            <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
-                <i class="{{ config('other.font-awesome') }} fa-rss"></i> {{ __('rss.rss') }} {{ __('rss.feeds') }}
-            </a>
-        </div>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
             <tr>

@@ -1,11 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('edit_form', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }} {{ __('common.edit') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 

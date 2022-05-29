@@ -4,24 +4,39 @@
     <title>{{ __('bot.edit-bot') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bot.bots') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.bots.index') }}" class="breadcrumb__link">
+            {{ __('bot.bots') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bot.edit-bot') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
+            {{ __('staff.statuses') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+            {{ __('staff.rooms') }}
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('staff.bots.index') }}">
+            {{ __('staff.bots') }}
+        </a>
+    </li>
+@endsection
 
 @section('content')
     <div class="container box">

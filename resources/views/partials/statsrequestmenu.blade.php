@@ -1,7 +1,8 @@
-<div class="block pv-5">
-    <div class="btn-group text-center">
-        <a href="{{ route('bountied') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('common.top-bountied') }}
-            ({{ __('bon.bon') }})</a>
-    </div>
-</div>
+<li class="{{ Route::is('bountied') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('bountied') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('bountied') }}"
+    >
+        {{ __('user.top-bountied') }} ({{ __('bon.bon') }})
+    </a>
+</li>

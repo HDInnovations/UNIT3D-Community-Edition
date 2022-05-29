@@ -7,22 +7,19 @@
 @section('meta')
     <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}"> @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.reports.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.reports-log') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.reports.index') }}" class="breadcrumb__link">
+            {{ __('staff.reports-log') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.report') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.report') }}
     </li>
 @endsection
 

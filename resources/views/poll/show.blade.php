@@ -4,16 +4,14 @@
     <title>{{ __('poll.poll') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('polls') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('poll.polls') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('polls') }}" class="breadcrumb__link">
+            {{ __('poll.polls') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('poll', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->title }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $poll->title }}
     </li>
 @endsection
 

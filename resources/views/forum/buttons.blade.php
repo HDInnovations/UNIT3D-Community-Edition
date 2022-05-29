@@ -1,17 +1,32 @@
-<div class="button-left">
-    <a href="{{ route('forums.index') }}" class="btn btn-sm btn-primary">
-        <i class="{{ config('other.font-awesome') }} fa-comments"></i> {{ __('forum.forums') }}
+<li class="{{ Route::is('forum_latest_topics') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('forum_latest_topics') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('forum_latest_topics') }}"
+    >
+        {{ __('common.latest-topics') }}
     </a>
-    <a href="{{ route('forum_latest_topics') }}" class="btn btn-sm btn-primary">
-        <i class="{{ config('other.font-awesome') }} fa-book"></i> {{ __('common.latest-topics') }}
+</li>
+<li class="{{ Route::is('forum_latest_posts') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('forum_latest_posts') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('forum_latest_posts') }}"
+    >
+        {{ __('common.latest-posts') }}
     </a>
-    <a href="{{ route('forum_latest_posts') }}" class="btn btn-sm btn-primary">
-        <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ __('common.latest-posts') }}
+</li>
+<li class="{{ Route::is('forum_subscriptions') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('forum_subscriptions') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('forum_subscriptions') }}"
+    >
+        {{ __('common.subscriptions') }}
     </a>
-    <a href="{{ route('forum_subscriptions') }}" class="btn btn-sm btn-primary">
-        <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('common.subscriptions') }}
+</li>
+<li class="{{ Route::is('forum_search_form') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('forum_search_form') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('forum_search_form') }}"
+    >
+        {{ __('common.search') }}
     </a>
-    <a href="{{ route('forum_search_form') }}" class="btn btn-sm btn-primary">
-        <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('common.search') }}
-    </a>
-</div>
+</li>

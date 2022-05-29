@@ -4,21 +4,19 @@
     <title>{{ __('torrent.download-check') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('download_check', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.download-check') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('torrent.download-check') }}
     </li>
 @endsection
 

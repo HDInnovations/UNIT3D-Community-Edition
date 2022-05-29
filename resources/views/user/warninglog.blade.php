@@ -4,10 +4,26 @@
     <title>WarningLog - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('user.warning-log') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('staff.logs') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('warnings.show', ['username' => $user->username]) }}">
+            {{ __('user.warning-log') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('banlog', ['username' => $user->username]) }}">
+            {{ __('user.ban-log') }}
         </a>
     </li>
 @endsection

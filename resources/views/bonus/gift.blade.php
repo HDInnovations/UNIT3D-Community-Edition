@@ -1,22 +1,28 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('bonus') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bon.bonus') }} {{ __('bon.points') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('bonus_gift') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bon.bonus') }} {{ __('bon.send-gift') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+            {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
+    <li class="breadcrumb--active">
+        {{ __('bon.send-gift') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container">
         <div class="block">
-            @include('bonus.buttons')
             <div class="some-padding">
                 <div class="row">
                     <div class="col-sm-8">

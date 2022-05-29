@@ -8,11 +8,14 @@
     <meta name="description" content="{{ __('common.contact') }} {{ config('other.title') }}.">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('contact.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.contact') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('about') }}" class="breadcrumb__link">
+            {{ __('common.about') }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.contact') }}
     </li>
 @endsection
 

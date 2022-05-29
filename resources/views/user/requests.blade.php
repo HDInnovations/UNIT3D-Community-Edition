@@ -4,20 +4,14 @@
     <title>{{ $user->username }} {{ __('user.requested') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ $user->username }}
     </li>
-    <li>
-        <a href="{{ route('user_requested', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.requested') }}</span>
-        </a>
-    </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
@@ -36,8 +30,6 @@
             </div>
         @else
             <div class="block">
-                @include('user.buttons.public')
-
                 @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
                     <div class="container">
                         <div class="jumbotron shadowed">
