@@ -400,14 +400,4 @@
         }
       })
     </script>
-    <script>
-      /*  window.onload = () => {
-            let torrent = document.getElementById('torrent');
-            if (torrent) {
-                torrent.addEventListener('change', () => {
-                    uploadExtension.hook();
-                });
-            }
-        } */
-    </script>
 @endsection
