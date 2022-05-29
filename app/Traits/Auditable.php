@@ -72,9 +72,7 @@ trait Auditable
         switch ($action) {
             case 'create':
                 // Expect new data to be filled
-                if (empty($new)) {
-                    throw new \ArgumentCountError('Action `create` expects new data.');
-                }
+                \throw_if(empty($new), new \ArgumentCountError('Action `create` expects new data.'));
 
                 // Process
                 foreach ($new as $key => $value) {
@@ -101,9 +99,7 @@ trait Auditable
                 break;
             case 'delete':
                 // Expect new data to be filled
-                if (empty($old)) {
-                    throw new \ArgumentCountError('Action `delete` expects new data.');
-                }
+                \throw_if(empty($old), new \ArgumentCountError('Action `delete` expects new data.'));
 
                 // Process
                 foreach ($old as $key => $value) {
