@@ -458,18 +458,19 @@ class TorrentController extends Controller
         foreach (Category::all()->sortBy('position') as $cat) {
             $temp = [
                 'name' => $cat->name,
-                'slug' => $cat->slug
+                'slug' => $cat->slug,
             ];
             $temp['type'] = match (1) {
                 $cat->movie_meta => 'movie',
-                $cat->tv_meta => 'tv',
-                $cat->game_meta => 'game',
+                $cat->tv_meta    => 'tv',
+                $cat->game_meta  => 'game',
                 $cat->music_meta => 'music',
-                $cat->no_meta => 'no',
-                default => 'no',
+                $cat->no_meta    => 'no',
+                default          => 'no',
             };
-            $categories[(int)$cat->id] = $temp;
+            $categories[(int) $cat->id] = $temp;
         }
+
         return \view('torrent.upload', [
             'categories'   => $categories,
             'types'        => Type::all()->sortBy('position'),
