@@ -71,7 +71,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['before' => 'auth'], function () {
         // RSS (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
-        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentController::class, 'download'])->name('torrent.download.rsskey');
+        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
     });
 
     /*
