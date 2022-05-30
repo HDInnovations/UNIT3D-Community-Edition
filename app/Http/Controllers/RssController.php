@@ -160,8 +160,8 @@ class RssController extends Controller
         $search = $rss->object_torrent;
 
         $torrents = Torrent::with('user', 'category', 'type', 'resolution')
-            ->when($search->search !== null, fn ($query) => $query->ofName($search->search, false))
-            ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description, false)->orWhere->ofMediainfo($rss->mediainfo, false))
+            ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
+            ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
             ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
             ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
             ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
