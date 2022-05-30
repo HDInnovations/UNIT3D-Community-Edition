@@ -18,28 +18,29 @@
                     </div>
                     <div class="form-group col-xs-3">
                         <button class="btn btn-md btn-primary" @click="open = ! open"
-                                x-text="open ? '@lang('common.search-hide')' : '@lang('common.search-advanced')'"></button>
+                                x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'">
+                        </button>
                     </div>
                 </div>
                 <div x-cloak x-show="open" id="torrent-advanced-search">
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-description">
-                            <label for="description" class="label label-default">@lang('torrent.description')</label>
+                            <label for="description" class="label label-default">{{ __('torrent.description') }}</label>
                             <input wire:model.debounce.500ms="description" type="text" class="form-control"
                                    placeholder="Description">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-mediainfo">
-                            <label for="mediainfo" class="label label-default">@lang('torrent.media-info')</label>
+                            <label for="mediainfo" class="label label-default">{{ __('torrent.media-info') }}</label>
                             <input wire:model.debounce.500ms="mediainfo" type="text" class="form-control"
                                    placeholder="Mediainfo">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-keywords">
-                            <label for="keywords" class="label label-default">@lang('torrent.keywords')</label>
+                            <label for="keywords" class="label label-default">{{ __('torrent.keywords') }}</label>
                             <input wire:model.debounce.500ms="keywords" type="text" class="form-control"
                                    placeholder="Keywords">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-uploader">
-                            <label for="uploader" class="label label-default">@lang('torrent.uploader')</label>
+                            <label for="uploader" class="label label-default">{{ __('torrent.uploader') }}</label>
                             <input wire:model.debounce.500ms="uploader" type="text" class="form-control"
                                    placeholder="Uploader">
                         </div>
@@ -68,12 +69,12 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-startYear">
-                            <label for="startYear" class="label label-default">@lang('torrent.start-year')</label>
+                            <label for="startYear" class="label label-default">{{ __('torrent.start-year') }}</label>
                             <input wire:model.debounce.500ms="startYear" type="text" class="form-control"
                                    placeholder="Start Year">
                         </div>
                         <div class="form-group col-sm-3 col-xs-6 adv-search-endYear">
-                            <label for="endYear" class="label label-default">@lang('torrent.end-year')</label>
+                            <label for="endYear" class="label label-default">{{ __('torrent.end-year') }}</label>
                             <input wire:model.debounce.500ms="endYear" type="text" class="form-control"
                                    placeholder="End Year">
                         </div>
@@ -102,7 +103,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-categories">
-                            <label for="categories" class="label label-default">@lang('common.category')</label>
+                            <label for="categories" class="label label-default">{{ __('common.category') }}</label>
                             @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
                             @foreach ($categories as $category)
                                 <span class="badge-user">
@@ -114,20 +115,9 @@
                             @endforeach
                         </div>
                     </div>
-                    {{-- <div class="row">
-                        <div class="form-group col-sm-12 col-xs-6 adv-search-grouped">
-                            <label for="grouped" class="label label-default">@lang('common.groupings')</label>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" wire:model.prefetch="grouped"
-                                            value="grouped">Group Torrents
-                                </label>
-                            </span>
-                        </div>
-                    </div> --}}
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-types">
-                            <label for="types" class="label label-default">@lang('common.type')</label>
+                            <label for="types" class="label label-default">{{ __('common.type') }}</label>
                             @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
                             @foreach ($types as $type)
                                 <span class="badge-user">
@@ -140,7 +130,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-resolutions">
-                            <label for="resolutions" class="label label-default">@lang('common.resolution')</label>
+                            <label for="resolutions" class="label label-default">{{ __('common.resolution') }}</label>
                             @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
                             @foreach ($resolutions as $resolution)
                                 <span class="badge-user">
@@ -154,8 +144,9 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-genres">
-                            <label for="genres" class="label label-default">@lang('common.genre')</label>
-                            @foreach (App\Models\Genre::all()->sortBy('name') as $genre)
+                            <label for="genres" class="label label-default">{{ __('common.genre') }}</label>
+                            @php $genres = cache()->remember('genres', 3_600, fn () => App\Models\Genre::all()->sortBy('name')) @endphp
+                            @foreach ($genres as $genre)
                                 <span class="badge-user">
 									<label class="inline">
 										<input type="checkbox" wire:model.prefetch="genres" value="{{ $genre->id }}"> {{ $genre->name }}
@@ -169,31 +160,31 @@
                             <label for="buffs" class="label label-default">Buff</label>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free0" type="checkbox" value="0">
+									<input wire:model.prefetch="free" type="checkbox" value="0">
 									0% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free25" type="checkbox" value="25">
+									<input wire:model.prefetch="free" type="checkbox" value="25">
 									25% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free50" type="checkbox" value="50">
+									<input wire:model.prefetch="free" type="checkbox" value="50">
 									50% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free75" type="checkbox" value="75">
+									<input wire:model.prefetch="free" type="checkbox" value="75">
 									75% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free100" type="checkbox" value="100">
+									<input wire:model.prefetch="free" type="checkbox" value="100">
 									100% Freeleech
 								</label>
 							</span>
@@ -238,7 +229,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-extra">
-                            <label for="extra" class="label label-default">@lang('common.extra')</label>
+                            <label for="extra" class="label label-default">{{ __('common.extra') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model.prefetch="internal" type="checkbox" value="1">
@@ -274,23 +265,23 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-health">
-                            <label for="health" class="label label-default">@lang('torrent.health')</label>
+                            <label for="health" class="label label-default">{{ __('torrent.health') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model.prefetch="alive" type="checkbox" value="1">
-									@lang('torrent.alive')
+									{{ __('torrent.alive') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model.prefetch="dying" type="checkbox" value="1">
-									@lang('torrent.dying-torrent')
+									{{ __('torrent.dying-torrent') }}
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model.prefetch="dead" type="checkbox" value="1">
-									@lang('torrent.dead-torrent')
+									{{ __('torrent.dead-torrent') }}
 								</label>
 							</span>
                         </div>
@@ -298,7 +289,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-history">
-                            <label for="history" class="label label-default">@lang('torrent.history')</label>
+                            <label for="history" class="label label-default">{{ __('torrent.history') }}</label>
                             <span class="badge-user">
 								<label class="inline">
 									<input wire:model.prefetch="notDownloaded" type="checkbox" value="1">
@@ -334,7 +325,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-xs-6 adv-search-quantity">
-                            <label for="quantity" class="label label-default">@lang('common.quantity')</label>
+                            <label for="quantity" class="label label-default">{{ __('common.quantity') }}</label>
                             <span>
 								<label class="inline">
 								<select wire:model="perPage" class="form-control">
@@ -373,25 +364,6 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
-            </a>
-            <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
-            </a>
-            <a href="{{ route('grouped') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')
-            </a>
-            <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
-                <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss') @lang('rss.feeds')
-            </a>
-        </div>
-        <div class="header gradient green" style="margin-top: 10px;">
-            <div class="inner_content">
-                <h5 style="font-weight: 900; font-size: 20px; margin: 8px;">
-                    @lang('torrent.torrents')
-                </h5>
-            </div>
         </div>
 
         <style>

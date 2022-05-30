@@ -61,49 +61,41 @@ class TorrentGroupSearch extends Component
 
     public string $collectionId = '';
 
-    public $free0;
+    public array $free = [];
 
-    public $free25;
+    public bool $doubleup = false;
 
-    public $free50;
+    public bool $featured = false;
 
-    public $free75;
+    public bool $stream = false;
 
-    public $free100;
+    public bool $sd = false;
 
-    public $doubleup;
+    public bool $highspeed = false;
 
-    public $featured;
+    public bool $bookmarked = false;
 
-    public $stream;
+    public bool $wished = false;
 
-    public $sd;
+    public bool $internal = false;
 
-    public $highspeed;
+    public bool $personalRelease = false;
 
-    public $bookmarked;
+    public bool $alive = false;
 
-    public $wished;
+    public bool $dying = false;
 
-    public $internal;
+    public bool $dead = false;
 
-    public $personalRelease;
+    public bool $notDownloaded = false;
 
-    public $alive;
+    public bool $downloaded = false;
 
-    public $dying;
+    public bool $seeding = false;
 
-    public $dead;
+    public bool $leeching = false;
 
-    public $notDownloaded;
-
-    public $downloaded;
-
-    public $seeding;
-
-    public $leeching;
-
-    public $incomplete;
+    public bool $incomplete = false;
 
     public int $perPage = 25;
 
@@ -131,11 +123,7 @@ class TorrentGroupSearch extends Component
         'malId'            => ['except' => ''],
         'playlistId'       => ['except' => ''],
         'collectionId'     => ['except' => ''],
-        'free0'            => ['except' => false],
-        'free25'           => ['except' => false],
-        'free50'           => ['except' => false],
-        'free75'           => ['except' => false],
-        'free100'          => ['except' => false],
+        'free'             => ['except' => []],
         'doubleup'         => ['except' => false],
         'featured'         => ['except' => false],
         'stream'           => ['except' => false],
