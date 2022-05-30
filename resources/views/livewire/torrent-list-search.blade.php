@@ -22,7 +22,7 @@
                         </button>
                     </div>
                 </div>
-                <div x-show="open" id="torrent-advanced-search">
+                <div x-cloak x-show="open" id="torrent-advanced-search">
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-description">
                             <label for="description" class="label label-default">{{ __('torrent.description') }}</label>
