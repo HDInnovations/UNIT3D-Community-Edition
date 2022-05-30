@@ -129,8 +129,6 @@ class GraveyardSearch extends Component
             ->when($this->stream !== false, fn ($query) => $query->streamOptimized())
             ->when($this->sd !== false, fn ($query) => $query->sd())
             ->when($this->highspeed !== false, fn ($query) => $query->highspeed())
-            ->when($this->bookmarked !== false, fn ($query) => $query->bookmarkedBy($user))
-            ->when($this->wished !== false, fn ($query) => $query->wishedBy($user))
             ->when($this->internal !== false, fn ($query) => $query->internal())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
