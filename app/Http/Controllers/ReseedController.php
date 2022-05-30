@@ -17,10 +17,18 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Notifications\NewReseedRequest;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 class ReseedController extends Controller
 {
+    /**
+     * ReseedController Constructor.
+     */
+    public function __construct(private readonly ChatRepository $chatRepository)
+    {
+    }
+
     /**
      * Reseed Request A Torrent.
      */
