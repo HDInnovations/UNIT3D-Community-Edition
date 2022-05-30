@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('requests', ['id' => $torrentRequest->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('request', ['id' => $torrentRequest->id]) }}" class="breadcrumb__link">
             {{ $torrentRequest->name }}
         </a>
     </li>
