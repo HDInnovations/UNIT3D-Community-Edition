@@ -15,17 +15,17 @@
 @endsection
 
 @section('nav-tabs')
-    <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('torrents') }}">
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('torrents') }}">
             List
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
+        <a class="nav-tab--active__link" href="{{ route('cards') }}">
             Cards
         </a>
     </li>
-    <li class="nav-tabV2">
+    <li class="nav-tab--active">
         <a class="nav-tab__link" href="{{ route('grouped') }}">
             Grouped
         </a>
@@ -49,6 +49,6 @@
 
 @section('content')
     <div>
-        @livewire('torrent-list-search')
+        @livewire('torrent-group-search')
     </div>
 @endsection
