@@ -359,9 +359,25 @@ class TorrentController extends Controller
     public function create(Request $request, int $categoryId = 0, string $title = '', string $imdb = '0', string $tmdb = '0'): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
+        $categories = [];
+        foreach (Category::all()->sortBy('position') as $cat) {
+            $temp = [
+                'name' => $cat->name,
+                'slug' => $cat->slug,
+            ];
+            $temp['type'] = match (1) {
+                $cat->movie_meta => 'movie',
+                $cat->tv_meta    => 'tv',
+                $cat->game_meta  => 'game',
+                $cat->music_meta => 'music',
+                $cat->no_meta    => 'no',
+                default          => 'no',
+            };
+            $categories[(int) $cat->id] = $temp;
+        }
 
         return \view('torrent.upload', [
-            'categories'   => Category::all()->sortBy('position'),
+            'categories'   => $categories,
             'types'        => Type::all()->sortBy('position'),
             'resolutions'  => Resolution::all()->sortBy('position'),
             'regions'      => Region::all()->sortBy('position'),
