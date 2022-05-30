@@ -332,9 +332,9 @@ class TorrentController extends BaseController
     {
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
-            ->when($request->has('name'), fn ($query) => $query->ofName($request->name))
-            ->when($request->has('description'), fn ($query) => $query->ofDescription($request->description))
-            ->when($request->has('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo))
+            ->when($request->has('name'), fn ($query) => $query->ofName($request->name, false))
+            ->when($request->has('description'), fn ($query) => $query->ofDescription($request->description, false))
+            ->when($request->has('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, false))
             ->when($request->has('uploader'), fn ($query) => $query->ofUploader($request->uploader))
             ->when($request->has('keywords'), fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $request->keywords))))
             ->when($request->has('startYear'), fn ($query) => $query->releasedAfterOrIn($request->startYear))
