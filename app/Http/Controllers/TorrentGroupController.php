@@ -13,19 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Peer;
-use App\Models\Torrent;
-
-class TorrentPeerController extends Controller
+class TorrentGroupController extends Controller
 {
     /**
-     * Display Peers Of A Torrent.
+     * Display a listing of the resource.
      */
-    public function index(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->get();
-
-        return \view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
+        return \view('torrent.group');
     }
 }

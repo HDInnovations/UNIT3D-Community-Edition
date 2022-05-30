@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Bencode;
 use App\Models\Torrent;
+use App\Models\TorrentDownload;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -87,6 +88,12 @@ class TorrentDownloadController extends Controller
 
         $fileToDownload = Bencode::bencode($dict);
         \file_put_contents(\getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
+
+        $torrentDownload = new TorrentDownload();
+        $torrentDownload->user_id = $user->id;
+        $torrentDownload->torrent_id = $id;
+        $torrentDownload->type = $rsskey ? 'RSS/API' : 'Site';
+        $torrentDownload->save();
 
         return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName)->deleteFileAfterSend(true);
     }

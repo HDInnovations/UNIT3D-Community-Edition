@@ -66,6 +66,7 @@
             {{-- Audits Block --}}
             @if (auth()->user()->group->is_modo)
                 @include('torrent.partials.audits')
+                @include('torrent.partials.downloads')
             @endif
 
             {{-- MediaInfo Block --}}
