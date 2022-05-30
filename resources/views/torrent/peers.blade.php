@@ -23,6 +23,7 @@
         {{ __('torrent.peers') }}
     </li>
 @endsection
+
 @section('content')
     <div class="container">
         <h1 class="title">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h1>
@@ -148,9 +149,6 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div class="text-center">
-                {{ $peers->links() }}
             </div>
         </div>
     </div>
