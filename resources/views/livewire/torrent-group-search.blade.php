@@ -350,7 +350,7 @@
     <div class="torrent-search--grouped__results block">
         <div class="dropdown torrent-listings-action-bar">
             <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
-                @lang('common.publish') @lang('torrent.torrent')
+                {{ __('common.publish') }} {{ __('torrent.torrent') }}
                 <i class="fas fa-caret-circle-right"></i>
             </a>
             <ul class="dropdown-menu">
@@ -957,7 +957,7 @@
                                     @default
                                     src="https://via.placeholder.com/90x135"
                                     @endswitch
-                                    alt="@lang('torrent.poster')"
+                                    alt="{{ __('torrent.poster') }}"
                             >
                         </a>
                     @endif
@@ -1145,7 +1145,7 @@
 
         @if (! $medias->count())
             <div class="margin-10 torrent-listings-no-result">
-                @lang('common.no-result')
+                {{ __('common.no-result') }}
             </div>
         @endif
         <br>
