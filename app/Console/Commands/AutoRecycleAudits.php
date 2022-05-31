@@ -14,8 +14,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Audit;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleAuditsTest

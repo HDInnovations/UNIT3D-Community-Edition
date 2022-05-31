@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\NotificationControllerTest

@@ -18,8 +18,8 @@ use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest

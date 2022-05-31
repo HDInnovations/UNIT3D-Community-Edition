@@ -15,8 +15,8 @@ namespace App\Console\Commands;
 
 use App\Models\PrivateMessage;
 use App\Models\Warning;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoDeactivateWarningTest

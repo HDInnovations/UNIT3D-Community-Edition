@@ -16,8 +16,8 @@ namespace App\Http\Controllers;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
