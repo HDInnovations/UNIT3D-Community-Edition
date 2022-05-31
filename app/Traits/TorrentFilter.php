@@ -110,22 +110,22 @@ trait TorrentFilter
         return $query->whereIntegerInRaw('distributor_id', $distributors);
     }
 
-    public function scopeOfTmdb(Builder $query, string $tvdbId): Builder
+    public function scopeOfTmdb(Builder $query, int $tvdbId): Builder
     {
         return $query->where('tmdb', '=', $tvdbId);
     }
 
-    public function scopeOfimdb(Builder $query, string $tvdbId): Builder
+    public function scopeOfimdb(Builder $query, int $tvdbId): Builder
     {
         return $query->where('imdb', '=', $tvdbId);
     }
 
-    public function scopeOfTvdb(Builder $query, string $tvdbId): Builder
+    public function scopeOfTvdb(Builder $query, int $tvdbId): Builder
     {
         return $query->where('tvdb', '=', $tvdbId);
     }
 
-    public function scopeOfMal(Builder $query, string $malId): Builder
+    public function scopeOfMal(Builder $query, int $malId): Builder
     {
         return $query->where('mal', '=', $malId);
     }
