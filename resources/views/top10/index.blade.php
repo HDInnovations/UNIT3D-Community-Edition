@@ -11,7 +11,7 @@
 @endsection
 
 @section('nav-tabs')
-    <li class="nav-tab">
+    <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents') }}">
             List
         </a>
