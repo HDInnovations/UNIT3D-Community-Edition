@@ -3,7 +3,7 @@
         @if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
             <a
                     href="{{ route('edit_form', ['id' => $torrent->id]) }}"
-                    title="@lang('common.edit')"
+                    title="{{ __('common.edit') }}"
                     class="torrent-search--grouped__edit"
             >
                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
@@ -26,7 +26,7 @@
                 <i
                         class='{{ config('other.font-awesome') }} fa-magic torrent-flag__internal'
                         style="color: #baaf92;"
-                        title='@lang('torrent.internal-release')'
+                        title='{{ __('torrent.internal-release') }}'
                 ></i>
             @endif
 
@@ -41,7 +41,7 @@
             @if ($torrent->stream == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-play text-red torrent-flag__stream-optimized'
-                        title='@lang('torrent.stream-optimized')'
+                        title='{{ __('torrent.stream-optimized') }}'
                 ></i>
             @endif
 
@@ -49,14 +49,14 @@
                 @if ($torrent->doubleup == 1)
                     <i
                             class='{{ config('other.font-awesome') }} fa-gem text-green torrent-flag__double-upload'
-                            title='@lang('torrent.double-upload')'
+                            title='{{ __('torrent.double-upload') }}'
                     ></i>
                 @endif
 
                 @if ($torrent->free >= '90')
                     <i
                             class="{{ config('other.font-awesome') }} fa-star text-gold torrent-flag__freeleech"
-                            title='{{ $torrent->free }}% @lang('common.free')'
+                            title='{{ $torrent->free }}% {{ __('common.free') }}'
                     ></i>
                 @elseif ($torrent->free < '90' && $torrent->free >= '30')
                     <style>
@@ -76,7 +76,7 @@
                         </style>
                     <i
                             class="star50 {{ config('other.font-awesome') }} fa-star torrent-flag__freeleech"
-                            title='{{ $torrent->free }}% @lang('common.free')'
+                            title='{{ $torrent->free }}% {{ __('common.free') }}'
                     ></i>
                 @elseif ($torrent->free < '30' && $torrent->free != '0')
                     <style>
@@ -96,7 +96,7 @@
                         </style>
                     <i
                             class="star30 {{ config('other.font-awesome') }} fa-star torrent-flag__freeleech"
-                            title='{{ $torrent->free }}% @lang('common.free')'
+                            title='{{ $torrent->free }}% {{ __('common.free') }}'
                     ></i>
                 @endif
             @endif
@@ -104,14 +104,14 @@
             @if ($personalFreeleech)
                 <i
                         class='{{ config('other.font-awesome') }} fa-id-badge text-orange torrent-flag__personal-freeleech'
-                        title='@lang('torrent.personal-freeleech')'
+                        title='{{ __('torrent.personal-freeleech') }}'
                 ></i>
             @endif
 
             @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
                 <i
                         class='{{ config('other.font-awesome') }} fa-star text-bold torrent-flag__freeleech-token'
-                        title='@lang('torrent.freeleech-token')'
+                        title='{{ __('torrent.freeleech-token') }}'
                 ></i>
             @endif
 
@@ -119,7 +119,7 @@
                 <span style='background-image:url(/img/sparkels.gif);'>
                         <i
                                 class='{{ config('other.font-awesome') }} fa-certificate text-pink torrent-flag__featured'
-                                title='@lang('torrent.featured')'
+                                title='{{ __('torrent.featured') }}'
                         ></i>
                     </span>
             @endif
@@ -127,7 +127,7 @@
             @if ($user->group->is_freeleech == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-trophy text-purple torrent-flag__special-freeleech'
-                        title='@lang('torrent.special-freeleech')'
+                        title='{{ __('torrent.special-freeleech') }}'
                 ></i>
             @endif
 
@@ -135,56 +135,56 @@
 
                 <i
                         class='{{ config('other.font-awesome') }} fa-globe text-blue torrent-flag__global-freeleech'
-                        title='@lang('torrent.global-freeleech')'
+                        title='{{ __('torrent.global-freeleech') }}'
                 ></i>
             @endif
 
             @if (config('other.doubleup') == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-globe text-green torrent-flag__global-double-upload'
-                        title='@lang('torrent.global-double-upload')'
+                        title='{{ __('torrent.global-double-upload') }}'
                 ></i>
             @endif
 
             @if ($user->group->is_double_upload == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-trophy text-purple torrent-flag__special-double-upload'
-                        title='@lang('torrent.special-double_upload')'
+                        title='{{ __('torrent.special-double_upload') }}'
                 ></i>
             @endif
 
             @if ($torrent->leechers >= 5)
                 <i
                         class='{{ config('other.font-awesome') }} fa-fire text-orange torrent-flag__hot'
-                        title='@lang('common.hot')'
+                        title='{{ __('common.hot') }}'
                 ></i>
             @endif
 
             @if ($torrent->sticky == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-thumbtack text-black torrent-flag__sticky'
-                        title='@lang('torrent.sticky')'
+                        title='{{ __('torrent.sticky') }}'
                 ></i>
             @endif
 
             @if ($torrent->highspeed == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-tachometer text-red torrent-flag__high-speed'
-                        title='@lang('common.high-speeds')'
+                        title='{{ __('common.high-speeds') }}'
                 ></i>
             @endif
 
             @if ($torrent->sd == 1)
                 <i
                         class='{{ config('other.font-awesome') }} fa-ticket text-orange torrent-flag__sd'
-                        title='@lang('torrent.sd-content')'
+                        title='{{ __('torrent.sd-content') }}'
                 ></i>
             @endif
 
             @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
                 <i
                         class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold torrent-flag__bumped'
-                        title='@lang('torrent.recent-bumped')'
+                        title='{{ __('torrent.recent-bumped') }}'
                 ></i>
             @endif
             </span>
@@ -195,7 +195,7 @@
         <a
                 download
                 href="{{ route('download_check', ['id' => $torrent->id]) }}"
-                title="@lang('common.download')"
+                title="{{ __('common.download') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
         </a>
@@ -203,7 +203,7 @@
         <a
                 download
                 href="{{ route('download', ['id' => $torrent->id]) }}"
-                title="@lang('common.download')"
+                title="{{ __('common.download') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
         </a>
@@ -211,7 +211,7 @@
     @if (config('torrent.magnet') == 1)
         <a
                 href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
-                title="@lang('common.magnet')"
+                title="{{ __('common.magnet') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
         </a>
