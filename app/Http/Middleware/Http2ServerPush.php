@@ -99,7 +99,7 @@ class Http2ServerPush
     /**
      * Get the DomCrawler instance.
      */
-    protected function getCrawler(Response $response): ?Crawler
+    protected function getCrawler(Response $response): \Symfony\Component\DomCrawler\Crawler
     {
         if ($this->crawler) {
             return $this->crawler;

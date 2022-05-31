@@ -142,7 +142,7 @@ class RssController extends Controller
      *
      * @throws \Exception
      */
-    public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
+    public function show(int $id, string $rsskey): \Illuminate\Http\Response
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
 

@@ -301,7 +301,7 @@ class Bbcode
     /**
      * Remove all BBCode.
      */
-    public function stripBBCodeTags(string $source): string
+    public function stripBBCodeTags(string $source): ?string
     {
         foreach ($this->parsers as $name => $parser) {
             $source = $this->searchAndReplace($parser['pattern'].'i', $parser['content'], $source);

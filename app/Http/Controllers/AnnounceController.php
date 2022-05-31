@@ -247,7 +247,7 @@ class AnnounceController extends Controller
      *
      * @throws \App\Exceptions\TrackerException
      */
-    protected function checkUser($passkey, $queries): object
+    protected function checkUser($passkey, $queries): ?object
     {
         // Caached System Required Groups
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));

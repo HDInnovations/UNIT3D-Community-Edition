@@ -18,7 +18,7 @@ namespace App\Helpers;
 
 class Markdown
 {
-    public function text($text)
+    public function text($text): string
     {
         $Elements = $this->textElements($text);
 
@@ -29,7 +29,7 @@ class Markdown
         return \trim($markup, "\n");
     }
 
-    protected function textElements($text)
+    protected function textElements($text): array
     {
         // make sure no definitions are set
         $this->DefinitionData = [];
@@ -51,7 +51,7 @@ class Markdown
     // Setters
     //
 
-    public function setBreaksEnabled($breaksEnabled)
+    public function setBreaksEnabled($breaksEnabled): static
     {
         $this->breaksEnabled = $breaksEnabled;
 
@@ -60,7 +60,7 @@ class Markdown
 
     protected $breaksEnabled;
 
-    public function setMarkupEscaped($markupEscaped)
+    public function setMarkupEscaped($markupEscaped): static
     {
         $this->markupEscaped = $markupEscaped;
 
@@ -69,7 +69,7 @@ class Markdown
 
     protected $markupEscaped;
 
-    public function setUrlsLinked($urlsLinked)
+    public function setUrlsLinked($urlsLinked): static
     {
         $this->urlsLinked = $urlsLinked;
 
@@ -78,7 +78,7 @@ class Markdown
 
     protected $urlsLinked = true;
 
-    public function setSafeMode($safeMode)
+    public function setSafeMode($safeMode): static
     {
         $this->safeMode = (bool) $safeMode;
 
@@ -87,7 +87,7 @@ class Markdown
 
     protected $safeMode;
 
-    public function setStrictMode($strictMode)
+    public function setStrictMode($strictMode): static
     {
         $this->strictMode = (bool) $strictMode;
 
@@ -154,12 +154,12 @@ class Markdown
     // Blocks
     //
 
-    protected function lines(array $lines)
+    protected function lines(array $lines): string
     {
         return $this->elements($this->linesElements($lines));
     }
 
-    protected function linesElements(array $lines)
+    protected function linesElements(array $lines): array
     {
         $Elements = [];
         $CurrentBlock = null;
@@ -300,12 +300,12 @@ class Markdown
         return $Component['element'];
     }
 
-    protected function isBlockContinuable($Type)
+    protected function isBlockContinuable($Type): bool
     {
         return \method_exists($this, 'block'.$Type.'Continue');
     }
 
-    protected function isBlockCompletable($Type)
+    protected function isBlockCompletable($Type): bool
     {
         return \method_exists($this, 'block'.$Type.'Complete');
     }
@@ -648,7 +648,7 @@ class Markdown
         }
     }
 
-    protected function blockListComplete(array $Block)
+    protected function blockListComplete(array $Block): array
     {
         if (isset($Block['loose'])) {
             foreach ($Block['element']['elements'] as &$li) {
@@ -664,7 +664,7 @@ class Markdown
     //
     // Quote
 
-    protected function blockQuote($Line)
+    protected function blockQuote($Line): array
     {
         if (\preg_match('#^>[ ]?+(.*+)#', (string) $Line['text'], $matches)) {
             return [
@@ -702,7 +702,7 @@ class Markdown
     //
     // Rule
 
-    protected function blockRule($Line)
+    protected function blockRule($Line): array
     {
         $marker = $Line['text'][0];
 
@@ -771,7 +771,7 @@ class Markdown
     //
     // Reference
 
-    protected function blockReference($Line)
+    protected function blockReference($Line): array
     {
         if (\str_contains((string) $Line['text'], ']') && \preg_match('#^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$#', (string) $Line['text'], $matches)
         ) {
@@ -959,7 +959,7 @@ class Markdown
     // ~
     //
 
-    protected function paragraph($Line)
+    protected function paragraph($Line): array
     {
         return [
             'type'    => 'Paragraph',
@@ -1010,12 +1010,12 @@ class Markdown
     // ~
     //
 
-    public function line($text, $nonNestables = [])
+    public function line($text, $nonNestables = []): string
     {
         return $this->elements($this->lineElements($text, $nonNestables));
     }
 
-    protected function lineElements($text, $nonNestables = [])
+    protected function lineElements($text, $nonNestables = []): array
     {
         // standardize line breaks
         $text = \str_replace(["\r\n", "\r"], "\n", $text);
@@ -1109,7 +1109,7 @@ class Markdown
     // ~
     //
 
-    protected function inlineText($text)
+    protected function inlineText($text): array
     {
         $Inline = [
             'extent'  => \strlen((string) $text),
@@ -1203,7 +1203,7 @@ class Markdown
         ];
     }
 
-    protected function inlineEscapeSequence($Excerpt)
+    protected function inlineEscapeSequence($Excerpt): array
     {
         if (isset($Excerpt['text'][1]) && \in_array($Excerpt['text'][1], $this->specialCharacters)) {
             return [
@@ -1414,7 +1414,7 @@ class Markdown
 
     // ~
 
-    protected function unmarkedText($text)
+    protected function unmarkedText($text): string
     {
         $Inline = $this->inlineText($text);
 
@@ -1460,7 +1460,7 @@ class Markdown
         return $this->elementApplyRecursive(fn (array $Element) => $this->handle($Element), $Element);
     }
 
-    protected function handleElementsRecursive(array $Elements)
+    protected function handleElementsRecursive(array $Elements): array
     {
         return $this->elementsApplyRecursive(fn (array $Element) => $this->handle($Element), $Elements);
     }
@@ -1489,7 +1489,7 @@ class Markdown
         return $closure($Element);
     }
 
-    protected function elementsApplyRecursive($closure, array $Elements)
+    protected function elementsApplyRecursive($closure, array $Elements): array
     {
         foreach ($Elements as &$Element) {
             $Element = $this->elementApplyRecursive($closure, $Element);
@@ -1498,7 +1498,7 @@ class Markdown
         return $Elements;
     }
 
-    protected function elementsApplyRecursiveDepthFirst($closure, array $Elements)
+    protected function elementsApplyRecursiveDepthFirst($closure, array $Elements): array
     {
         foreach ($Elements as &$Element) {
             $Element = $this->elementApplyRecursiveDepthFirst($closure, $Element);
@@ -1507,7 +1507,7 @@ class Markdown
         return $Elements;
     }
 
-    protected function element(array $Element)
+    protected function element(array $Element): string
     {
         if ($this->safeMode) {
             $Element = $this->sanitiseElement($Element);
@@ -1571,7 +1571,7 @@ class Markdown
         return $markup;
     }
 
-    protected function elements(array $Elements)
+    protected function elements(array $Elements): string
     {
         $markup = '';
 
@@ -1643,7 +1643,7 @@ class Markdown
     // Deprecated Methods
     //
 
-    public function parse($text)
+    public function parse($text): string
     {
         return $this->text($text);
     }
@@ -1682,7 +1682,7 @@ class Markdown
         return $Element;
     }
 
-    protected function filterUnsafeUrlInAttribute(array $Element, $attribute)
+    protected function filterUnsafeUrlInAttribute(array $Element, $attribute): array
     {
         foreach ($this->safeLinksWhitelist as $safeLinkWhitelist) {
             if (self::striAtStart($Element['attributes'][$attribute], $safeLinkWhitelist)) {
@@ -1699,12 +1699,12 @@ class Markdown
     // Static Methods
     //
 
-    protected static function escape($text, $allowQuotes = false)
+    protected static function escape($text, $allowQuotes = false): string
     {
         return \htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
     }
 
-    protected static function striAtStart($string, $needle)
+    protected static function striAtStart($string, $needle): bool
     {
         $len = \strlen((string) $needle);
 
