@@ -14,9 +14,9 @@ class LoginLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-$this->username() => 'required|string',
-'password'        => 'required|string',
-'captcha'         => 'hiddencaptcha',
-];
+            $this->username() => 'required|string',
+            'password'        => 'required|string',
+            'captcha'         => 'hiddencaptcha',
+        ];
     }
 }

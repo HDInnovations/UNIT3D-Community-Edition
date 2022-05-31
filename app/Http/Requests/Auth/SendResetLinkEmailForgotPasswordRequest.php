@@ -14,8 +14,8 @@ class SendResetLinkEmailForgotPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-'email'   => 'required|email',
-'captcha' => 'hiddencaptcha',
-];
+            'email'   => 'required|email',
+            'captcha' => 'hiddencaptcha',
+        ];
     }
 }

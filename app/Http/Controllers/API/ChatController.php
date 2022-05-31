@@ -30,9 +30,9 @@ use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Feature\Http\Controllers\API\ChatControllerTest

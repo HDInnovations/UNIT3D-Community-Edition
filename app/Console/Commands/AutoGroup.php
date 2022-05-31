@@ -20,8 +20,8 @@ use App\Helpers\ByteUnits;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoGroupTest

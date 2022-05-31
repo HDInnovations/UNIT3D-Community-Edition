@@ -16,8 +16,8 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Peer;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 class AutoStatsClients extends Command
 {

@@ -48,7 +48,7 @@ class ChatRepository
         return $this->bot->all();
     }
 
-    public function echoes($userId): \Illuminate\Database\Eloquent\Collection&iterable
+    public function echoes($userId): \Illuminate\Database\Eloquent\Collection & iterable
     {
         return $this->userEcho->with([
             'bot',
@@ -62,7 +62,7 @@ class ChatRepository
             ->get();
     }
 
-    public function audibles($userId): \Illuminate\Database\Eloquent\Collection&iterable
+    public function audibles($userId): \Illuminate\Database\Eloquent\Collection & iterable
     {
         return $this->userAudible->with([
             'bot',

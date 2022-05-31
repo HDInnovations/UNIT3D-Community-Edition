@@ -17,8 +17,8 @@ namespace App\Console\Commands;
 
 use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoRemovePersonalFreeleechTest

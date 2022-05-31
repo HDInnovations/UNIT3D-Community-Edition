@@ -21,8 +21,8 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest

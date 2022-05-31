@@ -6,8 +6,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class TwoStepAuthFactory extends Factory
 {

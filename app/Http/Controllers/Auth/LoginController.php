@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Auth\LoginLoginRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginLoginRequest;
 use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
