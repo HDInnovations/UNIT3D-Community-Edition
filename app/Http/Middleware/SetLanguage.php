@@ -14,7 +14,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Language;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Closure;
 use Illuminate\Support\Facades\App;
 

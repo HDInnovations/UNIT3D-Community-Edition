@@ -16,7 +16,7 @@ namespace App\Console\Commands;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 
 /**

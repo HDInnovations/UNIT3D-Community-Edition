@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 /**

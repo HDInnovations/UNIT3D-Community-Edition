@@ -31,7 +31,7 @@ use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
