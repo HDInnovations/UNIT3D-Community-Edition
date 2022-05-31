@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Todo\Unit\Http\Requests;
 
 use Tests\TestCase;

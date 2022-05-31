@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Todo\Feature\Http\Controllers;
 
 use App\Models\Playlist;

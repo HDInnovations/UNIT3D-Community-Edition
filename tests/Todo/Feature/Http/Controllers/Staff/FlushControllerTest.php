@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Todo\Feature\Http\Controllers\Staff;
 
 use App\Models\User;
