@@ -460,7 +460,7 @@
 								</span>
                             @endif
 
-                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'

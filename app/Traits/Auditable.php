@@ -13,7 +13,7 @@
 
 namespace App\Traits;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 trait Auditable

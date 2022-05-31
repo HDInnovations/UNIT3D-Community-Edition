@@ -15,7 +15,7 @@ namespace App\Traits;
 
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 trait TwoStep
 {

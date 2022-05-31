@@ -32,7 +32,7 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

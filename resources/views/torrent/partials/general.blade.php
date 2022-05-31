@@ -70,7 +70,7 @@
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                                                @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                                @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                             </span>
                                         @elseif ($torrent->free < '90' && $torrent->free >= '30')
                                             <style>
@@ -91,7 +91,7 @@
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
-                                                @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                                @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                             </span>
                                         @elseif ($torrent->free < '30' && $torrent->free != '0')
                                             <style>
@@ -112,7 +112,7 @@
                                             <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
-                                                @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                                @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                             </span>
                                         @endif
                                     @endif
@@ -132,7 +132,7 @@
                                                 @endif
                                                 ">
                                             <i class="{{ config('other.font-awesome') }} fa-gem text-green"></i>
-                                            @if ($torrent->du_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.</span> @endif
+                                            @if ($torrent->du_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.</span> @endif
                                         </span>
                                     @endif
                                 @else
@@ -338,7 +338,7 @@
                             @if ($torrent->free >= '90')
                                 <span class="badge-extra text-bold">
                                     <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> {{ $torrent->free }}% {{ __('common.free') }}
-                                    @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                    @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                 </span>
                             @elseif ($torrent->free < '90' && $torrent->free >= '30')
                                 <style>
@@ -358,7 +358,7 @@
                                 </style>
                                 <span class="badge-extra text-bold">
                                     <i class="star50 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% {{ __('common.free') }}
-                                    @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                    @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                 </span>
                             @elseif ($torrent->free < '30' && $torrent->free != '0')
                                 <style>
@@ -378,7 +378,7 @@
                                 </style>
                                 <span class="badge-extra text-bold">
                                     <i class="star30 {{ config('other.font-awesome') }} fa-star"></i> {{ $torrent->free }}% {{ __('common.free') }}
-                                    @if ($torrent->fl_until !== null) <span>{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
+                                    @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
                                 </span>
                             @endif
 

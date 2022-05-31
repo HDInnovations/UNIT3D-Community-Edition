@@ -15,7 +15,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Movie;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;

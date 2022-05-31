@@ -15,7 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 
 /**

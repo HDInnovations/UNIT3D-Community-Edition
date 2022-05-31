@@ -36,7 +36,7 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use MarcReichel\IGDBLaravel\Models\Game;
 

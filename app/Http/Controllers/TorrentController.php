@@ -45,7 +45,7 @@ use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

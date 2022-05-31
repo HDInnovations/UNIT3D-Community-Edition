@@ -565,7 +565,7 @@
                                     @if ($torrent->du_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-double-upload'>
                                             <i class='{{ config('other.font-awesome') }} fa-clock'
-                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
+                                               title='{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
                                         </span>
                                     @endif
                                 @endif
@@ -619,7 +619,7 @@
                                     @if ($torrent->fl_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-freeleech'>
                                             <i class='{{ config('other.font-awesome') }} fa-clock'
-                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
+                                               title='{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
                                         </span>
                                     @endif
                             @endif
@@ -702,7 +702,7 @@
 								</span>
                             @endif
 
-                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                                 <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        title='{{ __('torrent.recent-bumped') }}'></i>

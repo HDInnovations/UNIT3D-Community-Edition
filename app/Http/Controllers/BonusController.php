@@ -24,7 +24,7 @@ use App\Notifications\NewBon;
 use App\Notifications\NewPostTip;
 use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

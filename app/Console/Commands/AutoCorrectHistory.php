@@ -14,7 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 
 /**

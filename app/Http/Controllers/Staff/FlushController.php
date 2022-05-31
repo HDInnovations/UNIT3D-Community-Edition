@@ -19,7 +19,7 @@ use App\Models\History;
 use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest

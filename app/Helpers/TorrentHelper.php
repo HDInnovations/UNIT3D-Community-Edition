@@ -32,7 +32,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class TorrentHelper
 {

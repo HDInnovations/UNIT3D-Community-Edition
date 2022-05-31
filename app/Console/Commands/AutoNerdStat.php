@@ -19,7 +19,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 
 /**
