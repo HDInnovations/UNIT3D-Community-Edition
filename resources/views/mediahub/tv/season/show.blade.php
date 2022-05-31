@@ -20,7 +20,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('mediahub.shows.show') }}" class="breadcrumb__link">
+        <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}" class="breadcrumb__link">
             {{ $show->name }}
         </a>
     </li>
