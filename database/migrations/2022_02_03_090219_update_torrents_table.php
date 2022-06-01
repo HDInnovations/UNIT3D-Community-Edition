@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table) {
             $table->dateTime('fl_until')->after('bumped_at')->nullable();

@@ -41,12 +41,12 @@ class ChatRepository
         return \config('chat');
     }
 
-    public function bots()
+    public function bots(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->bot->all();
     }
 
-    public function echoes($userId): \Illuminate\Support\Collection
+    public function echoes($userId): \Illuminate\Database\Eloquent\Collection&iterable
     {
         return $this->userEcho->with([
             'bot',
@@ -60,7 +60,7 @@ class ChatRepository
             ->get();
     }
 
-    public function audibles($userId)
+    public function audibles($userId): \Illuminate\Database\Eloquent\Collection&iterable
     {
         return $this->userAudible->with([
             'bot',
@@ -74,7 +74,7 @@ class ChatRepository
             ->get();
     }
 
-    public function rooms()
+    public function rooms(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->chatroom->all();
     }
@@ -307,7 +307,7 @@ class ChatRepository
         return $room;
     }
 
-    public function statuses()
+    public function statuses(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->chatStatus->all();
     }

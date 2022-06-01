@@ -9,10 +9,8 @@ use Illuminate\Support\Facades\Schema;
 return new class() extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('history', function (Blueprint $table) {
             $table->unsignedBigInteger('torrent_id')->after('user_id')->index();

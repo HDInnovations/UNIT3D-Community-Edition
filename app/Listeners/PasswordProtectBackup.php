@@ -21,7 +21,7 @@ class PasswordProtectBackup
     /**
      * Handle the event.
      */
-    public function handle(BackupZipWasCreated $backupZipWasCreated): string
+    public function handle(BackupZipWasCreated $backupZipWasCreated): ?string
     {
         return (new BackupPassword($backupZipWasCreated->pathToZip))->path;
     }

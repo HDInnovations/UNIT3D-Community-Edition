@@ -83,7 +83,7 @@ class Poll extends Model
     /**
      * Get Total Votes On A Poll Option.
      */
-    public function totalVotes(): int
+    public function totalVotes(): int|float
     {
         $result = 0;
         foreach ($this->options as $option) {

@@ -31,7 +31,7 @@ class MarkdownExtra extends Markdown
         \array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
 
-    public function text($text)
+    public function text($text): ?string
     {
         $Elements = $this->textElements($text);
 
@@ -363,7 +363,7 @@ class MarkdownExtra extends Markdown
 
     private $currentMeaning;
 
-    protected function insertAbreviation(array $Element)
+    protected function insertAbreviation(array $Element): array
     {
         if (isset($Element['text'])) {
             $Element['elements'] = self::pregReplaceElements(
@@ -409,7 +409,7 @@ class MarkdownExtra extends Markdown
     // Util Methods
     //
 
-    protected function addDdElement(array $Line, array $Block)
+    protected function addDdElement(array $Line, array $Block): array
     {
         $text = \substr($Line['text'], 1);
         $text = \trim($text);
@@ -436,7 +436,7 @@ class MarkdownExtra extends Markdown
         return $Block;
     }
 
-    protected function buildFootnoteElement()
+    protected function buildFootnoteElement(): array
     {
         $Element = [
             'name'       => 'div',
@@ -519,7 +519,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function parseAttributeData($attributeString)
+    protected function parseAttributeData($attributeString): array
     {
         $Data = [];
 
@@ -542,7 +542,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function processTag($elementMarkup) // recursive
+    protected function processTag($elementMarkup): string // recursive
     {
         // http://stackoverflow.com/q/1148928/200145
         \libxml_use_internal_errors(true);
@@ -589,7 +589,7 @@ class MarkdownExtra extends Markdown
 
     // ~
 
-    protected function sortFootnotes($A, $B) // callback
+    protected function sortFootnotes($A, $B): int|float // callback
     {
         return $A['number'] - $B['number'];
     }
