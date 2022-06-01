@@ -23,7 +23,7 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class SystemBot
 {

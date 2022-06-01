@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class LoginListener
 {

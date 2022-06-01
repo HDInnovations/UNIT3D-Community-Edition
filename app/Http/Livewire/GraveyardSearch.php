@@ -14,7 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
