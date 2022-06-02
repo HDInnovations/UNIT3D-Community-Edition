@@ -333,15 +333,16 @@ class TorrentController extends BaseController
         $user = \auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen($field) >= 2
+            && \strlen($field) > 2
             && $field[0] === '/'
-            && $field[-1] === '/';
+            && $field[-1] === '/'
+            && @\preg_match($field, 'Validate regex') !== false;
 
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
-            ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->name)))
-            ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->name)))
+            ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
+            ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
             ->when($request->filled('uploader'), fn ($query) => $query->ofUploader($request->uploader))
             ->when($request->filled('keywords'), fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $request->keywords))))
             ->when($request->filled('startYear'), fn ($query) => $query->releasedAfterOrIn((int) $request->startYear))
