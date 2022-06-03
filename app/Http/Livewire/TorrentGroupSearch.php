@@ -175,15 +175,16 @@ class TorrentGroupSearch extends Component
         $user = \auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen($field) >= 2
+            && \strlen($field) > 2
             && $field[0] === '/'
-            && $field[-1] === '/';
+            && $field[-1] === '/'
+            && @\preg_match($field, 'Validate regex') !== false;
 
         return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
-            ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->name)))
-            ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->name)))
+            ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
+            ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
             ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
