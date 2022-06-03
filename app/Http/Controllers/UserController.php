@@ -1240,6 +1240,29 @@ class UserController extends Controller
     }
 
     /**
+     * Get A Users Uploads Table.
+     */
+    public function uploads(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
+
+        return \view('user.private.uploads', [
+            'route'         => 'uploads',
+            'user'          => $user,
+            'his_upl'       => $hisUpl,
+            'his_upl_cre'   => $hisUplCre,
+            'his_downl'     => $hisDownl,
+            'his_downl_cre' => $hisDownlCre,
+        ]);
+    }
+
+    /**
      * Get A Users Graveyard Resurrections.
      */
     public function resurrections(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View

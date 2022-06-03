@@ -44,15 +44,11 @@ class UserTorrents extends Component
 
     public string $downloaded = 'any';
 
-    public string $hasHistory = 'any';
-
     public array $status = [];
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    public $unapprovedOnTop = true;
 
     public $showMorePrecision = false;
 
@@ -69,9 +65,7 @@ class UserTorrents extends Component
         'immune'            => ['except' => 'any'],
         'uploaded'          => ['except' => 'any'],
         'downloaded'        => ['except' => 'any'],
-        'hasHistory'        => ['except' => 'any'],
         'status'            => ['except' => []],
-        'unapprovedOnTop'   => ['except' => true],
         'showMorePrecision' => ['except' => false],
     ];
 
@@ -97,8 +91,14 @@ class UserTorrents extends Component
 
     final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return History::rightJoin('torrents', 'history.torrent_id', '=', 'torrents.id')
+        return History::query()
+            ->join('torrents', fn ($join) => $join
+                ->on('history.torrent_id', '=', 'torrents.id')
+                ->where('history.created_at', '>=', $this->user->created_at) // Unneeded, but increases performance
+                ->where('history.user_id', '=', $this->user->id)
+            )
             ->select(
+                'history.torrent_id',
                 'history.agent',
                 'history.uploaded',
                 'history.downloaded',
@@ -112,7 +112,6 @@ class UserTorrents extends Component
                 'history.immune',
                 'history.hitrun',
                 'history.prewarn',
-                'torrents.id',
                 'torrents.name',
                 'torrents.seeders',
                 'torrents.leechers',
@@ -121,24 +120,12 @@ class UserTorrents extends Component
                 'torrents.user_id',
                 'torrents.status',
             )
-            ->when(
-                $this->uploaded === 'include',
-                fn ($query) => $query->selectRaw('COALESCE(history.created_at, NOW()) as created_at'),
-                fn ($query) => $query->selectRaw('COALESCE(history.created_at, torrents.created_at) as created_at')
-            )
             ->selectRaw('IF(torrents.user_id = ?, 1, 0) AS uploader', [$this->user->id])
             ->selectRaw('history.active AND history.seeder AS seeding')
             ->selectRaw('history.active AND NOT history.seeder AS leeching')
             ->selectRaw('TIMESTAMPDIFF(SECOND, history.created_at, history.completed_at) AS leechtime')
             ->selectRaw('CAST(history.uploaded AS float) / CAST((history.downloaded + 1) AS float) AS ratio')
             ->selectRaw('CAST(history.actual_uploaded AS float) / CAST((history.actual_downloaded + 1) AS float) AS actual_ratio')
-            ->where(fn ($query) => $query
-                ->where('history.user_id', '=', $this->user->id)
-                ->orWhere(fn ($query) => $query
-                    ->where('torrents.user_id', '=', $this->user->id)
-                    ->whereNull('history.user_id')
-                )
-            )
             ->when($this->name, fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
@@ -166,14 +153,11 @@ class UserTorrents extends Component
             ->when($this->hitrun === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('hitrun', '=', 0)->orWhereNull('hitrun')))
             ->when($this->immune === 'include', fn ($query) => $query->where('immune', '=', 1))
             ->when($this->immune === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('immune', '=', 0)->orWhereNull('immune')))
-            ->when($this->hasHistory === 'include', fn ($query) => $query->whereNotNull('history.updated_at'))
-            ->when($this->hasHistory === 'exclude', fn ($query) => $query->whereNull('history.updated_at'))
             ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', $this->user->id))
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
             ->when($this->downloaded === 'include', fn ($query) => $query->where('history.actual_downloaded', '>', 0))
             ->when($this->downloaded === 'exclude', fn ($query) => $query->where('history.actual_downloaded', '=', 0))
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
-            ->when($this->unapprovedOnTop, fn ($query) => $query->orderByRaw('IF(status = 1, 1, 0)'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
