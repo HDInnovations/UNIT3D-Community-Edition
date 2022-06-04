@@ -231,13 +231,13 @@
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'uploaded' => 'include']) }}">
+                <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                     {{ auth()->user()->getUploaded() }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'uploaded' => 'exclude']) }}">
+                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                     {{ auth()->user()->getDownloaded() }}
                 </a>
@@ -391,7 +391,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'uploaded' => 'include']) }}">
+                        <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                             {{ __('user.my-uploads') }}
                         </a>

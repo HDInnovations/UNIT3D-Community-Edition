@@ -179,7 +179,7 @@
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
             <a
-                class="{{ Route::is('user_torrents', 'user_active', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                class="{{ Route::is('user_torrents', 'user_uploads', 'user_active', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                 href="{{ route('user_torrents', ['username' => $user->username]) }}"
             >
                 {{ __('torrent.torrents') }}
@@ -200,7 +200,7 @@
                     </a>
                 </li>
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('user_torrents', ['username' => $user->username, 'uploaded' => 'include']) }}">
+                    <a class="nav-tab__link" href="{{ route('user_uploads', ['username' => $user->username]) }}">
                         {{ __('user.uploads') }}
                     </a>
                 </li>
