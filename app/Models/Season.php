@@ -41,7 +41,7 @@ class Season extends Model
     public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episode::class)
-            ->orderBy('episode_number');
+            ->oldest('episode_number');
     }
 
     public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

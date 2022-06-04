@@ -4,16 +4,14 @@
     <title>{{ __('request.add-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ url('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.requests') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('requests.index') }}" class="breadcrumb__link">
+            {{ __('request.requests') }}
         </a>
     </li>
-    <li>
-        <a href="{{ url('add_request_form') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('request.add-request') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 
@@ -136,7 +134,7 @@
                         <div class="form-group">
                             <label for="description">{{ __('request.description') }}</label>
                             <label for="request-form-description"></label>
-                            <textarea id="request-form-description" name="description" cols="30" rows="10"
+                            <textarea id="editor" name="description" cols="30" rows="10"
                                       class="form-control"></textarea>
                         </div>
 
@@ -166,13 +164,4 @@
             </form>
         @endif
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#request-form-description').wysibb({})
-      })
-
-    </script>
 @endsection

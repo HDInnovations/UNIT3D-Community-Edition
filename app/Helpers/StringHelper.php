@@ -15,15 +15,15 @@ namespace App\Helpers;
 
 class StringHelper
 {
-    public const KIB = 1_024;
+    public final const KIB = 1_024;
 
-    public const MIB = 1_024 * 1_024;
+    public final const MIB = 1_024 * 1_024;
 
-    public const GIB = 1_024 * 1_024 * 1_024;
+    public final const GIB = 1_024 * 1_024 * 1_024;
 
-    public const TIB = 1_024 * 1_024 * 1_024 * 1_024;
+    public final const TIB = 1_024 * 1_024 * 1_024 * 1_024;
 
-    public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
+    public final const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
 
     /**
      * @var string
@@ -39,7 +39,7 @@ class StringHelper
     {
         $string = '';
         for ($i = 0; $i < $length; $i++) {
-            $string .= self::CHARACTERS[\rand(0, \strlen(self::CHARACTERS) - 1)];
+            $string .= self::CHARACTERS[random_int(0, \strlen(self::CHARACTERS) - 1)];
         }
 
         return $string;
@@ -77,7 +77,7 @@ class StringHelper
             $result *= -1;
         }
 
-        return $result.' '.$suffix;
+        return $result."\u{a0}".$suffix;
     }
 
     /**

@@ -1,11 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('edit_form', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }} {{ __('common.edit') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
@@ -213,7 +220,7 @@
                     <div class="form-group">
                         <label for="description">{{ __('common.description') }}</label>
                         <label for="upload-form-description"></label>
-                        <textarea id="upload-form-description" name="description" cols="30" rows="10"
+                        <textarea id="editor" name="description" cols="30" rows="10"
                                   class="form-control">{{ $torrent->description }}</textarea>
                     </div>
 
@@ -307,13 +314,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#upload-form-description').wysibb({})
-      })
-
-    </script>
 @endsection

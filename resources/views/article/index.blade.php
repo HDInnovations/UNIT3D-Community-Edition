@@ -8,11 +8,9 @@
     <meta name="description" content="{{ __('articles.meta-articles') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('articles.articles') }}
     </li>
 @endsection
 

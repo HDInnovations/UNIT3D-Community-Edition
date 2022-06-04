@@ -2,7 +2,7 @@
 
     @include('cookie-consent::dialogContents')
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
 
       window.laravelCookieConsent = (function () {
 

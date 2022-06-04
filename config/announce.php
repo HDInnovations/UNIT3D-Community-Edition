@@ -33,8 +33,13 @@ return [
     |
     */
 
-    'min_interval' => '(60 * 30)',
+    'min_interval' => [
 
+        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
+
+        'interval' => (int) env('MIN_ANNOUNCE_INTERVAL', 60 * 10),
+
+    ],
     /*
     |--------------------------------------------------------------------------
     | Rate Limit
@@ -69,5 +74,21 @@ return [
     */
 
     'connectable_check_interval' => 60 * 30,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Download Slots System
+    |--------------------------------------------------------------------------
+    |
+    | Enables download slots for user groups set in group settings via staff dashboard
+    | Make sure you have a slot value set for EVERY group before enabling. This system is disabled
+    | by default and groups download_slots are null. Null equals unlimited slots. Groups like banned should be
+    | set to 0
+    |
+    */
+
+    'slots_system' => [
+        'enabled' => false,
+    ],
 
 ];

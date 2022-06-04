@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('content')
-    <style nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('style') }}">
+    <style nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('style') }}">
         .stack {
             font-size: 0.85em;
         }

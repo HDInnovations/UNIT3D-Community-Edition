@@ -28,7 +28,7 @@ class PollController extends Controller
     /**
      * PollController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -52,7 +52,7 @@ class PollController extends Controller
         $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($userHasVoted) {
-            return \redirect()->route('poll_results', ['id' => $poll->id])
+            return \to_route('poll_results', ['id' => $poll->id])
                 ->withInfo(\trans('poll.already-voted-result'));
         }
 
@@ -70,7 +70,7 @@ class PollController extends Controller
             ->where('poll_id', '=', $poll->id)
             ->exists();
         if ($voted) {
-            return \redirect()->route('poll_results', ['id' => $poll->id])
+            return \to_route('poll_results', ['id' => $poll->id])
                 ->withErrors(\trans('poll.already-voted-error'));
         }
 
@@ -92,7 +92,7 @@ class PollController extends Controller
             \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
         );
 
-        return \redirect()->route('poll_results', ['id' => $poll->id])
+        return \to_route('poll_results', ['id' => $poll->id])
             ->withSuccess(\trans('poll.vote-counted'));
     }
 

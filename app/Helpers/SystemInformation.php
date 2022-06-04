@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SystemInformation
@@ -44,9 +44,9 @@ class SystemInformation
     {
         if (\is_readable('/proc/meminfo')) {
             $content = \file_get_contents('/proc/meminfo');
-            \preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
+            \preg_match('#^MemTotal: \s*(\d*)#m', (string) $content, $matches);
             $total = $matches[1] * 1_024;
-            \preg_match('#^MemFree: \s*(\d*)#m', $content, $matches);
+            \preg_match('#^MemFree: \s*(\d*)#m', (string) $content, $matches);
             $free = $matches[1] * 1_024;
             //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             //$used = $this->formatBytes($matches[1] * 1024);

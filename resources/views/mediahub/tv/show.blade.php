@@ -8,21 +8,19 @@
     <meta name="description" content="{{ $show->name }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.shows.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">TV Shows</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.shows.index') }}" class="breadcrumb__link">
+            TV Shows
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $show->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $show->name }}
     </li>
 @endsection
 
@@ -71,7 +69,7 @@
                                             <div class="card_footer text-center">
                                                 <a data-toggle="collapse" data-target="#{{ $season->season_number }}">
                                                     <i class="fas fa-chevron-double-down"></i> <span
-                                                            class="badge-user text-bold"> {{ $season->torrents()->count() }} Torrents Matched</span>
+                                                            class="badge-user text-bold"> {{ $season->torrents->where('season_number', '=', $season->season_number)->count() }} Torrents Matched</span>
                                                     <i class="fas fa-chevron-double-down"></i>
                                                 </a>
                                             </div>
@@ -89,7 +87,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($season->torrents->sortByDesc('created_at') as $torrent)
+                                                            @foreach($season->torrents->where('season_number', '=', $season->season_number)->sortByDesc('created_at') as $torrent)
                                                                 <tr>
                                                                     <td>
                                                                         <a href="{{ route('torrent', ['id' => $torrent->id]) }}"

@@ -8,16 +8,19 @@
     <meta name="description" content="{{ __('torrent.history') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('history', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.history') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.history') }}
     </li>
 @endsection
 
@@ -48,7 +51,8 @@
                     @foreach ($history as $hpeers)
                         <tr>
                             @if ($hpeers->user->hidden == 1 || $hpeers->user->peer_hidden == 1 ||
-                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer'))
+                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer') ||
+                                ($hpeers->user->id == $torrent->user->id && $torrent->anon == 1))
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"

@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
+use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
 
 /**
@@ -46,7 +47,16 @@ class ApplicationController extends Controller
             if (\config('captcha.enabled') == false) {
                 $v = \validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:invites',
+                        'unique:users',
+                        'unique:applications',
+                        new EmailBlacklist(),
+                    ],
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',
@@ -56,7 +66,16 @@ class ApplicationController extends Controller
             } else {
                 $v = \validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:invites',
+                        'unique:users',
+                        'unique:applications',
+                        new EmailBlacklist(),
+                    ],
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',
@@ -89,7 +108,7 @@ class ApplicationController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('application.create')
+            return \to_route('application.create')
                 ->withErrors($v->errors());
         }
 
@@ -101,7 +120,7 @@ class ApplicationController extends Controller
         $urls = \collect($request->input('links'))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($urls);
 
-        return \redirect()->route('login')
+        return \to_route('login')
             ->withSuccess(\trans('auth.application-submitted'));
     }
 }

@@ -8,22 +8,19 @@
     <meta name="description" content="{{ $collection->name }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.collections.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.collections') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.collections.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.collections') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $collection->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $collection->name }}
     </li>
 @endsection
 
@@ -55,7 +52,7 @@
                     </div>
                 </div>
                 <div class="movie-bottom">
-                    <a href="{{ route('torrents') }}?perPage=25&collectionId={{ $collection->id }}" role="button"
+                    <a href="{{ route('torrents', ['collectionId' => $collection->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Collection Torrents List
@@ -123,12 +120,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

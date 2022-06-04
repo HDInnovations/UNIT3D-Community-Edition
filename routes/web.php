@@ -69,12 +69,9 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['before' => 'auth'], function () {
-        // Announce (Pass Key Auth)
-        Route::get('/announce/{passkey}', [App\Http\Controllers\AnnounceController::class, 'index'])->name('announce');
-
         // RSS (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
-        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentController::class, 'download'])->name('torrent.download.rsskey');
+        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
     });
 
     /*
@@ -253,25 +250,26 @@ Route::group(['middleware' => 'language'], function () {
 
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
-            Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'uploadForm'])->name('upload_form');
-            Route::post('/', [App\Http\Controllers\TorrentController::class, 'upload'])->name('upload');
+            Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
+            Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('upload');
             Route::post('/preview', [App\Http\Controllers\TorrentController::class, 'preview']);
         });
 
         Route::group(['prefix' => 'torrents'], function () {
-            Route::get('/', [App\Http\Controllers\TorrentController::class, 'torrents'])->name('torrents');
+            Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('torrents');
             Route::get('/cards', [App\Http\Controllers\TorrentCardController::class, 'index'])->name('cards');
-            Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'torrent'])->name('torrent');
-            Route::get('/{id}/peers', [App\Http\Controllers\TorrentController::class, 'peers'])->name('peers');
-            Route::get('/{id}/history', [App\Http\Controllers\TorrentController::class, 'history'])->name('history');
-            Route::get('/download_check/{id}', [App\Http\Controllers\TorrentController::class, 'downloadCheck'])->name('download_check');
-            Route::get('/download/{id}', [App\Http\Controllers\TorrentController::class, 'download'])->name('download');
-            Route::post('/delete', [App\Http\Controllers\TorrentController::class, 'deleteTorrent'])->name('delete');
-            Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'editForm'])->name('edit_form');
-            Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit');
-            Route::post('/{id}/reseed', [App\Http\Controllers\TorrentController::class, 'reseedTorrent'])->name('reseed');
+            Route::get('/grouped', [App\Http\Controllers\TorrentGroupController::class, 'index'])->name('grouped');
+            Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'show'])->name('torrent');
+            Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers');
+            Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history');
+            Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check');
+            Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download');
+            Route::post('/delete', [App\Http\Controllers\TorrentController::class, 'destroy'])->name('delete');
+            Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit_form');
+            Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'update'])->name('edit');
+            Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
             Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
-            Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\TorrentController::class, 'similar'])->name('torrents.similar');
+            Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
         });
 
         Route::group(['prefix' => 'torrent'], function () {
@@ -302,7 +300,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/banlog', [App\Http\Controllers\UserController::class, 'getBans'])->name('banlog');
             Route::post('/{username}/userFilters', [App\Http\Controllers\UserController::class, 'myFilter'])->name('myfilter');
             Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
-            Route::get('/{username}/seeds', [App\Http\Controllers\UserController::class, 'seeds'])->name('user_seeds');
             Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
@@ -310,8 +307,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
-            Route::get('/{username}/downloads', [App\Http\Controllers\UserController::class, 'downloads'])->name('user_downloads');
-            Route::get('/{username}/unsatisfieds', [App\Http\Controllers\UserController::class, 'unsatisfieds'])->name('user_unsatisfieds');
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');

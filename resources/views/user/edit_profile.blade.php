@@ -4,26 +4,24 @@
     <title>{{ $user->username }} {{ __('user.profile') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.profile') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.edit-profile') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container">
         <div class="block">
-            @include('user.buttons.edit')
             <div class="some-padding">
                 <form role="form" method="POST"
                       action="{{ route('user_edit_profile', ['username' => $user->username]) }}"
@@ -46,14 +44,14 @@
                         <div class="form-group">
                             <label for="about">{{ __('user.about-me') }} <span class="badge-extra">BBCode
                                     {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="about" id="about" cols="30" rows="10"
+                            <textarea name="about" id="editor" cols="30" rows="10"
                                       class="form-control">{{ $user->about }}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="signature">{{ __('user.forum-signature') }} <span class="badge-extra">BBCode
                                     {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="signature" id="signature" cols="30" rows="10"
+                            <textarea name="signature" id="editor" cols="30" rows="10"
                                       class="form-control">{{ $user->signature }}</textarea>
                         </div>
 
@@ -72,12 +70,4 @@
         </div>
     </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#about, #signature').wysibb({})
-      })
-    </script>
 @endsection

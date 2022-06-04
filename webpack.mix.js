@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ mix.options({
      */
     .js('resources/js/app.js', 'public/js').vue({ version: 2 })
     .sass('resources/sass/app.scss', 'public/css')
+    .purgeCss()
 
     /*
      * Themes
@@ -51,7 +53,7 @@ mix.options({
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js', 'resources/js/unit3d/custom.js'], 'public/js/unit3d.js')
 
     /*
      * Copy assets
@@ -65,4 +67,5 @@ mix.options({
      */
     .js('resources/js/unit3d/imgbb.js', 'public/js')
     .js('resources/js/vendor/alpine.js', 'public/js')
-    .js('resources/js/vendor/virtual-select.js', 'public/js');
+    .js('resources/js/vendor/virtual-select.js', 'public/js')
+    .js('resources/js/unit3d/chat.js', 'public/js');

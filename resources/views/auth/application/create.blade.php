@@ -171,7 +171,7 @@
 
     <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       let images = 2
 
       $('#addImg').on('click', function (e) {
@@ -191,7 +191,7 @@
 
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       let links = 2
 
       $('#addLink').on('click', function (e) {
@@ -213,7 +213,7 @@
 
     @foreach (['warning', 'success', 'info'] as $key)
         @if (Session::has($key))
-            <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+            <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
               const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -231,7 +231,7 @@
     @endforeach
 
     @if (Session::has('errors'))
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
           Swal.fire({
             title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
             icon: 'error',

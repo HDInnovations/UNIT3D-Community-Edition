@@ -40,27 +40,16 @@ class uploadExtensionBuilder {
         title = title.replace(/( FLAC ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( L?PCM ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( DD[P+]? ?)(\d)( )(\d)/i, '$1 $2.$4');
-        title = title.replace(/( DD-? ?EX ?)(\d)( )(\d)/i, ' DD EX $2.$4');
         title = title.replace(/( Opus ?)(\d)( )(\d)/i, ' Opus $2.$4');
         title = title.replace(/( AAC? ?L?C? ?S?B?R? ?)(\d)( )(\d)/i, ' AAC $2.$4');
-        title = title.replace(/ DD-EX /i, ' DD EX ');
+        title = title.replace(/ (DDP?\+?)[- ]*EX ?(\d) (\d)/i, ' $1 EX $2.$3');
         title = title.replace(/ DDPA ?5.1 /i, ' DD+ 5.1 Atmos ');
         title = title.replace(/( \d\.\d)\+Atmos /i, '$1 Atmos ');
         title = title.replace(/ DDP /i, ' DD+ ');
+        title = title.replace(/ (TrueHD|Atmos) (\d) (\d)/i, ' $1 $2.$3');
         // Fix Atmos
-        if (title.includes('Atmos') && !title.includes(' DD+ ')) {
-            if (title.includes('TrueHD')) {
-                // Case when Atmos has all codec and channel, but wrong order.
-                title = title.replace(/TrueHD Atmos 7.1/i, 'TrueHD 7.1 Atmos');
-            } else {
-                if (title.includes(' 7.1 ')) {
-                    // Case when Atmos has 7.1 after it
-                    title = title.replace(/Atmos 7.1/i, 'TrueHD 7.1 Atmos');
-                } else {
-                    // Case when Atmos is alone
-                    title = title.replace(/Atmos/i, 'TrueHD 7.1 Atmos');
-                }
-            }
+        if (!title.includes(' DD+ ')) {
+            title = title.replace(/ (TrueHD ?)?Atmos (\d)([ .])(\d)/i, ' TrueHD $2.$4 Atmos');
         }
         title = title.replace(/ +DTSMA /i, ' DTS-HD MA ');
         // Fix for parenthesis around year.
@@ -196,7 +185,6 @@ class uploadExtensionBuilder {
         title = title.replace(/( ?- ?)([^ ]*)$/i, '-$2');
         return title.trim();
     }
-
     hook() {
         let name = document.querySelector('#title');
         let tmdb = document.querySelector('#autotmdb');
@@ -361,7 +349,7 @@ class uploadExtensionBuilder {
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
-                } else if (release.type === 'TV Show') {
+                } else if (release.type === 'TV Show' && data?.results.length > 0) {
                     let tags = data.results.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
                 }
@@ -375,12 +363,12 @@ class uploadExtensionBuilder {
             function s(data) {
                 data = JSON.parse(data);
                 let imdb = data.imdb_id;
-                imdb = imdb.substring(2);
+                imdb = imdb.substring(2) ?? 0;
                 if (release.type === 'Movie') {
                     $('#autoimdb').val(imdb);
                 } else if (release.type === 'TV Show') {
                     $('#autoimdb').val(imdb);
-                    $('#autotvdb').val(data.tvdb_id);
+                    $('#autotvdb').val(data.tvdb_id ?? 0);
                 }
             }
 
@@ -871,11 +859,6 @@ $(document).mousedown(function () {
     }
     audioLoaded = 1;
 });
-if (document.getElementById('torrent')) {
-    document.querySelector('#torrent').addEventListener('change', () => {
-        uploadExtension.hook();
-    });
-}
 // Globals
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();

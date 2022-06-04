@@ -18,8 +18,8 @@ use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ModerationControllerTest
@@ -29,7 +29,7 @@ class ModerationController extends Controller
     /**
      * ModerationController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -77,11 +77,11 @@ class ModerationController extends Controller
 
             TorrentHelper::approveHelper($torrent->id);
 
-            return \redirect()->route('staff.moderation.index')
+            return \to_route('staff.moderation.index')
                 ->withSuccess('Torrent Approved');
         }
 
-        return \redirect()->route('staff.moderation.index')
+        return \to_route('staff.moderation.index')
             ->withErrors('Torrent Already Approved');
     }
 
@@ -97,7 +97,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.moderation.index')
+            return \to_route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
 
@@ -115,7 +115,7 @@ class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
 
-        return \redirect()->route('staff.moderation.index')
+        return \to_route('staff.moderation.index')
             ->withSuccess('Torrent Postponed');
     }
 
@@ -131,7 +131,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.moderation.index')
+            return \to_route('staff.moderation.index')
                 ->withErrors($v->errors());
         }
 
@@ -149,7 +149,7 @@ class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
 
-        return \redirect()->route('staff.moderation.index')
+        return \to_route('staff.moderation.index')
             ->withSuccess('Torrent Rejected');
     }
 }

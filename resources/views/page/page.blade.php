@@ -1,10 +1,13 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('pages.show', ['id' => $page->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $page->name }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('pages.index') }}" class="breadcrumb__link">
+            Pages
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ $page->name }}
     </li>
 @endsection
 
@@ -20,7 +23,7 @@
 
 @section('javascripts')
     @if(request()->url() === config('other.rules_url') && auth()->user()->read_rules == 0)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
           window.onscroll = function () {
             let scrollHeight, totalHeight
             scrollHeight = document.body.scrollHeight

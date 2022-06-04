@@ -8,23 +8,24 @@
     <meta name="description" content="{{ $forum->name . ' - ' . __('forum.create-new-topic') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
+            {{ $forum->name }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.create-new-topic') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
@@ -52,7 +53,7 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
         const title = '{{ $title }}'
         if (title.length != 0) {

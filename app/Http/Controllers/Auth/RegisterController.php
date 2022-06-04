@@ -23,8 +23,9 @@ use App\Models\UserActivation;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,7 @@ class RegisterController extends Controller
     /**
      * RegisterController Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -44,13 +45,13 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {
-            return \redirect()->route('application.create')
+            return \to_route('application.create')
                 ->withInfo(\trans('auth.allow-invite-appl'));
         }
 
         // Make sure open reg is off and invite code is not present
         if ($code === 'null' && \config('other.invite-only') == 1) {
-            return \redirect()->route('login')
+            return \to_route('login')
                 ->withWarning(\trans('auth.allow-invite'));
         }
 
@@ -62,7 +63,7 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
         if (\config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return \redirect()->route('registrationForm', ['code' => $code])
+            return \to_route('registrationForm', ['code' => $code])
                 ->withErrors(\trans('auth.invalid-key'));
         }
 
@@ -85,13 +86,27 @@ class RegisterController extends Controller
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:users',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:users',
+                        new EmailBlacklist(),
+                    ],
                 ]);
             } else {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => 'required|string|email|max:70|blacklist|unique:users',
+                    'email'    => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:users',
+                        new EmailBlacklist(),
+                    ],
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
@@ -111,7 +126,7 @@ class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return \redirect()->route('registrationForm', ['code' => $code])
+            return \to_route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         }
 
@@ -149,7 +164,7 @@ class RegisterController extends Controller
             \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
             'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
         ];
-        $selected = \mt_rand(0, \count($welcomeArray) - 1);
+        $selected = random_int(0, \count($welcomeArray) - 1);
         $this->chatRepository->systemMessage(
             $welcomeArray[$selected]
         );
@@ -161,7 +176,7 @@ class RegisterController extends Controller
         $privateMessage->message = \config('welcomepm.message');
         $privateMessage->save();
 
-        return \redirect()->route('login')
+        return \to_route('login')
             ->withSuccess(\trans('auth.register-thanks'));
     }
 }

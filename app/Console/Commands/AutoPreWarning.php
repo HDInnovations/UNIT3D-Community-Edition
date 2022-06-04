@@ -16,8 +16,8 @@ namespace App\Console\Commands;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoPreWarningTest

@@ -1,3 +1,4 @@
+// Vibrant For Meta Backdrops
 var metaElement = document.getElementById('meta-info');
 var metaPoster = document.getElementById('meta-poster');
 if (metaElement && metaPoster) {
@@ -18,6 +19,7 @@ if (metaElement && metaPoster) {
     }
 }
 
+// Scroll To Top/Bottom
 $(document).ready(function () {
     $(window).scroll(function () {
         if ($(this).scrollTop() > 50) {
@@ -45,6 +47,7 @@ $(document).ready(function () {
     $('#back-to-down').tooltip('show');
 });
 
+// Keen Slider For Featured Torrents
 $(document).ready(function () {
     var sliderElement = document.getElementById('myCarousel');
     if (sliderElement) {
@@ -129,6 +132,18 @@ $(document).ready(function () {
     }
 });
 
+// Bootstrap Tooltips
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+// WYSIBB Editor
+$(document).ready(function () {
+    $('#editor').wysibb({});
+});
+
+// Emoji Picker
+/*const input = document.getElementById('editor');
+document.querySelector('emoji-picker').addEventListener('emoji-click', (e) => {
+    textFieldEdit.insert(input, e.detail.unicode);
+});*/

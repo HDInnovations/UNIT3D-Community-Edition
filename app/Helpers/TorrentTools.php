@@ -98,6 +98,7 @@ class TorrentTools
      */
     public static function getTorrentFiles($decodedTorrent): array
     {
+        $files = [];
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
@@ -188,13 +189,46 @@ class TorrentTools
     public static function isValidFilename($filename): bool
     {
         $result = true;
-        if (\strlen($filename) > 255 ||
-            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', $filename) ||
-            \preg_match('#(^\.+|[\. ]+)$#', $filename) ||
-            \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', $filename)) {
+        if (\strlen((string) $filename) > 255 ||
+            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
+            \preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
+            \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', (string) $filename)) {
             $result = false;
         }
 
         return $result;
+    }
+
+    /**
+     * Anonymize A Torrent Media Info.
+     */
+    public static function anonymizeMediainfo($mediainfo): array|string|null
+    {
+        if ($mediainfo === null) {
+            return null;
+        }
+
+        $completeNameI = \strpos($mediainfo, 'Complete name');
+        if ($completeNameI !== false) {
+            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            if ($pathI !== false) {
+                $pathI += 2;
+                $endI = \strpos($mediainfo, "\n", $pathI);
+                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $newPath = MediaInfo::stripPath($path);
+
+                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
+            }
+        }
+
+        return $mediainfo;
+    }
+
+    /**
+     * Parse Torrent Keywords.
+     */
+    public static function parseKeywords($text): array
+    {
+        return \array_filter(\array_map('trim', explode(',', $text)));
     }
 }

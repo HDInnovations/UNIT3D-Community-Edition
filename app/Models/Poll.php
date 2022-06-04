@@ -74,7 +74,7 @@ class Poll extends Model
      */
     public function makeSlugFromTitle($title): string
     {
-        $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
+        $slug = \strlen((string) $title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', '%'.$slug.'%')->count();
 
         return $count ? \sprintf('%s-%s', $slug, $count) : $slug;

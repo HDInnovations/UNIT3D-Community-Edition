@@ -8,22 +8,19 @@
     <meta name="description" content="{{ $network->name }} {{ __('mediahub.networks') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.networks.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.networks') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.networks.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.networks') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $network->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $network->name }}
     </li>
 @endsection
 

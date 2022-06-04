@@ -62,6 +62,7 @@ class GroupController extends Controller
         $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
+        $group->download_slots = $request->input('download_slots');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
@@ -86,12 +87,12 @@ class GroupController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return \redirect()->route('staff.groups.index')
+            return \to_route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
 
         if ($v->fails()) {
-            return \redirect()->route('staff.groups.index')
+            return \to_route('staff.groups.index')
                 ->withErrors($v->errors());
         }
 
@@ -107,7 +108,7 @@ class GroupController extends Controller
             $permission->save();
         }
 
-        return \redirect()->route('staff.groups.index')
+        return \to_route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
     }
 
@@ -138,6 +139,7 @@ class GroupController extends Controller
         $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
+        $group->download_slots = $request->input('download_slots');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
@@ -162,18 +164,18 @@ class GroupController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return \redirect()->route('staff.groups.index')
+            return \to_route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }
 
         if ($v->fails()) {
-            return \redirect()->route('staff.groups.index')
+            return \to_route('staff.groups.index')
                 ->withErrors($v->errors());
         }
 
         $group->save();
 
-        return \redirect()->route('staff.groups.index')
+        return \to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }
 }

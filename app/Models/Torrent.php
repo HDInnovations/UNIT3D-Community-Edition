@@ -20,31 +20,20 @@ use App\Helpers\StringHelper;
 use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
+use App\Traits\GroupedLastScope;
+use App\Traits\TorrentFilter;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 use voku\helper\AntiXSS;
 
 class Torrent extends Model
 {
     use HasFactory;
     use Moderatable;
-    use Sortable;
     use Auditable;
-
-    /**
-     * The Columns That Are Sortable.
-     */
-    public array $sortable = [
-        'id',
-        'name',
-        'size',
-        'seeders',
-        'leechers',
-        'times_completed',
-        'created_at',
-    ];
+    use TorrentFilter;
+    use GroupedLastScope;
 
     /**
      * Belongs To A User.
@@ -150,7 +139,7 @@ class Torrent extends Model
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(History::class, 'info_hash', 'info_hash');
+        return $this->hasMany(History::class);
     }
 
     /**

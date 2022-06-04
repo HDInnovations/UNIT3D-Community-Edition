@@ -19,7 +19,7 @@ class Bencode
 {
     public static function parse_integer($s, &$pos)
     {
-        $len = \strlen($s);
+        $len = \strlen((string) $s);
         if ($len === 0 || $s[$pos] != 'i') {
             return;
         }
@@ -52,7 +52,7 @@ class Bencode
 
     public static function parse_string($s, &$pos)
     {
-        $len = \strlen($s);
+        $len = \strlen((string) $s);
         $lengthStr = '';
 
         while ($pos < $len && $s[$pos] != ':') {
@@ -94,7 +94,7 @@ class Bencode
 
     public static function bdecode($s, &$pos = 0)
     {
-        $len = \strlen($s);
+        $len = \strlen((string) $s);
         if ($pos >= $len) {
             return;
         }
@@ -180,7 +180,7 @@ class Bencode
 
             foreach ($d as $key => $value) {
                 if ($isDict) {
-                    $ret .= \strlen($key).':'.$key;
+                    $ret .= \strlen((string) $key).':'.$key;
                 }
 
                 if (\is_int($value) || \is_float($value)) {

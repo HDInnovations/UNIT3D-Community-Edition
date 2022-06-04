@@ -14,7 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -38,19 +38,19 @@ class GraveyardSearch extends Component
 
     public string $malId = '';
 
-    public $free;
+    public array $free = [];
 
-    public $doubleup;
+    public bool $doubleup = false;
 
-    public $featured;
+    public bool $featured = false;
 
-    public $stream;
+    public bool $stream = false;
 
-    public $sd;
+    public bool $sd = false;
 
-    public $highspeed;
+    public bool $highspeed = false;
 
-    public $internal;
+    public bool $internal = false;
 
     public int $perPage = 25;
 
@@ -69,7 +69,7 @@ class GraveyardSearch extends Component
         'imdbId'        => ['except' => ''],
         'tvdbId'        => ['except' => ''],
         'malId'         => ['except' => ''],
-        'free'          => ['except' => false],
+        'free'          => ['except' => []],
         'doubleup'      => ['except' => false],
         'featured'      => ['except' => false],
         'stream'        => ['except' => false],
@@ -105,54 +105,31 @@ class GraveyardSearch extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
+        $user = \auth()->user();
+        $isRegexAllowed = $user->group->is_modo;
+        $isRegex = fn ($field) => $isRegexAllowed
+            && \strlen($field) >= 2
+            && $field[0] === '/'
+            && $field[-1] === '/';
+
         return Torrent::with('category', 'type', 'resolution')
             ->where('created_at', '<', Carbon::now()->copy()->subDays(30)->toDateTimeString())
-            ->where('seeders', '=', 0)
-            ->when($this->name, function ($query) {
-                $query->where('name', 'LIKE', '%'.$this->name.'%');
-            })
-            ->when($this->categories, function ($query) {
-                $query->whereIntegerInRaw('category_id', $this->categories);
-            })
-            ->when($this->types, function ($query) {
-                $query->whereIntegerInRaw('type_id', $this->types);
-            })
-            ->when($this->resolutions, function ($query) {
-                $query->v('resolution_id', $this->resolutions);
-            })
-            ->when($this->tmdbId, function ($query) {
-                $query->where('tmdb', '=', $this->tmdbId);
-            })
-            ->when($this->imdbId, function ($query) {
-                $query->where('imdb', '=', $this->imdbId);
-            })
-            ->when($this->tvdbId, function ($query) {
-                $query->where('tvdb', '=', $this->tvdbId);
-            })
-            ->when($this->malId, function ($query) {
-                $query->where('mal', '=', $this->malId);
-            })
-            ->when($this->free, function ($query) {
-                $query->where('free', '=', 1);
-            })
-            ->when($this->doubleup, function ($query) {
-                $query->where('doubleup', '=', 1);
-            })
-            ->when($this->featured, function ($query) {
-                $query->where('featured', '=', 1);
-            })
-            ->when($this->stream, function ($query) {
-                $query->where('stream', '=', 1);
-            })
-            ->when($this->sd, function ($query) {
-                $query->where('sd', '=', 1);
-            })
-            ->when($this->highspeed, function ($query) {
-                $query->where('highspeed', '=', 1);
-            })
-            ->when($this->internal, function ($query) {
-                $query->where('internal', '=', 1);
-            })
+            ->dead()
+            ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
+            ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
+            ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
+            ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
+            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
+            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
+            ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
+            ->when($this->featured !== false, fn ($query) => $query->featured())
+            ->when($this->stream !== false, fn ($query) => $query->streamOptimized())
+            ->when($this->sd !== false, fn ($query) => $query->sd())
+            ->when($this->highspeed !== false, fn ($query) => $query->highspeed())
+            ->when($this->internal !== false, fn ($query) => $query->internal())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

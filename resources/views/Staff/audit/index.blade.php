@@ -8,16 +8,14 @@
     <meta name="description" content="Audits Log - {{ __('staff.staff-dashboard') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.audits.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.audit-log') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('staff.audit-log') }}
     </li>
 @endsection
 
@@ -43,7 +41,6 @@
                     <tbody>
                     @if ($audits->count())
                         @foreach ($audits as $audit)
-                            @php $values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR) @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ strtoupper($audit->action) }}</td>
@@ -55,7 +52,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @foreach ($values as $key => $value)
+                                    @foreach ($audit->values as $key => $value)
                                         <span class="badge badge-extra">{{ $key }}:</span> {{ $value['old'] }} &rarr;
                                         {{ $value['new'] }}<br>
                                     @endforeach

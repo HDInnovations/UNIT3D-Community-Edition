@@ -26,7 +26,7 @@ class WishController extends Controller
     /**
      * WishController Constructor.
      */
-    public function __construct(private WishInterface $wish)
+    public function __construct(private readonly WishInterface $wish)
     {
     }
 
@@ -57,24 +57,21 @@ class WishController extends Controller
     {
         $user = $request->user();
         if ($request->get('tmdb') === 0) {
-            return \redirect()
-                ->route('wishes.index', ['username' => $user->username])
+            return \to_route('wishes.index', ['username' => $user->username])
                 ->withErrors('TMDB ID Required');
         }
 
         $tmdb = $request->get('tmdb');
 
         if ($this->wish->exists($user->id, $tmdb)) {
-            return \redirect()
-                ->route('wishes.index', ['username' => $user->username])
+            return \to_route('wishes.index', ['username' => $user->username])
                 ->withErrors('Wish already exists!');
         }
 
         $meta = (new Movie($tmdb))->getData();
 
         if ($meta === null || $meta === false) {
-            return \redirect()
-                ->route('wishes.index', ['username' => $user->username])
+            return \to_route('wishes.index', ['username' => $user->username])
                 ->withErrors('TMDM Bad Request!');
         }
 
@@ -88,8 +85,7 @@ class WishController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return \redirect()
-            ->route('wishes.index', ['username' => $user->username])
+        return \to_route('wishes.index', ['username' => $user->username])
             ->withSuccess('Wish Successfully Added!');
     }
 
@@ -102,8 +98,7 @@ class WishController extends Controller
 
         $this->wish->delete($id);
 
-        return \redirect()
-            ->route('wishes.index', ['username' => $user->username])
+        return \to_route('wishes.index', ['username' => $user->username])
             ->withSuccess('Wish Successfully Removed!');
     }
 }

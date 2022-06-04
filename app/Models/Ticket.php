@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
     use HasFactory;
+    use Auditable;
 
     protected $casts = [
         'closed_at'   => 'datetime',
@@ -32,7 +34,7 @@ class Ticket extends Model
     public function scopeStale($query)
     {
         return $query->with(['comments' => function ($query) {
-            $query->orderByDesc('id');
+            $query->latest('id');
         }, 'comments.user'])
             ->has('comments')
             ->where('reminded_at', '<', \strtotime('+ 3 days'))

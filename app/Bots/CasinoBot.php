@@ -22,7 +22,7 @@ use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class CasinoBot
 {
@@ -40,14 +40,14 @@ class CasinoBot
 
     private ?string $log = null;
 
-    private \Carbon\Carbon $expiresAt;
+    private readonly \Illuminate\Support\Carbon $expiresAt;
 
-    private \Carbon\Carbon $current;
+    private readonly \Illuminate\Support\Carbon $current;
 
     /**
      * NerdBot Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
         $bot = Bot::where('id', '=', '3')->firstOrFail();
         $this->bot = $bot;
@@ -61,9 +61,9 @@ class CasinoBot
     public function replaceVars($output): array|string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\str_contains($output, '{bots}')) {
+        if (\str_contains((string) $output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }

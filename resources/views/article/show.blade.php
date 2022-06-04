@@ -8,17 +8,14 @@
     <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('articles.index') }}" class="breadcrumb__link">
+            {{ __('articles.articles') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('articles.show', ['id' => $article->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $article->title }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $article->id }}
     </li>
 @endsection
 
@@ -57,13 +54,4 @@
         </div>
     </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

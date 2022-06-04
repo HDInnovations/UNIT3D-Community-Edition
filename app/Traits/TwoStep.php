@@ -15,7 +15,7 @@ namespace App\Traits;
 
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 trait TwoStep
 {
@@ -123,7 +123,7 @@ trait TwoStep
     /**
      * Format verification exceeded timings with Carbon.
      */
-    protected function exceededTimeParser(string $time): \Illuminate\Support\Collection
+    protected function exceededTimeParser(\DateTimeInterface $time): \Illuminate\Support\Collection
     {
         $tomorrow = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);

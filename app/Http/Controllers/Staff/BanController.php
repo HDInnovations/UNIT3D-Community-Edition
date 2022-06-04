@@ -19,8 +19,8 @@ use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -69,7 +69,7 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
@@ -78,7 +78,7 @@ class BanController extends Controller
         // Send Email
         Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -112,7 +112,7 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
@@ -121,7 +121,7 @@ class BanController extends Controller
         // Send Email
         Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

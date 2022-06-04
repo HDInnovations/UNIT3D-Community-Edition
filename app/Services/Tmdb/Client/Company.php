@@ -19,7 +19,7 @@ class Company
 
     public ?int $page = null;
 
-    public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+    public final const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
     public $data;
 
@@ -36,7 +36,7 @@ class Company
                 ],
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.locale'),
+                    'language'           => \config('app.meta_locale'),
                     'append_to_response' => 'movies,videos,images,credits',
                     'page'               => $page,
                 ],

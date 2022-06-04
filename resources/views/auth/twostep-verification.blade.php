@@ -12,11 +12,9 @@
     <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" crossorigin="anonymous">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('auth.title') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('auth.title') }}
     </li>
 @endsection
 
@@ -163,7 +161,7 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $(function () {
         // Check for on keypress
         $('input').on('keyup', function (event) {
@@ -208,7 +206,7 @@
 
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
         $('.code-inputs').delay(200).removeClass('invalid-shake')
       })
@@ -288,7 +286,7 @@
 
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $('#resend_code_trigger').click(function (event) {
         event.preventDefault()
         $.ajaxSetup({

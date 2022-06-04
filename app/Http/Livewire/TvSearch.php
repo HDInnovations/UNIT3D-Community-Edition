@@ -43,7 +43,7 @@ class TvSearch extends Component
         return Tv::with(['networks', 'genres'])
             ->withCount('seasons')
             ->when($this->search, fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
-            ->orderBy('name')
+            ->oldest('name')
             ->paginate(30);
     }
 

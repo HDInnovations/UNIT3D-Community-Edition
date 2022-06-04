@@ -53,13 +53,13 @@ class NoteController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
         $note->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Posted');
     }
 
@@ -74,7 +74,7 @@ class NoteController extends Controller
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

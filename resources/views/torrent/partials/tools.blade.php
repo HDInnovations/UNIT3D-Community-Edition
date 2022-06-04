@@ -15,7 +15,7 @@
                                role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ __('common.edit') }}
                             </a>
-                            @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                            @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                                 <button class="btn btn-danger btn-xs" data-toggle="modal"
                                         data-target="#modal_torrent_delete">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('common.delete') }}
@@ -27,27 +27,10 @@
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <div class="torrent-internal-controls">
                             @if ($torrent->free == 0)
-                                <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST"
-                                      style="display: inline;">
-                                    @csrf
-                                    <div x-data="{total_value:0}" style="display: flex; margin-bottom: 5px;">
-                                        <input type="range"
-                                               x-model="total_value" min="0" max="100" step="25" list="steplist"
-                                               name="freeleech" value="{{ $torrent->free ?? '0' }}"
-                                        />
-                                        <datalist id="steplist">
-                                            <option>0</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                            <option>75</option>
-                                            <option>100</option>
-                                        </datalist>
-                                        <button style="width:80%;" type="submit" class="btn btn-xs btn-success">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i> {{ __('torrent.grant') }}
-                                            <span x-text="total_value"></span>% {{ __('torrent.freeleech') }}
-                                        </button>
-                                    </div>
-                                </form>
+                                <button data-target="#freeleech-{{ $torrent->id }}" data-toggle="modal"
+                                        class="btn btn-xs btn-success">
+                                    <i class="{{ config('other.font-awesome') }} fa-star"></i> {{ __('torrent.grant') }} {{ __('torrent.freeleech') }}
+                                </button>
                             @elseif ($torrent->featured)
                                 <form action="{{ route('torrent_fl', ['id' => $torrent->id]) }}" method="POST"
                                       style="display: inline;">
@@ -94,13 +77,10 @@
                             @endif
 
                             @if ($torrent->doubleup == 0)
-                                <form action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}" method="POST"
-                                      style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-xs btn-success">
-                                        <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> {{ __('torrent.grant') }} {{ __('torrent.double-upload') }}
-                                    </button>
-                                </form>
+                                <button data-target="#doubleup-{{ $torrent->id }}" data-toggle="modal"
+                                        class="btn btn-xs btn-success">
+                                    <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> {{ __('torrent.grant') }} {{ __('torrent.double-upload') }}
+                                </button>
                             @else
                                 <form action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}" method="POST"
                                       style="display: inline;">
@@ -182,14 +162,14 @@
                             </button>
 
                             <span>
-                                                    &nbsp;[ {{ __('common.moderated-by') }}
-                                                    <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
-                                                       style="color:{{ $torrent->moderated->group->color }};">
-                                                        <i class="{{ $torrent->moderated->group->icon }}"
-                                                           data-toggle="tooltip"
-                                                           data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
-                                                    </a>]
-                                                </span>
+                                [{{ __('common.moderated-by') }}
+                                <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
+                                   style="color:{{ $torrent->moderated->group->color }};">
+                                    <i class="{{ $torrent->moderated->group->icon }}"
+                                       data-toggle="tooltip"
+                                       data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                                </a>]
+                            </span>
                         </div>
                     @endif
                 </td>

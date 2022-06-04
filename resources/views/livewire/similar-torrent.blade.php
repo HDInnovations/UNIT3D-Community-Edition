@@ -121,7 +121,7 @@
                                     </a>
                                 @endif
 
-                                @php $history = App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first() @endphp
+                                @php $history = App\Models\History::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first() @endphp
                                 @if ($history)
                                     @if ($history->seeder == 1 && $history->active == 1)
                                         <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
@@ -353,7 +353,7 @@
 
 @section('javascripts')
     @if ($user->group->is_modo)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
           window.addEventListener('swal:modal', event => {
             Swal.fire({
               title: event.detail.message,

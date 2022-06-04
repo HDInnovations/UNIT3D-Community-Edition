@@ -27,21 +27,17 @@ use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
-
     protected const REJECTED = 2;
-
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 2_400;
-
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -65,6 +61,8 @@ class AnnounceController extends Controller
      */
     public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
+        $repDict = null;
+
         try {
             /**
              * Check client.
@@ -99,8 +97,9 @@ class AnnounceController extends Controller
             /**
              * Lock Min Announce Interval.
              */
-            $this->checkMinInterval($queries, $user);
-
+            if (\config('announce.min_interval.enabled')) {
+                $this->checkMinInterval($torrent, $queries, $user);
+            }
             /**
              * Check User Max Connections Per Torrent.
              */
@@ -109,7 +108,9 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            //$this->checkDownloadSlots($user);
+            if (\config('announce.slots_system.enabled')) {
+                $this->checkDownloadSlots($queries, $user);
+            }
 
             /**
              * Generate A Response For The Torrent Clent.
@@ -133,12 +134,10 @@ class AnnounceController extends Controller
     protected function checkClient(Request $request): void
     {
         // Miss Header User-Agent is not allowed.
-        if (! $request->header('User-Agent')) {
-            throw new TrackerException(120);
-        }
+        \throw_if(! $request->header('User-Agent'), new TrackerException(120));
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
-        if ($request->header('accept-language') || $request->header('referer')
+        \throw_if($request->header('accept-language') || $request->header('referer')
             || $request->header('accept-charset')
 
             /**
@@ -147,27 +146,18 @@ class AnnounceController extends Controller
              *
              * @see https://blog.rhilip.info/archives/1010/ ( in Chinese )
              */
-            || $request->header('want-digest')
-        ) {
-            throw new TrackerException(122);
-        }
+            || $request->header('want-digest'), new TrackerException(122));
 
         $userAgent = $request->header('User-Agent');
 
         // Should also block User-Agent strings that are to long. (For Database reasons)
-        if (\strlen($userAgent) > 64) {
-            throw new TrackerException(123);
-        }
+        \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
 
         // Block Browser by checking it's User-Agent
-        if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $userAgent)) {
-            throw new TrackerException(121);
-        }
+        \throw_if(\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', (string) $userAgent), new TrackerException(121));
 
         // Block Blacklisted Clients
-        if (\in_array($request->header('User-Agent'), \config('client-blacklist.clients'))) {
-            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
-        }
+        \throw_if(\in_array($request->header('User-Agent'), \config('client-blacklist.clients')), new TrackerException(128, [':ua' => $request->header('User-Agent')]));
     }
 
     /**
@@ -178,19 +168,14 @@ class AnnounceController extends Controller
     protected function checkPasskey($passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
-        if ($passkey === null) {
-            throw new TrackerException(130, [':attribute' => 'passkey']);
-        }
+        \throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
 
         // If Passkey Lenght Is Wrong
-        if (\strlen($passkey) !== 32) {
-            throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
-        }
+        \throw_if(\strlen((string) $passkey) !== 32, new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]));
 
         // If Passkey Format Is Wrong
-        if (\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32) {  // MD5 char limit
-            throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
-        }
+        // MD5 char limit
+        \throw_if(\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32, new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']));
     }
 
     /**
@@ -213,16 +198,12 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            if (\strlen($queries[$item]) !== 20) {
-                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
-            }
+            \throw_if(\strlen((string) $queries[$item]) !== 20, new TrackerException(133, [':attribute' => $item, ':rule' => 20]));
         }
 
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
-            if (! \is_numeric($itemData) || $itemData < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
+            \throw_if(! \is_numeric($itemData) || $itemData < 0, new TrackerException(134, [':attribute' => $item]));
         }
 
         // Part.2 check Announce **Option** Fields
@@ -231,28 +212,20 @@ class AnnounceController extends Controller
         }
 
         foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            if (! \is_numeric($queries[$item]) || $queries[$item] < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
+            \throw_if(! \is_numeric($queries[$item]) || $queries[$item] < 0, new TrackerException(134, [':attribute' => $item]));
         }
 
-        if (! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
-            throw new TrackerException(136, [':event' => \strtolower($queries['event'])]);
-        }
+        \throw_if(! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']), new TrackerException(136, [':event' => \strtolower($queries['event'])]));
 
         // Part.3 check Port is Valid and Allowed
         /**
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
-        if ($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped') {
-            throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
-        }
+        \throw_if($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped', new TrackerException(137, [':event' => \strtolower($queries['event'])]));
 
-        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF || \in_array($queries['port'], self::BLACK_PORTS,
-                true)) {
-            throw new TrackerException(135, [':port' => $queries['port']]);
-        }
+        \throw_if(! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF || \in_array($queries['port'], self::BLACK_PORTS,
+                true), new TrackerException(135, [':port' => $queries['port']]));
 
         // Part.4 Get User Ip Address
         $queries['ip-address'] = $request->getClientIp();
@@ -288,29 +261,19 @@ class AnnounceController extends Controller
             ->first();
 
         // If User Doesn't Exist Return Error to Client
-        if ($user === null) {
-            throw new TrackerException(140);
-        }
+        \throw_if($user === null, new TrackerException(140));
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        if ($user->active === 0 || $user->group->id === $validatingGroup[0]) {
-            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
-        }
+        \throw_if($user->active === 0 || $user->group->id === $validatingGroup[0], new TrackerException(141, [':status' => 'Unactivated/Validating']));
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === 0 && $queries['left'] !== '0') {
-            throw new TrackerException(142);
-        }
+        \throw_if($user->can_download === 0 && $queries['left'] !== '0', new TrackerException(142));
 
         // If User Is Banned Return Error to Client
-        if ($user->group->id === $bannedGroup[0]) {
-            throw new TrackerException(141, [':status' => 'Banned']);
-        }
+        \throw_if($user->group->id === $bannedGroup[0], new TrackerException(141, [':status' => 'Banned']));
 
         // If User Is Disabled Return Error to Client
-        if ($user->group->id === $disabledGroup[0]) {
-            throw new TrackerException(141, [':status' => 'Disabled']);
-        }
+        throw_if($user->group->id === $disabledGroup[0], new TrackerException(141, [':status' => 'Disabled']));
 
         return $user;
     }
@@ -321,30 +284,22 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed'])
+        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
-        if ($torrent === null) {
-            throw new TrackerException(150);
-        }
+        \throw_if($torrent === null, new TrackerException(150));
 
         // If Torrent Is Pending Moderation Return Error to Client
-        if ($torrent->status === self::PENDING) {
-            throw new TrackerException(151, [':status' => 'PENDING Moderation']);
-        }
+        \throw_if($torrent->status === self::PENDING, new TrackerException(151, [':status' => 'PENDING Moderation']));
 
         // If Torrent Is Rejected Return Error to Client
-        if ($torrent->status === self::REJECTED) {
-            throw new TrackerException(151, [':status' => 'REJECTED Moderation']);
-        }
+        \throw_if($torrent->status === self::REJECTED, new TrackerException(151, [':status' => 'REJECTED Moderation']));
 
         // If Torrent Is Postponed Return Error to Client
-        if ($torrent->status === self::POSTPONED) {
-            throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
-        }
+        \throw_if($torrent->status === self::POSTPONED, new TrackerException(151, [':status' => 'POSTPONED Moderation']));
 
         return $torrent;
     }
@@ -354,28 +309,27 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        if (! Peer::where('torrent_id', '=', $torrent->id)
-            ->where('peer_id', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->exists() && \strtolower($queries['event']) === 'completed') {
-            throw new TrackerException(152);
-        }
+        \throw_if(\strtolower($queries['event']) === 'completed' &&
+            ! Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->exists(), new TrackerException(152));
     }
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Exception
      */
-    private function checkMinInterval($queries, $user): void
+    private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::where('info_hash', '=', $queries['info_hash'])
+        $prevAnnounce = Peer::select('updated_at')->where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
-            ->pluck('updated_at');
-
-        $carbon = new Carbon();
-        if ($prevAnnounce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
-            throw new TrackerException(162, [':min' => self::MIN]);
-        }
+            ->first();
+        $setMin = \config('announce.min_interval.interval') ?? self::MIN;
+        $randomMinInterval = random_int($setMin, $setMin * 2);
+        \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
+            && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped', new TrackerException(162, [':min' => (int) $randomMinInterval]));
     }
 
     /**
@@ -389,27 +343,21 @@ class AnnounceController extends Controller
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        if ($connections > \config('announce.rate_limit')) {
-            throw new TrackerException(138, [':limit' => \config('announce.rate_limit')]);
-        }
+        \throw_if($connections > \config('announce.rate_limit'), new TrackerException(138, [':limit' => \config('announce.rate_limit')]));
     }
 
     /**
      * @throws \App\Exceptions\TrackerException
      */
-    private function checkDownloadSlots($user): void
+    private function checkDownloadSlots($queries, $user): void
     {
-        if (\config('announce.slots_system.enabled')) {
-            $max = $user->group->download_slots;
+        $max = $user->group->download_slots;
 
-            if ($max > 0) {
-                $count = Peer::where('user_id', '=', $user->id)
-                    ->where('seeder', '=', 0)
-                    ->count();
-                if ($count >= $max) {
-                    throw new TrackerException(164, [':max' => $max]);
-                }
-            }
+        if ($max !== null && $max >= 0 && $queries['left'] != 0) {
+            $count = Peer::where('user_id', '=', $user->id)
+                ->where('seeder', '=', 0)
+                ->count();
+            \throw_if($count >= $max, new TrackerException(164, [':max' => $max]));
         }
     }
 
@@ -420,7 +368,7 @@ class AnnounceController extends Controller
     {
         // Build Response For Bittorrent Client
         $repDict = [
-            'interval'     => \rand(self::MIN, self::MAX),
+            'interval'     => random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,

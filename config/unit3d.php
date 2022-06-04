@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v6.0.0',
+    'powered-by' => 'Powered By UNIT3D Community Edition v6.1.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'version' => 'v6.0.0',
+    'version' => 'v6.1.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,10 +59,23 @@ return [
     'default-owner-email'    => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
     'default-owner-password' => env('DEFAULT_OWNER_PASSWORD', 'UNIT3D'),
 
-    //If using a Reverse Proxy for HTTPS set the 'PROXY_SCHEME' value in your .env file to `https` or adjust the below value
+    // If using a Reverse Proxy for HTTPS set the 'PROXY_SCHEME' value in your .env file to `https` or adjust the below value
     'proxy_scheme'      => env('PROXY_SCHEME', false),
     'root_url_override' => env('FORCE_ROOT_URL', false),
 
-    //Global Rate Limit for Comments - X Per Minute
+    // Global Rate Limit for Comments - X Per Minute
     'comment-rate-limit' => env('COMMENTS_PER_MINUTE', 3),
+
+    /*
+    |--------------------------------------------------------------------------
+    | External Chat Platform
+    |--------------------------------------------------------------------------
+    |
+    | Settings to configure an external chat platform
+    |
+    */
+
+    'chat-link-name' => 'Discord',
+    'chat-link-icon' => 'fab fa-discord',
+    'chat-link-url'  => '',
 ];

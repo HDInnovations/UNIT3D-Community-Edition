@@ -17,7 +17,7 @@ class UserUploaded200Subtitles extends Achievement
     public $description = 'You have made 200 subtitle uploads!';
 
     /*
-    * The amount of "points" this user need to obtain in order to complete this achievement
-    */
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     */
     public $points = 200;
 }

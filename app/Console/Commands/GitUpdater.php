@@ -252,6 +252,7 @@ class GitUpdater extends Command
         $this->header('Installing Composer Packages');
 
         $this->commands([
+            'composer self-update',
             'composer install --prefer-dist --no-dev -o',
         ]);
 
@@ -263,9 +264,10 @@ class GitUpdater extends Command
         $this->header('Compiling Assets ...');
 
         $this->commands([
+            'npm install npm -g',
             'rm -rf node_modules',
             'npm cache clean --force',
-            'npm install',
+            'npm install --no-audit',
             'npx mix -p',
         ]);
 
@@ -325,7 +327,7 @@ class GitUpdater extends Command
     private function php(): void
     {
         $this->header('Restarting PHP');
-        $this->process('systemctl restart php8.0-fpm');
+        $this->process('systemctl restart php8.1-fpm');
         $this->done();
     }
 
@@ -339,15 +341,11 @@ class GitUpdater extends Command
     private function createBackupPath($path): void
     {
         if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \is_file(\base_path($path))) {
-            if (! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
-            }
+            \throw_if(! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory), new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory)));
         } elseif (\is_file(\base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
-            if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s',
-                    $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
-            }
+            \throw_if(! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s',
+                    $path)), 0775, true) && ! \is_dir($concurrentDirectory), new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory)));
         }
     }
 

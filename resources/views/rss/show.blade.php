@@ -22,8 +22,8 @@
                 <item>
                     <title>{{ $data->name }}</title>
                     <category>{{ $data->category->name }}</category>
-                    <link>{{ route('torrent', ['id' => $data->id ]) }}</link>
-                    <guid isPermaLink="true">{{ route('torrent', ['id' => $data->id ]) }}</guid>
+                    <link>{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $user->rsskey ]) }}</link>
+                    <guid>{{ $data->id }}</guid>
                     <description><![CDATA[<p>
                             <strong>Name</strong>: {{ $data->name }}<br>
                             <strong>Category</strong>: {{ $data->category->name }}<br>
@@ -51,6 +51,17 @@
                                 TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $data->tmdb }}"
                                               target="_blank">{{ $data->tmdb }}</a><br>
                             @endif
+                            @if (($data->category->tv_meta) && $data->tvdb != 0)
+                                TVDB Link:<a href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $data->tvdb }}"
+                                             target="_blank">{{ $data->tvdb }}</a><br>
+                            @endif
+                            @if (($data->category->movie_meta || $data->category->tv_meta) && $data->mal != 0)
+                                MAL Link:<a href="https://anon.to?https://myanimelist.net/anime/{{ $data->mal }}"
+                                             target="_blank">{{ $data->mal }}</a><br>
+                            @endif
+                            @if ($data->internal == 1)
+                                <comments>This is a high quality internal release!</comments>
+                            @endif
                         </p>]]>
                     </description>
                     <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -61,11 +72,6 @@
                         @endif
                     </dc:creator>
                     <pubDate>{{ $data->created_at->toRssString() }}</pubDate>
-                    <enclosure
-                            url="{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $user->rsskey ]) }}"
-                            type="application/x-bittorrent"
-                            length="39399"
-                    />
                 </item>
             @endforeach
         @endif

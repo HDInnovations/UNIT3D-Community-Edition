@@ -4,22 +4,24 @@
     <title>{{ $topic->name }} - Forums - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
+            {{ $forum->name }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $topic->name }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
@@ -403,13 +405,13 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#topic-response').wysibb()
       })
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
         $('.profil').on('click', 'button#quote', function () {
           let author = $(this).closest('.profil').find('.post-info-username').first().text()

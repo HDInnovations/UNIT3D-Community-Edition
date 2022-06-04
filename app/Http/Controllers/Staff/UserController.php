@@ -16,7 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
+use App\Models\FreeleechToken;
 use App\Models\Group;
+use App\Models\History;
 use App\Models\Internal;
 use App\Models\Invite;
 use App\Models\Like;
@@ -30,8 +32,8 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -106,7 +108,7 @@ class UserController extends Controller
         // Hard coded until group change.
 
         if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -120,7 +122,7 @@ class UserController extends Controller
         $user->internal_id = (int) $request->input('internal_id');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -138,7 +140,7 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -151,7 +153,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -248,12 +250,22 @@ class UserController extends Controller
             $peer->delete();
         }
 
+        // Remove all History records for user
+        foreach (History::where('user_id', '=', $user->id)->get() as $history) {
+            $history->delete();
+        }
+
+        // Removes all FL Tokens for user
+        foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
+            $token->delete();
+        }
+
         if ($user->delete()) {
-            return \redirect()->route('staff.dashboard.index')
+            return \to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        return \redirect()->route('staff.dashboard.index')
+        return \to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }
 
@@ -281,7 +293,7 @@ class UserController extends Controller
         $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
         $pm->save();
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Warning issued successfully!');
     }
 }

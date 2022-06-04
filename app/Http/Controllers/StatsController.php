@@ -21,7 +21,7 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
  */
 class StatsController extends Controller
 {
-    public \Carbon\Carbon $carbon;
+    public \Illuminate\Support\Carbon $carbon;
 
     /**
      * StatsController Constructor.
@@ -187,7 +187,7 @@ class StatsController extends Controller
     public function seeders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select(DB::raw('user_id, count(distinct torrent_id) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return \view('stats.users.seeders', ['seeders' => $seeders]);
     }
