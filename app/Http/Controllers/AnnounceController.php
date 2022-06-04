@@ -328,7 +328,7 @@ class AnnounceController extends Controller
             ->first();
         $setMin = \config('announce.min_interval.interval') ?? self::MIN;
         $randomMinInterval = random_int($setMin, $setMin * 2);
-        \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds(\config('announce.min_interval.interval')))
+        \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped', new TrackerException(162, [':min' => (int) $randomMinInterval]));
     }
 
