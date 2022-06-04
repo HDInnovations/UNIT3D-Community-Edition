@@ -318,6 +318,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Exception
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
@@ -325,9 +326,10 @@ class AnnounceController extends Controller
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
-
+        $setMin = \config('announce.min_interval.interval') ?? self::MIN;
+        $randomMinInterval = random_int($setMin, $setMin * 2);
         \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds(\config('announce.min_interval.interval')))
-            && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped', new TrackerException(162, [':min' => (int) \config('announce.min_interval.interval') ?? self::MIN]));
+            && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped', new TrackerException(162, [':min' => (int) $randomMinInterval]));
     }
 
     /**
