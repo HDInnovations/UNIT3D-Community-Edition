@@ -72,6 +72,7 @@ class UserUploads extends Component
         return Torrent::query()
             ->withCount('thanks')
             ->withSum('tips', 'cost')
+            ->withAnyStatus()
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
             ->when($this->name, fn ($query) => $query
