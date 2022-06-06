@@ -83,7 +83,10 @@ class UserController extends Controller
 
         $peers = Peer::where('user_id', '=', $user->id)->get();
 
-        $achievements = AchievementProgress::with('details')->where('achiever_id', '=', $user->id)->get();
+        $achievements = AchievementProgress::with('details')
+            ->where('achiever_id', '=', $user->id)
+            ->whereNotNull('unlocked_at')
+            ->get();
 
         return \view('user.profile', [
             'route'        => 'profile',
