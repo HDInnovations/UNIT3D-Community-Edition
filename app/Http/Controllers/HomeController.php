@@ -57,25 +57,25 @@ class HomeController extends Controller
         // Latest Torrents Block
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
-        $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
+        $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->latest()
             ->take(5)
             ->get());
 
-        $seeded = \cache()->remember('seeded_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
+        $seeded = \cache()->remember('seeded_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->latest('seeders')
             ->take(5)
             ->get());
 
-        $leeched = \cache()->remember('leeched_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
+        $leeched = \cache()->remember('leeched_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->latest('leechers')
             ->take(5)
             ->get());
 
-        $dying = \cache()->remember('dying_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
+        $dying = \cache()->remember('dying_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->where('seeders', '=', 1)
             ->where('times_completed', '>=', 1)
@@ -83,7 +83,7 @@ class HomeController extends Controller
             ->take(5)
             ->get());
 
-        $dead = \cache()->remember('dead_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
+        $dead = \cache()->remember('dead_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->where('seeders', '=', 0)
             ->latest('leechers')
