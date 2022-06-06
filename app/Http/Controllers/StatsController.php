@@ -21,7 +21,7 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
  */
 class StatsController extends Controller
 {
-    public \Carbon\Carbon $carbon;
+    public \Illuminate\Support\Carbon $carbon;
 
     /**
      * StatsController Constructor.

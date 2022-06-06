@@ -49,6 +49,14 @@
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </div>
                 </th>
+                <th class="hidden-sm hidden-xs">
+                    <div sortable wire:click="sortBy('last_login')"
+                         :direction="$sortField === 'last_login' ? $sortDirection : null"
+                         role="button">
+                        {{ __('user.last-login') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'last_login'])
+                    </div>
+                </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
             @foreach ($users as $user)
@@ -76,6 +84,7 @@
                     </td>
                     <td class="hidden-sm hidden-xs">{{ $user->email }}</td>
                     <td class="hidden-sm hidden-xs">{{ $user->created_at }}</td>
+                    <td class="hidden-sm hidden-xs">{{ $user->last_login ?? 'Never' }}</td>
                     <td>
                         <div class="dropdown">
                             <a class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown" href="#"

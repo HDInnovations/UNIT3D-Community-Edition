@@ -1,15 +1,13 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.playlists') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
+            {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $playlist->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $playlist->name }}
     </li>
 @endsection
 
@@ -76,7 +74,7 @@
                         <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('playlist.download-all') }}
                     </span>
                     </a>
-                    <a href="{{ route('torrents') }}?perPage=25&playlistId={{ $playlist->id }}" role="button"
+                    <a href="{{ route('torrents', ['playlistId' => $playlist->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Playlist Torrents List

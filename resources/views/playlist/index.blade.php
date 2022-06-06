@@ -1,10 +1,8 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.playlists') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('playlist.playlists') }}
     </li>
 @endsection
 

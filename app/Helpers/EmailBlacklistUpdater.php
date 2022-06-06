@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class EmailBlacklistUpdater
 {

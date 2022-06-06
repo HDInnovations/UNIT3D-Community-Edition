@@ -7,24 +7,24 @@
 @section('meta')
     <meta name="description" content="Forum {{ __('common.latest-topics') }}">
 @endsection
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.latest-topics') }}
+    </li>
+@endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('forum_latest_topics') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.latest-topics') }}</span>
-        </a>
-    </li>
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
     <div class="box container">
         <div class="button-holder">
-            @include('forum.buttons')
             <div class="button-right">
                 <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
                     <input type="hidden" name="sorting" value="created_at">

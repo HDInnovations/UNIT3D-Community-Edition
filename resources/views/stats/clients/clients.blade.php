@@ -4,16 +4,14 @@
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('stats') }}" class="breadcrumb__link">
+            {{ __('stat.stats') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('languages') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
-        </a>
+    <li class="breadcrumb--active">
+        Clients
     </li>
 @endsection
 
@@ -22,16 +20,31 @@
         <div class="block">
             <h2>Clients</h2>
             <hr>
-            <div class="row col-md-offset-1">
-                @foreach ($clients as $key => $value)
-                    @php if (\strlen($key) > 26) { $key = substr($key, 0, 23).'...'; } @endphp
-                    <div class="well col-md-3" style="margin: 10px;">
-                        <div class="text-center">
-                            <h3 class="text-success">{{ $key }}</h3>
-                            <span class="badge-extra text-blue">Used by {{ $value }} User(s)</span>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-condensed table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th class="text-right">{{ __('common.users') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($clients as $client => $count)
+                            <tr>
+                                <td class="text-success">
+                                    {{ $client }}
+                                </td>
+                                <td>
+                                    <p class="text-blue text-right">
+                                        Used by {{ $count }} users(s)
+                                    </p>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

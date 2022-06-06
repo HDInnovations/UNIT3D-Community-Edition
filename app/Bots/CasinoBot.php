@@ -22,7 +22,7 @@ use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class CasinoBot
 {
@@ -40,9 +40,9 @@ class CasinoBot
 
     private ?string $log = null;
 
-    private readonly \Carbon\Carbon $expiresAt;
+    private readonly \Illuminate\Support\Carbon $expiresAt;
 
-    private readonly \Carbon\Carbon $current;
+    private readonly \Illuminate\Support\Carbon $current;
 
     /**
      * NerdBot Constructor.

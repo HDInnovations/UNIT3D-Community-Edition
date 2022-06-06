@@ -8,11 +8,9 @@
     <meta name="description" content="MediaHub">
 @endsection
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('mediahub.title') }}
     </li>
 @endsection
 

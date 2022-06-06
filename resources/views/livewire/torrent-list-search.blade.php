@@ -22,7 +22,7 @@
                         </button>
                     </div>
                 </div>
-                <div x-show="open" id="torrent-advanced-search">
+                <div x-cloak x-show="open" id="torrent-advanced-search">
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-description">
                             <label for="description" class="label label-default">{{ __('torrent.description') }}</label>
@@ -160,31 +160,31 @@
                             <label for="buffs" class="label label-default">Buff</label>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free0" type="checkbox" value="0">
+									<input wire:model.prefetch="free" type="checkbox" value="0">
 									0% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free25" type="checkbox" value="25">
+									<input wire:model.prefetch="free" type="checkbox" value="25">
 									25% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free50" type="checkbox" value="50">
+									<input wire:model.prefetch="free" type="checkbox" value="50">
 									50% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free75" type="checkbox" value="75">
+									<input wire:model.prefetch="free" type="checkbox" value="75">
 									75% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free100" type="checkbox" value="100">
+									<input wire:model.prefetch="free" type="checkbox" value="100">
 									100% Freeleech
 								</label>
 							</span>
@@ -353,35 +353,6 @@
             <strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
             <strong>Dead:</strong> {{ number_format($torrentsStat->dead) }}
         </span>
-        <div class="dropdown torrent-listings-action-bar">
-            <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
-                {{ __('common.publish') }} {{ __('torrent.torrent') }}
-                <i class="fas fa-caret-circle-right"></i>
-            </a>
-            <ul class="dropdown-menu">
-                @foreach($categories as $category)
-                    <li role="presentation">
-                        <a role="menuitem" tabindex="-1" target="_blank"
-                           href="{{ route('upload_form', ['category_id' => $category->id]) }}">
-                            <span class="menu-text">{{ $category->name }}</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ __('torrent.list') }}
-            </a>
-            <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ __('torrent.cards') }}
-            </a>
-            <a href="#" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('torrent.groupings') }}
-            </a>
-            <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
-                <i class="{{ config('other.font-awesome') }} fa-rss"></i> {{ __('rss.rss') }} {{ __('rss.feeds') }}
-            </a>
-        </div>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
             <tr>
@@ -594,7 +565,7 @@
                                     @if ($torrent->du_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-double-upload'>
                                             <i class='{{ config('other.font-awesome') }} fa-clock'
-                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
+                                               title='{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->du_until) }} Double Upload expires.'></i>
                                         </span>
                                     @endif
                                 @endif
@@ -648,7 +619,7 @@
                                     @if ($torrent->fl_until !== null)
                                         <span class='badge-extra text-bold torrent-listings-freeleech'>
                                             <i class='{{ config('other.font-awesome') }} fa-clock'
-                                               title='{{ Carbon\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
+                                               title='{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.'></i>
                                         </span>
                                     @endif
                             @endif
@@ -731,7 +702,7 @@
 								</span>
                             @endif
 
-                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                                 <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        title='{{ __('torrent.recent-bumped') }}'></i>

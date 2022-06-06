@@ -34,7 +34,7 @@ class Movie
                 ],
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.locale'),
+                    'language'           => \config('app.meta_locale'),
                     'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
                 ],
             ]

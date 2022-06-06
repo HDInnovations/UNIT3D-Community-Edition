@@ -13,15 +13,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Bookmark;
-use App\Models\Category;
-use App\Models\History;
-use App\Models\Keyword;
 use App\Models\PersonalFreeleech;
-use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Models\Wish;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -68,49 +62,41 @@ class TorrentCardSearch extends Component
 
     public string $collectionId = '';
 
-    public $free0;
+    public array $free = [];
 
-    public $free25;
+    public bool $doubleup = false;
 
-    public $free50;
+    public bool $featured = false;
 
-    public $free75;
+    public bool $stream = false;
 
-    public $free100;
+    public bool $sd = false;
 
-    public $doubleup;
+    public bool $highspeed = false;
 
-    public $featured;
+    public bool $bookmarked = false;
 
-    public $stream;
+    public bool $wished = false;
 
-    public $sd;
+    public bool $internal = false;
 
-    public $highspeed;
+    public bool $personalRelease = false;
 
-    public $bookmarked;
+    public bool $alive = false;
 
-    public $wished;
+    public bool $dying = false;
 
-    public $internal;
+    public bool $dead = false;
 
-    public $personalRelease;
+    public bool $notDownloaded = false;
 
-    public $alive;
+    public bool $downloaded = false;
 
-    public $dying;
+    public bool $seeding = false;
 
-    public $dead;
+    public bool $leeching = false;
 
-    public $notDownloaded;
-
-    public $downloaded;
-
-    public $seeding;
-
-    public $leeching;
-
-    public $incomplete;
+    public bool $incomplete = false;
 
     public int $perPage = 24;
 
@@ -138,11 +124,7 @@ class TorrentCardSearch extends Component
         'malId'            => ['except' => ''],
         'playlistId'       => ['except' => ''],
         'collectionId'     => ['except' => ''],
-        'free0'            => ['except' => false],
-        'free25'           => ['except' => false],
-        'free50'           => ['except' => false],
-        'free75'           => ['except' => false],
-        'free100'          => ['except' => false],
+        'free'             => ['except' => []],
         'doubleup'         => ['except' => false],
         'featured'         => ['except' => false],
         'stream'           => ['except' => false],
@@ -200,198 +182,56 @@ class TorrentCardSearch extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
+        $user = \auth()->user();
+        $isRegexAllowed = $user->group->is_modo;
+        $isRegex = fn ($field) => $isRegexAllowed
+            && \strlen($field) > 2
+            && $field[0] === '/'
+            && $field[-1] === '/'
+            && @\preg_match($field, 'Validate regex') !== false;
+
         return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
-            ->when($this->name, function ($query) {
-                $terms = \explode(' ', $this->name);
-                $search = '';
-                foreach ($terms as $term) {
-                    $search .= '%'.$term.'%';
-                }
-
-                $query->where('name', 'LIKE', $search);
-            })
-            ->when($this->description, function ($query) {
-                $query->where('description', 'LIKE', '%'.$this->description.'%');
-            })
-            ->when($this->mediainfo, function ($query) {
-                $query->where('mediainfo', 'LIKE', '%'.$this->mediainfo.'%');
-            })
-            ->when($this->uploader, function ($query) {
-                $match = User::where('username', '=', $this->uploader)->first();
-                if ($match) {
-                    $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
-                }
-            })
-            ->when($this->keywords, function ($query) {
-                $keywords = self::parseKeywords($this->keywords);
-                $keyword = Keyword::whereIn('name', $keywords)->pluck('torrent_id');
-                $query->whereIntegerInRaw('id', $keyword);
-            })
-            ->when($this->startYear && $this->endYear, function ($query) {
-                $query->whereBetween('release_year', [$this->startYear, $this->endYear]);
-            })
-            ->when($this->categories, function ($query) {
-                $query->whereIntegerInRaw('category_id', $this->categories);
-            })
-            ->when($this->types, function ($query) {
-                $query->whereIntegerInRaw('type_id', $this->types);
-            })
-            ->when($this->resolutions, function ($query) {
-                $query->whereIntegerInRaw('resolution_id', $this->resolutions);
-            })
-            ->when($this->genres, function ($query) {
-                $this->validate();
-
-                $tvCollection = DB::table('genre_tv')->whereIntegerInRaw('genre_id', $this->genres)->pluck('tv_id');
-                $movieCollection = DB::table('genre_movie')->whereIntegerInRaw('genre_id', $this->genres)->pluck('movie_id');
-                $mergedCollection = $tvCollection->merge($movieCollection);
-
-                $query->whereRaw("tmdb in ('".\implode("','", $mergedCollection->toArray())."')"); // Protected with Validation that IDs passed are not malicious
-            })
-            ->when($this->regions, function ($query) {
-                $query->whereIntegerInRaw('region_id', $this->regions);
-            })
-            ->when($this->distributors, function ($query) {
-                $query->whereIntegerInRaw('distributor_id', $this->distributors);
-            })
-            ->when($this->tmdbId === '0' || $this->tmdbId, function ($query) {
-                $query->where('tmdb', '=', $this->tmdbId);
-            })
-            ->when($this->imdbId === '0' || $this->imdbId, function ($query) {
-                if (\preg_match('/tt0*?(?=(\d{7,8}))/', $this->imdbId, $matches)) {
-                    $query->where('imdb', '=', $matches[1]);
-                } else {
-                    $query->where('imdb', '=', $this->imdbId);
-                }
-            })
-            ->when($this->tvdbId === '0' || $this->tvdbId, function ($query) {
-                $query->where('tvdb', '=', $this->tvdbId);
-            })
-            ->when($this->malId === '0' || $this->malId, function ($query) {
-                $query->where('mal', '=', $this->malId);
-            })
-            ->when($this->playlistId, function ($query) {
-                $playlist = PlaylistTorrent::where('playlist_id', '=', $this->playlistId)->pluck('torrent_id');
-                $query->whereIntegerInRaw('id', $playlist);
-            })
-            ->when($this->collectionId, function ($query) {
-                $categories = Category::where('movie_meta', '=', 1)->pluck('id');
-                $collection = DB::table('collection_movie')->where('collection_id', '=', $this->collectionId)->pluck('movie_id');
-                $query->whereIntegerInRaw('category_id', $categories)->whereIntegerInRaw('tmdb', $collection);
-            })
-            ->when($this->free0 === '0' || $this->free0 || $this->free25 || $this->free50 || $this->free75 || $this->free100, function ($query) {
-                $query->where(function ($query) {
-                    $query->where(function ($query) {
-                        if ($this->free0 === '0' || $this->free0) {
-                            $query->where('free', '=', 0);
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->free25) {
-                            $query->where('free', '=', 25);
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->free50) {
-                            $query->where('free', '=', 50);
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->free75) {
-                            $query->where('free', '=', 75);
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->free100) {
-                            $query->where('free', '=', 100);
-                        }
-                    });
-                });
-            })
-            ->when($this->doubleup, function ($query) {
-                $query->where('doubleup', '=', 1);
-            })
-            ->when($this->featured, function ($query) {
-                $query->where('featured', '=', 1);
-            })
-            ->when($this->stream, function ($query) {
-                $query->where('stream', '=', 1);
-            })
-            ->when($this->sd, function ($query) {
-                $query->where('sd', '=', 1);
-            })
-            ->when($this->highspeed, function ($query) {
-                $query->where('highspeed', '=', 1);
-            })
-            ->when($this->bookmarked, function ($query) {
-                $bookmarks = Bookmark::where('user_id', '=', \auth()->user()->id)->pluck('torrent_id');
-                $query->whereIntegerInRaw('id', $bookmarks);
-            })
-            ->when($this->wished, function ($query) {
-                $wishes = Wish::where('user_id', '=', \auth()->user()->id)->pluck('tmdb');
-                $query->whereIn('tmdb', $wishes);
-            })
-            ->when($this->internal, function ($query) {
-                $query->where('internal', '=', 1);
-            })
-            ->when($this->personalRelease, function ($query) {
-                $query->where('personal_release', '=', 1);
-            })
-            ->when($this->alive, function ($query) {
-                $query->where('seeders', '>=', 1);
-            })
-            ->when($this->dying, function ($query) {
-                $query->where('seeders', '=', 1)->where('times_completed', '>=', 3);
-            })
-            ->when($this->dead, function ($query) {
-                $query->where('seeders', '=', 0);
-            })
-            ->when($this->notDownloaded, function ($query) {
-                $history = History::where('user_id', '=', \auth()->user()->id)->pluck('torrent_id')->toArray();
-                if (! $history || ! \is_array($history)) {
-                    $history = [];
-                }
-
-                $query->whereIntergerNotIn('id', $history);
-            })
-            ->when($this->downloaded, function ($query) {
-                $query->whereHas('history', function ($query) {
-                    $query->where('user_id', '=', \auth()->user()->id);
-                });
-            })
-            ->when($this->seeding, function ($query) {
-                $query->whereHas('history', function ($q) {
-                    $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', true)->where('seeder', '=', true);
-                });
-            })
-            ->when($this->leeching, function ($query) {
-                $query->whereHas('history', function ($q) {
-                    $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', true)->where('seedtime', '=', '0');
-                });
-            })
-            ->when($this->incomplete, function ($query) {
-                $query->whereHas('history', function ($q) {
-                    $q->where('user_id', '=', \auth()->user()->id)->where('active', '=', false)->where('seeder', '=', false)->where('seedtime', '=', '0');
-                });
-            })
+            ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
+            ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
+            ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
+            ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
+            ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $this->keywords))))
+            ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
+            ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
+            ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
+            ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
+            ->when($this->genres !== [], fn ($query) => $query->ofGenre($this->genres))
+            ->when($this->regions !== [], fn ($query) => $query->ofRegion($this->regions))
+            ->when($this->distributors !== [], fn ($query) => $query->ofDistributor($this->distributors))
+            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
+            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
+            ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
+            ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
+            ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
+            ->when($this->featured !== false, fn ($query) => $query->featured())
+            ->when($this->stream !== false, fn ($query) => $query->streamOptimized())
+            ->when($this->sd !== false, fn ($query) => $query->sd())
+            ->when($this->highspeed !== false, fn ($query) => $query->highspeed())
+            ->when($this->bookmarked !== false, fn ($query) => $query->bookmarkedBy($user))
+            ->when($this->wished !== false, fn ($query) => $query->wishedBy($user))
+            ->when($this->internal !== false, fn ($query) => $query->internal())
+            ->when($this->personalRelease !== false, fn ($query) => $query->personalRelease())
+            ->when($this->alive !== false, fn ($query) => $query->alive())
+            ->when($this->dying !== false, fn ($query) => $query->dying())
+            ->when($this->dead !== false, fn ($query) => $query->dead())
+            ->when($this->notDownloaded !== false, fn ($query) => $query->notDownloadedBy($user))
+            ->when($this->downloaded !== false, fn ($query) => $query->downloadedBy($user))
+            ->when($this->seeding !== false, fn ($query) => $query->seededBy($user))
+            ->when($this->leeching !== false, fn ($query) => $query->leechedBy($user))
+            ->when($this->incomplete !== false, fn ($query) => $query->uncompletedBy($user))
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    private static function parseKeywords($text): array
-    {
-        $parts = \explode(', ', (string) $text);
-        $result = [];
-        foreach ($parts as $part) {
-            $part = \trim($part);
-            if ($part !== '') {
-                $result[] = $part;
-            }
-        }
-
-        return $result;
     }
 
     final public function sortBy($field): void

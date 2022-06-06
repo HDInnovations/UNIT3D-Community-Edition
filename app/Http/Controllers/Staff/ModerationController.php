@@ -18,8 +18,8 @@ use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ModerationControllerTest

@@ -237,7 +237,7 @@
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a href="{{ route('user_downloads', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                     {{ auth()->user()->getDownloaded() }}
                 </a>
@@ -249,7 +249,7 @@
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('user_unsatisfieds', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                     {{ auth()->user()->getLeeching() }}
                 </a>
@@ -403,7 +403,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('torrents') }}?bookmarked=1">
+                        <a href="{{ route('torrents', ['bookmarked' => 1]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
                         </a>

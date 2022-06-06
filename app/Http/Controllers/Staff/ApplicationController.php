@@ -19,8 +19,8 @@ use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 

@@ -8,22 +8,19 @@
     <meta name="description" content="">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.movies.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.movies') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.movies.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.movies') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $movie->title }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $movie->title }}
     </li>
 @endsection
 

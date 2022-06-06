@@ -10,17 +10,14 @@
           content="{{ __('common.similar') }} - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('torrents.similar', ['category_id' => $categoryId, 'tmdb' => $tmdbId]) }}"
-           itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.similar') }} - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.similar') }} - {{ $meta->title ?? $meta->name }} ({{ \substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})
     </li>
 @endsection
 

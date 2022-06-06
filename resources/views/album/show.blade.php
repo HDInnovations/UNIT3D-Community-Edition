@@ -8,16 +8,14 @@
     <meta name="description" content="{{ __('common.album') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.gallery') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('albums.index') }}" class="breadcrumb__link">
+            {{ __('common.gallery') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('albums.create', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $album->name }} {{ __('common.album') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $album->id }}
     </li>
 @endsection
 
@@ -35,7 +33,7 @@
                         <h2 class="media-heading">{{ __('common.album') }} {{ __('common.description') }}:</h2>
                         <p class="text-bold">{{ $album->description }}</p>
                         @if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id &&
-                            Carbon\Carbon::now()->lt($album->created_at->addDay())))
+                            Illuminate\Support\Carbon::now()->lt($album->created_at->addDay())))
                             <form action="{{ route('albums.destroy', ['id' => $album->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

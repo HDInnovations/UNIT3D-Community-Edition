@@ -4,19 +4,21 @@
     <title>{{ __('rss.edit-private-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
+            {{ __('rss.rss') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.edit') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" class="breadcrumb__link">
+            {{ $rss->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
-
 
 @section('content')
     <div class="container">

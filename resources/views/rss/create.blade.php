@@ -4,16 +4,14 @@
     <title>{{ __('rss.create-private-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
+            {{ __('rss.rss') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('rss.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.create') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 

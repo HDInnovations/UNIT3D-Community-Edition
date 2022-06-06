@@ -1,0 +1,103 @@
+.user-torrents__name-header,
+.user-torrents__seeders-header,
+.user-torrents__leechers-header,
+.user-torrents__times-header,
+.user-torrents__agent-header,
+.user-torrents__size-header,
+.user-torrents__upload-header,
+.user-torrents__download-header,
+.user-torrents__ratio-header,
+.user-torrents__leechtime-header,
+.user-torrents__seedtime-header,
+.user-torrents__created-at-header,
+.user-torrents__updated-at-header,
+.user-torrents__completed-at-header,
+.user-torrents__seeding-header,
+.user-torrents__leeching-header,
+.user-torrents__prewarned-header,
+.user-torrents__warned-header,
+.user-torrents__immune-header,
+.user-torrents__uploader-header,
+.user-torrents__status-header {
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.user-torrents__name,
+.user-torrents__seeders,
+.user-torrents__leechers,
+.user-torrents__times,
+.user-torrents__agent,
+.user-torrents__size,
+.user-torrents__upload,
+.user-torrents__download,
+.user-torrents__ratio,
+.user-torrents__leechtime,
+.user-torrents__seedtime,
+.user-torrents__created-at,
+.user-torrents__updated-at,
+.user-torrents__completed-at {
+    font-size: 14px;
+}
+
+.user-torrents__seeding,
+.user-torrents__leeching,
+.user-torrents__prewarned,
+.user-torrents__warned,
+.user-torrents__immune,
+.user-torrents__uploader,
+.user-torrents__status {
+    font-size: 11px;
+}
+
+.user-torrents__seeders-header,
+.user-torrents__leechers-header,
+.user-torrents__times-header,
+.user-torrents__size-header,
+.user-torrents__upload-header,
+.user-torrents__download-header,
+.user-torrents__ratio-header,
+.user-torrents__leechtime-header,
+.user-torrents__seedtime-header,
+.user-torrents__seeders,
+.user-torrents__leechers,
+.user-torrents__times,
+.user-torrents__size,
+.user-torrents__upload,
+.user-torrents__download,
+.user-torrents__ratio,
+.user-torrents__leechtime,
+.user-torrents__seedtime {
+    text-align: right;
+}
+
+.user-torrents__seeding-header,
+.user-torrents__leeching-header,
+.user-torrents__prewarned-header,
+.user-torrents__warned-header,
+.user-torrents__immune-header,
+.user-torrents__uploader-header,
+.user-torrents__status-header,
+.user-torrents__seeding,
+.user-torrents__leeching,
+.user-torrents__prewarned,
+.user-torrents__warned,
+.user-torrents__immune,
+.user-torrents__uploader,
+.user-torrents__status {
+    text-align: center;
+}
+
+.user-torrents__name {
+    font-weight: bolder;
+    color: var(--text-color);
+}
+
+.user-torrents__checkbox {
+    all: revert !important;
+}
+
+.user-torrents__checkbox:indeterminate {
+    all: revert !important;
+}
