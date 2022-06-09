@@ -182,6 +182,7 @@ class TorrentGroupSearch extends Component
 
         return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
+            ->where('imdb', '!=', '0')
             ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
             ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
             ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
