@@ -89,7 +89,7 @@ class Bbcode
             'closeHtml'   => '</span>',
         ],
         'color' => [
-            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z])\]/i',
+            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3,4}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z]+)\]/i',
             'closeBbcode' => '[/color]',
             'openHtml'    => '<span style="color: $1;">',
             'closeHtml'   => '</span>',
