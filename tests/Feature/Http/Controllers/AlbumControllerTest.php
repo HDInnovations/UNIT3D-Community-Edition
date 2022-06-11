@@ -83,6 +83,7 @@ class AlbumControllerTest extends TestCase
 
         $album = Album::factory()->raw([
             'user_id' => $user->id,
+            'imdb'    => '9419884',
         ]);
 
         $response = $this->actingAs($user)->post(route('albums.store'), $album);
