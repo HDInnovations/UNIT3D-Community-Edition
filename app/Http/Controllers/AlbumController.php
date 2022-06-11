@@ -17,7 +17,6 @@ use App\Models\Album;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 /**
