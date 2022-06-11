@@ -17,7 +17,6 @@ use App\Models\Album;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -48,7 +47,8 @@ class AlbumController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
+        $imdb = $request->input('imdb');
+        $imdb = \str_replace('tt', '', $imdb);
         $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
         if (! $meta) {
