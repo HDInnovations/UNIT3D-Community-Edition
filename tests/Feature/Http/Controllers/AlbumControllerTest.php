@@ -87,8 +87,7 @@ class AlbumControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('albums.store'), $album);
 
-        $response->assertRedirect(route('albums.create'));
-
-        $this->assertEquals('Meta Data Not Found. Gallery System Is Being Refactored', session()->get('errors')->default->first());
+        $response->assertOk()
+            ->assertViewIs('album.show');
     }
 }
