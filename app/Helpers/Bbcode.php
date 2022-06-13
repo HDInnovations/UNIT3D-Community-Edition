@@ -239,7 +239,7 @@ class Bbcode
             $source
         );
         $source = \preg_replace_callback(
-            '/\[img=(\d+)\](.*?)\[\/img\]/i',
+            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
             fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
