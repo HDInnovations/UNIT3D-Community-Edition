@@ -185,7 +185,6 @@ class uploadExtensionBuilder {
         title = title.replace(/( ?- ?)([^ ]*)$/i, '-$2');
         return title.trim();
     }
-
     hook() {
         let name = document.querySelector('#title');
         let tmdb = document.querySelector('#autotmdb');
@@ -350,7 +349,7 @@ class uploadExtensionBuilder {
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
-                } else if (release.type === 'TV Show') {
+                } else if (release.type === 'TV Show' && data?.results.length > 0) {
                     let tags = data.results.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
                 }
@@ -364,12 +363,12 @@ class uploadExtensionBuilder {
             function s(data) {
                 data = JSON.parse(data);
                 let imdb = data.imdb_id;
-                imdb = imdb.substring(2);
+                imdb = imdb.substring(2) ?? 0;
                 if (release.type === 'Movie') {
                     $('#autoimdb').val(imdb);
                 } else if (release.type === 'TV Show') {
                     $('#autoimdb').val(imdb);
-                    $('#autotvdb').val(data.tvdb_id);
+                    $('#autotvdb').val(data.tvdb_id ?? 0);
                 }
             }
 
@@ -860,11 +859,6 @@ $(document).mousedown(function () {
     }
     audioLoaded = 1;
 });
-if (document.getElementById('torrent')) {
-    document.querySelector('#torrent').addEventListener('change', () => {
-        uploadExtension.hook();
-    });
-}
 // Globals
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();

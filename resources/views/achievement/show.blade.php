@@ -4,20 +4,19 @@
     <title>{{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('achievements.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
-                {{ __('user.achievements') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.achievements') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
@@ -36,11 +35,6 @@
             </div>
         @else
             <div class="block">
-                @if(auth()->user()->group && auth()->user()->group->is_modo == 1)
-                    @include('user.buttons.achievement')
-                @else
-                    @include('user.buttons.public')
-                @endif
                 <div class="some-padding">
                     <div class="container">
                         <div class="row">

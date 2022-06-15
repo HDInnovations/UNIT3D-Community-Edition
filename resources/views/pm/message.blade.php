@@ -1,20 +1,24 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('message', ['id' => $pm->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ __('pm.message') }}
-            </span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('inbox') }}" class="breadcrumb__link">
+            {{ __('pm.messages') }}
         </a>
     </li>
+    <li class="breadcrumb--active">
+        {{ $pm->subject }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    @include('partials.pmmenu')
 @endsection
 
 @section('content')
     <div class="container">
-        <div class="row">
-            @include('partials.pmmenu')
-            <div class="col-md-10">
+        <div>
+            <div>
                 <div class="block">
                     <h3>Re: {{ $pm->subject }}</h3>
                     @if ($pm->sender_id == auth()->user()->id)

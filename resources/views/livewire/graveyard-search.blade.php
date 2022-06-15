@@ -96,8 +96,32 @@
                             <label for="extra" class="label label-default">Buff</label>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model="free" type="checkbox" value="1">
-									Freeleech
+									<input wire:model.prefetch="free" type="checkbox" value="0">
+									0% Freeleech
+								</label>
+							</span>
+                            <span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free" type="checkbox" value="25">
+									25% Freeleech
+								</label>
+							</span>
+                            <span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free" type="checkbox" value="50">
+									50% Freeleech
+								</label>
+							</span>
+                            <span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free" type="checkbox" value="75">
+									75% Freeleech
+								</label>
+							</span>
+                            <span class="badge-user">
+								<label class="inline">
+									<input wire:model.prefetch="free" type="checkbox" value="100">
+									100% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
@@ -436,7 +460,7 @@
 								</span>
                             @endif
 
-                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'

@@ -17,8 +17,8 @@ use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
@@ -38,7 +38,7 @@ class InviteController extends Controller
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
-        return \view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
+        return \view('user.invites', ['user' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 
     /**

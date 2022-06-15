@@ -8,16 +8,19 @@
     <meta name="description" content="{{ __('playlist.edit-playlist') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.playlist') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
+            {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.edit-playlist') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="breadcrumb__link">
+            {{ $playlist->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 

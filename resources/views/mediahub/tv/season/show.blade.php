@@ -8,27 +8,24 @@
     <meta name="description" content="{{ $season->name }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">MediaHub</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.shows.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">TV Shows</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.shows.index') }}" class="breadcrumb__link">
+            TV Shows
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $show->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}" class="breadcrumb__link">
+            {{ $show->name }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.season.show', ['id' => $season->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $season->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $season->name }}
     </li>
 @endsection
 

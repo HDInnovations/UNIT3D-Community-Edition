@@ -4,27 +4,24 @@
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('stats') }}" class="breadcrumb__link">
+            {{ __('stat.stats') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('groups') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.groups') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('groups') }}" class="breadcrumb__link">
+            {{ __('stat.groups') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('group', ['id' => $group->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.group') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('stat.group') }}
     </li>
 @endsection
 
 @section('content')
     <div class="container">
-        @include('partials.statsgroupmenu')
         <div class="block">
             <h2>{{ $group->name }} {{ __('stat.group') }}</h2>
             <hr>

@@ -1,0 +1,85 @@
+.user-active__name-header,
+.user-active__seeders-header,
+.user-active__leechers-header,
+.user-active__times-header,
+.user-active__agent-header,
+.user-active__ip-header,
+.user-active__port-header,
+.user-active__connectable-header,
+.user-active__seeding-header,
+.user-active__size-header,
+.user-active__uploaded-header,
+.user-active__downloaded-header,
+.user-active__left-header,
+.user-active__progress-header,
+.user-active__created-at-header,
+.user-active__updated-at-header {
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.user-active__name,
+.user-active__seeders,
+.user-active__leechers,
+.user-active__times,
+.user-active__agent,
+.user-active__ip,
+.user-active__port,
+.user-active__size,
+.user-active__uploaded,
+.user-active__downloaded,
+.user-active__left,
+.user-active__progress,
+.user-active__created-at,
+.user-active__updated-at {
+    font-size: 14px;
+}
+
+.user-active__connectable,
+.user-active__seeding {
+    font-size: 11px;
+}
+
+.user-active__seeders-header,
+.user-active__leechers-header,
+.user-active__times-header,
+.user-active__ip-header,
+.user-active__port-header,
+.user-active__size-header,
+.user-active__uploaded-header,
+.user-active__downloaded-header,
+.user-active__left-header,
+.user-active__progress-header,
+.user-active__seeders,
+.user-active__leechers,
+.user-active__times,
+.user-active__ip,
+.user-active__port,
+.user-active__size,
+.user-active__uploaded,
+.user-active__downloaded,
+.user-active__left,
+.user-active__progress {
+    text-align: right;
+}
+
+.user-active__connectable-header,
+.user-active__seeding-header,
+.user-active__connectable,
+.user-active__seeding {
+    text-align: center;
+}
+
+.user-active__name {
+    font-weight: bolder;
+    color: var(--text-color);
+}
+
+.user-active__checkbox {
+    all: revert !important;
+}
+
+.user-active__checkbox:indeterminate {
+    all: revert !important;
+}

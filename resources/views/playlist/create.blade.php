@@ -8,16 +8,14 @@
     <meta name="description" content="Create Playlist">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
+            {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('playlists.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.create') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 

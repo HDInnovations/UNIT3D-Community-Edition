@@ -8,17 +8,14 @@
     <meta name="description" content="{{ __('torrent.meta-desc', ['name' => $torrent->name]) }}!">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrents') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $torrent->name }}
     </li>
 @endsection
 
@@ -69,6 +66,7 @@
             {{-- Audits Block --}}
             @if (auth()->user()->group->is_modo)
                 @include('torrent.partials.audits')
+                @include('torrent.partials.downloads')
             @endif
 
             {{-- MediaInfo Block --}}

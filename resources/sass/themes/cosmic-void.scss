@@ -1,21 +1,10 @@
-#hoeapp-wrapper,
-#main-content,
-.inner-content {
+body {
     background-color: #19191b;
-}
-
-#hoeapp-container[hoe-color-type='lpanel-bg5'].hoe-minimized-lpanel #hoe-left-panel,
-.hoe-right-header[hoe-color-type='header-bg5'] {
-    background: #222;
 }
 
 .col-md-10,
 .ratio-bar {
     background-color: #27272b;
-}
-
-.breadcrumb {
-    background: #19191b;
 }
 
 .col-md-10 {
@@ -27,37 +16,6 @@
 
 .panel-chat > .panel-heading {
     background-color: #19191b;
-}
-
-.hoe-left-header {
-    background: #222;
-}
-
-#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel {
-    background: #222 none repeat scroll 0 0;
-    color: #8d8d94;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a {
-    background: #222;
-    border-top: 1px solid #222;
-    color: #8d8d94;
-    border-right: 1px solid #222;
-}
-
-#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a:focus,
-#hoeapp-container[hoe-color-type='lpanel-bg5'] #hoe-left-panel .panel-list > li > a:hover {
-    background: #171717;
-}
-
-.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:focus,
-.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:hover {
-    background-color: #19191b;
-}
-
-.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a {
-    background-color: #222;
 }
 
 .container > .block,
@@ -172,10 +130,6 @@ hr {
 
 .form-control:focus {
     border-color: #353535;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
 }
 
 .gradient.blue,
@@ -332,10 +286,6 @@ select option {
     border: 1px solid #19191b;
     background-color: #19191b;
     box-shadow: 2px 2px 10px 1px #252426;
-}
-
-.hoe-searchbar input {
-    color: #111;
 }
 
 .badge-user {

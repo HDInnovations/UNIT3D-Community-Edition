@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\NotificationControllerTest
@@ -26,104 +26,7 @@ class NotificationController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $notifications = $request->user()->notifications()->paginate(25);
-
-        return \view('notification.index', ['notifications' => $notifications]);
-    }
-
-    /**
-     * Uses Input's To Put Together A Search.
-     *
-     * @throws \Throwable
-     */
-    public function faceted(Request $request)
-    {
-        $user = $request->user();
-
-        $notification = $user->notifications();
-
-        if ($request->has('bon_gifts') && $request->input('bon_gifts') != null) {
-            $notification->where('type', '=', \App\Notifications\NewBon::class);
-        }
-
-        if ($request->has('comments') && $request->input('comments') != null) {
-            $notification->where('type', '=', \App\Notifications\NewComment::class);
-        }
-
-        if ($request->has('comment_tags') && $request->input('comment_tags') != null) {
-            $notification->where('type', '=', \App\Notifications\NewCommentTag::class);
-        }
-
-        if ($request->has('followers') && $request->input('followers') != null) {
-            $notification->where('type', '=', \App\Notifications\NewFollow::class);
-        }
-
-        if ($request->has('posts') && $request->input('posts') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPost::class);
-        }
-
-        if ($request->has('post_tags') && $request->input('post_tags') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPostTag::class);
-        }
-
-        if ($request->has('post_tips') && $request->input('post_tips') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPostTip::class);
-        }
-
-        if ($request->has('request_bounties') && $request->input('request_bounties') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestBounty::class);
-        }
-
-        if ($request->has('request_claims') && $request->input('request_claims') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestClaim::class);
-        }
-
-        if ($request->has('request_fills') && $request->input('request_fills') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFill::class);
-        }
-
-        if ($request->has('request_approvals') && $request->input('request_approvals') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFillApprove::class);
-        }
-
-        if ($request->has('request_rejections') && $request->input('request_rejections') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFillReject::class);
-        }
-
-        if ($request->has('request_unclaims') && $request->input('request_unclaims') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestUnclaim::class);
-        }
-
-        if ($request->has('reseed_requests') && $request->input('reseed_requests') != null) {
-            $notification->where('type', '=', \App\Notifications\NewReseedRequest::class);
-        }
-
-        if ($request->has('thanks') && $request->input('thanks') != null) {
-            $notification->where('type', '=', \App\Notifications\NewThank::class);
-        }
-
-        if ($request->has('upload_tips') && $request->input('upload_tips') != null) {
-            $notification->where('type', '=', \App\Notifications\NewUploadTip::class);
-        }
-
-        if ($request->has('topics') && $request->input('topics') != null) {
-            $notification->where('type', '=', \App\Notifications\NewTopic::class);
-        }
-
-        if ($request->has('unfollows') && $request->input('unfollows') != null) {
-            $notification->where('type', '=', \App\Notifications\NewUnfollow::class);
-        }
-
-        if ($request->has('uploads') && $request->input('uploads') != null) {
-            $notification->where('type', '=', \App\Notifications\NewUpload::class);
-        }
-
-        $notifications = $notification->paginate(25);
-
-        return \view('notification.results', [
-            'user'            => $user,
-            'notifications'   => $notifications,
-        ])->render();
+        return \view('notification.index');
     }
 
     /**

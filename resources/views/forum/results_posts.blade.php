@@ -8,22 +8,23 @@
     <meta name="description" content="Forum Search">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_search_form') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.search-results') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.search') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
     <div class="box container">
-        @include('forum.buttons')
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
                 <thead class="no-space">
