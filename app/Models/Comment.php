@@ -28,6 +28,15 @@ class Comment extends Model
     use Auditable;
 
     /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'content',
+        'user_id',
+        'anon'
+    ];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -56,14 +65,6 @@ class Comment extends Model
     public function scopeParent(Builder $builder): void
     {
         $builder->whereNull('parent_id');
-    }
-
-    /**
-     * Set The Comments Content After Its Been Purified.
-     */
-    public function setContentAttribute(string $value): void
-    {
-        $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

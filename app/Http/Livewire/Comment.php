@@ -26,12 +26,13 @@ use App\Achievements\UserMade900Comments;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use Livewire\Component;
+use voku\helper\AntiXSS;
 
 class Comment extends Component
 {
     public $comment;
 
-    public $anon;
+    public $anon = 0;
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -106,26 +107,11 @@ class Comment extends Component
             'replyState.content' => 'required',
         ]);
 
-        $reply = $this->comment->children()->make($this->replyState);
+        $reply = $this->comment->children()->make((new AntiXSS())->xss_clean($this->replyState));
         $reply->user()->associate(\auth()->user());
         $reply->commentable()->associate($this->comment->commentable);
         $reply->anon = $this->anon;
         $reply->save();
-
-        if ($this->comment->anon === 0) {
-            \auth()->user()->unlock(new UserMadeComment(), 1);
-            \auth()->user()->addProgress(new UserMadeTenComments(), 1);
-            \auth()->user()->addProgress(new UserMade50Comments(), 1);
-            \auth()->user()->addProgress(new UserMade100Comments(), 1);
-            \auth()->user()->addProgress(new UserMade200Comments(), 1);
-            \auth()->user()->addProgress(new UserMade300Comments(), 1);
-            \auth()->user()->addProgress(new UserMade400Comments(), 1);
-            \auth()->user()->addProgress(new UserMade500Comments(), 1);
-            \auth()->user()->addProgress(new UserMade600Comments(), 1);
-            \auth()->user()->addProgress(new UserMade700Comments(), 1);
-            \auth()->user()->addProgress(new UserMade800Comments(), 1);
-            \auth()->user()->addProgress(new UserMade900Comments(), 1);
-        }
 
         $this->replyState = [
             'content' => '',

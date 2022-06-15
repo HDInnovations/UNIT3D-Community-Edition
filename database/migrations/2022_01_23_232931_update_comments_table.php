@@ -22,8 +22,11 @@ return new class() extends Migration {
             $table->dropIndex('comments_ticket_id_index');
 
             $table->bigIncrements('id')->change();
+            $table->unsignedInteger('commentable_id')->after('id');
+            $table->string('commentable_type')->after('commentable_id');
+            $table->index(['commentable_id', 'commentable_type']);
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
-            $table->morphs('commentable');
+
 
             $comments = Comment::all();
             foreach ($comments as $comment) {

@@ -13,8 +13,21 @@
 
 namespace App\Http\Livewire;
 
+use App\Achievements\UserMade100Comments;
+use App\Achievements\UserMade200Comments;
+use App\Achievements\UserMade300Comments;
+use App\Achievements\UserMade400Comments;
+use App\Achievements\UserMade500Comments;
+use App\Achievements\UserMade50Comments;
+use App\Achievements\UserMade600Comments;
+use App\Achievements\UserMade700Comments;
+use App\Achievements\UserMade800Comments;
+use App\Achievements\UserMade900Comments;
+use App\Achievements\UserMadeComment;
+use App\Achievements\UserMadeTenComments;
 use Livewire\Component;
 use Livewire\WithPagination;
+use voku\helper\AntiXSS;
 
 class Comments extends Component
 {
@@ -22,7 +35,7 @@ class Comments extends Component
 
     public $model;
 
-    public $anon;
+    public $anon = 0;
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -48,7 +61,7 @@ class Comments extends Component
             'newCommentState.content' => 'required',
         ]);
 
-        $comment = $this->model->comments()->make($this->newCommentState);
+        $comment = $this->model->comments()->make((new AntiXSS())->xss_clean($this->newCommentState));
         $comment->user()->associate(\auth()->user());
         $comment->anon = $this->anon;
         $comment->save();
