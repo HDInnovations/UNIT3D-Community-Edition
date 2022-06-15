@@ -17,7 +17,7 @@
                     <button type="submit" class="btn btn-primary btn-sm torrent-freeleech-token"
                             data-toggle=tooltip
                             data-html="true"
-                            title='{!! trans('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
+                            title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
                         {{ __('torrent.use-fl-token') }}
                     </button>
                 </form>
@@ -57,7 +57,7 @@
         </button>
     @endif
 
-    @if ($current = $user->history->where('info_hash', $torrent->info_hash)->first())
+    @if ($current = $user->history->where('torrent_id', $torrent->id)->first())
         @if ($current->seeder == 0 && $current->active == 1 && $torrent->seeders <= 2)
             <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
                 @csrf

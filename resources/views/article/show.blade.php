@@ -8,17 +8,14 @@
     <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('articles.articles') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('articles.index') }}" class="breadcrumb__link">
+            {{ __('articles.articles') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('articles.show', ['id' => $article->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $article->title }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $article->id }}
     </li>
 @endsection
 
@@ -66,7 +63,7 @@
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        style="color:{{ $comment->user->group->color }};">(<span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
@@ -124,7 +121,14 @@
                     <div class="form-group">
                         <label for="content">{{ __('common.your-comment') }}:</label>
                         <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                        <span class="pull-right" x-data="{ emoji: false }">
+                            <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                            <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                                <emoji-picker></emoji-picker>
+                            </div>
+                        </span>
+                        <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
                     <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
@@ -139,13 +143,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

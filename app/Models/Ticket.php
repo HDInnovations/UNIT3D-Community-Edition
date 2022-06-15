@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
     use HasFactory;
+    use Auditable;
 
-    protected $dates = [
-        'closed_at',
-        'reminded_at',
+    protected $casts = [
+        'closed_at'   => 'datetime',
+        'reminded_at' => 'datetime',
     ];
 
     public function scopeStatus($query, $status)
@@ -22,7 +24,9 @@ class Ticket extends Model
 
         if ($status === 'closed') {
             return $query->whereNotNull('closed_at');
-        } elseif ($status === 'open') {
+        }
+
+        if ($status === 'open') {
             return $query->whereNull('closed_at');
         }
     }
@@ -30,7 +34,7 @@ class Ticket extends Model
     public function scopeStale($query)
     {
         return $query->with(['comments' => function ($query) {
-            $query->orderByDesc('id');
+            $query->latest('id');
         }, 'comments.user'])
             ->has('comments')
             ->where('reminded_at', '<', \strtotime('+ 3 days'))

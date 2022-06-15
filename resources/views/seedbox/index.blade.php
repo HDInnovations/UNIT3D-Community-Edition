@@ -4,32 +4,29 @@
     <title>{{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('seedboxes.index', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.seedboxes') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.seedboxes') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container">
         <div class="block">
-            @include('user.buttons.client')
-
             <div class="some-padding">
                 <div class="well">
                     <p class="lead text-orange text-center"><i
                                 class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
-                        <strong>{{ strtoupper(trans('user.disclaimer')) }}</strong> <i
+                        <strong>{{ strtoupper(__('user.disclaimer')) }}</strong> <i
                                 class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i></p>
                     <p class="lead text-orange text-center">{{ __('user.disclaimer-info') }}
                         &nbsp;<br><strong>{{ __('user.disclaimer-info-bordered') }}</strong></p>

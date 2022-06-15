@@ -1,20 +1,24 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('create', ['receiver_id' => '', 'username' => '']) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ __('pm.send') }} {{ __('pm.message') }}
-            </span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('inbox') }}" class="breadcrumb__link">
+            {{ __('pm.messages') }}
         </a>
     </li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    @include('partials.pmmenu')
 @endsection
 
 @section('content')
     <div class="container">
-        <div class="row">
-            @include('partials.pmmenu')
-            <div class="col-md-10">
+        <div>
+            <div>
                 <div class="block">
                     <form role="form" method="POST" action="{{ route('send-pm') }}">
                         @csrf
@@ -40,7 +44,7 @@
                         <div class="form-group">
                             <label for="">{{ __('pm.message') }}</label>
                             <label for="message"></label>
-                            <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea id="editor" name="message" cols="30" rows="10" class="form-control"></textarea>
                         </div>
 
                         <button class="btn btn-primary">
@@ -51,13 +55,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#message').wysibb({})
-      })
-
-    </script>
 @endsection

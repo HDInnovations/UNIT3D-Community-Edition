@@ -29,7 +29,7 @@ class BBCodeConverter
     {
         $this->text = \preg_replace_callback('#\[size=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/size\]#iu',
 
-            fn ($matches) => '<span style="font-size: '.\trim($matches[1], '').';">'.\trim($matches[1], '').'</span>',
+            fn ($matches) => '<div style="font-size: '.\trim($matches[1], '').';">'.\trim($matches[1], '').'</span>',
 
             $this->text
         );
@@ -42,7 +42,7 @@ class BBCodeConverter
     {
         $this->text = \preg_replace_callback('#\[center\]([\W\D\w\s]*?)\[/center\]#iu',
 
-            fn ($matches) => '<span class="text-center">'.\trim($matches[1], ' ').'</span>',
+            fn ($matches) => '<div class="text-center">'.\trim($matches[1], ' ').'</div>',
 
             $this->text
         );
@@ -111,9 +111,7 @@ class BBCodeConverter
                 $buffer = '';
 
                 $list = \preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
-                if (\is_null($list)) {
-                    throw new \RuntimeException('Text has malformed BBCode lists');
-                }
+                \throw_if(\is_null($list), new \RuntimeException('Text has malformed BBCode lists'));
 
                 $items = \preg_split('#\[\*\]#u', $list);
 
@@ -404,7 +402,7 @@ class BBCodeConverter
     /**
      * @brief Converts the provided BBCode text to an equivalent Markdown text.
      */
-    public function toMarkdown()
+    public function toMarkdown(): string
     {
         $this->replaceCenter();
         $this->replaceSize();

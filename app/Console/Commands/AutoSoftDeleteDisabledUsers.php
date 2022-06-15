@@ -16,7 +16,9 @@ namespace App\Console\Commands;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
 use App\Models\Follow;
+use App\Models\FreeleechToken;
 use App\Models\Group;
+use App\Models\History;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
@@ -28,8 +30,8 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
@@ -162,6 +164,16 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all Peers for user
                 foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
                     $peer->delete();
+                }
+
+                // Remove all History records for user
+                foreach (History::where('user_id', '=', $user->id)->get() as $history) {
+                    $history->delete();
+                }
+
+                // Removes all FL Tokens for user
+                foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
+                    $token->delete();
                 }
 
                 $user->delete();

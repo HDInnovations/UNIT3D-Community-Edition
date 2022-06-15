@@ -28,6 +28,11 @@ class Topic extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     */
+    protected $with = ['posts', 'forum'];
+
+    /**
      * Belongs To A Forum.
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -97,7 +102,7 @@ class Topic extends Model
     /**
      * Does User Have Permission To View Topic.
      */
-    public function viewable()
+    public function viewable(): bool
     {
         if (\auth()->user()->group->is_modo) {
             return true;

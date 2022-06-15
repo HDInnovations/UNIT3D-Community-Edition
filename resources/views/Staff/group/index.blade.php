@@ -1,15 +1,13 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.user') }} Groups</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('staff.groups') }}
     </li>
 @endsection
 
@@ -25,6 +23,7 @@
                     <th>{{ __('common.name') }}</th>
                     <th>{{ __('common.position') }}</th>
                     <th>Level</th>
+                    <th>DL Slots</th>
                     <th>Color</th>
                     <th>Icon</th>
                     <th>Effect</th>
@@ -46,11 +45,13 @@
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
-                            <a
-                                    href="{{ route('staff.groups.edit', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
+                            <a href="{{ route('staff.groups.edit', ['group' => $group->name, 'id' => $group->id]) }}">
+                                {{ $group->name }}
+                            </a>
                         </td>
                         <td>{{ $group->position }}</td>
                         <td>{{ $group->level }}</td>
+                        <td>{{ $group->download_slots ?? 'Unlimited' }}</td>
                         <td><i class="{{ config('other.font-awesome') }} fa-circle"
                                style="color: {{ $group->color }};"></i>
                             {{ $group->color }}</td>

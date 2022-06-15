@@ -8,11 +8,9 @@
     <meta name="description" content="{{ __('common.about') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('about') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.about') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('common.about') }}
     </li>
 @endsection
 
@@ -26,7 +24,7 @@
                         <img src="{{ url('img/deadpool.png') }}" alt="deadpool" width="902" height="298">
 
                         <h3>{{ __('page.aboutus-welcome') }} {{ config('other.title') }}</h3>
-                        <p>{!! trans('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>
+                        <p>{!! __('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>
 
                         <h4><i class="{{ config('other.font-awesome') }} fa-globe" aria-hidden="true"></i>
                             {{ __('page.aboutus-advantage') }} {{ config('other.title') }}
@@ -39,7 +37,7 @@
 
                             <div>
                                 <div>2</div>
-                                <p>{!! trans('page.aboutus-advantage2') !!}</p>
+                                <p>{!! __('page.aboutus-advantage2') !!}</p>
                             </div>
 
                             <div>

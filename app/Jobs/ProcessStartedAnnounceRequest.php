@@ -53,9 +53,9 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $this->queries['peer_id'])
-            ->where('user_id', '=', $this->user->id)
-            ->first();
+                ->where('peer_id', $this->queries['peer_id'])
+                ->where('user_id', '=', $this->user->id)
+                ->first();
 
         // Creates a new peer if not existing
         if ($peer === null) {
@@ -67,7 +67,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+        $history = History::where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -75,6 +75,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         if ($history === null) {
             $history = new History();
             $history->user_id = $this->user->id;
+            $history->torrent_id = $this->torrent->id;
             $history->info_hash = $this->queries['info_hash'];
         }
 

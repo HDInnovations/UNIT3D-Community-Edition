@@ -8,16 +8,19 @@
     <meta name="description" content="{{ __('torrent.history') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('history', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.history') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.history') }}
     </li>
 @endsection
 
@@ -48,11 +51,12 @@
                     @foreach ($history as $hpeers)
                         <tr>
                             @if ($hpeers->user->hidden == 1 || $hpeers->user->peer_hidden == 1 ||
-                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer'))
+                                !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer') ||
+                                ($hpeers->user->id == $torrent->user->id && $torrent->anon == 1))
                                 <td>
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                    aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                                    aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
                                     @if (auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
                                                     class="badge-user text-bold"
@@ -65,7 +69,7 @@
                                     @if($hpeers->user->privacy && $hpeers->user->privacy->show_peer != 1)
                                         <span class="badge-user text-orange text-bold"><i
                                                     class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                    aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                                    aria-hidden="true"></i>{{ strtoupper(__('common.anonymous')) }}</span>
                                     @endif
                                     <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
                                                 class="badge-user text-bold"
@@ -76,22 +80,22 @@
                                 </td>
                             @endif
                             @if ($hpeers->active == 1)
-                                <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
+                                <td class="text-green">{{ strtolower(__('common.yes')) }}</td> @else
+                                <td class="text-red">{{ strtolower(__('common.no')) }}</td> @endif
                             @if ($hpeers->seeder == 1)
-                                <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else
-                                <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
+                                <td class="text-green">{{ strtolower(__('common.yes')) }}</td> @else
+                                <td class="text-red">{{ strtolower(__('common.no')) }}</td> @endif
                             <td>
                                     <span
                                             class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded, 2) }}</span>
                                 <span class="badge-extra text-blue" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
+                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(__('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
                             </td>
                             <td>
                                     <span
                                             class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}</span>
                                 <span class="badge-extra text-orange" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
+                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
                             </td>
                             <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                             <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>

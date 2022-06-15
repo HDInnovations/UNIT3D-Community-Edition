@@ -28,8 +28,8 @@ class Episode extends Model
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class)
-            ->orderBy('season_id')
-            ->orderBy('episode_id');
+            ->oldest('season_id')
+            ->oldest('episode_id');
     }
 
     public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -40,7 +40,7 @@ class Episode extends Model
     public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cast::class)
-            ->orderBy('order');
+            ->oldest('order');
     }
 
     public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

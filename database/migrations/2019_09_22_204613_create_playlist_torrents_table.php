@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaylistTorrentsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -32,4 +31,4 @@ class CreatePlaylistTorrentsTable extends Migration
             $table->unique(['playlist_id', 'torrent_id', 'tmdb_id']);
         });
     }
-}
+};

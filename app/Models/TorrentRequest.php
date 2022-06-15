@@ -31,11 +31,9 @@ class TorrentRequest extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'filled_when',
-        'approved_when',
+    protected $casts = [
+        'filled_when'   => 'datetime',
+        'approved_when' => 'datetime',
     ];
 
     /**
@@ -140,9 +138,8 @@ class TorrentRequest extends Model
     public function getDescriptionHtml(): string
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $linkify->linky($bbcode->parse($this->description, true));
+        return (new Linkify())->linky($bbcode->parse($this->description, true));
     }
 
     /**

@@ -19,12 +19,12 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
 
 class ProcessCompletedAnnounceRequest implements ShouldQueue
 {
@@ -49,9 +49,9 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
     {
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $this->queries['peer_id'])
-            ->where('user_id', '=', $this->user->id)
-            ->first();
+                ->where('peer_id', $this->queries['peer_id'])
+                ->where('user_id', '=', $this->user->id)
+                ->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
@@ -67,7 +67,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $this->queries['info_hash'])
+        $history = History::where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -75,6 +75,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         if ($history === null) {
             $history = new History();
             $history->user_id = $this->user->id;
+            $history->torrent_id = $this->torrent->id;
             $history->info_hash = $this->queries['info_hash'];
         }
 
@@ -163,8 +164,12 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $this->torrent->increment('times_completed');
 
         // Sync Seeders / Leechers Count
-        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '=', '0')->count();
-        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '>', '0')->count();
+        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '=', '0')
+            ->count();
+        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)
+            ->where('left', '>', '0')
+            ->count();
         $this->torrent->save();
     }
 }

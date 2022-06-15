@@ -19,8 +19,8 @@ use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBan;
 use App\Notifications\UserBanExpire;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -68,7 +68,7 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
@@ -78,7 +78,7 @@ class BanController extends Controller
         // Send Notifications
         $user->notify(new UserBan($ban));
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -112,7 +112,7 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
+            return \to_route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
@@ -122,7 +122,7 @@ class BanController extends Controller
         // Send Notifications
         $user->notify(new UserBanExpire());
 
-        return \redirect()->route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

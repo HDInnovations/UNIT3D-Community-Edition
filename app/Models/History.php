@@ -15,31 +15,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class History extends Model
 {
     use HasFactory;
-    use Sortable;
-
-    /**
-     * The Columns That Are Sortable.
-     */
-    public array $sortable = [
-        'id',
-        'agent',
-        'active',
-        'seeder',
-        'uploaded',
-        'downloaded',
-        'seedtime',
-        'created_at',
-        'updated_at',
-        'completed_at',
-        'prewarn',
-        'hitrun',
-        'immune',
-    ];
 
     /**
      * The Database Table Used By The Model.
@@ -63,7 +42,9 @@ class History extends Model
      *
      * @var array
      */
-    protected $dates = ['completed_at'];
+    protected $casts = [
+        'completed_at' => 'datetime',
+    ];
 
     /**
      * Belongs To A User.
@@ -81,6 +62,6 @@ class History extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class, 'info_hash', 'info_hash');
+        return $this->belongsTo(Torrent::class);
     }
 }

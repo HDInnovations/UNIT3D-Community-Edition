@@ -39,7 +39,7 @@
                     <td>{{ $subtitle->created_at->diffForHumans() }}</td>
                     <td>
                         @if ($subtitle->anon == true)
-                            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                            <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                 @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
                                     <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                                     ({{ $subtitle->user->username }})

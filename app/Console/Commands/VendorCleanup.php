@@ -188,7 +188,7 @@ class VendorCleanup extends Command
     protected function arrayFind($needle, array $haystack): int|string|bool
     {
         foreach ($haystack as $key => $value) {
-            if (false !== \stripos($value, $needle)) {
+            if (false !== \stripos($value, (string) $needle)) {
                 return $key;
             }
         }
@@ -198,10 +198,6 @@ class VendorCleanup extends Command
 
     protected function out($message): void
     {
-        if ($this->option('check')) {
-            echo $message.PHP_EOL;
-        } else {
-            echo $message.PHP_EOL;
-        }
+        echo $message.PHP_EOL;
     }
 }

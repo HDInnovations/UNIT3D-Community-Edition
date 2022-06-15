@@ -1,15 +1,13 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('playlists.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('playlist.playlists') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
+            {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $playlist->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $playlist->name }}
     </li>
 @endsection
 
@@ -76,7 +74,7 @@
                         <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('playlist.download-all') }}
                     </span>
                     </a>
-                    <a href="{{ route('torrents') }}?perPage=25&playlistId={{ $playlist->id }}" role="button"
+                    <a href="{{ route('torrents', ['playlistId' => $playlist->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Playlist Torrents List
@@ -204,7 +202,7 @@
                             <div class="card_footer">
                                 <div style="float: left;">
                                     @if ($t->torrent->anon == 1)
-                                        <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                        <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                             @if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                                             ({{ $t->torrent->user->username }})
@@ -257,7 +255,7 @@
                                                 @if ($comment->anon == 1)
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                        <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                            style="color:{{ $comment->user->group->color }};">(<span><i
                                                                         class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
@@ -315,7 +313,14 @@
                         <div class="form-group">
                             <label for="content">{{ __('common.your-comment') }}:</label>
                             <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                            <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                            <span class="pull-right" x-data="{ emoji: false }">
+                                <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                                <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                                    <emoji-picker></emoji-picker>
+                                </div>
+                            </span>
+                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                         <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
                         <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
@@ -363,12 +368,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

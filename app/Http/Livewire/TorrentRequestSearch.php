@@ -134,7 +134,7 @@ class TorrentRequestSearch extends Component
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
             ->when($this->requestor, function ($query) {
-                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->orderBy('username')->first();
+                $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->oldest('username')->first();
                 if ($match) {
                     $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
                 }
@@ -164,17 +164,29 @@ class TorrentRequestSearch extends Component
             ->when($this->malId, function ($query) {
                 $query->where('mal', '=', $this->malId);
             })
-            ->when($this->unfilled, function ($query) {
-                $query->whereNull('filled_hash')->whereNull('claimed');
-            })
-            ->when($this->claimed, function ($query) {
-                $query->whereNotNull('claimed')->whereNull('filled_hash')->whereNull('approved_by');
-            })
-            ->when($this->pending, function ($query) {
-                $query->whereNotNull('filled_hash')->whereNull('approved_by');
-            })
-            ->when($this->filled, function ($query) {
-                $query->whereNotNull('filled_hash')->whereNotNull('approved_by');
+            ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query) {
+                $query->where(function ($query) {
+                    $query->where(function ($query) {
+                        if ($this->unfilled) {
+                            $query->whereNull('filled_hash')->whereNull('claimed');
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->claimed) {
+                            $query->whereNotNull('claimed')->whereNull('filled_hash')->whereNull('approved_by');
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->pending) {
+                            $query->whereNotNull('filled_hash')->whereNull('approved_by');
+                        }
+                    })
+                    ->orWhere(function ($query) {
+                        if ($this->filled) {
+                            $query->whereNotNull('filled_hash')->whereNotNull('approved_by');
+                        }
+                    });
+                });
             })
             ->when($this->myRequests, function ($query) {
                 $query->where('user_id', '=', \auth()->user()->id);

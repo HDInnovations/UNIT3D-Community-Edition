@@ -49,7 +49,7 @@ class CommentController extends Controller
     /**
      * CommentController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -62,14 +62,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('collection-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('collection.show', ['id' => $id])
+            return \to_route('collection.show', ['id' => $id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('collection-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('collection.show', ['id' => $collection->id])
+            return \to_route('collection.show', ['id' => $collection->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -87,7 +87,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('collection.show', ['id' => $collection->id])
+            return \to_route('collection.show', ['id' => $collection->id])
                 ->withErrors($v->errors());
         }
 
@@ -149,7 +149,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
         }
 
-        return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
+        return \to_route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
                 ->withSuccess(\trans('comment.added'));
     }
 
@@ -162,14 +162,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('article-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('articles.show', ['id' => $id])
+            return \to_route('articles.show', ['id' => $id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('article-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('articles.show', ['id' => $article->id])
+            return \to_route('articles.show', ['id' => $article->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -187,7 +187,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('articles.show', ['id' => $article->id])
+            return \to_route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
         }
 
@@ -247,7 +247,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
         }
 
-        return \redirect()->route('articles.show', ['id' => $article->id])
+        return \to_route('articles.show', ['id' => $article->id])
             ->withSuccess(\trans('comment.added'));
     }
 
@@ -260,14 +260,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('playlist-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('playlists.show', ['id' => $id])
+            return \to_route('playlists.show', ['id' => $id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('playlist-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('playlists.show', ['id' => $playlist->id])
+            return \to_route('playlists.show', ['id' => $playlist->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -285,7 +285,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('playlists.show', ['id' => $playlist->id])
+            return \to_route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         }
 
@@ -345,7 +345,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
         }
 
-        return \redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
+        return \to_route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
             ->withSuccess(\trans('comment.added'));
     }
 
@@ -358,14 +358,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -383,7 +383,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
 
@@ -448,7 +448,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
         }
 
-        return \redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
+        return \to_route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
             ->withSuccess(\trans('comment.added'));
     }
 
@@ -461,14 +461,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('request-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('request', ['id' => $id])
+            return \to_route('request', ['id' => $id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('request-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('request', ['id' => $tr->id])
+            return \to_route('request', ['id' => $tr->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -486,7 +486,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $tr->id])
+            return \to_route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         }
 
@@ -551,7 +551,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
         }
 
-        return \redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
+        return \to_route('request', ['id' => $tr->id, 'hash' => '#comments'])
             ->withSuccess(\trans('comment.added'));
     }
 
@@ -564,7 +564,7 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('ticket-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('tickets.show', ['id' => $id])
+            return \to_route('tickets.show', ['id' => $id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
@@ -584,7 +584,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('tickets.show', ['id' => $id])
+            return \to_route('tickets.show', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -599,7 +599,7 @@ class CommentController extends Controller
         $comment->save();
         $ticket->save();
 
-        return \redirect()->route('tickets.show', ['id' => $ticket->id])
+        return \to_route('tickets.show', ['id' => $ticket->id])
             ->withSuccess(\trans('comment.added'));
     }
 
@@ -612,14 +612,14 @@ class CommentController extends Controller
         $user = $request->user();
 
         if (RateLimiter::tooManyAttempts('torrent-comment:'.$user->id, \config('unit3d.comment-rate-limit'))) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('comment.slow-down'));
         }
 
         RateLimiter::hit('torrent-comment:'.$user->id);
 
         if ($user->can_comment == 0) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(\trans('comment.rights-revoked'));
         }
 
@@ -642,7 +642,7 @@ class CommentController extends Controller
             ];
         }
 
-        $selected = \mt_rand(0, (\is_countable($thankArray) ? \count($thankArray) : 0) - 1);
+        $selected = random_int(0, (\is_countable($thankArray) ? \count($thankArray) : 0) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
@@ -654,7 +654,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('torrent', ['id' => $torrent->id])
+            return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
 
@@ -688,7 +688,7 @@ class CommentController extends Controller
             \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $user->username, $torrentUrl, $torrent->name)
         );
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \to_route('torrent', ['id' => $torrent->id])
             ->withSuccess(\trans('comment.added'));
     }
 

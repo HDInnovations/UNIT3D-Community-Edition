@@ -44,7 +44,7 @@ class PlaylistControllerTest extends TestCase
         $response = $this->actingAs($user)->delete(route('playlists.destroy', ['id' => $playlist->id]));
 
         $response->assertRedirect(withSuccess('Playlist Deleted!'));
-        $this->assertDeleted($playlists);
+        $this->assertModelMissing($playlists);
 
         // TODO: perform additional assertions
     }

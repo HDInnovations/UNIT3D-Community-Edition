@@ -17,13 +17,13 @@ class UserUploadedFirstSubtitle extends Achievement
     public $description = 'Congratulations! You have made your first subtitle upload!';
 
     /*
-    * A small description for the award
-    */
+     * A small description for the award
+     */
     //public $award = "1000 Bonus Points";
 
     /*
-    * Triggers whenever an Achiever unlocks this achievement
-    */
+     * Triggers whenever an Achiever unlocks this achievement
+     */
     /*public function whenUnlocked($progress)
     {
         $achiever = $progress->achiever;

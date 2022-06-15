@@ -4,24 +4,21 @@
     <title>{{ __('rss.edit-public-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link">
+            {{ __('rss.rss') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.edit') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
-
 
 @section('content')
     <div class="container box">

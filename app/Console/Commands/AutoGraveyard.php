@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoGraveyardTest
@@ -29,7 +30,7 @@ class AutoGraveyard extends Command
     /**
      * AutoGraveyards Constructor.
      */
-    public function __construct(private ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
         parent::__construct();
     }
@@ -59,7 +60,7 @@ class AutoGraveyard extends Command
             $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();
 
             if (isset($user, $torrent)) {
-                $history = History::where('info_hash', '=', $torrent->info_hash)
+                $history = History::where('torrent_id', '=', $torrent->id)
                     ->where('user_id', '=', $user->id)
                     ->where('seedtime', '>=', $reward->seedtime)
                     ->first();
@@ -78,6 +79,16 @@ class AutoGraveyard extends Command
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
                 );
+
+                // Bump Torrent With FL
+                $torrentUrl = \href_torrent($torrent);
+                $torrent->bumped_at = Carbon::now();
+                $torrent->free = 100;
+                $torrent->fl_until = Carbon::now()->addDays(3);
+                $this->chatRepository->systemMessage(
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top. :stopwatch:', $torrentUrl, $torrent->name)
+                );
+                $torrent->save();
 
                 // Send Private Message
                 $pm = new PrivateMessage();

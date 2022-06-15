@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFailedLoginAttemptsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -29,4 +28,4 @@ class CreateFailedLoginAttemptsTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

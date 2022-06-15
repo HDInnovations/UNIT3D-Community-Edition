@@ -17,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <input class="form-control"
-                                   placeholder="{{ __('common.enter') }} {{ strtolower(trans('common.amount')) }}"
+                                   placeholder="{{ __('common.enter') }} {{ strtolower(__('common.amount')) }}"
                                    name="bonus_points" type="number" id="bonus_points" required>
                         </div>
                         <div class="form-group">

@@ -28,7 +28,7 @@ class ForumController extends Controller
     /**
      * ForumController Constructor.
      */
-    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
+    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -37,6 +37,7 @@ class ForumController extends Controller
      */
     public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $result = null;
         $categories = Forum::all()->sortBy('position');
 
         $user = $request->user();
@@ -138,8 +139,6 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
-
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = \sprintf('topics.%s', $request->input('sorting'));
@@ -148,9 +147,8 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
-
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
+        $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -200,7 +198,7 @@ class ForumController extends Controller
             $query->whereIntegerInRaw('topics.id', $topicNeos)->orWhereIntegerInRaw('forums.id', $forumNeos);
         })->groupBy('forums.id');
 
-        $results = $builder->orderByDesc('topic_created_at')->paginate(25);
+        $results = $builder->latest('topic_created_at')->paginate(25);
         $results->setPath('?name='.$request->input('name'));
 
         // Total Forums Count
@@ -268,7 +266,7 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereIntegerNotInRaw('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereIntegerNotInRaw('topics.forum_id', $pests)->latest('posts.created_at')->paginate(25);
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -325,13 +323,13 @@ class ForumController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
-            return \redirect()->route('forums.categories.show', ['id' => $forum->id]);
+            return \to_route('forums.categories.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
         if ($category->getPermission()->show_forum != true) {
-            return \redirect()->route('forums.index')
+            return \to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }
 

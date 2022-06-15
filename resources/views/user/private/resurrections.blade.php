@@ -4,28 +4,25 @@
     <title>{{ $user->username }} {{ __('user.resurrections') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('user_resurrections', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
-                {{ __('user.resurrections') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.resurrections') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
 
     <div class="container-fluid">
         <div class="block">
-            @include('user.buttons.other')
-            <hr class="some-padding">
             <div class="container well search mt-5">
                 <div class="form-horizontal form-condensed form-torrent-search form-bordered">
                     <div class="mx-0 mt-5 form-group fatten-me">
@@ -135,9 +132,9 @@
                                 </td>
                                 <td>
                                     @php $torrent = App\Models\Torrent::where('id', '=',
-                                        $resurrection->torrent_id)->pluck('info_hash') @endphp
+                                        $resurrection->torrent_id)->pluck('id') @endphp
                                     @php $history = App\Models\History::select(['seedtime'])->where('user_id', '=',
-                                        $user->id)->where('info_hash', '=', $torrent)->first() @endphp
+                                        $user->id)->where('torrent_id', '=', $torrent)->first() @endphp
                                     {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                                 </td>
                                 <td>

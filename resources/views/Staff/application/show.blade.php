@@ -8,22 +8,19 @@
     <meta name="description" content="Application - {{ __('staff.staff-dashboard') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.applications') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.applications.index') }}" class="breadcrumb__link">
+            {{ __('staff.applications') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.applications') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $application->id }}
     </li>
 @endsection
 

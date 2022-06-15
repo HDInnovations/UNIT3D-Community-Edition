@@ -55,7 +55,7 @@ class Group extends Model
     /**
      * Returns The Requested Row From The Permissions Table.
      */
-    public function getPermissionsByForum($forum): \Illuminate\Database\Eloquent\Builder|null
+    public function getPermissionsByForum($forum): ?object
     {
         return Permission::where('forum_id', '=', $forum->id)
             ->where('group_id', '=', $this->id)

@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBanTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -31,4 +30,4 @@ class CreateBanTable extends Migration
             $table->timestamps();
         });
     }
-}
+};

@@ -9,13 +9,14 @@
           content="{{ __('user.profile-desc', ['user' => $user->username, 'title' => config('other.title')]) }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', [ 'username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ $user->username }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
@@ -34,11 +35,6 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
-                    @include('user.buttons.profile')
-                @else
-                    @include('user.buttons.public')
-                @endif
                 <div class="header gradient blue">
                     <div class="inner_content">
                         <div class="content">
@@ -446,7 +442,7 @@
                                             <div class="progress-bar progress-bar-danger progress-bar-striped active"
                                                  role="progressbar"
                                                  style="min-width: 80px; margin: 0 0 5px 5px; border-bottom-color: #8c0408;">
-                                                {{ strtoupper(trans('user.warning')) }}
+                                                {{ strtoupper(__('user.warning')) }}
                                             </div>
                                         @endforeach
                                     </div>
@@ -470,15 +466,6 @@
                         @endif
                         </tbody>
                     </table>
-
-
-                    @if(auth()->user()->id == $user->id)
-                        @include('user.buttons.user')
-                    @elseif(auth()->user()->group && auth()->user()->group->is_modo == 1)
-                        @include('user.buttons.staff')
-                    @endif
-
-
                 </div>
             </div>
 
@@ -501,7 +488,7 @@
                                       title="" data-original-title="{{ __('user.certified-downloader-desc') }}"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> {{ __('user.certified-downloader') }}!</span>
                             @endif
-                            @if ($user->getSeedbonus() >= '50,000')
+                            @if ($user->seedbonus >= 50_000)
                                 <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);"
                                       data-toggle="tooltip"
                                       title="" data-original-title="{{ __('user.certified-banker-desc') }}"><i
@@ -521,13 +508,13 @@
                             @php
                                 $x=1;
                             @endphp
-                            @foreach ($user->unlockedAchievements() as $a)
+                            @foreach ($achievements as $achievement)
                                 @php
                                     if($x > 25) { continue; }
                                 @endphp
-                                <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title=""
-                                     height="50px" data-original-title="{{ $a->details->name }}"
-                                     alt="{{ $a->details->name }}">
+                                <img src="/img/badges/{{ $achievement->details->name }}.png" data-toggle="tooltip" title=""
+                                     height="50px" data-original-title="{{ $achievement->details->name }}"
+                                     alt="{{ $achievement->details->name }}">
                                 @php
                                     $x++;
                                 @endphp
@@ -613,7 +600,7 @@
                                             <td>@choice('user.client-connectable-state', $connectable)</td>
                                         @endif
                                     </tr>
-                                    @php array_push($peer_array, [$p->ip, $p->port]) @endphp
+                                    @php $peer_array[] = [$p->ip, $p->port] @endphp
                                 @endif
                             @endforeach
                             </tbody>

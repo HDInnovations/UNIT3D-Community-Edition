@@ -1,24 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.torrent-categories') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.categories.index') }}" class="breadcrumb__link">
+            {{ __('staff.torrent-categories') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.categories.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ __('common.add') }}
-                {{ __('torrent.torrent') }}
-                {{ __('torrent.category') }}
-            </span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 
@@ -26,7 +20,7 @@
     <div class="container box">
         <h2>
             {{ __('common.add') }}
-            {{ __(trans_choice('common.a-an-art',false)) }}
+            {{ trans_choice('common.a-an-art',false) }}
             {{ __('torrent.category') }}
         </h2>
         <form role="form" method="POST" action="{{ route('staff.categories.store') }}" enctype="multipart/form-data">
@@ -53,7 +47,7 @@
             <div class="form-group">
                 <label for="image">
                     {{ __('common.select') }}
-                    {{ __(trans_choice('common.a-an-art',false)) }}
+                    {{ trans_choice('common.a-an-art',false) }}
                     {{ __('common.image') }}
                     (If Not Using A FontAwesome Icon)
                 </label>

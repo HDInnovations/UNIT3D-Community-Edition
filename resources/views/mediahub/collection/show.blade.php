@@ -8,22 +8,19 @@
     <meta name="description" content="{{ $collection->name }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.collections.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.collections') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.collections.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.collections') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $collection->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $collection->name }}
     </li>
 @endsection
 
@@ -55,7 +52,7 @@
                     </div>
                 </div>
                 <div class="movie-bottom">
-                    <a href="{{ route('torrents') }}?perPage=25&collectionId={{ $collection->id }}" role="button"
+                    <a href="{{ route('torrents', ['collectionId' => $collection->id]) }}" role="button"
                        class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Collection Torrents List
@@ -134,7 +131,7 @@
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        style="color:{{ $comment->user->group->color }};">(<span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
@@ -192,7 +189,14 @@
                     <div class="form-group">
                         <label for="content">{{ __('common.your-comment') }}:</label>
                         <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                        <span class="pull-right" x-data="{ emoji: false }">
+                            <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                            <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                                <emoji-picker></emoji-picker>
+                            </div>
+                        </span>
+                        <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
                     <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
@@ -204,12 +208,4 @@
             <!-- /Add comment -->
         </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-    </script>
 @endsection

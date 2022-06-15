@@ -8,14 +8,14 @@
             </span>
             <div>
                 <span x-text="days">00</span>
-                <span>{{ trans('common.day') }}</span>
+                <span>{{ __('common.day') }}</span>
                 <span x-text="hours">00</span>
-                <span>{{ trans('common.hour') }}</span>
+                <span>{{ __('common.hour') }}</span>
                 <span x-text="minutes">00</span>
-                <span>{{ trans('common.minute') }}</span>
+                <span>{{ __('common.minute') }}</span>
                 <span>and</span>
                 <span x-text="seconds">00</span>
-                <span>{{ trans('common.second') }}</span>
+                <span>{{ __('common.second') }}</span>
             </div>
         </div>
     </div>

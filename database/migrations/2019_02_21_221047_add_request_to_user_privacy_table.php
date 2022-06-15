@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRequestToUserPrivacyTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -31,4 +30,4 @@ class AddRequestToUserPrivacyTable extends Migration
             $table->boolean('show_requested')->index()->default(1)->after('show_rank');
         });
     }
-}
+};

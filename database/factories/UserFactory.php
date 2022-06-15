@@ -7,19 +7,11 @@ namespace Database\Factories;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = User::class;
-
     /**
      * Define the model's default state.
      */
@@ -48,7 +40,6 @@ class UserFactory extends Factory
             'chat_hidden'         => $this->faker->boolean(),
             'hidden'              => $this->faker->boolean(),
             'style'               => $this->faker->boolean(),
-            'nav'                 => $this->faker->boolean(),
             'torrent_layout'      => $this->faker->boolean(),
             'torrent_filters'     => $this->faker->boolean(),
             'custom_css'          => $this->faker->word(),

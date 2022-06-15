@@ -12,11 +12,9 @@
     <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" crossorigin="anonymous">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('auth.title') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('auth.title') }}
     </li>
 @endsection
 
@@ -163,7 +161,7 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $(function () {
         // Check for on keypress
         $('input').on('keyup', function (event) {
@@ -208,7 +206,7 @@
 
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
         $('.code-inputs').delay(200).removeClass('invalid-shake')
       })
@@ -240,16 +238,16 @@
                 case 0:
                   submitTrigger.addClass('btn-danger')
                   Swal.fire(
-                    "{{ trans('auth.verificationLockedTitle') }}",
-                    "{{ trans('auth.verificationLockedMessage') }}",
+                    "{{ __('auth.verificationLockedTitle') }}",
+                    "{{ __('auth.verificationLockedMessage') }}",
                     'error'
                   )
                   break
                 case 1:
                   submitTrigger.addClass('btn-danger')
                   Swal.fire(
-                    "{{ trans('auth.verificationWarningTitle') }}",
-                    "{{ trans('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
+                    "{{ __('auth.verificationWarningTitle') }}",
+                    "{{ __('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
                     'error'
                   )
                   break
@@ -264,7 +262,7 @@
                   break
               }
               if (remainingAttempts === 0) {
-                $('#verification_status_title').html('<h3>{{ trans('auth.titleFailed ') }}</h3>')
+                $('#verification_status_title').html('<h3>{{ __('auth.titleFailed ') }}</h3>')
                 varificationForm.fadeOut(100, function () {
                   $('#failed_login_alert').show()
                   setTimeout(function () {
@@ -288,7 +286,7 @@
 
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $('#resend_code_trigger').click(function (event) {
         event.preventDefault()
         $.ajaxSetup({
@@ -332,7 +330,7 @@
             allowOutsideClick: false,
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-lg btn-' + status,
-            confirmButtonText: "{{ trans('auth.verificationModalConfBtn') }}",
+            confirmButtonText: "{{ __('auth.verificationModalConfBtn') }}",
           })
           self.removeClass('disabled').attr('disabled', false)
         }

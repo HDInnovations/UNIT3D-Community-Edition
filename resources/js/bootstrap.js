@@ -7,7 +7,7 @@ window._ = require('lodash');
  */
 
 try {
-    // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
+    // Note: Eventually we will end up 100% jQuery free.
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
@@ -45,33 +45,22 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-import Echo from 'laravel-echo';
-
-window.io = require('socket.io-client');
-
-window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: process.env.MIX_ECHO_ADDRESS,
-});
-
 /*
- * jQuery Extensions
- *
- * Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
+ * NPM Packages
  */
-// wysibb editor
+// WYSIBB Dditor
 require('./wysibb/jquery.wysibb');
 
-//alerts
+// Sweet Alert
 window.Swal = require('sweetalert2');
 
-//carousel
+// Keen Slider
 window.KeenSlider = require('keen-slider/keen-slider');
 
-//vibrant
+// Vibrant
 window.Vibrant = require('node-vibrant');
+
+// Emoji Picker
+import 'emoji-picker-element';
+
+window.textFieldEdit = require('text-field-edit');

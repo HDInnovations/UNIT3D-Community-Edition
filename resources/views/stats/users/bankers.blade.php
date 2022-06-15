@@ -4,23 +4,23 @@
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.stats') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('stats') }}" class="breadcrumb__link">
+            {{ __('stat.stats') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('bankers') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('stat.top-bankers') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.users') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('partials.statsusermenu')
 @endsection
 
 @section('content')
     <div class="container">
-        @include('partials.statsusermenu')
-
         <div class="block">
             <h2>{{ __('stat.top-bankers') }} ({{ __('bon.bon') }})</h2>
             <hr>
@@ -48,7 +48,7 @@
                                     @if ($b->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('users.show', ['username' => $b->username]) }}">({{ $b->username }}</a></span>
                                     @endif
                                     @else

@@ -15,8 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLastReplyAtToTopicsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,4 +25,4 @@ class AddLastReplyAtToTopicsTable extends Migration
             $table->timestamp('last_reply_at')->nullable()->after('last_post_user_username');
         });
     }
-}
+};

@@ -4,22 +4,19 @@
     <title>Articles - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.articles') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.articles.index') }}" class="breadcrumb__link">
+            {{ __('staff.articles') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.articles.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('common.add') }} {{ __('staff.articles') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 
@@ -42,19 +39,10 @@
 
             <div class="form-group">
                 <label for="content">{{ __('staff.article-content') }}</label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="content" id="editor" cols="30" rows="10" class="form-control"></textarea>
             </div>
 
             <button type="submit" class="btn btn-default">{{ __('common.submit') }}</button>
         </form>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('#content').wysibb({})
-      })
-
-    </script>
 @endsection

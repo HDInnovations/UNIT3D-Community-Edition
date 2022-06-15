@@ -19,9 +19,6 @@ use VStelmakh\UrlHighlight\Validator\Validator;
 
 class Linkify
 {
-    /**
-     * @var string
-     */
     public function linky($text): string
     {
         $validator = new Validator(
@@ -38,8 +35,6 @@ class Linkify
             ''      // string - content to add after highlight: ...</a>{here}
         );
 
-        $urlHighlight = new UrlHighlight($validator, $highlighter);
-
-        return $urlHighlight->highlightUrls($text);
+        return (new UrlHighlight($validator, $highlighter))->highlightUrls($text);
     }
 }

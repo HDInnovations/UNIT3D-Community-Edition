@@ -4,20 +4,19 @@
     <title>{{ $user->username }} - {{ __('user.send-invite') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('invites.index', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}
-                {{ __('user.send-invite') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.invites') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
@@ -49,14 +48,13 @@
             </div>
         @else
             <div class="block">
-                @include('user.buttons.invite')
                 <div class="some-padding">
                     <div class="container-fluid">
                         <div class="block">
                             <h2>{{ __('user.invites-count', ['count' => $user->invites]) }}</h2>
                             <p class="text-danger text-bold">{{ __('user.important') }}</p>
                             <ul>
-                                {!! trans('user.invites-rules') !!}
+                                {!! __('user.invites-rules') !!}
                             </ul>
                         </div>
 

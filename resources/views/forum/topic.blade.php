@@ -4,22 +4,24 @@
     <title>{{ $topic->name }} - Forums - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
+            {{ $forum->name }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $topic->name }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
@@ -33,8 +35,8 @@
                 {{ $topic->first_post_user_username }}
             </a>,
             {{ date('M d Y H:m', strtotime($topic->created_at)) }}
-            <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
-            <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
+            <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(__('forum.replies')) }}</span>
+            <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(__('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
                 <form action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
                       method="POST" style="display: inline;">
@@ -278,7 +280,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.approved')) }}
                                     </button>
                                 </form>
                             @else
@@ -286,7 +288,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.approved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.approved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -295,7 +297,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.denied')) }}
                                     </button>
                                 </form>
                             @else
@@ -303,7 +305,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.denied')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.denied')) }}
                                     </button>
                                 </form>
                             @endif
@@ -312,7 +314,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.solved')) }}
                                     </button>
                                 </form>
                             @else
@@ -320,7 +322,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.solved')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.solved')) }}
                                     </button>
                                 </form>
                             @endif
@@ -329,7 +331,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.invalid')) }}
                                     </button>
                                 </form>
                             @else
@@ -337,7 +339,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.invalid')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.invalid')) }}
                                     </button>
                                 </form>
                             @endif
@@ -346,7 +348,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.bug')) }}
                                     </button>
                                 </form>
                             @else
@@ -354,7 +356,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.bug')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.bug')) }}
                                     </button>
                                 </form>
                             @endif
@@ -363,7 +365,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @else
@@ -371,7 +373,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.suggestion')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.suggestion')) }}
                                     </button>
                                 </form>
                             @endif
@@ -380,7 +382,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-success">
-                                        {{ __('common.add') }} {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.add') }} {{ strtoupper(__('forum.implemented')) }}
                                     </button>
                                 </form>
                             @else
@@ -388,7 +390,7 @@
                                       style="display: inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">
-                                        {{ __('common.remove') }} {{ strtoupper(trans('forum.implemented')) }}
+                                        {{ __('common.remove') }} {{ strtoupper(__('forum.implemented')) }}
                                     </button>
                                 </form>
                             @endif
@@ -403,13 +405,13 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#topic-response').wysibb()
       })
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
         $('.profil').on('click', 'button#quote', function () {
           let author = $(this).closest('.profil').find('.post-info-username').first().text()

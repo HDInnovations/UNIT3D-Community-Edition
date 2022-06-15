@@ -24,7 +24,7 @@ class TvSeasonController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $season = Season::with(['episodes'])->findOrFail($id);
+        $season = Season::with(['episodes', 'torrents'])->findOrFail($id);
         $show = Tv::where('id', '=', $season->tv_id)->first();
 
         return \view('mediahub.tv.season.show', [

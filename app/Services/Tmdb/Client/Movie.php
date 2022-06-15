@@ -17,7 +17,7 @@ class Movie
 {
     public \GuzzleHttp\Client $client;
 
-    public const API_BASE_URI = 'https://api.themoviedb.org/3/';
+    public final const API_BASE_URI = 'https://api.themoviedb.org/3/';
 
     public $data;
 
@@ -34,7 +34,7 @@ class Movie
                 ],
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.locale'),
+                    'language'           => \config('app.meta_locale'),
                     'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
                 ],
             ]

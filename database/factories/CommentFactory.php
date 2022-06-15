@@ -5,7 +5,6 @@
 namespace Database\Factories;
 
 use App\Models\Article;
-use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -14,13 +13,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Comment::class;
-
     /**
      * Define the model's default state.
      */

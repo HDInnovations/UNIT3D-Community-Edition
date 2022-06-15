@@ -18,8 +18,9 @@ use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
-use Carbon\Carbon;
+use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
@@ -74,7 +75,15 @@ class ApplicationController extends Controller
 
             if (\config('email-blacklist.enabled') == true) {
                 $v = \validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
+                    'email' => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        'unique:invites',
+                        'unique:users',
+                        new EmailBlacklist(),
+                    ],
                     'approve' => 'required',
                 ]);
             } else {
@@ -85,7 +94,7 @@ class ApplicationController extends Controller
             }
 
             if ($v->fails()) {
-                return \redirect()->route('staff.applications.index')
+                return \to_route('staff.applications.index')
                     ->withErrors($v->errors());
             }
 
@@ -93,11 +102,11 @@ class ApplicationController extends Controller
             $invite->save();
             $application->markApproved();
 
-            return \redirect()->route('staff.applications.index')
+            return \to_route('staff.applications.index')
                 ->withSuccess('Application Approved');
         }
 
-        return \redirect()->route('staff.applications.index')
+        return \to_route('staff.applications.index')
                 ->withErrors('Application Already Approved');
     }
 
@@ -117,11 +126,11 @@ class ApplicationController extends Controller
             $application->markRejected();
             Mail::to($application->email)->send(new DenyApplication($deniedMessage));
 
-            return \redirect()->route('staff.applications.index')
+            return \to_route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         }
 
-        return \redirect()->route('staff.applications.index')
+        return \to_route('staff.applications.index')
             ->withErrors('Application Already Rejected');
     }
 }

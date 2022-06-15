@@ -51,13 +51,13 @@ class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \redirect()->route('staff.gifts.index')
+            return \to_route('staff.gifts.index')
                 ->withErrors($v->errors());
         }
 
         $recipient = User::where('username', '=', $username)->first();
         if (! $recipient) {
-            return \redirect()->route('staff.gifts.index')
+            return \to_route('staff.gifts.index')
                 ->withErrors('Unable To Find Specified User');
         }
 
@@ -74,7 +74,7 @@ class GiftController extends Controller
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $seedbonus, $invites, $flTokens);
         $privateMessage->save();
 
-        return \redirect()->route('staff.gifts.index')
+        return \to_route('staff.gifts.index')
             ->withSuccess('Gift Sent');
     }
 }

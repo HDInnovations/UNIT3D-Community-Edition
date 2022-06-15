@@ -21,7 +21,7 @@
                                     @if ($comment->anon == 1)
                                         <a href="#" class="pull-left" style="padding-right: 10px;">
                                             <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                            <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                             <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                style="color:{{ $comment->user->group->color }};">(<span><i
                                                             class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
@@ -82,10 +82,16 @@
               action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
             @csrf
             <div class="form-group">
-                <label for="content">{{ __('common.your-comment') }}:</label><span class="badge-extra">{{ __('common.type-verb') }}
-		        			<strong>":"</strong> {{ __('common.for') }} emoji</span> <span
-                        class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                <label for="content">{{ __('common.your-comment') }}:</label>
+                <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
+                <span class="pull-right" x-data="{ emoji: false }">
+                    <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+
+                    <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
+                        <emoji-picker></emoji-picker>
+                    </div>
+                </span>
+                <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
             <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}

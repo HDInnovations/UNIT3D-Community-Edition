@@ -8,23 +8,24 @@
     <meta name="description" content="Forum {{ __('common.subscriptions') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('forum.forums') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('forums.index') }}" class="breadcrumb__link">
+            {{ __('forum.forums') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('forum_subscriptions') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.subscriptions') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.subscriptions') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('forum.buttons')
 @endsection
 
 @section('content')
     <div class="box container">
         <div class="button-holder">
-            @include('forum.buttons')
             <div class="button-right">
                 <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
                     <input type="hidden" name="sorting" value="created_at">
@@ -116,19 +117,19 @@
                             <td class="f-display-topic-title">
                                 <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
                                 @if ($t->state == "close") <span
-                                        class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
+                                        class='label label-sm label-default'>{{ strtoupper(__('forum.closed')) }}</span> @endif
                                 @if ($t->approved == "1") <span
-                                        class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
+                                        class='label label-sm label-success'>{{ strtoupper(__('forum.approved')) }}</span> @endif
                                 @if ($t->denied == "1") <span
-                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
+                                        class='label label-sm label-danger'>{{ strtoupper(__('forum.denied')) }}</span> @endif
                                 @if ($t->solved == "1") <span
-                                        class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
+                                        class='label label-sm label-info'>{{ strtoupper(__('forum.solved')) }}</span> @endif
                                 @if ($t->invalid == "1") <span
-                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
+                                        class='label label-sm label-warning'>{{ strtoupper(__('forum.invalid')) }}</span> @endif
                                 @if ($t->bug == "1") <span
-                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
+                                        class='label label-sm label-danger'>{{ strtoupper(__('forum.bug')) }}</span> @endif
                                 @if ($t->suggestion == "1") <span
-                                        class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
+                                        class='label label-sm label-primary'>{{ strtoupper(__('forum.suggestion')) }}</span>
                                 @endif
                             </td>
                             <td class="f-display-topic-started"><a

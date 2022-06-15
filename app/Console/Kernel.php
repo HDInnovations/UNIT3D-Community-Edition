@@ -19,15 +19,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-
-    ];
-
-    /**
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
@@ -54,6 +45,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:email-blacklist-update')->weekends();
         $schedule->command('auto:reset_user_flushes')->daily();
         $schedule->command('auto:stats_clients')->daily();
+        $schedule->command('auto:remove_torrent_buffs')->hourly();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();

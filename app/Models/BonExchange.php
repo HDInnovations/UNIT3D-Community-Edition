@@ -13,14 +13,12 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BonExchange extends Model
 {
     use HasFactory;
-    use Auditable;
 
     /**
      * The Database Table Used By The Model.
@@ -54,7 +52,7 @@ class BonExchange extends Model
     public function getDownloadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('download', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -64,7 +62,7 @@ class BonExchange extends Model
     public function getUploadOptions(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('upload', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -74,7 +72,7 @@ class BonExchange extends Model
     public function getPersonalFreeleechOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('personal_freeleech', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 
@@ -84,7 +82,7 @@ class BonExchange extends Model
     public function getInviteOption(): \Illuminate\Database\Eloquent\Collection
     {
         return self::where('invite', '=', true)
-            ->orderBy('value')
+            ->oldest('value')
             ->get();
     }
 

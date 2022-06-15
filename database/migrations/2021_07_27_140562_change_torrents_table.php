@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeTorrentsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,4 +15,4 @@ class ChangeTorrentsTable extends Migration
             $table->integer('region_id')->nullable()->index()->after('distributor_id');
         });
     }
-}
+};

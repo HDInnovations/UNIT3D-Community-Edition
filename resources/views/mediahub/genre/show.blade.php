@@ -8,22 +8,19 @@
     <meta name="description" content="{{ $genre->name }} {{ __('mediahub.networks') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.genres.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.genres') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.genres.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.genres') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $genre->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $genre->name }}
     </li>
 @endsection
 

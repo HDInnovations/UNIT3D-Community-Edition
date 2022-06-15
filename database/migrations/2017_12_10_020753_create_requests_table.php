@@ -13,8 +13,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRequestsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -42,4 +41,4 @@ class CreateRequestsTable extends Migration
             $table->dateTime('approved_when')->nullable();
         });
     }
-}
+};

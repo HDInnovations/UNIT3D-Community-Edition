@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToRssTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -25,4 +24,4 @@ class AddForeignKeysToRssTable extends Migration
             $table->foreign('userID', 'rss_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
-}
+};

@@ -43,7 +43,7 @@ class CollectionSearch extends Component
         return Collection::withCount('movie')
             ->with('movie')
             ->where('name', 'LIKE', '%'.$this->search.'%')
-            ->orderBy('name')
+            ->oldest('name')
             ->paginate(25);
     }
 

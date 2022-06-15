@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTopicsTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -43,4 +42,4 @@ class CreateTopicsTable extends Migration
             $table->integer('forum_id')->index('fk_topics_forums1_idx');
         });
     }
-}
+};

@@ -14,8 +14,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTypesTable extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -28,4 +27,4 @@ class CreateTypesTable extends Migration
             $table->integer('position');
         });
     }
-}
+};

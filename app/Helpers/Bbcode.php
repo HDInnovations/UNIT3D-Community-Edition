@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
@@ -15,351 +15,301 @@ namespace App\Helpers;
 
 class Bbcode
 {
-    public array $parsers = [
+    private array $parsers = [
         'h1' => [
-            'pattern' => '/\[h1\](.*?)\[\/h1\]/s',
-            'replace' => '<h1>$1</h1>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h1\]/i',
+            'closeBbcode' => '[/h1]',
+            'openHtml'    => '<h1>',
+            'closeHtml'   => '</h1>',
         ],
-
         'h2' => [
-            'pattern' => '/\[h2\](.*?)\[\/h2\]/s',
-            'replace' => '<h2>$1</h2>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h2\]/i',
+            'closeBbcode' => '[/h2]',
+            'openHtml'    => '<h2>',
+            'closeHtml'   => '</h2>',
         ],
-
         'h3' => [
-            'pattern' => '/\[h3\](.*?)\[\/h3\]/s',
-            'replace' => '<h3>$1</h3>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h3\]/i',
+            'closeBbcode' => '[/h3]',
+            'openHtml'    => '<h3>',
+            'closeHtml'   => '</h3>',
         ],
-
         'h4' => [
-            'pattern' => '/\[h4\](.*?)\[\/h4\]/s',
-            'replace' => '<h4>$1</h4>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h4\]/i',
+            'closeBbcode' => '[/h4]',
+            'openHtml'    => '<h4>',
+            'closeHtml'   => '</h4>',
         ],
-
         'h5' => [
-            'pattern' => '/\[h5\](.*?)\[\/h5\]/s',
-            'replace' => '<h5>$1</h5>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h5\]/i',
+            'closeBbcode' => '[/h5]',
+            'openHtml'    => '<h5>',
+            'closeHtml'   => '</h5>',
         ],
-
         'h6' => [
-            'pattern' => '/\[h6\](.*?)\[\/h6\]/s',
-            'replace' => '<h6>$1</h6>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[h6\]/i',
+            'closeBbcode' => '[/h6]',
+            'openHtml'    => '<h6>',
+            'closeHtml'   => '</h6>',
         ],
-
         'bold' => [
-            'pattern' => '/\[b\](.*?)\[\/b\]/s',
-            'replace' => '<span style="font-weight: bold;">$1</span>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[b\]/i',
+            'closeBbcode' => '[/b]',
+            'openHtml'    => '<b>',
+            'closeHtml'   => '</b>',
         ],
-
         'italic' => [
-            'pattern' => '/\[i\](.*?)\[\/i\]/s',
-            'replace' => '<em>$1</em>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[i\]/i',
+            'closeBbcode' => '[/i]',
+            'openHtml'    => '<i>',
+            'closeHtml'   => '</i>',
         ],
-
         'underline' => [
-            'pattern' => '/\[u\](.*?)\[\/u\]/s',
-            'replace' => '<u>$1</u>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[u\]/i',
+            'closeBbcode' => '[/u]',
+            'openHtml'    => '<u>',
+            'closeHtml'   => '</u>',
         ],
-
         'linethrough' => [
-            'pattern' => '/\[s\](.*?)\[\/s\]/s',
-            'replace' => '<span style="text-decoration: line-through;">$1</span>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[s\]/i',
+            'closeBbcode' => '[/s]',
+            'openHtml'    => '<s>',
+            'closeHtml'   => '</s>',
         ],
-
         'size' => [
-            'pattern' => '/\[size\=(.*?)\](.*?)\[\/size\]/s',
-            'replace' => '<span style="font-size: $1px;">$2</span>',
-            'content' => '$2',
+            'openBbcode'  => '/^\[size=(\d+)\]/i',
+            'closeBbcode' => '[/size]',
+            'openHtml'    => '<span style="font-size: clamp(10px, $1, 100px);">',
+            'closeHtml'   => '</span>',
         ],
-
         'font' => [
-            'pattern' => '/\[font\=(.*?)\](.*?)\[\/font\]/s',
-            'replace' => '<span style="font-family: $1;">$2</span>',
-            'content' => '$2',
+            'openBbcode'  => '/^\[font=([a-z0-9 ]+)\]/i',
+            'closeBbcode' => '[/font]',
+            'openHtml'    => '<span style="font-family: $1;">',
+            'closeHtml'   => '</span>',
         ],
-
         'color' => [
-            'pattern' => '/\[color\=(.*?)\](.*?)\[\/color\]/s',
-            'replace' => '<span style="color: $1;">$2</span>',
-            'content' => '$2',
+            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3,4}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z]+)\]/i',
+            'closeBbcode' => '[/color]',
+            'openHtml'    => '<span style="color: $1;">',
+            'closeHtml'   => '</span>',
         ],
-
         'center' => [
-            'pattern' => '/\[center\](.*?)\[\/center\]/s',
-            'replace' => '<div style="text-align:center;">$1</div>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[center\]/i',
+            'closeBbcode' => '[/center]',
+            'openHtml'    => '<div style="text-align: center;">',
+            'closeHtml'   => '</div>',
         ],
-
         'left' => [
-            'pattern' => '/\[left\](.*?)\[\/left\]/s',
-            'replace' => '<div style="text-align:left;">$1</div>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[left\]/i',
+            'closeBbcode' => '[/left]',
+            'openHtml'    => '<div style="text-align: left;">',
+            'closeHtml'   => '</div>',
         ],
-
         'right' => [
-            'pattern' => '/\[right\](.*?)\[\/right\]/s',
-            'replace' => '<div style="text-align:right;">$1</div>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[right\]/i',
+            'closeBbcode' => '[/right]',
+            'openHtml'    => '<div style="text-align: right;">',
+            'closeHtml'   => '</div>',
         ],
-
         'quote' => [
-            'pattern' => '/\[quote\](.*?)\[\/quote\]/s',
-            'replace' => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><div class="pt-5">$1</div></div></li></ul>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[quote\]/i',
+            'closeBbcode' => '[/quote]',
+            'openHtml'    => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><div class="pt-5">',
+            'closeHtml'   => '</div></div></li></ul>',
         ],
-
         'namedquote' => [
-            'pattern' => '/\[quote\=(.*?)\](.*)\[\/quote\]/s',
-            'replace' => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong><div class="pt-5">$2</div></div></li></ul>',
-            'content' => '$2',
+            'openBbcode'  => '/^\[quote=([^<>"]*?)\]/i',
+            'closeBbcode' => '[/quote]',
+            'openHtml'    => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong><div class="pt-5">',
+            'closeHtml'   => '</div></div></li></ul>',
         ],
-
-        'link' => [
-            'pattern' => '/\[url\](.*?)\[\/url\]/s',
-            'replace' => '<a href="$1">$1</a>',
-            'content' => '$1',
-        ],
-
         'namedlink' => [
-            'pattern' => '/\[url\=(.*?)\](.*?)\[\/url\]/s',
-            'replace' => '<a href="$1">$2</a>',
-            'content' => '$2',
+            'openBbcode'  => '/^\[url=(.*?)\]/i',
+            'closeBbcode' => '[/url]',
+            'openHtml'    => '<a href="$1">',
+            'closeHtml'   => '</a>',
         ],
-
-        'image' => [
-            'pattern' => '/\[img\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$1" class="img-responsive" style="display: inline !important;">',
-            'content' => '$1',
-        ],
-
-        'sized-image' => [
-            'pattern' => '/\[img width\=(.*?)\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$2" width="$1px">',
-            'content' => '$1',
-        ],
-
-        'sized-image2' => [
-            'pattern' => '/\[img\=(.*?)\](.*?)\[\/img\]/s',
-            'replace' => '<img src="$2" width="$1px">',
-            'content' => '$1',
-        ],
-
         'orderedlistnumerical' => [
-            'pattern' => '/\[list=1\](.*?)\[\/list\]/s',
-            'replace' => '<ol>$1</ol>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[list=1\]/i',
+            'closeBbcode' => '[/list]',
+            'openHtml'    => '<ol>',
+            'closeHtml'   => '</ol>',
         ],
-
         'orderedlistalpha' => [
-            'pattern' => '/\[list=a\](.*?)\[\/list\]/s',
-            'replace' => '<ol type="a">$1</ol>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[list=a\]/i',
+            'closeBbcode' => '[/list]',
+            'openHtml'    => '<ol type="a">',
+            'closeHtml'   => '</ol>',
         ],
-
         'unorderedlist' => [
-            'pattern' => '/\[list\](.*?)\[\/list\]/s',
-            'replace' => '<ul>$1</ul>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[list\]/i',
+            'closeBbcode' => '[/list]',
+            'openHtml'    => '<ul>',
+            'closeHtml'   => '</ul>',
         ],
-
-        'listitem' => [
-            'pattern' => '/\[\*\](.*)/',
-            'replace' => '<li>$1</li>',
-            'content' => '$1',
-        ],
-
         'code' => [
-            'pattern' => '/\[code\](.*?)\[\/code\]/s',
-            'replace' => '<pre>$1</pre>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[code\]/i',
+            'closeBbcode' => '[/code]',
+            'openHtml'    => '<pre>',
+            'closeHtml'   => '</pre>',
         ],
-
         'alert' => [
-            'pattern' => '/\[alert\](.*?)\[\/alert\]/s',
-            'replace' => '<div class="bbcode-alert">$1</div>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[alert\]/i',
+            'closeBbcode' => '[/alert]',
+            'openHtml'    => '<div class="bbcode-alert">',
+            'closeHtml'   => '</div>',
         ],
-
         'note' => [
-            'pattern' => '/\[note\](.*?)\[\/note\]/s',
-            'replace' => '<div class="bbcode-note">$1</div>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[note\]/i',
+            'closeBbcode' => '[/note]',
+            'openHtml'    => '<div class="bbcode-note">',
+            'closeHtml'   => '</div>',
         ],
-
         'sub' => [
-            'pattern' => '/\[sub\](.*?)\[\/sub\]/s',
-            'replace' => '<sub>$1</sub>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[sub\]/i',
+            'closeBbcode' => '[/sub]',
+            'openHtml'    => '<sub>',
+            'closeHtml'   => '</sub>',
         ],
-
         'sup' => [
-            'pattern' => '/\[sup\](.*?)\[\/sup\]/s',
-            'replace' => '<sup>$1</sup>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[sup\]/i',
+            'closeBbcode' => '[/sup]',
+            'openHtml'    => '<sup>',
+            'closeHtml'   => '</sup>',
         ],
-
         'small' => [
-            'pattern' => '/\[small\](.*?)\[\/small\]/s',
-            'replace' => '<small>$1</small>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[small\]/i',
+            'closeBbcode' => '[/small]',
+            'openHtml'    => '<small>',
+            'closeHtml'   => '</small>',
         ],
-
         'table' => [
-            'pattern' => '/\[table\](.*?)\[\/table\]/s',
-            'replace' => '<table>$1</table>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[table\]/i',
+            'closeBbcode' => '[/table]',
+            'openHtml'    => '<table>',
+            'closeHtml'   => '</table>',
         ],
-
         'table-row' => [
-            'pattern' => '/\[tr\](.*?)\[\/tr\]/s',
-            'replace' => '<tr>$1</tr>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[tr\]/i',
+            'closeBbcode' => '[/tr]',
+            'openHtml'    => '<tr>',
+            'closeHtml'   => '</tr>',
         ],
-
         'table-data' => [
-            'pattern' => '/\[td\](.*?)\[\/td\]/s',
-            'replace' => '<td>$1</td>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[td\]/i',
+            'closeBbcode' => '[/td]',
+            'openHtml'    => '<td>',
+            'closeHtml'   => '</td>',
         ],
-
-        'youtube' => [
-            'pattern' => '/\[youtube\](.*?)\[\/youtube\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            'content' => '$1',
-        ],
-
-        'video' => [
-            'pattern' => '/\[video\](.*?)\[\/video\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            'content' => '$1',
-        ],
-
-        'video-youtube' => [
-            'pattern' => '/\[video="youtube"\](.*?)\[\/video\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            'content' => '$1',
-        ],
-
-        'linebreak' => [
-            'pattern' => '/\r\n/',
-            'replace' => '<br>',
-            'content' => '',
-        ],
-
-        'linebreak-nix' => [
-            'pattern' => '/\n/',
-            'replace' => '<br>',
-            'content' => '',
-        ],
-
         'spoiler' => [
-            'pattern' => '/\[spoiler\](.*?)\[\/spoiler\]/s',
-            'replace' => '<details class="label label-primary"><summary>Spoiler</summary><pre><code><div style="text-align:left;">$1</div></code></pre></details>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[spoiler\]/i',
+            'closeBbcode' => '[/spoiler]',
+            'openHtml'    => '<details class="label label-primary"><summary>Spoiler</summary><pre><code><div style="text-align:left;">',
+            'closeHtml'   => '</div></code></pre></details>',
         ],
-
         'named-spoiler' => [
-            'pattern' => '/\[spoiler\=(.*?)\](.*?)\[\/spoiler\]/s',
-            'replace' => '<details class="label label-primary"><summary>$1</summary><pre><code><div style="text-align:left;">$2</div></code></pre></details>',
-            'content' => '$1',
+            'openBbcode'  => '/^\[spoiler=(.*?)\]/i',
+            'closeBbcode' => '[/spoiler]',
+            'openHtml'    => '<details class="label label-primary"><summary>$1</summary><pre><code><div style="text-align:left;">',
+            'closeHtml'   => '</div></code></pre></details>',
         ],
     ];
-
-    protected array $enabledParsers = [];
-
-    public function __construct()
-    {
-        $this->enabledParsers = $this->parsers;
-    }
 
     /**
      * Parses the BBCode string.
      */
-    public function parse($source, bool $caseInsensitive = false): string
+    public function parse($source): string
     {
-        foreach ($this->enabledParsers as $name => $parser) {
-            $pattern = ($caseInsensitive) ? $parser['pattern'].'i' : $parser['pattern'];
+        // Replace all void elements since they don't have closing tags
+        $source = \str_replace('[*]', '<li>', $source);
+        $source = \preg_replace_callback(
+            '/\[url\](.*?)\[\/url\]/i',
+            fn ($matches) => '<a href="'.\htmlspecialchars($matches[1]).'">'.\htmlspecialchars($matches[1]).'</a>',
+            $source
+        );
+        $source = \preg_replace_callback(
+            '/\[img\](.*?)\[\/img\]/i',
+            fn ($matches) => '<img src="'.\htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            $source
+        );
+        $source = \preg_replace_callback(
+            '/\[img width=(\d+)\](.*?)\[\/img\]/i',
+            fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            $source
+        );
+        $source = \preg_replace_callback(
+            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
+            fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            $source
+        );
 
-            $source = $this->searchAndReplace($pattern, $parser['replace'], $source);
+        // Youtube elements need to be replaced like this because the content inside the two tags
+        // has to be moved into an html attribute
+        $source = \preg_replace_callback(
+            '/\[youtube\](.*?)\[\/youtube\]/i',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source
+        );
+        $source = \preg_replace_callback(
+            '/\[video\](.*?)\[\/video\]/i',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source
+        );
+        $source = \preg_replace_callback(
+            '/\[video="youtube"\](.*?)\[\/video\]/i',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source
+        );
+
+        // Stack of unclosed elements
+        $openedElements = [];
+
+        // Character index
+        $index = 0;
+
+        // Loop until there are no more occurrences of '['
+        while ($index < \strlen($source) && ($index = \stripos($source, '[', $index)) !== false) {
+            // Is the potential tag opening or closing?
+            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
+                $name = \array_pop($openedElements);
+                $el = $this->parsers[$name];
+                $tag = \substr($source, $index, \strlen($el['closeBbcode']));
+
+                // Replace bbcode tag with html tag if found tag matches expected tag,
+                // otherwise return the expected element's to the stack
+                if (\strcasecmp($tag, $el['closeBbcode']) === 0) {
+                    $source = \substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
+                } else {
+                    $openedElements[] = $name;
+                }
+            } else {
+                $remainingText = \substr($source, $index);
+
+                // Find match between found bbcode tag and valid elements
+                foreach ($this->parsers as $name => $el) {
+                    // The opening bbcode tag uses the regex `^` character to make
+                    // sure only the beginning of $remainingText is matched
+                    if (\preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
+                        $replacement = \preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
+                        $source = \substr_replace($source, $replacement, $index, \strlen($matches[0]));
+                        $openedElements[] = $name;
+
+                        break;
+                    }
+                }
+            }
+
+            $index++;
         }
 
-        return $source;
-    }
-
-    /**
-     * Remove all BBCode.
-     */
-    public function stripBBCodeTags(string $source): string
-    {
-        foreach ($this->parsers as $name => $parser) {
-            $source = $this->searchAndReplace($parser['pattern'].'i', $parser['content'], $source);
+        while (! empty($openedElements)) {
+            $source .= $this->parsers[\array_pop($openedElements)]['closeHtml'];
         }
 
-        return $source;
-    }
-
-    /**
-     * Searches after a specified pattern and replaces it with provided structure.
-     */
-    protected function searchAndReplace(string $pattern, string $replace, string $source): ?string
-    {
-        while (\preg_match($pattern, $source)) {
-            $source = \preg_replace($pattern, $replace, $source);
-        }
+        // Replace line breaks
+        $source = \str_replace(["\r\n", "\n"], '<br>', $source);
 
         return $source;
-    }
-
-    /**
-     * Helper function to parse case sensitive.
-     */
-    public function parseCaseSensitive(string $source): string
-    {
-        return $this->parse($source, false);
-    }
-
-    /**
-     * Helper function to parse case insensitive.
-     */
-    public function parseCaseInsensitive(string $source): string
-    {
-        return $this->parse($source, true);
-    }
-
-    /**
-     * List of chosen parsers.
-     */
-    public function getParsers(): array
-    {
-        return $this->enabledParsers;
-    }
-
-    /**
-     * Sets the parser pattern and replace.
-     * This can be used for new parsers or overwriting existing ones.
-     */
-    public function setParser(string $name, string $pattern, string $replace, string $content): void
-    {
-        $this->parsers[$name] = [
-            'pattern' => $pattern,
-            'replace' => $replace,
-            'content' => $content,
-        ];
-
-        $this->enabledParsers[$name] = [
-            'pattern' => $pattern,
-            'replace' => $replace,
-            'content' => $content,
-        ];
     }
 }

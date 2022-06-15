@@ -100,7 +100,7 @@
                         @else
                             <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                                 @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -276,7 +276,7 @@
 								</span>
                         @endif
 
-                        @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                        @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                             <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'
@@ -472,7 +472,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -648,7 +648,7 @@
 								</span>
                     @endif
 
-                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                         <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'
@@ -845,7 +845,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -1021,7 +1021,7 @@
 								</span>
                     @endif
 
-                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                         <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'
@@ -1218,7 +1218,7 @@
                     @else
                         <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                             @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -1394,7 +1394,7 @@
 								</span>
                     @endif
 
-                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                         <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'
@@ -1591,7 +1591,7 @@
                         @else
                             <span class="badge-extra torrent-listings-uploader">
 									<i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-									{{ strtoupper(trans('common.anonymous')) }}
+									{{ strtoupper(__('common.anonymous')) }}
                                 @if ($user->group->is_modo || $torrent->user->username === $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                             ({{ $torrent->user->username }})
@@ -1767,7 +1767,7 @@
 								</span>
                         @endif
 
-                        @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                        @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
                             <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        data-toggle='tooltip'

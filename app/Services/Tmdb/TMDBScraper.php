@@ -30,7 +30,7 @@ use Illuminate\Support\Str;
 class TMDBScraper implements ShouldQueue
 {
     /**
-     * @var mixed|mixed[]|string|null
+     * @var mixed|array|string|null
      */
     public $id;
 
@@ -57,6 +57,7 @@ class TMDBScraper implements ShouldQueue
                 'episode_run_time'   => $tmdb->ifHasItems('episode_run_time', $tv),
                 'first_air_date'     => $tmdb->ifExists('first_air_date', $tv),
                 'homepage'           => $tv['homepage'],
+                'imdb_id'            => \substr($tv['external_ids']['imdb_id'] ?? '', 2),
                 'in_production'      => $tv['in_production'],
                 'last_air_date'      => $tmdb->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),
@@ -93,7 +94,7 @@ class TMDBScraper implements ShouldQueue
 
         if (\array_key_exists('title', $movie)) {
             $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
-            \preg_match($re, $movie['title'], $matches);
+            \preg_match($re, (string) $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
             $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''],
@@ -104,7 +105,7 @@ class TMDBScraper implements ShouldQueue
                 'backdrop'          => $tmdb->image('backdrop', $movie),
                 'budget'            => $movie['budget'] ?? null,
                 'homepage'          => $movie['homepage'] ?? null,
-                'imdb_id'           => $movie['imdb_id'] ?? null,
+                'imdb_id'           => \substr($movie['imdb_id'] ?? '', 2),
                 'original_language' => $movie['original_language'] ?? null,
                 'original_title'    => $movie['original_title'] ?? null,
                 'overview'          => $movie['overview'] ?? null,

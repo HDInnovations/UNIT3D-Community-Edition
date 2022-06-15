@@ -21,7 +21,7 @@
                                 x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"></button>
                     </div>
                 </div>
-                <div x-show="open" id="torrent-advanced-search">
+                <div x-cloak x-show="open" id="torrent-advanced-search">
                     <div class="row">
                         <div class="form-group col-sm-3 col-xs-6 adv-search-description">
                             <label for="description" class="label label-default">{{ __('torrent.description') }}</label>
@@ -145,31 +145,31 @@
                             <label for="buffs" class="label label-default">Buff</label>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free0" type="checkbox" value="0">
+									<input wire:model.prefetch="free" type="checkbox" value="0">
 									0% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free25" type="checkbox" value="25">
+									<input wire:model.prefetch="free" type="checkbox" value="25">
 									25% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free50" type="checkbox" value="50">
+									<input wire:model.prefetch="free" type="checkbox" value="50">
 									50% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free75" type="checkbox" value="75">
+									<input wire:model.prefetch="free" type="checkbox" value="75">
 									75% Freeleech
 								</label>
 							</span>
                             <span class="badge-user">
 								<label class="inline">
-									<input wire:model.prefetch="free100" type="checkbox" value="100">
+									<input wire:model.prefetch="free" type="checkbox" value="100">
 									100% Freeleech
 								</label>
 							</span>
@@ -333,40 +333,11 @@
     </div>
     <br>
     <div class="table-responsive block">
-			<span class="badge-user torrent-listings-stats" style="float: right;">
-				<strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
-				<strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
-				<strong>Dead:</strong> {{ number_format($torrentsStat->dead) }} |
-			</span>
-        <div class="dropdown torrent-listings-action-bar">
-            <a class="dropdown btn btn-xs btn-success" data-toggle="dropdown" href="#" aria-expanded="true">
-                {{ __('common.publish') }} {{ __('torrent.torrent') }}
-                <i class="fas fa-caret-circle-right"></i>
-            </a>
-            <ul class="dropdown-menu">
-                @foreach($categories as $category)
-                    <li role="presentation">
-                        <a role="menuitem" tabindex="-1" target="_blank"
-                           href="{{ route('upload_form', ['category_id' => $category->id]) }}">
-                            <span class="menu-text">{{ $category->name }}</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ __('torrent.list') }}
-            </a>
-            <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ __('torrent.cards') }}
-            </a>
-            <a href="#" class="btn btn-xs btn-primary">
-                <i class="{{ config('other.font-awesome') }} fa-clone"></i> {{ __('torrent.groupings') }}
-            </a>
-            <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
-                <i class="{{ config('other.font-awesome') }} fa-rss"></i> {{ __('rss.rss') }} {{ __('rss.feeds') }}
-            </a>
-        </div>
+        <span class="badge-user torrent-listings-stats" style="float: right;">
+            <strong>Total:</strong> {{ number_format($torrentsStat->total) }} |
+            <strong>Alive:</strong> {{ number_format($torrentsStat->alive) }} |
+            <strong>Dead:</strong> {{ number_format($torrentsStat->dead) }}
+        </span>
         <table class="table table-condensed table-striped table-bordered" id="torrent-list-table">
             <thead>
             <tr>
@@ -449,7 +420,7 @@
             @endif
             @if ($torrent->category->game_meta)
                 @if ($torrent->igdb || $torrent->igdb != 0)
-                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb) @endphp
+                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb) @endphp
                 @endif
             @endif
 
@@ -484,11 +455,11 @@
                                      class="show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
 
-                            @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $meta->cover->image_id }}.jpg"
+                            @if ($torrent->category->game_meta && isset($meta) && $meta->cover['image_id'] && $meta->name)
+                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $meta->cover['image_id'] }}.jpg"
                                      class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
-                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover['image_id'] }}.jpg"
 									     alt="{{ __('torrent.poster') }}" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="{{ __('torrent.poster') }}">
                             @endif
@@ -519,13 +490,20 @@
                                     {{ $torrent->name }}
                                 </a>
                             </h3>
-                            @if (isset($meta->genres) && $meta->genres->isNotEmpty())
+                            @if (isset($meta->genres) && ($torrent->category->movie_meta || $torrent->category->tv_meta))
                                 @foreach ($meta->genres as $genre)
                                     <span class="genre-label">
-                                            <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
-                                                <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
-                                            </a>
-                                        </span>
+                                        <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
+                                        </a>
+                                    </span>
+                                @endforeach
+                            @endif
+                            @if (isset($meta->genres) && $torrent->category->game_meta)
+                                @foreach ($meta->genres as $genre)
+                                    <span class="genre-label">
+                                        <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre['name'] }}
+                                    </span>
                                 @endforeach
                             @endif
                             <p class="description_plot">
@@ -542,7 +520,7 @@
                     <div class="card_footer">
                         <div style="float: left;">
                             @if ($torrent->anon == 1)
-                                <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
                                     @if ($user->id === $torrent->user->id || $user->group->is_modo)
                                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 												({{ $torrent->user->username }})
@@ -613,7 +591,7 @@
     </div>
 </div>
 
-<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
   document.addEventListener('livewire:load', function () {
     let myOptions = [
             @foreach($regions as $region)

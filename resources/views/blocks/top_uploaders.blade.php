@@ -46,7 +46,7 @@
                                         <span class="badge-user text-bold">
                                                 <span class="text-orange">
                                                     <i class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                       aria-hidden="true"></i> {{ strtoupper(trans('common.hidden')) }}
+                                                       aria-hidden="true"></i> {{ strtoupper(__('common.hidden')) }}
                                                 </span>
                                                 @if ($user->id == $uploader->user->id || $user->group->is_modo == 1)
                                                 <a href="{{ route('users.show', ['username' => $uploader->user->username]) }}">
@@ -107,7 +107,7 @@
                                         <span class="badge-user text-bold">
                                                 <span class="text-orange">
                                                     <i class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                       aria-hidden="true"></i> {{ strtoupper(trans('common.hidden')) }}
+                                                       aria-hidden="true"></i> {{ strtoupper(__('common.hidden')) }}
                                                 </span>
                                                 @if ($user->id == $past_uploader->user->id || $user->group->is_modo == 1)
                                                 <a

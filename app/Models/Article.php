@@ -56,7 +56,7 @@ class Article extends Model
         }
 
         //no need to trim, already shorter than trim length
-        if (\strlen($input) <= $length) {
+        if (\strlen((string) $input) <= $length) {
             return $input;
         }
 
@@ -86,8 +86,7 @@ class Article extends Model
     public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $linkify->linky($bbcode->parse($this->content, true));
+        return (new Linkify())->linky($bbcode->parse($this->content, true));
     }
 }

@@ -4,16 +4,14 @@
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('tickets.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('ticket.helpdesk') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('tickets.index') }}" class="breadcrumb__link">
+            {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('tickets.show', ['id' => $ticket->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('ticket.ticket') }} #{{ $ticket->id }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('ticket.ticket') }} #{{ $ticket->id }}
     </li>
 @endsection
 
@@ -226,7 +224,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="content">{{ __('common.your-comment') }}:</label>
-                            <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                         <button type="submit" class="btn btn-success">{{ __('common.submit') }}</button>
                     </form>

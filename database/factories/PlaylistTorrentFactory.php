@@ -5,19 +5,11 @@
 namespace Database\Factories;
 
 use App\Models\Playlist;
-use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlaylistTorrentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = PlaylistTorrent::class;
-
     /**
      * Define the model's default state.
      */

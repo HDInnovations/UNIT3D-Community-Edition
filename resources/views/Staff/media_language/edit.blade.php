@@ -1,25 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.media_languages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ __('common.media-languages') }}
-            </span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.media_languages.index') }}" class="breadcrumb__link">
+            {{ __('common.media_languages') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ __('common.edit') }} {{ __('common.media-language') }}
-            </span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
@@ -46,7 +39,7 @@
             </div>
 
             <button type="submit" class="btn btn-default">
-                {{ trans('common.submit') }}
+                {{ __('common.submit') }}
             </button>
         </form>
     </div>

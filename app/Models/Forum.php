@@ -123,7 +123,7 @@ class Forum extends Model
     /**
      * Returns A Table With The Forums In The Category.
      */
-    public function getForumsInCategory(): string
+    public function getForumsInCategory()
     {
         return self::where('parent_id', '=', $this->id)->get();
     }
@@ -131,15 +131,15 @@ class Forum extends Model
     /**
      * Returns A Table With The Forums In The Category.
      */
-    public function getForumsInCategoryById(int $forumId): string
+    public function getForumsInCategoryById(int $forumId)
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
 
     /**
-     * Returns The Category Nn Which The Forum Is Located.
+     * Returns The Category In Which The Forum Is Located.
      */
-    public function getCategory(): string
+    public function getCategory()
     {
         return self::find($this->parent_id);
     }
