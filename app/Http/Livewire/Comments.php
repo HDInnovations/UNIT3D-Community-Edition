@@ -13,18 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Achievements\UserMade100Comments;
-use App\Achievements\UserMade200Comments;
-use App\Achievements\UserMade300Comments;
-use App\Achievements\UserMade400Comments;
-use App\Achievements\UserMade500Comments;
-use App\Achievements\UserMade50Comments;
-use App\Achievements\UserMade600Comments;
-use App\Achievements\UserMade700Comments;
-use App\Achievements\UserMade800Comments;
-use App\Achievements\UserMade900Comments;
-use App\Achievements\UserMadeComment;
-use App\Achievements\UserMadeTenComments;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;

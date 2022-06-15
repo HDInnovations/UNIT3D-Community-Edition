@@ -20,7 +20,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 class Comment extends Model
 {
@@ -33,7 +32,7 @@ class Comment extends Model
     protected $fillable = [
         'content',
         'user_id',
-        'anon'
+        'anon',
     ];
 
     /**

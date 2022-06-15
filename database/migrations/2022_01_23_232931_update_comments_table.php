@@ -27,7 +27,6 @@ return new class() extends Migration {
             $table->index(['commentable_id', 'commentable_type']);
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
 
-
             $comments = Comment::all();
             foreach ($comments as $comment) {
                 if ($comment->torrent_id !== null) {
