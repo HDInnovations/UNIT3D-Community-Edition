@@ -16,9 +16,7 @@ return new class() extends Migration {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
             $table->dropForeign('article_id');
-
             $table->dropIndex('fk_comments_torrents_1');
-            $table->dropIndex('fk_comments_articles_1');
             $table->dropIndex('comments_playlist_id_index');
             $table->dropIndex('comments_collection_id_index');
             $table->dropIndex('comments_ticket_id_index');
