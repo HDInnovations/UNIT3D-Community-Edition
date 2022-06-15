@@ -8,7 +8,7 @@
 
     &.mobile {
         grid-template: 'left toggle' 'menus menus' 'right right' auto / 1fr auto;
-        height: 100vh;
+        max-height: 100vh;
         overflow-y: auto;
     }
 }

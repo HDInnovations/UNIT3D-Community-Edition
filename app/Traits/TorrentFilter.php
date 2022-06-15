@@ -55,7 +55,7 @@ trait TorrentFilter
             ->where('anon', '=', 0);
     }
 
-    public function scopeOfKeywords(Builder $query, array $keywords): Builder
+    public function scopeOfKeyword(Builder $query, array $keywords): Builder
     {
         return $query->whereIn('id', Keyword::select('torrent_id')->whereIn('name', $keywords));
     }

@@ -31,6 +31,7 @@ use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
 use App\Rules\EmailBlacklist;
+use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -82,6 +83,11 @@ class UserController extends Controller
 
         $peers = Peer::where('user_id', '=', $user->id)->get();
 
+        $achievements = AchievementProgress::with('details')
+            ->where('achiever_id', '=', $user->id)
+            ->whereNotNull('unlocked_at')
+            ->get();
+
         return \view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
@@ -104,10 +110,11 @@ class UserController extends Controller
             'bonupload'    => $bonupload,
             'man_upload'   => $manUpload,
 
-            'requested'    => $requested,
-            'filled'       => $filled,
-            'invitedBy'    => $invitedBy,
-            'peers'        => $peers,
+            'requested'     => $requested,
+            'filled'        => $filled,
+            'invitedBy'     => $invitedBy,
+            'peers'         => $peers,
+            'achievements'  => $achievements,
         ]);
     }
 

@@ -77,7 +77,6 @@ return [
     'forum'                => 'Forum',
     'free'                 => 'Kostenlos',
     'freeleech_activated'  => 'Globaler Freeleech-Modus aktiviert',
-    'gallery'              => 'Gallerie',
     'given'                => 'Gegeben',
     'global'               => 'Global',
     'group'                => 'Gruppe',

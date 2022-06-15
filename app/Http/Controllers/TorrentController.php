@@ -19,6 +19,7 @@ use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
+use App\Models\Audit;
 use App\Models\BonTransactions;
 use App\Models\Category;
 use App\Models\Comment;
@@ -41,7 +42,6 @@ use App\Models\TorrentFile;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
-use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
@@ -93,6 +93,7 @@ class TorrentController extends Controller
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
+        $audits = Audit::with('user')->where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get();
 
         $meta = null;
         $trailer = null;
@@ -147,6 +148,7 @@ class TorrentController extends Controller
             'uploader'           => $uploader,
             'last_seed_activity' => $lastSeedActivity,
             'playlists'          => $playlists,
+            'audits'             => $audits,
         ]);
     }
 
