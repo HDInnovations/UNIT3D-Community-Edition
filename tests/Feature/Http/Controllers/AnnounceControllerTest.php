@@ -51,8 +51,6 @@ class AnnounceControllerTest extends TestCase
         ]))
             ->assertOk();
 
-        $decoded = Bencode::bdecode($response->getContent());
-
-        $this->assertArrayNotHasKey('failure reason', $decoded);
+        $this->assertArrayNotHasKey('failure reason', [$response->getContent()]);
     }
 }
