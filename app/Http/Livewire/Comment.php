@@ -38,19 +38,19 @@ class Comment extends Component
     ];
 
     protected $validationAttributes = [
-        'replyState.body' => 'reply',
+        'replyState.content' => 'reply',
     ];
 
     public $isReplying = false;
 
     public $replyState = [
-        'body' => '',
+        'content' => '',
     ];
 
     public $isEditing = false;
 
     public $editState = [
-        'body' => '',
+        'content' => '',
     ];
 
     final public function updatedIsEditing($isEditing): void
@@ -60,7 +60,7 @@ class Comment extends Component
         }
 
         $this->editState = [
-            'body' => $this->comment->body,
+            'content' => $this->comment->content,
         ];
     }
 
@@ -103,7 +103,7 @@ class Comment extends Component
         }
 
         $this->validate([
-            'replyState.body' => 'required',
+            'replyState.content' => 'required',
         ]);
 
         $reply = $this->comment->children()->make($this->replyState);
@@ -128,7 +128,7 @@ class Comment extends Component
         }
 
         $this->replyState = [
-            'body' => '',
+            'content' => '',
         ];
 
         $this->isReplying = false;

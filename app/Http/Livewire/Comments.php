@@ -29,11 +29,11 @@ class Comments extends Component
     ];
 
     public $newCommentState = [
-        'body' => '',
+        'content' => '',
     ];
 
     protected $validationAttributes = [
-        'newCommentState.body' => 'comment',
+        'newCommentState.content' => 'comment',
     ];
 
     final public function postComment(): void
@@ -45,7 +45,7 @@ class Comments extends Component
         }
 
         $this->validate([
-            'newCommentState.body' => 'required',
+            'newCommentState.content' => 'required',
         ]);
 
         $comment = $this->model->comments()->make($this->newCommentState);
@@ -54,7 +54,7 @@ class Comments extends Component
         $comment->save();
 
         $this->newCommentState = [
-            'body' => '',
+            'content' => '',
         ];
 
         $this->goToPage(1);

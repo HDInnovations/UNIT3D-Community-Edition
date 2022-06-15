@@ -30,10 +30,10 @@
           <div class="min-w-0 flex-1">
             <form wire:submit.prevent="postComment">
               <div>
-                <label for="comment" class="sr-only">Comment body</label>
-                <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('newCommentState.body') border-red-500 @enderror" placeholder="Write something" wire:model.defer="newCommentState.body"></textarea>
+                <label for="comment" class="sr-only">Comment content</label>
+                <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('newCommentState.content') border-red-500 @enderror" placeholder="Write something" wire:model.defer="newCommentState.content"></textarea>
 
-                @error('newCommentState.body')
+                @error('newCommentState.content')
                   <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                 @enderror
               </div>

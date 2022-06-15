@@ -11,10 +11,10 @@
         @if ($isEditing)
           <form wire:submit.prevent="editComment">
             <div>
-              <label for="comment" class="sr-only">Comment body</label>
-              <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('editState.body') border-red-500 @enderror" placeholder="Write something" wire:model.defer="editState.body"></textarea>
+              <label for="comment" class="sr-only">Comment content</label>
+              <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('editState.content') border-red-500 @enderror" placeholder="Write something" wire:model.defer="editState.content"></textarea>
 
-              @error('editState.body')
+              @error('editState.content')
                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
               @enderror
             </div>
@@ -32,20 +32,17 @@
         <span class="text-gray-500 font-medium">
           {{ $comment->created_at->toDayDateTimeString() }}
         </span>
-        @auth
           @if ($comment->isParent())
             <button wire:click="$toggle('isReplying')" type="button" class="text-gray-900 font-medium">
               Reply
             </button>
           @endif
 
-          @can('update', $comment)
+          @if ($comment->user_id === auth()->id() || auth()->user()->group->is_modo)
             <button wire:click="$toggle('isEditing')" type="button" class="text-gray-900 font-medium">
               Edit
             </button>
-          @endcan
 
-          @can('destroy', $comment)
             <button
               type="button"
               class="text-gray-900 font-medium"
@@ -60,8 +57,7 @@
             >
               Delete
             </button>
-          @endcan
-        @endauth
+          @endif
       </div>
     </div>
   </div>
@@ -70,10 +66,10 @@
     @if ($isReplying)
       <form wire:submit.prevent="postReply" class="my-4">
         <div>
-          <label for="comment" class="sr-only">Reply body</label>
-          <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('replyState.body') border-red-500 @enderror" placeholder="Write something" wire:model.defer="replyState.body"></textarea>
+          <label for="comment" class="sr-only">Reply content</label>
+          <textarea id="comment" name="comment" rows="3" class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md @error('replyState.content') border-red-500 @enderror" placeholder="Write something" wire:model.defer="replyState.content"></textarea>
 
-          @error('replyState.body')
+          @error('replyState.content')
             <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
           @enderror
         </div>
