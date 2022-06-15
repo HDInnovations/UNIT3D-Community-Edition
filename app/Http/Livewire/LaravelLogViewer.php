@@ -58,7 +58,7 @@ class LaravelLogViewer extends Component
     {
         $files = $this->logFiles;
         $logString = '';
-        
+
         foreach ($this->logs as $log) {
             $logString .= file_get_contents($files[$log]->getPathname());
         }
@@ -79,7 +79,7 @@ class LaravelLogViewer extends Component
                 $context = \preg_split('/^\[stacktrace\]|Stack trace\:/ms', $stacktraces[$i])[0];
                 // The `context` consists of a message, an exception, a filename, and a linecount
                 \preg_match($contextPattern, $context, $contextMatches);
-                
+
                 $entries->push([
                     'date'        => $entryMatches[$i]['date'],
                     'env'         => $entryMatches[$i]['env'],
@@ -100,10 +100,10 @@ class LaravelLogViewer extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.laravel-log-viewer',[
-                'files' => $this->logFiles,
-                'entries' => $this->entries,
-            ])
+        return \view('livewire.laravel-log-viewer', [
+            'files'   => $this->logFiles,
+            'entries' => $this->entries,
+        ])
             ->extends('layout.default')
             ->section('content');
     }
