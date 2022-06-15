@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Helpers\Bencode;
 use App\Models\Torrent;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
