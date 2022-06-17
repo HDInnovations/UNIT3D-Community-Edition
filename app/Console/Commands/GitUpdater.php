@@ -341,11 +341,15 @@ class GitUpdater extends Command
     private function createBackupPath($path): void
     {
         if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \is_file(\base_path($path))) {
-            \throw_if(! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory), new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory)));
+            if (! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
+                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
         } elseif (\is_file(\base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
-            \throw_if(! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s',
-                    $path)), 0775, true) && ! \is_dir($concurrentDirectory), new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory)));
+            if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s',
+                    $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
+                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
         }
     }
 
