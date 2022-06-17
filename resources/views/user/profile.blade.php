@@ -508,13 +508,13 @@
                             @php
                                 $x=1;
                             @endphp
-                            @foreach ($user->unlockedAchievements() as $a)
+                            @foreach ($achievements as $achievement)
                                 @php
                                     if($x > 25) { continue; }
                                 @endphp
-                                <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title=""
-                                     height="50px" data-original-title="{{ $a->details->name }}"
-                                     alt="{{ $a->details->name }}">
+                                <img src="/img/badges/{{ $achievement->details->name }}.png" data-toggle="tooltip" title=""
+                                     height="50px" data-original-title="{{ $achievement->details->name }}"
+                                     alt="{{ $achievement->details->name }}">
                                 @php
                                     $x++;
                                 @endphp

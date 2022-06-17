@@ -93,17 +93,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Albums System
-        Route::group(['prefix' => 'albums'], function () {
-            Route::name('albums.')->group(function () {
-                Route::get('/', [App\Http\Controllers\AlbumController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\AlbumController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\AlbumController::class, 'store'])->name('store');
-                Route::get('/{id}', [App\Http\Controllers\AlbumController::class, 'show'])->name('show');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\AlbumController::class, 'destroy'])->name('destroy');
-            });
-        });
-
         // Articles System
         Route::group(['prefix' => 'articles'], function () {
             Route::name('articles.')->group(function () {
@@ -404,16 +393,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::delete('/{id}/destroy', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('destroy');
                 Route::delete('/destroyall', [App\Http\Controllers\NotificationController::class, 'destroyAll'])->name('destroyall');
                 Route::get('/{id}', [App\Http\Controllers\NotificationController::class, 'show'])->name('show');
-            });
-        });
-
-        // Images System
-        Route::group(['prefix' => 'images'], function () {
-            Route::name('images.')->group(function () {
-                Route::get('/{id}/create', [App\Http\Controllers\ImageController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\ImageController::class, 'store'])->name('store');
-                Route::get('/{id}/download', [App\Http\Controllers\ImageController::class, 'download'])->name('download');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\ImageController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -764,6 +743,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
             });
         });
+
+        // Laravel Log Viewer
+        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
 
         // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {

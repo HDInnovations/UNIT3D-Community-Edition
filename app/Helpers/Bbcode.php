@@ -89,7 +89,7 @@ class Bbcode
             'closeHtml'   => '</span>',
         ],
         'color' => [
-            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z])\]/i',
+            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3,4}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z]+)\]/i',
             'closeBbcode' => '[/color]',
             'openHtml'    => '<span style="color: $1;">',
             'closeHtml'   => '</span>',
@@ -239,7 +239,7 @@ class Bbcode
             $source
         );
         $source = \preg_replace_callback(
-            '/\[img=(\d+)\](.*?)\[\/img\]/i',
+            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
             fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );

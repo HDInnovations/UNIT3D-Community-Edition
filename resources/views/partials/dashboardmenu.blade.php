@@ -27,6 +27,11 @@
                         <i class="fab fa-laravel"></i> Commands
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('staff.laravellog.index') }}">
+                        <i class="fab fa-laravel"></i> {{ __('staff.laravel-log') }}
+                    </a>
+                </li>
             @endif
 
             <li class="nav-header head">
