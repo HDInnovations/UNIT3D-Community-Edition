@@ -761,12 +761,12 @@ Route::group(['middleware' => 'language'], function () {
         // Invites Log
         Route::group(['prefix' => 'invites'], function () {
             Route::name('staff.invites.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('staff.laravellog.index');
+                Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
             });
         });
 
         // Laravel Log Viewer
-        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('index');
+        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
 
         // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {
