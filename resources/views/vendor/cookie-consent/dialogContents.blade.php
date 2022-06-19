@@ -1,4 +1,8 @@
-<div class="alert alert-danger alert-dismissable js-cookie-consent cookie-consent">
+<section
+    class="alert alert-danger alert-dismissable js-cookie-consent cookie-consent"
+    aria-label="{{ __('cookie-consent::texts.agree') }}"
+    style="margin-bottom: 0; border-radius: 0;"
+>
     <div class="text-center">
     <span class="cookie-consent__message">
         {!! __('cookie-consent::texts.message') !!}
@@ -8,4 +12,4 @@
             {{ __('cookie-consent::texts.agree') }}
         </button>
     </div>
-</div>
+</section>
