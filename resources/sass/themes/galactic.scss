@@ -19,6 +19,9 @@
     --color-light-blue: hsl(205, 35%, 60%);
     --color-bright-white: hsl(0, 0%, 100%);
     --color-light-orange: hsl(20, 20%, 50%);
+    --message-bubble-bg: #222;
+    --message-bubble-fg: currentColor;
+    --button-filled-bg: var(--color-green);
 }
 
 .tooltip .tooltip-inner {
@@ -994,7 +997,7 @@ fieldset[disabled] {
     display: block !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-color: #363636 !important;
+    background-color: var(--message-bubble-bg) !important;
     padding: 4px 12px 0 8px;
     margin: 4px 12px 0 48px;
 }
@@ -1002,7 +1005,7 @@ fieldset[disabled] {
 .sent > div {
     display: block !important;
     border-bottom-right-radius: 15px;
-    background-color: #363636 !important;
+    background-color: var(--message-bubble-bg) !important;
     padding: 0 12px 4px 8px !important;
     margin: 0 12px 4px 48px !important;
 }
@@ -1017,7 +1020,7 @@ fieldset[disabled] {
     bottom: 4px;
     left: 38px;
     width: 0;
-    border-right: 10px solid #363636 !important;
+    border-right: 10px solid var(--message-bubble-bg) !important;
     border-top: 10px solid transparent;
     /* border-bottom: 10px solid transparent; */
 }

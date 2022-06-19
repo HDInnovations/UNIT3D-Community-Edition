@@ -1,3 +1,15 @@
+:root {
+    --message-bubble-bg: white;
+    --message-bubble-fg: currentColor;
+    --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
+    --button-filled-fg: white;
+    --button-text-bg: inherit;
+    --button-text-fg: currentColor;
+    --textarea-border: #555;
+    --textarea-border-hover: #999;
+    --textarea-border-active: #2196f3;
+}
+
 .permalink {
     color: #e5e5e5;
 }
@@ -3060,6 +3072,7 @@ button.list-group-item-danger.active:hover {
 
 .panel-body {
     padding: 15px;
+    background-color: #e2e2e2;
 }
 
 .panel-body:after,
@@ -10821,7 +10834,7 @@ div.single_column {
     display: block !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 4px 12px 0 8px;
     margin: 4px 12px 0 48px;
 }
@@ -10829,7 +10842,7 @@ div.single_column {
 .sent > div {
     display: block !important;
     border-bottom-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 0 12px 4px 8px !important;
     margin: 0 12px 4px 48px !important;
 }
@@ -10844,7 +10857,7 @@ div.single_column {
     bottom: 4px;
     left: 38px;
     width: 0;
-    border-right: 10px solid #ffffff;
+    border-right: 10px solid var(--message-bubble-bg);
     border-top: 10px solid transparent;
     /* border-bottom: 10px solid transparent; */
 }
