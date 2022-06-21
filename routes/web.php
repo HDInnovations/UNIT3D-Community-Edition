@@ -156,19 +156,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
 
-        // Comments System
-        Route::group(['prefix' => 'comments'], function () {
-            Route::post('/article/{id}', [App\Http\Controllers\CommentController::class, 'article'])->name('comment_article');
-            Route::post('/torrent/{id}', [App\Http\Controllers\CommentController::class, 'torrent'])->name('comment_torrent');
-            Route::post('/thanks/{id}', [App\Http\Controllers\CommentController::class, 'quickthanks'])->name('comment_thanks');
-            Route::post('/request/{id}', [App\Http\Controllers\CommentController::class, 'request'])->name('comment_request');
-            Route::post('/playlist/{id}', [App\Http\Controllers\CommentController::class, 'playlist'])->name('comment_playlist');
-            Route::post('/collection/{id}', [App\Http\Controllers\CommentController::class, 'collection'])->name('comment_collection');
-            Route::post('/ticket/{id}', [App\Http\Controllers\CommentController::class, 'ticket'])->name('comment_ticket');
-            Route::post('/edit/{comment_id}', [App\Http\Controllers\CommentController::class, 'editComment'])->name('comment_edit');
-            Route::delete('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
-        });
-
         // Extra-Stats System
         Route::group(['prefix' => 'stats'], function () {
             Route::get('/', [App\Http\Controllers\StatsController::class, 'index'])->name('stats');
