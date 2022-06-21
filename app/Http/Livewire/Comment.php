@@ -61,7 +61,7 @@ class Comment extends Component
             return;
         }
 
-        $this->comment->update($this->editState);
+        $this->comment->update((new AntiXSS())->xss_clean($this->editState));
 
         $this->isEditing = false;
     }
