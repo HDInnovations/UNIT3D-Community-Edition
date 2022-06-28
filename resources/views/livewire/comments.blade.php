@@ -48,6 +48,8 @@
                 </li>                        
             @endforelse
         </ul>
-        {{ $comments->links() }}
+        @if ($comments->hasMorePages())
+            <button wire:click.prevent="loadMore">Load More</button>
+        @endif
     </div>
 </div>

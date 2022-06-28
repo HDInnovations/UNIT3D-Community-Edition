@@ -47,6 +47,8 @@ class Comments extends Component
 
     public $anon = 0;
 
+    public int $perPage = 10;
+
     protected $listeners = [
         'refresh' => '$refresh',
     ];
@@ -64,6 +66,11 @@ class Comments extends Component
         $this->taggedUserRepository = $taggedUserRepository;
         $this->chatRepository = $chatRepository;
         $this->user = \auth()->user();
+    }
+
+    final public function loadMore()
+    {
+        $this->perPage += 10;
     }
 
     final public function postComment(): void
@@ -104,7 +111,7 @@ class Comments extends Component
         }
 
         //Notification
-        if ($this->user->id !== $this->model->user_id) {
+        /*if ($this->user->id !== $this->model->user_id) {
             User::find($this->model->user_id)->notify(new NewComment($this->model, $comment));
         }
 
@@ -113,52 +120,52 @@ class Comments extends Component
 
         if ($comment->anon === 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $this->user->username, $torrentUrl, $torrent->name)
+                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $this->user->username, $torrentUrl, $this->model->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $torrent->name)
+                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $this->model->name)
             );
         }
 
         // Tagging
-        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $this->user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($this->newCommentState)) {
+            if ($this->taggedUserRepository->contains($this->newCommentState, '@here') && $this->user->group->is_modo) {
                 $users = \collect([]);
 
-                $torrent->comments()->get()->each(function ($c) use ($users) {
+                $this->model->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
                 $this->taggedUserRepository->messageCommentUsers(
-                    'torrent',
+                    $this->model,
                     $users,
                     $this->user,
                     'Staff',
                     $comment
                 );
             } else {
-                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
+                $sender = $comment->anon !== 0 ? $this->user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
-                    'torrent',
-                    $request->input('content'),
+                    $this->model,
+                    $this->newCommentState,
                     $this->user,
                     $sender,
                     $comment
                 );
             }
-        }
+        }*/
 
         $this->goToPage(1);
     }
 
-    final public function getCommentsProperty()
+    final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
             ->comments()
             ->with('user', 'children.user', 'children.children')
             ->parent()
             ->latest()
-            ->paginate(10);
+            ->paginate($this->perPage);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
