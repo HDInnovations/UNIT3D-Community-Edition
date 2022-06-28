@@ -731,6 +731,9 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Laravel Log Viewer
+        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
+
         // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {
             Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('staff.mass-actions.validate');

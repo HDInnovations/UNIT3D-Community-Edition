@@ -168,6 +168,7 @@ class TorrentController extends Controller
             'resolutions'  => Resolution::all()->sortBy('position'),
             'regions'      => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
+            'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
             'torrent'      => $torrent,
             'user'         => $user,
         ]);
@@ -266,6 +267,14 @@ class TorrentController extends Controller
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
+        // Torrent Keywords System
+        Keyword::where('torrent_id', '=', $torrent->id)->delete();
+
+        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
+            Keyword::upsert(['torrent_id' => $torrent->id, 'name' => $keyword], ['torrent_id' => 'name'], ['name']);
+        }
+
+        // TMDB Meta
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -549,9 +558,11 @@ class TorrentController extends Controller
 
         // Save The Torrent
         $torrent->save();
+
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
+
         // Backup the files contained in the torrent
         foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
@@ -562,6 +573,7 @@ class TorrentController extends Controller
             unset($torrentFile);
         }
 
+        // TMDB Meta
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta !== 0 && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -573,10 +585,7 @@ class TorrentController extends Controller
 
         // Torrent Keywords System
         foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
-            $tag = new Keyword();
-            $tag->name = $keyword;
-            $tag->torrent_id = $torrent->id;
-            $tag->save();
+            Keyword::upsert(['torrent_id' => $torrent->id, 'name' => $keyword], ['torrent_id' => 'name'], ['name']);
         }
 
         // Cover Image for No-Meta Torrents
