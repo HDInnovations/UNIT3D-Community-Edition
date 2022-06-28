@@ -104,6 +104,13 @@
                     @endif
 
                     <div class="form-group">
+                        <label for="name">{{ __('torrent.keywords') }} (<i>{{ __('torrent.keywords-example') }}</i>)</label>
+                        <label>
+                            <input type="text" name="keywords" value="{{ $keywords->implode(', ') }}" class="form-control">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
                         <label for="category_id">{{ __('torrent.category') }}</label>
                         <label>
                             <select name="category_id" class="form-control">
