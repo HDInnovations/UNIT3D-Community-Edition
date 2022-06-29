@@ -49,7 +49,9 @@
             @endforelse
         </ul>
         @if ($comments->hasMorePages())
-            <button wire:click.prevent="loadMore">Load More</button>
+            <div class="text-center">
+                <button class="btn btn-md btn-primary" wire:click.prevent="loadMore">Load More Comments</button>
+            </div>
         @endif
     </div>
 </div>

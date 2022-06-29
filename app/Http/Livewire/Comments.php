@@ -41,7 +41,7 @@ class Comments extends Component
 
     private ChatRepository $chatRepository;
 
-    private ?\Illuminate\Contracts\Auth\Authenticatable $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user;
 
     public $model;
 
