@@ -9,8 +9,8 @@ export default defineConfig({
     plugins: [
         laravel([
             /*
-            * Sourced asset dependencies via node_modules and JS bootstrapping
-            */
+             * Sourced asset dependencies via node_modules and JS bootstrapping
+             */
             'resources/js/app.js',
             'resources/sass/app.scss',
 
@@ -38,19 +38,17 @@ export default defineConfig({
             'resources/sass/main/twostep.scss',
 
             /* Babel File  */
-            'resources/js/unit3d.js'
-
+            'resources/js/unit3d.js',
         ]),
         babel({ babelHelpers: 'bundled' }),
         copy({
             targets: [
                 { src: 'resources/sass/vendor/webfonts/wysibb', dest: 'public/fonts/wysibb' },
                 { src: 'resources/sass/vendor/webfonts/font-awesome', dest: 'public/fonts/font-awesome' },
-                { src: 'resources/sass/vendor/webfonts/bootstrap', dest: 'public/fonts/bootstrap' }
-            ]
+                { src: 'resources/sass/vendor/webfonts/bootstrap', dest: 'public/fonts/bootstrap' },
+            ],
         }),
         createVuePlugin(),
-        ViteComponents({ transformer: 'vue2' })
+        ViteComponents({ transformer: 'vue2' }),
     ],
-
 });
