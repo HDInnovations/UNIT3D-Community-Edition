@@ -51,7 +51,7 @@ jobs:
       - name: Install NPM Dependencies
         run: npm install
       - name: Build Assets Via Vite
-        run: vite build
+        run: npm run build
       - name: Generate Application Key
         run: php artisan key:generate
       - name: Clear Application Cache

@@ -11,4 +11,4 @@ jobs:
       - name: Start NPM
         run: |
           npm install
-          vite build
+          npm run build

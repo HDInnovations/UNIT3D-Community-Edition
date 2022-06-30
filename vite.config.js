@@ -12,6 +12,10 @@ export default defineConfig({
              * Sourced asset dependencies via node_modules and JS bootstrapping
              */
             'resources/js/app.js',
+            'resources/js/unit3d/chat.js',
+            'resources/js/unit3d/imgbb.js',
+            'resources/js/vendor/alpine.js',
+            'resources/js/vendor/virtual-select.js',
             'resources/sass/app.scss',
 
             /*
