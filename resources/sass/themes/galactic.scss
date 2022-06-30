@@ -19,6 +19,14 @@
     --color-light-blue: hsl(205, 35%, 60%);
     --color-bright-white: hsl(0, 0%, 100%);
     --color-light-orange: hsl(20, 20%, 50%);
+    
+    --panel-border: none;
+    --panel-bg: #272727;
+    --panel-fg: var(--text-color);
+    --panel-box-shadow: none;
+    --panel-border-radius: 0;
+    --panel-head-bg: #1c1c1c;
+    --panel-head-fg: #fff;
 }
 
 .tooltip .tooltip-inner {

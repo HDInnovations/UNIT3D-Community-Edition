@@ -1,3 +1,13 @@
+:root {
+    --panel-border: 1px solid #ddd;
+    --panel-bg: #e2e2e2;
+    --panel-fg: inherit;
+    --panel-box-shadow: 0 5px 5px rgba(93, 93, 93, 0.83);
+    --panel-border-radius: 0;
+    --panel-head-bg: #373d43;
+    --panel-head-fg: #fff;
+}
+
 .permalink {
     color: #e5e5e5;
 }
