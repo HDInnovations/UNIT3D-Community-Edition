@@ -29,7 +29,7 @@ class BonusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('bonus'));
+        $response = $this->actingAs($user)->get(route('earnings.index', ['username' => $user->username]));
 
         $response->assertOk()
             ->assertViewIs('bonus.index')
@@ -72,9 +72,9 @@ class BonusControllerTest extends TestCase
             'invite'             => false,
         ]);
 
-        $response = $this->actingAs($user)->post(route('bonus_exchange', ['id' => $bon->id]));
+        $response = $this->actingAs($user)->post(route('transactions.store', ['username' => $user->username]));
 
-        $response->assertRedirect(route('bonus_store'))
+        $response->assertRedirect(route('transactions.create', ['username' => $user->username]))
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
@@ -99,9 +99,9 @@ class BonusControllerTest extends TestCase
             'invite'             => false,
         ]);
 
-        $response = $this->actingAs($user)->post(route('bonus_exchange', ['id' => $bon->id]));
+        $response = $this->actingAs($user)->post(route('transactions.store', ['username' => $user->username]));
 
-        $response->assertRedirect(route('bonus_store'))
+        $response->assertRedirect(route('transactions.create', ['username' => $user->username]))
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
@@ -126,9 +126,9 @@ class BonusControllerTest extends TestCase
             'invite'             => false,
         ]);
 
-        $response = $this->actingAs($user)->post(route('bonus_exchange', ['id' => $bon->id]));
+        $response = $this->actingAs($user)->post(route('transactions.store', ['username' => $user->username]));
 
-        $response->assertRedirect(route('bonus_store'))
+        $response->assertRedirect(route('transactions.create', ['username' => $user->username]))
             ->assertSessionHas('success', 'Bonus Exchange Successful');
     }
 
@@ -137,7 +137,7 @@ class BonusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('bonus_gift'));
+        $response = $this->actingAs($user)->get(route('gifts.create', ['username' => $user->username]));
 
         $response->assertOk()
             ->assertViewIs('bonus.gift')
@@ -149,7 +149,7 @@ class BonusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('bonus_gifts'));
+        $response = $this->actingAs($user)->get(route('gifts.index', ['username' => $user->username]));
 
         $response->assertOk()
             ->assertViewIs('bonus.gifts')
@@ -173,13 +173,13 @@ class BonusControllerTest extends TestCase
 
         $recipientUser = User::factory()->create();
 
-        $response = $this->actingAs($senderUser)->post(route('bonus_send_gift'), [
+        $response = $this->actingAs($senderUser)->post(route('gifts.store', ['username' => $senderUser->username]), [
             'to_username'   => $recipientUser->username,
             'bonus_message' => 'foo',
             'bonus_points'  => 1,
         ]);
 
-        $response->assertRedirect(route('bonus_gift'))
+        $response->assertRedirect(route('gifts.create', ['username' => $user->username]))
             ->assertSessionHas('success', 'Gift Sent');
     }
 
@@ -188,7 +188,7 @@ class BonusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('bonus_store'));
+        $response = $this->actingAs($user)->get(route('transactions.create', ['username' => $user->username]));
 
         $response->assertOk()
             ->assertViewIs('bonus.store')
@@ -212,7 +212,7 @@ class BonusControllerTest extends TestCase
 
         $post = Post::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('tip_poster', ['id' => $post->id]), [
+        $response = $this->actingAs($user)->post(route('tip.store', ['username' => $user->username]), [
             'post' => $post->id,
             'tip'  => '1',
         ]);
@@ -232,8 +232,9 @@ class BonusControllerTest extends TestCase
 
         $torrent = Torrent::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('tip_uploader', ['id' => $torrent->id]), [
-            'tip' => 1,
+        $response = $this->actingAs($user)->post(route('tip.store', ['username' => $user->username]), [
+            'torrent' => $torrent->id,
+            'tip'     => 1,
         ]);
 
         $response->assertRedirect(route('torrent', ['id' => $torrent->id]))
@@ -245,7 +246,7 @@ class BonusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('bonus_tips'));
+        $response = $this->actingAs($user)->get(route('tips.index', ['username' => $user->username]));
 
         $response->assertOk()
             ->assertViewIs('bonus.tips')

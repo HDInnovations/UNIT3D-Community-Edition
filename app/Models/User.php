@@ -480,6 +480,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Personal Freeleeches.
+     */
+    public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PersonalFreeleech::class);
+    }
+
+    /**
      * Get the Users username as slug.
      */
     public function getSlugAttribute(): string

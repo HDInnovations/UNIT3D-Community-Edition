@@ -120,17 +120,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
         });
 
-        // Bonus System
-        Route::group(['prefix' => 'bonus'], function () {
-            Route::get('/', [App\Http\Controllers\BonusController::class, 'bonus'])->name('bonus');
-            Route::get('/gifts', [App\Http\Controllers\BonusController::class, 'gifts'])->name('bonus_gifts');
-            Route::get('/tips', [App\Http\Controllers\BonusController::class, 'tips'])->name('bonus_tips');
-            Route::get('/store', [App\Http\Controllers\BonusController::class, 'store'])->name('bonus_store');
-            Route::get('/gift', [App\Http\Controllers\BonusController::class, 'gift'])->name('bonus_gift');
-            Route::post('/exchange/{id}', [App\Http\Controllers\BonusController::class, 'exchange'])->name('bonus_exchange');
-            Route::post('/gift', [App\Http\Controllers\BonusController::class, 'sendGift'])->name('bonus_send_gift');
-        });
-
         // Reports System
         Route::group(['prefix' => 'reports'], function () {
             Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent');
@@ -257,7 +246,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'update'])->name('edit');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
-            Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
         });
 
@@ -299,7 +287,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');
-
             Route::get('/{username}/settings', [App\Http\Controllers\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
@@ -337,6 +324,26 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
+
+            // Bonus System
+            Route::group(['prefix' => '{username}/bonus'], function () {
+                Route::name('earnings.')->prefix('earnings')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserEarningController::class, 'index'])->name('index');
+                });
+                Route::name('gifts.')->prefix('gifts')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserGiftController::class, 'index'])->name('index');
+                    Route::get('/create', [App\Http\Controllers\UserGiftController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\UserGiftController::class, 'store'])->name('store');
+                });
+                Route::name('tips.')->prefix('tips')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserTipController::class, 'index'])->name('index');
+                    Route::post('/', [App\Http\Controllers\UserTipController::class, 'store'])->name('store');
+                });
+                Route::name('transactions.')->prefix('transactions')->group(function () {
+                    Route::get('/create', [App\Http\Controllers\UserTransactionController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\UserTransactionController::class, 'store'])->name('store');
+                });
+            });
         });
 
         // Wishlist System
@@ -543,7 +550,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
             Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
             Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
-            Route::post('/posts/tip_poster', [App\Http\Controllers\BonusController::class, 'tipPoster'])->name('tip_poster');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
             Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');

@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
@@ -28,7 +28,14 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('bon.gifts') }}</h2>
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('bon.gifts') }}</h2>
+            <div class="panel__actions">
+                <a class="panel__action" href="{{ route('gifts.create', ['username' => $user->username]) }}">
+                    {{ __('bon.send-gift') }}
+                </a>
+            </div>
+        </header>
         <table class="table table-condensed table-striped">
             <thead>
             <tr>

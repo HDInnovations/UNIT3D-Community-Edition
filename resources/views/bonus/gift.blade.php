@@ -7,8 +7,13 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
+        </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('gifts.index', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ __('bon.gifts') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -26,7 +31,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.gift-to') }}</h2>
         <div class="panel__body">
-            <form id="send_bonus" class="form" method="POST" action="{{ route('bonus_send_gift') }}">
+            <form id="send_bonus" class="form" method="POST" action="{{ route('gifts.store', ['username' => $user->username]) }}">
                 @csrf
                 <p class="form__group">
                     <input
