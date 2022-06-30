@@ -3,7 +3,7 @@
     border-radius: var(--bbcode-input-border-radius);
     background-color: var(--bbcode-input-bg);
     display: grid;
-    grid-template: "tabs buttons toggle" auto "content content content" auto / 1fr auto auto;
+    grid-template: 'tabs buttons toggle' auto 'content content content' auto / 1fr auto auto;
     max-width: 100%;
 }
 
@@ -24,7 +24,7 @@
 
 .bbcode-input__tab-input:checked + .bbcode-input__tab-label {
     border-bottom: 2px solid grey;
-    color: #888
+    color: #888;
 }
 
 .bbcode-input__tab-pane {
@@ -78,7 +78,7 @@
 
 @media only screen and (max-width: 1200px) {
     .bbcode-input {
-        grid-template: "tabs toggle" auto "buttons buttons" auto "content content" auto / 1fr auto;
+        grid-template: 'tabs toggle' auto 'buttons buttons' auto 'content content' auto / 1fr auto;
     }
 
     .bbcode-input__icon-bar {
