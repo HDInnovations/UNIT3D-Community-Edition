@@ -11,5 +11,4 @@ jobs:
       - name: Start NPM
         run: |
           npm install
-          npx mix -p
-          cat public/mix-manifest.json # See asset versions in log
+          vite build
