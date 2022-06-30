@@ -2,12 +2,21 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import babel from '@rollup/plugin-babel';
 import copy from 'rollup-plugin-copy';
-import { createVuePlugin } from 'vite-plugin-vue2';
-import ViteComponents from 'vite-plugin-components';
 
 export default defineConfig({
+    resolve: {
+        alias: [
+            {
+                // this is required for the SCSS modules
+                find: /^~(.*)$/,
+                replacement: '$1',
+            },
+        ],
+    },
     plugins: [
         laravel([
+            'resources/sass/app.scss',
+
             /*
              * Sourced asset dependencies via node_modules and JS bootstrapping
              */
@@ -16,7 +25,6 @@ export default defineConfig({
             'resources/js/unit3d/imgbb.js',
             'resources/js/vendor/alpine.js',
             'resources/js/vendor/virtual-select.js',
-            'resources/sass/app.scss',
 
             /*
              * Themes
@@ -52,7 +60,5 @@ export default defineConfig({
                 { src: 'resources/sass/vendor/webfonts/bootstrap', dest: 'public/fonts/bootstrap' },
             ],
         }),
-        createVuePlugin(),
-        ViteComponents({ transformer: 'vue2' }),
     ],
 });
