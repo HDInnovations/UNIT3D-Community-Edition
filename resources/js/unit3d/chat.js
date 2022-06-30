@@ -10,5 +10,5 @@ window.io = io;
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: process.env.MIX_ECHO_ADDRESS,
+    host: import.meta.env.VITE_ECHO_ADDRESS,
 });
