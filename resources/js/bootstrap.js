@@ -64,9 +64,3 @@ window.KeenSlider = KeenSlider;
 // Vibrant
 import Vibrant from 'node-vibrant';
 window.Vibrant = Vibrant;
-
-// Emoji Picker
-import 'emoji-picker-element';
-
-import textFieldEdit from 'text-field-edit';
-window.textFieldEdit = textFieldEdit;
