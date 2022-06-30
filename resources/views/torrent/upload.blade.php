@@ -384,7 +384,7 @@
 @endsection
 
 @section('javascripts')
-    <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    @vite('resources/js/imgbb.js')
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       $('#preview').on('click', function () {
         var text = $('#upload-form-description').bbcode().trim()

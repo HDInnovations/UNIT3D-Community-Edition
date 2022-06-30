@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    @vite('resources/css/app.css')
 </head>
 
 <body>
@@ -169,7 +169,7 @@
     </div>
     <br>
 
-    <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
+    @vite('resources/js/app.js')
 
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       let images = 2
