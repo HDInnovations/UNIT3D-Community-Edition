@@ -1,0 +1,39 @@
+main {
+    margin: 0 max(0px, 10vw - 60px); /* Magic numbers - slightly increases the margins as you go from 600px up to 1600px */
+}
+
+@media only screen and (min-width: 1600px) {
+    main {
+        margin: 0 max(0px, 25vw - 300px); /* Magic numbers - slightly increases the margins as you go from 1600px up to 2500px */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    main {
+        margin: 0 max(0px, 45vw - 800px); /* Magic numbers - slightly increases the margins as you go from 2500px to beyond 4k resolution */
+    }
+}
+
+main > article {
+    width: 100%;
+}
+
+main > article,
+.sidebar2 > div,
+.sidebar2 > aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sidebar2 {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 1rem;
+}
+
+@media only screen and (max-width: 867px) {
+    .sidebar2 {
+        grid-template-columns: 1fr;
+    }
+}
