@@ -48,7 +48,7 @@
 @endsection
 
 @section('content')
-    <div>
+    <div class="page__torrents">
         @livewire('torrent-list-search')
     </div>
 @endsection
