@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('content')
-    <div class="container-fluid page__home">
+    <div class="page__home">
         @include('blocks.news')
 
         @if (!auth()->user()->chat_hidden)

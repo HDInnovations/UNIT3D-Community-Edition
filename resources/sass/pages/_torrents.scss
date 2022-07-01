@@ -1,6 +1,5 @@
 .page__torrents {
     margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
-    width: 100vw;
 }
 
 @media only screen and (min-width: 1600px) {
