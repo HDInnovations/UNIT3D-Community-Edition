@@ -32,6 +32,7 @@ class BbcodeInput extends Component
     {
         $this->name = $name;
         $this->label = $label;
+        $this->contentBbcode = old($name) ?? '';
     }
 
     final public function updatedIsPreviewEnabled(): void
