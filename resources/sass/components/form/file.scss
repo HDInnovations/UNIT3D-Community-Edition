@@ -1,0 +1,25 @@
+.form__file::file-selector-button {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    margin: 6px;
+    padding: 8px 12px;
+    align-self: flex-start;
+    transition: filter 300ms;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &:active {
+        filter: brightness(0.9);
+        transition: none;
+    }
+}
+
+.form__file::file-selector-button {
+    background: var(--button-filled-bg);
+    color: var(--button-filled-fg);
+    border: var(--button-filled-border);
+    border-radius: var(--button-filled-border-radius);
+}
