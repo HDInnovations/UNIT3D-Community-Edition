@@ -54,11 +54,7 @@ export default defineConfig({
         ]),
         babel({ babelHelpers: 'bundled' }),
         copy({
-            targets: [
-                { src: 'resources/sass/vendor/webfonts/wysibb', dest: 'public/fonts/wysibb' },
-                { src: 'resources/sass/vendor/webfonts/font-awesome', dest: 'public/fonts/font-awesome' },
-                { src: 'resources/sass/vendor/webfonts/bootstrap', dest: 'public/fonts/bootstrap' },
-            ],
+            targets: [{ src: 'resources/sass/vendor/webfonts/**/*', dest: 'public/fonts/' }],
         }),
     ],
 });
