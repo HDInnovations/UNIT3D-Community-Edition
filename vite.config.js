@@ -54,10 +54,7 @@ export default defineConfig({
         ]),
         babel({ babelHelpers: 'bundled' }),
         copy({
-            targets: [
-                { src: 'resources/sass/vendor/webfonts/**/*', dest: 'public/fonts/' },
-           
-            ],
+            targets: [{ src: 'resources/sass/vendor/webfonts/**/*', dest: 'public/fonts/' }],
         }),
     ],
 });
