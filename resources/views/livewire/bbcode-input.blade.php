@@ -190,6 +190,7 @@
             <p class="bbcode-input__preview">
                 @joypixels($contentHtml)
             </p>
+            <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">
         @else
             <p class="form__group">
                 <textarea
