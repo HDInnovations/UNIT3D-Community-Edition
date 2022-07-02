@@ -115,7 +115,7 @@
                             name="name"
                             id="title"
                             class="form__text"
-                            value="{{ !empty($title) ? $title : old('name') }}"
+                            value="{{ $title ?: old('name') }}"
                             required
                         >
                         <label class="form__label form__label--floating" for="title">{{ __('torrent.title') }}</label>
@@ -228,7 +228,7 @@
                                 class="form__text"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                value="{{ old('season_number') ?? '' }}"
+                                value="{{ old('season_number') }}"
                                 x-bind:required="cats[cat].type === 'tv'"
                             >
                             <label class="form__label form__label--floating" for="season_number">
@@ -243,7 +243,7 @@
                                 class="form__text"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                value="{{ old('episode_number') ?? '' }}"
+                                value="{{ old('episode_number') }}"
                                 x-bind:required="cats[cat].type === 'tv'"
                             >
                             <label class="form__label form__label--floating" for="episode_number">
@@ -261,22 +261,13 @@
                                 class="form__text"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ !empty($tmdb) ? $tmdb : old('tmdb') }}' : '0'"
+                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $tmdb ?: old('tmdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                             >
                             <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
                         <p class="form__group">
-                            @php
-                                $imdb_val = '';
-                                if (!empty($imdb)) {
-                                    $imdb_val = $imdb;
-                                }
-                                if (!empty(old('imdb'))) {
-                                    $imdb_val = old('imdb');
-                                }
-                            @endphp
                             <input type="hidden" name="imdb" value="0" />
                             <input
                                 type="text"
@@ -285,7 +276,7 @@
                                 class="form__text"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $imdb_val }}' : '0'"
+                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $imdb ?: old('imdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                             >
                             <label class="form__label form__label--floating" for="autoimdb">IMDB ID</label>
@@ -298,7 +289,7 @@
                                 id="autotvdb"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="cats[cat].type === 'tv' ? '{{ old('tvdb') ?? '' }}' : '0'"
+                                x-bind:value="cats[cat].type === 'tv' ? '{{ old('tvdb') }}' : '0'"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'tv'"
                             >
@@ -312,7 +303,7 @@
                                 id="automal"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') ?? '' }}' : '0'"
+                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') }}' : '0'"
                                 class="form__text"
                                 placeholder=""
                             >
@@ -326,7 +317,7 @@
                             id="autoigdb"
                             inputmode="numeric"
                             pattern="[0-9]*"
-                            x-bind:value="cats[cat].type === 'game' ? '{{ old('igdb') ?? '' }}' : '0'"
+                            x-bind:value="cats[cat].type === 'game' ? '{{ old('igdb') }}' : '0'"
                             class="form__text"
                             x-bind:required="cats[cat].type === 'game'"
                         >
