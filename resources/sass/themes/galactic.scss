@@ -20,6 +20,9 @@
     --color-bright-white: hsl(0, 0%, 100%);
     --color-light-orange: hsl(20, 20%, 50%);
 
+    --achievement-fg: inherit;
+    --achievement-bg: #2c2c2c;
+
     --bbcode-input-header-bg: #272727;
     --bbcode-input-body-bg: #272727;
     --bbcode-input-border: 1px solid #555;
@@ -51,6 +54,11 @@
     --input-text-border-hover: 2px solid #999;
     --input-text-border-radius: 5px;
     --input-text-fg: #bbb;
+
+    --key-value-even-bg: #272727;
+    --key-value-fg: var(--text-color);
+    --key-value-odd-bg: #272727;
+    --key-value-padding: 10px;
 
     --label-bg: #e2e2e2;
     --label-fg: #555;

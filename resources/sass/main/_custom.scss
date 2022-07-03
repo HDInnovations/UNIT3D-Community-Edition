@@ -1,4 +1,7 @@
 :root {
+    --achievement-fg: inherit;
+    --achievement-bg: #e7e7e7;
+
     --bbcode-input-header-bg: #e2e2e2;
     --bbcode-input-body-bg: white;
     --bbcode-input-border: 1px solid #555;
@@ -30,6 +33,11 @@
     --input-text-border-hover: 2px solid #999;
     --input-text-border-radius: 5px;
     --input-text-fg: #444;
+
+    --key-value-even-bg: #e2e2e2;
+    --key-value-fg: inherit;
+    --key-value-odd-bg: #e2e2e2;
+    --key-value-padding: 10px;
 
     --label-bg: #e2e2e2;
     --label-fg: #555;

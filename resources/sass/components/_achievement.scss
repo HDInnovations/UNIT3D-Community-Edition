@@ -1,0 +1,16 @@
+.achievement {
+    display: grid;
+    grid-template-columns: auto 3fr 1fr;
+    gap: 10px;
+    align-items: center;
+    margin: 5px;
+    padding: 18px;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    color: var(--achievement-fg);
+    background-color: var(--achievement-bg);
+}
+
+.achievement__badge {
+    display: contents;
+}

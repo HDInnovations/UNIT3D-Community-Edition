@@ -34,7 +34,7 @@
         </div>
     @endif
 </header>
-<main>
+<main class="@yield('page')">
     @hasSection('main')
         @hasSection('sidebar')
             <article class="sidebar2">
