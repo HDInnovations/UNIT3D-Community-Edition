@@ -268,8 +268,21 @@ class Bbcode
         // Character index
         $index = 0;
 
-        // Loop until there are no more occurrences of '['
-        while ($index < \strlen($source) && ($index = \stripos($source, '[', $index)) !== false) {
+        // Don't loop more than the length of the source
+        while ($index < \strlen($source)) {
+            // Get the next occurrence of `[`
+            $index = \stripos($source, '[', $index);
+
+            // Break if there are no more occurrences of `[`
+            if ($index === false) {
+                break;
+            }
+
+            // Break if `[` is the last character of the source
+            if ($index + 1 >= \strlen($source)) {
+                break;
+            }
+
             // Is the potential tag opening or closing?
             if ($source[$index + 1] === '/' && ! empty($openedElements)) {
                 $name = \array_pop($openedElements);
