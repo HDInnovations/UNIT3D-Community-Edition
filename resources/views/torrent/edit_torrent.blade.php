@@ -104,6 +104,13 @@
                     @endif
 
                     <div class="form-group">
+                        <label for="name">{{ __('torrent.keywords') }} (<i>{{ __('torrent.keywords-example') }}</i>)</label>
+                        <label>
+                            <input type="text" name="keywords" value="{{ $keywords->implode(', ') }}" class="form-control">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
                         <label for="category_id">{{ __('torrent.category') }}</label>
                         <label>
                             <select name="category_id" class="form-control">
@@ -290,7 +297,7 @@
                         <br>
                         <br>
                     @else
-                        <input type="hidden" name="internal" value="0">
+                        <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                     @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
                         <label for="personal" class="control-label">Personal Release?</label>
@@ -305,7 +312,7 @@
                                           @endif value="0">{{ __('common.no') }}</label>
                         </div>
                     @else
-                        <input type="hidden" name="personal_release" value="0">
+                        <input type="hidden" name="personal_release" value="{{ $torrent->personal_release }}">
                     @endif
                     <br>
                     <br>
