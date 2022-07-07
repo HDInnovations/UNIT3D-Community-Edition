@@ -19,45 +19,67 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="row">
-            <div class="col-md-4 box centered-form">
-                <form role="form" method="POST" action="{{ route('contact.store') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label>
-                            <input type="text" name="contact-name" placeholder="{{ __('common.name') }}"
-                                   value="{{ auth()->user()->username }}" class="form-control" required>
-                        </label>
-                    </div>
+@section('page', 'page__contact')
 
-                    <div class="form-group">
-                        <label>
-                            <input type="email" name="email" placeholder="{{ __('common.email') }}"
-                                   value="{{ auth()->user()->email }}" class="form-control" required>
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <textarea name="message" placeholder="{{ __('common.message') }}" class="form-control"
-                                      cols="30" rows="10"></textarea>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">{{ __('common.submit') }}</button>
-                </form>
-            </div>
-
-            <div class="col-sm-8">
-                <div class="well well-sm mt-0">
-                    <p class="lead text-green text-center"><i class="{{ config('other.font-awesome') }} fa-star"></i>
-                        <strong>{{ __('common.contact-header') }}</strong> <i
-                                class="{{ config('other.font-awesome') }} fa-star"></i></p>
-                    <p class="lead text-orange text-center">{{ __('common.contact-desc') }}.</p>
-                </div>
-            </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.contact') }}</h2>
+        <div class="panel__body">
+            <form class="form" action="{{ route('contact.store') }}" method="POST">
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="contact-name"
+                        class="form__text"
+                        name="contact-name"
+                        placeholder=""
+                        required
+                        type="text"
+                        value="{{ auth()->user()->username }}"
+                    >
+                    <label class="form__label form__label--floating" for="contact-name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="email"
+                        class="form__text"
+                        name="email"
+                        placeholder=""
+                        required
+                        type="email"
+                        value="{{ auth()->user()->email }}"
+                    >
+                    <label class="form__label form__label--floating" for="email">
+                        {{ __('common.email') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <textarea
+                        id="message"
+                        class="form__textarea"
+                        name="message"
+                        placeholder=""
+                        required
+                    ></textarea>
+                    <label class="form__label form__label--floating" for="message">
+                        {{ __('common.message') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
         </div>
-    </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.contact-header') }}</h2>
+        <div class="panel__body">{{ __('common.contact-desc') }}</div>
+    </section>
 @endsection
