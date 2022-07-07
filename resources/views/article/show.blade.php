@@ -15,132 +15,155 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $article->id }}
+        {{ $article->title }}
     </li>
 @endsection
 
-@section('content')
-    <div class="box container">
-        <a href="{{ route('articles.show', ['id' => $article->id]) }}"
-           style=" float: right; margin-right: 10px;">
-            @if ( ! is_null($article->image))
-                <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
-            @else
-                <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
-            @endif
-        </a>
+@section('page', 'page__articles--show')
 
-        <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
-
-        <p class="text-muted">
-            <em>{{ __('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
-        </p>
-
-        <p style="margin-top: 20px;">@joypixels($article->getContentHtml())</p>
-    </div>
-
-    <div class="box container">
-        <div class="clearfix"></div>
-        <div class="row ">
-            <div class="col-md-12">
-                <div class="panel panel-danger">
-                    <div class="panel-heading border-light">
-                        <h4 class="panel-title">
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h1 class="panel__heading">{{ $article->title }}</h1>
+            <div class="panel__actions">
+                <time class="panel__action page__published" datetime="{{ $article->created_at }}">
+                    {{ $article->created_at->toDayDateTimeString() }}
+                </time>
+            </div>
+        </header>
+        <div class="panel__body">
+            @joypixels($article->getContentHtml())
+        </div>
+    </section>
+    <section class="panelV2">
+        <h4 class="panel__heading">
+            <i class="{{ config('other.font-awesome') }} fa-comment"></i>
+            {{ __('common.comments') }}
+        </h4>
+        <div class="panel-body no-padding">
+            <ul class="media-list comments-list">
+                @if (count($article->comments) == 0)
+                    <div class="text-center">
+                        <h4 class="text-bold text-danger">
+                            <i class="{{ config('other.font-awesome') }} fa-frown"></i>
+                            {{ __('common.no-comments') }}!
                         </h4>
                     </div>
-                    <div class="panel-body no-padding">
-                        <ul class="media-list comments-list">
-                            @if (count($article->comments) == 0)
-                                <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
-                                        !</h4>
+                @else
+                    @foreach ($article->comments as $comment)
+                        <li class="media" style="border-left: 5px solid #01bc8c;">
+                            <div class="media-body">
+                                @if ($comment->anon == 1)
+                                    <a href="#" class="pull-left" style="padding-right: 10px;">
+                                        <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
+                                        <strong>{{ strtoupper(__('common.anonymous')) }}</strong>
+                                    </a>
+                                    @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                        <a
+                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                            style="color:{{ $comment->user->group->color }};"
+                                        >
+                                            (
+                                            <span>
+                                                <i class="{{ $comment->user->group->icon }}"></i>
+                                                {{ $comment->user->username }}
+                                            </span>
+                                            )
+                                        </a>
+                                    @endif
+                                @else
+                                    <a
+                                        href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                        class="pull-left" style="padding-right: 10px;"
+                                    >
+                                        @if ($comment->user->image != null)
+                                                <img
+                                                    src="{{ url('files/img/' . $comment->user->image) }}"
+                                                    alt="{{ $comment->user->username }}" class="img-avatar-48"
+                                                >
+                                            </a>
+                                        @else
+                                                <img
+                                                    src="{{ url('img/profile.png') }}"
+                                                    alt="{{ $comment->user->username }}" class="img-avatar-48"
+                                                >
+                                            </a>
+                                        @endif
+                                    <strong>
+                                        <a
+                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
+                                            style="color:{{ $comment->user->group->color }};"
+                                        >
+                                            <span>
+                                                <i class="{{ $comment->user->group->icon }}"></i>
+                                                {{ $comment->user->username }}
+                                            </span>
+                                        </a>
+                                    </strong>
+                                @endif
+                                <span class="text-muted">
+                                    <small>
+                                        <em>{{$comment->created_at->diffForHumans() }}</em>
+                                    </small>
+                                </span>
+                                @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                    <div class="pull-right" style="display: inline-block;">
+                                        <a data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}">
+                                            <button class="btn btn-circle btn-info">
+                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                            </button>
+                                        </a>
+                                        <form
+                                            action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
+                                            method="POST"
+                                            style="display: inline-block;"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-circle btn-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
+                                <div class="pt-5">
+                                    @joypixels($comment->getContentHtml())
                                 </div>
-                            @else
-                                @foreach ($article->comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01bc8c;">
-                                        <div class="media-body">
-                                            @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px;">
-                                                    <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }};">(<span><i
-                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
-                                            @else
-                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                   class="pull-left" style="padding-right: 10px;">
-                                                    @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @else
-                                                    <img src="{{ url('img/profile.png') }}"
-                                                         alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @endif
-                                                <strong><a
-                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                            style="color:{{ $comment->user->group->color }};"><span><i
-                                                                    class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                            <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                                            @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                <div class="pull-right" style="display: inline-block;">
-                                                    <a data-toggle="modal"
-                                                       data-target="#modal-comment-edit-{{ $comment->id }}">
-                                                        <button class="btn btn-circle btn-info">
-                                                            <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        </button>
-                                                    </a>
-                                                    <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
-                                                          method="POST" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-circle btn-danger">
-                                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                            <div class="pt-5">
-                                                @joypixels($comment->getContentHtml())
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @include('partials.modals', ['comment' => $comment])
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="col-md-12">
-                <form role="form" method="POST" action="{{ route('comment_article', ['id' => $article->id]) }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="content">{{ __('common.your-comment') }}:</label>
-                        <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                        <span class="pull-right" x-data="{ emoji: false }">
-                            <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
-
-                            <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
-                                <emoji-picker></emoji-picker>
                             </div>
-                        </span>
-                        <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
-                    <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
-                            :</strong></label>
-                    <label>
-                        <input type="radio" value="1" name="anonymous">
-                    </label> {{ __('common.yes') }}
-                    <label>
-                        <input type="radio" value="0" checked="checked" name="anonymous">
-                    </label> {{ __('common.no') }}
-                </form>
-            </div>
+                        </li>
+                        @include('partials.modals', ['comment' => $comment])
+                    @endforeach
+                @endif
+            </ul>
         </div>
-    </div>
+    </section>
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('common.your-comment') }}</h2>
+            <div class="panel__actions">
+                <span class="panel__action" x-data="{ emoji: false }">
+                    <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
+                    <div style="position: absolute; z-index: 1; width: 240px; right: 0;" x-show="emoji" x-on:click.away="emoji = false">
+                        <emoji-picker></emoji-picker>
+                    </div>
+                </span>
+            </div>
+        </header>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('comment_article', ['id' => $article->id]) }}">
+                @csrf
+                <p class="form__group">
+                    <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
+                </p>
+                <p class="form__group">
+                    <input type="hidden" value="0" name="anonymous">
+                    <input type="checkbox" id="anon-comment" class="form__checkbox" value="1" name="anonymous">
+                    <label for="anon-comment">{{ __('common.anonymous') }} {{ __('common.comment') }}</label>
+                </p>
+                <p class="form__group">
+                    <button type="submit" class="form__button form__button--filled">{{ __('common.submit') }}</button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection
