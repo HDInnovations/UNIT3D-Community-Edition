@@ -23,109 +23,50 @@
     @include('forum.buttons')
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="button-holder">
-            <div class="button-right">
-                <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
-                    <input type="hidden" name="sorting" value="updated_at">
-                    <input type="hidden" name="direction" value="desc">
-                    <input type="hidden" name="category" value="{{ $forum->id }}">
-                    <label for="name"></label>
-                    <input type="text" name="name" id="name"
-                           value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                           placeholder="{{ __('forum.category-quick-search') }}" class="form-control">
-                    <button type="submit" class="btn btn-success">
-                        <i class="{{ config('other.font-awesome') }} fa-search"></i> {{ __('common.search') }}
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="forum-categories">
-            <table class="table table-bordered table-hover">
-                <thead class="no-space">
-                <tr class="no-space">
-                    <td colspan="6" class="no-space">
-                        <div class="header gradient teal some-padding">
-                            <div class="inner_content">
-                                <h1 class="no-space">{{ $forum->name }}</h1>
-                                <div class="text-center some-padding">{{ $forum->description }}</div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>{{ __('forum.forum') }}</th>
-                    <th>{{ __('forum.topic') }}</th>
-                    <th>{{ __('forum.author') }}</th>
-                    <th>{{ __('forum.stats') }}</th>
-                    <th>{{ __('forum.last-post-info') }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($topics as $t)
-                    <tr>
-                        @if ($t->pinned == 0)
-                            <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}" alt="read">
-                            </td>
-                        @else
-                            <td class="f-display-topic-icon"><span class="text-green"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span>
-                            </td>
-                        @endif
-                        <td class="f-display-topic-icon"><span
-                                    class="badge-extra text-bold">{{ $t->forum->name }}</span>
-                        </td>
-                        <td class="f-display-topic-title">
-                            <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
-                            @if ($t->state == "close") <span
-                                    class='label label-sm label-default'>{{ strtoupper(__('forum.closed')) }}</span> @endif
-                            @if ($t->approved == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(__('forum.approved')) }}</span> @endif
-                            @if ($t->denied == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.denied')) }}</span> @endif
-                            @if ($t->solved == "1") <span
-                                    class='label label-sm label-info'>{{ strtoupper(__('forum.solved')) }}</span> @endif
-                            @if ($t->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(__('forum.invalid')) }}</span> @endif
-                            @if ($t->bug == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.bug')) }}</span> @endif
-                            @if ($t->suggestion == "1") <span
-                                    class='label label-sm label-primary'>{{ strtoupper(__('forum.suggestion')) }}</span>
-                            @endif
-                            @if ($t->implemented == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(__('forum.implemented')) }}</span>
-                            @endif
-                        </td>
-                        <td class="f-display-topic-started"><a
-                                    href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
-                        </td>
-                        <td class="f-display-topic-stats">
-                            {{ $t->num_post - 1 }} {{ __('forum.replies') }}
-                            \ {{ $t->views }} {{ __('forum.views') }}
-                        </td>
-                        @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id',
-                            'desc')->first() @endphp
-                        <td class="f-display-topic-last-post">
-                            <a
-                                    href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>
-                            on
-                            <time datetime="{{ date('M d Y', strtotime($last_post->created_at ?? 'UNKNOWN')) }}">
-                                {{ date('M d Y', strtotime($last_post->created_at ?? 'UNKNOWN')) }}
-                            </time>
-                        </td>
-                    </tr>
+@section('page', 'page__forum--category')
+
+@section('main')
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ $forum->description }}</h2>
+            <ul class="topic-listings">
+                @foreach ($topics as $topic)
+                    <li class="topic-listings__item">
+                        <x-forum.topic-listing :topic="$topic" />
+                    </li>
                 @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="text-center col-md-12">
+            </ul>
+        </section>
+        <div class="text-center">
             {{ $topics->links() }}
         </div>
+@endsection
 
-        @include('forum.stats')
-    </div>
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('forum.category-quick-search') }}</h2>
+        <div class="panel__body">
+            <form class="form form--horizontal" method="GET" action="{{ route('forum_search_form') }}">
+                <input type="hidden" name="sorting" value="updated_at">
+                <input type="hidden" name="direction" value="desc">
+                <input type="hidden" name="category" value="{{ $forum->id }}">
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        placeholder=""
+                        type="text"
+                        value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('forum.topic-name') }}
+                    </label>
+                </p>
+                <button class="form__button form__button--filled">
+                    {{ __('common.search') }}
+                </button>
+            </form>
+        </div>
+    </section>
+    @include('forum.stats')
 @endsection
