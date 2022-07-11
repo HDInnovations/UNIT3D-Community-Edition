@@ -18,6 +18,15 @@ use Illuminate\Database\Eloquent\Model;
 class Keyword extends Model
 {
     /**
+     * The Attributes That Are Mass Assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool

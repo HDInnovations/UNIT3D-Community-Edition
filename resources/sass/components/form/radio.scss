@@ -1,0 +1,3 @@
+.form__radio {
+    all: revert !important; /* Can be removed once site-wide `input[type="checkbox"]` styling is removed */
+}

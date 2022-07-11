@@ -1,3 +1,79 @@
+:root {
+    --achievement-fg: inherit;
+    --achievement-bg: #e7e7e7;
+
+    --article-card-bg: #e7e7e7;
+    --article-card-fg: inherit;
+    --article-card-head-fg: inherit;
+    --article-card-time-fg: inherit;
+
+    --bbcode-input-header-bg: #e2e2e2;
+    --bbcode-input-body-bg: white;
+    --bbcode-input-border: 1px solid #555;
+    --bbcode-input-border-radius: 5px;
+
+    --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
+    --button-filled-border: none;
+    --button-filled-border-radius: 9999px;
+    --button-filled-fg: white;
+
+    --button-outlined-bg: inherit;
+    --button-outlined-border: 1px solid #555;
+    --button-outlined-border-radius: 9999px;
+    --button-outlined-fg: currentColor;
+
+    --button-text-bg: inherit;
+    --button-text-border: none;
+    --button-text-border-radius: 5px;
+    --button-text-fg: currentColor;
+
+    --icon-button-bg: inherit;
+    --icon-button-border: none;
+    --icon-button-border-radius: 9999px;
+    --icon-button-fg: currentColor;
+
+    --input-text-border: 1px solid #555;
+    --input-text-border-active: 2px solid #2195f3;
+    --input-text-border-error: 1px solid #ba1b1b;
+    --input-text-border-hover: 2px solid #999;
+    --input-text-border-radius: 5px;
+    --input-text-fg: #444;
+
+    --key-value-even-bg: #e2e2e2;
+    --key-value-fg: inherit;
+    --key-value-odd-bg: #e2e2e2;
+    --key-value-padding: 10px;
+
+    --label-bg: #e2e2e2;
+    --label-fg: #555;
+    --label-fg-active: #2195f3;
+    --label-fg-error: #ba1b1b;
+    --label-fg-hover: #999;
+
+    --panel-action-fg: #aaa;
+    --panel-border: 1px solid #ddd;
+    --panel-bg: #e2e2e2;
+    --panel-fg: inherit;
+    --panel-box-shadow: 0 5px 5px rgba(93, 93, 93, 0.83);
+    --panel-border-radius: 0;
+    --panel-head-bg: #373d43;
+    --panel-head-fg: #fff;
+
+    --select-border: 1px solid #555;
+    --select-border-active: 2px solid #2195f3;
+    --select-border-error: 1px solid #ba1b1b;
+    --select-border-hover: 2px solid #999;
+    --select-border-radius: 5px;
+    --select-fg: #444;
+
+    --textarea-border: 1px solid #555;
+    --textarea-border-active: 2px solid #2196f3;
+    --textarea-border-error: 1px solid #ba1b1b;
+    --textarea-border-hover: 2px solid #999;
+    --textarea-border-radius: 5px;
+    --textarea-fg: #444;
+}
+
 .permalink {
     color: #e5e5e5;
 }
@@ -10655,145 +10731,6 @@ div.single_column {
 
 .dark-th {
     background-color: #ffffff;
-}
-
-@supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    input[type='checkbox'],
-    input[type='radio'] {
-        --active: #275efe;
-        --active-inner: #fff;
-        --focus: 2px rgba(39, 94, 254, 0.3);
-        --border: #bbc1e1;
-        --border-hover: #275efe;
-        --background: #fff;
-        --disabled: #f6f8ff;
-        --disabled-inner: #e1e6f9;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        height: 13px;
-        outline: none;
-        display: inline-block;
-        vertical-align: top;
-        position: relative;
-        margin: 0;
-        cursor: pointer;
-        border: 1px solid var(--bc, var(--border));
-        background: var(--b, var(--background));
-        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-    }
-    input[type='checkbox']:after,
-    input[type='radio']:after {
-        content: '';
-        display: block;
-        left: 0;
-        top: 0;
-        position: absolute;
-        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-    }
-    input[type='checkbox']:checked,
-    input[type='radio']:checked {
-        --b: var(--active);
-        --bc: var(--active);
-        --d-o: 0.3s;
-        --d-t: 0.6s;
-        --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-    }
-    input[type='checkbox']:disabled,
-    input[type='radio']:disabled {
-        --b: var(--disabled);
-        cursor: not-allowed;
-        opacity: 0.9;
-    }
-    input[type='checkbox']:disabled:checked,
-    input[type='radio']:disabled:checked {
-        --b: var(--disabled-inner);
-        --bc: var(--border);
-    }
-    input[type='checkbox']:disabled + label,
-    input[type='radio']:disabled + label {
-        cursor: not-allowed;
-    }
-    input[type='checkbox']:hover:not(:checked):not(:disabled),
-    input[type='radio']:hover:not(:checked):not(:disabled) {
-        --bc: var(--border-hover);
-    }
-    input[type='checkbox']:focus,
-    input[type='radio']:focus {
-        box-shadow: 0 0 0 var(--focus);
-    }
-    input[type='checkbox']:not(.switch),
-    input[type='radio']:not(.switch) {
-        width: 13px;
-    }
-    input[type='checkbox']:not(.switch):after,
-    input[type='radio']:not(.switch):after {
-        opacity: var(--o, 0);
-    }
-    input[type='checkbox']:not(.switch):checked,
-    input[type='radio']:not(.switch):checked {
-        --o: 1;
-    }
-    input[type='checkbox'] + label,
-    input[type='radio'] + label {
-        font-size: 14px;
-        line-height: 21px;
-        display: inline-block;
-        vertical-align: top;
-        cursor: pointer;
-        margin-left: 4px;
-    }
-
-    input[type='checkbox']:not(.switch) {
-        border-radius: 2px;
-    }
-    input[type='checkbox']:not(.switch):after {
-        width: 5px;
-        height: 9px;
-        border: 2px solid var(--active-inner);
-        border-top: 0;
-        border-left: 0;
-        left: 3px;
-        top: 0px;
-        transform: rotate(var(--r, 20deg));
-    }
-    input[type='checkbox']:not(.switch):checked {
-        --r: 43deg;
-    }
-    input[type='checkbox'].switch {
-        width: 38px;
-        border-radius: 11px;
-    }
-    input[type='checkbox'].switch:after {
-        left: 2px;
-        top: 2px;
-        border-radius: 50%;
-        width: 15px;
-        height: 15px;
-        background: var(--ab, var(--border));
-        transform: translateX(var(--x, 0));
-    }
-    input[type='checkbox'].switch:checked {
-        --ab: var(--active-inner);
-        --x: 17px;
-    }
-    input[type='checkbox'].switch:disabled:not(:checked):after {
-        opacity: 0.6;
-    }
-
-    input[type='radio'] {
-        border-radius: 50%;
-    }
-    input[type='radio']:after {
-        width: 19px;
-        height: 19px;
-        border-radius: 50%;
-        background: var(--active-inner);
-        opacity: 0;
-        transform: scale(var(--s, 0.7));
-    }
-    input[type='radio']:checked {
-        --s: 0.5;
-    }
 }
 
 /* Chat Message Bubbles

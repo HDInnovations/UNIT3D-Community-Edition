@@ -1,0 +1,87 @@
+.bbcode-input {
+    border: var(--bbcode-input-border);
+    border-radius: var(--bbcode-input-border-radius);
+    background-color: var(--bbcode-input-bg);
+    display: grid;
+    grid-template: 'tabs buttons toggle' auto 'content content content' auto / 1fr auto auto;
+    max-width: 100%;
+}
+
+.bbcode-input__tab-input {
+    opacity: 0;
+    position: absolute !important; /* !important is necessary until site-wide radio button styling is removed */
+}
+
+.bbcode-input__tab-label {
+    margin-top: 4px;
+    padding: 15px 12px 13px 12px;
+    line-height: 1 !important;
+    border-top-left-radius: var(--bbcode-input-border-radius);
+    border-top-right-radius: var(--bbcode-input-border-radius);
+    color: #555;
+    margin: 0 !important;
+}
+
+.bbcode-input__tab-input:checked + .bbcode-input__tab-label {
+    border-bottom: 2px solid grey;
+    color: #888;
+}
+
+.bbcode-input__tab-pane {
+    grid-area: content;
+    padding: 12px;
+    background: var(--bbcode-input-body-bg);
+    border-bottom-left-radius: var(--bbcode-input-border-radius);
+    border-bottom-right-radius: var(--bbcode-input-border-radius);
+}
+
+.bbcode-input__tabs {
+    grid-area: tabs;
+    border-top-left-radius: var(--bbcode-input-border-radius);
+    display: flex;
+    align-items: center;
+}
+
+.bbcode-input__icon-bar {
+    grid-area: buttons;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.bbcode-input__icon-bar abbr {
+    all: revert !important; /* can be removed once site-wide <abbr> styling is removed */
+}
+
+.bbcode-input__icon-separator {
+    all: revert; /* can be removed once site-wide <hr> styles are removed */
+    margin: 11px 4px;
+    align-self: stretch;
+}
+
+.bbcode-input__icon-bar-toggle {
+    grid-area: toggle;
+    border-top-right-radius: var(--bbcode-input-border-radius);
+}
+
+.bbcode-input__input {
+    background: var(--bbcode-input-header-bg);
+}
+
+.bbcode-input__preview {
+    padding: 4px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .bbcode-input {
+        grid-template: 'tabs toggle' auto 'buttons buttons' auto 'content content' auto / 1fr auto;
+    }
+
+    .bbcode-input__icon-bar {
+        background-color: var(--bbcode-input-body-bg);
+    }
+}

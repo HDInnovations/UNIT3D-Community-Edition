@@ -1,0 +1,15 @@
+.page__home {
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+}
+
+@media only screen and (min-width: 1600px) {
+    .page__home {
+        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    .page__home {
+        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}

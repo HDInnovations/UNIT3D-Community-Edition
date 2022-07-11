@@ -209,7 +209,7 @@ class StatsController extends Controller
     public function uploaders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Uploaders
-        $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
+        $uploaders = Torrent::with('user')->where('anon', '=', 0)->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
 
         return \view('stats.users.uploaders', ['uploaders' => $uploaders]);
     }
