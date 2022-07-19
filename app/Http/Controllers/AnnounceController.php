@@ -483,7 +483,7 @@ class AnnounceController extends Controller
             $history->actual_downloaded += 0;
             $history->client_downloaded = $realDownloaded;
             $history->save();
-            // End History Update
+        // End History Update
         } elseif (\strtolower($queries['event']) === 'completed') {
             // Get The Current Peer
             $peer = Peer::where('torrent_id', '=', $torrent->id)
@@ -715,7 +715,7 @@ class AnnounceController extends Controller
             $user->uploaded += $modUploaded;
             $user->downloaded += $modDownloaded;
             $user->save();
-            // End User Update
+        // End User Update
         } else {
             // Get The Current Peer
             $peer = Peer::where('torrent_id', '=', $torrent->id)
