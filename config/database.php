@@ -134,7 +134,11 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
+        'options' => [
+            'serializer' => Redis::SERIALIZER_IGBINARY,
+        ],
 
         'default' => [
             'url'                => env('REDIS_URL'),
