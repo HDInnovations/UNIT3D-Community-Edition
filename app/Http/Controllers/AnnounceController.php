@@ -19,10 +19,6 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
-use App\Jobs\ProcessBasicAnnounceRequest;
-use App\Jobs\ProcessCompletedAnnounceRequest;
-use App\Jobs\ProcessStartedAnnounceRequest;
-use App\Jobs\ProcessStoppedAnnounceRequest;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -488,15 +484,6 @@ class AnnounceController extends Controller
             $history->client_downloaded = $realDownloaded;
             $history->save();
             // End History Update
-
-            // Sync Seeders / Leechers Count
-            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '=', '0')
-                ->count();
-            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '>', '0')
-                ->count();
-            $torrent->save();
         } elseif (\strtolower($queries['event']) === 'completed') {
             // Get The Current Peer
             $peer = Peer::where('torrent_id', '=', $torrent->id)
@@ -613,15 +600,6 @@ class AnnounceController extends Controller
 
             // Torrent Completed Update
             $torrent->increment('times_completed');
-
-            // Sync Seeders / Leechers Count
-            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '=', '0')
-                ->count();
-            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '>', '0')
-                ->count();
-            $torrent->save();
         } elseif (\strtolower($queries['event']) === 'stopped') {
             // Get The Current Peer
             $peer = Peer::where('torrent_id', '=', $torrent->id)
@@ -738,15 +716,6 @@ class AnnounceController extends Controller
             $user->downloaded += $modDownloaded;
             $user->save();
             // End User Update
-
-            // Sync Seeders / Leechers Count
-            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '=', '0')
-                ->count();
-            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '>', '0')
-                ->count();
-            $torrent->save();
         } else {
             // Get The Current Peer
             $peer = Peer::where('torrent_id', '=', $torrent->id)
@@ -861,16 +830,16 @@ class AnnounceController extends Controller
             $user->downloaded += $modDownloaded;
             $user->save();
             // End User Update
-
-            // Sync Seeders / Leechers Count
-            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '=', '0')
-                ->count();
-            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
-                ->where('left', '>', '0')
-                ->count();
-            $torrent->save();
         }
+
+        // Sync Seeders / Leechers Count
+        $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
+            ->where('left', '=', '0')
+            ->count();
+        $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
+            ->where('left', '>', '0')
+            ->count();
+        $torrent->save();
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
