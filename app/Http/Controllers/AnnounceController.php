@@ -23,11 +23,15 @@ use App\Jobs\ProcessBasicAnnounceRequest;
 use App\Jobs\ProcessCompletedAnnounceRequest;
 use App\Jobs\ProcessStartedAnnounceRequest;
 use App\Jobs\ProcessStoppedAnnounceRequest;
+use App\Models\FreeleechToken;
 use App\Models\Group;
+use App\Models\History;
 use App\Models\Peer;
+use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AnnounceController extends Controller
 {
@@ -58,6 +62,7 @@ class AnnounceController extends Controller
      * Announce Code.
      *
      * @throws \Exception
+     * @throws \Throwable
      */
     public function index(Request $request, string $passkey): ?\Illuminate\Http\Response
     {
@@ -120,7 +125,7 @@ class AnnounceController extends Controller
             /**
              * Dispatch The Specfic Annnounce Event Job.
              */
-            $this->sendAnnounceJob($queries, $user, $torrent);
+            $this->processAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
             $repDict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -130,6 +135,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     protected function checkClient(Request $request): void
     {
@@ -164,6 +170,7 @@ class AnnounceController extends Controller
      * Check Passkey Exist and Valid.
      *
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     protected function checkPasskey($passkey): void
     {
@@ -180,6 +187,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     private function checkAnnounceFields(Request $request): array
     {
@@ -246,6 +254,7 @@ class AnnounceController extends Controller
      * Get User Via Validated Passkey.
      *
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     protected function checkUser($passkey, $queries): object
     {
@@ -280,6 +289,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     protected function checkTorrent($infoHash): object
     {
@@ -306,6 +316,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     private function checkPeer($torrent, $queries, $user): void
     {
@@ -319,6 +330,7 @@ class AnnounceController extends Controller
     /**
      * @throws \App\Exceptions\TrackerException
      * @throws \Exception
+     * @throws \Throwable
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
@@ -334,6 +346,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     private function checkMaxConnections($torrent, $user): void
     {
@@ -348,6 +361,7 @@ class AnnounceController extends Controller
 
     /**
      * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
      */
     private function checkDownloadSlots($queries, $user): void
     {
@@ -381,7 +395,7 @@ class AnnounceController extends Controller
          * We query peers from database and send peerlist, otherwise just quick return.
          */
         if (\strtolower($queries['event']) !== 'stopped') {
-            $limit = ($queries['numwant'] <= 25 ? $queries['numwant'] : 25);
+            $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers
             if ($queries['left'] == 0) {
@@ -410,16 +424,452 @@ class AnnounceController extends Controller
     /**
      * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html).
      */
-    private function sendAnnounceJob($queries, $user, $torrent): void
+    private function processAnnounceJob($queries, $user, $torrent): void
     {
         if (\strtolower($queries['event']) === 'started') {
-            ProcessStartedAnnounceRequest::dispatch($queries, $user, $torrent);
+            // Get The Current Peer
+            $peer = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // Creates a new peer if not existing
+            if ($peer === null) {
+                if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                    $queries['event'] = 'started';
+                }
+
+                $peer = new Peer();
+            }
+
+            // Get history information
+            $history = History::where('torrent_id', '=', $torrent->id)
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // If no History record found then create one
+            if ($history === null) {
+                $history = new History();
+                $history->user_id = $user->id;
+                $history->torrent_id = $torrent->id;
+                $history->info_hash = $queries['info_hash'];
+            }
+
+            $realUploaded = $queries['uploaded'];
+            $realDownloaded = $queries['downloaded'];
+
+            // Peer Update
+            $peer->peer_id = $queries['peer_id'];
+            $peer->md5_peer_id = \md5($queries['peer_id']);
+            $peer->info_hash = $queries['info_hash'];
+            $peer->ip = $queries['ip-address'];
+            $peer->port = $queries['port'];
+            $peer->agent = $queries['user-agent'];
+            $peer->uploaded = $realUploaded;
+            $peer->downloaded = $realDownloaded;
+            $peer->seeder = $queries['left'] == 0;
+            $peer->left = $queries['left'];
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->updateConnectableStateIfNeeded();
+            $peer->save();
+            // End Peer Update
+
+            // History Update
+            $history->agent = $queries['user-agent'];
+            $history->active = 1;
+            $history->seeder = $queries['left'] == 0;
+            $history->immune = $user->group->is_immune == 1;
+            $history->uploaded += 0;
+            $history->actual_uploaded += 0;
+            $history->client_uploaded = $realUploaded;
+            $history->downloaded += 0;
+            $history->actual_downloaded += 0;
+            $history->client_downloaded = $realDownloaded;
+            $history->save();
+            // End History Update
+
+            // Sync Seeders / Leechers Count
+            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '=', '0')
+                ->count();
+            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '>', '0')
+                ->count();
+            $torrent->save();
         } elseif (\strtolower($queries['event']) === 'completed') {
-            ProcessCompletedAnnounceRequest::dispatch($queries, $user, $torrent);
+            // Get The Current Peer
+            $peer = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // Flag is tripped if new session is created but client reports up/down > 0
+            $ghost = false;
+
+            // Creates a new peer if not existing
+            if ($peer === null) {
+                if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                    $ghost = true;
+                    $queries['event'] = 'started';
+                }
+
+                $peer = new Peer();
+            }
+
+            // Get history information
+            $history = History::where('torrent_id', '=', $torrent->id)
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // If no History record found then create one
+            if ($history === null) {
+                $history = new History();
+                $history->user_id = $user->id;
+                $history->torrent_id = $torrent->id;
+                $history->info_hash = $queries['info_hash'];
+            }
+
+            $realUploaded = $queries['uploaded'];
+            $realDownloaded = $queries['downloaded'];
+
+            if ($ghost) {
+                $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
+                $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
+            } else {
+                $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
+                $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
+            }
+
+            $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
+
+            // Modification of Upload and Download
+            $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)
+                ->first();
+            $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)
+                ->where('torrent_id', '=', $torrent->id)
+                ->first();
+
+            if (\config('other.freeleech') == 1 || $personalFreeleech || $user->group->is_freeleech == 1 || $freeleechToken) {
+                $modDownloaded = 0;
+            } elseif ($torrent->free >= 1) {
+                // FL value in DB are from 0% to 100%.
+                // Divide it by 100 and multiply it with "downloaded" to get discount download.
+                $fl_discount = $downloaded * $torrent->free / 100;
+                $modDownloaded = $downloaded - $fl_discount;
+            } else {
+                $modDownloaded = $downloaded;
+            }
+
+            if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
+                $modUploaded = $uploaded * 2;
+            } else {
+                $modUploaded = $uploaded;
+            }
+
+            // Peer Update
+            $peer->peer_id = $queries['peer_id'];
+            $peer->md5_peer_id = \md5($queries['peer_id']);
+            $peer->info_hash = $queries['info_hash'];
+            $peer->ip = $queries['ip-address'];
+            $peer->port = $queries['port'];
+            $peer->agent = $queries['user-agent'];
+            $peer->uploaded = $realUploaded;
+            $peer->downloaded = $realDownloaded;
+            $peer->seeder = 1;
+            $peer->left = 0;
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->updateConnectableStateIfNeeded();
+            $peer->save();
+            // End Peer Update
+
+            // History Update
+            $history->agent = $queries['user-agent'];
+            $history->active = 1;
+            $history->seeder = $queries['left'] == 0;
+            $history->uploaded += $modUploaded;
+            $history->actual_uploaded += $uploaded;
+            $history->client_uploaded = $realUploaded;
+            $history->downloaded += $modDownloaded;
+            $history->actual_downloaded += $downloaded;
+            $history->client_downloaded = $realDownloaded;
+            $history->completed_at = Carbon::now();
+            // Seedtime allocation
+            if ($queries['left'] == 0) {
+                $newUpdate = $peer->updated_at->timestamp;
+                $diff = $newUpdate - $oldUpdate;
+                $history->seedtime += $diff;
+            }
+
+            $history->save();
+            // End History Update
+
+            // User Update
+            $user->uploaded += $modUploaded;
+            $user->downloaded += $modDownloaded;
+            $user->save();
+            // End User Update
+
+            // Torrent Completed Update
+            $torrent->increment('times_completed');
+
+            // Sync Seeders / Leechers Count
+            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '=', '0')
+                ->count();
+            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '>', '0')
+                ->count();
+            $torrent->save();
         } elseif (\strtolower($queries['event']) === 'stopped') {
-            ProcessStoppedAnnounceRequest::dispatch($queries, $user, $torrent);
+            // Get The Current Peer
+            $peer = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // Flag is tripped if new session is created but client reports up/down > 0
+            $ghost = false;
+
+            // Creates a new peer if not existing
+            if ($peer === null) {
+                if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                    $ghost = true;
+                    $queries['event'] = 'started';
+                }
+
+                $peer = new Peer();
+            }
+
+            // Get history information
+            $history = History::where('torrent_id', '=', $torrent->id)
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // If no History record found then create one
+            if ($history === null) {
+                $history = new History();
+                $history->user_id = $user->id;
+                $history->torrent_id = $torrent->id;
+                $history->info_hash = $queries['info_hash'];
+            }
+
+            $realUploaded = $queries['uploaded'];
+            $realDownloaded = $queries['downloaded'];
+
+            if ($ghost) {
+                $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
+                $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
+            } else {
+                $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
+                $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
+            }
+
+            $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
+
+            // Modification of Upload and Download
+            $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)
+                ->first();
+            $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)
+                ->where('torrent_id', '=', $torrent->id)
+                ->first();
+
+            if (\config('other.freeleech') == 1 || $personalFreeleech || $user->group->is_freeleech == 1 || $freeleechToken) {
+                $modDownloaded = 0;
+            } elseif ($torrent->free >= 1) {
+                // FL value in DB are from 0% to 100%.
+                // Divide it by 100 and multiply it with "downloaded" to get discount download.
+                $fl_discount = $downloaded * $torrent->free / 100;
+                $modDownloaded = $downloaded - $fl_discount;
+            } else {
+                $modDownloaded = $downloaded;
+            }
+
+            if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
+                $modUploaded = $uploaded * 2;
+            } else {
+                $modUploaded = $uploaded;
+            }
+
+            // Peer Update
+            $peer->peer_id = $queries['peer_id'];
+            $peer->md5_peer_id = \md5($queries['peer_id']);
+            $peer->info_hash = $queries['info_hash'];
+            $peer->ip = $queries['ip-address'];
+            $peer->port = $queries['port'];
+            $peer->agent = $queries['user-agent'];
+            $peer->uploaded = $realUploaded;
+            $peer->downloaded = $realDownloaded;
+            $peer->seeder = $queries['left'] == 0;
+            $peer->left = $queries['left'];
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->updateConnectableStateIfNeeded();
+            $peer->save();
+            // End Peer Update
+
+            // History Update
+            $history->agent = $queries['user-agent'];
+            $history->active = 0;
+            $history->seeder = $queries['left'] == 0;
+            $history->uploaded += $modUploaded;
+            $history->actual_uploaded += $uploaded;
+            $history->client_uploaded = $realUploaded;
+            $history->downloaded += $modDownloaded;
+            $history->actual_downloaded += $downloaded;
+            $history->client_downloaded = $realDownloaded;
+            // Seedtime allocation
+            if ($queries['left'] == 0) {
+                $newUpdate = $peer->updated_at->timestamp;
+                $diff = $newUpdate - $oldUpdate;
+                $history->seedtime += $diff;
+            }
+
+            $history->save();
+            // End History Update
+
+            // Peer Delete (Now that history is updated)
+            $peer->delete();
+            // End Peer Delete
+
+            // User Update
+            $user->uploaded += $modUploaded;
+            $user->downloaded += $modDownloaded;
+            $user->save();
+            // End User Update
+
+            // Sync Seeders / Leechers Count
+            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '=', '0')
+                ->count();
+            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '>', '0')
+                ->count();
+            $torrent->save();
         } else {
-            ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
+            // Get The Current Peer
+            $peer = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('peer_id', $queries['peer_id'])
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // Flag is tripped if new session is created but client reports up/down > 0
+            $ghost = false;
+            if ($peer === null && \strtolower($queries['event']) === 'completed') {
+                $delete();
+            }
+
+            // Creates a new peer if not existing
+            if ($peer === null) {
+                if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                    $ghost = true;
+                    $queries['event'] = 'started';
+                }
+
+                $peer = new Peer();
+            }
+
+            // Get history information
+            $history = History::where('torrent_id', '=', $torrent->id)
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+            // If no History record found then create one
+            if ($history === null) {
+                $history = new History();
+                $history->user_id = $user->id;
+                $history->torrent_id = $torrent->id;
+                $history->info_hash = $queries['info_hash'];
+            }
+
+            $realUploaded = $queries['uploaded'];
+            $realDownloaded = $queries['downloaded'];
+
+            if ($ghost) {
+                $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
+                $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
+            } else {
+                $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
+                $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
+            }
+
+            $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
+
+            // Modification of Upload and Download
+            $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+            $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)
+                ->where('torrent_id', '=', $torrent->id)
+                ->first();
+
+            if (\config('other.freeleech') == 1 || $personalFreeleech || $user->group->is_freeleech == 1 || $freeleechToken) {
+                $modDownloaded = 0;
+            } elseif ($torrent->free >= 1) {
+                // FL value in DB are from 0% to 100%.
+                // Divide it by 100 and multiply it with "downloaded" to get discount download.
+                $fl_discount = $downloaded * $torrent->free / 100;
+                $modDownloaded = $downloaded - $fl_discount;
+            } else {
+                $modDownloaded = $downloaded;
+            }
+
+            if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
+                $modUploaded = $uploaded * 2;
+            } else {
+                $modUploaded = $uploaded;
+            }
+
+            // Peer Update
+            $peer->peer_id = $queries['peer_id'];
+            $peer->md5_peer_id = \md5($queries['peer_id']);
+            $peer->info_hash = $queries['info_hash'];
+            $peer->ip = $queries['ip-address'];
+            $peer->port = $queries['port'];
+            $peer->agent = $queries['user-agent'];
+            $peer->uploaded = $realUploaded;
+            $peer->downloaded = $realDownloaded;
+            $peer->seeder = $queries['left'] == 0;
+            $peer->left = $queries['left'];
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->updateConnectableStateIfNeeded();
+            $peer->save();
+            // End Peer Update
+
+            // History Update
+            $history->agent = $queries['user-agent'];
+            $history->active = 1;
+            $history->seeder = $queries['left'] == 0;
+            $history->uploaded += $modUploaded;
+            $history->actual_uploaded += $uploaded;
+            $history->client_uploaded = $realUploaded;
+            $history->downloaded += $modDownloaded;
+            $history->actual_downloaded += $downloaded;
+            $history->client_downloaded = $realDownloaded;
+            // Seedtime allocation
+            if ($queries['left'] == 0) {
+                $newUpdate = $peer->updated_at->timestamp;
+                $diff = $newUpdate - $oldUpdate;
+                $history->seedtime += $diff;
+            }
+
+            $history->save();
+            // End History Update
+
+            // User Update
+            $user->uploaded += $modUploaded;
+            $user->downloaded += $modDownloaded;
+            $user->save();
+            // End User Update
+
+            // Sync Seeders / Leechers Count
+            $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '=', '0')
+                ->count();
+            $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)
+                ->where('left', '>', '0')
+                ->count();
+            $torrent->save();
         }
     }
 

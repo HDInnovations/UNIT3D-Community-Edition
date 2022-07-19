@@ -137,52 +137,53 @@ return [
         'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'options' => [
+            'cluster'    => env('REDIS_CLUSTER', 'redis'),
             'serializer' => Redis::SERIALIZER_IGBINARY,
         ],
 
         'default' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_DB', 0),
-            'read_write_timeout' => -1,
         ],
 
         'cache' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_CACHE_DB', 1),
-            'read_write_timeout' => -1,
         ],
 
         'job' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_JOB_DB', 2),
-            'read_write_timeout' => -1,
         ],
 
         'broadcast' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_BROADCAST_DB', 3),
-            'read_write_timeout' => -1,
         ],
 
         'session' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_BROADCAST_DB', 4),
-            'read_write_timeout' => -1,
         ],
 
     ],
