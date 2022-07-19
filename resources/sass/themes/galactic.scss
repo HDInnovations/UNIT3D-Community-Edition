@@ -23,6 +23,11 @@
     --achievement-fg: inherit;
     --achievement-bg: #2c2c2c;
 
+    --article-card-bg: #2c2c2c;
+    --article-card-fg: #aaa;
+    --article-card-head-fg: #aaa;
+    --article-card-time-fg: #aaa;
+
     --bbcode-input-header-bg: #272727;
     --bbcode-input-body-bg: #272727;
     --bbcode-input-border: 1px solid #555;
@@ -66,6 +71,7 @@
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
 
+    --panel-action-fg: #aaa;
     --panel-border: none;
     --panel-bg: #272727;
     --panel-fg: var(--text-color);
