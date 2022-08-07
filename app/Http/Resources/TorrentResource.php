@@ -27,18 +27,21 @@ class TorrentResource extends JsonResource
         $meta = null;
 
         if ($this->category->tv_meta && ($this->tmdb !== 0)) {
-            $meta = Tv::where('id', '=', $this->tmdb)->first();
+            $meta = Tv::with(['genres:name'])->where('id', '=', $this->tmdb)->first();
         }
 
         if ($this->category->movie_meta && ($this->tmdb !== 0)) {
-            $meta = Movie::where('id', '=', $this->tmdb)->first();
+            $meta = Movie::with(['genres:name'])->where('id', '=', $this->tmdb)->first();
         }
 
         return [
             'type'          => 'torrent',
             'id'            => (string) $this->id,
             'attributes'    => [
-                'poster'           => isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
+                'meta' => [
+                    'poster'   => isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
+                    'genres'   => isset($meta->genres) ? $meta->genres->pluck('name')->implode(', ') : 'None',
+                ],
                 'name'             => $this->name,
                 'release_year'     => $this->release_year,
                 'category'         => $this->category->name,
@@ -51,7 +54,7 @@ class TorrentResource extends JsonResource
                 'description'      => $this->description,
                 'info_hash'        => $this->info_hash,
                 'size'             => $this->size,
-                'num_file'         => $this->num_file,
+                'num_file'          => $this->num_file,
                 'freeleech'        => $this->free.'%',
                 'double_upload'    => $this->doubleup,
                 'internal'         => $this->internal,
