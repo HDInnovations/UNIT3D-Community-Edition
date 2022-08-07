@@ -168,7 +168,7 @@
                                     <h1 style=" color: #ffffff;">RAM</h1>
                                     <span class="badge-user">Total: {{ $ram['total'] }}</span>
                                     <br>
-                                    <span class="badge-user">Free: {{ $ram['free'] }}</span>
+                                    <span class="badge-user">Available: {{ $ram['available'] }}</span>
                                     <span class="badge-user">Used: {{ $ram['used'] }}</span>
                                     <i class="fal fa-memory black-icon text-green"></i>
                                 </div>
