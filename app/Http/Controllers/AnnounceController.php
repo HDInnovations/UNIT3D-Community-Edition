@@ -542,7 +542,7 @@ class AnnounceController extends Controller
         if ($personalFreeleech ||
             $user->group->is_freeleech == 1 ||
             $freeleechToken ||
-            \config('other.freeleech') == 1 ) {
+            \config('other.freeleech') == 1) {
             $modDownloaded = 0;
         } elseif ($torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
@@ -768,7 +768,7 @@ class AnnounceController extends Controller
     {
         $compactPeers = '';
         foreach ($peers as $peer) {
-            if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP , FILTER_FLAG_IPV4)) {
+            if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                 $compactPeers .= \inet_pton($peer['ip']);
                 $compactPeers .= \pack('n', (int) $peer['port']);
             }
