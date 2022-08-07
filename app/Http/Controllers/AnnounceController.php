@@ -147,6 +147,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check Client Is Valid.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -202,6 +204,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check If Announnce Fields.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -234,17 +238,15 @@ class AnnounceController extends Controller
 
         // Part.2 check Announce **Option** Fields
         foreach ([
-            'event' => '',
-            'no_peer_id' => 1,
-            'compact' => 0,
+            'event'   => '',
             'numwant' => 50,
             'corrupt' => 0,
-            'key' => '',
+            'key'     => '',
         ] as $item => $value) {
             $queries[$item] = $request->query->get($item, $value);
         }
 
-        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
+        foreach (['numwant', 'corrupt'] as $item) {
             \throw_if(! \is_numeric($queries[$item]) || $queries[$item] < 0,
                 new TrackerException(134, [':attribute' => $item]));
         }
@@ -325,6 +327,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check If Torrent Exist In Database.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -355,6 +359,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check If Peer Exist In Database.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -370,6 +376,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check A Peers Min Annnounce Interval.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Exception
      * @throws \Throwable
@@ -389,6 +397,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check A Users Max Connections.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -406,6 +416,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Check A Users Download Slots.
+     *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
@@ -425,6 +437,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Generate A Successful Announce Response For Client.
+     *
      * @throws \Exception
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
@@ -471,6 +485,8 @@ class AnnounceController extends Controller
     }
 
     /**
+     * Process Announce Databasse Queries
+     *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     private function processAnnounceJob($queries, $user, $torrent): void
@@ -855,7 +871,10 @@ class AnnounceController extends Controller
         ];
     }
 
-    protected function sendFinalAnnounceResponse($repDict): Response
+    /**
+     * Send Final Announce Response.
+     */
+    protected function sendFinalAnnounceResponse(array $repDict): Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
@@ -863,6 +882,9 @@ class AnnounceController extends Controller
             ->withHeaders(['Pragma' => 'no-cache']);
     }
 
+    /**
+     * Return Compact Peers.
+     */
     private function givePeers($peers): string
     {
         $compactPeers = '';
