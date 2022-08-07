@@ -137,7 +137,7 @@ class AnnounceController extends Controller
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             /**
-             * Dispatch The Specfic Annnounce Event Job.
+             * Process Annnounce Job.
              */
             $this->processAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
@@ -460,24 +460,14 @@ class AnnounceController extends Controller
         if (\strtolower($queries['event']) !== 'stopped') {
             $limit = (min($queries['numwant'], 25));
 
-            // Get Torrents Peers
-            if ($queries['left'] == 0) {
-                // Only include leechers in a seeder's peerlist
-                $peers = Peer::query()
-                    ->where('torrent_id', '=', $torrent->id)
-                    ->where('seeder', '=', 0)
-                    ->where('user_id', '!=', $user->id)
-                    ->take($limit)
-                    ->get(['ip', 'port'])
-                    ->toArray();
-            } else {
-                $peers = Peer::query()
-                    ->where('torrent_id', '=', $torrent->id)
-                    ->where('user_id', '!=', $user->id)
-                    ->take($limit)
-                    ->get(['ip', 'port'])
-                    ->toArray();
-            }
+            // Get Torrents Peers (Only include leechers in a seeder's peerlist)
+            $peers = Peer::query()
+                ->where('torrent_id', '=', $torrent->id)
+                ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
+                ->where('user_id', '!=', $user->id)
+                ->take($limit)
+                ->get(['ip', 'port'])
+                ->toArray();
 
             $repDict['peers'] = $this->givePeers($peers);
         }
@@ -486,7 +476,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * Process Announce Databasse Queries.
+     * Process Announce Database Queries.
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
@@ -500,12 +490,6 @@ class AnnounceController extends Controller
         $realDownloaded = $queries['downloaded'];
         $event = \strtolower($queries['event']);
 
-        // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('user_id', '=', $user->id)
-            ->first();
-
         // Get The Current Peer
         $peer = Peer::query()
             ->where('torrent_id', '=', $torrent->id)
@@ -513,16 +497,72 @@ class AnnounceController extends Controller
             ->where('user_id', '=', $user->id)
             ->first();
 
+        // If no Peer record found then create one
+        if ($peer === null) {
+            if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                $ghost = true;
+                $event = 'started';
+            }
+
+            $peer = new Peer();
+        }
+
+        // Get history information
+        $history = History::query()
+            ->where('torrent_id', '=', $torrent->id)
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        // If no History record found then create one
+        if ($history === null) {
+            $history = new History();
+        }
+
+        // Check Ghost Flag
+        if ($ghost) {
+            $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
+            $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
+        } else {
+            $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
+            $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
+        }
+
+        $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
+
+        // Modification of Upload and Download
+        $personalFreeleech = PersonalFreeleech::query()
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        $freeleechToken = FreeleechToken::query()
+            ->where('user_id', '=', $user->id)
+            ->where('torrent_id', '=', $torrent->id)
+            ->first();
+
+        if ($personalFreeleech ||
+            $user->group->is_freeleech == 1 ||
+            $freeleechToken ||
+            \config('other.freeleech') == 1 ) {
+            $modDownloaded = 0;
+        } elseif ($torrent->free >= 1) {
+            // FL value in DB are from 0% to 100%.
+            // Divide it by 100 and multiply it with "downloaded" to get discount download.
+            $fl_discount = $downloaded * $torrent->free / 100;
+            $modDownloaded = $downloaded - $fl_discount;
+        } else {
+            $modDownloaded = $downloaded;
+        }
+
+        if ($torrent->doubleup == 1 ||
+            $user->group->is_double_upload == 1 ||
+            \config('other.doubleup') == 1) {
+            $modUploaded = $uploaded * 2;
+        } else {
+            $modUploaded = $uploaded;
+        }
+
         switch ($event) {
             case 'started':
-                // If no Peer record found then create one
-                if ($peer === null) {
-                    if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
-                        $queries['event'] = 'started';
-                    }
-
-                    $peer = new Peer();
-                }
                 $peer->peer_id = $queries['peer_id'];
                 $peer->md5_peer_id = \md5($queries['peer_id']);
                 $peer->info_hash = $queries['info_hash'];
@@ -538,10 +578,6 @@ class AnnounceController extends Controller
                 $peer->updateConnectableStateIfNeeded();
                 $peer->save();
 
-                // If no History record found then create one
-                if ($history === null) {
-                    $history = new History();
-                }
                 $history->user_id = $user->id;
                 $history->torrent_id = $torrent->id;
                 $history->info_hash = $queries['info_hash'];
@@ -559,15 +595,6 @@ class AnnounceController extends Controller
                 break;
 
             case 'completed':
-                // If no Peer record found then create one
-                if ($peer === null) {
-                    if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
-                        $ghost = true;
-                        $queries['event'] = 'started';
-                    }
-                    $peer = new Peer();
-                }
-
                 $peer->peer_id = $queries['peer_id'];
                 $peer->md5_peer_id = \md5($queries['peer_id']);
                 $peer->info_hash = $queries['info_hash'];
@@ -582,49 +609,6 @@ class AnnounceController extends Controller
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
                 $peer->save();
-
-                $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
-
-                if ($ghost) {
-                    $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
-                } else {
-                    $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
-                }
-
-                // Modification of Upload and Download
-                $personalFreeleech = PersonalFreeleech::query()
-                    ->where('user_id', '=', $user->id)
-                    ->first();
-
-                $freeleechToken = FreeleechToken::query()
-                    ->where('user_id', '=', $user->id)
-                    ->where('torrent_id', '=', $torrent->id)
-                    ->first();
-
-                if (\config('other.freeleech') == 1 || $personalFreeleech
-                    || $user->group->is_freeleech == 1 || $freeleechToken) {
-                    $modDownloaded = 0;
-                } elseif ($torrent->free >= 1) {
-                    // FL value in DB are from 0% to 100%.
-                    // Divide it by 100 and multiply it with "downloaded" to get discount download.
-                    $fl_discount = $downloaded * $torrent->free / 100;
-                    $modDownloaded = $downloaded - $fl_discount;
-                } else {
-                    $modDownloaded = $downloaded;
-                }
-
-                if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
-                    $modUploaded = $uploaded * 2;
-                } else {
-                    $modUploaded = $uploaded;
-                }
-
-                // If no History record found then create one
-                if ($history === null) {
-                    $history = new History();
-                }
 
                 $history->user_id = $user->id;
                 $history->torrent_id = $torrent->id;
@@ -658,16 +642,6 @@ class AnnounceController extends Controller
                 break;
 
             case 'stopped':
-                // If no Peer record found then create one
-                if ($peer === null) {
-                    if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
-                        $ghost = true;
-                        $queries['event'] = 'started';
-                    }
-
-                    $peer = new Peer();
-                }
-
                 $peer->peer_id = $queries['peer_id'];
                 $peer->md5_peer_id = \md5($queries['peer_id']);
                 $peer->info_hash = $queries['info_hash'];
@@ -682,48 +656,6 @@ class AnnounceController extends Controller
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
                 $peer->save();
-
-                $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
-
-                if ($ghost) {
-                    $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
-                } else {
-                    $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
-                }
-
-                // Modification of Upload and Download
-                $personalFreeleech = PersonalFreeleech::query()
-                    ->where('user_id', '=', $user->id)
-                    ->first();
-                $freeleechToken = FreeleechToken::query()
-                    ->where('user_id', '=', $user->id)
-                    ->where('torrent_id', '=', $torrent->id)
-                    ->first();
-
-                if (\config('other.freeleech') == 1 || $personalFreeleech
-                    || $user->group->is_freeleech == 1 || $freeleechToken) {
-                    $modDownloaded = 0;
-                } elseif ($torrent->free >= 1) {
-                    // FL value in DB are from 0% to 100%.
-                    // Divide it by 100 and multiply it with "downloaded" to get discount download.
-                    $fl_discount = $downloaded * $torrent->free / 100;
-                    $modDownloaded = $downloaded - $fl_discount;
-                } else {
-                    $modDownloaded = $downloaded;
-                }
-
-                if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
-                    $modUploaded = $uploaded * 2;
-                } else {
-                    $modUploaded = $uploaded;
-                }
-
-                // If no History record found then create one
-                if ($history === null) {
-                    $history = new History();
-                }
 
                 $history->user_id = $user->id;
                 $history->torrent_id = $torrent->id;
@@ -757,19 +689,6 @@ class AnnounceController extends Controller
                 break;
 
             default:
-                if ($peer === null && \strtolower($queries['event']) === 'completed') {
-                    break;
-                }
-
-                // If no Peer record found then create one
-                if ($peer === null) {
-                    if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
-                        $ghost = true;
-                        $queries['event'] = 'started';
-                    }
-
-                    $peer = new Peer();
-                }
                 $peer->peer_id = $queries['peer_id'];
                 $peer->md5_peer_id = \md5($queries['peer_id']);
                 $peer->info_hash = $queries['info_hash'];
@@ -785,47 +704,6 @@ class AnnounceController extends Controller
                 $peer->updateConnectableStateIfNeeded();
                 $peer->save();
 
-                $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
-
-                if ($ghost) {
-                    $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
-                } else {
-                    $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
-                    $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
-                }
-
-                // Modification of Upload and Download
-                $personalFreeleech = PersonalFreeleech::query()
-                    ->where('user_id', '=', $user->id)
-                    ->first();
-                $freeleechToken = FreeleechToken::query()
-                    ->where('user_id', '=', $user->id)
-                    ->where('torrent_id', '=', $torrent->id)
-                    ->first();
-
-                if (\config('other.freeleech') == 1 || $personalFreeleech
-                    || $user->group->is_freeleech == 1 || $freeleechToken) {
-                    $modDownloaded = 0;
-                } elseif ($torrent->free >= 1) {
-                    // FL value in DB are from 0% to 100%.
-                    // Divide it by 100 and multiply it with "downloaded" to get discount download.
-                    $fl_discount = $downloaded * $torrent->free / 100;
-                    $modDownloaded = $downloaded - $fl_discount;
-                } else {
-                    $modDownloaded = $downloaded;
-                }
-
-                if (\config('other.doubleup') == 1 || $torrent->doubleup == 1 || $user->group->is_double_upload == 1) {
-                    $modUploaded = $uploaded * 2;
-                } else {
-                    $modUploaded = $uploaded;
-                }
-
-                // If no History record found then create one
-                if ($history === null) {
-                    $history = new History();
-                }
                 $history->user_id = $user->id;
                 $history->torrent_id = $torrent->id;
                 $history->info_hash = $queries['info_hash'];
@@ -890,7 +768,7 @@ class AnnounceController extends Controller
     {
         $compactPeers = '';
         foreach ($peers as $peer) {
-            if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP)) {
+            if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP , FILTER_FLAG_IPV4)) {
                 $compactPeers .= \inet_pton($peer['ip']);
                 $compactPeers .= \pack('n', (int) $peer['port']);
             }
