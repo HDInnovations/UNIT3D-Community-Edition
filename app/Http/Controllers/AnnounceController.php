@@ -118,6 +118,7 @@ class AnnounceController extends Controller
             if (\config('announce.min_interval.enabled')) {
                 $this->checkMinInterval($torrent, $queries, $user);
             }
+
             /**
              * Check User Max Connections Per Torrent.
              */
@@ -239,7 +240,7 @@ class AnnounceController extends Controller
         // Part.2 check Announce **Option** Fields
         foreach ([
             'event'   => '',
-            'numwant' => 50,
+            'numwant' => 25,
             'corrupt' => 0,
             'key'     => '',
         ] as $item => $value) {
@@ -367,11 +368,11 @@ class AnnounceController extends Controller
     private function checkPeer($torrent, $queries, $user): void
     {
         \throw_if(\strtolower($queries['event']) === 'completed' &&
-            ! Peer::query()
+            Peer::query()
                 ->where('torrent_id', '=', $torrent->id)
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
-                ->exists(),
+                ->doesntExist(),
             new TrackerException(152));
     }
 
@@ -850,8 +851,8 @@ class AnnounceController extends Controller
                 $user->uploaded += $modUploaded;
                 $user->downloaded += $modDownloaded;
                 $user->save();
-            // End User Update
-        }
+                // End User Update
+            }
 
         // Sync Seeders / Leechers Count
         $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)
