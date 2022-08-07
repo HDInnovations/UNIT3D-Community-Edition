@@ -153,7 +153,7 @@ class AnnounceController extends Controller
     protected function checkClient(Request $request): void
     {
         // Miss Header User-Agent is not allowed.
-        \throw_if(!$request->header('User-Agent'), new TrackerException(120));
+        \throw_if(! $request->header('User-Agent'), new TrackerException(120));
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
         \throw_if($request->header('accept-language') || $request->header('referer')
@@ -170,7 +170,7 @@ class AnnounceController extends Controller
         $userAgent = $request->header('User-Agent');
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
-        \throw_if(\strlen((string)$userAgent) > 64, new TrackerException(123));
+        \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
 
         // Block Browser by checking the User-Agent
         \throw_if(\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i',
@@ -193,7 +193,7 @@ class AnnounceController extends Controller
         \throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
 
         // If Passkey Lenght Is Wrong
-        \throw_if(\strlen((string)$passkey) !== 32,
+        \throw_if(\strlen((string) $passkey) !== 32,
             new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]));
 
         // If Passkey Format Is Wrong
@@ -222,34 +222,34 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            \throw_if(\strlen((string)$queries[$item]) !== 20,
+            \throw_if(\strlen((string) $queries[$item]) !== 20,
                 new TrackerException(133, [':attribute' => $item, ':rule' => 20]));
         }
 
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
-            \throw_if(!\is_numeric($itemData) || $itemData < 0,
+            \throw_if(! \is_numeric($itemData) || $itemData < 0,
                 new TrackerException(134, [':attribute' => $item]));
         }
 
         // Part.2 check Announce **Option** Fields
         foreach ([
-                     'event' => '',
-                     'no_peer_id' => 1,
-                     'compact' => 0,
-                     'numwant' => 50,
-                     'corrupt' => 0,
-                     'key' => '',
-                 ] as $item => $value) {
+            'event' => '',
+            'no_peer_id' => 1,
+            'compact' => 0,
+            'numwant' => 50,
+            'corrupt' => 0,
+            'key' => '',
+        ] as $item => $value) {
             $queries[$item] = $request->query->get($item, $value);
         }
 
         foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            \throw_if(!\is_numeric($queries[$item]) || $queries[$item] < 0,
+            \throw_if(! \is_numeric($queries[$item]) || $queries[$item] < 0,
                 new TrackerException(134, [':attribute' => $item]));
         }
 
-        \throw_if(!\in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']),
+        \throw_if(! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']),
             new TrackerException(136, [':event' => \strtolower($queries['event'])]));
 
         // Part.3 check Port is Valid and Allowed
@@ -260,7 +260,7 @@ class AnnounceController extends Controller
         \throw_if($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped',
             new TrackerException(137, [':event' => \strtolower($queries['event'])]));
 
-        \throw_if(!\is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
+        \throw_if(! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
             || \in_array($queries['port'],
                 self::BLACK_PORTS,
                 true), new TrackerException(135, [':port' => $queries['port']]));
@@ -433,8 +433,8 @@ class AnnounceController extends Controller
         $repDict = [
             'interval'     => random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
-            'complete'     => (int)$torrent->seeders,
-            'incomplete'   => (int)$torrent->leechers,
+            'complete'     => (int) $torrent->seeders,
+            'incomplete'   => (int) $torrent->leechers,
             'peers'        => '',
         ];
 
@@ -738,7 +738,7 @@ class AnnounceController extends Controller
                 $user->save();
                 // End User Update
                 break;
-                
+
             default:
                 if ($peer === null && \strtolower($queries['event']) === 'completed') {
                     break;
@@ -869,7 +869,7 @@ class AnnounceController extends Controller
         foreach ($peers as $peer) {
             if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP)) {
                 $compactPeers .= \inet_pton($peer['ip']);
-                $compactPeers .= \pack('n', (int)$peer['port']);
+                $compactPeers .= \pack('n', (int) $peer['port']);
             }
         }
 
