@@ -485,7 +485,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * Process Announce Databasse Queries
+     * Process Announce Databasse Queries.
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
