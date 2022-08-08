@@ -749,7 +749,7 @@ class AnnounceController extends Controller
     /**
      * Send Final Announce Response.
      */
-    protected function sendFinalAnnounceResponse(array $repDict): Response
+    protected function sendFinalAnnounceResponse($repDict): Response
     {
         return \response(Bencode::bencode($repDict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
