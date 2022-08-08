@@ -82,63 +82,41 @@ class AnnounceController extends Controller
         $repDict = null;
 
         try {
-            /**
-             * Check client.
-             */
+            // Check client.
             $this->checkClient($request);
 
-            /**
-             * Check passkey.
-             */
+            // Check passkey.
             $this->checkPasskey($passkey);
 
-            /**
-             * Check and then get Announce queries.
-             */
+            // Check and then get Announce queries.
             $queries = $this->checkAnnounceFields($request);
 
-            /**
-             * Check user via supplied passkey.
-             */
+            // Check user via supplied passkey.
             $user = $this->checkUser($passkey, $queries);
 
-            /**
-             * Get Torrent Info Array from queries and judge if user can reach it.
-             */
+            // Get Torrent Info Array from queries and judge if user can reach it.
             $torrent = $this->checkTorrent($queries['info_hash']);
 
-            /**
-             * Check if a user is announcing a torrent as completed but no peer is in db.
-             */
+            // Check if a user is announcing a torrent as completed but no peer is in db.
             $this->checkPeer($torrent, $queries, $user);
 
-            /**
-             * Lock Min Announce Interval.
-             */
+            // Lock Min Announce Interval.
             if (\config('announce.min_interval.enabled')) {
                 $this->checkMinInterval($torrent, $queries, $user);
             }
 
-            /**
-             * Check User Max Connections Per Torrent.
-             */
+            // Check User Max Connections Per Torrent.
             $this->checkMaxConnections($torrent, $user);
 
-            /**
-             * Check Download Slots.
-             */
+            // Check Download Slots.
             if (\config('announce.slots_system.enabled')) {
                 $this->checkDownloadSlots($queries, $user);
             }
 
-            /**
-             * Generate A Response For The Torrent Clent.
-             */
+             // Generate A Response For The Torrent Clent.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
-            /**
-             * Process Annnounce Job.
-             */
+            // Process Annnounce Job.
             $this->processAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
             $repDict = $this->generateFailedAnnounceResponse($exception);
@@ -195,17 +173,17 @@ class AnnounceController extends Controller
         // If Passkey Is Not Provided Return Error to Client
         \throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
 
-        // If Passkey Lenght Is Wrong
+        // If Passkey Length Is Wrong
         \throw_if(\strlen((string) $passkey) !== 32,
             new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]));
 
         // If Passkey Format Is Wrong
         \throw_if(\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32,
-            new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']));
+            new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect']));
     }
 
     /**
-     * Check If Announnce Fields.
+     * Extract and validate Announce fields.
      *
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
@@ -216,7 +194,7 @@ class AnnounceController extends Controller
             'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
         ];
 
-        // Part.1 check Announce **Need** Fields
+        // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $request->query->get($item);
             if (! \is_null($itemData)) {
@@ -237,7 +215,7 @@ class AnnounceController extends Controller
                 new TrackerException(134, [':attribute' => $item]));
         }
 
-        // Part.2 check Announce **Option** Fields
+        // Part.2 Extract optional announce fields
         foreach ([
             'event'   => '',
             'numwant' => 25,
@@ -372,7 +350,7 @@ class AnnounceController extends Controller
             $torrent->peers
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
-                ->doesntExist(),
+                ->isEmpty(),
             new TrackerException(152));
     }
 
