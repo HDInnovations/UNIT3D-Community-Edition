@@ -363,9 +363,7 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->select('updated_at')
+        $prevAnnounce = $torrent->peers
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
@@ -712,14 +710,17 @@ class AnnounceController extends Controller
             }
 
         // Sync Seeders / Leechers Count
-        $torrent->seeders = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('left', '=', '0')
-            ->count();
-        $torrent->leechers = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('left', '>', '0')
-            ->count();
+        $torrent->seeders = match ($event) {
+            'started' => $torrent->peers->where('left', '=', 0)->count() + 1,
+            'stopped' => $torrent->peers->where('left', '=', 0)->count() - 1,
+            default => $torrent->peers->where('left', '=', 0)->count(),
+        };
+        $torrent->leechers = match ($event) {
+            'started' => $torrent->peers->where('left', '>', 0)->count() + 1,
+            'stopped' => $torrent->peers->where('left', '>', 0)->count() - 1,
+            default => $torrent->peers->where('left', '>', 0)->count(),
+        };
+
         $torrent->save();
     }
 
