@@ -113,7 +113,7 @@ class AnnounceController extends Controller
                 $this->checkDownloadSlots($queries, $user);
             }
 
-             // Generate A Response For The Torrent Clent.
+            // Generate A Response For The Torrent Clent.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
