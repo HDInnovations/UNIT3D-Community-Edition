@@ -315,6 +315,7 @@ class AnnounceController extends Controller
     {
         // Check Info Hash Against Torrents Table
         $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
+            ->with(['peers'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
             ->first();
@@ -346,11 +347,10 @@ class AnnounceController extends Controller
     private function checkPeer($torrent, $queries, $user): void
     {
         \throw_if(\strtolower($queries['event']) === 'completed' &&
-            Peer::query()
-                ->where('torrent_id', '=', $torrent->id)
+            $torrent->peers
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
-                ->doesntExist(),
+                ->isEmpty(),
             new TrackerException(152));
     }
 
@@ -385,8 +385,7 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
+        $connections = $torrent->peers
             ->where('user_id', '=', $user->id)
             ->count();
 
