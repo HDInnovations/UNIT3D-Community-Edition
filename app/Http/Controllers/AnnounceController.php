@@ -713,12 +713,12 @@ class AnnounceController extends Controller
         $torrent->seeders = match ($event) {
             'started' => $torrent->peers->where('left', '=', 0)->count() + 1,
             'stopped' => $torrent->peers->where('left', '=', 0)->count() - 1,
-            default => $torrent->peers->where('left', '=', 0)->count(),
+            default   => $torrent->peers->where('left', '=', 0)->count(),
         };
         $torrent->leechers = match ($event) {
             'started' => $torrent->peers->where('left', '>', 0)->count() + 1,
             'stopped' => $torrent->peers->where('left', '>', 0)->count() - 1,
-            default => $torrent->peers->where('left', '>', 0)->count(),
+            default   => $torrent->peers->where('left', '>', 0)->count(),
         };
 
         $torrent->save();
