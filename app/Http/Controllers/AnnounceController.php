@@ -363,7 +363,7 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce =  Peer::query()
+        $prevAnnounce = Peer::query()
             ->where('torrent_id', '=', $torrent->id)
             ->select('updated_at')
             ->where('peer_id', '=', $queries['peer_id'])
@@ -385,7 +385,7 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections =  Peer::query()
+        $connections = Peer::query()
             ->where('torrent_id', '=', $torrent->id)
             ->where('user_id', '=', $user->id)
             ->count();
