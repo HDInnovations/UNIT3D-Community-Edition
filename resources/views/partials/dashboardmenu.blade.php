@@ -76,6 +76,11 @@
                     <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('staff.bon_exchanges.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-cash-register"></i> {{ __('bon.bon') }} {{ __('bon.exchange') }}
+                </a>
+            </li>
             @if (auth()->user()->group->is_admin)
                 <li>
                     <a href="{{ route('staff.forums.index') }}">
