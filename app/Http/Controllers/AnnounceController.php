@@ -468,8 +468,7 @@ class AnnounceController extends Controller
         $event = \strtolower($queries['event']);
 
         // Get The Current Peer
-        $peer = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
+        $peer = $torrent->peers
             ->where('peer_id', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
