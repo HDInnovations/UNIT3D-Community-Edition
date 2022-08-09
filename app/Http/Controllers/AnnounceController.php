@@ -12,7 +12,7 @@ declare(strict_types=1);
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @credits    Rhilip <https://github.com/Rhilip>
+ * @credits    Rhilip <https://github.com/Rhilip> Roardom <roardom@protonmail.com>
  */
 
 namespace App\Http\Controllers;
@@ -38,8 +38,8 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 2_400;
-    private const MAX = 3_600;
+    private const MIN = 2_700;
+    private const MAX = 5_400;
 
     // Port Blacklist
     private const BLACK_PORTS = [
@@ -438,12 +438,12 @@ class AnnounceController extends Controller
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            $peers = Peer::query()
-                ->where('torrent_id', '=', $torrent->id)
+            $peers = $torrent->peers
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
                 ->take($limit)
-                ->get(['ip', 'port'])
+                ->map
+                ->only(['ip', 'port'])
                 ->toArray();
 
             $repDict['peers'] = $this->givePeers($peers);
@@ -708,20 +708,6 @@ class AnnounceController extends Controller
                 $user->save();
                 // End User Update
             }
-
-        // Sync Seeders / Leechers Count
-        $torrent->seeders = match ($event) {
-            'started' => $torrent->peers->where('left', '=', 0)->count() + 1,
-            'stopped' => $torrent->peers->where('left', '=', 0)->count() - 1,
-            default   => $torrent->peers->where('left', '=', 0)->count(),
-        };
-        $torrent->leechers = match ($event) {
-            'started' => $torrent->peers->where('left', '>', 0)->count() + 1,
-            'stopped' => $torrent->peers->where('left', '>', 0)->count() - 1,
-            default   => $torrent->peers->where('left', '>', 0)->count(),
-        };
-
-        $torrent->save();
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
