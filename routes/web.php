@@ -636,6 +636,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Bon Exchanges
+        Route::group(['prefix' => 'bon-exchanges'], function () {
+            Route::name('staff.bon_exchanges.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\BonExchangeController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'store'])->name('store');
+                Route::get('/{bonExchange}/edit', [App\Http\Controllers\Staff\BonExchangeController::class, 'edit'])->name('edit');
+                Route::patch('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'update'])->name('update');
+                Route::delete('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Categories System
         Route::group(['prefix' => 'categories'], function () {
             Route::name('staff.categories.')->group(function () {
