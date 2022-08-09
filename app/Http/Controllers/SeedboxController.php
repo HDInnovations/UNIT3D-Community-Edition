@@ -50,7 +50,7 @@ class SeedboxController extends Controller
 
         $v = \validator($seedbox->toArray(), [
             'name'  => 'required|alpha_num',
-            'ip'    => 'required|unique:clients,ip',
+            'ip'    => 'required|unique:clients,ip|ip',
         ]);
 
         if ($v->fails()) {
