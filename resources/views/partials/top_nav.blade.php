@@ -261,7 +261,7 @@
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
-                <a href="{{ route('bonus') }}">
+                <a href="{{ route('earnings.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-coins" ></i>
                     {{ auth()->user()->getSeedbonus() }}
                 </a>

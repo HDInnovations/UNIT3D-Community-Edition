@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
@@ -34,54 +34,27 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($uploadOptions as $u => $uu)
-                <tr>
-                    <td>{{ $uu['description'] }}</td>
-                    <td>{{ $uu['cost'] }}</td>
-                    <td>
-                        <form method="POST" action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
-                            @csrf
-                            <button class="form__button form__button--filled">
-                                {{ __('bon.exchange') }}
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            @foreach ($personalFreeleech as $p => $pf)
-                <tr>
-                    <td>{{ $pf['description'] }}</td>
-                    <td>{{ $pf['cost'] }}</td>
-                    <td>
-                        @if ($activefl)
-                            <button disabled class="form__button form__button--filled">
-                                {{ __('bon.activated') }}!
-                            </button>
-                        @else
-                            <form method="POST" action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
-                                @csrf
-                                <button class="form__button form__button--filled">
-                                    {{ __('bon.exchange') }}
+                @foreach ($items as $item)
+                    <tr>
+                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->cost }}</td>
+                        <td>
+                            @if ($item->personal_freeleech && $activefl)
+                                <button disabled class="form__button form__button--filled">
+                                    {{ __('bon.activated') }}!
                                 </button>
-                            </form>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-            @foreach ($invite as $i => $in)
-                <tr>
-                    <td>{{ $in['description'] }}</td>
-                    <td>{{ $in['cost'] }}</td>
-                    <td>
-                        <form method="POST" action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
-                            @csrf
-                            <button class="form__button form__button--filled">
-                                {{ __('bon.exchange') }}
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+                            @else
+                                <form method="POST" action="{{ route('transactions.store', ['username' => $user->username]) }}">
+                                    @csrf
+                                    <button class="form__button form__button--filled">
+                                        {{ __('bon.exchange') }}
+                                    </button>
+                                    <input type="hidden" name="exchange" value="{{ $item->id }}">
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </section>

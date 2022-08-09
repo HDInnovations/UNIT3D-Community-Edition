@@ -160,7 +160,7 @@
                                             BON
                                         </div>
                                     @endif
-                                    <div id="forumTip" route="{{ route('tip_poster') }}"
+                                    <div id="forumTip" route="{{ route('tips.store', ['username' => auth()->user()->id]) }}"
                                          leaveTip="{{ __('torrent.leave-tip') }}" quickTip="{{ __('torrent.quick-tip') }}">
                                         <a class="forumTip" href="#/" post="{{ $p->id }}"
                                            user="{{ $p->user->id }}">{{ __('forum.tip-this-post') }}</a></div>
