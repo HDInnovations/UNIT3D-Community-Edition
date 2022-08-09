@@ -43,23 +43,18 @@ class AutoHighspeedTag extends Command
      */
     public function handle(): void
     {
-        DB::statement('UPDATE torrents SET highspeed = 0');
+        $seedboxIps = Seedbox::all()->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
-        $seedboxUsers = Seedbox::pluck('user_id');
-
-        if ($seedboxUsers) {
-            $torid = Peer::whereIntegerInRaw('user_id', $seedboxUsers)->where('seeder', '=', 1)->pluck('torrent_id');
-
-            foreach ($torid as $id) {
-                $torrent = Torrent::select(['id', 'highspeed'])->where('id', '=', $id)->first();
-                if (isset($torrent)) {
-                    $torrent->highspeed = 1;
-                    $torrent->save();
-                }
-
-                unset($torrent);
-            }
-        }
+        Torrent::withAnyStatus()
+            ->leftJoinSub(
+                Peer::distinct()
+                    ->select('torrent_id')
+                    ->whereRaw("ip IN ('".$seedboxIps->implode("','")."')"),
+                'highspeed_torrents',
+                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id'))
+            ->update([
+                'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
+            ]);
 
         $this->comment('Automated High Speed Torrents Command Complete');
     }
