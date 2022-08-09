@@ -13,8 +13,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Peer;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Unit\Console\Commands\SyncPeersTest
@@ -33,23 +35,27 @@ class SyncPeers extends Command
      *
      * @var string
      */
-    protected $description = 'Corrects Torrent Seeders/Leechers (Peers) Count Due To Not Receiving A STOPPED Event From Client.';
+    protected $description = 'Sync Torrent Seeders/Leechers (Peers) Count.';
 
     /**
      * Execute the console command.
      */
     public function handle(): void
     {
-        $torrents = Torrent::select(['id', 'seeders', 'leechers'])
-            ->with('peers')
-            ->withAnyStatus()
-            ->get();
-
-        foreach ($torrents as $torrent) {
-            $torrent->seeders = $torrent->peers->where('left', '=', '0')->count();
-            $torrent->leechers = $torrent->peers->where('left', '>', '0')->count();
-            $torrent->save();
-        }
+        Torrent::withAnyStatus()
+            ->leftJoinSub(
+                Peer::query()
+                    ->select('torrent_id')
+                    ->addSelect(DB::raw('sum(case when peers.left = 0 then 1 else 0 end) as updated_seeders'))
+                    ->addSelect(DB::raw('sum(case when peers.left <> 0 then 1 else 0 end) as updated_leechers'))
+                    ->groupBy('torrent_id'),
+                'seeders_leechers',
+                fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
+            )
+            ->update([
+                'seeders'  => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
+                'leechers' => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
+            ]);
 
         $this->comment('Torrent Peer Syncing Command Complete');
     }
