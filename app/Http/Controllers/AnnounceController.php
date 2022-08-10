@@ -449,8 +449,8 @@ class AnnounceController extends Controller
 
             foreach ($peers as $peer) {
                 if (isset($peer['ip'], $peer['port'])) {
-                    $peer_insert_field = \filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'peers': 'peers6';
-                    $repDict[$peer_insert_field] .= \inet_pton($peer['ip']) . \pack('n', (int) $peer['port']);
+                    $peer_insert_field = \filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'peers' : 'peers6';
+                    $repDict[$peer_insert_field] .= \inet_pton($peer['ip']).\pack('n', (int) $peer['port']);
                 }
             }
         }
@@ -586,7 +586,7 @@ class AnnounceController extends Controller
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
                 $peer->seeder = $queries['left'] == 0;
-                $peer->left = $queries['left'];;
+                $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
