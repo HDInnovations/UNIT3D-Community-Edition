@@ -553,7 +553,7 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
                 $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
@@ -565,7 +565,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->immune = $user->group->is_immune == 1;
                 $history->uploaded += 0;
                 $history->actual_uploaded += 0;
@@ -585,7 +585,7 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
                 $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
@@ -597,7 +597,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;
@@ -631,7 +631,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 0;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;
@@ -662,7 +662,7 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
                 $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
@@ -674,7 +674,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;

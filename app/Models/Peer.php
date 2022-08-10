@@ -73,7 +73,7 @@ class Peer extends Model
             }
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
-                $this->connectable = \is_resource($con);
+                $this->connectable = (int) \is_resource($con);
                 Redis::connection('cache')->set($key, serialize($this->connectable));
                 Redis::connection('cache')->expire($key, \config('announce.connectable_check_interval') + 3600);
                 if (\is_resource($con)) {
