@@ -428,6 +428,7 @@ class AnnounceController extends Controller
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
             'peers'        => '',
+            'peers6'       => '',
         ];
 
         /**
@@ -446,7 +447,12 @@ class AnnounceController extends Controller
                 ->only(['ip', 'port'])
                 ->toArray();
 
-            $repDict['peers'] = $this->givePeers($peers);
+            foreach ($peers as $peer) {
+                if (isset($peer['ip'], $peer['port'])) {
+                    $peer_insert_field = \filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'peers' : 'peers6';
+                    $repDict[$peer_insert_field] .= \inet_pton($peer['ip']).\pack('n', (int) $peer['port']);
+                }
+            }
         }
 
         return $repDict;
@@ -547,7 +553,7 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
                 $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
@@ -559,7 +565,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->immune = $user->group->is_immune == 1;
                 $history->uploaded += 0;
                 $history->actual_uploaded += 0;
@@ -579,8 +585,8 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = 1;
-                $peer->left = 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
+                $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
@@ -591,7 +597,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;
@@ -618,27 +624,14 @@ class AnnounceController extends Controller
                 break;
 
             case 'stopped':
-                $peer->peer_id = $queries['peer_id'];
-                $peer->md5_peer_id = \md5($queries['peer_id']);
-                $peer->info_hash = $queries['info_hash'];
-                $peer->ip = $queries['ip-address'];
-                $peer->port = $queries['port'];
-                $peer->agent = $queries['user-agent'];
-                $peer->uploaded = $realUploaded;
-                $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
-                $peer->left = $queries['left'];
-                $peer->torrent_id = $torrent->id;
-                $peer->user_id = $user->id;
-                $peer->updateConnectableStateIfNeeded();
-                $peer->save();
+                $peer->delete();
 
                 $history->user_id = $user->id;
                 $history->torrent_id = $torrent->id;
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 0;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;
@@ -647,15 +640,11 @@ class AnnounceController extends Controller
                 $history->client_downloaded = $realDownloaded;
                 // Seedtime allocation
                 if ($queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
+                    $newUpdate = Carbon::now();
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
                 $history->save();
-
-                // Peer Delete (Now that history is updated)
-                $peer->delete();
-                // End Peer Delete
 
                 // User Update
                 $user->uploaded += $modUploaded;
@@ -673,7 +662,7 @@ class AnnounceController extends Controller
                 $peer->agent = $queries['user-agent'];
                 $peer->uploaded = $realUploaded;
                 $peer->downloaded = $realDownloaded;
-                $peer->seeder = $queries['left'] == 0;
+                $peer->seeder = (int) ($queries['left'] == 0);
                 $peer->left = $queries['left'];
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
@@ -685,7 +674,7 @@ class AnnounceController extends Controller
                 $history->info_hash = $queries['info_hash'];
                 $history->agent = $queries['user-agent'];
                 $history->active = 1;
-                $history->seeder = $queries['left'] == 0;
+                $history->seeder = (int) ($queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
                 $history->client_uploaded = $realUploaded;
@@ -726,21 +715,5 @@ class AnnounceController extends Controller
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
             ->withHeaders(['Connection' => 'close'])
             ->withHeaders(['Pragma' => 'no-cache']);
-    }
-
-    /**
-     * Return Compact Peers.
-     */
-    private function givePeers($peers): string
-    {
-        $compactPeers = '';
-        foreach ($peers as $peer) {
-            if (isset($peer['ip'], $peer['port']) && \filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                $compactPeers .= \inet_pton($peer['ip']);
-                $compactPeers .= \pack('n', (int) $peer['port']);
-            }
-        }
-
-        return $compactPeers;
     }
 }
