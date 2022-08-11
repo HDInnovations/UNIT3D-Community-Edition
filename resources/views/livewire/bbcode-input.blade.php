@@ -14,7 +14,9 @@
             input.dispatchEvent(new Event('input'));
             input.focus();
             if (openTag.charAt(openTag.length - 2) === '=') {
-                input.setSelectionRange(start + openTag.length - 2, start + openTag.length - 2);
+                input.setSelectionRange(start + openTag.length - 1, start + openTag.length - 1);
+            } else if (start == end) {
+                input.setSelectionRange(start + openTag.length, end + openTag.length);
             } else {
                 input.setSelectionRange(start, end + openTag.length + closeTag.length);
             }
