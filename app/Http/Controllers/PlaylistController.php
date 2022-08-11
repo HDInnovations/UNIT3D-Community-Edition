@@ -140,6 +140,7 @@ class PlaylistController extends Controller
 
         $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon'])
             ->where('playlist_id', '=', $playlist->id)
+            ->whereHas('torrent')
             ->orderBy(function ($query) {
                 $query->select('name')
                     ->from('torrents')

@@ -369,7 +369,7 @@
                             value="1"
                             @checked(old('anonymous'))
                         >
-                        <label for="anonymous">{{ __('common.anonymous') }}?</label>
+                        <label class="form__label" for="anonymous">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
                         <input type="hidden" name="stream" value="0">
@@ -381,7 +381,7 @@
                             x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'"
                             @checked(old('stream'))
                         >
-                        <label for="stream">{{ __('torrent.stream-optimized') }}?</label>
+                        <label class="form__label" for="stream">{{ __('torrent.stream-optimized') }}?</label>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
                         <input type="hidden" name="sd" value="0">
@@ -393,7 +393,7 @@
                             x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'""
                             @checked(old('sd'))
                         >
-                        <label for="sd">{{ __('torrent.sd-content') }}?</label>
+                        <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
                     </p>
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <p class="form__group">
@@ -406,7 +406,7 @@
                                 value="1"
                                 @checked(old('internal'))
                             >
-                            <label for="internal">{{ __('torrent.internal') }}?</label>
+                            <label class="form__label" for="internal">{{ __('torrent.internal') }}?</label>
                         </p>
                     @else
                         <input type="hidden" name="internal" value="0">
@@ -421,8 +421,22 @@
                             value="1"
                             @checked(old('personal_release'))
                         >
-                        <label for="personal_release">Personal Release?</label>
+                        <label class="form__label" for="personal_release">Personal Release?</label>
                     </p>
+                    @if ($user->group->is_trusted)
+                        <p class="form__group">
+                            <input type="hidden" name="mod_queue_opt_in" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="mod_queue_opt_in"
+                                name="mod_queue_opt_in"
+                                value="1"
+                                @checked(old('mod_queue_opt_in'))
+                            >
+                            <label class="form__label" for="mod_queue_opt_in">Opt in to Moderation Queue?</label>
+                        </p>
+                    @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <p class="form__group">
                             <select name="free" id="free" class="form__select">

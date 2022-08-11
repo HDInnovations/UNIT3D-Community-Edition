@@ -605,7 +605,7 @@ class TorrentController extends Controller
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted) {
+        if ($user->group->is_trusted && ! $request->mod_queue_opt_in) {
             $appurl = \config('app.url');
             $user = $torrent->user;
             $username = $user->username;
