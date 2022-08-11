@@ -67,8 +67,8 @@
                 <br>
                 @if ($torrent->imdb != 0 && $torrent->imdb != null)
                     <span class="badge-user text-bold">
-                    <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB" target="_blank">
-                        <i class="{{ config('other.font-awesome') }} fa-film"></i> IMDB: {{ $torrent->imdb }}
+                    <a href="https://www.imdb.com/title/tt{{ \str_pad((int) $torrent->imdb, \max(\strlen((int) $torrent->imdb), 7), '0', STR_PAD_LEFT) }}" title="IMDB" target="_blank">
+                        <i class="{{ config('other.font-awesome') }} fa-film"></i> IMDB: {{ \str_pad((int) $torrent->imdb, \max(\strlen((int) $torrent->imdb), 7), '0', STR_PAD_LEFT) }}
                     </a>
                 </span>
                 @endif
