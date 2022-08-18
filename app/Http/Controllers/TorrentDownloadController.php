@@ -80,6 +80,8 @@ class TorrentDownloadController extends Controller
         if ($request->user() || ($rsskey && $user)) {
             // Set the announce key and add the user passkey
             $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
+            // Remove Other announce url
+            unset($dict['announce-list']);
             // Set link to torrent as the comment
             if (config('torrent.comment')) {
                 $dict['comment'] = \config('torrent.comment').'. '.\route('torrent', ['id' => $id]);

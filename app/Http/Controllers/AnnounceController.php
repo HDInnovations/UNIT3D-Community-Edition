@@ -558,6 +558,7 @@ class AnnounceController extends Controller
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
+                $peer->updated_at = Carbon::now();
                 $peer->save();
 
                 $history->user_id = $user->id;
@@ -590,6 +591,7 @@ class AnnounceController extends Controller
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
+                $peer->updated_at = Carbon::now();
                 $peer->save();
 
                 $history->user_id = $user->id;
@@ -667,6 +669,7 @@ class AnnounceController extends Controller
                 $peer->torrent_id = $torrent->id;
                 $peer->user_id = $user->id;
                 $peer->updateConnectableStateIfNeeded();
+                $peer->updated_at = Carbon::now();
                 $peer->save();
 
                 $history->user_id = $user->id;
