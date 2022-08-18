@@ -18,7 +18,9 @@ use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Models\Torrent;
 use App\Models\User;
+use App\Observers\TorrentObserver;
 use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use Illuminate\Support\Facades\Blade;
@@ -36,12 +38,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Wish
+        // Wish System
         $this->app->bind(WishInterface::class, WishRepository::class);
 
         // Hidden Captcha
-        $this->app->bind('hiddencaptcha', \App\Helpers\HiddenCaptcha::class);
+        $this->app->bind('hiddencaptcha', HiddenCaptcha::class);
 
+        // Gabrielelana byte-units
         $this->app->bind(ByteUnitsInterface::class, ByteUnits::class);
     }
 
@@ -54,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
 
         // Torrent Observer For Cache
-        //Torrent::observe(TorrentObserver::class);
+        Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {

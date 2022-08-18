@@ -38,7 +38,7 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 2_700;
+    private const MIN = 3_600;
     private const MAX = 5_400;
 
     // Port Blacklist
@@ -314,7 +314,7 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
+        $torrent = \cache()->get(\sprintf('torrent:%s', $infoHash)) ?? Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->with(['peers'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
