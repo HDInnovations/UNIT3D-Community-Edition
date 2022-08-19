@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
 
         // Torrent Observer For Cache
-        Torrent::observe(TorrentObserver::class);
+        // Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {

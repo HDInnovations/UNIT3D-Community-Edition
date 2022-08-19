@@ -314,7 +314,7 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = \cache()->get(\sprintf('torrent:%s', $infoHash)) ?? Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
+        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->with(['peers'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
