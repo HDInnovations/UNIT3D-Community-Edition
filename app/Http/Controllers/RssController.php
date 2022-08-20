@@ -182,7 +182,7 @@ class RssController extends Controller
             ->when($search->alive !== null, fn ($query) => $query->alive())
             ->when($search->dying !== null, fn ($query) => $query->dying())
             ->when($search->dead !== null, fn ($query) => $query->dead())
-            ->latest()
+            ->orderByDesc('bumped_at')
             ->take(50)
             ->get();
 
