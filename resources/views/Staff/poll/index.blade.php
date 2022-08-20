@@ -15,16 +15,18 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>{{ __('poll.poll') }}</h2>
-        <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
-            {{ __('poll.poll') }}
-        </a>
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+@section('page', 'page__poll-admin--index')
+
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('poll.poll') }}</h2>
+            <a href="{{ route('staff.polls.create') }}" class="form__button form__button--text">
+                {{ __('common.add') }}
+            </a>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                 <tr>
                     <th>{{ __('poll.title') }}</th>
@@ -35,22 +37,66 @@
                 <tbody>
                 @foreach ($polls as $poll)
                     <tr>
-                        <td><a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">{{ $poll->title }}</a></td>
-                        <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
                         <td>
-                            <form action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
-                                   class="btn btn-warning">{{ __('common.edit') }}</a>
-                                <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
-                            </form>
-
+                            <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">
+                                {{ $poll->title }}
+                            </a>
+                        </td>
+                        <td>
+                            <time datetime="{{ $poll->created_at }}" title="{{ $poll->created_at }}">
+                                {{ date('d M Y', $poll->created_at->getTimestamp()) }}
+                            </time>
+                        </td>
+                        <td>
+                            <menu class="data-table__actions">
+                                <li class="data-table__action">
+                                    <a
+                                        href="{{ route('poll', ['id' => $poll->id]) }}"
+                                        class="form__button form__button--text"
+                                    >
+                                        {{ __('common.view') }}
+                                    </a>
+                                </li>
+                                <li class="data-table__action">
+                                    <a
+                                        href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
+                                        class="form__button form__button--text"
+                                    >
+                                        {{ __('common.edit') }}
+                                    </a>
+                                </li>
+                                <li class="data-table__action">
+                                    <form
+                                        action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}"
+                                        method="POST"
+                                        x-data
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button 
+                                            x-on:click.prevent="Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: 'Are you sure you want to delete this poll: {{ $poll->title }}?',
+                                                icon: 'warning',
+                                                showConfirmButton: true,
+                                                showCancelButton: true,
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $root.submit();
+                                                }
+                                            })"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </button>
+                                    </form>
+                                </li>
+                            </menu>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 @endsection

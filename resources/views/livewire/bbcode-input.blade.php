@@ -200,6 +200,9 @@
                     placeholder=""
                     x-ref="bbcode"
                     wire:model.defer="contentBbcode"
+                    @if ($isRequired)
+                        required
+                    @endif
                 ></textarea>
                 <label class="form__label form__label--floating" for="{{ $name }}">
                     {{ $label }}

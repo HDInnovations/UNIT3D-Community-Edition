@@ -14,6 +14,7 @@
     border-radius: var(--panel-border-radius);
     contain: content;
     height: fit-content;
+    break-inside: avoid;
 }
 
 .panel__header {
@@ -42,16 +43,19 @@
 .panel__actions {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
-    padding-right: 12px;
+    padding: 4px 4px 4px 12px;
     color: var(--panel-action-fg);
+    background-color: var(--panel-head-bg);
 }
 
 .panel__action {
     flex-shrink: 0;
     color: var(--panel-action-fg);
     font-size: 14px;
+    background-color: var(--panel-head-bg);
 }
 
 .panel__body {
@@ -61,4 +65,8 @@
     color: var(--panel-fg);
     background-color: var(--panel-bg);
     overflow-wrap: break-word;
+}
+
+.panel--grid-item {
+    height: 100%;
 }

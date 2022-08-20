@@ -20,8 +20,8 @@
     </li>
 @endsection
 
-@section('content')
-    <div>
-        @livewire('backup-panel')
-    </div>
+@section('page', 'page__backup-manager--index')
+
+@section('main')
+    @livewire('backup-panel')
 @endsection

@@ -48,6 +48,20 @@
     --button-text-border-radius: 5px;
     --button-text-fg: currentColor;
 
+    --data-table-th-bg: #2c2c2c;
+    --data-table-thead-border: none;
+    --data-table-tr-even-bg: #272727;
+    --data-table-tr-odd-bg: #272727;
+    --data-table-tfoot-border: none;
+
+    --dialog-bg: #272727;
+    --dialog-border: none;
+    --dialog-border-radius: 10px;
+    --dialog-box-shadow: none;
+    --dialog-fg: var(--text-color);
+    --dialog-head-bg: #1c1c1c;
+    --dialog-head-fg: #fff;
+
     --icon-button-bg: inherit;
     --icon-button-border: none;
     --icon-button-border-radius: 9999px;
@@ -71,6 +85,16 @@
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
 
+    --meter-fg: #333;
+    --meter-bg: #505050;
+
+    --paginate-bg: #272727;
+    --paginate-bg-hover: #222;
+    --paginate-bg-current: #202020;
+    --paginate-fg: #888;
+    --paginate-fg-disabled: #555;
+    --paginate-divider: #303030;
+
     --panel-action-fg: #aaa;
     --panel-border: none;
     --panel-bg: #272727;
@@ -86,6 +110,9 @@
     --select-border-hover: 2px solid #999;
     --select-border-radius: 5px;
     --select-fg: #bbb;
+
+    --subforum-listing-odd-bg: #2a2a2a;
+    --subforum-listing-even-bg: transparent;
 
     --textarea-border: 1px solid #555;
     --textarea-border-active: 2px solid #2196f3;
