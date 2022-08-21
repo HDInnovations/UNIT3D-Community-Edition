@@ -114,7 +114,6 @@
                         </label>
                     </div>
 
-                    @if ($user->group->name == "Internal")
                         <div class="form-group">
                             <label for="about">Internal Group:</label>
                             <label>
@@ -131,7 +130,6 @@
                                 </select>
                             </label>
                         </div>
-                    @endif
 
                     <button type="submit" class="btn btn-default">{{ __('common.save') }}</button>
                 </form>
