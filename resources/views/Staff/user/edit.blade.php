@@ -132,7 +132,6 @@
                                 {{ __('common.group') }}
                             </label>
                         </p>
-                        @if ($user->is_internal)
                             <p class="form__group">
                                 <select
                                     id="internal_id"
@@ -155,7 +154,6 @@
                                     Internal Group
                                 </label>
                             </p>
-                        @endif
                         <p class="form__group">
                             <button class="form__button form__button--filled">
                                 {{ __('common.save') }}

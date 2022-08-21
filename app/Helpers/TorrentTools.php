@@ -241,6 +241,6 @@ class TorrentTools
      */
     public static function parseKeywords($text): array
     {
-        return \array_filter(\array_map('trim', explode(',', $text)));
+        return \array_filter(\array_unique(\array_map('trim', explode(',', $text))));
     }
 }
