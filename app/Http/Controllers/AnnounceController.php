@@ -29,6 +29,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AnnounceController extends Controller
 {
@@ -314,8 +315,8 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->with(['peers'])
+        $torrent = Torrent::query()
+            ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
             ->first();
@@ -347,11 +348,11 @@ class AnnounceController extends Controller
     private function checkPeer($torrent, $queries, $user): void
     {
         \throw_if(\strtolower($queries['event']) === 'completed' &&
-            $torrent->peers
+            ! DB::table('peers')
+                ->where('torrent_id', '=', $torrent->id)
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
-                ->isEmpty(),
-            new TrackerException(152));
+                ->exists(), new TrackerException(152));
     }
 
     /**
@@ -363,7 +364,9 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = $torrent->peers
+        $prevAnnounce = DB::table('peers')
+            ->select('updated_at')
+            ->where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
@@ -383,7 +386,8 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = $torrent->peers
+        $connections = DB::table('peers')
+            ->where('torrent_id', '=', $torrent->id)
             ->where('user_id', '=', $user->id)
             ->count();
 
@@ -403,7 +407,7 @@ class AnnounceController extends Controller
         $max = $user->group->download_slots;
 
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
-            $count = Peer::query()
+            $count = DB::table('peers')
                 ->where('user_id', '=', $user->id)
                 ->where('peer_id', '!=', $queries['peer_id'])
                 ->where('seeder', '=', 0)
@@ -439,12 +443,12 @@ class AnnounceController extends Controller
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            $peers = $torrent->peers
+            $peers = DB::table('peers')
+                ->where('torrent_id', '=', $torrent->id)
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
                 ->take($limit)
-                ->map
-                ->only(['ip', 'port'])
+                ->get(['ip', 'port'])
                 ->toArray();
 
             foreach ($peers as $peer) {
@@ -474,8 +478,9 @@ class AnnounceController extends Controller
         $event = \strtolower($queries['event']);
 
         // Get The Current Peer
-        $peer = $torrent->peers
-            ->where('peer_id', $queries['peer_id'])
+        $peer = Peer::query()
+            ->where('torrent_id', '=', $torrent->id)
+            ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
 
@@ -699,6 +704,15 @@ class AnnounceController extends Controller
                 $user->save();
                 // End User Update
             }
+
+        $peerCount = DB::table('peers')
+            ->where('torrent_id', '=', $torrent->id)
+            ->selectRaw('count(case when peers.left > 0 then 1 end) as leechers')
+            ->selectRaw('count(case when peers.left = 0 then 1 end) as seeders')
+            ->first();
+        $torrent->seeders = $peerCount->seeders;
+        $torrent->leechers = $peerCount->leechers;
+        $torrent->save();
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
