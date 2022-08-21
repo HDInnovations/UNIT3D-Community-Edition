@@ -348,7 +348,7 @@ class AnnounceController extends Controller
     private function checkPeer($torrent, $queries, $user): void
     {
         \throw_if(\strtolower($queries['event']) === 'completed' &&
-            ! DB::table('peers')
+            ! Peer::query()
                 ->where('torrent_id', '=', $torrent->id)
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
@@ -364,7 +364,7 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = DB::table('peers')
+        $prevAnnounce = Peer::query()
             ->select('updated_at')
             ->where('torrent_id', '=', $torrent->id)
             ->where('peer_id', '=', $queries['peer_id'])
@@ -386,7 +386,7 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = DB::table('peers')
+        $connections = Peer::query()
             ->where('torrent_id', '=', $torrent->id)
             ->where('user_id', '=', $user->id)
             ->count();
@@ -407,7 +407,7 @@ class AnnounceController extends Controller
         $max = $user->group->download_slots;
 
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
-            $count = DB::table('peers')
+            $count = Peer::query()
                 ->where('user_id', '=', $user->id)
                 ->where('peer_id', '!=', $queries['peer_id'])
                 ->where('seeder', '=', 0)
@@ -443,7 +443,7 @@ class AnnounceController extends Controller
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            $peers = DB::table('peers')
+            $peers = Peer::query()
                 ->where('torrent_id', '=', $torrent->id)
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
