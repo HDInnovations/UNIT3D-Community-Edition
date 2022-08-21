@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -63,13 +64,23 @@ class PageController extends Controller
     }
 
     /**
-     * Show Blacklist Page.
+     * Show Client-Blacklist Page.
      */
-    public function blacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function clientblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = \config('client-blacklist.clients', []);
+        $clients = \config('blacklist.clients', []);
 
-        return \view('page.blacklist', ['clients' => $clients]);
+        return \view('page.blacklist.client', ['clients' => $clients]);
+    }
+
+    /**
+     * Show Releasegroup-Blacklist Page.
+     */
+    public function releasegroupblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $releasegroups = DB::table('blacklist_releasegroups')->get();
+
+        return \view('page.blacklist.releasegroup', ['releasegroups' => $releasegroups]);
     }
 
     /**

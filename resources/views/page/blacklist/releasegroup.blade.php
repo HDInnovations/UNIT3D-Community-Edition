@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('blacklist') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('releasegroup_blacklist') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
                 {{ __('common.blacklist') }}</span>
         </a>
@@ -15,17 +15,19 @@
             <div class="alert alert-info" id="alert1">
                 <div class="text-center">
                     <span>
-                        {{ __('page.blacklist-desc', ['title' => config('other.title')]) }}
+                        The Following Release Groups Are Blacklisted/Forbidden On {{ config('other.title') }}
                     </span>
                 </div>
             </div>
             <div class="row black-list">
-                <h2>{{ __('page.blacklist-clients') }}</h2>
-                @foreach ($clients as $client)
+                <h2>Release Groups</h2>
+                @foreach ($releasegroups as $releasegroup)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
-                            <h4>{{ $client }}</h4>
-                            <span>{{ __('page.blacklist-btclient') }}</span>
+                            <h4>{{ $releasegroup->name }}</h4>
+                            <span>
+                                <small>Added {{ \Carbon\Carbon::parse($releasegroup->created_at)->format('Y-m-d')}}</small>
+                            </span>
                             <i class="fal fa-ban text-red black-icon"></i>
                         </div>
                     </div>
