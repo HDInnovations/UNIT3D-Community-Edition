@@ -27,11 +27,14 @@
     --button-text-border-radius: 5px;
     --button-text-fg: currentColor;
 
-    --data-table-th-bg: #2c2c2c;
-    --data-table-thead-border: 3px solid rgba(14, 21, 34, 0.25);
-    --data-table-tr-even-bg: #333;
-    --data-table-tr-odd-bg: #2c2c2c;
-    --data-table-tfoot-border: 3px solid rgba(14, 21, 34, 0.25);
+    --data-table-fg: inherit;
+    --data-table-th-bg: #19191b;
+    --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid #404040;
+    --data-table-tr-even-bg: #222;
+    --data-table-tr-hover-bg: #282828;
+    --data-table-tr-odd-bg: #222;
+    --data-table-tfoot-border: none;
 
     --dialog-bg: #222;
     --dialog-border: 3px solid rgba(14, 21, 34, 0.25);

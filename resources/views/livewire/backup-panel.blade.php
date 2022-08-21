@@ -1,4 +1,4 @@
-<div>
+<div style="display: flex; flex-direction: column; gap: 1rem;">
     <section class="panelV2" x-data>
         <header class="panel__header">
             <h2 class="panel__heading">UNIT3D Backup Manager</h2>
@@ -76,7 +76,7 @@
                         <td>{{ $file['size'] }}</td>
                         <td>
                             <menu class="data-table__actions">
-                                <li class="data-table__action"
+                                <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
                                         target="_blank"

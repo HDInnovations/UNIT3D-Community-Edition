@@ -1,7 +1,7 @@
 .data-table {
     width: 100%;
     border: 0;
-    color: var(--panel-fg);
+    color: var(--data-table-fg);
     border-collapse: collapse;
 }
 
@@ -29,7 +29,11 @@
 .data-table > tfoot > tr > td {
     padding: 7px;
     font-size: 14px;
-    border-bottom: 1px solid #333;
+}
+
+.data-table > tr:not(.data-table > tr:last-child) > td,
+.data-table > tbody > tr:not(.data-table > tbody > tr:last-child) > td {
+    border-bottom: var(--data-table-tr-border);
 }
 
 .data-table tr:nth-child(even) > td {
@@ -45,7 +49,7 @@
 .data-table > thead > tr:hover > td,
 .data-table > tbody > tr:hover > td,
 .data-table > tfoot > tr:hover > td {
-    background-color: var(--data-table-tr-even-bg);
+    background-color: var(--data-table-tr-hover-bg);
 }
 
 /* footer */

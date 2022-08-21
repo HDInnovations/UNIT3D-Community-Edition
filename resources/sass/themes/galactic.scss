@@ -48,9 +48,12 @@
     --button-text-border-radius: 5px;
     --button-text-fg: currentColor;
 
+    --data-table-fg: var(--text-color);
     --data-table-th-bg: #2c2c2c;
     --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid #333;
     --data-table-tr-even-bg: #272727;
+    --data-table-tr-hover-bg: #2c2c2c;
     --data-table-tr-odd-bg: #272727;
     --data-table-tfoot-border: none;
 

@@ -27,6 +27,15 @@
     --button-text-border-radius: 5px;
     --button-text-fg: currentColor;
 
+    --data-table-fg: inherit;
+    --data-table-th-bg: #efefef;
+    --data-table-thead-border: 1px solid rgba(14, 21, 34, 0.25);
+    --data-table-tr-border: 1px solid #ddd;
+    --data-table-tr-even-bg: #efefef;
+    --data-table-tr-hover-bg: #d6d6d6;
+    --data-table-tr-odd-bg: #e2e2e2;
+    --data-table-tfoot-border: 3px solid rgba(14, 21, 34, 0.25);
+
     --dialog-bg: #e2e2e2;
     --dialog-border: 1px solid #ddd;
     --dialog-border-radius: 10px;
