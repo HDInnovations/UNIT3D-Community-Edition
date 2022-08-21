@@ -8,7 +8,6 @@
 
 .key-value dt,
 .key-value dd {
-    padding: calc(var(--key-value-padding) / 2) var(--key-value-padding);
     font-size: 13px;
     line-height: 1;
     font-weight: normal;
@@ -24,8 +23,16 @@
     padding-bottom: var(--key-value-padding);
 }
 
+.key-value dt {
+    text-align: left;
+    padding: calc(var(--key-value-padding) / 2) calc(var(--key-value-padding) / 2) calc(var(--key-value-padding) / 2)
+        var(--key-value-padding);
+}
+
 .key-value dd {
     text-align: right;
+    padding: calc(var(--key-value-padding) / 2) var(--key-value-padding) calc(var(--key-value-padding) / 2)
+        calc(var(--key-value-padding) / 2);
 }
 
 .key-value dt:nth-child(4n + 1),

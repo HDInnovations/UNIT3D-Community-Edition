@@ -16,29 +16,46 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>
-            {{ __('common.add') }} {{ __('common.media-language') }} {{ __('staff.media-languages-desc') }}
+@section('page', 'page__media-language--create')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.add') }}
         </h2>
-        <form role="form" method="POST" action="{{ route('staff.media_languages.store') }}">
-            @csrf
-
-            <div class="form-group">
-                <label for="name">{{ __('common.name') }}</label>
-                <label>
-                    <input type="text" class="form-control" name="name">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="name">{{ __('common.code') }}</label>
-                <label>
-                    <input type="text" class="form-control" name="code">
-                </label>
-            </div>
-
-            <button type="submit" class="btn btn-default">{{ __('common.add') }}</button>
-        </form>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.media_languages.store') }}">
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        type="text"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="code"
+                        class="form__text"
+                        name="code"
+                        type="text"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.code') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
+        </div>
     </div>
 @endsection

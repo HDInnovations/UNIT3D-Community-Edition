@@ -1,121 +1,106 @@
-<div>
-    <div class="mb-10 form-inline pull-right">
-        <div class="form-group">
-            {{ __('common.quantity') }}
-            <select wire:model="perPage" class="form-control">
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-            </select>
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">{{ __('common.users') }}</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <div class="form__group">
+                    <select
+                        id="quantity"
+                        class="form__select"
+                        wire:model="perPage"
+                        required
+                    >
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                    <label class="form__label form__label--floating">
+                        {{ __('common.quantity') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        id="search"
+                        class="form__text"
+                        type="text"
+                        wire:model="search"
+                        placeholder=""
+                    />
+                    <label class="form__label form__label--floating">
+                        {{ __('user.search') }}
+                    </label>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <input type="text" wire:model="search" class="form-control" style="width: 275px;"
-                   placeholder="{{ __('user.search') }}"/>
-        </div>
-    </div>
-    <div class="box-body no-padding">
-        <table class="table vertical-align table-hover">
+    </header>
+    <div class="data-table-wrapper">
+        <table class="data-table">
             <tbody>
             <tr>
                 <th>Avatar</th>
-                <th>
-                    <div sortable wire:click="sortBy('username')"
-                         :direction="$sortField === 'username' ? $sortDirection : null" role="button">
-                        {{ __('common.username') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'username'])
-                    </div>
+                <th wire:click="sortBy('username')" role="columnheader button">
+                    {{ __('common.username') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'username'])
                 </th>
-                <th>
-                    <div sortable wire:click="sortBy('group_id')"
-                         :direction="$sortField === 'group_id' ? $sortDirection : null" role="button">
-                        {{ __('common.group') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'group_id'])
-                    </div>
+                <th wire:click="sortBy('group_id')" role="columnheader button">
+                    {{ __('common.group') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'group_id'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('email')"
-                         :direction="$sortField === 'email' ? $sortDirection : null"
-                         role="button">
-                        {{ __('common.email') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'email'])
-                    </div>
+                <th wire:click="sortBy('email')" role="columnheader button">
+                    {{ __('common.email') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'email'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('created_at')"
-                         :direction="$sortField === 'created_at' ? $sortDirection : null"
-                         role="button">
+                <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('user.registration-date') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                    </div>
+                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('last_login')"
-                         :direction="$sortField === 'last_login' ? $sortDirection : null"
-                         role="button">
-                        {{ __('user.last-login') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'last_login'])
-                    </div>
+                <th wire:click="sortBy('last_login')" role="columnheader button">
+                    {{ __('user.last-login') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'last_login'])
                 </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
-            @foreach ($users as $user)
+            @forelse ($users as $user)
                 <tr>
                     <td>
-                        @if ($user->image != null)
-                            <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
-                                 class="img-circle" style="width: 40px; height: 40px;">
-                        @else
-                            <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
-                                 class="img-circle" style="width: 40px; height: 40px;">
-                        @endif
+                        <img
+                            src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
+                            alt="{{ $user->username }}"
+                            class="user-search__avatar"
+                        >
+                    </td>
+                    <td colspan="2">
+                        <x-user_tag :anon="false" :user="$user" />
+                    </td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        <time datetime="{{ $user->created_at }}">{{ $user->created_at }}</time>
                     </td>
                     <td>
-						<span class="badge-user text-bold">
-                            {{ $user->username }}
-                        </span>
+                        <time datetime="{{ $user->last_login }}">{{ $user->last_login ?? 'Never' }}</time>
                     </td>
                     <td>
-						<span class="badge-user text-bold"
-                              style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};">
-                            <i class="{{ $user->group->icon }}"></i>
-                            {{ $user->group->name }}
-                        </span>
-                    </td>
-                    <td class="hidden-sm hidden-xs">{{ $user->email }}</td>
-                    <td class="hidden-sm hidden-xs">{{ $user->created_at }}</td>
-                    <td class="hidden-sm hidden-xs">{{ $user->last_login ?? 'Never' }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown" href="#"
-                               aria-expanded="true">
-                                {{ __('common.actions') }}
-                                <i class="fas fa-caret-circle-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" target="_blank"
-                                       href="{{ route('users.show', ['username' => $user->username]) }}">{{ __('common.view') }} {{ __('user.profile') }}</a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}">{{ __('user.edit') }}</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <menu class="data-table__actions">
+                            <li class="data-table__action">
+                                <a
+                                    class="form__button form__button--text"
+                                    href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                >
+                                    {{ __('common.edit') }}
+                                </a>
+                            </li>
+                        </menu>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="7">No users</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
-        @if (! $users->count())
-            <div class="margin-10">
-                {{ __('common.no-result') }}
-            </div>
-        @endif
-        <br>
-        <div class="text-center">
-            {{ $users->links() }}
-        </div>
     </div>
-</div>
+    {{ $users->links('partials.pagination') }}
+</section>

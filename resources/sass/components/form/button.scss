@@ -5,6 +5,7 @@
     margin: 6px;
     padding: 8px 12px;
     align-self: flex-start;
+    filter: brightness(1);
     transition: filter 300ms;
 
     &:hover {
@@ -15,6 +16,12 @@
         filter: brightness(0.9);
         transition: none;
     }
+}
+
+/* Centered text */
+
+.form__button--centered {
+    text-align: center;
 }
 
 /* Filled */

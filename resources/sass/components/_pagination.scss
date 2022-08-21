@@ -1,0 +1,105 @@
+.pagination {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    max-width: 100vw;
+    background-color: var(--paginate-bg);
+}
+
+.pagination__items {
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+    min-width: 0;
+}
+
+.pagination__previous,
+.pagination__next {
+    width: 90px;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: var(--paginate-fg);
+    background-color: var(--paginate-bg);
+    text-align: center;
+    display: block;
+}
+
+.pagination__previous:not(.pagination__previous--disabled):not(:hover)::after {
+    content: '';
+    width: 1px;
+    height: 26px;
+    background: var(--paginate-divider);
+    position: absolute;
+    right: 0px;
+    top: 7px;
+}
+
+.pagination__next:not(.pagination__next--disabled):not(:hover)::before {
+    content: '';
+    width: 1px;
+    height: 26px;
+    background: var(--paginate-divider);
+    position: absolute;
+    left: 0px;
+    top: 7px;
+}
+
+.pagination__page-wrapper {
+    overflow-x: auto;
+}
+
+.pagination__pages {
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+}
+
+.pagination__link {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: var(--paginate-fg);
+    background-color: var(--paginate-bg);
+    text-align: center;
+}
+
+.pagination__link.pagination__link:hover,
+.pagination__previous:not(.pagination__previous--disabled):hover,
+.pagination__next:not(.pagination__next--disabled):hover {
+    background-color: var(--paginate-bg-hover) !important;
+}
+
+.pagination__ellipsis {
+    background-color: var(--paginate-bg);
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--paginate-fg-disabled);
+    cursor: default;
+}
+
+.pagination__current {
+    font-weight: 900;
+    background-color: var(--paginate-bg-current);
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--paginate-fg-disabled);
+    cursor: default;
+}
+
+.pagination__ellipsis.pagination__ellipsis:hover {
+    background-color: var(--paginate-bg) !important;
+}

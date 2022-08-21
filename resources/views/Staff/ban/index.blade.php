@@ -19,69 +19,57 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('common.user') }} {{ __('user.bans') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i>
-                            {{ __('user.bans') }}
-                        </strong></p>
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ __('common.user') }}</th>
-                                <th>{{ __('user.judge') }}</th>
-                                <th>{{ __('user.reason-ban') }}</th>
-                                <th>{{ __('user.reason-unban') }}</th>
-                                <th>{{ __('user.created') }}</th>
-                                <th>{{ __('user.removed') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if (count($bans) == 0)
-                                <p>The are no bans in database</p>
-                            @else
-                                @foreach ($bans as $b)
-                                    <tr>
-                                        <td>
-                                            {{ $b->id }}
-                                        </td>
-                                        <td class="user-name">
-                                            <a class="name"
-                                               href="{{ route('users.show', ['username' => $b->banneduser->username]) }}">{{ $b->banneduser->username }}</a>
-                                        </td>
-                                        <td class="user-name">
-                                            <a class="name"
-                                               href="{{ route('users.show', ['username' => $b->staffuser->username]) }}">{{ $b->staffuser->username }}</a>
-                                        </td>
-                                        <td>
-                                            {{ $b->ban_reason }}
-                                        </td>
-                                        <td>
-                                            {{ $b->unban_reason }}
-                                        </td>
-                                        <td>
-                                            {{ $b->created_at }}
-                                        </td>
-                                        <td>
-                                            {{ $b->removed_at }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                {{ $bans->links() }}
-            </div>
+@section('page', 'page__bans-log--index')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.user') }} {{ __('user.bans') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('user.judge') }}</th>
+                        <th>{{ __('user.reason-ban') }}</th>
+                        <th>{{ __('user.reason-unban') }}</th>
+                        <th>{{ __('user.created') }}</th>
+                        <th>{{ __('user.removed') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($bans as $ban)
+                        <tr>
+                            <td>{{ $ban->id }}</td>
+                            <td>
+                                <x-user_tag :anon="false" :user="$ban->banneduser" />
+                            </td>
+                            <td>
+                                <x-user_tag :anon="false" :user="$ban->staffuser" />
+                            </td>
+                            <td>{{ $ban->ban_reason }}</td>
+                            <td>{{ $ban->unban_reason }}</td>
+                            <td>
+                                <time datetime="{{ $ban->created_at }}">
+                                    {{ $ban->created_at }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $ban->removed_at }}">
+                                    {{ $ban->removed_at }}
+                                </time>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7">
+                                No bans
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    </div>
+        {{ $bans->links('partials.pagination') }}
+    </section>
 @endsection
