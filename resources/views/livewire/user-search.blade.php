@@ -86,7 +86,7 @@
                             <li class="data-table__action">
                                 <a
                                     class="form__button form__button--text"
-                                    href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                    href="{{ route('staff.users.user_setting', ['username' => $user->username]) }}"
                                 >
                                     {{ __('common.edit') }}
                                 </a>

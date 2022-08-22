@@ -16,7 +16,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.exchange') }}</h2>
             <div class="panel__actions">
-                <a href="{{ route('staff.bon_exchanges.create') }}" class="panel__action">
+                <a href="{{ route('staff.bon-exchanges.create') }}" class="panel__action form__button form__button--text">
                     {{ __('common.add') }}
                     {{ trans_choice('common.a-an-art',true) }}
                     {{ __('bon.exchange') }}
@@ -57,10 +57,10 @@
                             @endswitch
                         </td>
                         <td>
-                            <form x-data action="{{ route('staff.bon_exchanges.destroy', ['bonExchange' => $bonExchange->id]) }}" method="POST">
+                            <form x-data action="{{ route('staff.bon-exchanges.destroy', ['bon_exchange' => $bonExchange]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('staff.bon_exchanges.edit', ['bonExchange' => $bonExchange->id]) }}"
+                                <a href="{{ route('staff.bon-exchanges.edit', ['bon_exchange' => $bonExchange]) }}"
                                    class="form__button form__button--filled">
                                     {{ __('common.edit') }}
                                 </a>

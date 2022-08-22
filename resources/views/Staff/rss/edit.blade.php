@@ -29,7 +29,7 @@
         <form
             class="form"
             method="POST"
-            action="{{ route('staff.rss.update', ['id' => $rss->id]) }}"
+            action="{{ route('staff.rss.update', ['rss' => $rss]) }}"
         >
             @csrf
             @method('PATCH')
@@ -53,7 +53,7 @@
                     inputmode="numeric"
                     name="position"
                     pattern="[0-9]*"
-                    placeholder=""
+                    required
                     type="text"
                     value="{{ $rss->position }}"
                 >

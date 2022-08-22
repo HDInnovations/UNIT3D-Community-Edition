@@ -33,10 +33,10 @@ class WatchlistController extends Controller
     /**
      * Store A New Watched User.
      */
-    final public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    final public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $watchedUser = new Watchlist();
-        $watchedUser->user_id = $id;
+        $watchedUser->user_id = $request->user_id;
         $watchedUser->staff_id = $request->user()->id;
         $watchedUser->message = $request->input('message');
 
@@ -53,7 +53,7 @@ class WatchlistController extends Controller
 
         $watchedUser->save();
 
-        return \to_route('staff.watchlist.index')
+        return \to_route('staff.watched-users.index')
             ->withSuccess('User Successfully Being Watched');
     }
 
@@ -62,12 +62,11 @@ class WatchlistController extends Controller
      *
      * @throws \Exception
      */
-    final public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    final public function destroy(Watchlist $watchedUser): \Illuminate\Http\RedirectResponse
     {
-        $watchedUser = Watchlist::findOrFail($id);
         $watchedUser->delete();
 
-        return \to_route('staff.watchlist.index')
+        return \to_route('staff.watched-users.index')
             ->withSuccess('Successfully Stopped Watching User');
     }
 }

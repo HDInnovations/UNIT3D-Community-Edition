@@ -73,7 +73,7 @@
                         <menu class="data-table__actions">
                             <li class="data-table__action">
                                 <form
-                                    action="{{ route('staff.watchlist.destroy', ['id' => $watching->id]) }}"
+                                    action="{{ route('staff.watched-users.destroy', ['watched_user' => $watching]) }}"
                                     method="POST"
                                     x-data
                                 >

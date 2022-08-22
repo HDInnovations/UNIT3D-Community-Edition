@@ -56,7 +56,7 @@
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
-                            <a href="{{ route('staff.groups.edit', ['id' => $group->id]) }}">
+                            <a href="{{ route('staff.groups.edit', ['group' => $group]) }}">
                                 {{ $group->name }}
                             </a>
                         </td>

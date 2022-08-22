@@ -13,12 +13,12 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chat-statuses.index') }}">
             {{ __('staff.statuses') }}
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>
@@ -50,7 +50,7 @@
                     @foreach($bots as $bot)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}">
+                                <a href="{{ route('staff.bots.edit', ['bot' => $bot]) }}">
                                     {{ $bot->name }}
                                 </a>
                             </td>
@@ -77,7 +77,7 @@
                                             <li class="data-table__action">
                                                 <form
                                                     method="POST"
-                                                    action="{{ route('staff.bots.disable', ['id' => $bot->id]) }}"
+                                                    action="{{ route('staff.bots.disable', ['bot' => $bot]) }}"
                                                 >
                                                     @csrf
                                                     <button class="form__button form__button--text">
@@ -89,7 +89,7 @@
                                             <li class="data-table__action">
                                                 <form
                                                     method="POST"
-                                                    action="{{ route('staff.bots.enable', ['id' => $bot->id]) }}"
+                                                    action="{{ route('staff.bots.enable', ['bot' => $bot]) }}"
                                                 >
                                                     @csrf
                                                     <button class="form__button form__button--text">
@@ -102,7 +102,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}"
+                                            href="{{ route('staff.bots.edit', ['bot' => $bot]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -110,7 +110,7 @@
                                     <li class="data-table__action">
                                         <form
                                             class="data-table__action"
-                                            action="{{ route('staff.bots.destroy', ['id' => $bot->id]) }}"
+                                            action="{{ route('staff.bots.destroy', ['bot' => $bot]) }}"
                                             method="POST"
                                         >
                                             @csrf

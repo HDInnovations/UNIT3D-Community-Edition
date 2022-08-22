@@ -59,13 +59,13 @@
             </h2>
             <div class="panel__body">
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.statuses.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.chat-statuses.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i>
                         {{ __('staff.statuses') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.rooms.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.chatrooms.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i>
                         {{ __('staff.rooms') }}
                     </a>
@@ -171,7 +171,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.media_languages.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.media-languages.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         {{ __('common.media-languages') }}
                     </a>
@@ -216,13 +216,13 @@
                     </a>
                 </li>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('user_search') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.users.user_search') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.watchlist.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.watched-users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         Watchlist
                     </a>

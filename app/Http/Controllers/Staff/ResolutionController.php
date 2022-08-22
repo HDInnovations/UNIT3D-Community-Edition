@@ -68,19 +68,16 @@ class ResolutionController extends Controller
     /**
      * Resolution Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Resolution $resolution): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolution = Resolution::findOrFail($id);
-
         return \view('Staff.resolution.edit', ['resolution' => $resolution]);
     }
 
     /**
      * Edit A Resolution.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Resolution $resolution): \Illuminate\Http\RedirectResponse
     {
-        $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');
         $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
@@ -107,9 +104,8 @@ class ResolutionController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Resolution $resolution): \Illuminate\Http\RedirectResponse
     {
-        $resolution = Resolution::findOrFail($id);
         $resolution->delete();
 
         return \to_route('staff.resolutions.index')

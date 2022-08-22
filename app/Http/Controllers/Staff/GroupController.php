@@ -115,12 +115,10 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Group $group): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
-
-        $group = Group::findOrFail($id);
 
         return \view('Staff.group.edit', ['group' => $group]);
     }
@@ -128,12 +126,10 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Group $group): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
-
-        $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');
         $group->slug = Str::slug($request->input('name'));

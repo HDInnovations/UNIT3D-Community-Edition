@@ -44,7 +44,7 @@
                             <td>{{ $report->id }}</td>
                             <td>{{ $report->type }}</td>
                             <td>
-                                <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}">
+                                <a href="{{ route('staff.reports.show', ['report' => $report]) }}">
                                     {{ $report->title }}
                                 </a>
                             </td>

@@ -13,12 +13,12 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chat-statuses.index') }}">
             {{ __('staff.statuses') }}
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab--active__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>
@@ -39,7 +39,7 @@
                 <div class="panel__action">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.rooms.create') }}"
+                        href="{{ route('staff.chatrooms.create') }}"
                     >
                         {{ __('common.add') }}
                     </a>
@@ -60,7 +60,7 @@
                     <tr>
                         <td>{{ $chatroom->id }}</td>
                         <td>
-                            <a href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}">
+                            <a href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}">
                                 {{ $chatroom->name }}
                             </a>
                         </td>
@@ -69,7 +69,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}"
+                                        href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -77,7 +77,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.rooms.destroy', ['id' => $chatroom->id]) }}"
+                                        action="{{ route('staff.chatrooms.destroy', ['chatroom' => $chatroom]) }}"
                                         x-data
                                     >
                                         @csrf

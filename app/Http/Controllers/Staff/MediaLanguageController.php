@@ -52,32 +52,29 @@ class MediaLanguageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.media_languages.index')
+            return \to_route('staff.media-languages.index')
                 ->withErrors($v->errors());
         }
 
         $mediaLanguage->save();
 
-        return \to_route('staff.media_languages.index')
+        return \to_route('staff.media-languages.index')
             ->withSuccess('Media Language Successfully Added');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(MediaLanguage $mediaLanguage): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
-
         return \view('Staff.media_language.edit', ['media_language' => $mediaLanguage]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, MediaLanguage $mediaLanguage): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->name = $request->input('name');
         $mediaLanguage->code = $request->input('code');
 
@@ -87,13 +84,13 @@ class MediaLanguageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.media_languages.index')
+            return \to_route('staff.media-languages.index')
                 ->withErrors($v->errors());
         }
 
         $mediaLanguage->save();
 
-        return \to_route('staff.media_languages.index')
+        return \to_route('staff.media-languages.index')
             ->withSuccess('Media Language Successfully Updated');
     }
 
@@ -102,12 +99,11 @@ class MediaLanguageController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(MediaLanguage $mediaLanguage): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->delete();
 
-        return \to_route('staff.media_languages.index')
+        return \to_route('staff.media-languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');
     }
 }

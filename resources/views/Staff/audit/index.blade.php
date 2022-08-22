@@ -87,7 +87,7 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.audits.destroy', ['id' => $audit->id]) }}"
+                                            action="{{ route('staff.audits.destroy', ['audit' => $audit]) }}"
                                             x-data
                                         >
                                             @csrf

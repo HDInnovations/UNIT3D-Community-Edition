@@ -37,10 +37,9 @@ class SeedboxController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Seedbox $seedbox): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $seedbox = Seedbox::findOrFail($id);
 
         \abort_unless($user->group->is_modo, 403);
         $seedbox->delete();

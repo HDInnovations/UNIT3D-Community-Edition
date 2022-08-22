@@ -29,10 +29,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.polls.update', ['id' => $poll->id]) }}"
-                x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }''
+                action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
+                x-data='{ extraOptions: @json($poll->options->map(fn ($item) => $item->only(['id', 'name']))) }'
             >
                 @csrf
+                @method('PATCH')
                 <input type="hidden" name="poll-id" value="{{ $poll->id }}">
                 <p class="form__group">
                     <input

@@ -44,7 +44,7 @@
                 @foreach ($articles as $article)
                     <tr class="articles-table__article">
                         <td>
-                            <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}">
+                            <a href="{{ route('staff.articles.edit', ['article' => $article]) }}">
                                 {{ $article->title }}
                             </a>
                         </td>
@@ -72,14 +72,14 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.articles.edit', ['id' => $article->id]) }}"
+                                        href="{{ route('staff.articles.edit', ['article' => $article]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}"
+                                        action="{{ route('staff.articles.destroy', ['article' => $article]) }}"
                                         method="POST"
                                         x-data
                                     >

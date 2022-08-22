@@ -51,7 +51,7 @@
                     inputmode="numeric"
                     name="position"
                     pattern="[0-9]*"
-                    placeholder=""
+                    required
                     type="text"
                 >
                 <label class="form__label form__label--floating" for="position">

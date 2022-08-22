@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('user_search') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.users.user_search') }}" class="breadcrumb__link">
             {{ __('common.users') }}
         </a>
     </li>
@@ -41,7 +41,7 @@
                     <form
                         class="form"
                         method="POST"
-                        action="{{ route('user_edit', ['username' => $user->username]) }}"
+                        action="{{ route('staff.users.user_edit', ['username' => $user->username]) }}"
                     >
                         @csrf
                         <p class="form__group">
@@ -168,7 +168,7 @@
                     <form
                         class="form"
                         method="POST"
-                        action="{{ route('user_password', ['username' => $user->username]) }}"
+                        action="{{ route('staff.users.user_password', ['username' => $user->username]) }}"
                     >
                         @csrf
                         <p class="form__group">
@@ -215,7 +215,7 @@
                     <form
                         class="form"
                         method="POST"
-                        action="{{ route('user_permissions', ['username' => $user->username]) }}"
+                        action="{{ route('staff.users.user_permissions', ['username' => $user->username]) }}"
                     >
                         @csrf
                         <p class="form__group">
@@ -351,7 +351,7 @@
                                         <menu class="data-table__actions">
                                             <li class="data-table__action">
                                                 <form
-                                                    action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
+                                                    action="{{ route('staff.notes.destroy', ['note' => $note]) }}"
                                                     method="POST"
                                                     x-data
                                                 >

@@ -23,7 +23,7 @@
             <div class="panel__actions">
                 <a
                     class="panel__action form__button form__button--text"
-                    href="{{ route('staff.media_languages.create') }}"
+                    href="{{ route('staff.media-languages.create') }}"
                 >
                     {{ __('common.add') }}
                 </a>
@@ -42,7 +42,7 @@
                     @foreach($media_languages as $media_language)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}">
+                                <a href="{{ route('staff.media-languages.edit', ['media_language' => $media_language]) }}">
                                     {{ $media_language->name }}
                                 </a>
                             </td>
@@ -52,7 +52,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}"
+                                            href="{{ route('staff.media-languages.edit', ['media_language' => $media_language]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -60,7 +60,7 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.media_languages.destroy', ['id' => $media_language->id]) }}"
+                                            action="{{ route('staff.media-languages.destroy', ['media_language' => $media_language]) }}"
                                             x-data
                                         >
                                             @csrf

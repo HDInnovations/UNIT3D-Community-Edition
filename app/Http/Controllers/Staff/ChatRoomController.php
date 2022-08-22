@@ -60,50 +60,47 @@ class ChatRoomController extends Controller
         $chatroom->name = $request->input('name');
 
         $v = \validator($chatroom->toArray(), [
-            'name' => 'required',
+            'name' => 'required|unique:App\Models\Chatroom,name',
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.rooms.index')
+            return \to_route('staff.chatrooms.index')
                 ->withErrors($v->errors());
         }
 
         $chatroom->save();
 
-        return \to_route('staff.rooms.index')
+        return \to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
 
     /**
      * Chatroom Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Chatroom $chatroom): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatroom = Chatroom::findOrFail($id);
-
         return \view('Staff.chat.room.edit', ['chatroom' => $chatroom]);
     }
 
     /**
      * Update A Chatroom.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
-        $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');
 
         $v = \validator($chatroom->toArray(), [
-            'name' => 'required',
+            'name' => 'required|unique:App\Models\Chatroom,name',
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.rooms.index')
+            return \to_route('staff.chatrooms.index')
                 ->withErrors($v->errors());
         }
 
         $chatroom->save();
 
-        return \to_route('staff.rooms.index')
+        return \to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }
 
@@ -112,10 +109,9 @@ class ChatRoomController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
-        $chatroom = Chatroom::findOrFail($id);
-        $users = User::where('chatroom_id', '=', $id)->get();
+        $users = User::where('chatroom_id', '=', $chatroom->id)->get();
         $default = Chatroom::where('name', '=', \config('chat.system_chatroom'))->pluck('id');
         foreach ($users as $user) {
             $user->chatroom_id = $default[0];
@@ -124,7 +120,7 @@ class ChatRoomController extends Controller
 
         $chatroom->delete();
 
-        return \to_route('staff.rooms.index')
+        return \to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 }

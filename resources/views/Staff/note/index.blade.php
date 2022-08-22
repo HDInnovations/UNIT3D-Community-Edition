@@ -56,7 +56,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
+                                            action="{{ route('staff.notes.destroy', ['note' => $note]) }}"
                                             method="POST"
                                             x-data
                                         >

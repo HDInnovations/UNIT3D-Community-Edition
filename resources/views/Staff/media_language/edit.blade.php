@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.media_languages.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.media-languages.index') }}" class="breadcrumb__link">
             {{ __('common.media-languages') }}
         </a>
     </li>
@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.media_languages.update', ['id' => $media_language->id]) }}"
+                action="{{ route('staff.media-languages.update', ['media_language' => $media_language]) }}"
             >
                 @csrf
                 <p class="form__group">

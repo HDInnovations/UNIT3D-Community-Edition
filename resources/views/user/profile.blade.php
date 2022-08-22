@@ -72,7 +72,7 @@
                                         </i>
                                     @endif
                                     @if ($user->notes->count() > 0 && auth()->user()->group->is_modo)
-                                        <a href="{{ route('user_setting', ['username' => $user->username]) }}"
+                                        <a href="{{ route('staff.users.user_setting', ['username' => $user->username]) }}"
                                            class="edit">
                                             <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger"
                                                aria-hidden="true" data-toggle="tooltip"
@@ -110,7 +110,7 @@
                                             <span class="{{ config('other.font-awesome') }} fa-eye"></span> Watch </button>
                                             @else
                                                 <form style="display: inline;"
-                                                      action="{{ route('staff.watchlist.destroy', ['id' => $watched->id]) }}"
+                                                      action="{{ route('staff.watched-users.destroy', ['watched_user' => $watched]) }}"
                                                       method="POST">
 							                    @csrf
                                                     @method('DELETE')
@@ -128,7 +128,7 @@
                                                         data-target="#modal_user_ban"><span
                                                             class="{{ config('other.font-awesome') }} fa-ban"></span> {{ __('user.ban') }}</button>
                                             @endif
-                                            <a href="{{ route('user_setting', ['username' => $user->username]) }}"
+                                            <a href="{{ route('staff.users.user_setting', ['username' => $user->username]) }}"
                                                class="btn btn-xs btn-warning"><span
                                                         class="{{ config('other.font-awesome') }} fa-pencil"></span> {{ __('user.edit') }} </a>
                                             <button class="btn btn-xs btn-danger" data-toggle="modal"

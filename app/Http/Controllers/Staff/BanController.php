@@ -43,9 +43,9 @@ class BanController extends Controller
      *
      * @throws \Exception
      */
-    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::findOrFail($request->user_id);
         $staff = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
@@ -85,9 +85,8 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      */
-    public function update(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);

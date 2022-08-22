@@ -13,12 +13,12 @@
 
 @section('nav-tabs')
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('staff.statuses.index') }}">
+        <a class="nav-tab--active__link" href="{{ route('staff.chat-statuses.index') }}">
             {{ __('staff.statuses') }}
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>
@@ -41,7 +41,7 @@
                 <div class="panel__action">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.statuses.create') }}"
+                        href="{{ route('staff.chat-statuses.create') }}"
                     >
                         {{ __('common.add') }}
                     </a>
@@ -64,7 +64,7 @@
                     <tr>
                         <td>{{ $chatstatus->id }}</td>
                         <td>
-                            <a href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}">
+                            <a href="{{ route('staff.chat-statuses.edit', ['chat_status' => $chatstatus]) }}">
                                 {{ $chatstatus->name }}
                             </a>
                         </td>
@@ -84,7 +84,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}"
+                                        href="{{ route('staff.chat-statuses.edit', ['chat_status' => $chatstatus]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -92,7 +92,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.statuses.destroy', ['id' => $chatstatus->id]) }}"
+                                        action="{{ route('staff.chat-statuses.destroy', ['chat_status' => $chatstatus]) }}"
                                         x-data
                                     >
                                         @csrf

@@ -71,19 +71,16 @@ class TypeController extends Controller
     /**
      * Type Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Type $type): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $type = Type::findOrFail($id);
-
         return \view('Staff.type.edit', ['type' => $type]);
     }
 
     /**
      * Edit A Type.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Type $type): \Illuminate\Http\RedirectResponse
     {
-        $type = Type::findOrFail($id);
         $type->name = $request->input('name');
         $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
@@ -110,9 +107,8 @@ class TypeController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Type $type): \Illuminate\Http\RedirectResponse
     {
-        $type = Type::findOrFail($id);
         $type->delete();
 
         return \to_route('staff.types.index')

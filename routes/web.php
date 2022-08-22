@@ -582,354 +582,173 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
+    Route::group([
+        'namespace'  => 'App\Http\Controllers\Staff',
+        'prefix'     => 'dashboard',
+        'middleware' => ['auth', 'twostep', 'modo', 'banned'],
+    ], function () {
+        Route::group(['as' => 'staff.'], function () {
+            // Staff Dashboard
+            Route::resource('/', HomeController::class)->only(['index'])->name('index', 'dashboard.index');
+
+            // Articles System
+            Route::resource('articles', ArticleController::class)->except(['show']);
+
+            // Applications System
+            // Can't use route model binding for applications as the hootex/laravel-moderation package global scope interferes with it
+            Route::group(['as' => 'applications.', 'controller' => ApplicationController::class, 'prefix' => 'applications'], function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/{id}', 'show')->name('show');
+                Route::post('/{id}/approve', 'approve')->name('approve');
+                Route::post('/{id}/reject', 'reject')->name('reject');
+            });
+
+            // Audit Log
+            Route::resource('audits', AuditController::class)->only(['index', 'destroy']);
+
+            // Authentications Log
+            Route::resource('authentications', AuthenticationController::class)->only(['index']);
+
+            // Backup System
+            Route::resource('backups', BackupController::class)->only(['index']);
+
+            // Ban System
+            Route::resource('bans', BanController::class)->only(['index', 'store']);
+            Route::group(['as' =>'bans.', 'controller' => BanController::class, 'prefix' => 'bans'], function () {
+                Route::delete('/{user}/destroy', 'destroy')->name('destroy');
+            });
+
+            // Bon Exchanges
+            Route::resource('bon-exchanges', BonExchangeController::class)->except(['show']);
+
+            // Categories System
+            Route::resource('categories', CategoryController::class)->except(['show']);
+
+            // Chat Bots System
+            Route::group(['as' => 'bots.', 'controller' => ChatBotController::class, 'prefix' => 'bots'], function () {
+                Route::post('/{bot}/disable', 'disable')->name('disable');
+                Route::post('/{bot}/enable', 'enable')->name('enable');
+            });
+            Route::resource('bots', ChatBotController::class)->except(['show', 'create', 'store']);
+
+            // Chat Rooms System
+            Route::resource('chatrooms', ChatRoomController::class)->except(['show']);
+
+            // Chat Statuses System
+            Route::resource('chat-statuses', ChatStatusController::class)->except(['show']);
+
+            // Cheaters
+            Route::resource('cheaters', CheaterController::class)->only(['index'])->name('index', 'cheaters.index');
+
+            // Codebase Version Check
+            Route::resource('UNIT3D', VersionController::class)->only('index')->name('index', 'UNIT3D');
+
+            // Commands
+            Route::group(['as' => 'commands.', 'controller' => CommandController::class, 'prefix' => 'commands'], function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/maintance-enable', 'maintanceEnable');
+                Route::post('/maintance-disable', 'maintanceDisable');
+                Route::post('/clear-cache', 'clearCache');
+                Route::post('/clear-view-cache', 'clearView');
+                Route::post('/clear-route-cache', 'clearRoute');
+                Route::post('/clear-config-cache', 'clearConfig');
+                Route::post('/clear-all-cache', 'clearAllCache');
+                Route::post('/set-all-cache', 'setAllCache');
+                Route::post('/test-email', 'testEmail');
+            });
+
+            // Flush System
+            Route::group(['as' => 'flush.', 'controller' => FlushController::class, 'prefix' => 'flush'], function () {
+                Route::post('/peers', 'peers')->name('peers');
+                Route::post('/chat', 'chat')->name('chat');
+            });
+
+            // Forums System
+            Route::resource('forums', ForumController::class)->except(['show']);
+
+            // Groups System
+            Route::resource('groups', GroupController::class)->except(['show', 'destroy']);
+
+            // Invites Log
+            Route::resource('invites', InviteController::class)->only(['index']);
+
+            // Mass Actions
+            Route::group(['controller' => MassActionController::class, 'prefix' => 'mass-actions'], function () {
+                Route::get('/validate-users', 'update')->name('mass-actions.validate');
+                Route::get('/mass-pm', 'create')->name('mass-pm.create');
+                Route::post('/mass-pm/store', 'store')->name('mass-pm.store');
+            });
+
+            // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
+            Route::resource('media-languages', MediaLanguageController::class)->except(['show']);
+
+            // Moderation System
+            // Can't use route model binding for torrent moderation as the hootex/laravel-moderation package global scope interferes with it
+            Route::group(['as' => 'moderation.', 'controller' => ModerationController::class, 'prefix' => 'moderation'], function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/{id}/approve', 'approve')->name('approve');
+                Route::post('/reject', 'reject')->name('reject');
+                Route::post('/postpone', 'postpone')->name('postpone');
+            });
+
+            //Pages System
+            Route::resource('pages', PageController::class)->except(['show']);
+
+            // Polls System
+            Route::resource('polls', PollController::class);
+
+            // Registered Seedboxes
+            Route::resource('seedboxes', SeedboxController::class)->only(['index', 'destroy']);
+
+            // Reports
+            Route::resource('reports', ReportController::class)->only(['index', 'show', 'update']);
+
+            // Resolutions
+            Route::resource('resolutions', ResolutionController::class)->except(['show']);
+
+            // RSS System
+            Route::resource('rss', RssController::class)->except(['show']);
+
+            // Types
+            Route::resource('types', TypeController::class)->except(['show']);
+
+            // User Gifting (From System)
+            Route::resource('gifts', GiftController::class)->only(['index', 'store']);
+
+            // User Staff Notes
+            Route::group(['as' => 'notes.', 'controller' => NoteController::class, 'prefix' => 'notes'], function () {
+                Route::post('/{username}/store', 'store')->name('store');
+            });
+            Route::resource('notes', NoteController::class)->only(['index', 'destroy']);
+            // User Tools TODO: Leaving since we will be refactoring users and roles
+            Route::group(['as' => 'users.', 'controller' => UserController::class, 'prefix' => 'users'], function () {
+                Route::get('/', 'index')->name('user_search');
+                Route::post('/{username}/edit', 'edit')->name('user_edit');
+                Route::get('/{username}/settings', 'settings')->name('user_setting');
+                Route::post('/{username}/permissions', 'permissions')->name('user_permissions');
+                Route::post('/{username}/password', 'password')->name('user_password');
+                Route::delete('/{username}/destroy', 'destroy')->name('user_delete');
+                Route::post('/{username}/warn', 'warnUser')->name('user_warn');
+            });
+
+            // Warnings Log
+            Route::resource('warnings', WarningController::class)->only(['index']);
+
+            // Internals System
+            Route::resource('internals', InternalController::class)->except(['show']);
+
+            // Watchlist
+            Route::resource('watched-users', WatchlistController::class)->only(['index', 'store', 'destroy']);
+        });
+    });
+
+    /*
+    |---------------------------------------------------------------------------------
+    | Staff Dashboard LiveWire Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
+    */
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
-
-        // Staff Dashboard
-        Route::name('staff.dashboard.')->group(function () {
-            Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
-        });
-
-        // Articles System
-        Route::group(['prefix' => 'articles'], function () {
-            Route::name('staff.articles.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Applications System
-        Route::group(['prefix' => 'applications'], function () {
-            Route::name('staff.applications.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ApplicationController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve');
-                Route::post('/{id}/reject', [App\Http\Controllers\Staff\ApplicationController::class, 'reject'])->name('reject');
-            });
-        });
-
-        // Audit Log
-        Route::group(['prefix' => 'audits'], function () {
-            Route::name('staff.audits.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\AuditController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Authentications Log
-        Route::group(['prefix' => 'authentications'], function () {
-            Route::name('staff.authentications.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\AuthenticationController::class, 'index'])->name('index');
-            });
-        });
-
-        // Backup System
-        Route::group(['prefix' => 'backups'], function () {
-            Route::name('staff.backups.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
-            });
-        });
-
-        // Ban System
-        Route::group(['prefix' => 'bans'], function () {
-            Route::name('staff.bans.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
-                Route::post('/{username}/update', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
-            });
-        });
-
-        // Bon Exchanges
-        Route::group(['prefix' => 'bon-exchanges'], function () {
-            Route::name('staff.bon_exchanges.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\BonExchangeController::class, 'create'])->name('create');
-                Route::post('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'store'])->name('store');
-                Route::get('/{bonExchange}/edit', [App\Http\Controllers\Staff\BonExchangeController::class, 'edit'])->name('edit');
-                Route::patch('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'update'])->name('update');
-                Route::delete('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Categories System
-        Route::group(['prefix' => 'categories'], function () {
-            Route::name('staff.categories.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\CategoryController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\CategoryController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\CategoryController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\CategoryController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\CategoryController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Chat Bots System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.bots.')->group(function () {
-                Route::get('/bots', [App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
-                Route::get('/bots/{id}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
-                Route::patch('/bots/{id}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
-                Route::delete('/bots/{id}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
-                Route::post('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
-                Route::post('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
-            });
-        });
-
-        // Chat Rooms System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.rooms.')->group(function () {
-                Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
-                Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
-                Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
-                Route::get('/rooms/{id}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
-                Route::post('/rooms/{id}/update', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
-                Route::delete('/rooms/{id}/destroy', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Chat Statuses System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.statuses.')->group(function () {
-                Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
-                Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
-                Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
-                Route::get('/statuses/{id}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
-                Route::post('/statuses/{id}/update', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
-                Route::delete('/statuses/{id}/destroy', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Cheaters
-        Route::group(['prefix' => 'cheaters'], function () {
-            Route::name('staff.cheaters.')->group(function () {
-                Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
-            });
-        });
-
-        // Codebase Version Check
-        Route::group(['prefix' => 'UNIT3D'], function () {
-            Route::get('/', [App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
-        });
-
-        // Commands
-        Route::group(['prefix' => 'commands'], function () {
-            Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
-            Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
-            Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
-            Route::post('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
-            Route::post('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
-            Route::post('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
-            Route::post('/clear-config-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearConfig']);
-            Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
-            Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
-            Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
-        });
-
-        // Flush System
-        Route::group(['prefix' => 'flush'], function () {
-            Route::name('staff.flush.')->group(function () {
-                Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
-                Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
-            });
-        });
-
-        // Forums System
-        Route::group(['prefix' => 'forums'], function () {
-            Route::name('staff.forums.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ForumController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ForumController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Groups System
-        Route::group(['prefix' => 'groups'], function () {
-            Route::name('staff.groups.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\GroupController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\GroupController::class, 'update'])->name('update');
-            });
-        });
-
-        // Invites Log
-        Route::group(['prefix' => 'invites'], function () {
-            Route::name('staff.invites.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
-            });
-        });
-
         // Laravel Log Viewer
-        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
-
-        // Mass Actions
-        Route::group(['prefix' => 'mass-actions'], function () {
-            Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('staff.mass-actions.validate');
-            Route::get('/mass-pm', [App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('staff.mass-pm.create');
-            Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('staff.mass-pm.store');
-        });
-
-        // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
-        Route::group(['prefix' => 'media-languages'], function () {
-            Route::name('staff.media_languages.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\MediaLanguageController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\MediaLanguageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\MediaLanguageController::class, 'update'])->name('update');
-                Route::delete('/{id}/delete', [App\Http\Controllers\Staff\MediaLanguageController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Moderation System
-        Route::group(['prefix' => 'moderation'], function () {
-            Route::name('staff.moderation.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
-                Route::post('/reject', [App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
-                Route::post('/postpone', [App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
-            });
-        });
-
-        //Pages System
-        Route::group(['prefix' => 'pages'], function () {
-            Route::name('staff.pages.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\PageController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\PageController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Polls System
-        Route::group(['prefix' => 'polls'], function () {
-            Route::name('staff.polls.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\PollController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\PollController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::get('/create', [App\Http\Controllers\Staff\PollController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\PollController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Registered Seedboxes
-        Route::group(['prefix' => 'seedboxes'], function () {
-            Route::name('staff.seedboxes.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Reports
-        Route::group(['prefix' => 'reports'], function () {
-            Route::name('staff.reports.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/solve', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
-            });
-        });
-
-        // Resolutions
-        Route::group(['prefix' => 'resolutions'], function () {
-            Route::name('staff.resolutions.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\ResolutionController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\ResolutionController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ResolutionController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\ResolutionController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ResolutionController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // RSS System
-        Route::group(['prefix' => 'rss'], function () {
-            Route::name('staff.rss.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\RssController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\RssController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Types
-        Route::group(['prefix' => 'types'], function () {
-            Route::name('staff.types.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\TypeController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\TypeController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function () {
-            Route::name('staff.gifts.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\GiftController::class, 'store'])->name('store');
-            });
-        });
-
-        // User Staff Notes
-        Route::group(['prefix' => 'notes'], function () {
-            Route::name('staff.notes.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [App\Http\Controllers\Staff\NoteController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // User Tools TODO: Leaving since we will be refactoring users and roles
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/', [App\Http\Controllers\Staff\UserController::class, 'index'])->name('user_search');
-            Route::post('/{username}/edit', [App\Http\Controllers\Staff\UserController::class, 'edit'])->name('user_edit');
-            Route::get('/{username}/settings', [App\Http\Controllers\Staff\UserController::class, 'settings'])->name('user_setting');
-            Route::post('/{username}/permissions', [App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('user_permissions');
-            Route::post('/{username}/password', [App\Http\Controllers\Staff\UserController::class, 'password'])->name('user_password');
-            Route::delete('/{username}/destroy', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
-            Route::post('/{username}/warn', [App\Http\Controllers\Staff\UserController::class, 'warnUser'])->name('user_warn');
-        });
-
-        // Warnings Log
-        Route::group(['prefix' => 'warnings'], function () {
-            Route::name('staff.warnings.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\WarningController::class, 'index'])->name('index');
-            });
-        });
-
-        // Internals System
-        Route::group(['prefix' => 'internals'], function () {
-            Route::name('staff.internals.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
-                Route::get('/create', [App\Http\Controllers\Staff\InternalController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\InternalController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\InternalController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Watchlist
-        Route::group(['prefix' => 'watchlist'], function () {
-            Route::name('staff.watchlist.')->group(function () {
-                Route::get('/', [App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
-                Route::post('/{id}/store', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
-            });
-        });
+        Route::get('/laravel-log', \App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
     });
 });

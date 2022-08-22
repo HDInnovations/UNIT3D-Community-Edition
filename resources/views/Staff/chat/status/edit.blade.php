@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.statuses.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.chat-statuses.index') }}" class="breadcrumb__link">
             {{ __('staff.chat') }} {{ __('staff.statuses') }}
         </a>
     </li>
@@ -30,10 +30,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.statuses.update', ['id' => $chatstatus->id]) }}"
+                action="{{ route('staff.chat-statuses.update', ['chat_status' => $chatstatus]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"

@@ -39,13 +39,12 @@ class InternalController extends Controller
     /**
      * Edit A group.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(Request $request, Internal $internal): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
 
         $date = Carbon::now();
-        $internal = Internal::findOrFail($id);
 
         return \view('Staff.internals.edit', ['internal' => $internal]);
     }
@@ -53,12 +52,10 @@ class InternalController extends Controller
     /**
      * Save a group change.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
-
-        $internal = Internal::findOrFail($id);
 
         $internal->name = $request->input('name');
         $internal->icon = $request->input('icon');
@@ -122,10 +119,9 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $internal = Internal::findOrFail($id);
 
         \abort_unless($user->group->is_admin, 403);
         $internal->delete();

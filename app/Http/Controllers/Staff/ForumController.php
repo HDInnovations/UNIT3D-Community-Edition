@@ -101,12 +101,11 @@ class ForumController extends Controller
     /**
      * Forum Edit Form.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Forum $forum): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
 
-        $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
@@ -120,12 +119,11 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
 
-        $forum = Forum::findOrFail($id);
         $groups = Group::all();
 
         $forum->name = $request->input('title');
@@ -168,12 +166,10 @@ class ForumController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
-
-        $forum = Forum::findOrFail($id);
 
         $permissions = Permission::where('forum_id', '=', $forum->id)->get();
         foreach ($permissions as $p) {

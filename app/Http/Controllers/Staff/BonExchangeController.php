@@ -62,32 +62,29 @@ class BonExchangeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.bon_exchanges.create')
+            return \to_route('staff.bon-exchanges.create')
                 ->withErrors($v->errors());
         }
 
         $bonExchange->save();
 
-        return \to_route('staff.bon_exchanges.index')
+        return \to_route('staff.bon-exchanges.index')
             ->withSuccess('Bon Exchange Successfully Added');
     }
 
     /**
      * Bon Exchange Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(BonExchange $bonExchange): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchange = BonExchange::findOrFail($id);
-
         return \view('Staff.bon_exchange.edit', ['bonExchange' => $bonExchange]);
     }
 
     /**
      * Update A Bon Exchange.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, BonExchange $bonExchange): \Illuminate\Http\RedirectResponse
     {
-        $bonExchange = BonExchange::findOrFail($id);
         $bonExchange->description = $request->description;
         $bonExchange->value = $request->value;
         $bonExchange->cost = $request->cost;
@@ -107,13 +104,13 @@ class BonExchangeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.bon_exchanges.edit', ['bonExchange' => $id])
+            return \to_route('staff.bon-exchanges.edit', ['bonExchange' => $bonExchange])
                 ->withErrors($v->errors());
         }
 
         $bonExchange->save();
 
-        return \to_route('staff.bon_exchanges.index')
+        return \to_route('staff.bon-exchanges.index')
             ->withSuccess('Bon Exchange Successfully Modified');
     }
 
@@ -122,12 +119,11 @@ class BonExchangeController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(BonExchange $bonExchange): \Illuminate\Http\RedirectResponse
     {
-        $bonExchange = BonExchange::findOrFail($id);
         $bonExchange->delete();
 
-        return \to_route('staff.bon_exchanges.index')
+        return \to_route('staff.bon-exchanges.index')
             ->withSuccess('Bon Exchange Successfully Deleted');
     }
 }

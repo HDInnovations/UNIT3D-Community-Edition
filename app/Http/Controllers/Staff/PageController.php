@@ -71,19 +71,16 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Page $page): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $page = Page::findOrFail($id);
-
         return \view('Staff.page.edit', ['page' => $page]);
     }
 
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Page $page): \Illuminate\Http\RedirectResponse
     {
-        $page = Page::findOrFail($id);
         $page->name = $request->input('name');
         $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
@@ -110,9 +107,9 @@ class PageController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Page $page): \Illuminate\Http\RedirectResponse
     {
-        Page::findOrFail($id)->delete();
+        $page->delete();
 
         return \to_route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');

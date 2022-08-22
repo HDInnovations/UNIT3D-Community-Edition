@@ -101,7 +101,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_setting', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('staff.users.user_setting', ['username' => $user->username]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.user.user_edit');

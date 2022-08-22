@@ -43,7 +43,7 @@
                 @foreach ($categories as $category)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                            <a href="{{ route('staff.forums.edit', ['forum' => $category]) }}">{{ $category->name }}</a>
                         </td>
                         <td>Category</td>
                         <td>{{ $category->position }}</td>
@@ -52,7 +52,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.forums.edit', ['id' => $category->id]) }}"
+                                        href="{{ route('staff.forums.edit', ['forum' => $category]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -60,7 +60,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}"
+                                        action="{{ route('staff.forums.destroy', ['forum' => $category]) }}"
                                         x-data
                                     >
                                         @csrf
@@ -89,7 +89,7 @@
                     @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
                         <tr>
                             <td style="padding-left: 50px">
-                                <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">{{ $forum->name }}</a>
+                                <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">{{ $forum->name }}</a>
                             </td>
                             <td>Forum</td>
                             <td>{{ $forum->position }}</td>
@@ -98,7 +98,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}"
+                                            href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -106,7 +106,7 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}"
+                                            action="{{ route('staff.forums.destroy', ['forum' => $forum]) }}"
                                             x-data
                                         >
                                             @csrf

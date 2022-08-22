@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.statuses.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.chat-statuses.index') }}" class="breadcrumb__link">
             {{ __('staff.chat') }} {{ __('staff.statuses') }}
         </a>
     </li>
@@ -29,7 +29,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.statuses.store') }}"
+                action="{{ route('staff.chat-statuses.store') }}"
                 enctype="multipart/form-data"
             >
                 @csrf

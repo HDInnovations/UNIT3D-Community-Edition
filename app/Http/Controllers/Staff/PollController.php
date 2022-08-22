@@ -44,10 +44,8 @@ class PollController extends Controller
     /**
      * Show A Poll.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::where('id', '=', $id)->firstOrFail();
-
         return \view('Staff.poll.show', ['poll' => $poll]);
     }
 
@@ -84,10 +82,8 @@ class PollController extends Controller
     /**
      * Poll Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::findOrFail($id);
-
         return \view('Staff.poll.edit', ['poll' => $poll]);
     }
 
@@ -96,10 +92,8 @@ class PollController extends Controller
      *
      * @throws \Exception
      */
-    public function update(StorePoll $storePoll, int $id): \Illuminate\Http\RedirectResponse
+    public function update(StorePoll $storePoll, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::findOrFail($id);
-
         $poll->title = $storePoll->input('title');
 
         $poll->multiple_choice = (bool) $storePoll->input('multiple_choice');
@@ -149,12 +143,10 @@ class PollController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::findOrFail($id);
         $poll->delete();
-
-        Option::where('poll_id', '=', $id)->delete();
+        $poll->options()->delete();
 
         return \to_route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');

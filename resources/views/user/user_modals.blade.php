@@ -89,7 +89,7 @@
             <div class="modal-body">
                 <div class="py-3">
                     <form role="form" method="POST"
-                          action="{{ route('user_warn', ['username' => $user->username]) }}">
+                          action="{{ route('staff.users.user_warn', ['username' => $user->username]) }}">
                         @csrf
                         <div class="form-group">
                             <label for="warn_reason">Reason</label>
@@ -125,8 +125,9 @@
             <div class="modal-body">
                 <div class="py-3">
                     <form role="form" method="POST"
-                          action="{{ route('staff.bans.store', ['username' => $user->username]) }}">
+                          action="{{ route('staff.bans.store') }}">
                         @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <div class="form-group">
                             <label for="report_reason">Reason</label>
                         </div>
@@ -161,8 +162,9 @@
             <div class="modal-body">
                 <div class="py-3">
                     <form role="form" method="POST"
-                          action="{{ route('staff.bans.update', ['username' => $user->username]) }}">
+                          action="{{ route('staff.bans.destroy', ['user' => $user]) }}">
                         @csrf
+                        @method('DELETE')
                         <div class="form-group">
                             <label for="report_reason">UnBan Reason</label>
                         </div>
@@ -245,7 +247,7 @@
             <div class="modal-body">
                 <div class="py-3">
                     <div class="text-center">
-                        <form action="{{ route('user_delete', ['username' => $user->username]) }}" method="POST">
+                        <form action="{{ route('staff.users.user_delete', ['username' => $user->username]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">
@@ -275,8 +277,9 @@
             <div class="modal-body">
                 <div class="py-3">
                     <form role="form" method="POST"
-                          action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}">
+                          action="{{ route('staff.watched-users.store') }}">
                         @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <div class="form-group">
                             <label for="report_reason">Reason</label>
                         </div>

@@ -25,12 +25,12 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chat-statuses.index') }}">
             {{ __('staff.statuses') }}
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>
@@ -47,7 +47,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bot.edit-bot') }}: {{ $bot->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.bots.update', ['bot' => $bot]) }}">
                 @csrf
                 @method('PATCH')
                 <p class="form__group">

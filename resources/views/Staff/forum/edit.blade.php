@@ -33,8 +33,9 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.edit') }} {{ __('forum.forum') }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.forums.update', ['forum' => $forum]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input id="title" class="form__text" type="text" name="title" value="{{ $forum->name }}">
                     <label class="form__label form__label--floating" for="title">Title</label>

@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.rooms.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.chatrooms.index') }}" class="breadcrumb__link">
             {{ __('common.chat-rooms') }}
         </a>
     </li>
@@ -30,10 +30,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.rooms.update', ['id' => $chatroom->id]) }}"
+                action="{{ route('staff.chatrooms.update', ['chatroom' => $chatroom]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"

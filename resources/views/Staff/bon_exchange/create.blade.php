@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.bon_exchanges.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.bon-exchanges.index') }}" class="breadcrumb__link">
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </a>
     </li>
@@ -29,7 +29,7 @@
                 class="upload-form form"
                 id="upload-form"
                 method="POST"
-                action="{{ route('staff.bon_exchanges.store') }}"
+                action="{{ route('staff.bon-exchanges.store') }}"
             >
                 @csrf
                 <p class="form__group">

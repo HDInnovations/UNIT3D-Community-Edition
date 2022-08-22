@@ -38,10 +38,9 @@ class ChatBotController extends Controller
     /**
      * Show the form for editing the specified Bot resource.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(Request $request, Bot $bot): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $user = $request->user();
-        $bot = Bot::findOrFail($id);
 
         return \view('Staff.chat.bot.edit', [
             'user'           => $user,
@@ -52,10 +51,9 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Bot $bot): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $bot = Bot::findOrFail($id);
 
         if ($request->has('command') && $request->input('command') == $bot->command) {
             $v = \validator($request->all(), [
@@ -108,11 +106,11 @@ class ChatBotController extends Controller
                 $error = $v->errors();
             }
 
-            return \to_route('staff.bots.edit', ['id' => $id])
+            return \to_route('staff.bots.index')
                 ->withErrors($error);
         }
 
-        return \to_route('staff.bots.edit', ['id' => $id])
+        return \to_route('staff.bots.index')
             ->withSuccess($success);
     }
 
@@ -121,9 +119,9 @@ class ChatBotController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Bot $bot): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
+        \abort_if($bot->is_protected, 403);
         $bot->delete();
 
         return \to_route('staff.bots.index')
@@ -133,9 +131,8 @@ class ChatBotController extends Controller
     /**
      * Disable the specified Bot resource in storage.
      */
-    public function disable(int $id): \Illuminate\Http\RedirectResponse
+    public function disable(Bot $bot): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::findOrFail($id);
         $bot->active = 0;
         $bot->save();
 
@@ -146,9 +143,8 @@ class ChatBotController extends Controller
     /**
      * Enable the specified Bot resource in storage.
      */
-    public function enable(int $id): \Illuminate\Http\RedirectResponse
+    public function enable(Bot $bot): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::findOrFail($id);
         $bot->active = 1;
         $bot->save();
 

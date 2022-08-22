@@ -84,7 +84,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.applications.show', ['id' => $application->id]) }}">
+                                            href="{{ route('staff.applications.show', ['id' => $application]) }}">
                                             {{ __('common.view') }}
                                         </a>
                                     </li>

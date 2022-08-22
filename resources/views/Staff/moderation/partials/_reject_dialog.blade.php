@@ -19,7 +19,7 @@
             <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
             <p class="form__group">
                 <textarea id="message" class="form__textarea" name="message"></textarea>
-                <label for="message" class="form__label form__label__floating">Rejection Message</label>
+                <label for="message" class="form__label form__label--floating">Rejection Message</label>
             </p>
             <p class="form__group">
                 <button class="form__button form__button--filled">

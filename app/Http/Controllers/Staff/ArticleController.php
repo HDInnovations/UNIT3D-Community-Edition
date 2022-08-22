@@ -95,9 +95,8 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Article $article): \Illuminate\Http\RedirectResponse
     {
-        $article = Article::findOrFail($id);
         $article->title = $request->input('title');
         $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
@@ -135,9 +134,8 @@ class ArticleController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Article $article): \Illuminate\Http\RedirectResponse
     {
-        $article = Article::with('comments')->findOrFail($id);
         foreach ($article->comments as $comment) {
             $comment->delete();
         }

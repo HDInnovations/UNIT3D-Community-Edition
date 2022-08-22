@@ -33,7 +33,7 @@
         <form
             class="form"
             method="POST"
-            action="{{ route('staff.types.update', ['id' => $type->id]) }}"
+            action="{{ route('staff.types.update', ['type' => $type]) }}"
         >
             @method('PATCH')
             @csrf

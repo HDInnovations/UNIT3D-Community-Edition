@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.media_languages.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.media-languages.index') }}" class="breadcrumb__link">
             {{ __('common.media-languages') }}
         </a>
     </li>
@@ -24,7 +24,7 @@
             {{ __('common.add') }}
         </h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.media_languages.store') }}">
+            <form class="form" method="POST" action="{{ route('staff.media-languages.store') }}">
                 @csrf
                 <p class="form__group">
                     <input

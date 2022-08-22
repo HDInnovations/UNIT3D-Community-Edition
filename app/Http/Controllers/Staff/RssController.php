@@ -135,10 +135,10 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Rss $rss): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        \abort_if($rss->is_private, 403);
 
         return \view('Staff.rss.edit', [
             'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
@@ -153,9 +153,9 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(Request $request, Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        \abort_if($rss->is_private, 403);
 
         $v = \validator($request->all(), [
             'name'        => 'required|min:3|max:255',
@@ -217,7 +217,7 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return \to_route('staff.rss.edit', ['id' => $id])
+            return \to_route('staff.rss.edit', ['rss' => $rss])
                 ->withErrors($error);
         }
 
@@ -230,9 +230,9 @@ class RssController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function destroy(Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        \abort_if($rss->is_private, 403);
         $rss->delete();
 
         return \to_route('staff.rss.index')
