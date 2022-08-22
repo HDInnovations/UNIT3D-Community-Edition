@@ -10,13 +10,6 @@
     </li>
 @endsection
 
-@section('content')
-	<style>
-        td {
-            vertical-align: middle !important;
-        }
-	</style>
-	<div class="box container">
-		@livewire('missing-media-search')
-	</div>
+@section('main')
+    @livewire('missing-media-search')
 @endsection
