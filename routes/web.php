@@ -682,7 +682,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.rooms.')->group(function () {
                 Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
+                Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
                 Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
+                Route::get('/rooms/{id}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
                 Route::post('/rooms/{id}/update', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
                 Route::delete('/rooms/{id}/destroy', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
@@ -692,7 +694,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.statuses.')->group(function () {
                 Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
+                Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
                 Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
+                Route::get('/statuses/{id}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
                 Route::post('/statuses/{id}/update', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
                 Route::delete('/statuses/{id}/destroy', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
             });
