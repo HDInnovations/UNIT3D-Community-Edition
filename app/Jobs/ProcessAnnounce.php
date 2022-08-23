@@ -217,7 +217,7 @@ class ProcessAnnounce implements ShouldQueue, ShouldBeUnique
                 break;
 
             case 'stopped':
-                $peer->delete();
+                $peer->touch();
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
@@ -233,11 +233,13 @@ class ProcessAnnounce implements ShouldQueue, ShouldBeUnique
                 $history->client_downloaded = $realDownloaded;
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
-                    $newUpdate = \now();
+                    $newUpdate = $peer->updated_at->timestamp;
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
                 $history->save();
+
+                $peer->delete();
 
                 // User Update
                 $this->user->uploaded += $modUploaded;
