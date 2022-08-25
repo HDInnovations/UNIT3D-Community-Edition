@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\URL;
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
 if (config('unit3d.proxy_scheme')) {
     URL::forceScheme(config('unit3d.proxy_scheme'));
 }
