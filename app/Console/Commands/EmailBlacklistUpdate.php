@@ -35,7 +35,6 @@ class EmailBlacklistUpdate extends Command
     /**
      * Execute the console command.
      *
-     * @throws \JsonException
      */
     public function handle(): void
     {
