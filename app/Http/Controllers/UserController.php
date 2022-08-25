@@ -358,7 +358,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        if (\config('email-blacklist.enabled') == true) {
+        if (\config('email-blacklist.enabled')) {
             $v = \validator($request->all(), [
                 'email' => [
                     'required',

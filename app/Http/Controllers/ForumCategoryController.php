@@ -44,7 +44,7 @@ class ForumCategoryController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
-        if ($category->getPermission()->show_forum != true) {
+        if (!$category->getPermission()->show_forum) {
             return \to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Category!');
         }

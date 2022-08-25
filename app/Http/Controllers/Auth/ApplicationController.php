@@ -43,8 +43,8 @@ class ApplicationController extends Controller
         $application->email = $request->input('email');
         $application->referrer = $request->input('referrer');
 
-        if (\config('email-blacklist.enabled') == true) {
-            if (\config('captcha.enabled') == false) {
+        if (\config('email-blacklist.enabled')) {
+            if (!\config('captcha.enabled')) {
                 $v = \validator($request->all(), [
                     'type'     => 'required',
                     'email'    => [
@@ -84,7 +84,7 @@ class ApplicationController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
-        } elseif (\config('captcha.enabled') == false) {
+        } elseif (!\config('captcha.enabled')) {
             $v = \validator($request->all(), [
                 'type'     => 'required',
                 'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',

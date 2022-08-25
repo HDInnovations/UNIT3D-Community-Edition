@@ -252,7 +252,7 @@ class TorrentController extends Controller
         $torrent->save();
 
         // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover') == true) {
+        if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = \public_path('/files/img/'.$filename_cover);
@@ -260,7 +260,7 @@ class TorrentController extends Controller
         }
 
         // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner') == true) {
+        if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = \public_path('/files/img/'.$filename_cover);
@@ -431,7 +431,7 @@ class TorrentController extends Controller
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         $requestFile = $request->file('torrent');
-        if ($request->hasFile('torrent') == false) {
+        if (!$request->hasFile('torrent')) {
             return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
@@ -589,7 +589,7 @@ class TorrentController extends Controller
         }
 
         // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover') == true) {
+        if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = \public_path('/files/img/'.$filename_cover);
@@ -597,7 +597,7 @@ class TorrentController extends Controller
         }
 
         // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner') == true) {
+        if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = \public_path('/files/img/'.$filename_cover);

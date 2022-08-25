@@ -59,7 +59,7 @@ class AutoSoftDeleteDisabledUsers extends Command
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning') == true) {
+        if (\config('pruning.user_pruning')) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
             $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
