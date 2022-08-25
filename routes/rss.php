@@ -15,16 +15,15 @@ use Illuminate\Support\Facades\URL;
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-/*
-|--------------------------------------------------------------------------
-| Announce Routes
-|--------------------------------------------------------------------------
-*/
 if (config('unit3d.proxy_scheme')) {
     URL::forceScheme(config('unit3d.proxy_scheme'));
 }
 if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
-// Announce System
-Route::get('{passkey}', [App\Http\Controllers\AnnounceController::class, 'index'])->name('announce');
+
+Route::group(['before' => 'auth'], function () {
+    // RSS (RSS Key Auth)
+    Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
+    Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
+});

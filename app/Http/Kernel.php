@@ -62,6 +62,10 @@ class Kernel extends HttpKernel
             'throttle:announce',
             'bindings',
         ],
+        'rss' => [
+            'throttle:rss',
+            'bindings',
+        ]
     ];
 
     /**

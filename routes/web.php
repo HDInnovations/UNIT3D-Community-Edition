@@ -65,17 +65,6 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
-    | Website (Authorized By Key) (Alpha Ordered)
-    |---------------------------------------------------------------------------------
-    */
-    Route::group(['before' => 'auth'], function () {
-        // RSS (RSS Key Auth)
-        Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
-        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
