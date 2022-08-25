@@ -82,7 +82,7 @@ class RegisterController extends Controller
         $user->group_id = $validatingGroup[0];
 
         if (\config('email-blacklist.enabled')) {
-            if (!\config('captcha.enabled')) {
+            if (! \config('captcha.enabled')) {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
@@ -110,7 +110,7 @@ class RegisterController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
-        } elseif (!\config('captcha.enabled')) {
+        } elseif (! \config('captcha.enabled')) {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:8,16',

@@ -431,7 +431,7 @@ class TorrentController extends Controller
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         $requestFile = $request->file('torrent');
-        if (!$request->hasFile('torrent')) {
+        if (! $request->hasFile('torrent')) {
             return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
