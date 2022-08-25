@@ -28,7 +28,7 @@ class CheckIfBanned
         $user = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->group_id === $bannedGroup[0]) {
+        if ($user && (is_countable($bannedGroup) ? count($bannedGroup) : 0) > 0 && $user->group_id === $bannedGroup[0]) {
             if ($request->is('api/*')) {
                 return response()->json([
                     'message' => __('auth.banned'),
