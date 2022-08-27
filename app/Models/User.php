@@ -120,6 +120,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs To Many Seeding Torrents.
+     */
+    public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'history')->wherePivot('active', '=', 1);
+    }
+
+    /**
      * Has Many Messages.
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
