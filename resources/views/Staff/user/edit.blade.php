@@ -169,6 +169,7 @@
                         class="form"
                         method="POST"
                         action="{{ route('user_password', ['username' => $user->username]) }}"
+                        x-data
                     >
                         @csrf
                         <p class="form__group">
@@ -187,7 +188,6 @@
                         </p>
                         <p class="form__group">
                             <button
-                                x-data
                                 x-on:click.prevent="Swal.fire({
                                     title: 'Are you sure?',
                                     text: 'Are you sure you want to change this user\'s password?',
