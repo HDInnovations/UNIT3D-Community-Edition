@@ -584,7 +584,7 @@
                                         <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
                                         <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                                         <td>
-                                            <a href="{{ route('user_active_by_client', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port]) }}"
+                                            <a href="{{ route('user_active', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port, 'client' => $p->agent]) }}"
                                                itemprop="url" class="l-breadcrumb-item-link">
                                                 <span itemprop="title"
                                                       class="l-breadcrumb-item-link-title">{{ $count }}</span>
