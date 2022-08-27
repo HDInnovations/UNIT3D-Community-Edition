@@ -238,9 +238,9 @@ class StatsController extends Controller
     public function seedtime(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Total Seedtime
-        $seedtime = User::with('history')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
+        $users = User::withSum('history as seedtime', 'seedtime')->orderByDesc('seedtime')->take(100)->get();
 
-        return \view('stats.users.seedtime', ['seedtime' => $seedtime]);
+        return \view('stats.users.seedtime', ['users' => $users]);
     }
 
     /**
