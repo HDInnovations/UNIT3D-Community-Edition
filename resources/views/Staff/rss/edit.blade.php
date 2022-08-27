@@ -364,6 +364,19 @@
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
+                                        id="personalrelease"
+                                        class="form__checkbox"
+                                        name="personalrelease"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-user-plus" style="color: #865be9;"></span>
+                                    {{ __('torrent.personal-release') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
                                         id="bookmark"
                                         class="form__checkbox"
                                         name="bookmark"
