@@ -281,7 +281,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
-            Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
