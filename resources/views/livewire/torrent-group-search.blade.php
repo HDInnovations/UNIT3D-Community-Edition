@@ -967,10 +967,10 @@
                         >
                             @switch ($mediaType)
                                 @case('movie')
-                                {{ $meta->title }} (<time>{{ \substr($meta->release_date, 0, 4) ?? '' }}</time>)
+                                {{ $meta->title ?? '' }} (<time>{{ \substr($meta->release_date, 0, 4) ?? '' }}</time>)
                                 @break
                                 @case('tv')
-                                {{ $meta->name }} (<time>{{ \substr($meta->first_air_date, 0, 4) ?? '' }}</time>)
+                                {{ $meta->name ?? '' }} (<time>{{ \substr($meta->first_air_date, 0, 4) ?? '' }}</time>)
                                 @break
                             @endswitch
                         </a>
