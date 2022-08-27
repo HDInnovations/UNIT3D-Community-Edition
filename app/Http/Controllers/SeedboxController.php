@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
@@ -43,21 +44,43 @@ class SeedboxController extends Controller
     {
         $user = $request->user();
 
-        $seedbox = new Seedbox();
-        $seedbox->user_id = $user->id;
-        $seedbox->name = $request->input('name');
-        $seedbox->ip = $request->input('ip');
+        // The user's seedbox IPs are encrypted, so they have to be decrypted first to check that the new IP inputted is unique
+        $userSeedboxes = Seedbox::where('user_id', '=', $user->id)->get(['ip', 'name']);
+        $seedboxIps = $userSeedboxes->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+        $seedboxNames = $userSeedboxes->pluck('name');
 
-        $v = \validator($seedbox->toArray(), [
-            'name'  => 'required|alpha_num',
-            'ip'    => 'required|unique:clients,ip|ip',
-        ]);
+        $v = \validator(
+            $request->input(),
+            [
+                'name'  => [
+                    'required',
+                    'alpha_num',
+                    Rule::notIn($seedboxNames),
+                ],
+                'ip'    => [
+                    'bail',
+                    'required',
+                    'ip',
+                    Rule::notIn($seedboxIps),
+                ],
+            ],
+            [
+                'name.not_in' => 'You have already used this seedbox name.',
+                'ip.not_in'   => 'You have already registered this seedbox IP.',
+            ]
+        );
 
         if ($v->fails()) {
             return \to_route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
+        $validated = $v->validated();
+
+        $seedbox = new Seedbox();
+        $seedbox->user_id = $user->id;
+        $seedbox->name = $validated['name'];
+        $seedbox->ip = $validated['ip'];
         $seedbox->save();
 
         return \to_route('seedboxes.index', ['username' => $user->username])
