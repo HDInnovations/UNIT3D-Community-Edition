@@ -101,6 +101,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',
@@ -179,6 +180,7 @@ class RssController extends Controller
             ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
             ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
             ->when($search->internal !== null, fn ($query) => $query->internal())
+            ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
             ->when($search->alive !== null, fn ($query) => $query->alive())
             ->when($search->dying !== null, fn ($query) => $query->dying())
             ->when($search->dead !== null, fn ($query) => $query->dead())
@@ -250,6 +252,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',

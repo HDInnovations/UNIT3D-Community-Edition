@@ -250,6 +250,21 @@
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
+                                    @if($rss->object_torrent->personalrelease)
+                                        <input type="checkbox" id="personalrelease" name="personalrelease" value="1" CHECKED><span
+                                                class="{{ config('other.font-awesome') }} fa-user-plus"
+                                                style="color: #865be9;"></span>
+                                        {{ __('torrent.personal-release') }}
+                                    @else
+                                        <input type="checkbox" id="personalrelease" name="personalrelease" value="1"><span
+                                                class="{{ config('other.font-awesome') }} fa-user-plus"
+                                                style="color: #865be9;"></span>
+                                        {{ __('torrent.personal-release') }}
+                                    @endif
+                                </label>
+                            </span>
+                            <span class="badge-user">
+                                <label class="inline">
                                     @if($rss->object_torrent->bookmark)
                                         <input type="checkbox" id="bookmark" name="bookmark" value="1" CHECKED><span
                                                 class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
