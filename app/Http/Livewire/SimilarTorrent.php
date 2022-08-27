@@ -78,13 +78,13 @@ class SimilarTorrent extends Component
         $query = Torrent::query();
         $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments']);
-        if ($category->movie_meta == true) {
+        if ($category->movie_meta) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('movie_meta', '=', true);
             });
         }
 
-        if ($category->tv_meta == true) {
+        if ($category->tv_meta) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('tv_meta', '=', true);
             });

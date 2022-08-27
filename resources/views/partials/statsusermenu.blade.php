@@ -46,3 +46,11 @@
         {{ __('user.top-seedtime') }}
     </a>
 </li>
+<li class="{{ Route::is('seedsize') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('seedsize') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('seedsize') }}"
+    >
+        {{ __('user.top-seeding-size') }}
+    </a>
+</li>

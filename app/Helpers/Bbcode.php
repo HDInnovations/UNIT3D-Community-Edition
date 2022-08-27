@@ -271,7 +271,7 @@ class Bbcode
         // Don't loop more than the length of the source
         while ($index < \strlen($source)) {
             // Get the next occurrence of `[`
-            $index = \stripos($source, '[', $index);
+            $index = \strpos($source, '[', $index);
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {
