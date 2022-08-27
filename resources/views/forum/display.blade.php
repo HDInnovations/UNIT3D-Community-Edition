@@ -66,7 +66,7 @@
                                        class="btn btn-sm btn-primary">{{ __('forum.create-new-topic') }}</a>
                                 @endif
                                 @if ($category->getPermission()->show_forum == true)
-                                    @if (auth()->user()->isSubscribed('forum',$forum->id))
+                                    @if (auth()->user()->subscriptions()->ofForum($forum->id)->exists())
                                         <form action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
                                               method="POST" style="display: inline;">
                                             @csrf

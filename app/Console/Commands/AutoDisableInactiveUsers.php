@@ -57,7 +57,7 @@ class AutoDisableInactiveUsers extends Command
                 ->all();
 
             foreach ($users as $user) {
-                if ($user->getSeeding() === 0) {
+                if ($user->seedingTorrents()->count() === 0) {
                     $user->group_id = $disabledGroup[0];
                     $user->can_upload = 0;
                     $user->can_download = 0;
