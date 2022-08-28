@@ -82,6 +82,7 @@ class ProcessAnnounce implements ShouldQueue, ShouldBeUnique
 
         // Get history information
         $history = History::query()
+            ->where('created_at', '>', $this->user->created_at)
             ->where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
