@@ -11,7 +11,7 @@
         @endif
         <h3 class="torrent-search--grouped__name">
             <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
-                @switch ($media->meta)
+                @switch ($mediaType)
                     @case('movie')
                     {{ \preg_replace('/^.*( '.(substr($meta->release_date ?? '0', 0, 4) - 1).' | '.substr($meta->release_date ?? '0', 0, 4).' | '.(substr($meta->release_date ?? '0', 0, 4) + 1).' )/i', '', $torrent->name) }}
                     @break
