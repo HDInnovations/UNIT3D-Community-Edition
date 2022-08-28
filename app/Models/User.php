@@ -884,4 +884,35 @@ class User extends Authenticatable
 
         return Torrent::whereIntergerIn('id', $seeding)->sum('size');
     }
+
+    /**
+     * Gets the seeding size of torrents that are connectable.
+     */
+    public function getConnectableSeedsizeAttribute(): int
+    {
+        if (\config('announce.connectable_check')) {
+            $unconnectablePeers = Peer::query()
+                ->select('ip', 'port', 'agent')
+                ->distinct()
+                ->where('user_id', '=', 3)
+                ->get()
+                ->filter(fn ($peer) => ! cache()->get('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent, false));
+
+            return Torrent::whereHas('peers', function ($query) use ($unconnectablePeers) {
+                $query->where('user_id', '=', $this->id);
+
+                foreach ($unconnectablePeers as $peer) {
+                    $query->whereNot(function ($query) use ($peer) {
+                        $query
+                            ->where('ip', '=', $peer->ip)
+                            ->where('port', '=', $peer->port)
+                            ->where('agent', '=', $peer->agent);
+                    });
+                }
+            })
+            ->sum('size');
+        } else {
+            return 0;
+        }
+    }
 }
