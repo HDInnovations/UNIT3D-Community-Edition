@@ -8,6 +8,9 @@
     overflow-y: auto;
     width: 500px;
     max-width: calc(100% - 12px);
+    position: absolute;
+    left: calc(50% - min(500px / 2, (100% - 12px) / 2));
+    right: calc(50% - min(500px / 2, (100% - 12px) / 2));
 }
 
 .dialog::backdrop {
