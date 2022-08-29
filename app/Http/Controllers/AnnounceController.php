@@ -23,6 +23,7 @@ use App\Jobs\ProcessBasicAnnounceRequest;
 use App\Jobs\ProcessCompletedAnnounceRequest;
 use App\Jobs\ProcessStartedAnnounceRequest;
 use App\Jobs\ProcessStoppedAnnounceRequest;
+use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
@@ -157,6 +158,7 @@ class AnnounceController extends Controller
         }
 
         $userAgent = $request->header('User-Agent');
+        $clientBlacklist = BlacklistClient::get();
 
         // Should also block User-Agent strings that are to long. (For Database reasons)
         if (\strlen((string) $userAgent) > 64) {
@@ -169,7 +171,8 @@ class AnnounceController extends Controller
         }
 
         // Block Blacklisted Clients
-        if (\in_array($request->header('User-Agent'), \config('client-blacklist.clients'))) {
+        // if (\in_array($request->header('User-Agent'), \config('client-blacklist.clients'))) {
+        if (\in_array($request->header('User-Agent'), $clientBlacklist->name)) {
             throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
         }
     }
