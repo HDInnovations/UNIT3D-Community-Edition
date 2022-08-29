@@ -3,8 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('releasegroup_blacklist') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
-                {{ __('common.blacklist') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }} Releasegroup Blacklist</span>
         </a>
     </li>
 @endsection

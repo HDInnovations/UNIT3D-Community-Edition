@@ -32,7 +32,7 @@ class BlacklistReleaseGroupController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
 
-        $releasegroups = DB::table('blacklist_releasegroups')->get()->sortBy('created_at');
+        $releasegroups = BlacklistReleaseGroup::get()->sortBy('id');
 
         return \view('Staff.blacklist.releasegroups.index', ['releasegroups' => $releasegroups]);
     }
@@ -46,7 +46,7 @@ class BlacklistReleaseGroupController extends Controller
         \abort_unless($user->group->is_modo, 403);
 
         $date = Carbon::now();
-        $releasegroup = DB::table('blacklist_releasegroups')->find($id);
+        $releasegroup = BlacklistReleaseGroup::findOrFail($id);
 
         return \view('Staff.blacklist.releasegroups.edit', ['releasegroup' => $releasegroup]);
     }
@@ -59,24 +59,23 @@ class BlacklistReleaseGroupController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
 
-        $releasegroup = DB::table('blacklist_releasegroups')->find($id);
-
+        $releasegroup = BlacklistReleaseGroup::findOrFail($id);
         $releasegroup->name = $request->input('name');
         $releasegroup->reason = $request->input('reason');
 
         $v = \validator($releasegroup->toArray(), [
             'name'      => 'required',
-            'reason'    => 'required',
+            'reason',
         ]);
 
         if ($v->fails()) {
-            return \to_route('staff.internals.index')
+            return \to_route('staff.blacklists.releasegroups.index')
                 ->withErrors($v->errors());
         }
 
         $releasegroup->save();
 
-        return \to_route('Staff.blacklist.releasegroups.index')
+        return \to_route('staff.blacklists.releasegroups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }
 
@@ -101,18 +100,18 @@ class BlacklistReleaseGroupController extends Controller
         $releasegroup->reason = $request->input('reason');
         
         $v = \validator($releasegroup->toArray(), [
-            'name'     => 'required|unique:releasegroups',
+            'name'     => 'required|unique:blacklist_releasegroups',
             'reason',
         ]);
 
         if ($v->fails()) {
-            return \to_route('Staff.blacklist.releasegroups.index')
+            return \to_route('staff.blacklists.releasegroups.index')
                 ->withErrors($v->errors());
         }
 
-        $internal->save();
+        $releasegroup->save();
 
-        return \to_route('Staff.blacklist.releasegroups.index')
+        return \to_route('staff.blacklists.releasegroups.index')
             ->withSuccess('New Internal Group added!');
     }
 
@@ -122,12 +121,12 @@ class BlacklistReleaseGroupController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $internal = Internal::findOrFail($id);
-
         \abort_unless($user->group->is_admin, 403);
+
+        $releasegroup = BlacklistReleaseGroup::findOrFail($id);
         $releasegroup->delete();
 
-        return \to_route('Staff.blacklist.releasegroups.index')
+        return \to_route('staff.blacklists.releasegroups.index')
             ->withSuccess('Group Has Been Removed.');
     }
 }

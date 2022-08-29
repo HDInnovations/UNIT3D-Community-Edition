@@ -816,7 +816,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/releasegroups/store', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'store'])->name('store');
                 Route::get('/releasegroups/{id}/edit', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'edit'])->name('edit');
                 Route::post('/releasegroups/{id}/update', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'update'])->name('update');
-                Route::get('/releasegroups/{id}/destroy', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'destroy'])->name('destroy');
+                Route::delete('/releasegroups/{id}/destroy', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'destroy'])->name('destroy');
             });
         });
 

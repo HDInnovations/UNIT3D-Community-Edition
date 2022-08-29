@@ -8,7 +8,7 @@
     </li>
     <li class="active">
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklist</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
         </a>
     </li>
     <li class="active">
@@ -23,7 +23,7 @@
         <h2>Blacklist Release Groups</h2>
         <a href="{{ route('staff.blacklists.releasegroups.create') }}" class="btn btn-primary">Add new blacklisted group</a><br><br>
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+            <table class="table table-condensed table-striped table-bordered table-hover" style="table-layout:fixed;">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -42,7 +42,7 @@
                         <td>
                             {{ $releasegroup->name }}
                         </td>
-                        <td>
+                        <td style="word-wrap:break-word;">
                             {{ $releasegroup->reason }}
                         </td>
                         <td>

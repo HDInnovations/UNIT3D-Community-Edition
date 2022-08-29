@@ -8,7 +8,7 @@
 </li>
 <li class="active">
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklist</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
     </a>
 </li>
 <li class="active">
@@ -34,7 +34,7 @@
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>{{ __('common.name') }}</th>
                             <th>Reason</th>
                         </tr>
                         </thead>
@@ -43,7 +43,7 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="text" name="name" value="{{ $releasegroup->name }}" class="form-control"/>
+                                    <input type="text" name="name" value="{{ $releasegroup->name }}" class="form-control" required/>
                                 </label>
                             </td>
                             <td>

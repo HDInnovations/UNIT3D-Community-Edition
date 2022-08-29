@@ -17,8 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlacklistReleaseGroup extends Model
 {
-    public $table = 'blacklist_releasegroups';
-
     /**
      * The Attributes That Aren't Mass Assignable.
      *
@@ -32,4 +30,6 @@ class BlacklistReleaseGroup extends Model
      * @var bool
      */
     public $timestamps = true;
+
+    public $table = 'blacklist_releasegroups';
 }

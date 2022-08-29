@@ -8,7 +8,7 @@
 </li>
 <li class="active">
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklist</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
     </a>
 </li>
 <li class="active">
