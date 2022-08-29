@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\BlacklistClient;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 /**
@@ -98,7 +97,7 @@ class BlacklistClientController extends Controller
         $client = new BlacklistClient();
         $client->name = $request->input('name');
         $client->reason = $request->input('reason');
-        
+
         $v = \validator($client->toArray(), [
             'name'     => 'required|unique:blacklist_clients',
             'reason',

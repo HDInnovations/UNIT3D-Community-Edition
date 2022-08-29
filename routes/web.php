@@ -797,7 +797,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
             });
-	});
+        });
 
         // Blacklist System
         Route::group(['prefix' => 'blacklists'], function () {

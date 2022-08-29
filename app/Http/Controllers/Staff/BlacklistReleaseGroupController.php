@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\BlacklistReleaseGroup;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 /**
@@ -98,7 +97,7 @@ class BlacklistReleaseGroupController extends Controller
         $releasegroup = new BlacklistReleaseGroup();
         $releasegroup->name = $request->input('name');
         $releasegroup->reason = $request->input('reason');
-        
+
         $v = \validator($releasegroup->toArray(), [
             'name'     => 'required|unique:blacklist_releasegroups',
             'reason',
