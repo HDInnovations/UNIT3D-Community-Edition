@@ -224,6 +224,20 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <input name="is_refundable" type="hidden" value="0">
+                    <input
+                            id="is_refundable"
+                            class="form__checkbox"
+                            name="is_refundable"
+                            type="checkbox"
+                            value="1"
+                            @checked($group->is_refundable)
+                    >
+                    <label class="form__label" for="is_refundable">
+                        Refundable Download
+                    </label>
+                </p>
+                <p class="form__group">
                     <input name="is_incognito" type="hidden" value="0">
                     <input
                         id="is_incognito"

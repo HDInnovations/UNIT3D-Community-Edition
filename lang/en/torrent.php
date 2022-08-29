@@ -154,6 +154,7 @@ return [
     'ready'                    => 'This file is ready for download',
     'recent-bumped'            => 'Recently Bumped',
     'recommendations'          => 'Recommendations',
+    'refundable'               => 'Refundable',
     'rejected'                 => 'Rejected',
     'region'                   => 'Region',
     'released'                 => 'Released',

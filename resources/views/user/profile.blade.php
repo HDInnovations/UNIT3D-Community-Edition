@@ -223,6 +223,9 @@
                                     −
                                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
                                           data-original-title="Freeleech Downloads">{{ App\Helpers\StringHelper::formatBytes($free_down , 2) }}</span>
+                                    -
+                                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
+                                          data-original-title="@lang('user.download-refunded')">{{ App\Helpers\StringHelper::formatBytes($refunded_download , 2) }}</span>
                                 </td>
                             </tr>
                             <tr>

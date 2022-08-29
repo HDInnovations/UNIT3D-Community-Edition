@@ -702,10 +702,17 @@
 								</span>
                             @endif
 
-                            @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
+                            @if ($torrent->bumped_at !== $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDays(2))
                                 <span class='badge-extra text-bold torrent-listings-bumped'>
                                     <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold'
                                        title='{{ __('torrent.recent-bumped') }}'></i>
+                                </span>
+                            @endif
+
+                            @if ($torrent->refundable || $user->group->is_refundable)
+                                <span class="badge-extra text-bold torrent-listings-refundable">
+                                    <i class="{{ config('other.font-awesome') }} fa-percentage text-pink"
+                                       title='{{ __('torrent.refundable') }}'></i>
                                 </span>
                             @endif
                         </td>

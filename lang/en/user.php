@@ -90,6 +90,7 @@ return [
     'disclaimer-info-bordered'             => 'Seedbox IPs added will then trigger high speed torrent tag on torrents seeded from IPs listed below',
     'download-bon'                         => 'Download Removed from BON Store',
     'download-recorded'                    => 'Recorded Download',
+    'download-refunded'                    => 'Download Refunded',
     'download-true'                        => 'True Download',
     'downloads'                            => 'Downloads',
     'edit'                                 => 'Edit User',

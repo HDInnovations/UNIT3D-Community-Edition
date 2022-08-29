@@ -261,4 +261,35 @@ class TorrentBuffController extends Controller
         return \to_route('torrent', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
+
+    /**
+     * Set Torrents Refudable Status.
+     */
+    public function setRefundable(Request $request, $id)
+    {
+        $user = $request->user();
+        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent_url = href_torrent($torrent);
+
+        if ($torrent->refundable == 0) {
+            $torrent->refundable = '1';
+
+            $this->chatRepository->systemMessage(
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
+            );
+        } else {
+            $torrent->refundable = '0';
+
+            $this->chatRepository->systemMessage(
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable! :poop:', $torrent_url, $torrent->name)
+            );
+        }
+
+        $torrent->save();
+
+        return \to_route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
+    }
 }

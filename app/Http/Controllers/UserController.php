@@ -75,6 +75,7 @@ class UserController extends Controller
         $defDown = \config('other.default_download');
         $freeDownload = $hisDown + $defDown - $user->downloaded;
         $realdownload = $user->getDownloaded();
+        $refunded_download = History::where('user_id', '=', $user->id)->sum('refunded_download');
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
@@ -97,11 +98,12 @@ class UserController extends Controller
             'warnings'     => $warnings,
             'hitrun'       => $hitrun,
 
-            //'bondownload'  => $bondownload,
-            'realdownload' => $realdownload,
-            'def_download' => $defDown,
-            'his_down'     => $hisDown,
-            'free_down'    => $freeDownload,
+            //'bondownload'     => $bondownload,
+            'realdownload'      => $realdownload,
+            'def_download'      => $defDown,
+            'his_down'          => $hisDown,
+            'free_down'         => $freeDownload,
+            'refunded_download' => $refunded_download,
 
             'realupload'   => $realupload,
             'def_upload'   => $defUpl,

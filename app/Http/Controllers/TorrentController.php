@@ -502,6 +502,7 @@ class TorrentController extends Controller
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? $request->input('refundable') : 0;
 
         $resolutionRule = 'nullable|exists:resolutions,id';
         if ($category->movie_meta || $category->tv_meta) {
@@ -524,8 +525,8 @@ class TorrentController extends Controller
             'slug'           => 'required',
             'description'    => 'required',
             'info_hash'      => 'required|unique:torrents',
-            'file_name'      => 'required',
-            'num_file'       => 'required|numeric',
+            'file_name'       => 'required',
+            'num_file'        => 'required|numeric',
             'announce'       => 'required',
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
@@ -545,6 +546,7 @@ class TorrentController extends Controller
             'stream'         => 'required',
             'sd'             => 'required',
             'free'           => 'sometimes|between:0,100',
+            'refundable'     => 'sometimes|bool',
         ]);
 
         if ($v->fails()) {

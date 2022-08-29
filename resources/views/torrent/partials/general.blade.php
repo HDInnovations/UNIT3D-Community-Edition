@@ -189,6 +189,13 @@
                                     <i class="{{ config('other.font-awesome') }} fa-ticket text-orange"></i>
                                 </span>
                             @endif
+
+                            @if ($torrent->refundable || $user->group->is_refundable)
+                                <span class="badge-extra">
+                                    <i class="{{ config('other.font-awesome') }} fa-percentage text-pink"
+                                       title='{{ __('torrent.refundable') }}'></i>
+                                </span>
+                            @endif
                         </div>
                         <div class="torrent-uploaded pull-right">
                             {{ __('torrent.uploaded-by') }}
