@@ -8,80 +8,54 @@
     <meta name="description" content="Possible Leech Cheaters - {{ __('staff.staff-dashboard') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.cheaters.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.possible-leech-cheaters') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('staff.possible-leech-cheaters') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('staff.possible-leech-cheaters') }} (Ghost Leechers)</h2>
-            <hr>
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="text-red">
-                        <strong><i class="{{ config('other.font-awesome') }} fa-question"></i>
-                            {{ __('staff.possible-leech-cheaters') }}
-                        </strong>
-                    </p>
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>{{ __('common.user') }}</th>
-                                <th>{{ __('common.group') }}</th>
-                                <th>{{ __('user.member-since') }}</th>
-                                <th>{{ __('user.last-login') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($cheaters as $cheater)
-                                <tr>
-                                    <td>
-                                        <a class="text-bold"
-                                           href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
-                                    </td>
-                                    <td>
-                                            <span class="badge-user text-bold"
-                                                  style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
-                                                <i class="{{ $cheater->user->group->icon }}" data-toggle="tooltip"
-                                                   data-original-title="{{ $cheater->user->group->name }}"></i>
-                                                {{ $cheater->user->group->name }}
-                                            </span>
-                                    </td>
-                                    <td>
-                                        @if ($cheater->user->created_at != null)
-                                            {{ $cheater->user->created_at->toDayDateTimeString() }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($cheater->user->last_login != null)
-                                            {{ $cheater->user->last_login->toDayDateTimeString() }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                {{ $cheaters->links() }}
-            </div>
+@section('page', 'page__cheaters--index')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('staff.possible-leech-cheaters') }} (Ghost Leechers)
+        </h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('user.member-since') }}</th>
+                        <th>{{ __('user.last-login') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cheaters as $cheater)
+                        <tr>
+                            <td>
+                                <x-user_tag :anon="false" :user="$cheater->user" />
+                            </td>
+                            <td>
+                                <time datetime="{{ $cheater->user->created_at ?? '' }}">
+                                    {{ $cheater->user->created_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $cheater->user->last_login ?? '' }}">
+                                    {{ $cheater->user->last_login ?? 'N/A'}}
+                                </time>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+        {{ $cheaters->links('partials.pagination') }}
+    </section>
 @endsection

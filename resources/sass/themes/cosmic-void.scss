@@ -1,3 +1,106 @@
+:root {
+    --achievement-fg: inherit;
+    --achievement-bg: #272727;
+
+    --article-card-bg: #272727;
+    --article-card-fg: #aaa;
+    --article-card-head-fg: #aaa;
+    --article-card-time-fg: #aaa;
+
+    --bbcode-input-header-bg: #222;
+    --bbcode-input-body-bg: #222;
+    --bbcode-input-border: 1px solid #555;
+    --bbcode-input-border-radius: 5px;
+
+    --button-filled-bg: #444;
+    --button-filled-border: none;
+    --button-filled-border-radius: 9999px;
+    --button-filled-fg: #ddd;
+
+    --button-outlined-bg: inherit;
+    --button-outlined-border: 1px solid #555;
+    --button-outlined-border-radius: 9999px;
+    --button-outlined-fg: currentColor;
+
+    --button-text-bg: inherit;
+    --button-text-border: none;
+    --button-text-border-radius: 5px;
+    --button-text-fg: currentColor;
+
+    --data-table-fg: inherit;
+    --data-table-th-bg: #19191b;
+    --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid #404040;
+    --data-table-tr-even-bg: #222;
+    --data-table-tr-hover-bg: #282828;
+    --data-table-tr-odd-bg: #222;
+    --data-table-tfoot-border: none;
+
+    --dialog-bg: #222;
+    --dialog-border: 3px solid rgba(14, 21, 34, 0.25);
+    --dialog-border-radius: 10px;
+    --dialog-box-shadow: none;
+    --dialog-fg: inherit;
+    --dialog-head-bg: #191919;
+    --dialog-head-fg: #fff;
+
+    --icon-button-bg: inherit;
+    --icon-button-border: none;
+    --icon-button-border-radius: 9999px;
+    --icon-button-fg: currentColor;
+
+    --input-text-border: 1px solid #555;
+    --input-text-border-active: 2px solid #2195f3;
+    --input-text-border-error: 1px solid #ba1b1b;
+    --input-text-border-hover: 2px solid #999;
+    --input-text-border-radius: 5px;
+    --input-text-fg: #bbb;
+
+    --key-value-even-bg: #222;
+    --key-value-fg: inherit;
+    --key-value-odd-bg: #222;
+    --key-value-padding: 10px;
+
+    --label-bg: #e2e2e2;
+    --label-fg: #555;
+    --label-fg-active: #2195f3;
+    --label-fg-error: #ba1b1b;
+    --label-fg-hover: #999;
+
+    --meter-fg: #333;
+    --meter-bg: #505050;
+
+    --paginate-bg: #272727;
+    --paginate-bg-hover: #222;
+    --paginate-bg-current: #202020;
+    --paginate-fg: #888;
+    --paginate-fg-disabled: #555;
+    --paginate-divider: #303030;
+
+    --panel-action-fg: #aaa;
+    --panel-border: 3px solid rgba(14, 21, 34, 0.25);
+    --panel-bg: #222;
+    --panel-fg: inherit;
+    --panel-box-shadow: none;
+    --panel-border-radius: 0;
+    --panel-head-bg: #19191b;
+    --panel-head-fg: #fff;
+
+    --select-border: 1px solid #555;
+    --select-border-active: 2px solid #2195f3;
+    --select-border-error: 1px solid #ba1b1b;
+    --select-border-hover: 2px solid #999;
+    --select-border-radius: 5px;
+    --select-fg: #bbb;
+
+    --textarea-border: 1px solid #555;
+    --textarea-border-active: 2px solid #2196f3;
+    --textarea-border-error: 1px solid #ba1b1b;
+    --textarea-border-hover: 2px solid #999;
+    --textarea-border-radius: 5px;
+    --textarea-fg: #bbb;
+}
+
 body {
     background-color: #19191b;
 }
@@ -5,10 +108,6 @@ body {
 .col-md-10,
 .ratio-bar {
     background-color: #27272b;
-}
-
-.breadcrumb {
-    background: #19191b;
 }
 
 .col-md-10 {

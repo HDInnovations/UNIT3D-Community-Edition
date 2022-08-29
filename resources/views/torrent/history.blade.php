@@ -8,16 +8,19 @@
     <meta name="description" content="{{ __('torrent.history') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('history', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.history') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.history') }}
     </li>
 @endsection
 

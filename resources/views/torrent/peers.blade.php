@@ -8,16 +8,19 @@
     <meta name="description" content="{{ __('torrent.peers') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('torrent.peers') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.peers') }}
     </li>
 @endsection
 
@@ -80,29 +83,17 @@
                                                 {{ $p->user->username }}</span></a>
                                 </td>
                             @endif
-                            @if ($p->seeder == 0)
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                             aria-valuenow="{{ ($p->downloaded / $torrent->size) * 100 }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                             style="width: {{ ($p->downloaded / $torrent->size) * 100 }}%;">
-                                            {{ round(($p->downloaded / $torrent->size) * 100) }}%
-                                        </div>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                            aria-valuenow="{{ $p->progress }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style="width: {{ $p->progress }}%;">
+                                        {{ $p->progress }}%
                                     </div>
-                                </td>
-                            @elseif ($p->seeder == 1)
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                             style="width: 100%;">
-                                            100%
-                                        </div>
-                                    </div>
-                                </td>
-                            @endif
+                                </div>
+                            </td>
                             <td>
                                     <span
                                             class="badge-extra text-green text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->uploaded, 2) }}</span>
@@ -146,9 +137,6 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div class="text-center">
-                {{ $peers->links() }}
             </div>
         </div>
     </div>

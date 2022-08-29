@@ -16,8 +16,8 @@ namespace App\Console\Commands;
 use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
@@ -45,7 +45,7 @@ class AutoDisableInactiveUsers extends Command
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning') == true) {
+        if (\config('pruning.user_pruning')) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();

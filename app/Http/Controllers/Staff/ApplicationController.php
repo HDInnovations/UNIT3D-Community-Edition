@@ -19,8 +19,8 @@ use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
@@ -73,7 +73,7 @@ class ApplicationController extends Controller
             $invite->expires_on = $carbon->copy()->addDays(\config('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
-            if (\config('email-blacklist.enabled') == true) {
+            if (\config('email-blacklist.enabled')) {
                 $v = \validator($request->all(), [
                     'email' => [
                         'required',

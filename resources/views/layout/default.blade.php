@@ -4,10 +4,24 @@
     @include('partials.head')
 </head>
 <body>
+@include('cookie-consent::index')
 <header>
     @include('partials.top_nav')
-    @include('partials.breadcrumb')
-    @include('cookie-consent::index')
+    <nav class="secondary-nav">
+        <ol class="breadcrumbsV2">
+            @if (! Route::is('home.index'))
+                <li class="breadcrumbV2">
+                  <a class="breadcrumb__link" href="{{ route('home.index') }}">
+                      <i class="{{ config('other.font-awesome') }} fa-home"></i>
+                  </a>
+                </li>
+            @endif
+            @yield('breadcrumbs')
+        </ol>
+        <ul class="nav-tabsV2">
+            @yield('nav-tabs')
+        </ul>
+    </nav>
     @include('partials.alerts')
     @if (Session::has('achievement'))
         @include('partials.achievement_modal')
@@ -20,10 +34,27 @@
         </div>
     @endif
 </header>
-<main>
-    <article>
-        @yield('content')
-    </article>
+<main class="@yield('page')">
+    @hasSection('main')
+        @hasSection('sidebar')
+            <article class="sidebar2">
+                <div>
+                    @yield('main')
+                </div>
+                <aside>
+                    @yield('sidebar')
+                </aside>
+            </article>
+        @else
+            <article>
+                @yield('main')
+            </article>
+        @endif
+    @else
+        <article>
+            @yield('content')
+        </article>
+    @endif
 </main>
 @include('partials.footer')
 

@@ -96,6 +96,18 @@
                             {{ __('torrent.uploaded') }}
                         </label>
                     </span>
+                    <span class="badge-user">
+                        <label style="user-select: none" class="inline" x-data="{ state: @entangle('downloaded'), ...ternaryCheckbox() }">
+                            <input
+                                type="checkbox"
+                                class="user-torrents__checkbox"
+                                x-init="updateTernaryCheckboxProperties($el, state)"
+                                x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                                x-bind:checked="state === 'include'"
+                            >
+                            {{ __('torrent.downloaded') }}
+                        </label>
+                    </span>
                 </div>
             </div>
             <div class="mx-0 mt-5 form-group fatten-me">
@@ -130,7 +142,7 @@
                 </div>
             </div>
             <div class="mx-0 mt-5 form-group fatten-me">
-                <div class="mt-5 col-sm-1 label label-default fatten-me">Precision</div>
+                <div class="mt-5 col-sm-1 label label-default fatten-me">Options</div>
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
@@ -312,28 +324,62 @@
                             </span>
                         </td>
                         @if ($showMorePrecision)
-                            <td class="user-torrents__leechtime">{{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}</td>
-                            <td class="user-torrents__seedtime {{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
-                                {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
-                            </td>
-                            <td class="user-torrents__created-at">{{ $history->created_at ?? 'N/A' }}</td>
-                            <td class="user-torrents__updated-at">{{ $history->updated_at ?? 'N/A' }}</td>
-                            <td class="user-torrents__complated-at">{{ $history->completed_at ?? 'N/A' }}</td>
-                        @else
                             <td class="user-torrents__leechtime">
-                                {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
+                                @if ($history->leechtime === null)
+                                    N/A
+                                @else
+                                    {{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}
+                                @endif
                             </td>
-                            <td class="user-torrents__seedtime {{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
-                                {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                            <td class="user-torrents__seedtime">
+                                <span class="{{ ($history->seedtime ?? 0) < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
+                                    @if ($history->seedtime === null)
+                                        N/A
+                                    @else
+                                        {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                    @endif
+                                </span>
                             </td>
                             <td class="user-torrents__created-at">
-                                {{ isset($history->created_at) ? \explode(" ", $history->created_at)[0] : 'N/A' }}
+                                <time datetime="{{ $history->created_at ?? 0}}">
+                                    {{ $history->created_at ?? 'N/A' }}
+                                </time>
                             </td>
                             <td class="user-torrents__updated-at">
-                                {{ isset($history->updated_at) ? \explode(" ", $history->updated_at)[0] : 'N/A' }}
+                                <time datetime="{{ $history->updated_at ?? 0}}">
+                                    {{ $history->updated_at ?? 'N/A' }}
+                                </time>
                             </td>
                             <td class="user-torrents__completed-at">
-                                {{ isset($history->completed_at) ? \explode(" ", $history->completed_at)[0] : 'N/A' }}
+                                <time datetime="{{ $history->completed_at ?? 0}}">
+                                    {{ $history->completed_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                        @else
+                            <td class="user-torrents__leechtime">
+                                @if ($history->leechtime === null)
+                                    N/A
+                                @else
+                                    {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
+                                @endif
+                            </td>
+                            <td class="user-torrents__seedtime">
+                                @if ($history->seedtime === null)
+                                    N/A
+                                @else
+                                    <span class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}">
+                                        {{ \implode(" ", \array_slice(\explode(" ", App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="user-torrents__created-at">
+                                {{ $history->created_at === null ? 'N/A' : \explode(" ", $history->created_at)[0] }}
+                            </td>
+                            <td class="user-torrents__updated-at">
+                                {{ $history->updated_at === null ? 'N/A' : \explode(" ", $history->updated_at)[0] }}
+                            </td>
+                            <td class="user-torrents__completed-at">
+                                {{ $history->completed_at === null ? 'N/A' : \explode(" ", $history->completed_at)[0] }}
                             </td>
                         @endif
                         <td class="user-torrents__seeding">

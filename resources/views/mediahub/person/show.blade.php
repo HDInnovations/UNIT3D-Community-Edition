@@ -1,21 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('mediahub.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.title') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.title') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('mediahub.persons.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('mediahub.persons') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('mediahub.persons.index') }}" class="breadcrumb__link">
+            {{ __('mediahub.persons') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('mediahub.persons.show', ['id' => $details->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $details->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $details->name }}
     </li>
 @endsection
 

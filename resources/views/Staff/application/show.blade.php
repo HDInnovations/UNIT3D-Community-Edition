@@ -8,214 +8,187 @@
     <meta name="description" content="Application - {{ __('staff.staff-dashboard') }}">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.applications') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.applications.index') }}" class="breadcrumb__link">
+            {{ __('staff.applications') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.applications') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $application->id }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <div class="table-responsive">
-                <table class="table table-condensed table-bordered table-striped">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <strong>{{ __('common.email') }}</strong>
-                        </td>
-                        <td>
-                            {{ $application->email }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>{{ __('staff.application-type') }}</strong>
-                        </td>
-                        <td>
-                            {{ $application->type }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>{{ __('common.created_at') }}</strong>
-                        </td>
-                        <td>
-                            {{ $application->created_at->toDayDateTimeString() }}
-                            ({{ $application->created_at->diffForHumans() }})
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">
-                            <strong>{{ __('staff.application-image-proofs') }}</strong>
-                        </td>
-                        <td>
-                            @foreach($application->imageProofs as $key => $img_proof)
-                                <a href="{{ $img_proof->image }}" target="_blank">
-                                    <button type="button"
-                                            class="btn btn-sm btn-info">{{ __('staff.application-image-proofs') }} {{ ++$key }}</button>
-                                </a>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>{{ __('user.profile') }} {{ __('staff.links') }}</strong>
-                        </td>
-                        <td>
-                            @foreach($application->urlProofs as $key => $url_proof)
-                                <li><a href="{{ $url_proof->url }}"
-                                       target="_blank">{{ __('user.profile') }} {{ __('staff.links') }} {{ ++$key }}</a></li>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>{{ __('staff.application-referrer') }}</strong>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <label>
-                                    <textarea name="referrer" cols="30" rows="10" class="form-control"
-                                              disabled="">{{ $application->referrer }}</textarea>
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>{{ __('common.status') }}</strong>
-                        </td>
-                        <td>
-                            @if ($application->status == 0)
-                                <span class="text-warning">{{ __('request.pending') }}</span>
-                            @elseif ($application->status == 1)
-                                <span class="text-success">{{ __('request.approve') }}</span>
-                            @else
-                                <span class="text-danger">{{ __('request.reject') }}</span>
-                            @endif
-                        </td>
-                    </tr>
-                    @if($application->status != 0)
-                        <tr>
-                            <td>
-                                <strong>{{ __('common.moderated-by') }}</strong>
-                            </td>
-                            <td>{{ $application->moderated->username }}</td>
-                        </tr>
-                    @else
-                        <tr>
-                            <td>
-                                <strong>{{ __('common.action') }}</strong>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
-                                        data-target="#approve-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-check"></i> {{ __('request.approve') }}
-                                </button>
+@section('page', 'page__application--show')
 
-                                <div id="approve-application" class="modal fade" role="dialog">
-                                    <form method="POST"
-                                          action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
-                                        @csrf
-                                        <div class="modal-dialog{{ modal_style() }}">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close"
-                                                            data-dismiss="modal">&times;
-                                                    </button>
-                                                    <h4 class="modal-title">
-                                                        {{ __('request.approve') }}
-                                                        {{ __('common.this') }}
-                                                        {{ __('staff.application') }}
-                                                    </h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input id="email" name="email" type="hidden"
-                                                           value="{{ $application->email }}">
-                                                    <div class="form-group">
-                                                        <label for="message">{{ __('common.message') }}</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="approve"></label>
-                                                        <textarea class="form-control" rows="5" cols="50" name="approve"
-                                                                  id="approve">Application Approved!</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-success" type="submit">
-                                                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                                                        {{ __('request.approve') }}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                                        data-target="#deny-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('request.reject') }}
-                                </button>
-
-                                <div id="deny-application" class="modal fade" role="dialog">
-                                    <form method="POST"
-                                          action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
-                                        @csrf
-                                        <div class="modal-dialog{{ modal_style() }}">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close"
-                                                            data-dismiss="modal">&times;
-                                                    </button>
-                                                    <h4 class="modal-title">
-                                                        {{ __('request.reject') }}
-                                                        {{ __('common.this') }}
-                                                        {{ __('staff.application') }}
-                                                    </h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input id="email" name="email" type="hidden"
-                                                           value="{{ $application->email }}">
-                                                    <div class="form-group">
-                                                        <label for="message">{{ __('common.message') }}</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="deny"></label>
-                                                        <textarea class="form-control" rows="5" cols="50" name="deny"
-                                                                  id="deny">Insufficient Proofs.</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-danger" type="submit">
-                                                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                                                        {{ __('request.reject') }}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </td>
-                        </tr>
-                    @endif
-                    </tbody>
-                </table>
-            </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.image') }}</h2>
+        <div class="panel__body">
+            <ul>
+                @foreach($application->imageProofs as $img_proof)
+                    <li>
+                        <a href="{{ $img_proof->image }}" target="_blank">
+                            {{ __('staff.application-image-proofs') }} {{ $loop->iteration }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-    </div>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('user.profile') }} {{ __('staff.links') }}
+        </h2>
+        <div class="panel__body">
+            <ul>
+                @foreach($application->urlProofs as $url_proof)
+                    <li>
+                        <a href="{{ $url_proof->url }}" target="_blank">
+                            {{ $url_proof->url }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('staff.application-referrer') }}
+        </h2>
+        <div class="panel__body">{{ $application->referrer }}</div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <dt>{{ __('common.email') }}</dt>
+            <dd>{{ $application->email }}</dd>
+            <dt>{{ __('staff.application-type') }}</dt>
+            <dd>{{ $application->type }}</dd>
+            <dt>{{ __('common.created_at') }}</dt>
+            <dd>
+                <time datetime="{{ $application->created_at }}" title="{{ $application->created_at }}">
+                    {{ $application->created_at->diffForHumans() }}
+                </time>
+            </dd>
+            <dt>{{ __('common.status') }}</dt>
+            <dd>
+                @if ($application->status == 0)
+                    <span class="application--pending">{{ __('request.pending') }}</span>
+                @elseif ($application->status == 1)
+                    <span class="application--approved">{{ __('request.approve') }}</span>
+                @else
+                    <span class="application--rejected">{{ __('request.reject') }}</span>
+                @endif
+            </dd>
+        </dl>
+    </section>
+    <section class="panelV2">
+        @if($application->status)
+            <h2 class="panel__heading">{{ __('common.moderated-by') }}</h2>
+            <div class="panel__body">
+                <x-user_tag :anon="false" :user="$application->moderated" />
+            </div>
+        @else
+            <h2 class="panel__heading">{{ __('common.action') }}</h2>
+            <div class="panel__body">
+                    <div x-data="{ open: false }">
+                        <p class="form__group form__group--horizontal">
+                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                                <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                                {{ __('request.approve') }}
+                            </button>
+                        </p>
+                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                            <h3 class="dialog__heading">
+                                {{ __('request.approve') }}
+                                {{ __('common.this') }}
+                                {{ __('staff.application') }}
+                            </h3>
+                            <form
+                                class="dialog__form"
+                                method="POST"
+                                action="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
+                                x-on:click.outside="open = false; $refs.dialog.close();"
+                            >
+                                @csrf
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="hidden"
+                                    value="{{ $application->email }}"
+                                >
+                                <p class="form__group">
+                                    <textarea id="approve" class="form__textarea" name="approve" placeholder="">Application Approved!</textarea>
+                                    <label class="form__label form__label--floating" for="approve">Invitation Message</label>
+                                </p>
+                                <p class="form__group">
+                                    <button class="form__button form__button--filled">
+                                        {{ __('request.approve') }}
+                                    </button>
+                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                        {{ __('common.cancel') }}
+                                    </button>
+                                </p>
+                            </form>
+                        </dialog>
+                    </div>
+                    <div x-data="{ open: false }">
+                        <p class="form__group form__group--horizontal">
+                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                {{ __('request.reject') }}
+                            </button>
+                        </p>
+                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                            <h3 class="dialog__heading">
+                                {{ __('request.reject') }}
+                                {{ __('common.this') }}
+                                {{ __('staff.application') }}
+                            </h3>
+                            <form
+                                class="dialog__form"
+                                method="POST"
+                                action="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
+                                x-on:click.outside="open = false; $refs.dialog.close();"
+                            >
+                                @csrf
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="hidden"
+                                    value="{{ $application->email }}"
+                                >
+                                <p class="form__group">
+                                    <textarea
+                                        id="message"
+                                        class="form__textarea"
+                                        name="deny"
+                                        required
+                                    >Insufficient Proofs.</textarea>
+                                    <label class="form__label form__label--floating for="message">Rejection Message</label>
+                                </p>
+                                <p class="form__group">
+                                    <button class="form__button form__button--filled">
+                                        {{ __('request.reject') }}
+                                    </button>
+                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                        {{ __('common.cancel') }}
+                                    </button>
+                                </p>
+                            </form>
+                        </dialog>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </section>
 @endsection

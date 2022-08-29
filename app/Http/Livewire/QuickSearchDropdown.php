@@ -21,6 +21,7 @@ class QuickSearchDropdown extends Component
                 ->select(['id', 'poster', 'title', 'release_date'])
                 ->selectRaw("concat(title, ' ', release_date) as title_and_year")
                 ->having('title_and_year', 'LIKE', $search)
+                ->has('torrents')
                 ->oldest('title')
                 ->take(10)
                 ->get(),
@@ -28,6 +29,7 @@ class QuickSearchDropdown extends Component
                 ->select(['id', 'poster', 'name', 'first_air_date'])
                 ->selectRaw("concat(name, ' ', first_air_date) as title_and_year")
                 ->having('title_and_year', 'LIKE', $search)
+                ->has('torrents')
                 ->oldest('name')
                 ->take(10)
                 ->get(),

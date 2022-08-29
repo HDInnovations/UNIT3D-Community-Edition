@@ -31,25 +31,37 @@ class TorrentTools
     public static function normalizeTorrent($torrentFile)
     {
         $result = Bencode::bdecode_file($torrentFile);
+
+        // Whitelisted keys
+        $result = \array_intersect_key($result, [
+            'announce'   => '',
+            'comment'    => '',
+            'created by' => '',
+            'encoding'   => '',
+            'info'       => '',
+
+        ]);
+        $result['info'] = \array_intersect_key($result['info'], [
+            'files'        => '',
+            'length'       => '',
+            'name'         => '',
+            'piece length' => '',
+            'pieces'       => '',
+            'private'      => '',
+            'source'       => '',
+        ]);
+
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
-        $announce = \config('app.url');
-        $announce .= '/announce/PID';
-        $result['announce'] = $announce;
+        $result['announce'] = \config('app.url').'/announce/PID';
         $result['info']['source'] = \config('torrent.source');
         $result['info']['private'] = 1;
-        $createdBy = \config('torrent.created_by', null);
-        $createdByAppend = \config('torrent.created_by_append', false);
-        if ($createdBy !== null) {
-            if ($createdByAppend && \array_key_exists('created by', $result)) {
-                $c = $result['created by'];
-                $c = \trim($c, '. ');
-                $c .= '. '.$createdBy;
-                $createdBy = $c;
-            }
 
-            $result['created by'] = $createdBy;
+        if (\config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
+            $result['created by'] = \trim($result['created by'], '. ').'. '.\config('torrent.created_by', '');
+        } else {
+            $result['created by'] = \config('torrent.created_by', '');
         }
 
         $comment = \config('torrent.comment', null);
@@ -197,5 +209,38 @@ class TorrentTools
         }
 
         return $result;
+    }
+
+    /**
+     * Anonymize A Torrent Media Info.
+     */
+    public static function anonymizeMediainfo($mediainfo): array|string|null
+    {
+        if ($mediainfo === null) {
+            return null;
+        }
+
+        $completeNameI = \strpos($mediainfo, 'Complete name');
+        if ($completeNameI !== false) {
+            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            if ($pathI !== false) {
+                $pathI += 2;
+                $endI = \strpos($mediainfo, "\n", $pathI);
+                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $newPath = MediaInfo::stripPath($path);
+
+                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
+            }
+        }
+
+        return $mediainfo;
+    }
+
+    /**
+     * Parse Torrent Keywords.
+     */
+    public static function parseKeywords($text): array
+    {
+        return \array_filter(\array_unique(\array_map('trim', explode(',', $text))));
     }
 }

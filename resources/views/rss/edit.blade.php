@@ -4,19 +4,21 @@
     <title>{{ __('rss.edit-private-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
+            {{ __('rss.rss') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.edit') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" class="breadcrumb__link">
+            {{ $rss->name }}
         </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
-
 
 @section('content')
     <div class="container">
@@ -243,6 +245,21 @@
                                                 class="{{ config('other.font-awesome') }} fa-magic"
                                                 style="color: #baaf92;"></span>
                                         {{ __('torrent.internal') }}
+                                    @endif
+                                </label>
+                            </span>
+                            <span class="badge-user">
+                                <label class="inline">
+                                    @if($rss->object_torrent->personalrelease)
+                                        <input type="checkbox" id="personalrelease" name="personalrelease" value="1" CHECKED><span
+                                                class="{{ config('other.font-awesome') }} fa-user-plus"
+                                                style="color: #865be9;"></span>
+                                        {{ __('torrent.personal-release') }}
+                                    @else
+                                        <input type="checkbox" id="personalrelease" name="personalrelease" value="1"><span
+                                                class="{{ config('other.font-awesome') }} fa-user-plus"
+                                                style="color: #865be9;"></span>
+                                        {{ __('torrent.personal-release') }}
                                     @endif
                                 </label>
                             </span>

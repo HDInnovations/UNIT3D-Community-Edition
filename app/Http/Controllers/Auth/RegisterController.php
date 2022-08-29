@@ -24,8 +24,8 @@ use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -44,7 +44,7 @@ class RegisterController extends Controller
     public function registrationForm($code = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
-        if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {
+        if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups')) {
             return \to_route('application.create')
                 ->withInfo(\trans('auth.allow-invite-appl'));
         }
@@ -81,8 +81,8 @@ class RegisterController extends Controller
         $user->locale = \config('app.locale');
         $user->group_id = $validatingGroup[0];
 
-        if (\config('email-blacklist.enabled') == true) {
-            if (\config('captcha.enabled') == false) {
+        if (\config('email-blacklist.enabled')) {
+            if (! \config('captcha.enabled')) {
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
@@ -110,7 +110,7 @@ class RegisterController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
-        } elseif (\config('captcha.enabled') == false) {
+        } elseif (! \config('captcha.enabled')) {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:8,16',

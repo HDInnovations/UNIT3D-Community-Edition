@@ -1,11 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('edit_form', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ __('torrent.torrent') }} {{ __('common.edit') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+            {{ __('torrent.torrents') }}
         </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+            {{ $torrent->name }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
@@ -95,6 +102,13 @@
                     @else
                         <input type="hidden" name="igdb" value="0">
                     @endif
+
+                    <div class="form-group">
+                        <label for="name">{{ __('torrent.keywords') }} (<i>{{ __('torrent.keywords-example') }}</i>)</label>
+                        <label>
+                            <input type="text" name="keywords" value="{{ $keywords->implode(', ') }}" class="form-control">
+                        </label>
+                    </div>
 
                     <div class="form-group">
                         <label for="category_id">{{ __('torrent.category') }}</label>
@@ -283,7 +297,7 @@
                         <br>
                         <br>
                     @else
-                        <input type="hidden" name="internal" value="0">
+                        <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                     @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
                         <label for="personal" class="control-label">Personal Release?</label>
@@ -298,7 +312,7 @@
                                           @endif value="0">{{ __('common.no') }}</label>
                         </div>
                     @else
-                        <input type="hidden" name="personal_release" value="0">
+                        <input type="hidden" name="personal_release" value="{{ $torrent->personal_release }}">
                     @endif
                     <br>
                     <br>

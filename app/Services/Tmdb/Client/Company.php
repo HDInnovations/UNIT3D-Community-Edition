@@ -36,7 +36,7 @@ class Company
                 ],
                 'query' => [
                     'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.locale'),
+                    'language'           => \config('app.meta_locale'),
                     'append_to_response' => 'movies,videos,images,credits',
                     'page'               => $page,
                 ],

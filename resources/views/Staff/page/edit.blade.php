@@ -1,46 +1,58 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.pages') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.pages.index') }}" class="breadcrumb__link">
+            {{ __('staff.pages') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.edit') }} {{ __('staff.page') }}</span>
-        </a>
+    <li class="breadcrumbV2">
+        {{ $page->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>
-            {{ __('common.edit') }}
-            {{ __('staff.page') }}
-            {{ $page->name }}
+@section('page', 'page__page-admin--edit')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.edit') }} {{ __('staff.page') }}: {{ $page->name }}
         </h2>
-        <form role="form" method="POST" action="{{ route('staff.pages.update', ['id' => $page->id]) }}">
-            @csrf
-            <div class="form-group">
-                <label for="name">{{ __('staff.page') }} {{ __('common.name') }}</label>
-                <label>
-                    <input type="text" name="name" class="form-control" value="{{ $page->name }}">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="content">{{ __('common.content') }}</label>
-                <textarea name="content" id="editor" cols="30" rows="10"
-                          class="form-control">{{ $page->content }}</textarea>
-            </div>
-
-            <button type="submit" class="btn btn-default">{{ __('common.save') }}</button>
-        </form>
-    </div>
+        <div class="panel__body">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.pages.update', ['id' => $page->id]) }}"
+            >
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        required
+                        type="text"
+                        value="{{ $page->name }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $page->content])
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.save') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

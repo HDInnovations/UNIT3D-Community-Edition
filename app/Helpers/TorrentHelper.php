@@ -32,7 +32,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class TorrentHelper
 {
@@ -99,7 +99,7 @@ class TorrentHelper
         }
 
         // Announce To IRC
-        if (\config('irc-bot.enabled') == true) {
+        if (\config('irc-bot.enabled')) {
             $appname = \config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
             if ($anon == 0) {

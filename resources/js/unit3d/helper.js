@@ -13,7 +13,6 @@
 // uploadExtensionBuilder - To parse torrent files titles / Used: Upload
 // userFilterBuilder - To add filters for user search / Used: All User Histories
 // forumTipBuilder - To add tip buttons for forum / Used: Topics
-// userExtensionBuilder - To add toggle capabilities to BON / Used: BON
 //
 // After classes, event attachments then globals.
 class uploadExtensionBuilder {
@@ -185,7 +184,6 @@ class uploadExtensionBuilder {
         title = title.replace(/( ?- ?)([^ ]*)$/i, '-$2');
         return title.trim();
     }
-
     hook() {
         let name = document.querySelector('#title');
         let tmdb = document.querySelector('#autotmdb');
@@ -350,7 +348,7 @@ class uploadExtensionBuilder {
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
-                } else if (release.type === 'TV Show') {
+                } else if (release.type === 'TV Show' && data?.results.length > 0) {
                     let tags = data.results.map(({ name }) => name).join(', ');
                     $('#autokeywords').val(tags);
                 }
@@ -364,12 +362,12 @@ class uploadExtensionBuilder {
             function s(data) {
                 data = JSON.parse(data);
                 let imdb = data.imdb_id;
-                imdb = imdb.substring(2);
+                imdb = imdb.substring(2) ?? 0;
                 if (release.type === 'Movie') {
                     $('#autoimdb').val(imdb);
                 } else if (release.type === 'TV Show') {
                     $('#autoimdb').val(imdb);
-                    $('#autotvdb').val(data.tvdb_id);
+                    $('#autotvdb').val(data.tvdb_id ?? 0);
                 }
             }
 
@@ -700,33 +698,6 @@ class userFilterBuilder {
     }
 }
 
-class userExtensionBuilder {
-    constructor() {
-        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-    }
-
-    handle(flag) {
-        if (flag) {
-            $('.' + this.extension).each(function () {
-                $(this).show();
-            });
-        } else {
-            $('.' + this.extension).each(function () {
-                $(this).hide();
-            });
-        }
-    }
-
-    init() {
-        this.extension = $('#userExtension').attr('extension');
-        $('#extended').off('change');
-        $('#extended').on('change', function () {
-            userExtension.handle($(this).is(':checked'));
-        });
-        this.handle();
-    }
-}
-
 class forumTipBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
@@ -814,9 +785,6 @@ $(document).ready(function () {
     if (document.getElementById('forumTip')) {
         forumTip.init();
     }
-    if (document.getElementById('userExtension')) {
-        userExtension.init();
-    }
 });
 $(document).on('click', '.pagination a', function (e) {
     var url = $(this).attr('href');
@@ -860,15 +828,9 @@ $(document).mousedown(function () {
     }
     audioLoaded = 1;
 });
-if (document.getElementById('torrent')) {
-    document.querySelector('#torrent').addEventListener('change', () => {
-        uploadExtension.hook();
-    });
-}
 // Globals
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
-const userExtension = new userExtensionBuilder();
 const uploadExtension = new uploadExtensionBuilder();
 var userFilterXHR = null;
 var audioLoaded = 0;

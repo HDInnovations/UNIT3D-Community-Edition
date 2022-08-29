@@ -18,8 +18,8 @@ use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -54,7 +54,7 @@ class TorrentBuffController extends Controller
         );
 
         // Announce To IRC
-        if (\config('irc-bot.enabled') == true) {
+        if (\config('irc-bot.enabled')) {
             $appname = \config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
             $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');

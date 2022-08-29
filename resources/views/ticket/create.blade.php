@@ -4,16 +4,14 @@
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('tickets.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('ticket.helpdesk') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('tickets.index') }}" class="breadcrumb__link">
+            {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('tickets.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('ticket.create-ticket') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('ticket.create-ticket') }}
     </li>
 @endsection
 

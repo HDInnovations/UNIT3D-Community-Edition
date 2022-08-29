@@ -4,82 +4,155 @@
     <title>{{ __('bot.edit-bot') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bot.bots') }}</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.bots.index') }}" class="breadcrumb__link">
+            {{ __('bot.bots') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('bot.edit-bot') }}</span>
+    <li class="breadcrumbV2">
+        {{ $bot->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
+            {{ __('staff.statuses') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+            {{ __('staff.rooms') }}
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('staff.bots.index') }}">
+            {{ __('staff.bots') }}
         </a>
     </li>
 @endsection
 
+@section('page', 'page__chat-bot--edit')
 
-@section('content')
-    <div class="container box">
-        <h2>{{ __('bot.edit-bot') }}</h2>
-        <form role="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="name">{{ __('bot.name') }}</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $bot->name }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('common.position') }}</label>
-                <label for="position"></label><input type="number" id="position" name="position"
-                                                     value="{{ $bot->position }}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.command') }}</label>
-                <label for="command"></label><input type="text" class="form-control" id="command" name="command"
-                                                    value="{{ $bot->command }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.info') }}</label>
-                <label for="info"></label><input type="text" class="form-control" id="info" name="info"
-                                                 value="{{ $bot->info }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.about') }}</label>
-                <label for="about"></label><input type="text" class="form-control" id="about" name="about"
-                                                  value="{{ $bot->about }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.emoji-code') }}</label>
-                <label for="emoji"></label><input type="text" class="form-control" id="emoji" name="emoji"
-                                                  value="{{ $bot->emoji }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.icon') }}</label>
-                <label for="icon"></label><input type="text" class="form-control" id="icon" name="icon"
-                                                 value="{{ $bot->icon }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.color') }}</label>
-                <label for="color"></label><input type="text" class="form-control" id="color" name="color"
-                                                  value="{{ $bot->color }}">
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('bot.help') }}</label>
-            </div>
-            <div class="form-group">
-                <label>
-                    <textarea name="help" cols="30" rows="10" class="form-control">{{ $bot->help }}</textarea>
-                </label>
-            </div>
-            <br>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">{{ __('common.edit') }}</button>
-            </div>
-        </form>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('bot.edit-bot') }}: {{ $bot->name }}</h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
+                @csrf
+                @method('PATCH')
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->name }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">{{ __('bot.name') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="position"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->position }}"
+                    >
+                    <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="command"
+                        class="form__text"
+                        name="command"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->command }}"
+                    >
+                    <label class="form__label form__label--floating" for="command">{{ __('bot.command') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="info"
+                        class="form__text"
+                        name="info"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->info }}"
+                    >
+                    <label class="form__label form__label--floating" for="info">{{ __('bot.info') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="about"
+                        class="form__text"
+                        name="about"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->about }}"
+                    >
+                    <label class="form__label form__label--floating" for="about">{{ __('bot.about') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="emoji"
+                        class="form__text"
+                        name="emoji"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->emoji }}"
+                    >
+                    <label class="form__label form__label--floating" for="emoji">{{ __('bot.emoji-code') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="icon"
+                        class="form__text"
+                        name="icon"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->icon }}"
+                    >
+                    <label class="form__label form__label--floating" for="icon">{{ __('bot.icon') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="color"
+                        class="form__text"
+                        name="color"
+                        placeholder=""
+                        type="text"
+                        value="{{ $bot->color }}"
+                    >
+                    <label class="form__label form__label--floating" for="color">{{ __('bot.color') }}</label>
+                </p>
+                <p class="form__group">
+                    <textarea
+                        id="help"
+                        class="form__textarea"
+                        name="help"
+                        placeholder=""
+                    >{{ $bot->help }}</textarea>
+                    <label class="form__label form__label--floating" for="help">{{ __('bot.help') }}</label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">{{ __('common.edit') }}</button>
+                </p>
+            </form>
+        </div>
     </div>
 @endsection

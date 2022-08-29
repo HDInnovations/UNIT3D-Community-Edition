@@ -16,8 +16,8 @@ namespace App\Console\Commands;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoWarningTest
@@ -45,7 +45,7 @@ class AutoWarning extends Command
      */
     public function handle(): void
     {
-        if (\config('hitrun.enabled') == true) {
+        if (\config('hitrun.enabled')) {
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)

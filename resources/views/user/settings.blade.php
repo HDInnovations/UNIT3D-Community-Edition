@@ -4,26 +4,24 @@
     <title>{{ $user->username }} - Settings - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('user_settings', ['username' => $user->username]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} {{ __('user.general') }}
-                {{ __('user.settings') }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('user.settings') }}
     </li>
+@endsection
+
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
 @section('content')
     <div class="container">
         <div class="block">
-            @include('user.buttons.settings')
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#general" data-toggle="tab">General</a></li>

@@ -16,14 +16,13 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
-use App\Traits\Auditable;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use voku\helper\AntiXSS;
 
@@ -34,7 +33,6 @@ class User extends Authenticatable
     use Achiever;
     use SoftDeletes;
     use UsersOnlineTrait;
-    use Auditable;
 
     /**
      * The Attributes Excluded From The Model's JSON Form.
@@ -119,6 +117,14 @@ class User extends Authenticatable
     public function isBookmarked(int $torrentId): bool
     {
         return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
+    }
+
+    /**
+     * Belongs To Many Seeding Torrents.
+     */
+    public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'history')->wherePivot('active', '=', 1);
     }
 
     /**
@@ -479,6 +485,14 @@ class User extends Authenticatable
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Ticket::class, 'user_id');
+    }
+
+    /**
+     * Has Many Personal Freeleeches.
+     */
+    public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PersonalFreeleech::class);
     }
 
     /**
@@ -869,5 +883,36 @@ class User extends Authenticatable
             ->pluck('torrent_id');
 
         return Torrent::whereIntergerIn('id', $seeding)->sum('size');
+    }
+
+    /**
+     * Gets the seeding size of torrents that are connectable.
+     */
+    public function getConnectableSeedsizeAttribute(): int
+    {
+        if (\config('announce.connectable_check')) {
+            $unconnectablePeers = Peer::query()
+                ->select('ip', 'port', 'agent')
+                ->distinct()
+                ->where('user_id', '=', 3)
+                ->get()
+                ->filter(fn ($peer) => ! cache()->get('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent, false));
+
+            return Torrent::whereHas('peers', function ($query) use ($unconnectablePeers) {
+                $query->where('user_id', '=', $this->id);
+
+                foreach ($unconnectablePeers as $peer) {
+                    $query->whereNot(function ($query) use ($peer) {
+                        $query
+                            ->where('ip', '=', $peer->ip)
+                            ->where('port', '=', $peer->port)
+                            ->where('agent', '=', $peer->agent);
+                    });
+                }
+            })
+            ->sum('size');
+        } else {
+            return 0;
+        }
     }
 }

@@ -1,9 +1,45 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('rss.rss') }}</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a class="breadcrumb__link" href="{{ route('torrents') }}">
+            {{ __('torrent.torrents') }}
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('rss.rss') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('torrents') }}">
+            List
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('cards') }}">
+            Cards
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('grouped') }}">
+            Grouped
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('top10.index') }}">
+            Top 10
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('rss.index') }}">
+            {{ __('rss.rss') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+            {{ __('common.upload') }}
         </a>
     </li>
 @endsection
@@ -78,7 +114,7 @@
                                                 </td>
                                                 <td>@if ($rss->object_torrent->stream || $rss->object_torrent->highspeed ||
                                                             $rss->object_torrent->sd || $rss->object_torrent->internal ||
-                                                            $rss->object_torrent->bookmark)<i
+                                                            $rss->object_torrent->personalrelease || $rss->object_torrent->bookmark)<i
                                                             class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else
                                                         <i
                                                                 class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif
@@ -160,7 +196,7 @@
                                                 </td>
                                                 <td>@if ($rss->object_torrent->stream || $rss->object_torrent->highspeed ||
                                                             $rss->object_torrent->sd || $rss->object_torrent->internal ||
-                                                            $rss->object_torrent->bookmark)<i
+                                                            $rss->object_torrent->personalrelease || $rss->object_torrent->bookmark)<i
                                                             class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else
                                                         <i
                                                                 class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif

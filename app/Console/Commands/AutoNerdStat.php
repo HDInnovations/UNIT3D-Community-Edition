@@ -19,8 +19,8 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest
@@ -56,7 +56,7 @@ class AutoNerdStat extends Command
      */
     public function handle(): void
     {
-        if (\config('chat.nerd_bot') == true) {
+        if (\config('chat.nerd_bot')) {
             // Site Birthday
             $bday = \config('other.birthdate');
 

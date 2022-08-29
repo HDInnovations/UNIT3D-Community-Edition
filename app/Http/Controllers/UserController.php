@@ -31,8 +31,9 @@ use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
 use App\Rules\EmailBlacklist;
-use Carbon\Carbon;
+use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -82,6 +83,11 @@ class UserController extends Controller
 
         $peers = Peer::where('user_id', '=', $user->id)->get();
 
+        $achievements = AchievementProgress::with('details')
+            ->where('achiever_id', '=', $user->id)
+            ->whereNotNull('unlocked_at')
+            ->get();
+
         return \view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
@@ -104,10 +110,11 @@ class UserController extends Controller
             'bonupload'    => $bonupload,
             'man_upload'   => $manUpload,
 
-            'requested'    => $requested,
-            'filled'       => $filled,
-            'invitedBy'    => $invitedBy,
-            'peers'        => $peers,
+            'requested'     => $requested,
+            'filled'        => $filled,
+            'invitedBy'     => $invitedBy,
+            'peers'         => $peers,
+            'achievements'  => $achievements,
         ]);
     }
 
@@ -351,7 +358,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        if (\config('email-blacklist.enabled') == true) {
+        if (\config('email-blacklist.enabled')) {
             $v = \validator($request->all(), [
                 'email' => [
                     'required',
@@ -1240,6 +1247,29 @@ class UserController extends Controller
     }
 
     /**
+     * Get A Users Uploads Table.
+     */
+    public function uploads(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
+
+        return \view('user.private.uploads', [
+            'route'         => 'uploads',
+            'user'          => $user,
+            'his_upl'       => $hisUpl,
+            'his_upl_cre'   => $hisUplCre,
+            'his_downl'     => $hisDownl,
+            'his_downl_cre' => $hisDownlCre,
+        ]);
+    }
+
+    /**
      * Get A Users Graveyard Resurrections.
      */
     public function resurrections(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1439,37 +1469,5 @@ class UserController extends Controller
         }
 
         return \redirect()->back()->withSuccess('Peers were flushed successfully!');
-    }
-
-    /**
-     * Get A Users Active Table by IP and Port.
-     */
-    public function activeByClient(Request $request, string $username, string $ip, string $port): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-
-        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
-        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
-        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
-
-        $active = Peer::with(['torrent' => function ($query) {
-            $query->withAnyStatus();
-        }])->where('user_id', '=', $user->id)
-            ->where('ip', '=', $ip)
-            ->where('port', '=', $port)
-            ->distinct('torrent_id')
-            ->paginate(50);
-
-        return \view('user.private.active', ['user' => $user,
-            'route'                                 => 'active',
-            'active'                                => $active,
-            'his_upl'                               => $hisUpl,
-            'his_upl_cre'                           => $hisUplCre,
-            'his_downl'                             => $hisDownl,
-            'his_downl_cre'                         => $hisDownlCre,
-        ]);
     }
 }

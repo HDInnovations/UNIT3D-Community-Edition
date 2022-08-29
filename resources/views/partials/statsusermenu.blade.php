@@ -1,16 +1,56 @@
-<div class="block pv-5">
-    <div class="btn-group text-center">
-        <a href="{{ route('uploaded') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-upload"></i> {{ __('user.top-uploaders-data') }}</a>
-        <a href="{{ route('downloaded') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-download"></i> {{ __('user.top-downloaders-data') }}</a>
-        <a href="{{ route('seeders') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ __('user.top-seeders') }}</a>
-        <a href="{{ route('leechers') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ __('user.top-leechers') }}</a>
-        <a href="{{ route('uploaders') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-upload"></i> {{ __('user.top-uploaders-count') }}</a>
-        <a href="{{ route('bankers') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('user.top-bankers') }}</a>
-    </div>
-</div>
+<li class="{{ Route::is('uploaded') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('uploaded') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('uploaded') }}"
+    >
+        {{ __('user.top-uploaders-data') }}
+    </a>
+</li>
+<li class="{{ Route::is('seeders') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('seeders') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('seeders') }}"
+    >
+        {{ __('user.top-seeders') }}
+    </a>
+</li>
+<li class="{{ Route::is('leechers') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('leechers') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('leechers') }}"
+    >
+        {{ __('user.top-leechers') }}
+    </a>
+</li>
+<li class="{{ Route::is('uploaders') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('uploaders') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('uploaders') }}"
+    >
+        {{ __('user.top-uploaders-count') }}
+    </a>
+</li>
+<li class="{{ Route::is('bankers') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('bankers') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('bankers') }}"
+    >
+        {{ __('user.top-bankers') }}
+    </a>
+</li>
+<li class="{{ Route::is('seedtime') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('seedtime') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('seedtime') }}"
+    >
+        {{ __('user.top-seedtime') }}
+    </a>
+</li>
+<li class="{{ Route::is('seedsize') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('seedsize') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('seedsize') }}"
+    >
+        {{ __('user.top-seeding-size') }}
+    </a>
+</li>

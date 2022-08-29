@@ -12,11 +12,9 @@
     <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" crossorigin="anonymous">
 @endsection
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('auth.title') }}</span>
-        </a>
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        {{ __('auth.title') }}
     </li>
 @endsection
 
