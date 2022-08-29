@@ -100,14 +100,14 @@
         @else
             <h2 class="panel__heading">{{ __('common.action') }}</h2>
             <div class="panel__body">
-                    <div x-data>
+                    <div x-data="{ open: false }">
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
+                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
                                 <i class="{{ config('other.font-awesome') }} fa-check"></i>
                                 {{ __('request.approve') }}
                             </button>
                         </p>
-                        <dialog class="dialog" x-ref="dialog">
+                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
                             <h3 class="dialog__heading">
                                 {{ __('request.approve') }}
                                 {{ __('common.this') }}
@@ -117,7 +117,7 @@
                                 class="dialog__form"
                                 method="POST"
                                 action="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
-                                x-on:click.outside="$refs.dialog.close()"
+                                x-on:click.outside="open = false; $refs.dialog.close();"
                             >
                                 @csrf
                                 <input
@@ -134,21 +134,21 @@
                                     <button class="form__button form__button--filled">
                                         {{ __('request.approve') }}
                                     </button>
-                                    <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
+                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
                                         {{ __('common.cancel') }}
                                     </button>
                                 </p>
                             </form>
                         </dialog>
                     </div>
-                    <div x-data>
+                    <div x-data="{ open: false }">
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
+                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                 {{ __('request.reject') }}
                             </button>
                         </p>
-                        <dialog class="dialog" x-ref="dialog">
+                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
                             <h3 class="dialog__heading">
                                 {{ __('request.reject') }}
                                 {{ __('common.this') }}
@@ -158,7 +158,7 @@
                                 class="dialog__form"
                                 method="POST"
                                 action="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
-                                x-on:click.outside="$refs.dialog.close()"
+                                x-on:click.outside="open = false; $refs.dialog.close();"
                             >
                                 @csrf
                                 <input
@@ -180,7 +180,7 @@
                                     <button class="form__button form__button--filled">
                                         {{ __('request.reject') }}
                                     </button>
-                                    <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
+                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
                                         {{ __('common.cancel') }}
                                     </button>
                                 </p>
