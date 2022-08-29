@@ -68,7 +68,8 @@ class PageController extends Controller
      */
     public function clientblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = \config('blacklist.clients', []);
+        //$clients = \config('blacklist.clients', []);
+        $clients = DB::table('blacklist_clients')->get();
 
         return \view('page.blacklist.client', ['clients' => $clients]);
     }

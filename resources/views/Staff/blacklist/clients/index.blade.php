@@ -12,16 +12,16 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.blacklists.releasegroups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Release Groups</span>
+        <a href="{{ route('staff.blacklists.clients.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Blacklist Release Groups</h2>
-        <a href="{{ route('staff.blacklists.releasegroups.create') }}" class="btn btn-primary">Add new blacklisted group</a><br><br>
+        <h2>Blacklist Clients</h2>
+        <a href="{{ route('staff.blacklists.clients.create') }}" class="btn btn-primary">Add new blacklisted client</a><br><br>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover" style="table-layout:fixed;">
                 <thead>
@@ -34,26 +34,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($releasegroups as $releasegroup)
+                @foreach ($clients as $client)
                     <tr>
                         <td>
-                            {{ $releasegroup->id }}
+                            {{ $client->id }}
                         </td>
                         <td>
-                            {{ $releasegroup->name }}
+                            {{ $client->name }}
                         </td>
                         <td style="word-wrap:break-word;">
-                            {{ $releasegroup->reason }}
+                            {{ $client->reason }}
                         </td>
                         <td>
-                            {{ \Carbon\Carbon::parse($releasegroup->created_at)->format('Y-m-d')}}
+                            {{ \Carbon\Carbon::parse($client->created_at)->format('Y-m-d')}}
                         </td>
                         <td>
-                            <form action="{{ route('staff.blacklists.releasegroups.destroy', ['id' => $releasegroup->id]) }}"
+                            <form action="{{ route('staff.blacklists.clients.destroy', ['id' => $client->id]) }}"
                                   method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('staff.blacklists.releasegroups.edit', ['id' => $releasegroup->id]) }}"
+                                <a href="{{ route('staff.blacklists.clients.edit', ['id' => $client->id]) }}"
                                    class="btn btn-warning">{{ __('common.edit') }}</a>
                                 <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
                             </form>

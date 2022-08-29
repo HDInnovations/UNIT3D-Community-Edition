@@ -818,6 +818,14 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/releasegroups/{id}/update', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'update'])->name('update');
                 Route::delete('/releasegroups/{id}/destroy', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'destroy'])->name('destroy');
             });
+            Route::name('staff.blacklists.clients.')->group(function () {
+                Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
+                Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
+                Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
+                Route::get('/clients/{id}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
+                Route::post('/clients/{id}/update', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
+                Route::delete('/clients/{id}/destroy', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+            });
         });
 
         // Polls System
