@@ -29,5 +29,4 @@ return new class() extends Migration {
     {
         Schema::dropIfExists('blacklist_releasegroups');
     }
-
 };
