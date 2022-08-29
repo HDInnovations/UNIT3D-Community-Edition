@@ -42,12 +42,12 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="text" class="form-control" name="name" required>
+                                    <input type="text" class="form-control" name="name" placeholder="Transmission/2.93" required>
                                 </label>
                             </td>
                             <td>
                                 <label>
-                                    <input type="text" class="form-control" name="reason">
+                                    <input type="text" class="form-control" name="reason" placeholder="Security Vulnerabilities">
                                 </label>
                             </td>
                         </tr>
