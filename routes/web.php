@@ -811,6 +811,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Regions
+        Route::group(['prefix' => 'regions'], function () {
+            Route::name('staff.regions.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Registered Seedboxes
         Route::group(['prefix' => 'seedboxes'], function () {
             Route::name('staff.seedboxes.')->group(function () {
