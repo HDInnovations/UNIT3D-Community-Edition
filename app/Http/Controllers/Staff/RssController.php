@@ -63,15 +63,19 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'name'          => 'required|min:3|max:255',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -159,15 +163,19 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'name'          => 'required|min:3|max:255',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
