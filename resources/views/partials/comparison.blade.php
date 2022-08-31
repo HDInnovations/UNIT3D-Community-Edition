@@ -45,7 +45,12 @@
                                         {{ $comparates[$loop->index] }}
                                     </figcaption>
                                 @endif
-                                <img class="comparison__image" src="{{ $url }}" loading="lazy">
+                                <img
+                                    class="comparison__image"
+                                    src="{{ $url }}"
+                                    loading="lazy" 
+                                    x-bind:class="screen != {{ $loop->iteration }} && 'comparison__image--hidden'"
+                                >
                             </figure>
                         </li>
                     @endforeach
