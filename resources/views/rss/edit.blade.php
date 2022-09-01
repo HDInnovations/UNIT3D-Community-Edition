@@ -132,7 +132,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->genres) &&
-                                            in_array($genre->id, $rss->object_torrent->genres, true))
+                                            in_array((string)$genre->id, $rss->object_torrent->genres, true))
                                             <input type="checkbox" id="{{ $genre->name }}" name="genres[]"
                                                    value="{{ $genre->id }}"
                                                    class="genre" CHECKED> {{ $genre->name }}

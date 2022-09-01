@@ -243,7 +243,7 @@
                                             name="genres[]"
                                             type="checkbox"
                                             value="{{ $genre->id }}"
-                                            @checked(is_array($rss->object_torrent->genres) && in_array($genre->id, $rss->object_torrent->genres, true))
+                                            @checked(is_array($rss->object_torrent->genres) && in_array((string)$genre->id, $rss->object_torrent->genres, true))
                                         >
                                         {{ $genre->name }}
                                     </label>
