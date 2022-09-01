@@ -65,7 +65,7 @@ class MediaLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MediaLanguage $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
 

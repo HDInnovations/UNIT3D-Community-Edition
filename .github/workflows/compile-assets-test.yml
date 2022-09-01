@@ -1,6 +1,7 @@
 name: Compile Assets Tests
 
-on: [ push, pull_request ]
+on:
+  - push
 
 jobs:
   build-assets:

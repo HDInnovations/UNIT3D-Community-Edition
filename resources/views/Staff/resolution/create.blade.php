@@ -16,25 +16,50 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Add A Torrent Resolution</h2>
-        <form role="form" method="POST" action="{{ route('staff.resolutions.store') }}">
-            @csrf
-            <div class="form-group">
-                <label for="name">{{ __('common.name') }}</label>
-                <label>
-                    <input type="text" class="form-control" name="name">
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="name">{{ __('common.position') }}</label>
-                <label>
-                    <input type="text" class="form-control" name="position">
-                </label>
-            </div>
+@section('page', 'page__resolution--create')
 
-            <button type="submit" class="btn btn-default">{{ __('common.add') }}</button>
-        </form>
-    </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">Add A Torrent Resolution</h2>
+        <div class="panel__body">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.resolutions.store') }}"
+            >
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        required
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="position"
+                        pattern="[0-9]*"
+                        type="text"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.position') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.add') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

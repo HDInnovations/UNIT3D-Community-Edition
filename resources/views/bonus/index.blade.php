@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
@@ -185,7 +185,7 @@
         </dl>
         <div class="panel__body">
             <a
-                href="{{ route('user_torrents', ['username' => auth()->user()->username, 'completed' => 'include', 'active' => 'include']) }}"
+                href="{{ route('user_torrents', ['username' => $user->username, 'completed' => 'include', 'active' => 'include']) }}"
                 class="form__button form__button--filled"
             >
                 {{ __('bon.review-seeds') }}

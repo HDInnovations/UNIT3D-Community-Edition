@@ -262,6 +262,23 @@ class Bbcode
             $source
         );
 
+        // Common comparison syntax used in other torrent management systems is quite specific
+        // so it must be done here instead
+        $source = \preg_replace_callback(
+            '/\[comparison=([0-9a-z, ]*?)\]\s*(.*?)\s*\[\/comparison\]/is',
+            function ($matches) {
+                $comparates = preg_split('/\s*,\s*/', $matches[1]);
+                $urls = \preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
+                $validatedUrls = \collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
+                $chunkedUrls = $validatedUrls->chunk(\count($comparates));
+                $html = \view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
+                $html = \preg_replace('/\s+/', ' ', $html);
+
+                return $html;
+            },
+            $source
+        );
+
         // Stack of unclosed elements
         $openedElements = [];
 
@@ -271,7 +288,7 @@ class Bbcode
         // Don't loop more than the length of the source
         while ($index < \strlen($source)) {
             // Get the next occurrence of `[`
-            $index = \stripos($source, '[', $index);
+            $index = \strpos($source, '[', $index);
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {

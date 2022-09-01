@@ -27,6 +27,26 @@
     --button-text-border-radius: 5px;
     --button-text-fg: currentColor;
 
+    --comparison-divider-fg: #fff;
+    --comparison-button-fg: #fff;
+
+    --data-table-fg: inherit;
+    --data-table-th-bg: #19191b;
+    --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid #404040;
+    --data-table-tr-even-bg: #222;
+    --data-table-tr-hover-bg: #282828;
+    --data-table-tr-odd-bg: #222;
+    --data-table-tfoot-border: none;
+
+    --dialog-bg: #222;
+    --dialog-border: 3px solid rgba(14, 21, 34, 0.25);
+    --dialog-border-radius: 10px;
+    --dialog-box-shadow: none;
+    --dialog-fg: inherit;
+    --dialog-head-bg: #191919;
+    --dialog-head-fg: #fff;
+
     --icon-button-bg: inherit;
     --icon-button-border: none;
     --icon-button-border-radius: 9999px;
@@ -49,6 +69,16 @@
     --label-fg-active: #2195f3;
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
+
+    --meter-fg: #333;
+    --meter-bg: #505050;
+
+    --paginate-bg: #272727;
+    --paginate-bg-hover: #222;
+    --paginate-bg-current: #202020;
+    --paginate-fg: #888;
+    --paginate-fg-disabled: #555;
+    --paginate-divider: #303030;
 
     --panel-action-fg: #aaa;
     --panel-border: 3px solid rgba(14, 21, 34, 0.25);

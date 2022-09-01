@@ -24,88 +24,91 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Add a new Forum</h2>
+@section('page', 'page__forums-admin--create')
 
-        <form role="form" method="POST" action="{{ route('staff.forums.store') }}">
-            @csrf
-            <div class="form-group">
-                <label for="forum_type">Forum Type</label>
-                <label>
-                    <select name="forum_type" class="form-control">
-                        <option value="category">Category</option>
-                        <option value="forum">Forum</option>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">Add a new Forum</h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.forums.store') }}">
+                @csrf
+                <p class="form__group">
+                    <select id ="forum_type" class="form__select" name="forum_type" required>
+                        <option class="form__option" value="category">Category</option>
+                        <option class="form__option" value="forum">Forum</option>
                     </select>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="title">Title</label>
-                <label>
-                    <input type="text" name="title" class="form-control">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <label>
-                    <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="parent_id">Parent forum</label>
-                <label>
-                    <select name="parent_id" class="form-control">
+                    <label class="form__label form__label--floating" for="forum_type">Forum Type</label>
+                </p>
+                <p class="form__group">
+                    <input id="title" class="form__text" type="text" name="title" required>
+                    <label class="form__label form__label--floating" for="title">Title</label>
+                </p>
+                <p class="form__group">
+                    <textarea id="description" class="form__textarea" name="description" placeholder=""></textarea>
+                    <label class="form__label form__label--floating" for="description">Description</label>
+                </p>
+                <p class="form__group">
+                    <select id="parent_id" class="form__select" name="parent_id" required>
                         <option value="0">New Category</option>
-                        @foreach ($categories as $c)
-                            <option value="{{ $c->id }}">New Forum In {{ $c->name }} Category</option>
+                        @foreach ($categories as $category)
+                            <option class="form__option" value="{{ $category->id }}">
+                                New Forum In {{ $category->name }} Category
+                            </option>
                         @endforeach
                     </select>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="position">{{ __('common.position') }}</label>
-                <label>
-                    <input type="text" name="position" class="form-control" placeholder="The position number">
-                </label>
-            </div>
-
-            <h3>Permissions</h3>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Groups</th>
-                    <th>View the forum</th>
-                    <th>Read topics</th>
-                    <th>Start new topic</th>
-                    <th>Reply to topics</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($groups as $g)
-                    <tr>
-                        <td>{{ $g->name }}</td>
-                        <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked>
-                            </label></td>
-                        <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked>
-                            </label></td>
-                        <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked>
-                            </label></td>
-                        <td><label>
-                                <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked>
-                            </label></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-
-            <button type="submit" class="btn btn-default">Save Forum</button>
-        </form>
-    </div>
+                    <label class="form__label form__label--floating" for="parent_id">Parent forum</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="position"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>
+                </p>
+                <p class="form__group">
+                    <h3>Permissions</h3>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Groups</th>
+                                <th>View the forum</th>
+                                <th>Read topics</th>
+                                <th>Start new topic</th>
+                                <th>Reply to topics</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($groups as $group)
+                                <tr>
+                                    <th>{{ $group->name }}</th>
+                                    <td><label>
+                                            <input type="checkbox" name="permissions[{{ $group->id }}][show_forum]" value="1" checked>
+                                        </label></td>
+                                    <td><label>
+                                            <input type="checkbox" name="permissions[{{ $group->id }}][read_topic]" value="1" checked>
+                                        </label></td>
+                                    <td><label>
+                                            <input type="checkbox" name="permissions[{{ $group->id }}][start_topic]" value="1" checked>
+                                        </label></td>
+                                    <td><label>
+                                            <input type="checkbox" name="permissions[{{ $group->id }}][reply_topic]" value="1" checked>
+                                        </label></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">Save Forum</button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

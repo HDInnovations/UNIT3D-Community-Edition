@@ -43,6 +43,14 @@ class ChatStatusController extends Controller
     }
 
     /**
+     * Show Form For Creating A New Chat Status.
+     */
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return \view('Staff.chat.status.create');
+    }
+
+    /**
      * Store A New Chat Status.
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -67,6 +75,16 @@ class ChatStatusController extends Controller
 
         return \to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
+    }
+
+    /**
+     * Chat Status Edit Form.
+     */
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $chatstatus = ChatStatus::findOrFail($id);
+
+        return \view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
     }
 
     /**

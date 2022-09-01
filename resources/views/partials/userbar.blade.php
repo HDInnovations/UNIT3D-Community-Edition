@@ -85,7 +85,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
-                    <a href="{{ route('bonus') }}" title="{{ __('user.my-bonus-points') }}">
+                    <a href="{{ route('earnings.index', ['username' => auth()->user()->username]) }}" title="{{ __('user.my-bonus-points') }}">
                         <span class="text-blue"> {{ __('bon.bon') }}:</span>
                     </a>
                     {{ auth()->user()->getSeedbonus() }}

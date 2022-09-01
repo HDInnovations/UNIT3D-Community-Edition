@@ -19,13 +19,8 @@
     </li>
 @endsection
 
-@section('content')
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
-    </style>
-    <div class="box container">
-        @livewire('watchlist-search')
-    </div>
+@section('page', 'page__watchlist--index')
+
+@section('main')
+    @livewire('watchlist-search')
 @endsection

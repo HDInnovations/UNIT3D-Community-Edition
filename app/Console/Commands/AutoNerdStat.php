@@ -56,7 +56,7 @@ class AutoNerdStat extends Command
      */
     public function handle(): void
     {
-        if (\config('chat.nerd_bot') == true) {
+        if (\config('chat.nerd_bot')) {
             // Site Birthday
             $bday = \config('other.birthdate');
 

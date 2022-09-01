@@ -136,7 +136,19 @@
           showConfirmButton: true,
           showCloseButton: true,
         }).then((result) => {
-          if (result.isConfirmed) {
+          if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: 'This torrent has 0 seeders!',
+              icon: 'warning',
+              showConfirmButton: true,
+              showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                form.submit();
+              }
+            });
+          } else if (result.isConfirmed) {
             form.submit();
           }
         });

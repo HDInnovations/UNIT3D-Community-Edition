@@ -39,26 +39,31 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($seedsize as $key => $s)
+                        @foreach ($users as $user)
                             <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $s->user->username) class="mentions" @endif>
-                                    @if ($s->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $s->username]) }}">({{ $s->username }}</a></span>
-                                    @endif
+                                <td>{{ $loop->iteration }}</td>
+                                <td @if (auth()->user()->username == $user->username) class="mentions" @endif>
+                                    @if ($user->private_profile == 1)
+                                        <span class="badge-user text-bold">
+                                            <span class="text-orange">
+                                                <i class="{{ config('other.font-awesome') }} fa-eye-slash" aria-hidden="true"></i>
+                                                {{ strtoupper(__('common.hidden')) }}
+                                            </span>
+                                            @if (auth()->user()->id === $user->id || auth()->user()->group->is_modo)
+                                                <a href="{{ route('users.show', ['username' => $user->username]) }}">
+                                                    ({{ $user->username }})
+                                                </a>
+                                            @endif
+                                        </span>
                                     @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $s->username]) }}">{{ $s->username }}</a></span>
+                                        <span class="badge-user text-bold">
+                                            <a href="{{ route('users.show', ['username' => $user->username]) }}">
+                                                {{ $user->username }}
+                                            </a>
+                                        </span>
                                     @endif
                                 </td>
-                                <td>
-                                    <span class="text-purple">{{ $s }}</span>
-                                </td>
+                                <td>{{ \App\Helpers\StringHelper::formatBytes($user->seedsize ?? 0) }}</td>
                             </tr>
                         @endforeach
                         </tbody>

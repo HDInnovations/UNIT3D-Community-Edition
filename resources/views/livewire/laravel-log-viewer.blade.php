@@ -17,15 +17,14 @@
     </li>
 @endsection
 
-<div class="container-fluid">
-    <div class="block">
-        <h2><i class="{{ config('other.font-awesome') }} fa-list"></i> Laravel Log Viewer</h2>
-        <hr>
-        <div class="text-center">
-            {{ $entries->links() }}
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr min-content; gap: 12px; align-items: flex-start">
-            <table class="table table-condensed table-bordered table-striped">
+<div style="display: grid; grid-template-columns: 1fr max-content; gap: 12px; align-items: flex-start">
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            <i class="{{ config('other.font-awesome') }} fa-list"></i>
+            Laravel Log Viewer
+        </h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -66,7 +65,10 @@
                             <td>{{ $entry['in'] }}</td>
                             <td>{{ $entry['line'] }}</td>
                             <td>
-                                <button class="btn btn-primary" x-on:click.stop="navigator.clipboard.writeText($refs.stacktrace.textContent)">
+                                <button
+                                    class="form__button form__button--text"
+                                    x-on:click.stop="navigator.clipboard.writeText($refs.stacktrace.textContent)"
+                                >
                                     Copy
                                 </button>
                             </td>
@@ -85,16 +87,17 @@
                     </tbody>
                 @endforelse
             </table>
-            <select multiple wire:model="logs" style="height: 320px; padding: 8px; border-radius: 4px;">
-                @foreach($files as $file)
-                    <option value="{{ $loop->index }}" style="padding: 6px; border-radius: 4px; cursor: pointer;">
-                        {{ $file->getFilename() }}
-                    </option>
-                @endforeach
-            </select>
         </div>
-        <div class="text-center">
-            {{ $entries->links() }}
-        </div>
-    </div>
+        {{ $entries->links('partials.pagination') }}
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">Entries</h2>
+        <select multiple wire:model="logs" style="height: 320px; padding: 8px; border-radius: 4px; width: 100%">
+            @foreach($files as $file)
+                <option value="{{ $loop->index }}" style="padding: 6px; border-radius: 4px; cursor: pointer;">
+                    {{ $file->getFilename() }}
+                </option>
+            @endforeach
+        </select>
+    </section>
 </div>
