@@ -21,12 +21,12 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab--active__link" href="{{ route('cards') }}">
+        <a class="nav-tab__link" href="{{ route('cards') }}">
             Cards
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
+        <a class="nav-tab--active__link" href="{{ route('grouped') }}">
             Grouped
         </a>
     </li>
