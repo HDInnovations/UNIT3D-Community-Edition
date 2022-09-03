@@ -265,7 +265,7 @@ class Bbcode
         // Common comparison syntax used in other torrent management systems is quite specific
         // so it must be done here instead
         $source = \preg_replace_callback(
-            '/\[comparison=([0-9a-z, ]*?)\]\s*(.*?)\s*\[\/comparison\]/is',
+            '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
             function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = \preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
