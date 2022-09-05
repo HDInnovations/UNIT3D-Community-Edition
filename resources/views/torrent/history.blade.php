@@ -42,6 +42,7 @@
                         <th>{{ __('torrent.completed') }}</th>
                         <th>{{ __('common.upload') }}</th>
                         <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.refunded-download') }}</th>
                         <th>{{ __('common.added') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('torrent.seedtime') }}</th>
@@ -96,6 +97,11 @@
                                             class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}</span>
                                 <span class="badge-extra text-orange" data-toggle="tooltip"
                                       data-original-title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
+                            </td>
+                            <td>
+                                <span class="badge-extra text-green">
+                                    {{ App\Helpers\StringHelper::formatBytes($hpeers->refunded_download, 2) }}
+                                </span>
                             </td>
                             <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                             <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
