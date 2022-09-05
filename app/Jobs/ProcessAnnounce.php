@@ -19,14 +19,14 @@ use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 
-class ProcessAnnounce implements ShouldQueue, ShouldBeUnique
+class ProcessAnnounce implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -34,18 +34,18 @@ class ProcessAnnounce implements ShouldQueue, ShouldBeUnique
     use SerializesModels;
 
     /**
-     * The unique ID of the job.
-     */
-    public function uniqueId(): string
-    {
-        return $this->user->id.':'.$this->torrent->id;
-    }
-
-    /**
      * Create a new job instance.
      */
     public function __construct(protected $queries, protected $user, protected $torrent)
     {
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     */
+    public function middleware(): array
+    {
+        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
     }
 
     /**
