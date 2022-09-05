@@ -1,12 +1,7 @@
-<button
-    class="votes__like"
-    wire:click="store({{ $post->id }})"
-    title="{{ __('forum.like-post') }}"
->
-    @if(auth()->user()->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first())
-        <i class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up fa-beat"></i>
-    @else
-        <i class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"></i>
-    @endif
-    <span class="votes__like-count">{{ $post->likes()->count() }}</span>
-</button>
+<div style="display: inline;">
+    <a wire:click="store({{ $post->id }})" class="text-green" data-toggle="tooltip" style="margin-right: 16px;"
+       data-original-title="{{ __('forum.like-post') }}">
+        <i class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x @if(auth()->user()->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first()) fa-beat @endif"></i>
+        <span class="count" style="font-size: 20px;">{{ $post->likes()->count() }}</span>
+    </a>
+</div>

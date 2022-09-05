@@ -6,7 +6,7 @@
 }
 
 .data-table-wrapper {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 /* header */
@@ -63,15 +63,14 @@
 .data-table__actions {
     display: flex;
     justify-content: end;
+    align-items: center;
     gap: 18px;
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-.data-table__action {
-    display: contents;
-
+.data-table__action > :not(.dialog) {
     @media (hover: hover) {
         visibility: hidden;
     }

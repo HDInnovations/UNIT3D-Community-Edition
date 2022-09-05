@@ -716,6 +716,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
         });
 
+        // Distributors
+        Route::group(['prefix' => 'distributors'], function () {
+            Route::name('staff.distributors.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\DistributorController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\DistributorController::class, 'update'])->name('update');
+                Route::get('/{id}/delete', [App\Http\Controllers\Staff\DistributorController::class, 'delete'])->name('delete');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\DistributorController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Flush System
         Route::group(['prefix' => 'flush'], function () {
             Route::name('staff.flush.')->group(function () {
@@ -808,6 +821,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Regions
+        Route::group(['prefix' => 'regions'], function () {
+            Route::name('staff.regions.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
             });
         });
 

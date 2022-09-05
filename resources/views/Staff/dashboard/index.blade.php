@@ -132,6 +132,12 @@
                         {{ __('staff.polls') }}
                     </a>
                 </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.bon_exchanges.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                        {{ __('staff.bon-exchange') }}
+                    </a>
+                </p>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -162,6 +168,18 @@
                     <a class="form__button form__button--text" href="{{ route('staff.resolutions.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         {{ __('staff.torrent-resolutions') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.regions.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Torrent Regions
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.distributors.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Torrent Distributors
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
