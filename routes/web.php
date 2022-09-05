@@ -246,6 +246,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature');
             Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature');
             Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
+            Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable');
         });
 
         // Warnings System

@@ -136,6 +136,24 @@
                                     </button>
                                 </form>
                             @endif
+
+                            @if ($torrent->refundable == 0)
+                                <form action="{{ route('refundable', ['id' => $torrent->id]) }}" method="POST"
+                                      style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.refundable') }}
+                                    </button>
+                                </form>
+                            @else
+                                 <form action="{{ route('refundable', ['id' => $torrent->id]) }}" method="POST"
+                                       style="display: inline;">
+                                     @csrf
+                                     <button type="submit" class="btn btn-xs btn-danger">
+                                         <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.revoke') }} {{ __('torrent.refundable') }}
+                                     </button>
+                                 </form>
+                            @endif
                         </div>
                     @endif
 
