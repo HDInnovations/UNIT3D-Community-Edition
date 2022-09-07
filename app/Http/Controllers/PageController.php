@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlacklistCLient;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
@@ -63,13 +64,13 @@ class PageController extends Controller
     }
 
     /**
-     * Show Blacklist Page.
+     * Show Client-Blacklist Page.
      */
-    public function blacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function clientblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = \config('client-blacklist.clients', []);
+        $clients = BlacklistClient::get();
 
-        return \view('page.blacklist', ['clients' => $clients]);
+        return \view('page.blacklist.client', ['clients' => $clients]);
     }
 
     /**

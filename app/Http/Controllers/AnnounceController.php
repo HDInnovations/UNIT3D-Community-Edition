@@ -146,6 +146,7 @@ class AnnounceController extends Controller
             || $request->header('want-digest'), new TrackerException(122));
 
         $userAgent = $request->header('User-Agent');
+        $clientBlacklist = BlacklistClient::get();
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
         \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
@@ -155,7 +156,7 @@ class AnnounceController extends Controller
             (string) $userAgent), new TrackerException(121));
 
         // Block Blacklisted Clients
-        \throw_if(\in_array($request->header('User-Agent'), \config('client-blacklist.clients')),
+        \throw_if(\in_array($request->header('User-Agent'), $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')]));
     }
 

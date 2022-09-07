@@ -50,7 +50,7 @@
             <ul>
                 <li><a href="{{ route('staff') }}">{{ __('common.staff') }}</a></li>
                 <li><a href="{{ route('internal') }}">{{ __('common.internal') }}</a></li>
-                <li><a href="{{ route('blacklist') }}">{{ __('common.blacklist') }}</a></li>
+                <li><a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a></li>
                 <li><a href="{{ route('about') }}">{{ __('common.about') }}</a></li>
             </ul>
         </div>
