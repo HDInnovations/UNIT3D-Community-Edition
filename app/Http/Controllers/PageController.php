@@ -17,6 +17,7 @@ use App\Models\BlacklistCLient;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -68,7 +69,7 @@ class PageController extends Controller
      */
     public function clientblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = BlacklistClient::get();
+        $clients = DB::table('blacklist_clients')->get();
 
         return \view('page.blacklist.client', ['clients' => $clients]);
     }
