@@ -12,12 +12,12 @@
     </a>
 </li>
 <li class="active">
-    <a href="{{ route('staff.blacklists.releasegroups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('staff.blacklists.clients.index') }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
     </a>
 </li>
     <li class="active">
-        <a href="{{ route('staff.blacklists.releasegroups.create') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.blacklists.clients.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.add') }} Blacklist</span>
         </a>
     </li>
