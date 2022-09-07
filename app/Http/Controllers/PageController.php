@@ -17,7 +17,6 @@ use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
