@@ -17,19 +17,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlacklistClient extends Model
 {
-    /**
-     * The Attributes That Aren't Mass Assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
 
-    /**
-     * Indicates If The Model Should Be Timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
-
-    public $table = 'blacklist_clients';
 }

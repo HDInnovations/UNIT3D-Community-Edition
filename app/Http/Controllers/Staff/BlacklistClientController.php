@@ -24,47 +24,43 @@ use Illuminate\Http\Request;
 class BlacklistClientController extends Controller
 {
     /**
-     * Display All Blacklisted Groups.
+     * Display All Blacklisted Clients.
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
-        $clients = BlacklistClient::get()->sortBy('id');
+        $clients = BlacklistClient::latest()->get();
 
         return \view('Staff.blacklist.clients.index', ['clients' => $clients]);
     }
 
     /**
-     * Edit A group.
+     * Blacklisted Client Edit Form.
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
-        $date = Carbon::now();
         $client = BlacklistClient::findOrFail($id);
 
         return \view('Staff.blacklist.clients.edit', ['client' => $client]);
     }
 
     /**
-     * Save a group change.
+     * Edit A Blacklisted Client.
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $client = BlacklistClient::findOrFail($id);
         $client->name = $request->input('name');
         $client->reason = $request->input('reason');
 
         $v = \validator($client->toArray(), [
-            'name'      => 'required',
-            'reason',
+            'name'   => 'required|string',
+            'reason' => 'sometimes|string',
         ]);
 
         if ($v->fails()) {
@@ -75,11 +71,11 @@ class BlacklistClientController extends Controller
         $client->save();
 
         return \to_route('staff.blacklists.clients.index')
-            ->withSuccess('Group Was Updated Successfully!');
+            ->withSuccess('Blacklisted Client Was Updated Successfully!');
     }
 
     /**
-     * Blacklist Add Form.
+     * Blacklisted Client Add Form.
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -87,20 +83,19 @@ class BlacklistClientController extends Controller
     }
 
     /**
-     * Store A New Blacklisted Group.
+     * Store A New Blacklisted Client.
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->group->is_admin, 403);
 
         $client = new BlacklistClient();
         $client->name = $request->input('name');
         $client->reason = $request->input('reason');
 
         $v = \validator($client->toArray(), [
-            'name'     => 'required|unique:blacklist_clients',
-            'reason',
+            'name'   => 'required|string|unique:blacklist_clients',
+            'reason' => 'sometimes|string',
         ]);
 
         if ($v->fails()) {
@@ -111,21 +106,20 @@ class BlacklistClientController extends Controller
         $client->save();
 
         return \to_route('staff.blacklists.clients.index')
-            ->withSuccess('New Internal Group added!');
+            ->withSuccess('Blacklisted Client Stored Successfully!');
     }
 
     /**
-     * Delete A Blacklisted Group.
+     * Delete A Blacklisted Client.
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($request->user()->group->is_admin, 403);
 
         $client = BlacklistClient::findOrFail($id);
         $client->delete();
 
         return \to_route('staff.blacklists.clients.index')
-            ->withSuccess('Group Has Been Removed.');
+            ->withSuccess('Blacklisted Client Destroyed Successfully!');
     }
 }

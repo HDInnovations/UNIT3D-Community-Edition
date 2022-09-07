@@ -630,6 +630,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Blacklist System
+        Route::group(['prefix' => 'blacklists'], function () {
+            Route::name('staff.blacklists.clients.')->group(function () {
+                Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
+                Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
+                Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
+                Route::get('/clients/{id}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
+                Route::patch('/clients/{id}/update', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
+                Route::delete('/clients/{id}/destroy', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Bon Exchanges
         Route::group(['prefix' => 'bon-exchanges'], function () {
             Route::name('staff.bon_exchanges.')->group(function () {
@@ -796,18 +808,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
                 Route::post('/reject', [App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
                 Route::post('/postpone', [App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
-            });
-        });
-
-        // Blacklist System
-        Route::group(['prefix' => 'blacklists'], function () {
-            Route::name('staff.blacklists.clients.')->group(function () {
-                Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
-                Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
-                Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
-                Route::get('/clients/{id}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
-                Route::post('/clients/{id}/update', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
-                Route::delete('/clients/{id}/destroy', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
             });
         });
 

@@ -3,59 +3,63 @@
 @section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
-        </a>
-    </li>
-    <li class="breadcrumbV2">
-        <a href="#" itemprop="url" class="breadcrumb__link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.blacklists.clients.index') }}" class="breadcrumb__link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
+            Blacklisted Clients
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $client->name }}
+        {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>{{ $client->name }}</h2>
-        <div class="table-responsive">
-            <form role="form" method="POST"
-                  action="{{ route('staff.blacklists.clients.update', ['name' => $client->name, 'id' => $client->id]) }}">
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.edit') }}
+        </h2>
+        <div class="panel__body">
+            <form
+                    name="upload"
+                    class="upload-form form"
+                    id="upload-form"
+                    method="POST"
+                    action="{{ route('staff.blacklists.clients.update', ['id' => $client->id]) }}"
+            >
                 @csrf
-                <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>{{ __('common.name') }}</th>
-                            <th>Reason</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="text" name="name" value="{{ $client->name }}" class="form-control" required/>
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="text" name="reason" value="{{ $client->reason }}" class="form-control"/>
-                                </label>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
+                @method('patch')
+                <p class="form__group">
+                    <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            class="form__text"
+                            value="{{ $client->name }}"
+                            required
+                    >
+                    <label class="form__label form__label--floating" for="name">{{ __('common.name') }}</label>
+                </p>
+                <p class="form__group">
+                    <input
+                            type="text"
+                            name="reason"
+                            id="reason"
+                            class="form__text"
+                            value="{{ $client->reason }}"
+                    >
+                    <label class="form__label form__label--floating" for="reason">
+                        {{ __('common.reason') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

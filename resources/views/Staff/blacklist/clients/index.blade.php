@@ -3,57 +3,62 @@
 @section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
-        </a>
-    </li>
-    <li class="breadcrumbV2">
-        <a href="#" itemprop="url" class="breadcrumb__link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
     <li class="breadcrumb--active">
-        Clients
+        Client Blacklist
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Blacklist Clients</h2>
-        <a href="{{ route('staff.blacklists.clients.create') }}" class="btn btn-primary">Add new blacklisted client</a><br><br>
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">Blacklisted Clients</h2>
+            <div class="panel__actions">
+                <a href="{{ route('staff.blacklists.clients.create') }}" class="panel__action">
+                    {{ __('common.add') }}
+                </a>
+            </div>
+        </header>
         <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover" style="table-layout:fixed;">
+            <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th width="5%">ID</th>
                     <th>{{ __('common.name') }}</th>
-                    <th>Reason</th>
-                    <th>Created at</th>
-                    <th width="15%">{{ __('common.action') }}</th>
+                    <th>{{ __('common.reason') }}</th>
+                    <th>{{ __('common.actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($clients as $client)
                     <tr>
+                        <td>{{ $client->name }}</td>
+                        <td>{{ $client->reason }}</td>
                         <td>
-                            {{ $client->id }}
-                        </td>
-                        <td>
-                            {{ $client->name }}
-                        </td>
-                        <td style="word-wrap:break-word;">
-                            {{ $client->reason }}
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($client->created_at)->format('Y-m-d')}}
-                        </td>
-                        <td>
-                            <form action="{{ route('staff.blacklists.clients.destroy', ['id' => $client->id]) }}"
-                                  method="POST">
+                            <form x-data action="{{ route('staff.blacklists.clients.destroy', ['id' => $client->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('staff.blacklists.clients.edit', ['id' => $client->id]) }}"
-                                   class="btn btn-warning">{{ __('common.edit') }}</a>
-                                <button type="submit" class="btn btn-danger">{{ __('common.delete') }}</button>
+                                   class="form__button form__button--filled">
+                                    {{ __('common.edit') }}
+                                </a>
+                                <button
+                                        x-on:click.prevent="Swal.fire({
+                                        title: 'Delete?',
+                                        text: 'Are you sure you want to delete?',
+                                        icon: 'warning',
+                                        showConfirmButton: true,
+                                        showCancelButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $root.submit();
+                                        }
+                                    })"
+                                        class="form__button form__button--filled"
+                                >
+                                    {{ __('common.delete') }}
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -61,5 +66,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 @endsection
