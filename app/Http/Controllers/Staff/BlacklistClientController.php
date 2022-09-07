@@ -128,5 +128,4 @@ class BlacklistClientController extends Controller
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Group Has Been Removed.');
     }
-
 }

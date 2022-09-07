@@ -32,5 +32,4 @@ class BlacklistClient extends Model
     public $timestamps = true;
 
     public $table = 'blacklist_clients';
-
 }
