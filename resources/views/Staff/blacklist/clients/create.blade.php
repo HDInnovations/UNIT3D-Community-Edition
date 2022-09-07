@@ -1,25 +1,23 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-<li>
-    <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
-    </a>
-</li>
-<li class="active">
-    <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
-    </a>
-</li>
-<li class="active">
-    <a href="{{ route('staff.blacklists.clients.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
-    </a>
-</li>
-    <li class="active">
-        <a href="{{ route('staff.blacklists.clients.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('common.add') }} Blacklist</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="#" itemprop="url" class="breadcrumb__link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
+        </a>
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.blacklists.clients.index') }}" class="breadcrumb__link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
+        </a>
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.add') }} Client
     </li>
 @endsection
 

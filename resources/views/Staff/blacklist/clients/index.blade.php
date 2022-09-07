@@ -1,20 +1,18 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ __('staff.staff-dashboard') }}</span>
         </a>
     </li>
-    <li class="active">
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
+    <li class="breadcrumbV2">
+        <a href="#" itemprop="url" class="breadcrumb__link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.blacklists.clients.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Clients</span>
-        </a>
+    <li class="breadcrumb--active">
+        Clients
     </li>
 @endsection
 
