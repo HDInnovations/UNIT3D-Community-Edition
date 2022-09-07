@@ -130,6 +130,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/staff', [App\Http\Controllers\PageController::class, 'staff'])->name('staff');
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
             Route::get('/blacklist', [App\Http\Controllers\PageController::class, 'blacklist'])->name('blacklist');
+            Route::get('/blacklist/releasegroups', [App\Http\Controllers\PageController::class, 'releasegroupblacklist'])->name('releasegroup_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
             Route::get('/{id}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
@@ -796,6 +797,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
                 Route::post('/reject', [App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
                 Route::post('/postpone', [App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
+            });
+        });
+
+        // Blacklist System
+        Route::group(['prefix' => 'blacklists'], function () {
+            Route::name('staff.blacklists.releasegroups.')->group(function () {
+                Route::get('/releasegroups', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'index'])->name('index');
+                Route::get('/releasegroups/create', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'create'])->name('create');
+                Route::post('/releasegroups/store', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'store'])->name('store');
+                Route::get('/releasegroups/{id}/edit', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'edit'])->name('edit');
+                Route::post('/releasegroups/{id}/update', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'update'])->name('update');
+                Route::delete('/releasegroups/{id}/destroy', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'destroy'])->name('destroy');
             });
         });
 

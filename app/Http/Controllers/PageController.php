@@ -73,6 +73,16 @@ class PageController extends Controller
     }
 
     /**
+     * Show Releasegroup-Blacklist Page.
+     */
+    public function releasegroupblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $releasegroups = BlacklistReleaseGroup::get();
+
+        return \view('page.blacklist.releasegroup', ['releasegroups' => $releasegroups]);
+    }
+
+    /**
      * Show About Us Page.
      */
     public function about(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
