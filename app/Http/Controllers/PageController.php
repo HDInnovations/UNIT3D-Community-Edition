@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -77,7 +78,7 @@ class PageController extends Controller
      */
     public function releasegroupblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $releasegroups = BlacklistReleaseGroup::get();
+        $releasegroups = DB::table('blacklist_releasegroups')->get();
 
         return \view('page.blacklist.releasegroup', ['releasegroups' => $releasegroups]);
     }
