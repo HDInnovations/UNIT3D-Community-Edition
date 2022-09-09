@@ -39,16 +39,16 @@
                     @foreach ($cheaters as $cheater)
                         <tr>
                             <td>
-                                <x-user_tag :anon="false" :user="$cheater->user" />
+                                <x-user_tag :anon="false" :user="$cheater" />
                             </td>
                             <td>
-                                <time datetime="{{ $cheater->user->created_at ?? '' }}">
-                                    {{ $cheater->user->created_at ?? 'N/A' }}
+                                <time datetime="{{ $cheater->created_at ?? '' }}">
+                                    {{ $cheater->created_at ?? 'N/A' }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $cheater->user->last_login ?? '' }}">
-                                    {{ $cheater->user->last_login ?? 'N/A'}}
+                                <time datetime="{{ $cheater->last_login ?? '' }}">
+                                    {{ $cheater->last_login ?? 'N/A'}}
                                 </time>
                             </td>
                         </tr>
