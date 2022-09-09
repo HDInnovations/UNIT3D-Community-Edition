@@ -20,6 +20,8 @@
 @endsection
 
 @section('page', 'page__articles--show')
+
+@section('main')
 <section class="panelV2">
     <header class="panel__header">
         <h1 class="panel__heading">{{ $article->title }}</h1>
