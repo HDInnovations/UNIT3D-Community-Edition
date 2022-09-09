@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="text-bold">
-                        This page took {{ round(microtime(true) - LARAVEL_START, 3) }} seconds to render
+                        This page took {{ number_format(microtime(true) - request()->server('REQUEST_TIME_FLOAT'), 3) }} seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB of memory
                     </span>
                 </div>
             </div>

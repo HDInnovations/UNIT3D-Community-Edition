@@ -7,7 +7,7 @@
                 alt=""
             >
             <address class="comment__author">
-                <x-chip.user :user="$comment->user" :anon="$comment->anon"/>
+                <x-user_tag :anon="$comment->anon" :user="$comment->user" />
             </address>
             <time
                 class="comment__timestamp"

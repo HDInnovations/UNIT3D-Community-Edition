@@ -20,7 +20,7 @@ class Comment extends Component
 {
     public $comment;
 
-    public $anon = 0;
+    public $anon;
 
     protected $listeners = [
         'refresh' => '$refresh',

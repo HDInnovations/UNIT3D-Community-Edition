@@ -45,7 +45,7 @@ class Comments extends Component
 
     public $model;
 
-    public $anon = 0;
+    public $anon;
 
     public int $perPage = 10;
 
@@ -111,12 +111,12 @@ class Comments extends Component
         }
 
         //Notification
-        /*if ($this->user->id !== $this->model->user_id) {
+        if ($this->user->id !== $this->model->user_id) {
             User::find($this->model->user_id)->notify(new NewComment($this->model, $comment));
         }
 
         // Auto Shout
-        $profileUrl = \href_profile($this->user);
+        /*$profileUrl = \href_profile($this->user);
 
         if ($comment->anon === 0) {
             $this->chatRepository->systemMessage(
