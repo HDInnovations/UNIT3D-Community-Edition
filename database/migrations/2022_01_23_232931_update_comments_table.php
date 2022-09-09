@@ -15,6 +15,7 @@ return new class() extends Migration {
         Schema::table('comments', function (Blueprint $table) {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
+            $table->bigIncrements('id')->change();
             $table->unsignedInteger('commentable_id')->after('id');
             $table->string('commentable_type')->after('commentable_id');
             $table->index(['commentable_id', 'commentable_type']);
