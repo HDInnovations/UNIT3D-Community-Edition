@@ -94,7 +94,6 @@ class UserTorrents extends Component
         return History::query()
             ->join('torrents', fn ($join) => $join
                 ->on('history.torrent_id', '=', 'torrents.id')
-                ->where('history.created_at', '>=', $this->user->created_at) // Unneeded, but increases performance
                 ->where('history.user_id', '=', $this->user->id)
             )
             ->select(
