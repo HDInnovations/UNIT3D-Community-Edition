@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('bonus') }}" class="breadcrumb__link">
+        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
@@ -20,93 +20,53 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <div class="some-padding">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="well">
-                            <h3>{{ __('bon.exchange') }}</h3>
-                            <table class="table table-condensed table-striped">
-                                <thead>
-                                <tr>
-                                    <th>{{ __('bon.item') }}</th>
-                                    <th>{{ __('bon.points') }}</th>
-                                    <th>{{ __('bon.exchange') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($uploadOptions as $u => $uu)
-                                    <tr>
-                                        <td>{{ $uu['description'] }}</td>
-                                        <td>{{ $uu['cost'] }}</td>
-                                        <td>
-                                            <form method="POST"
-                                                  action="{{ route('bonus_exchange', ['id' => $uu['id']]) }}">
-                                                @csrf
-                                                <button type="sumbit"
-                                                        class="btn btn-sm btn-info btn-exchange">{{ __('bon.exchange') }}</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+@section('page', 'page__bonus--store')
 
-                                @foreach ($personalFreeleech as $p => $pf)
-                                    <tr>
-                                        <td>{{ $pf['description'] }}</td>
-                                        <td>{{ $pf['cost'] }}</td>
-                                        <td>
-                                            @if ($activefl)
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-success btn-exchange disabled">
-                                                    {{ __('bon.activated') }}!
-                                                </button>
-                                            @else
-                                                <form method="POST"
-                                                      action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-info btn-exchange">
-                                                        {{ __('bon.exchange') }}
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('bon.exchange') }}</h2>
+        <table class="table table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>{{ __('bon.item') }}</th>
+                <th>{{ __('bon.points') }}</th>
+                <th>{{ __('bon.exchange') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach ($items as $item)
+                    <tr>
+                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->cost }}</td>
+                        <td>
+                            @if ($item->personal_freeleech && $activefl)
+                                <button disabled class="form__button form__button--filled">
+                                    {{ __('bon.activated') }}!
+                                </button>
+                            @else
+                                <form method="POST" action="{{ route('transactions.store', ['username' => $user->username]) }}">
+                                    @csrf
+                                    <button class="form__button form__button--filled">
+                                        {{ __('bon.exchange') }}
+                                    </button>
+                                    <input type="hidden" name="exchange" value="{{ $item->id }}">
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </section>
+@endsection
 
-                                @foreach ($invite as $i => $in)
-                                    <tr>
-                                        <td>{{ $in['description'] }}</td>
-                                        <td>{{ $in['cost'] }}</td>
-                                        <td>
-                                            <form method="POST"
-                                                  action="{{ route('bonus_exchange', ['id' => $in['id']]) }}">
-                                                @csrf
-                                                <button class="btn btn-sm btn-info btn-exchange"
-                                                        type="submit">{{ __('bon.exchange') }}</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-
-                        <div class="text-blue well well-sm text-center">
-                            <h2><strong>{{ __('bon.your-points') }}: <br></strong>{{ $userbon }}</h2>
-                        </div>
-
-                        <div class="well well-sm mt-20">
-                            <p class="lead text-orange text-center">{{ __('bon.exchange-warning') }}
-                                <br><strong>{{ __('bon.no-refund') }}</strong>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
+        <div class="panel__body">{{ $userbon }}</div>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('bon.no-refund') }}</h2>
+        <div class="panel__body">{{ __('bon.exchange-warning') }}</div>
+    </section>
 @endsection

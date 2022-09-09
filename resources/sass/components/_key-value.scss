@@ -1,0 +1,46 @@
+.key-value {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin: 0;
+    color: var(--panel-fg);
+}
+
+.key-value dt,
+.key-value dd {
+    font-size: 13px;
+    line-height: 1;
+    font-weight: normal;
+}
+
+.key-value dt:nth-child(1),
+.key-value dd:nth-child(2) {
+    padding-top: var(--key-value-padding);
+}
+
+.key-value dt:nth-last-child(2),
+.key-value dd:nth-last-child(1) {
+    padding-bottom: var(--key-value-padding);
+}
+
+.key-value dt {
+    text-align: left;
+    padding: calc(var(--key-value-padding) / 2) calc(var(--key-value-padding) / 2) calc(var(--key-value-padding) / 2)
+        var(--key-value-padding);
+}
+
+.key-value dd {
+    text-align: right;
+    padding: calc(var(--key-value-padding) / 2) var(--key-value-padding) calc(var(--key-value-padding) / 2)
+        calc(var(--key-value-padding) / 2);
+}
+
+.key-value dt:nth-child(4n + 1),
+.key-value dd:nth-child(4n + 2) {
+    background-color: var(--key-value-odd-bg) !important;
+}
+
+.key-value dt:nth-child(4n + 3),
+.key-value dd:nth-child(4n) {
+    background-color: var(--key-value-even-bg) !important;
+}

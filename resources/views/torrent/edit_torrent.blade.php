@@ -297,7 +297,7 @@
                         <br>
                         <br>
                     @else
-                        <input type="hidden" name="internal" value="0">
+                        <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                     @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
                         <label for="personal" class="control-label">Personal Release?</label>
@@ -312,7 +312,7 @@
                                           @endif value="0">{{ __('common.no') }}</label>
                         </div>
                     @else
-                        <input type="hidden" name="personal_release" value="0">
+                        <input type="hidden" name="personal_release" value="{{ $torrent->personal_release }}">
                     @endif
                     <br>
                     <br>

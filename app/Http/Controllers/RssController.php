@@ -70,15 +70,19 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'name'          => 'required|min:3|max:255',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -101,6 +105,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',
@@ -179,10 +184,11 @@ class RssController extends Controller
             ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
             ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
             ->when($search->internal !== null, fn ($query) => $query->internal())
+            ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
             ->when($search->alive !== null, fn ($query) => $query->alive())
             ->when($search->dying !== null, fn ($query) => $query->dying())
             ->when($search->dead !== null, fn ($query) => $query->dead())
-            ->latest()
+            ->orderByDesc('bumped_at')
             ->take(50)
             ->get();
 
@@ -221,14 +227,18 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = \validator($request->all(), [
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -250,6 +260,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',

@@ -124,7 +124,7 @@ class TorrentRequest extends Model
     /**
      * Set The Requests Description After Its Been Purified.
      */
-    public function setDescriptionAttribute(string $value): void
+    public function setDescriptionAttribute(?string $value): void
     {
         $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

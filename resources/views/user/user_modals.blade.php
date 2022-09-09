@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="py-3">
-                    <form role="form" method="POST" action="{{ route('bonus_send_gift') }}">
+                    <form role="form" method="POST" action="{{ route('gifts.store', ['username' => auth()->user()->username]) }}">
                         @csrf
                         <input type="hidden" name="dest" value="profile"/>
                         <input type="hidden" name="to_username" value="{{ $user->username }}"/>

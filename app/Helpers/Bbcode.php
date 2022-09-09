@@ -262,14 +262,44 @@ class Bbcode
             $source
         );
 
+        // Common comparison syntax used in other torrent management systems is quite specific
+        // so it must be done here instead
+        $source = \preg_replace_callback(
+            '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
+            function ($matches) {
+                $comparates = preg_split('/\s*,\s*/', $matches[1]);
+                $urls = \preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
+                $validatedUrls = \collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
+                $chunkedUrls = $validatedUrls->chunk(\count($comparates));
+                $html = \view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
+                $html = \preg_replace('/\s+/', ' ', $html);
+
+                return $html;
+            },
+            $source
+        );
+
         // Stack of unclosed elements
         $openedElements = [];
 
         // Character index
         $index = 0;
 
-        // Loop until there are no more occurrences of '['
-        while ($index < \strlen($source) && ($index = \stripos($source, '[', $index)) !== false) {
+        // Don't loop more than the length of the source
+        while ($index < \strlen($source)) {
+            // Get the next occurrence of `[`
+            $index = \strpos($source, '[', $index);
+
+            // Break if there are no more occurrences of `[`
+            if ($index === false) {
+                break;
+            }
+
+            // Break if `[` is the last character of the source
+            if ($index + 1 >= \strlen($source)) {
+                break;
+            }
+
             // Is the potential tag opening or closing?
             if ($source[$index + 1] === '/' && ! empty($openedElements)) {
                 $name = \array_pop($openedElements);

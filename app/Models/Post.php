@@ -71,7 +71,7 @@ class Post extends Model
     /**
      * Set The Posts Content After Its Been Purified.
      */
-    public function setContentAttribute(string $value): void
+    public function setContentAttribute(?string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

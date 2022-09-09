@@ -15,34 +15,31 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $article->id }}
+        {{ $article->title }}
     </li>
 @endsection
 
-@section('content')
-    <div class="box container">
-        <a href="{{ route('articles.show', ['id' => $article->id]) }}"
-           style=" float: right; margin-right: 10px;">
-            @if ( ! is_null($article->image))
-                <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
-            @else
-                <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
-            @endif
-        </a>
-
-        <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
-
-        <p class="text-muted">
-            <em>{{ __('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
-        </p>
-
-        <p style="margin-top: 20px;">@joypixels($article->getContentHtml())</p>
-    </div>
-
-    <div class="box container">
-        <div class="col-md-12 col-sm-12">
-            <livewire:comments :model="$article"/>
+@section('page', 'page__articles--show')
+<section class="panelV2">
+    <header class="panel__header">
+        <h1 class="panel__heading">{{ $article->title }}</h1>
+        <div class="panel__actions">
+            <time class="panel__action page__published" datetime="{{ $article->created_at }}">
+                {{ $article->created_at->toDayDateTimeString() }}
+            </time>
         </div>
+    </header>
+    <div class="panel__body">
+        @joypixels($article->getContentHtml())
     </div>
+</section>
+<section class="panelV2">
+    <h4 class="panel__heading">
+        <i class="{{ config('other.font-awesome') }} fa-comment"></i>
+        {{ __('common.comments') }}
+    </h4>
+    <div class="panel-body no-padding">
+        <livewire:comments :model="$article"/>
     </div>
+</section>
 @endsection

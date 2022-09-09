@@ -65,17 +65,6 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
-    | Website (Authorized By Key) (Alpha Ordered)
-    |---------------------------------------------------------------------------------
-    */
-    Route::group(['before' => 'auth'], function () {
-        // RSS (RSS Key Auth)
-        Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
-        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
@@ -118,17 +107,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/needed', [App\Http\Controllers\Auth\TwoStepController::class, 'showVerification'])->name('verificationNeeded');
             Route::post('/verify', [App\Http\Controllers\Auth\TwoStepController::class, 'verify'])->name('verify');
             Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
-        });
-
-        // Bonus System
-        Route::group(['prefix' => 'bonus'], function () {
-            Route::get('/', [App\Http\Controllers\BonusController::class, 'bonus'])->name('bonus');
-            Route::get('/gifts', [App\Http\Controllers\BonusController::class, 'gifts'])->name('bonus_gifts');
-            Route::get('/tips', [App\Http\Controllers\BonusController::class, 'tips'])->name('bonus_tips');
-            Route::get('/store', [App\Http\Controllers\BonusController::class, 'store'])->name('bonus_store');
-            Route::get('/gift', [App\Http\Controllers\BonusController::class, 'gift'])->name('bonus_gift');
-            Route::post('/exchange/{id}', [App\Http\Controllers\BonusController::class, 'exchange'])->name('bonus_exchange');
-            Route::post('/gift', [App\Http\Controllers\BonusController::class, 'sendGift'])->name('bonus_send_gift');
         });
 
         // Reports System
@@ -244,7 +222,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'update'])->name('edit');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
-            Route::post('/{id}/tip_uploader', [App\Http\Controllers\BonusController::class, 'tipUploader'])->name('tip_uploader');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
         });
 
@@ -280,13 +257,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
-            Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
             Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
             Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');
-
             Route::get('/{username}/settings', [App\Http\Controllers\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
@@ -324,6 +299,26 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
+
+            // Bonus System
+            Route::group(['prefix' => '{username}/bonus'], function () {
+                Route::name('earnings.')->prefix('earnings')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserEarningController::class, 'index'])->name('index');
+                });
+                Route::name('gifts.')->prefix('gifts')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserGiftController::class, 'index'])->name('index');
+                    Route::get('/create', [App\Http\Controllers\UserGiftController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\UserGiftController::class, 'store'])->name('store');
+                });
+                Route::name('tips.')->prefix('tips')->group(function () {
+                    Route::get('/', [App\Http\Controllers\UserTipController::class, 'index'])->name('index');
+                    Route::post('/', [App\Http\Controllers\UserTipController::class, 'store'])->name('store');
+                });
+                Route::name('transactions.')->prefix('transactions')->group(function () {
+                    Route::get('/create', [App\Http\Controllers\UserTransactionController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\UserTransactionController::class, 'store'])->name('store');
+                });
+            });
         });
 
         // Wishlist System
@@ -530,7 +525,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
             Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
             Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
-            Route::post('/posts/tip_poster', [App\Http\Controllers\BonusController::class, 'tipPoster'])->name('tip_poster');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
             Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
@@ -623,6 +617,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Bon Exchanges
+        Route::group(['prefix' => 'bon-exchanges'], function () {
+            Route::name('staff.bon_exchanges.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\BonExchangeController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'store'])->name('store');
+                Route::get('/{bonExchange}/edit', [App\Http\Controllers\Staff\BonExchangeController::class, 'edit'])->name('edit');
+                Route::patch('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'update'])->name('update');
+                Route::delete('/{bonExchange}', [App\Http\Controllers\Staff\BonExchangeController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Categories System
         Route::group(['prefix' => 'categories'], function () {
             Route::name('staff.categories.')->group(function () {
@@ -651,7 +657,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.rooms.')->group(function () {
                 Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
+                Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
                 Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
+                Route::get('/rooms/{id}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
                 Route::post('/rooms/{id}/update', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
                 Route::delete('/rooms/{id}/destroy', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
@@ -661,7 +669,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.statuses.')->group(function () {
                 Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
+                Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
                 Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
+                Route::get('/statuses/{id}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
                 Route::post('/statuses/{id}/update', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
                 Route::delete('/statuses/{id}/destroy', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
             });
@@ -691,6 +701,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
             Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
             Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
+        });
+
+        // Distributors
+        Route::group(['prefix' => 'distributors'], function () {
+            Route::name('staff.distributors.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\DistributorController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\DistributorController::class, 'update'])->name('update');
+                Route::get('/{id}/delete', [App\Http\Controllers\Staff\DistributorController::class, 'delete'])->name('delete');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\DistributorController::class, 'destroy'])->name('destroy');
+            });
         });
 
         // Flush System
@@ -785,6 +808,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Regions
+        Route::group(['prefix' => 'regions'], function () {
+            Route::name('staff.regions.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
             });
         });
 
