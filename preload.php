@@ -109,17 +109,17 @@ class Preloader
 
 (new Preloader())
     ->paths(
-        __DIR__ . '/vendor/psr',
-        __DIR__ . '/vendor/monolog',
-        __DIR__ . '/vendor/doctrine',
-        __DIR__ . '/vendor/guzzlehttp',
-        __DIR__ . '/vendor/ramsey/uuid',
-        __DIR__ . '/vendor/ramsey/collection',
-        __DIR__ . '/vendor/vlucas/phpdotenv',
-        __DIR__ . '/vendor/symfony',
-        __DIR__ . '/vendor/laravel',
-        __DIR__ . '/app/Http/Controllers/AnnounceController.php',
-        __DIR__ . '/app/Jobs/ProcessAnnounce.php',
+        __DIR__.'/vendor/psr',
+        __DIR__.'/vendor/monolog',
+        __DIR__.'/vendor/doctrine',
+        __DIR__.'/vendor/guzzlehttp',
+        __DIR__.'/vendor/ramsey/uuid',
+        __DIR__.'/vendor/ramsey/collection',
+        __DIR__.'/vendor/vlucas/phpdotenv',
+        __DIR__.'/vendor/symfony',
+        __DIR__.'/vendor/laravel',
+        __DIR__.'/app/Http/Controllers/AnnounceController.php',
+        __DIR__.'/app/Jobs/ProcessAnnounce.php',
     )
     ->ignore(
         'Laravel\Telescope',
