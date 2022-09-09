@@ -18,44 +18,44 @@ return new class() extends Migration {
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
         });
 
-            $comments = Comment::all();
-            foreach ($comments as $comment) {
-                if ($comment->torrent_id !== null) {
-                    $comment->commentable_id = $comment->torrent_id;
-                    $comment->commentable_type = 'App\Models\Torrent';
-                    $comment->save();
-                }
-
-                if ($comment->article_id !== null) {
-                    $comment->commentable_id = $comment->article_id;
-                    $comment->commentable_type = 'App\Models\Article';
-                    $comment->save();
-                }
-
-                if ($comment->requests_id !== null) {
-                    $comment->commentable_id = $comment->requests_id;
-                    $comment->commentable_type = 'App\Models\TorrentRequest';
-                    $comment->save();
-                }
-
-                if ($comment->collection_id !== null) {
-                    $comment->commentable_id = $comment->collection_id;
-                    $comment->commentable_type = 'App\Models\Collection';
-                    $comment->save();
-                }
-
-                if ($comment->playlist_id !== null) {
-                    $comment->commentable_id = $comment->playlist_id;
-                    $comment->commentable_type = 'App\Models\Playlist';
-                    $comment->save();
-                }
-
-                if ($comment->ticket_id !== null) {
-                    $comment->commentable_id = $comment->ticket_id;
-                    $comment->commentable_type = 'App\Models\Ticket';
-                    $comment->save();
-                }
+        $comments = Comment::all();
+        foreach ($comments as $comment) {
+            if ($comment->torrent_id !== null) {
+                $comment->commentable_id = $comment->torrent_id;
+                $comment->commentable_type = 'App\Models\Torrent';
+                $comment->save();
             }
+
+            if ($comment->article_id !== null) {
+                $comment->commentable_id = $comment->article_id;
+                $comment->commentable_type = 'App\Models\Article';
+                $comment->save();
+            }
+
+            if ($comment->requests_id !== null) {
+                $comment->commentable_id = $comment->requests_id;
+                $comment->commentable_type = 'App\Models\TorrentRequest';
+                $comment->save();
+            }
+
+            if ($comment->collection_id !== null) {
+                $comment->commentable_id = $comment->collection_id;
+                $comment->commentable_type = 'App\Models\Collection';
+                $comment->save();
+            }
+
+            if ($comment->playlist_id !== null) {
+                $comment->commentable_id = $comment->playlist_id;
+                $comment->commentable_type = 'App\Models\Playlist';
+                $comment->save();
+            }
+
+            if ($comment->ticket_id !== null) {
+                $comment->commentable_id = $comment->ticket_id;
+                $comment->commentable_type = 'App\Models\Ticket';
+                $comment->save();
+            }
+        }
 
         Schema::table('comments', function (Blueprint $table) {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
