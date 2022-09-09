@@ -24,15 +24,18 @@ class BbcodeInput extends Component
 
     public bool $isPreviewEnabled = false;
 
+    public bool $isRequired = false;
+
     public string $contentBbcode = '';
 
     public string $contentHtml = '';
 
-    final public function mount($name, $label)
+    final public function mount($name, $label, $required = false, $content = null)
     {
         $this->name = $name;
         $this->label = $label;
-        $this->contentBbcode = old($name) ?? '';
+        $this->isRequired = $required;
+        $this->contentBbcode = $content ?? old($name) ?? '';
     }
 
     final public function updatedIsPreviewEnabled(): void

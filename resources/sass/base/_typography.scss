@@ -1,0 +1,37 @@
+.fa:before,
+.fas:before {
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 900;
+}
+
+.fab:before {
+    font-family: 'Font Awesome 5 Brands';
+}
+
+.fad:before {
+    font-family: 'Font Awesome 5 Duotone';
+}
+
+.far:before {
+    font-weight: 400;
+}
+
+.fal:before,
+.far:before {
+    font-family: 'Font Awesome 5 Pro';
+}
+
+.fa:before,
+.fab:before,
+.fad:before,
+.fal:before,
+.far:before,
+.fas:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: auto;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+}

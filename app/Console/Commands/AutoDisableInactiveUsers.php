@@ -45,7 +45,7 @@ class AutoDisableInactiveUsers extends Command
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning') == true) {
+        if (\config('pruning.user_pruning')) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();

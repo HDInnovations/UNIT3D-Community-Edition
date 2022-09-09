@@ -310,53 +310,47 @@
         </ul>
     </li>
 @endif
-@if ($isProfileOwner)
+@if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('bonus', 'bonus_store', 'bonus_gifts', 'bonus_tips', 'bonus_gift') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-            href="{{ route('bonus') }}"
+            class="{{ Route::is('earnings.index', 'transactions.create', 'gifts.index', 'gifts.create', 'tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            href="{{ route('earnings.index', ['username' => $user->username]) }}"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
         <ul class="nav-tab-menu__items">
-            <li class="{{ Route::is('bonus') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('bonus') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('bonus') }}"
+                    class="{{ Route::is('earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('earnings.index', ['username' => $user->username]) }}"
                 >
                     {{ __('bon.earnings') }}
                 </a>
             </li>
-            <li class="{{ Route::is('bonus_store') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            @if ($isProfileOwner)
+                <li class="{{ Route::is('transactions.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('transactions.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('transactions.create', ['username' => $user->username]) }}"
+                    >
+                        {{ __('bon.store') }}
+                    </a>
+                </li>
+            @endif
+            <li class="{{ Route::is('gifts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('bonus_store') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('bonus_store') }}"
-                >
-                    {{ __('bon.store') }}
-                </a>
-            </li>
-            <li class="{{ Route::is('bonus_gifts') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                <a
-                    class="{{ Route::is('bonus_gifts') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('bonus_gifts') }}"
+                    class="{{ Route::is('gifts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('gifts.index', ['username' => $user->username]) }}"
                 >
                     {{ __('bon.gifts') }}
                 </a>
             </li>
-            <li class="{{ Route::is('bonus_tips') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('bonus_tips') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('bonus_tips') }}"
+                    class="{{ Route::is('tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('tips.index', ['username' => $user->username]) }}"
                 >
                     {{ __('bon.tips') }}
-                </a>
-            </li>
-            <li class="{{ Route::is('bonus_gift') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                <a
-                    class="{{ Route::is('bonus_gift') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('bonus_gift') }}"
-                >
-                    {{ __('bon.gift') }}
                 </a>
             </li>
         </ul>

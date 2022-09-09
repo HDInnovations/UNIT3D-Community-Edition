@@ -29,42 +29,25 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>{{ __('common.chat-rooms') }}</h2>
+@section('page', 'page__chat-room--index')
 
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addChatroom">
-            {{ __('common.add') }} {{ __('common.chat-room') }}
-        </button>
-        <div id="addChatroom" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog{{ modal_style() }}">
-                <div class="modal-content">
-
-                    <div class="modal-header" style="text-align: center;">
-                        <h3>{{ __('common.add') }} {{ __('common.chat-room') }}</h3>
-                    </div>
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.rooms.store') }}">
-                        @csrf
-                        <div class="modal-body" style="text-align: center;">
-                            <h4>Please enter the name of the chatroom you would like to create.</h4>
-                            <label for="chatroom_name"> {{ __('common.name') }}:</label> <label for="name"></label><input
-                                    style="margin:0 auto; width:300px;" type="text" class="form-control" name="name"
-                                    id="name"
-                                    placeholder="Enter {{ __('common.name') }} Here..." required>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-md btn-primary" data-dismiss="modal">{{ __('common.cancel') }}</button>
-                            <input class="btn btn-md btn-success" type="submit">
-                        </div>
-                    </form>
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('common.chat-rooms') }}</h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.rooms.create') }}"
+                    >
+                        {{ __('common.add') }}
+                    </a>
                 </div>
             </div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -75,29 +58,54 @@
                 <tbody>
                 @foreach ($chatrooms as $chatroom)
                     <tr>
+                        <td>{{ $chatroom->id }}</td>
                         <td>
-                            {{ $chatroom->id }}
-                        </td>
-                        <td>
-                            <a href="#">
+                            <a href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}">
                                 {{ $chatroom->name }}
                             </a>
                         </td>
                         <td>
-                            <button class="btn btn-xs btn-warning" data-toggle="modal"
-                                    data-target="#editChatroom-{{ $chatroom->id }}">
-                                <i class="{{ config('other.font-awesome') }} fa-pen-square"></i>
-                            </button>
-                            <button class="btn btn-xs btn-danger" data-toggle="modal"
-                                    data-target="#deleteChatroom-{{ $chatroom->id }}">
-                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                            </button>
-                            @include('Staff.chat.room.chatroom_modals', ['chatroom' => $chatroom])
+                            <menu class="data-table__actions">
+                                <li class="data-table__action">
+                                    <a
+                                        class="form__button form__button--text"
+                                        href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}"
+                                    >
+                                        {{ __('common.edit') }}
+                                    </a>
+                                </li>
+                                <li class="data-table__action">
+                                    <form
+                                        method="POST"
+                                        action="{{ route('staff.rooms.destroy', ['id' => $chatroom->id]) }}"
+                                        x-data
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button 
+                                            x-on:click.prevent="Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: 'Are you sure you want to delete this chatroom: {{ $chatroom->name }}?',
+                                                icon: 'warning',
+                                                showConfirmButton: true,
+                                                showCancelButton: true,
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $root.submit();
+                                                }
+                                            })"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </button>
+                                    </form>
+                                </li>
+                            </menu>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 @endsection

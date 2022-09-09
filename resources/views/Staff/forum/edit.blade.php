@@ -19,36 +19,36 @@
             {{ __('staff.forums') }}
         </a>
     </li>
+    <li class="breadcrumbV2">
+        {{ $forum->name }}
+    </li>
     <li class="breadcrumb--active">
         {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>{{ __('common.edit') }}: {{ $forum->name }}</h2>
+@section('page', 'page__forums-admin--edit')
 
-        <form role="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
-            @csrf
-            <div class="form-group">
-                <label for="title">Title</label>
-                <label>
-                    <input type="text" name="title" class="form-control" value="{{ $forum->name }}">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <label>
-                    <textarea name="description" class="form-control" cols="30"
-                              rows="10">{{ $forum->description }}</textarea>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="forum_type">Forum Type</label>
-                <label>
-                    <select name="forum_type" class="form-control">
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.edit') }} {{ __('forum.forum') }}</h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
+                @csrf
+                <p class="form__group">
+                    <input id="title" class="form__text" type="text" name="title" value="{{ $forum->name }}">
+                    <label class="form__label form__label--floating" for="title">Title</label>
+                </p>
+                <p class="form__group">
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="form__textarea"
+                    >{{ $forum->description }}</textarea>
+                    <label class="form__label form__label--floating" for="description">Description</label>
+                </p>
+                <p class="form__group">
+                    <select name="forum_type" class="form__select">
                         @if ($forum->getCategory() == null)
                             <option value="category" selected>Category (Current)</option>
                             <option value="forum">Forum</option>
@@ -57,102 +57,98 @@
                             <option value="forum" selected>Forum (Current)</option>
                         @endif
                     </select>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="parent_id">Parent forum</label>
-                <label>
-                    <select name="parent_id" class="form-control">
+                    <label class="form__label form__label--floating" for="forum_type">Forum Type</label>
+                </p>
+                <p class="form__group">
+                    <select name="parent_id" class="form__select">
                         @if ($forum->getCategory() != null)
-                            <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}
-                                (Current)
+                            <option value="{{ $forum->parent_id }}" selected>
+                                {{ $forum->getCategory()->name }} (Current)
                             </option>
                         @endif
-                        @foreach ($categories as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="position">{{ __('common.position') }}</label>
-                <label>
-                    <input type="text" name="position" class="form-control" placeholder="The position number"
-                           value="{{ $forum->position }}">
-                </label>
-            </div>
-
-            <h3>Permissions</h3>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Groups</th>
-                    <th>View the forum</th>
-                    <th>Read topics</th>
-                    <th>Start new topic</th>
-                    <th>Reply to topics</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($groups as $g)
-                    <tr>
-                        <td>{{ $g->name }}</td>
-                        <td>
-                            @if ($g->getPermissionsByForum($forum)->show_forum == true)
-                                <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]"
-                                           value="1">
-                                </label>
-                            @else
-                                <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
-                                </label>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($g->getPermissionsByForum($forum)->read_topic == true)
-                                <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]"
-                                           value="1">
-                                </label>
-                            @else
-                                <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
-                                </label>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($g->getPermissionsByForum($forum)->start_topic == true)
-                                <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]"
-                                           value="1">
-                                </label>
-                            @else
-                                <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
-                                </label>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($g->getPermissionsByForum($forum)->reply_topic == true)
-                                <label>
-                                    <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]"
-                                           value="1">
-                                </label>
-                            @else
-                                <label>
-                                    <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
-                                </label>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-
-            <button type="submit" class="btn btn-default">Save Forum</button>
-        </form>
-    </div>
+                    <label class="form__label form__label--floating" for="parent_id">Parent forum</label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="position"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                        value="{{ $forum->position }}"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="position">
+                        {{ __('common.position') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <label class="form__label">Permissions</label>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Groups</th>
+                                <th>View the forum</th>
+                                <th>Read topics</th>
+                                <th>Start new topic</th>
+                                <th>Reply to topics</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($groups as $group)
+                                <tr>
+                                    <td>{{ $group->name }}</td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            name="permissions[{{ $group->id }}][show_forum]"
+                                            value="1"
+                                            @checked($group->getPermissionsByForum($forum)->show_forum)
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            name="permissions[{{ $group->id }}][read_topic]"
+                                            value="1"
+                                            @checked($group->getPermissionsByForum($forum)->read_topic)
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            name="permissions[{{ $group->id }}][start_topic]"
+                                            value="1"
+                                            @checked($group->getPermissionsByForum($forum)->start_topic)
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            name="permissions[{{ $group->id }}][reply_topic]"
+                                            value="1"
+                                            @checked($group->getPermissionsByForum($forum)->reply_topic)
+                                        />
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        Save Forum
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

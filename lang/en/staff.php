@@ -22,6 +22,7 @@ return [
     'article-content'         => 'Content',
     'bans-log'                => 'Bans Log',
     'blocks'                  => 'Blocks',
+    'bon-exchange'            => 'BON Exchange',
     'bot'                     => 'Bot',
     'bots'                    => 'Bots',
     'chat'                    => 'Chat',

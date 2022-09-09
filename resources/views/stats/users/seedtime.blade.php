@@ -39,25 +39,34 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($seedtime as $key => $s)
+                        @foreach ($users as $user)
                             <tr>
                                 <td>
-                                    {{ ++$key }}
+                                    {{ $loop->iteration }}
                                 </td>
-                                <td @if (auth()->user()->username == $s->user->username) class="mentions" @endif>
-                                    @if ($s->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $s->username]) }}">({{ $s->username }}</a></span>
-                                    @endif
+                                <td @if (auth()->user()->username == $user->username) class="mentions" @endif>
+                                    @if ($user->private_profile == 1)
+                                        <span class="badge-user text-bold">
+                                            <span class="text-orange">
+                                                <i class="{{ config('other.font-awesome') }} fa-eye-slash" aria-hidden="true"></i>
+                                                {{ strtoupper(__('common.hidden')) }}
+                                            </span>
+                                            @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+                                                <a href="{{ route('users.show', ['username' => $user->username]) }}">
+                                                    ({{ $user->username }})
+                                                </a>
+                                            @endif
+                                        </span>
                                     @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $s->username]) }}">{{ $s->username }}</a></span>
+                                        <span class="badge-user text-bold">
+                                            <a href="{{ route('users.show', ['username' => $user->username]) }}">
+                                                {{ $user->username }}
+                                            </a>
+                                        </span>
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="text-purple">{{ App\Helpers\StringHelper::timeElapsed($s) }}</span>
+                                    <span class="text-purple">{{ App\Helpers\StringHelper::timeElapsed($user->seedtime ?? 0) }}</span>
                                 </td>
                             </tr>
                         @endforeach

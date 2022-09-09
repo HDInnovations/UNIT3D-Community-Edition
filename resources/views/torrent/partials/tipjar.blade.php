@@ -9,7 +9,7 @@
                 <td>
                     <div class="col-md-7">
                         <form role="form" method="POST"
-                              action="{{ route('tip_uploader', ['id' => $torrent->id]) }}"
+                              action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
                               class="form-inline">
                             @csrf
                             <div class="form-group">
@@ -31,6 +31,7 @@
                             <button type="submit" value="20000" name="tip" class="btn">20,000</button>
                             <button type="submit" value="50000" name="tip" class="btn">50,000</button>
                             <button type="submit" value="100000" name="tip" class="btn">100,000</button>
+                            <input type="hidden" name="torrent" value="{{ $torrent->id }}">
                         </form>
                     </div>
                     <div class="col-md-5">

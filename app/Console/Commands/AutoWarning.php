@@ -46,7 +46,7 @@ class AutoWarning extends Command
      */
     public function handle(): void
     {
-        if (\config('hitrun.enabled') == true) {
+        if (\config('hitrun.enabled')) {
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)

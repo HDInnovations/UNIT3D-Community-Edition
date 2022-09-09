@@ -73,7 +73,7 @@ class ApplicationController extends Controller
             $invite->expires_on = $carbon->copy()->addDays(\config('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
-            if (\config('email-blacklist.enabled') == true) {
+            if (\config('email-blacklist.enabled')) {
                 $v = \validator($request->all(), [
                     'email' => [
                         'required',

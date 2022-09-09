@@ -20,281 +20,373 @@
             {{ __('common.users') }}
         </a>
     </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+            {{ $user->username }}
+        </a>
+    </li>
     <li class="breadcrumb--active">
         {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <h1 class="title">
-            <i class="{{ config('other.font-awesome') }} fa-gear"></i>
-            {{ __('common.edit') }} {{ __('common.user') }}
-            <a href="{{ route('users.show', ['username' => $user->username]) }}">{{ $user->username }}</a>
-        </h1>
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab"
-                                                      data-toggle="tab"
-                                                      aria-expanded="true">{{ __('common.account') }}</a></li>
-            <li role="presentation" class=""><a href="#permissions" aria-controls="permissions" role="tab"
-                                                data-toggle="tab"
-                                                aria-expanded="false">{{ __('user.id-permissions') }}</a></li>
-            <li role="presentation" class=""><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"
-                                                aria-expanded="false">{{ __('staff.user-notes') }}</a></li>
-            <li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
-                                                aria-expanded="false">{{ __('user.change-password') }}</a></li>
-        </ul>
+@section('page', 'page__users--edit')
 
-        <div class="tab-content block block-titled">
-            <div role="tabpanel" class="tab-pane active" id="account">
-                <h3>{{ __('common.account') }}</h3>
-                <hr>
-                <form role="form" method="POST" action="{{ route('user_edit', ['username' => $user->username]) }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="username">{{ __('common.username') }}</label>
-                        <label>
-                            <input name="username" type="text" value="{{ $user->username }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">{{ __('common.email') }}</label>
-                        <label>
-                            <input name="email" type="email" value="{{ $user->email }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="uploaded">{{ __('user.total-upload') }} (Bytes)</label>
-                        <label>
-                            <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="downloaded">{{ __('user.total-download') }} (Bytes)</label>
-                        <label>
-                            <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="join-date">{{ __('user.member-since') }}</label>
-                        <label>
-                            <input name="join-date" type="join-date"
-                                   value="{{ date('d/m/Y', strtotime($user->created_at)) }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="downloaded">{{ __('user.title') }}</label>
-                        <label>
-                            <input name="title" type="text" value="{{ $user->title }}" class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="about">{{ __('user.about-me') }}</label>
-                        <label>
-                            <textarea name="about" cols="30" rows="10"
-                                      class="form-control">{{ $user->about }}</textarea>
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="about">{{ __('common.group') }}</label>
-                        <label>
-                            <select name="group_id" class="form-control">
-                                <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                                @foreach ($groups as $g)
-                                    <option value="{{ $g->id }}">{{ $g->name }}</option>
+@section('main')
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(max(320px, 45%), 1fr)); gap: 1rem;">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <section class="panelV2">
+                <h2 class="panel__heading">{{ __('common.account') }}</h2>
+                <div class="panel__body">
+                    <form
+                        class="form"
+                        method="POST"
+                        action="{{ route('user_edit', ['username' => $user->username]) }}"
+                    >
+                        @csrf
+                        <p class="form__group">
+                            <input
+                                id="username"
+                                class="form__text"
+                                name="username"
+                                required
+                                type="text"
+                                value="{{ $user->username }}"
+                            >
+                            <label class="form__label form__label--floating" for="username">
+                                {{ __('common.username') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="email"
+                                class="form__text"
+                                name="email"
+                                required
+                                type="email"
+                                value="{{ $user->email }}"
+                            >
+                            <label class="form__label form__label--floating" for="email">
+                                {{ __('common.email') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="uploaded"
+                                class="form__text"
+                                inputmode="numeric"
+                                name="uploaded"
+                                pattern="[0-9]*"
+                                required
+                                type="text"
+                                value="{{ $user->uploaded }}"
+                            >
+                            <label class="form__label form__label--floating" for="uploaded">
+                                {{ __('user.total-upload') }} (Bytes)
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="downloaded"
+                                class="form__text"
+                                inputmode="numeric"
+                                name="downloaded"
+                                pattern="[0-9]*"
+                                required
+                                type="text"
+                                value="{{ $user->downloaded }}"
+                            >
+                            <label class="form__label form__label--floating" for="downloaded">
+                                {{ __('user.total-download') }} (Bytes)
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="downloaded"
+                                class="form__text"
+                                name="title"
+                                placeholder=""
+                                value="{{ $user->title }}"
+                            >
+                            <label class="form__label form__label--floating" for="downloaded">
+                                {{ __('user.title') }}
+                            </label>
+                        </p>
+                        @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
+                        <p class="form__group">
+                            <select
+                                id="group_id"
+                                class="form__select"
+                                name="group_id"
+                            >
+                                <option class="form__option" value="{{ $user->group->id }}">
+                                    {{ $user->group->name }} (Default)
+                                </option>
+                                @foreach ($groups as $group)
+                                    <option class="form__option" value="{{ $group->id }}">
+                                        {{ $group->name }}
+                                    </option>
                                 @endforeach
                             </select>
-                        </label>
-                    </div>
-
-                    @if ($user->group->name == "Internal")
-                        <div class="form-group">
-                            <label for="about">Internal Group:</label>
-                            <label>
-                                <select name="internal_id" class="form-control">
+                            <label class="form__label form__label--floating" for="group_id">
+                                {{ __('common.group') }}
+                            </label>
+                        </p>
+                            <p class="form__group">
+                                <select
+                                    id="internal_id"
+                                    name="internal_id"
+                                    class="form__select"
+                                >
                                     @if ($user->internal != null)
-                                        <option value="{{ $user->internal->id }}">{{ $user->internal->name }}
-                                            (Default)
+                                        <option class="form__option" value="{{ $user->internal->id }}">
+                                            {{ $user->internal->name }} (Default)
                                         </option>
                                     @endif
-                                    <option value="i0">None</option>
-                                    @foreach ($internals as $i)
-                                        <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                    <option class="form__option" value="i0">None</option>
+                                    @foreach ($internals as $internal)
+                                        <option class="form__option" value="{{ $internal->id }}">
+                                            {{ $internal->name }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                <label class="form__label form__label--floating" for="internal_id">
+                                    Internal Group
+                                </label>
+                            </p>
+                        <p class="form__group">
+                            <button class="form__button form__button--filled">
+                                {{ __('common.save') }}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </section>
+            <section class="panelV2">
+                <h2 class="panel__heading">{{ __('user.change-password') }}</h2>
+                <div class="panel__body">
+                    <form
+                        class="form"
+                        method="POST"
+                        action="{{ route('user_password', ['username' => $user->username]) }}"
+                        x-data
+                    >
+                        @csrf
+                        <p class="form__group">
+                            <input
+                                id="new_password"
+                                class="form__text"
+                                minlength="6"
+                                name="new_password"
+                                type="password"
+                                autocomplete="new-password"
+                                placeholder=""
+                            >
+                            <label class="form__label form__label--floating" for="new_password">
+                                {{ __('common.password') }}
                             </label>
-                        </div>
-                    @endif
-
-                    <button type="submit" class="btn btn-default">{{ __('common.save') }}</button>
-                </form>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="permissions">
-                <h3>{{ __('user.id-permissions') }}</h3>
-                <hr>
-                <form role="form" method="POST"
-                      action="{{ route('user_permissions', ['username' => $user->username]) }}">
-                    @csrf
-                    <label for="hidden" class="control-label">{{ __('user.can-upload') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif
-                            value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif
-                            value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">{{ __('user.can-download') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
-                                      @endif value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
-                                      @endif value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">{{ __('user.can-comment') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif
-                            value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif
-                            value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">{{ __('user.can-invite') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif
-                            value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif
-                            value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">{{ __('user.can-request') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif
-                            value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif
-                            value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">{{ __('user.can-chat') }}?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
-                                      @endif value="1">{{ __('common.yes') }}</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
-                                      @endif value="0">{{ __('common.no') }}</label>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">{{ __('common.save') }}</div>
-                    </div>
-                </form>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="notes">
-                <h3>{{ __('common.add') }} {{ __('staff.user-notes') }}</h3>
-                <hr>
-                <form role="form" method="POST"
-                      action="{{ route('staff.notes.store', ['username' => $user->username]) }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="message">{{ __('staff.user-notes') }}</label>
-                        <label>
-                            <textarea name="message" class="form-control"></textarea>
-                        </label>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">{{ __('common.save') }}</button>
-                </form>
-                <hr>
-                <h2>{{ __('user.note') }}<span class="text-blue"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-note"></i>
-                            {{ $notes->count() }} </strong></span></h2>
-                <table class="table table-condensed table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>{{ __('common.user') }}</th>
-                        <th>{{ __('common.staff') }}</th>
-                        <th>{{ __('user.note') }}</th>
-                        <th>{{ __('user.created-on') }}</th>
-                        <th>{{ __('common.delete') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if (count($notes) == 0)
-                        <p>The are no notes in database for this user!</p>
-                    @else
-                        @foreach ($notes as $note)
-                            <tr>
-                                <td>
-                                    {{ $note->noteduser->username }}
-                                </td>
-                                <td>
-                                    {{ $note->staffuser->username }}
-                                </td>
-                                <td>
-                                    {{ $note->message }}
-                                </td>
-                                <td>
-                                    {{ $note->created_at->toDayDateTimeString() }}
-                                    ({{ $note->created_at->diffForHumans() }})
-                                </td>
-                                <td>
-                                    <form action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger"><i
-                                                    class="{{ config('other.font-awesome') }} fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
-            </div>
-
-            <div role="tabpanel" class="tab-pane" id="password">
-                <h3>{{ __('user.change-password') }}</h3>
-                <hr>
-                <form role="form" method="POST" action="{{ route('user_password', ['username' => $user->username]) }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="new_password">{{ __('common.new-adj') }} {{ __('passwords.password') }}</label>
-                        <label>
-                            <input type="password" name="new_password" class="form-control"
-                                   placeholder="{{ __('common.new-adj') }} {{ __('common.password') }}">
-                        </label>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">{{ __('common.save') }}</button>
-                </form>
-            </div>
+                        </p>
+                        <p class="form__group">
+                            <button
+                                x-on:click.prevent="Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'Are you sure you want to change this user\'s password?',
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $root.submit();
+                                    }
+                                })"
+                                class="form__button form__button--filled"
+                            >
+                                {{ __('common.save') }}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <section class="panelV2">
+                <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
+                <div class="panel__body">
+                    <form
+                        class="form"
+                        method="POST"
+                        action="{{ route('user_permissions', ['username' => $user->username]) }}"
+                    >
+                        @csrf
+                        <p class="form__group">
+                            <input type="hidden" name="can_upload" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_upload"
+                                name="can_upload"
+                                value="1"
+                                @checked($user->can_upload)
+                            >
+                            <label for="can_upload">{{ __('user.can-upload') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="can_download" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_download"
+                                name="can_download"
+                                value="1"
+                                @checked($user->can_download)
+                            >
+                            <label for="can_download">{{ __('user.can-download') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="can_comment" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_comment"
+                                name="can_comment"
+                                value="1"
+                                @checked($user->can_comment)
+                            >
+                            <label for="can_comment">{{ __('user.can-comment') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="can_invite" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_invite"
+                                name="can_invite"
+                                value="1"
+                                @checked($user->can_invite)
+                            >
+                            <label for="can_invite">{{ __('user.can-invite') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="can_request" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_request"
+                                name="can_request"
+                                value="1"
+                                @checked($user->can_request)
+                            >
+                            <label for="can_request">{{ __('user.can-request') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="can_chat" value="0">
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="can_chat"
+                                name="can_chat"
+                                value="1"
+                                @checked($user->can_chat)
+                            >
+                            <label for="can_chat">{{ __('user.can-chat') }}?</label>
+                        </p>
+                        <p class="form__group">
+                            <button class="form__button form__button--filled">
+                                {{ __('common.save') }}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </section>
+            <section class="panelV2">
+                <h2 class="panel__heading">{{ __('staff.user-notes') }}</h2>
+                <div class="panel__body">
+                    <form
+                        class="form"
+                        method="POST"
+                        action="{{ route('staff.notes.store', ['username' => $user->username]) }}"
+                    >
+                        @csrf
+                        <p class="form__group">
+                            <textarea
+                                id="message"
+                                class="form__textarea"
+                                name="message"
+                                placeholder=""
+                            ></textarea>
+                            <label class="form__label form__label--floating" for="message">
+                                {{ __('staff.user-notes') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <button class="form__button form__button--filled">
+                                {{ __('common.save') }}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>{{ __('common.staff') }}</th>
+                            <th>{{ __('user.note') }}</th>
+                            <th>{{ __('user.created-on') }}</th>
+                            <th>{{ __('common.action') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($notes as $note)
+                                <tr>
+                                    <td>
+                                        <x-user_tag :anon="false" :user="$note->staffuser" />
+                                    </td>
+                                    <td>{{ $note->message }}</td>
+                                    <td>
+                                        <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
+                                            {{ $note->created_at->diffForHumans() }}
+                                        </time>
+                                    </td>
+                                    <td>
+                                        <menu class="data-table__actions">
+                                            <li class="data-table__action">
+                                                <form
+                                                    action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
+                                                    method="POST"
+                                                    x-data
+                                                >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button 
+                                                        x-on:click.prevent="Swal.fire({
+                                                            title: 'Are you sure?',
+                                                            text: 'Are you sure you want to delete this note?: {{ $note->message }}',
+                                                            icon: 'warning',
+                                                            showConfirmButton: true,
+                                                            showCancelButton: true,
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                $root.submit();
+                                                            }
+                                                        })"
+                                                        class="form__button form__button--text"
+                                                    >
+                                                        {{ __('common.delete') }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </menu>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">No notes</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </div>
 @endsection
