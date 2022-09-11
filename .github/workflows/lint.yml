@@ -1,12 +1,12 @@
 name: PHP Linting (Pint)
-  on:
-    workflow_dispatch:
-    push:
-      branches-ignore:
-        - 'dependabot/npm_and_yarn/*'
-  jobs:
-    phplint:
-      runs-on: ubuntu-latest
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'dependabot/npm_and_yarn/*'
+jobs:
+  phplint:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
