@@ -55,9 +55,9 @@ class GraveyardController extends Controller
         $graveyard->seedtime = $request->input('seedtime');
 
         $v = \validator($graveyard->toArray(), [
-            'user_id' => 'required',
+            'user_id'    => 'required',
             'torrent_id' => 'required',
-            'seedtime' => 'required',
+            'seedtime'   => 'required',
         ]);
 
         if ($v->fails()) {

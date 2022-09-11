@@ -111,11 +111,11 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only' => true,
+    'invite-only'   => true,
     'invite_expire' => '14',
 
     'invites_restriced' => false,
-    'invite_groups' => [
+    'invite_groups'     => [
         'Administrator',
         'Owner',
     ],
@@ -128,7 +128,7 @@ return [
     | This will be the upload and download given to new members. (In Bytes!)
     | Default: 50GiB Upload and 1GiB Download
     */
-    'default_upload' => '53687091200',
+    'default_upload'   => '53687091200',
     'default_download' => '1073741824',
 
     /*

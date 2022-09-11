@@ -52,13 +52,13 @@ class BonExchangeController extends Controller
         $bonExchange->invite = $request->type === 'invite';
 
         $v = \validator($bonExchange->toArray(), [
-            'description' => 'required',
-            'value' => 'required|numeric',
-            'cost' => 'required|numeric',
-            'upload' => 'required|boolean',
-            'download' => 'required|boolean',
+            'description'        => 'required',
+            'value'              => 'required|numeric',
+            'cost'               => 'required|numeric',
+            'upload'             => 'required|boolean',
+            'download'           => 'required|boolean',
             'personal_freeleech' => 'required|boolean',
-            'invite' => 'required|boolean',
+            'invite'             => 'required|boolean',
         ]);
 
         if ($v->fails()) {
@@ -97,13 +97,13 @@ class BonExchangeController extends Controller
         $bonExchange->invite = $request->type === 'invite';
 
         $v = \validator($bonExchange->toArray(), [
-            'description' => 'required',
-            'value' => 'required|numeric',
-            'cost' => 'required|numeric',
-            'upload' => 'required|boolean',
-            'download' => 'required|boolean',
+            'description'        => 'required',
+            'value'              => 'required|numeric',
+            'cost'               => 'required|numeric',
+            'upload'             => 'required|boolean',
+            'download'           => 'required|boolean',
             'personal_freeleech' => 'required|boolean',
-            'invite' => 'required|boolean',
+            'invite'             => 'required|boolean',
         ]);
 
         if ($v->fails()) {

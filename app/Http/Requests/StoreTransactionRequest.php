@@ -36,7 +36,7 @@ class StoreTransactionRequest extends FormRequest
     public function rules(Request $request): array
     {
         return [
-            'exchange' => [
+            'exchange'   => [
                 'bail',
                 'required',
                 'exists:bon_exchange,id',

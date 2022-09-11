@@ -69,6 +69,7 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -570,6 +571,7 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
+
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');

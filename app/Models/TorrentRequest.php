@@ -32,7 +32,7 @@ class TorrentRequest extends Model
      * @var array
      */
     protected $casts = [
-        'filled_when' => 'datetime',
+        'filled_when'   => 'datetime',
         'approved_when' => 'datetime',
     ];
 
@@ -50,7 +50,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1',
+            'id'       => '1',
         ]);
     }
 
@@ -61,7 +61,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
-            'id' => '1',
+            'id'       => '1',
         ]);
     }
 
@@ -72,7 +72,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
-            'id' => '1',
+            'id'       => '1',
         ]);
     }
 

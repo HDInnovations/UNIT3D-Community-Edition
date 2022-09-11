@@ -23,7 +23,7 @@ class GiftControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo' => true,
+                'is_modo'  => true,
             ])->id,
         ]);
     }
@@ -54,9 +54,9 @@ class GiftControllerTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($staff)->post(route('staff.gifts.store'), [
-            'username' => $user->username,
+            'username'  => $user->username,
             'seedbonus' => '100',
-            'invites' => '100',
+            'invites'   => '100',
             'fl_tokens' => '100',
         ]);
 

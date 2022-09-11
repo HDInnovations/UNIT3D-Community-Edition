@@ -141,21 +141,21 @@ class UserEarningController extends Controller
             + 2.00 * $legend;
 
         return \view('bonus.index', [
-            'user' => $user,
-            'userbon' => $userbon,
-            'dying' => $dying,
-            'legendary' => $legendary,
-            'old' => $old,
-            'huge' => $huge,
-            'large' => $large,
-            'regular' => $regular,
-            'participant' => $participant,
-            'teamplayer' => $teamplayer,
-            'committed' => $committed,
-            'mvp' => $mvp,
-            'legend' => $legend,
-            'total' => $total,
-            'username' => $username,
+            'user'              => $user,
+            'userbon'           => $userbon,
+            'dying'             => $dying,
+            'legendary'         => $legendary,
+            'old'               => $old,
+            'huge'              => $huge,
+            'large'             => $large,
+            'regular'           => $regular,
+            'participant'       => $participant,
+            'teamplayer'        => $teamplayer,
+            'committed'         => $committed,
+            'mvp'               => $mvp,
+            'legend'            => $legend,
+            'total'             => $total,
+            'username'          => $username,
         ]);
     }
 }

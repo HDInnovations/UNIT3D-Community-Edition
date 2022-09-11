@@ -30,8 +30,8 @@ class Http2ServerPush
      * @var string[]
      */
     private const LINK_TYPE_MAP = [
-        '.CSS' => 'style',
-        '.JS' => 'script',
+        '.CSS'  => 'style',
+        '.JS'   => 'script',
     ];
 
     /**

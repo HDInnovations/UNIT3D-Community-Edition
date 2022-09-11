@@ -105,8 +105,8 @@ trait TwoStep
                 'userId' => $userId,
             ],
             [
-                'userId' => $userId,
-                'authCode' => $this->generateCode(),
+                'userId'    => $userId,
+                'authCode'  => $this->generateCode(),
                 'authCount' => 0,
             ]
         );
@@ -129,7 +129,7 @@ trait TwoStep
         $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
 
         $data = [
-            'tomorrow' => $tomorrow,
+            'tomorrow'  => $tomorrow,
             'remaining' => $remaining,
         ];
 

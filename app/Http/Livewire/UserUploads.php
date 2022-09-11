@@ -39,12 +39,12 @@ class UserUploads extends Component
     public $showMorePrecision = false;
 
     protected $queryString = [
-        'perPage' => ['except' => ''],
-        'name' => ['except' => ''],
-        'personalRelease' => ['except' => 'any'],
-        'sortField' => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'status' => ['except' => []],
+        'perPage'           => ['except' => ''],
+        'name'              => ['except' => ''],
+        'personalRelease'   => ['except' => 'any'],
+        'sortField'         => ['except' => 'created_at'],
+        'sortDirection'     => ['except' => 'desc'],
+        'status'            => ['except' => []],
     ];
 
     final public function mount($userId): void

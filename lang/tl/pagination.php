@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; Nauna',
-    'next' => 'Susunod &raquo;',
+    'next'     => 'Susunod &raquo;',
 ];

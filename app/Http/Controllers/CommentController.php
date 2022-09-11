@@ -80,10 +80,10 @@ class CommentController extends Controller
         $comment->collection_id = $collection->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'       => 'required',
+            'user_id'       => 'required',
             'collection_id' => 'required',
-            'anon' => 'required',
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
@@ -99,12 +99,12 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
-            );
+                    \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
+                );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
-            );
+                    \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
+                );
         }
 
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -115,21 +115,21 @@ class CommentController extends Controller
                     $users->push($c->user);
                 });
                 $this->tag->messageCommentUsers(
-                    'collection',
-                    $users,
-                    $user,
-                    'Staff',
-                    $comment
-                );
+                        'collection',
+                        $users,
+                        $user,
+                        'Staff',
+                        $comment
+                    );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
                 $this->taggedUserRepository->messageTaggedCommentUsers(
-                    'collection',
-                    $request->input('content'),
-                    $user,
-                    $sender,
-                    $comment
-                );
+                        'collection',
+                        $request->input('content'),
+                        $user,
+                        $sender,
+                        $comment
+                    );
             }
         }
 
@@ -180,10 +180,10 @@ class CommentController extends Controller
         $comment->article_id = $article->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'    => 'required',
+            'user_id'    => 'required',
             'article_id' => 'required',
-            'anon' => 'required',
+            'anon'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -278,10 +278,10 @@ class CommentController extends Controller
         $comment->playlist_id = $playlist->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'     => 'required',
+            'user_id'     => 'required',
             'playlist_id' => 'required',
-            'anon' => 'required',
+            'anon'        => 'required',
         ]);
 
         if ($v->fails()) {
@@ -376,10 +376,10 @@ class CommentController extends Controller
         $comment->torrent_id = $torrent->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'    => 'required',
+            'user_id'    => 'required',
             'torrent_id' => 'required',
-            'anon' => 'required',
+            'anon'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -479,10 +479,10 @@ class CommentController extends Controller
         $comment->requests_id = $tr->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'     => 'required',
+            'user_id'     => 'required',
             'requests_id' => 'required',
-            'anon' => 'required',
+            'anon'        => 'required',
         ]);
 
         if ($v->fails()) {
@@ -577,10 +577,10 @@ class CommentController extends Controller
         $comment->ticket_id = $ticket->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'   => 'required',
+            'user_id'   => 'required',
             'ticket_id' => 'required',
-            'anon' => 'required',
+            'anon'      => 'required',
         ]);
 
         if ($v->fails()) {
@@ -648,8 +648,8 @@ class CommentController extends Controller
         $comment->torrent_id = $torrent->id;
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'    => 'required',
+            'user_id'    => 'required',
             'torrent_id' => 'required',
         ]);
 
@@ -704,7 +704,7 @@ class CommentController extends Controller
         $comment->content = $request->input('comment-edit');
 
         $v = \validator($comment->toArray(), [
-            'content' => 'required',
+            'content'    => 'required',
         ]);
 
         if ($v->fails()) {

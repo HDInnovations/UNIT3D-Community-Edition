@@ -73,8 +73,8 @@ class TwoStepController extends Controller
         $this->twoStepAuth->save();
 
         $returnData = [
-            'message' => \trans('auth.titleFailed'),
-            'authCount' => $this->authCount,
+            'message'           => \trans('auth.titleFailed'),
+            'authCount'         => $this->authCount,
             'remainingAttempts' => $this->remainingAttempts,
         ];
 
@@ -102,7 +102,7 @@ class TwoStepController extends Controller
         }
 
         $data = [
-            'user' => $this->user,
+            'user'              => $this->user,
             'remainingAttempts' => $this->remainingAttempts + 1,
         ];
 
@@ -194,7 +194,7 @@ class TwoStepController extends Controller
         $this->sendVerificationCodeNotification($twoStepAuth);
 
         $returnData = [
-            'title' => \trans('auth.verificationEmailSuccess'),
+            'title'   => \trans('auth.verificationEmailSuccess'),
             'message' => \trans('auth.verificationEmailSentMsg'),
         ];
 

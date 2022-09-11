@@ -37,9 +37,9 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [[
-                'id' => $userAudible->id,
+                'id'      => $userAudible->id,
                 'user_id' => $userAudible->user_id,
-                'user' => ['id' => $userAudible->user_id],
+                'user'    => ['id' => $userAudible->user_id],
             ]]]);
     }
 
@@ -58,9 +58,9 @@ class ChatControllerTest extends TestCase
         $systemUser = User::where('username', 'System')->firstOrFail();
 
         Message::factory()->create([
-            'user_id' => $user->id,
+            'user_id'     => $user->id,
             'receiver_id' => $systemUser->id,
-            'bot_id' => $bot->id,
+            'bot_id'      => $bot->id,
         ]);
 
         $response = $this->actingAs($user)->get(sprintf('api/chat/bot/%s', $bot->id));
@@ -112,8 +112,8 @@ class ChatControllerTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'system_chatroom' => 'General',
-                'message_limit' => 100,
-                'nerd_bot' => true,
+                'message_limit'   => 100,
+                'nerd_bot'        => true,
             ]);
     }
 
@@ -136,13 +136,13 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($user)->post('api/chat/messages', [
             'receiver_id' => $systemUser->id,
             'chatroom_id' => $chatroom->id,
-            'bot_id' => $bot->id,
-            'message' => sprintf('/msg %s hi', $user->username),
+            'bot_id'      => $bot->id,
+            'message'     => sprintf('/msg %s hi', $user->username),
         ]);
 
         $response->assertOk()
             ->assertJson(['data' => [
-                'user' => ['id' => $user->id],
+                'user'     => ['id' => $user->id],
                 'receiver' => ['id' => $user->id],
             ]]);
     }
@@ -165,7 +165,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -202,7 +202,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -224,7 +224,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -241,8 +241,8 @@ class ChatControllerTest extends TestCase
         $response->assertOk()
             ->assertJson(['data' => [[
                 'user_id' => $user->id,
-                'user' => [
-                    'id' => $user->id,
+                'user'    => [
+                    'id'       => $user->id,
                     'username' => $user->username,
                 ],
             ]]]);
@@ -261,9 +261,9 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [[
-                'id' => $message->id,
-                'bot' => ['id' => $message['bot_id']],
-                'user' => ['id' => $message['user_id']],
+                'id'       => $message->id,
+                'bot'      => ['id' => $message['bot_id']],
+                'user'     => ['id' => $message['user_id']],
                 'receiver' => ['id' => $message['receiver_id']],
                 'chatroom' => ['id' => $message['chatroom_id']],
             ]]]);
@@ -284,9 +284,9 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [[
-                'id' => $message->id,
-                'bot' => ['id' => $message['bot_id']],
-                'user' => ['id' => $message['user_id']],
+                'id'       => $message->id,
+                'bot'      => ['id' => $message['bot_id']],
+                'user'     => ['id' => $message['user_id']],
                 'receiver' => ['id' => $message['receiver_id']],
                 'chatroom' => ['id' => $message['chatroom_id']],
             ]]]);
@@ -305,7 +305,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [[
-                'id' => $chatroom->id,
+                'id'   => $chatroom->id,
                 'name' => $chatroom->name,
             ]]]);
     }
@@ -323,10 +323,10 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([[
-                'id' => $chatStatus->id,
-                'name' => $chatStatus->name,
+                'id'    => $chatStatus->id,
+                'name'  => $chatStatus->name,
                 'color' => $chatStatus->color,
-                'icon' => $chatStatus->icon,
+                'icon'  => $chatStatus->icon,
             ]]);
     }
 
@@ -347,7 +347,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -369,7 +369,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -391,7 +391,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -411,7 +411,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -429,7 +429,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -444,7 +444,7 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($user)->post(sprintf('api/chat/user/%s/target', $user->id));
 
         $response->assertOk()->assertJson([
-            'id' => $user->id,
+            'id'       => $user->id,
             'username' => $user->username,
         ]);
     }

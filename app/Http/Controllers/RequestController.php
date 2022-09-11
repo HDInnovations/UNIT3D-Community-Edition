@@ -83,10 +83,10 @@ class RequestController extends Controller
 
         if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
             $meta = Game::with([
-                'cover' => ['url', 'image_id'],
+                'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
-                'genres' => ['name'],
-                'videos' => ['video_id', 'name'],
+                'genres'   => ['name'],
+                'videos'   => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
                 'platforms', ])
@@ -94,11 +94,11 @@ class RequestController extends Controller
         }
 
         return \view('requests.request', [
-            'torrentRequest' => $torrentRequest,
-            'voters' => $voters, 'user' => $user,
-            'comments' => $comments,
-            'carbon' => $carbon,
-            'meta' => $meta,
+            'torrentRequest'      => $torrentRequest,
+            'voters'              => $voters, 'user' => $user,
+            'comments'            => $comments,
+            'carbon'              => $carbon,
+            'meta'                => $meta,
             'torrentRequestClaim' => $torrentRequestClaim,
         ]);
     }
@@ -111,13 +111,13 @@ class RequestController extends Controller
         $user = $request->user();
 
         return \view('requests.add_request', [
-            'categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'),
+            'categories'  => Category::all()->sortBy('position'),
+            'types'       => Type::all()->sortBy('position'),
             'resolutions' => Resolution::all()->sortBy('position'),
-            'user' => $user,
-            'title' => $title,
-            'imdb' => \str_replace('tt', '', $imdb),
-            'tmdb' => $tmdb,
+            'user'        => $user,
+            'title'       => $title,
+            'imdb'        => \str_replace('tt', '', $imdb),
+            'tmdb'        => $tmdb,
         ]);
     }
 
@@ -146,18 +146,18 @@ class RequestController extends Controller
         $torrentRequest->anon = $request->input('anon');
 
         $v = \validator($torrentRequest->toArray(), [
-            'name' => 'required|max:180',
-            'imdb' => 'required|numeric',
-            'tvdb' => 'required|numeric',
-            'tmdb' => 'required|numeric',
-            'mal' => 'required|numeric',
-            'igdb' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'type_id' => 'required|exists:types,id',
+            'name'          => 'required|max:180',
+            'imdb'          => 'required|numeric',
+            'tvdb'          => 'required|numeric',
+            'tmdb'          => 'required|numeric',
+            'mal'           => 'required|numeric',
+            'igdb'          => 'required|numeric',
+            'category_id'   => 'required|exists:categories,id',
+            'type_id'       => 'required|exists:types,id',
             'resolution_id' => 'nullable|exists:resolutions,id',
-            'description' => 'required|string',
-            'bounty' => \sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
-            'anon' => 'required',
+            'description'   => 'required|string',
+            'bounty'        => \sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
@@ -219,10 +219,10 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         return \view('requests.edit_request', [
-            'categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user' => $user,
+            'categories'     => Category::all()->sortBy('position'),
+            'types'          => Type::all()->sortBy('position'),
+            'resolutions'    => Resolution::all()->sortBy('position'),
+            'user'           => $user,
             'torrentRequest' => $torrentRequest, ]);
     }
 
@@ -261,17 +261,17 @@ class RequestController extends Controller
         $torrentRequest->anon = $anon;
 
         $v = \validator($torrentRequest->toArray(), [
-            'name' => 'required|max:180',
-            'imdb' => 'required|numeric',
-            'tvdb' => 'required|numeric',
-            'tmdb' => 'required|numeric',
-            'mal' => 'required|numeric',
-            'igdb' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'type_id' => 'required|exists:types,id',
+            'name'          => 'required|max:180',
+            'imdb'          => 'required|numeric',
+            'tvdb'          => 'required|numeric',
+            'tmdb'          => 'required|numeric',
+            'mal'           => 'required|numeric',
+            'igdb'          => 'required|numeric',
+            'category_id'   => 'required|exists:categories,id',
+            'type_id'       => 'required|exists:types,id',
             'resolution_id' => 'nullable|exists:resolutions,id',
-            'description' => 'required|string',
-            'anon' => 'required',
+            'description'   => 'required|string',
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
@@ -369,8 +369,8 @@ class RequestController extends Controller
         $torrentRequest->filled_anon = $request->input('filled_anon');
 
         $v = \validator($request->all(), [
-            'request_id' => 'required|exists:requests,id',
-            'info_hash' => 'required|exists:torrents,info_hash',
+            'request_id'  => 'required|exists:requests,id',
+            'info_hash'   => 'required|exists:torrents,info_hash',
             'filled_anon' => 'required',
         ]);
 

@@ -35,7 +35,7 @@ class TicketSearch extends Component
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'show' => ['except' => false],
+        'show'   => ['except' => false],
     ];
 
     final public function mount(): void

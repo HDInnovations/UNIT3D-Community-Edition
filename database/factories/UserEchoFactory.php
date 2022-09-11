@@ -17,10 +17,10 @@ class UserEchoFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fn () => User::factory()->create()->id,
-            'room_id' => fn () => Chatroom::factory()->create()->id,
+            'user_id'   => fn () => User::factory()->create()->id,
+            'room_id'   => fn () => Chatroom::factory()->create()->id,
             'target_id' => fn () => User::factory()->create()->id,
-            'bot_id' => fn () => Bot::factory()->create()->id,
+            'bot_id'    => fn () => Bot::factory()->create()->id,
         ];
     }
 }

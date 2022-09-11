@@ -37,8 +37,8 @@ class CompanyController extends Controller
 
         return \view('mediahub.company.show', [
             'company' => $company,
-            'shows' => $shows,
-            'movies' => $movies,
+            'shows'   => $shows,
+            'movies'  => $movies,
         ]);
     }
 }

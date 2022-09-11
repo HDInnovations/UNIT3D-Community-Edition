@@ -24,7 +24,7 @@ class FollowControllerTest extends TestCase
         $userToFollow = User::factory()->create();
 
         $follow = Follow::factory()->create([
-            'user_id' => $user->id,
+            'user_id'   => $user->id,
             'target_id' => $userToFollow->id,
         ]);
 

@@ -112,8 +112,8 @@ class ForumController extends Controller
 
         return \view('Staff.forum.edit', [
             'categories' => $categories,
-            'groups' => $groups,
-            'forum' => $forum,
+            'groups'     => $groups,
+            'forum'      => $forum,
         ]);
     }
 

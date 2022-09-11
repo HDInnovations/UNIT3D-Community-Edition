@@ -44,10 +44,10 @@ class ModerationController extends Controller
         $rejected = Torrent::with(['user', 'category', 'type'])->rejected()->get();
 
         return \view('Staff.moderation.index', [
-            'current' => $current,
-            'pending' => $pending,
+            'current'   => $current,
+            'pending'   => $pending,
             'postponed' => $postponed,
-            'rejected' => $rejected,
+            'rejected'  => $rejected,
         ]);
     }
 
@@ -91,8 +91,8 @@ class ModerationController extends Controller
     public function postpone(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
-            'id' => 'required|exists:torrents',
-            'slug' => 'required|exists:torrents',
+            'id'      => 'required|exists:torrents',
+            'slug'    => 'required|exists:torrents',
             'message' => 'required',
         ]);
 
@@ -125,8 +125,8 @@ class ModerationController extends Controller
     public function reject(Request $request): \Illuminate\Http\RedirectResponse
     {
         $v = \validator($request->all(), [
-            'id' => 'required|exists:torrents',
-            'slug' => 'required|exists:torrents',
+            'id'      => 'required|exists:torrents',
+            'slug'    => 'required|exists:torrents',
             'message' => 'required',
         ]);
 

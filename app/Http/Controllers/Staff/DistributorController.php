@@ -50,8 +50,8 @@ class DistributorController extends Controller
         $distributor->position = $request->input('position');
 
         $v = \validator($distributor->toArray(), [
-            'name' => 'required|unique:distributors,name',
-            'slug' => 'required',
+            'name'     => 'required|unique:distributors,name',
+            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -87,8 +87,8 @@ class DistributorController extends Controller
         $distributor->position = $request->input('position');
 
         $v = \validator($distributor->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
             'position' => 'required',
         ]);
 

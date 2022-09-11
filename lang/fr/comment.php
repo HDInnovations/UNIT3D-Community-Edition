@@ -12,9 +12,9 @@
  */
 
 return [
-    'added' => 'Ton commentaire a été ajouté!',
-    'deleted' => 'Le commentaire a été supprimé.',
-    'edited' => 'Le commentaire a été modifié.',
-    'rights-revoked' => 'Ton droit de commenter a été révoqué!',
-    'slow-down' => 'Ralentissez - Trop de commentaires!',
+    'added'                        => 'Ton commentaire a été ajouté!',
+    'deleted'                      => 'Le commentaire a été supprimé.',
+    'edited'                       => 'Le commentaire a été modifié.',
+    'rights-revoked'               => 'Ton droit de commenter a été révoqué!',
+    'slow-down'                    => 'Ralentissez - Trop de commentaires!',
 ];

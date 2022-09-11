@@ -17,29 +17,29 @@
  */
 
 return [
-    'encoding' => 'UTF-8',
-    'finalize' => true,
-    'cachePath' => storage_path('app/purifier'),
+    'encoding'      => 'UTF-8',
+    'finalize'      => true,
+    'cachePath'     => storage_path('app/purifier'),
     'cacheFileMode' => 0755,
-    'settings' => [
+    'settings'      => [
         'default' => [
-            'HTML.Doctype' => 'HTML 4.01 Transitional',
-            'HTML.Allowed' => 'div,b,strong,i,em,u,a[href|title|class],ul,ol,li,p[style|class],br,span[style|class],img[width|height|alt|src|class]',
-            'CSS.AllowedProperties' => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+            'HTML.Doctype'             => 'HTML 4.01 Transitional',
+            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title|class],ul,ol,li,p[style|class],br,span[style|class],img[width|height|alt|src|class]',
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
             'AutoFormat.AutoParagraph' => false,
-            'AutoFormat.RemoveEmpty' => false,
+            'AutoFormat.RemoveEmpty'   => false,
         ],
-        'test' => [
+        'test'    => [
             'Attr.EnableID' => 'true',
         ],
         'youtube' => [
-            'HTML.SafeIframe' => 'true',
+            'HTML.SafeIframe'      => 'true',
             'URI.SafeIframeRegexp' => '%^(http://|https://|//)(www.youtube-nocookie.com/embed/)%',
         ],
         'custom_definition' => [
-            'id' => 'html5-definitions',
-            'rev' => 1,
-            'debug' => false,
+            'id'       => 'html5-definitions',
+            'rev'      => 1,
+            'debug'    => false,
             'elements' => [
                 // http://developers.whatwg.org/sections.html
                 ['section', 'Block', 'Flow', 'Common'],
@@ -59,16 +59,16 @@ return [
 
                 // http://developers.whatwg.org/the-video-element.html#the-video-element
                 ['video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', [
-                    'src' => 'URI',
-                    'type' => 'Text',
-                    'width' => 'Length',
-                    'height' => 'Length',
-                    'poster' => 'URI',
-                    'preload' => 'Enum#auto,metadata,none',
+                    'src'      => 'URI',
+                    'type'     => 'Text',
+                    'width'    => 'Length',
+                    'height'   => 'Length',
+                    'poster'   => 'URI',
+                    'preload'  => 'Enum#auto,metadata,none',
                     'controls' => 'Bool',
                 ]],
                 ['source', 'Block', 'Flow', 'Common', [
-                    'src' => 'URI',
+                    'src'  => 'URI',
                     'type' => 'Text',
                 ]],
 

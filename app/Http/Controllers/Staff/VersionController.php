@@ -41,7 +41,7 @@ class VersionController extends Controller
         $lastestVersion = $response[0]['tag_name'];
 
         return \response([
-            'updated' => ! \version_compare($this->versionController, $lastestVersion, '<'),
+            'updated'       => ! \version_compare($this->versionController, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

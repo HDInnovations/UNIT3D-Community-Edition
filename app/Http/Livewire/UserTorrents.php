@@ -53,19 +53,19 @@ class UserTorrents extends Component
     public $showMorePrecision = false;
 
     protected $queryString = [
-        'perPage' => ['except' => ''],
-        'name' => ['except' => ''],
-        'sortField' => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'unsatisfied' => ['except' => 'any'],
-        'active' => ['except' => 'any'],
-        'completed' => ['except' => 'any'],
-        'prewarn' => ['except' => 'any'],
-        'hitrun' => ['except' => 'any'],
-        'immune' => ['except' => 'any'],
-        'uploaded' => ['except' => 'any'],
-        'downloaded' => ['except' => 'any'],
-        'status' => ['except' => []],
+        'perPage'           => ['except' => ''],
+        'name'              => ['except' => ''],
+        'sortField'         => ['except' => 'created_at'],
+        'sortDirection'     => ['except' => 'desc'],
+        'unsatisfied'       => ['except' => 'any'],
+        'active'            => ['except' => 'any'],
+        'completed'         => ['except' => 'any'],
+        'prewarn'           => ['except' => 'any'],
+        'hitrun'            => ['except' => 'any'],
+        'immune'            => ['except' => 'any'],
+        'uploaded'          => ['except' => 'any'],
+        'downloaded'        => ['except' => 'any'],
+        'status'            => ['except' => []],
         'showMorePrecision' => ['except' => false],
     ];
 

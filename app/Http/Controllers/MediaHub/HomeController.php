@@ -38,13 +38,13 @@ class HomeController extends Controller
         $companies = Company::count();
 
         return \view('mediahub.index', [
-            'tv' => $tv,
-            'movies' => $movies,
+            'tv'          => $tv,
+            'movies'      => $movies,
             'collections' => $collections,
-            'persons' => $persons,
-            'genres' => $genres,
-            'networks' => $networks,
-            'companies' => $companies,
+            'persons'     => $persons,
+            'genres'      => $genres,
+            'networks'    => $networks,
+            'companies'   => $companies,
         ]);
     }
 }

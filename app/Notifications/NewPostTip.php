@@ -44,8 +44,8 @@ class NewPostTip extends Notification implements ShouldQueue
     {
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
-            'body' => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
-            'url' => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
+            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

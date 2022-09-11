@@ -44,15 +44,15 @@ class TicketPrioritiesTableSeeder extends Seeder
     {
         return [
             [
-                'name' => 'Low',
+                'name'     => 'Low',
                 'position' => 0,
             ],
             [
-                'name' => 'Medium',
+                'name'     => 'Medium',
                 'position' => 1,
             ],
             [
-                'name' => 'High',
+                'name'     => 'High',
                 'position' => 2,
             ],
         ];

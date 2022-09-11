@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; 前一頁',
-    'next' => '下一頁 &raquo;',
+    'next'     => '下一頁 &raquo;',
 ];

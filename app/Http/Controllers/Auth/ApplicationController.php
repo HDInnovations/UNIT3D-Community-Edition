@@ -46,8 +46,8 @@ class ApplicationController extends Controller
         if (\config('email-blacklist.enabled')) {
             if (! \config('captcha.enabled')) {
                 $v = \validator($request->all(), [
-                    'type' => 'required',
-                    'email' => [
+                    'type'     => 'required',
+                    'email'    => [
                         'required',
                         'string',
                         'email',
@@ -59,14 +59,14 @@ class ApplicationController extends Controller
                     ],
                     'referrer' => 'required',
                     'images.*' => 'filled',
-                    'images' => 'min:2',
-                    'links.*' => 'filled',
-                    'links' => 'min:2',
+                    'images'   => 'min:2',
+                    'links.*'  => 'filled',
+                    'links'    => 'min:2',
                 ]);
             } else {
                 $v = \validator($request->all(), [
-                    'type' => 'required',
-                    'email' => [
+                    'type'     => 'required',
+                    'email'    => [
                         'required',
                         'string',
                         'email',
@@ -78,32 +78,32 @@ class ApplicationController extends Controller
                     ],
                     'referrer' => 'required',
                     'images.*' => 'filled',
-                    'images' => 'min:2',
-                    'links.*' => 'filled',
-                    'links' => 'min:2',
-                    'captcha' => 'hiddencaptcha',
+                    'images'   => 'min:2',
+                    'links.*'  => 'filled',
+                    'links'    => 'min:2',
+                    'captcha'  => 'hiddencaptcha',
                 ]);
             }
         } elseif (! \config('captcha.enabled')) {
             $v = \validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
+                'type'     => 'required',
+                'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                 'referrer' => 'required',
                 'images.*' => 'filled',
-                'images' => 'min:2',
-                'links.*' => 'filled',
-                'links' => 'min:2',
+                'images'   => 'min:2',
+                'links.*'  => 'filled',
+                'links'    => 'min:2',
             ]);
         } else {
             $v = \validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
+                'type'     => 'required',
+                'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                 'referrer' => 'required',
                 'images.*' => 'filled',
-                'images' => 'min:2',
-                'links.*' => 'filled',
-                'links' => 'min:2',
-                'captcha' => 'hiddencaptcha',
+                'images'   => 'min:2',
+                'links.*'  => 'filled',
+                'links'    => 'min:2',
+                'captcha'  => 'hiddencaptcha',
             ]);
         }
 

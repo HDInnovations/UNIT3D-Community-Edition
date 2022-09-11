@@ -29,12 +29,12 @@ class HiddenCaptcha
 
         // Generate the token
         $token = [
-            'timestamp' => $ts,
-            'session_id' => \session()->getId(),
-            'ip' => \request()->ip(),
-            'user_agent' => \request()->header('User-Agent'),
+            'timestamp'         => $ts,
+            'session_id'        => \session()->getId(),
+            'ip'                => \request()->ip(),
+            'user_agent'        => \request()->header('User-Agent'),
             'random_field_name' => $random,
-            'must_be_empty' => $mustBeEmptyField,
+            'must_be_empty'     => $mustBeEmptyField,
         ];
 
         // Encrypt the token

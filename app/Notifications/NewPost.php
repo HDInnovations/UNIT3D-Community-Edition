@@ -46,23 +46,23 @@ class NewPost extends Notification implements ShouldQueue
         if ($this->type == 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',
-                'body' => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
-                'url' => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+                'body'  => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
+                'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
             ];
         }
 
         if ($this->type == 'staff') {
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum Topic',
-                'body' => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,
-                'url' => \sprintf('%s?page=%s#post-%s', \route('forum_topic', ['id' => $this->post->topic->id]), $this->post->getPageNumber(), $this->post->id),
+                'body'  => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,
+                'url'   => \sprintf('%s?page=%s#post-%s', \route('forum_topic', ['id' => $this->post->topic->id]), $this->post->getPageNumber(), $this->post->id),
             ];
         }
 
         return [
             'title' => $this->user->username.' Has Posted In A Topic You Started',
-            'body' => $this->user->username.' has left a new post in Your Topic '.$this->post->topic->name,
-            'url' => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'body'  => $this->user->username.' has left a new post in Your Topic '.$this->post->topic->name,
+            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

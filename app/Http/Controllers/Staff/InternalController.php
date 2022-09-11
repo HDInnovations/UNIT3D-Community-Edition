@@ -65,9 +65,9 @@ class InternalController extends Controller
         $internal->effect = $request->input('effect');
 
         $v = \validator($internal->toArray(), [
-            'name' => 'required',
-            'icon' => 'required',
-            'effect' => 'required',
+            'name'      => 'required',
+            'icon'      => 'required',
+            'effect'    => 'required',
         ]);
 
         if ($v->fails()) {
@@ -103,7 +103,7 @@ class InternalController extends Controller
         $internal->effect = $request->input('effect');
 
         $v = \validator($internal->toArray(), [
-            'name' => 'required|unique:internals',
+            'name'     => 'required|unique:internals',
             'icon',
             'effect',
         ]);

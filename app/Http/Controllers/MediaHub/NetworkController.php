@@ -36,7 +36,7 @@ class NetworkController extends Controller
 
         return \view('mediahub.network.show', [
             'network' => $network,
-            'shows' => $shows,
+            'shows'   => $shows,
         ]);
     }
 }

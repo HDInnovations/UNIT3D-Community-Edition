@@ -24,7 +24,7 @@ class TypeControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo' => true,
+                'is_modo'  => true,
             ])->id,
         ]);
     }
@@ -103,8 +103,8 @@ class TypeControllerTest extends TestCase
         $type = Type::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.types.store'), [
-            'name' => $type->name,
-            'slug' => $type->slug,
+            'name'     => $type->name,
+            'slug'     => $type->slug,
             'position' => $type->position,
         ]);
 
@@ -122,8 +122,8 @@ class TypeControllerTest extends TestCase
         $type = Type::factory()->create();
 
         $response = $this->actingAs($user)->patch(route('staff.types.update', ['id' => $type->id]), [
-            'name' => $type->name,
-            'slug' => $type->slug,
+            'name'     => $type->name,
+            'slug'     => $type->slug,
             'position' => $type->position,
         ]);
 

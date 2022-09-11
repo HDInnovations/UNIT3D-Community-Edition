@@ -16,8 +16,8 @@ class OptionFactory extends Factory
     {
         return [
             'poll_id' => fn () => Poll::factory()->create()->id,
-            'name' => $this->faker->name(),
-            'votes' => $this->faker->randomNumber(),
+            'name'    => $this->faker->name(),
+            'votes'   => $this->faker->randomNumber(),
         ];
     }
 }

@@ -27,25 +27,25 @@ trait TorrentFilter
     public function scopeOfName(Builder $query, string $name, bool $isRegex = false): Builder
     {
         return $query->when($isRegex,
-            fn ($query) => $query->where('name', 'REGEXP', \substr($name, 1, -1)),
-            fn ($query) => $query->where('name', 'LIKE', '%'.\str_replace(' ', '%', $name).'%')
-        );
+                fn ($query) => $query->where('name', 'REGEXP', \substr($name, 1, -1)),
+                fn ($query) => $query->where('name', 'LIKE', '%'.\str_replace(' ', '%', $name).'%')
+            );
     }
 
     public function scopeOfDescription(Builder $query, string $description, bool $isRegex = false): Builder
     {
         return $query->when($isRegex,
-            fn ($query) => $query->where('description', 'REGEXP', \substr($description, 1, -1)),
-            fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
-        );
+                fn ($query) => $query->where('description', 'REGEXP', \substr($description, 1, -1)),
+                fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
+            );
     }
 
     public function scopeOfMediainfo(Builder $query, string $mediainfo, bool $isRegex = false): Builder
     {
         return $query->when($isRegex,
-            fn ($query) => $query->where('mediainfo', 'REGEXP', \substr($mediainfo, 1, -1)),
-            fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
-        );
+                fn ($query) => $query->where('mediainfo', 'REGEXP', \substr($mediainfo, 1, -1)),
+                fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
+            );
     }
 
     public function scopeOfUploader(Builder $query, string $username): Builder

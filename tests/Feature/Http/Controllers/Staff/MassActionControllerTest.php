@@ -24,7 +24,7 @@ class MassActionControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo' => true,
+                'is_modo'  => true,
             ])->id,
         ]);
     }
@@ -55,12 +55,12 @@ class MassActionControllerTest extends TestCase
         $message = PrivateMessage::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.mass-pm.store'), [
-            'sender_id' => $user->id,
+            'sender_id'   => $user->id,
             'receiver_id' => $message->receiver_id,
-            'subject' => $message->subject,
-            'message' => $message->message,
-            'read' => $message->read,
-            'related_to' => $message->related_to,
+            'subject'     => $message->subject,
+            'message'     => $message->message,
+            'read'        => $message->read,
+            'related_to'  => $message->related_to,
         ]);
 
         $response->assertRedirect(route('staff.mass-pm.create'));

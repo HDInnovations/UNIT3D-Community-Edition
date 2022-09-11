@@ -53,10 +53,10 @@ class ForumCategoryController extends Controller
         $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return \view('forum.category', [
-            'forum' => $forum,
-            'topics' => $topics,
-            'category' => $category,
-            'num_posts' => $numPosts,
+            'forum'      => $forum,
+            'topics'     => $topics,
+            'category'   => $category,
+            'num_posts'  => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
         ]);

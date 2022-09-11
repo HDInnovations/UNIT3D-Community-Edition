@@ -38,8 +38,8 @@ class GenreController extends Controller
         $movies = $genre->movie()->oldest('title')->paginate(25);
 
         return \view('mediahub.genre.show', [
-            'genre' => $genre,
-            'shows' => $shows,
+            'genre'  => $genre,
+            'shows'  => $shows,
             'movies' => $movies,
         ]);
     }

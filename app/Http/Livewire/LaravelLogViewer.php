@@ -81,14 +81,14 @@ class LaravelLogViewer extends Component
                 \preg_match($contextPattern, $context, $contextMatches);
 
                 $entries->push([
-                    'date' => $entryMatches[$i]['date'],
-                    'env' => $entryMatches[$i]['env'],
-                    'level' => $entryMatches[$i]['level'],
-                    'message' => $contextMatches['message'] ?? '',
-                    'exception' => $contextMatches['exception'] ?? '',
-                    'in' => $contextMatches['in'] ?? '',
-                    'line' => $contextMatches['line'] ?? '',
-                    'stacktrace' => $stacktraces[$i],
+                    'date'        => $entryMatches[$i]['date'],
+                    'env'         => $entryMatches[$i]['env'],
+                    'level'       => $entryMatches[$i]['level'],
+                    'message'     => $contextMatches['message'] ?? '',
+                    'exception'   => $contextMatches['exception'] ?? '',
+                    'in'          => $contextMatches['in'] ?? '',
+                    'line'        => $contextMatches['line'] ?? '',
+                    'stacktrace'  => $stacktraces[$i],
                 ]);
             }
         }
@@ -101,7 +101,7 @@ class LaravelLogViewer extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.laravel-log-viewer', [
-            'files' => $this->logFiles,
+            'files'   => $this->logFiles,
             'entries' => $this->entries,
         ])
             ->extends('layout.default')

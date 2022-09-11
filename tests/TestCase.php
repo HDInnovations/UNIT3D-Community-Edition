@@ -13,7 +13,7 @@ abstract class TestCase extends BaseTestCase
     use RefreshDatabase;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function setUp(): void
     {

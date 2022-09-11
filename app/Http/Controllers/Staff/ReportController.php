@@ -63,7 +63,7 @@ class ReportController extends Controller
         $report->solved = 1;
 
         $v = \validator($report->toArray(), [
-            'verdict' => 'required|min:3',
+            'verdict'  => 'required|min:3',
             'staff_id' => 'required',
         ]);
 

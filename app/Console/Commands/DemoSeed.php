@@ -56,12 +56,12 @@ class DemoSeed extends Command
             $this->info('Creating User Account');
 
             $uid = User::factory()->create([
-                'chatroom_id' => 1,
-                'group_id' => random_int(1, 20),
+                'chatroom_id'    => 1,
+                'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
-                'image' => null,
-                'custom_css' => null,
-                'locale' => 'en',
+                'image'          => null,
+                'custom_css'     => null,
+                'locale'         => 'en',
             ])->id;
 
             // random boolean
@@ -82,21 +82,21 @@ class DemoSeed extends Command
                     $selected = \random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
-                        'user_id' => $uid,
-                        'tmdb' => $id,
-                        'name' => $movie['title'].' ('.$year.')',
-                        'slug' => Str::slug($movie['title']),
-                        'description' => $movie['overview'],
-                        'category_id' => 1,
-                        'type_id' => random_int(1, 6),
-                        'resolution_id' => random_int(1, 10),
-                        'region_id' => random_int(1, 242),
+                        'user_id'        => $uid,
+                        'tmdb'           => $id,
+                        'name'           => $movie['title'].' ('.$year.')',
+                        'slug'           => Str::slug($movie['title']),
+                        'description'    => $movie['overview'],
+                        'category_id'    => 1,
+                        'type_id'        => random_int(1, 6),
+                        'resolution_id'  => random_int(1, 10),
+                        'region_id'      => random_int(1, 242),
                         'distributor_id' => random_int(1, 965),
-                        'free' => $freeleech[$selected],
-                        'featured' => false,
-                        'sticky' => 0,
-                        'release_year' => $year,
-                        'mediainfo' => '
+                        'free'           => $freeleech[$selected],
+                        'featured'       => false,
+                        'sticky'         => 0,
+                        'release_year'   => $year,
+                        'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -244,7 +244,7 @@ Menu
 01:44:15.249                             : en:End Credits
                         ',
                         'created_at' => \now(),
-                        'bumped_at' => \now(),
+                        'bumped_at'  => \now(),
                         'updated_at' => \now(),
                     ]);
                 } catch (Exception $exception) {
@@ -266,12 +266,12 @@ Menu
             $this->info('Creating User Account');
 
             $uid = User::factory()->create([
-                'chatroom_id' => 1,
-                'group_id' => random_int(1, 20),
+                'chatroom_id'    => 1,
+                'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
-                'image' => null,
-                'custom_css' => null,
-                'locale' => 'en',
+                'image'          => null,
+                'custom_css'     => null,
+                'locale'         => 'en',
             ])->id;
 
             // random boolean
@@ -292,21 +292,21 @@ Menu
                     $selected = \random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
-                        'user_id' => $uid,
-                        'tmdb' => $id,
-                        'name' => $tv['name'].' ('.$year.')',
-                        'slug' => Str::slug($tv['name']),
-                        'description' => $tv['overview'],
-                        'category_id' => 2,
-                        'type_id' => random_int(1, 6),
-                        'resolution_id' => random_int(1, 10),
-                        'region_id' => random_int(1, 242),
+                        'user_id'        => $uid,
+                        'tmdb'           => $id,
+                        'name'           => $tv['name'].' ('.$year.')',
+                        'slug'           => Str::slug($tv['name']),
+                        'description'    => $tv['overview'],
+                        'category_id'    => 2,
+                        'type_id'        => random_int(1, 6),
+                        'resolution_id'  => random_int(1, 10),
+                        'region_id'      => random_int(1, 242),
                         'distributor_id' => random_int(1, 965),
-                        'free' => $freeleech[$selected],
-                        'featured' => false,
-                        'sticky' => 0,
-                        'release_year' => $year,
-                        'mediainfo' => '
+                        'free'           => $freeleech[$selected],
+                        'featured'       => false,
+                        'sticky'         => 0,
+                        'release_year'   => $year,
+                        'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
 Format version                           : Version 4
@@ -454,7 +454,7 @@ Menu
 01:44:15.249                             : en:End Credits
                         ',
                         'created_at' => \now(),
-                        'bumped_at' => \now(),
+                        'bumped_at'  => \now(),
                         'updated_at' => \now(),
                     ]);
                 } catch (Exception $exception) {

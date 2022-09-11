@@ -42,9 +42,9 @@ class WishController extends Controller
         $wishes = $user->wishes()->latest()->paginate(25);
 
         return \view('user.wishlist', [
-            'user' => $user,
-            'wishes' => $wishes,
-            'route' => 'wish',
+            'user'               => $user,
+            'wishes'             => $wishes,
+            'route'              => 'wish',
         ]);
     }
 
@@ -78,10 +78,10 @@ class WishController extends Controller
         $source = $this->wish->getSource($tmdb);
 
         $this->wish->create([
-            'title' => $meta['title'].' ('.$meta['release_date'].')',
-            'type' => 'Movie',
-            'tmdb' => $tmdb,
-            'source' => $source,
+            'title'   => $meta['title'].' ('.$meta['release_date'].')',
+            'type'    => 'Movie',
+            'tmdb'    => $tmdb,
+            'source'  => $source,
             'user_id' => $user->id,
         ]);
 

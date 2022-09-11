@@ -17,11 +17,11 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fn () => User::factory()->create()->id,
+            'user_id'     => fn () => User::factory()->create()->id,
             'chatroom_id' => fn () => Chatroom::factory()->create()->id,
             'receiver_id' => fn () => User::factory()->create()->id,
-            'bot_id' => fn () => Bot::factory()->create()->id,
-            'message' => $this->faker->text(),
+            'bot_id'      => fn () => Bot::factory()->create()->id,
+            'message'     => $this->faker->text(),
         ];
     }
 }

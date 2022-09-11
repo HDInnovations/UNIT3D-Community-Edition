@@ -79,11 +79,11 @@ class GroupController extends Controller
         $group->autogroup = $request->input('autogroup');
 
         $v = \validator($group->toArray(), [
-            'name' => 'required|unique:groups',
-            'slug' => 'required|unique:groups',
+            'name'     => 'required|unique:groups',
+            'slug'     => 'required|unique:groups',
             'position' => 'required',
-            'color' => 'required',
-            'icon' => 'required',
+            'color'    => 'required',
+            'icon'     => 'required',
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
@@ -156,11 +156,11 @@ class GroupController extends Controller
         $group->autogroup = $request->input('autogroup');
 
         $v = \validator($group->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
             'position' => 'required',
-            'color' => 'required',
-            'icon' => 'required',
+            'color'    => 'required',
+            'icon'     => 'required',
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {

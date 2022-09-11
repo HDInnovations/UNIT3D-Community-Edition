@@ -61,9 +61,9 @@ class ChatStatusController extends Controller
         $chatstatus->icon = $request->input('icon');
 
         $v = \validator($chatstatus->toArray(), [
-            'name' => 'required',
+            'name'  => 'required',
             'color' => 'required',
-            'icon' => 'required',
+            'icon'  => 'required',
         ]);
 
         if ($v->fails()) {
@@ -98,9 +98,9 @@ class ChatStatusController extends Controller
         $chatstatus->icon = $request->input('icon');
 
         $v = \validator($chatstatus->toArray(), [
-            'name' => 'required',
+            'name'  => 'required',
             'color' => 'required',
-            'icon' => 'required',
+            'icon'  => 'required',
         ]);
 
         if ($v->fails()) {

@@ -52,8 +52,8 @@ class TypeController extends Controller
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -89,8 +89,8 @@ class TypeController extends Controller
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
             'position' => 'required',
         ]);
 

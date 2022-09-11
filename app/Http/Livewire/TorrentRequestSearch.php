@@ -70,27 +70,27 @@ class TorrentRequestSearch extends Component
     public bool $showFilters = false;
 
     protected $queryString = [
-        'name' => ['except' => ''],
-        'requestor' => ['except' => ''],
-        'categories' => ['except' => []],
-        'types' => ['except' => []],
-        'resolutions' => ['except' => []],
-        'genres' => ['except' => []],
-        'tmdbId' => ['except' => ''],
-        'imdbId' => ['except' => ''],
-        'tvdbId' => ['except' => ''],
-        'malId' => ['except' => ''],
-        'unfilled' => ['except' => false],
-        'claimed' => ['except' => false],
-        'pending' => ['except' => false],
-        'filled' => ['except' => false],
-        'myRequests' => ['except' => false],
-        'myClaims' => ['except' => false],
-        'myVoted' => ['except' => false],
-        'myFilled' => ['except' => false],
-        'sortField' => ['except' => 'created_at'],
+        'name'          => ['except' => ''],
+        'requestor'     => ['except' => ''],
+        'categories'    => ['except' => []],
+        'types'         => ['except' => []],
+        'resolutions'   => ['except' => []],
+        'genres'        => ['except' => []],
+        'tmdbId'        => ['except' => ''],
+        'imdbId'        => ['except' => ''],
+        'tvdbId'        => ['except' => ''],
+        'malId'         => ['except' => ''],
+        'unfilled'      => ['except' => false],
+        'claimed'       => ['except' => false],
+        'pending'       => ['except' => false],
+        'filled'        => ['except' => false],
+        'myRequests'    => ['except' => false],
+        'myClaims'      => ['except' => false],
+        'myVoted'       => ['except' => false],
+        'myFilled'      => ['except' => false],
+        'sortField'     => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
-        'page' => ['except' => 1],
+        'page'          => ['except' => 1],
     ];
 
     final public function paginationView(): string
@@ -220,9 +220,9 @@ class TorrentRequestSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.torrent-request-search', [
-            'user' => \auth()->user(),
-            'torrentRequests' => $this->torrentRequests,
-            'torrentRequestStat' => $this->torrentRequestStat,
+            'user'                     => \auth()->user(),
+            'torrentRequests'          => $this->torrentRequests,
+            'torrentRequestStat'       => $this->torrentRequestStat,
             'torrentRequestBountyStat' => $this->torrentRequestBountyStat,
         ]);
     }

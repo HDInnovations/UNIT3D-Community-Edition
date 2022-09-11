@@ -24,7 +24,7 @@ class ArticleControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo' => true,
+                'is_modo'  => true,
             ])->id,
         ]);
     }
@@ -102,8 +102,8 @@ class ArticleControllerTest extends TestCase
         $article = Article::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.articles.store'), [
-            'title' => $article->title,
-            'slug' => $article->slug,
+            'title'   => $article->title,
+            'slug'    => $article->slug,
             'content' => $article->content,
             'user_id' => $user->id,
         ]);
@@ -122,8 +122,8 @@ class ArticleControllerTest extends TestCase
         $article = Article::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.articles.update', ['id' => $article->id]), [
-            'title' => $article->title,
-            'slug' => $article->slug,
+            'title'   => $article->title,
+            'slug'    => $article->slug,
             'content' => $article->content,
             'user_id' => $user->id,
         ]);

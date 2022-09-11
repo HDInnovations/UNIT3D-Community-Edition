@@ -89,32 +89,32 @@ class UserController extends Controller
             ->get();
 
         return \view('user.profile', [
-            'route' => 'profile',
-            'user' => $user,
-            'groups' => $groups,
-            'followers' => $followers,
-            'history' => $history,
-            'warnings' => $warnings,
-            'hitrun' => $hitrun,
+            'route'        => 'profile',
+            'user'         => $user,
+            'groups'       => $groups,
+            'followers'    => $followers,
+            'history'      => $history,
+            'warnings'     => $warnings,
+            'hitrun'       => $hitrun,
 
             //'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
             'def_download' => $defDown,
-            'his_down' => $hisDown,
-            'free_down' => $freeDownload,
+            'his_down'     => $hisDown,
+            'free_down'    => $freeDownload,
 
-            'realupload' => $realupload,
-            'def_upload' => $defUpl,
-            'his_upl' => $hisUpl,
+            'realupload'   => $realupload,
+            'def_upload'   => $defUpl,
+            'his_upl'      => $hisUpl,
             'multi_upload' => $multiUpload,
-            'bonupload' => $bonupload,
-            'man_upload' => $manUpload,
+            'bonupload'    => $bonupload,
+            'man_upload'   => $manUpload,
 
-            'requested' => $requested,
-            'filled' => $filled,
-            'invitedBy' => $invitedBy,
-            'peers' => $peers,
-            'achievements' => $achievements,
+            'requested'     => $requested,
+            'filled'        => $filled,
+            'invitedBy'     => $invitedBy,
+            'peers'         => $peers,
+            'achievements'  => $achievements,
         ]);
     }
 
@@ -127,9 +127,9 @@ class UserController extends Controller
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('user.followers', [
-            'route' => 'follower',
+            'route'   => 'follower',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -142,9 +142,9 @@ class UserController extends Controller
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('user.topics', [
-            'route' => 'forum',
+            'route'   => 'forum',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -157,9 +157,9 @@ class UserController extends Controller
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->latest('posts.created_at')->paginate(25);
 
         return \view('user.posts', [
-            'route' => 'forum',
+            'route'   => 'forum',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -329,8 +329,8 @@ class UserController extends Controller
         \abort_unless($request->user()->id == $user->id, 403);
 
         $v = \validator($request->all(), [
-            'current_password' => 'required',
-            'new_password' => 'required|min:6|confirmed',
+            'current_password'          => 'required',
+            'new_password'              => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
         ]);
         if ($v->passes()) {
@@ -1044,7 +1044,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.privacy', ['user' => $user, 'groups' => $groups]);
+        return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1058,7 +1058,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.notification', ['user' => $user, 'groups' => $groups]);
+        return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1133,7 +1133,7 @@ class UserController extends Controller
             }
 
             return \view('user.filters.requests', [
-                'user' => $user,
+                'user'            => $user,
                 'torrentRequests' => $table,
             ])->render();
         }
@@ -1187,7 +1187,7 @@ class UserController extends Controller
             }
 
             return \view('user.filters.resurrections', [
-                'user' => $user,
+                'user'          => $user,
                 'resurrections' => $table,
             ])->render();
         }
@@ -1207,8 +1207,8 @@ class UserController extends Controller
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
             return \view($logger, [
-                'route' => 'requests',
-                'user' => $user,
+                'route'           => 'requests',
+                'user'            => $user,
                 'torrentRequests' => $torrentRequests,
             ]);
         }
@@ -1217,8 +1217,8 @@ class UserController extends Controller
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
         return \view($logger, [
-            'route' => 'requests',
-            'user' => $user,
+            'route'           => 'requests',
+            'user'            => $user,
             'torrentRequests' => $torrentRequests,
         ]);
     }
@@ -1237,11 +1237,11 @@ class UserController extends Controller
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
         return \view('user.private.torrents', [
-            'route' => 'torrents',
-            'user' => $user,
-            'his_upl' => $hisUpl,
-            'his_upl_cre' => $hisUplCre,
-            'his_downl' => $hisDownl,
+            'route'         => 'torrents',
+            'user'          => $user,
+            'his_upl'       => $hisUpl,
+            'his_upl_cre'   => $hisUplCre,
+            'his_downl'     => $hisDownl,
             'his_downl_cre' => $hisDownlCre,
         ]);
     }
@@ -1260,11 +1260,11 @@ class UserController extends Controller
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
         return \view('user.private.uploads', [
-            'route' => 'uploads',
-            'user' => $user,
-            'his_upl' => $hisUpl,
-            'his_upl_cre' => $hisUplCre,
-            'his_downl' => $hisDownl,
+            'route'         => 'uploads',
+            'user'          => $user,
+            'his_upl'       => $hisUpl,
+            'his_upl_cre'   => $hisUplCre,
+            'his_downl'     => $hisDownl,
             'his_downl_cre' => $hisDownlCre,
         ]);
     }
@@ -1280,8 +1280,8 @@ class UserController extends Controller
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
 
         return \view('user.private.resurrections', [
-            'route' => 'resurrections',
-            'user' => $user,
+            'route'         => 'resurrections',
+            'user'          => $user,
             'resurrections' => $resurrections,
         ]);
     }
@@ -1301,11 +1301,11 @@ class UserController extends Controller
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
         return \view('user.private.active', ['user' => $user,
-            'route' => 'active',
-            'his_upl' => $hisUpl,
-            'his_upl_cre' => $hisUplCre,
-            'his_downl' => $hisDownl,
-            'his_downl_cre' => $hisDownlCre,
+            'route'                                 => 'active',
+            'his_upl'                               => $hisUpl,
+            'his_upl_cre'                           => $hisUplCre,
+            'his_downl'                             => $hisDownl,
+            'his_downl_cre'                         => $hisDownlCre,
         ]);
     }
 
@@ -1320,8 +1320,8 @@ class UserController extends Controller
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
 
         return \view('user.banlog', [
-            'user' => $user,
-            'bans' => $bans,
+            'user'      => $user,
+            'bans'      => $bans,
         ]);
     }
 

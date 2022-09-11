@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; Προηγούμενο',
-    'next' => 'Επόμενο &raquo;',
+    'next'     => 'Επόμενο &raquo;',
 ];

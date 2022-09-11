@@ -81,8 +81,8 @@ class MarkdownExtra extends Markdown
     {
         if (\preg_match('#^\[\^(.+?)\]:[ ]?(.*)$#', (string) $Line['text'], $matches)) {
             return [
-                'label' => $matches[1],
-                'text' => $matches[2],
+                'label'  => $matches[1],
+                'text'   => $matches[2],
                 'hidden' => true,
             ];
         }
@@ -110,8 +110,8 @@ class MarkdownExtra extends Markdown
     protected function blockFootnoteComplete($Block)
     {
         $this->DefinitionData['Footnote'][$Block['label']] = [
-            'text' => $Block['text'],
-            'count' => null,
+            'text'   => $Block['text'],
+            'count'  => null,
             'number' => null,
         ];
 
@@ -128,7 +128,7 @@ class MarkdownExtra extends Markdown
         }
 
         $Element = [
-            'name' => 'dl',
+            'name'     => 'dl',
             'elements' => [],
         ];
 
@@ -136,10 +136,10 @@ class MarkdownExtra extends Markdown
 
         foreach ($terms as $term) {
             $Element['elements'][] = [
-                'name' => 'dt',
+                'name'    => 'dt',
                 'handler' => [
-                    'function' => 'lineElements',
-                    'argument' => $term,
+                    'function'    => 'lineElements',
+                    'argument'    => $term,
                     'destination' => 'elements',
                 ],
             ];
@@ -211,10 +211,10 @@ class MarkdownExtra extends Markdown
             }
 
             $Block = [
-                'name' => $matches[1],
-                'depth' => 0,
+                'name'    => $matches[1],
+                'depth'   => 0,
                 'element' => [
-                    'rawHtml' => $Line['text'],
+                    'rawHtml'   => $Line['text'],
                     'autobreak' => true,
                 ],
             ];
@@ -319,17 +319,17 @@ class MarkdownExtra extends Markdown
             }
 
             $Element = [
-                'name' => 'sup',
+                'name'       => 'sup',
                 'attributes' => ['id' => 'fnref'.$this->DefinitionData['Footnote'][$name]['count'].':'.$name],
-                'element' => [
-                    'name' => 'a',
+                'element'    => [
+                    'name'       => 'a',
                     'attributes' => ['href' => '#fn:'.$name, 'class' => 'footnote-ref'],
-                    'text' => $this->DefinitionData['Footnote'][$name]['number'],
+                    'text'       => $this->DefinitionData['Footnote'][$name]['number'],
                 ],
             ];
 
             return [
-                'extent' => \strlen((string) $matches[0]),
+                'extent'  => \strlen((string) $matches[0]),
                 'element' => $Element,
             ];
         }
@@ -370,7 +370,7 @@ class MarkdownExtra extends Markdown
                 '/\b'.\preg_quote($this->currentAbreviation, '/').'\b/',
                 [
                     [
-                        'name' => 'abbr',
+                        'name'       => 'abbr',
                         'attributes' => [
                             'title' => $this->currentMeaning,
                         ],
@@ -417,10 +417,10 @@ class MarkdownExtra extends Markdown
         unset($Block['dd']);
 
         $Block['dd'] = [
-            'name' => 'dd',
+            'name'    => 'dd',
             'handler' => [
-                'function' => 'lineElements',
-                'argument' => $text,
+                'function'    => 'lineElements',
+                'argument'    => $text,
                 'destination' => 'elements',
             ],
         ];
@@ -439,12 +439,12 @@ class MarkdownExtra extends Markdown
     protected function buildFootnoteElement()
     {
         $Element = [
-            'name' => 'div',
+            'name'       => 'div',
             'attributes' => ['class' => 'footnotes'],
-            'elements' => [
+            'elements'   => [
                 ['name' => 'hr'],
                 [
-                    'name' => 'ol',
+                    'name'     => 'ol',
                     'elements' => [],
                 ],
             ],
@@ -468,15 +468,15 @@ class MarkdownExtra extends Markdown
             foreach ($numbers as $number) {
                 $backLinkElements[] = ['text' => ' '];
                 $backLinkElements[] = [
-                    'name' => 'a',
+                    'name'       => 'a',
                     'attributes' => [
-                        'href' => \sprintf('#fnref%s:%s', $number, $definitionId),
-                        'rev' => 'footnote',
+                        'href'  => \sprintf('#fnref%s:%s', $number, $definitionId),
+                        'rev'   => 'footnote',
                         'class' => 'footnote-backref',
                     ],
-                    'rawHtml' => '&#8617;',
+                    'rawHtml'                => '&#8617;',
                     'allowRawHtmlInSafeMode' => true,
-                    'autobreak' => false,
+                    'autobreak'              => false,
                 ];
             }
 
@@ -487,7 +487,7 @@ class MarkdownExtra extends Markdown
             if ($textElements[$n]['name'] === 'p') {
                 $backLinkElements = [...[
                     [
-                        'rawHtml' => '&#160;',
+                        'rawHtml'                => '&#160;',
                         'allowRawHtmlInSafeMode' => true,
                     ],
                 ], ...$backLinkElements];
@@ -495,20 +495,20 @@ class MarkdownExtra extends Markdown
                 unset($textElements[$n]['name']);
 
                 $textElements[$n] = [
-                    'name' => 'p',
+                    'name'     => 'p',
                     'elements' => [...[$textElements[$n]], ...$backLinkElements],
                 ];
             } else {
                 $textElements[] = [
-                    'name' => 'p',
+                    'name'     => 'p',
                     'elements' => $backLinkElements,
                 ];
             }
 
             $Element['elements'][1]['elements'][] = [
-                'name' => 'li',
+                'name'       => 'li',
                 'attributes' => ['id' => 'fn:'.$definitionId],
-                'elements' => \array_merge(
+                'elements'   => \array_merge(
                     $textElements
                 ),
             ];

@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; Prapa',
-    'next' => 'Para &raquo;',
+    'next'     => 'Para &raquo;',
 ];

@@ -12,8 +12,8 @@
  */
 
 return [
-    'articles' => 'Straipsniai',
+    'articles'      => 'Straipsniai',
     'meta-articles' => 'Straipsniai ir naujienos apie stebėtoją ir bendruomenę',
-    'published-at' => 'Paskelbta',
-    'read-more' => 'Skaityti daugiau',
+    'published-at'  => 'Paskelbta',
+    'read-more'     => 'Skaityti daugiau',
 ];

@@ -19,13 +19,13 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            'content' => $this->faker->text(),
-            'anon' => (int) $this->faker->boolean(),
-            'torrent_id' => fn () => Torrent::factory()->create()->id,
-            'article_id' => fn () => Article::factory()->create()->id,
-            'requests_id' => fn () => TorrentRequest::factory()->create()->id,
-            'playlist_id' => fn () => Playlist::factory()->create()->id,
-            'user_id' => fn () => User::factory()->create()->id,
+            'content'       => $this->faker->text(),
+            'anon'          => (int) $this->faker->boolean(),
+            'torrent_id'    => fn () => Torrent::factory()->create()->id,
+            'article_id'    => fn () => Article::factory()->create()->id,
+            'requests_id'   => fn () => TorrentRequest::factory()->create()->id,
+            'playlist_id'   => fn () => Playlist::factory()->create()->id,
+            'user_id'       => fn () => User::factory()->create()->id,
         ];
     }
 }

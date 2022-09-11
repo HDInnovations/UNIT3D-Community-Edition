@@ -32,30 +32,30 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root'   => storage_path('app'),
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
+            'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
         's3' => [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'driver'                  => 's3',
+            'key'                     => env('AWS_ACCESS_KEY_ID'),
+            'secret'                  => env('AWS_SECRET_ACCESS_KEY'),
+            'region'                  => env('AWS_DEFAULT_REGION'),
+            'bucket'                  => env('AWS_BUCKET'),
+            'url'                     => env('AWS_URL'),
+            'endpoint'                => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
         'ftp' => [
-            'driver' => 'ftp',
-            'host' => 'ftp.example.com',
+            'driver'   => 'ftp',
+            'host'     => 'ftp.example.com',
             'username' => 'your-username',
             'password' => 'your-password',
 
@@ -68,14 +68,14 @@ return [
         ],
 
         'sftp' => [
-            'driver' => 'sftp',
-            'host' => 'example.com',
+            'driver'   => 'sftp',
+            'host'     => 'example.com',
             'username' => 'your-username',
             'password' => 'your-password',
 
             // Settings for SSH key based authentication...
             'privateKey' => '/path/to/privateKey',
-            'password' => 'encryption-password',
+            'password'   => 'encryption-password',
 
             // Optional SFTP Settings...
             // 'port' => 22,
@@ -85,22 +85,22 @@ return [
 
         'backups' => [
             'driver' => 'local',
-            'root' => storage_path('backups'),
+            'root'   => storage_path('backups'),
         ],
 
         'torrents' => [
             'driver' => 'local',
-            'root' => public_path('files/torrents'),
+            'root'   => public_path('files/torrents'),
         ],
 
         'subtitles' => [
             'driver' => 'local',
-            'root' => public_path('files/subtitles'),
+            'root'   => public_path('files/subtitles'),
         ],
 
         'attachments' => [
             'driver' => 'local',
-            'root' => public_path('files/attachments'),
+            'root'   => public_path('files/attachments'),
         ],
 
     ],

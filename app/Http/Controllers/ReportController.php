@@ -50,14 +50,14 @@ class ReportController extends Controller
         }
 
         $this->report->create([
-            'type' => 'Request',
-            'request_id' => $torrentRequest->id,
-            'torrent_id' => 0,
-            'reporter_id' => $reportedBy->id,
+            'type'          => 'Request',
+            'request_id'    => $torrentRequest->id,
+            'torrent_id'    => 0,
+            'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
-            'title' => $torrentRequest->name,
-            'message' => $request->get('message'),
-            'solved' => 0,
+            'title'         => $torrentRequest->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
         ]);
 
         return \to_route('request', ['id' => $id])
@@ -83,14 +83,14 @@ class ReportController extends Controller
         }
 
         $this->report->create([
-            'type' => 'Torrent',
-            'torrent_id' => $torrent->id,
-            'request_id' => 0,
-            'reporter_id' => $reportedBy->id,
+            'type'          => 'Torrent',
+            'torrent_id'    => $torrent->id,
+            'request_id'    => 0,
+            'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
-            'title' => $torrent->name,
-            'message' => $request->get('message'),
-            'solved' => 0,
+            'title'         => $torrent->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
         ]);
 
         return \to_route('torrent', ['id' => $id])
@@ -115,14 +115,14 @@ class ReportController extends Controller
         }
 
         $this->report->create([
-            'type' => 'User',
-            'torrent_id' => 0,
-            'request_id' => 0,
-            'reporter_id' => $reportedBy->id,
+            'type'          => 'User',
+            'torrent_id'    => 0,
+            'request_id'    => 0,
+            'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
-            'title' => $reportedUser->username,
-            'message' => $request->get('message'),
-            'solved' => 0,
+            'title'         => $reportedUser->username,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
         ]);
 
         return \to_route('users.show', ['username' => $username])

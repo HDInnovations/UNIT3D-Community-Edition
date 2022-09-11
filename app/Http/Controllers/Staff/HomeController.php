@@ -91,18 +91,18 @@ class HomeController extends Controller
         $filePermissions = $systemInformation->directoryPermissions();
 
         return \view('Staff.dashboard.index', [
-            'users' => $users,
-            'torrents' => $torrents,
-            'peers' => $peers,
-            'reports' => $reports,
-            'apps' => $apps,
-            'certificate' => $certificate,
-            'uptime' => $uptime,
-            'ram' => $ram,
-            'disk' => $disk,
-            'avg' => $avg,
-            'basic' => $basic,
-            'file_permissions' => $filePermissions,
+            'users'              => $users,
+            'torrents'           => $torrents,
+            'peers'              => $peers,
+            'reports'            => $reports,
+            'apps'               => $apps,
+            'certificate'        => $certificate,
+            'uptime'             => $uptime,
+            'ram'                => $ram,
+            'disk'               => $disk,
+            'avg'                => $avg,
+            'basic'              => $basic,
+            'file_permissions'   => $filePermissions,
         ]);
     }
 }

@@ -29,22 +29,22 @@ class TorrentControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'data' => [],
+                'data'  => [],
                 'links' => [
                     'first' => sprintf('%s/api/torrents/filter?page=1', appurl()),
-                    'last' => sprintf('%s/api/torrents/filter?page=1', appurl()),
-                    'prev' => null,
-                    'next' => null,
-                    'self' => sprintf('%s/api/torrents', appurl()),
+                    'last'  => sprintf('%s/api/torrents/filter?page=1', appurl()),
+                    'prev'  => null,
+                    'next'  => null,
+                    'self'  => sprintf('%s/api/torrents', appurl()),
                 ],
                 'meta' => [
                     'current_page' => 1,
-                    'from' => null,
-                    'last_page' => 1,
-                    'path' => sprintf('%s/api/torrents/filter', appurl()),
-                    'per_page' => 25,
-                    'to' => null,
-                    'total' => 0,
+                    'from'         => null,
+                    'last_page'    => 1,
+                    'path'         => sprintf('%s/api/torrents/filter', appurl()),
+                    'per_page'     => 25,
+                    'to'           => null,
+                    'total'        => 0,
                 ],
             ]);
     }
@@ -60,22 +60,22 @@ class TorrentControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'data' => [],
+                'data'  => [],
                 'links' => [
                     'first' => sprintf('%s/api/torrents?page=1', appurl()),
-                    'last' => sprintf('%s/api/torrents?page=1', appurl()),
-                    'prev' => null,
-                    'next' => null,
-                    'self' => sprintf('%s/api/torrents', appurl()),
+                    'last'  => sprintf('%s/api/torrents?page=1', appurl()),
+                    'prev'  => null,
+                    'next'  => null,
+                    'self'  => sprintf('%s/api/torrents', appurl()),
                 ],
                 'meta' => [
                     'current_page' => 1,
-                    'from' => null,
-                    'last_page' => 1,
-                    'path' => sprintf('%s/api/torrents', appurl()),
-                    'per_page' => 25,
-                    'to' => null,
-                    'total' => 0,
+                    'from'         => null,
+                    'last_page'    => 1,
+                    'path'         => sprintf('%s/api/torrents', appurl()),
+                    'per_page'     => 25,
+                    'to'           => null,
+                    'total'        => 0,
                 ],
             ]);
     }
@@ -89,7 +89,7 @@ class TorrentControllerTest extends TestCase
 
         $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
-            'status' => 1,
+            'status'  => 1,
         ]);
 
         $response = $this->actingAs($user, 'api')->getJson(sprintf('api/torrents/%s', $torrent->id));
@@ -97,7 +97,7 @@ class TorrentControllerTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'type' => 'torrent',
-                'id' => $torrent->id,
+                'id'   => $torrent->id,
             ]);
     }
 
@@ -123,24 +123,24 @@ class TorrentControllerTest extends TestCase
                 base_path('tests/Resources/Pony Music - Mind Fragments (2014).torrent'),
                 'Pony Music - Mind Fragments (2014).torrent'
             ),
-            'category_id' => $category->id,
-            'name' => 'Pony Music - Mind Fragments (2014)',
-            'description' => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
-            'imdb' => $torrent->imdb,
-            'tvdb' => $torrent->tvdb,
-            'tmdb' => $torrent->tmdb,
-            'mal' => $torrent->mal,
-            'igdb' => $torrent->igdb,
-            'type_id' => $type->id,
+            'category_id'   => $category->id,
+            'name'          => 'Pony Music - Mind Fragments (2014)',
+            'description'   => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
+            'imdb'          => $torrent->imdb,
+            'tvdb'          => $torrent->tvdb,
+            'tmdb'          => $torrent->tmdb,
+            'mal'           => $torrent->mal,
+            'igdb'          => $torrent->igdb,
+            'type_id'       => $type->id,
             'resolution_id' => $resolution->id,
-            'anonymous' => $torrent->anon,
-            'stream' => $torrent->stream,
-            'sd' => $torrent->sd,
-            'internal' => $torrent->internal,
-            'featured' => false,
-            'doubleup' => $torrent->doubleup,
-            'free' => $torrent->free,
-            'sticky' => $torrent->sticky,
+            'anonymous'     => $torrent->anon,
+            'stream'        => $torrent->stream,
+            'sd'            => $torrent->sd,
+            'internal'      => $torrent->internal,
+            'featured'      => false,
+            'doubleup'      => $torrent->doubleup,
+            'free'          => $torrent->free,
+            'sticky'        => $torrent->sticky,
         ]);
 
         $response->assertOk()
