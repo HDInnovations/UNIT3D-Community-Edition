@@ -40,10 +40,10 @@ class SimilarTorrentController extends Controller
         }
 
         return \view('torrent.similar', [
-            'meta'       => $meta,
-            'torrent'    => $torrent,
+            'meta' => $meta,
+            'torrent' => $torrent,
             'categoryId' => $categoryId,
-            'tmdbId'     => $tmdbId,
+            'tmdbId' => $tmdbId,
         ]);
     }
 }

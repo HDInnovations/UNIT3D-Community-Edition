@@ -38,8 +38,8 @@ class MovieController extends Controller
         $movie = Movie::with(['cast', 'collection', 'genres', 'companies'])->findOrFail($id);
 
         return \view('mediahub.movie.show', [
-            'movie'              => $movie,
-            'user'               => $user,
+            'movie' => $movie,
+            'user' => $user,
             'personal_freeleech' => $personalFreeleech,
         ]);
     }

@@ -49,8 +49,8 @@ class ResolutionController extends Controller
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
+            'name' => 'required',
+            'slug' => 'required',
             'position' => 'required',
         ]);
 
@@ -86,8 +86,8 @@ class ResolutionController extends Controller
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
+            'name' => 'required',
+            'slug' => 'required',
             'position' => 'required',
         ]);
 

@@ -61,11 +61,11 @@ class UserGiftController extends Controller
             ->sum('cost');
 
         return \view('bonus.gifts', [
-            'user'              => $user,
-            'gifttransactions'  => $gifttransactions,
-            'userbon'           => $userbon,
-            'gifts_sent'        => $giftsSent,
-            'gifts_received'    => $giftsReceived,
+            'user' => $user,
+            'gifttransactions' => $gifttransactions,
+            'userbon' => $userbon,
+            'gifts_sent' => $giftsSent,
+            'gifts_received' => $giftsReceived,
         ]);
     }
 
@@ -81,8 +81,8 @@ class UserGiftController extends Controller
         $userbon = $user->getSeedbonus();
 
         return \view('bonus.gift', [
-            'user'              => $user,
-            'userbon'           => $userbon,
+            'user' => $user,
+            'userbon' => $userbon,
         ]);
     }
 

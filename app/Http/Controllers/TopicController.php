@@ -83,10 +83,10 @@ class TopicController extends Controller
         $topic->save();
 
         return \view('forum.topic', [
-            'topic'     => $topic,
-            'forum'     => $forum,
-            'category'  => $category,
-            'posts'     => $posts,
+            'topic' => $topic,
+            'forum' => $forum,
+            'category' => $category,
+            'posts' => $posts,
             'firstPost' => $firstPost,
         ]);
     }
@@ -106,9 +106,9 @@ class TopicController extends Controller
         }
 
         return \view('forum.new_topic', [
-            'forum'    => $forum,
+            'forum' => $forum,
             'category' => $category,
-            'title'    => $request->input('title'),
+            'title' => $request->input('title'),
         ]);
     }
 
@@ -141,17 +141,17 @@ class TopicController extends Controller
         $topic->forum_id = $forum->id;
 
         $v = \validator($topic->toArray(), [
-            'name'                     => 'required',
-            'slug'                     => 'required',
-            'state'                    => 'required',
-            'num_post'                 => '',
-            'first_post_user_id'       => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'state' => 'required',
+            'num_post' => '',
+            'first_post_user_id' => 'required',
             'first_post_user_username' => 'required',
-            'last_post_user_id'        => '',
-            'last_post_user_username'  => '',
-            'views'                    => '',
-            'pinned'                   => '',
-            'forum_id'                 => 'required',
+            'last_post_user_id' => '',
+            'last_post_user_username' => '',
+            'views' => '',
+            'pinned' => '',
+            'forum_id' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -165,8 +165,8 @@ class TopicController extends Controller
         $post->user_id = $user->id;
         $post->topic_id = $topic->id;
         $v = \validator($post->toArray(), [
-            'content'  => 'required',
-            'user_id'  => 'required',
+            'content' => 'required',
+            'user_id' => 'required',
             'topic_id' => 'required',
         ]);
         if ($v->fails()) {

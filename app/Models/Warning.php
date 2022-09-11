@@ -39,7 +39,7 @@ class Warning extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -50,7 +50,7 @@ class Warning extends Model
     {
         return $this->belongsTo(User::class, 'warned_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -61,7 +61,7 @@ class Warning extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

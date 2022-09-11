@@ -58,11 +58,11 @@ class UserTipController extends Controller
             ->sum('cost');
 
         return \view('bonus.tips', [
-            'user'              => $user,
-            'bontransactions'   => $bontransactions,
-            'userbon'           => $userbon,
-            'tips_sent'         => $tipsSent,
-            'tips_received'     => $tipsReceived,
+            'user' => $user,
+            'bontransactions' => $bontransactions,
+            'userbon' => $userbon,
+            'tips_sent' => $tipsSent,
+            'tips_received' => $tipsReceived,
         ]);
     }
 
@@ -78,7 +78,7 @@ class UserTipController extends Controller
         $request = $request->safe()->collect();
         $tipable = match (true) {
             $request->has('torrent') => Torrent::withAnyStatus()->findOrFail($request->get('torrent')),
-            $request->has('post')    => Post::findOrFail($request->get('post')),
+            $request->has('post') => Post::findOrFail($request->get('post')),
         };
         $recipient = $tipable->user;
         $tipAmount = $request->get('tip');

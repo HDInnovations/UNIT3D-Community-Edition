@@ -41,9 +41,9 @@ class WatchlistController extends Controller
         $watchedUser->message = $request->input('message');
 
         $v = \validator($watchedUser->toArray(), [
-            'user_id'  => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'staff_id' => 'required|exists:users,id',
-            'message'  => 'required|min:3',
+            'message' => 'required|min:3',
         ]);
 
         if ($v->fails()) {

@@ -43,14 +43,14 @@ class UserActive extends Component
     public $showMorePrecision = false;
 
     protected $queryString = [
-        'perPage'           => ['except' => 50],
-        'name'              => ['except' => ''],
-        'ip'                => ['except' => ''],
-        'port'              => ['except' => ''],
-        'client'            => ['excpet' => ''],
-        'seeding'           => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
+        'perPage' => ['except' => 50],
+        'name' => ['except' => ''],
+        'ip' => ['except' => ''],
+        'port' => ['except' => ''],
+        'client' => ['excpet' => ''],
+        'seeding' => ['except' => 'any'],
+        'sortField' => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false],
     ];
 

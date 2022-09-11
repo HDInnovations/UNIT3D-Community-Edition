@@ -16,12 +16,12 @@ class BotTransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'type'    => $this->faker->word(),
-            'cost'    => $this->faker->randomFloat(),
+            'type' => $this->faker->word(),
+            'cost' => $this->faker->randomFloat(),
             'user_id' => fn () => User::factory()->create()->id,
-            'bot_id'  => fn () => Bot::factory()->create()->id,
+            'bot_id' => fn () => Bot::factory()->create()->id,
             'to_user' => $this->faker->boolean(),
-            'to_bot'  => $this->faker->boolean(),
+            'to_bot' => $this->faker->boolean(),
             'comment' => $this->faker->text(),
         ];
     }

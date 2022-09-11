@@ -29,7 +29,7 @@ class Ban extends Model
     {
         return $this->belongsTo(User::class, 'owned_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -40,7 +40,7 @@ class Ban extends Model
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

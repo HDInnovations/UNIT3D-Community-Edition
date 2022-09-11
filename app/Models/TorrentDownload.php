@@ -16,7 +16,7 @@ class TorrentDownload extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 

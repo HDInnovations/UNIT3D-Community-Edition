@@ -69,15 +69,15 @@ class CategoryController extends Controller
         }
 
         $v = \validator($category->toArray(), [
-            'name'          => 'required',
-            'slug'          => 'required',
-            'position'      => 'required',
-            'icon'          => 'required',
-            'movie_meta'    => 'required',
-            'tv_meta'       => 'required',
-            'game_meta'     => 'required',
-            'music_meta'    => 'required',
-            'no_meta'       => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'position' => 'required',
+            'icon' => 'required',
+            'movie_meta' => 'required',
+            'tv_meta' => 'required',
+            'game_meta' => 'required',
+            'music_meta' => 'required',
+            'no_meta' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -126,15 +126,15 @@ class CategoryController extends Controller
         }
 
         $v = \validator($category->toArray(), [
-            'name'          => 'required',
-            'slug'          => 'required',
-            'position'      => 'required',
-            'icon'          => 'required',
-            'movie_meta'    => 'required',
-            'tv_meta'       => 'required',
-            'game_meta'     => 'required',
-            'music_meta'    => 'required',
-            'no_meta'       => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'position' => 'required',
+            'icon' => 'required',
+            'movie_meta' => 'required',
+            'tv_meta' => 'required',
+            'game_meta' => 'required',
+            'music_meta' => 'required',
+            'no_meta' => 'required',
         ]);
 
         if ($v->fails()) {

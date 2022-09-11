@@ -330,10 +330,10 @@ class NerdBot
     public function putDonate($amount = 0, $note = '')
     {
         $output = \implode(' ', $note);
-        $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
-            'bot_id'   => 'required|exists:bots,id|max:999',
-            'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
-            'note'     => 'required|string',
+        $v = \validator(['bot_id' => $this->bot->id, 'amount' => $amount, 'note' => $output], [
+            'bot_id' => 'required|exists:bots,id|max:999',
+            'amount' => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
+            'note' => 'required|string',
         ]);
         if ($v->passes()) {
             $value = $amount;

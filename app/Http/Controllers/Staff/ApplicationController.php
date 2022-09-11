@@ -88,7 +88,7 @@ class ApplicationController extends Controller
                 ]);
             } else {
                 $v = \validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|unique:users|unique:invites',
+                    'email' => 'required|string|email|max:70|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             }

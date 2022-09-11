@@ -44,8 +44,8 @@ class NewUnfollow extends Notification implements ShouldQueue
     {
         return [
             'title' => $this->sender->username.' Has Unfollowed You!',
-            'body'  => $this->sender->username.' has stopped following you so they will no longer get notifications about your activities.',
-            'url'   => '/users/'.$this->sender->username,
+            'body' => $this->sender->username.' has stopped following you so they will no longer get notifications about your activities.',
+            'url' => '/users/'.$this->sender->username,
         ];
     }
 }

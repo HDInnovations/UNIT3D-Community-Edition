@@ -18,7 +18,7 @@ class Watchlist extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -31,7 +31,7 @@ class Watchlist extends Model
 
         return $this->belongsTo(User::class, 'staff_id', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

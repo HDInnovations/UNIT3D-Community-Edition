@@ -15,11 +15,11 @@ class TwoStepAuthFactory extends Factory
     public function definition(): array
     {
         return [
-            'userId'      => $this->faker->randomNumber(),
-            'authCode'    => sprintf('%s%s%s%s', $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9)),
-            'authCount'   => 0,
-            'authStatus'  => false,
-            'authDate'    => null,
+            'userId' => $this->faker->randomNumber(),
+            'authCode' => sprintf('%s%s%s%s', $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9)),
+            'authCount' => 0,
+            'authStatus' => false,
+            'authDate' => null,
             'requestDate' => Carbon::now(),
         ];
     }

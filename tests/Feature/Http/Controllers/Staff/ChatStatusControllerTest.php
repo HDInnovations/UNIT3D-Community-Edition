@@ -24,7 +24,7 @@ class ChatStatusControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -70,9 +70,9 @@ class ChatStatusControllerTest extends TestCase
         $chat_status = ChatStatus::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.statuses.store'), [
-            'name'  => $chat_status->name,
+            'name' => $chat_status->name,
             'color' => $chat_status->color,
-            'icon'  => $chat_status->icon,
+            'icon' => $chat_status->icon,
         ]);
 
         $response->assertRedirect(route('staff.statuses.index'));
@@ -89,9 +89,9 @@ class ChatStatusControllerTest extends TestCase
         $chat_status = ChatStatus::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.statuses.update', ['id' => $chat_status->id]), [
-            'name'  => $chat_status->name,
+            'name' => $chat_status->name,
             'color' => $chat_status->color,
-            'icon'  => $chat_status->icon,
+            'icon' => $chat_status->icon,
         ]);
 
         $response->assertRedirect(route('staff.statuses.index'));

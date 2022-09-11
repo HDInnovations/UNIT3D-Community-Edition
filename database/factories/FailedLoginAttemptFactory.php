@@ -14,8 +14,8 @@ class FailedLoginAttemptFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'    => $this->faker->randomNumber(),
-            'username'   => $this->faker->userName(),
+            'user_id' => $this->faker->randomNumber(),
+            'username' => $this->faker->userName(),
             'ip_address' => $this->faker->word(),
         ];
     }

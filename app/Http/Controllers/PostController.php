@@ -66,8 +66,8 @@ class PostController extends Controller
         $post->topic_id = $topic->id;
 
         $v = \validator($post->toArray(), [
-            'content'  => 'required|min:1',
-            'user_id'  => 'required',
+            'content' => 'required|min:1',
+            'user_id' => 'required',
             'topic_id' => 'required',
         ]);
 
@@ -174,9 +174,9 @@ class PostController extends Controller
         $post = Post::findOrFail($postId);
 
         return \view('forum.post_edit', [
-            'topic'    => $topic,
-            'forum'    => $forum,
-            'post'     => $post,
+            'topic' => $topic,
+            'forum' => $forum,
+            'post' => $post,
             'category' => $category,
         ]);
     }

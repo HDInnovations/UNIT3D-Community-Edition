@@ -49,10 +49,10 @@ class UserTransactionController extends Controller
         $items = BonExchange::all();
 
         return \view('bonus.store', [
-            'user'              => $user,
-            'userbon'           => $userbon,
-            'activefl'          => $activefl,
-            'items'             => $items,
+            'user' => $user,
+            'userbon' => $userbon,
+            'activefl' => $activefl,
+            'items' => $items,
         ]);
     }
 

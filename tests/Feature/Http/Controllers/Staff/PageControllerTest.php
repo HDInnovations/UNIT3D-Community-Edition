@@ -24,7 +24,7 @@ class PageControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -103,8 +103,8 @@ class PageControllerTest extends TestCase
         $page = Page::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.pages.store'), [
-            'name'    => $page->name,
-            'slug'    => $page->slug,
+            'name' => $page->name,
+            'slug' => $page->slug,
             'content' => $page->content,
         ]);
 
@@ -122,8 +122,8 @@ class PageControllerTest extends TestCase
         $page = Page::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.pages.update', ['id' => $page->id]), [
-            'name'    => $page->name,
-            'slug'    => $page->slug,
+            'name' => $page->name,
+            'slug' => $page->slug,
             'content' => $page->content,
         ]);
 

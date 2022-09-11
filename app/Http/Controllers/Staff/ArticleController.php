@@ -65,8 +65,8 @@ class ArticleController extends Controller
         }
 
         $v = \validator($article->toArray(), [
-            'title'   => 'required',
-            'slug'    => 'required',
+            'title' => 'required',
+            'slug' => 'required',
             'content' => 'required|min:20',
             'user_id' => 'required',
         ]);
@@ -114,8 +114,8 @@ class ArticleController extends Controller
         }
 
         $v = \validator($article->toArray(), [
-            'title'   => 'required',
-            'slug'    => 'required',
+            'title' => 'required',
+            'slug' => 'required',
             'content' => 'required|min:20',
         ]);
 

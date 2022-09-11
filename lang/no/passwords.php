@@ -24,8 +24,8 @@ return [
     */
 
     'password' => 'Passord skal ha minst seks tegn og være likt bekreftelsen.',
-    'reset'    => 'Passordet ble resatt!',
-    'sent'     => 'Vi har sendt deg en link du kan klikke på, for å endre passordet ditt!',
-    'token'    => 'Passord-nullstillingskoden er ugyldig.',
-    'user'     => 'Vi har ingen brukere med den e-postadressen.',
+    'reset' => 'Passordet ble resatt!',
+    'sent' => 'Vi har sendt deg en link du kan klikke på, for å endre passordet ditt!',
+    'token' => 'Passord-nullstillingskoden er ugyldig.',
+    'user' => 'Vi har ingen brukere med den e-postadressen.',
 ];

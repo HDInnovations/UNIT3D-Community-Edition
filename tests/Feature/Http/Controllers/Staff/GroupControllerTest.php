@@ -23,7 +23,7 @@ class GroupControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -87,24 +87,24 @@ class GroupControllerTest extends TestCase
         $group = Group::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.groups.store'), [
-            'name'             => $group->name,
-            'slug'             => $group->slug,
-            'position'         => $group->position,
-            'level'            => $group->level,
-            'color'            => $group->color,
-            'icon'             => $group->icon,
-            'effect'           => $group->effect,
-            'is_internal'      => $group->is_internal,
-            'is_owner'         => $group->is_owner,
-            'is_admin'         => $group->is_admin,
-            'is_modo'          => $group->is_modo,
-            'is_trusted'       => $group->is_trusted,
-            'is_immune'        => $group->is_immune,
-            'is_freeleech'     => $group->is_freeleech,
+            'name' => $group->name,
+            'slug' => $group->slug,
+            'position' => $group->position,
+            'level' => $group->level,
+            'color' => $group->color,
+            'icon' => $group->icon,
+            'effect' => $group->effect,
+            'is_internal' => $group->is_internal,
+            'is_owner' => $group->is_owner,
+            'is_admin' => $group->is_admin,
+            'is_modo' => $group->is_modo,
+            'is_trusted' => $group->is_trusted,
+            'is_immune' => $group->is_immune,
+            'is_freeleech' => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
-            'can_upload'       => $group->can_upload,
-            'is_incognito'     => $group->is_incognito,
-            'autogroup'        => $group->autogroup,
+            'can_upload' => $group->can_upload,
+            'is_incognito' => $group->is_incognito,
+            'autogroup' => $group->autogroup,
         ]);
 
         $response->assertRedirect(route('staff.groups.index'));
@@ -121,24 +121,24 @@ class GroupControllerTest extends TestCase
         $group = Group::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.groups.update', ['id' => $group->id]), [
-            'name'             => $group->name,
-            'slug'             => $group->slug,
-            'position'         => $group->position,
-            'level'            => $group->level,
-            'color'            => $group->color,
-            'icon'             => $group->icon,
-            'effect'           => $group->effect,
-            'is_internal'      => $group->is_internal,
-            'is_owner'         => $group->is_owner,
-            'is_admin'         => $group->is_admin,
-            'is_modo'          => $group->is_modo,
-            'is_trusted'       => $group->is_trusted,
-            'is_immune'        => $group->is_immune,
-            'is_freeleech'     => $group->is_freeleech,
+            'name' => $group->name,
+            'slug' => $group->slug,
+            'position' => $group->position,
+            'level' => $group->level,
+            'color' => $group->color,
+            'icon' => $group->icon,
+            'effect' => $group->effect,
+            'is_internal' => $group->is_internal,
+            'is_owner' => $group->is_owner,
+            'is_admin' => $group->is_admin,
+            'is_modo' => $group->is_modo,
+            'is_trusted' => $group->is_trusted,
+            'is_immune' => $group->is_immune,
+            'is_freeleech' => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
-            'can_upload'       => $group->can_upload,
-            'is_incognito'     => $group->is_incognito,
-            'autogroup'        => $group->autogroup,
+            'can_upload' => $group->can_upload,
+            'is_incognito' => $group->is_incognito,
+            'autogroup' => $group->autogroup,
         ]);
 
         $response->assertRedirect(route('staff.groups.index'));

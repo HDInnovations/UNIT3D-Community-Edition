@@ -110,10 +110,10 @@ class TorrentController extends Controller
 
         if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
             $meta = Game::with([
-                'cover'    => ['url', 'image_id'],
+                'cover' => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
-                'genres'   => ['name'],
-                'videos'   => ['video_id', 'name'],
+                'genres' => ['name'],
+                'videos' => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
                 'platforms', ])
@@ -133,22 +133,22 @@ class TorrentController extends Controller
         $playlists = $user->playlists;
 
         return \view('torrent.torrent', [
-            'torrent'            => $torrent,
-            'comments'           => $comments,
-            'user'               => $user,
+            'torrent' => $torrent,
+            'comments' => $comments,
+            'user' => $user,
             'personal_freeleech' => $personalFreeleech,
-            'freeleech_token'    => $freeleechToken,
-            'meta'               => $meta,
-            'trailer'            => $trailer,
-            'platforms'          => $platforms,
-            'total_tips'         => $totalTips,
-            'user_tips'          => $userTips,
-            'featured'           => $featured,
-            'mediaInfo'          => $mediaInfo,
-            'uploader'           => $uploader,
+            'freeleech_token' => $freeleechToken,
+            'meta' => $meta,
+            'trailer' => $trailer,
+            'platforms' => $platforms,
+            'total_tips' => $totalTips,
+            'user_tips' => $userTips,
+            'featured' => $featured,
+            'mediaInfo' => $mediaInfo,
+            'uploader' => $uploader,
             'last_seed_activity' => $lastSeedActivity,
-            'playlists'          => $playlists,
-            'audits'             => $audits,
+            'playlists' => $playlists,
+            'audits' => $audits,
         ]);
     }
 
@@ -163,14 +163,14 @@ class TorrentController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
-            'categories'   => Category::all()->sortBy('position'),
-            'types'        => Type::all()->sortBy('position'),
-            'resolutions'  => Resolution::all()->sortBy('position'),
-            'regions'      => Region::all()->sortBy('position'),
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'resolutions' => Resolution::all()->sortBy('position'),
+            'regions' => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
-            'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
-            'torrent'      => $torrent,
-            'user'         => $user,
+            'keywords' => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
+            'torrent' => $torrent,
+            'user' => $user,
         ]);
     }
 
@@ -224,24 +224,24 @@ class TorrentController extends Controller
         }
 
         $v = \validator($torrent->toArray(), [
-            'name'           => 'required',
-            'slug'           => 'required',
-            'description'    => 'required',
-            'category_id'    => 'required|exists:categories,id',
-            'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => $resolutionRule,
-            'region_id'      => 'nullable|exists:regions,id',
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'type_id' => 'required|exists:types,id',
+            'resolution_id' => $resolutionRule,
+            'region_id' => 'nullable|exists:regions,id',
             'distributor_id' => 'nullable|exists:distributors,id',
-            'imdb'           => 'required|numeric',
-            'tvdb'           => 'required|numeric',
-            'tmdb'           => 'required|numeric',
-            'mal'            => 'required|numeric',
-            'igdb'           => 'required|numeric',
-            'season_number'  => $seasonRule,
+            'imdb' => 'required|numeric',
+            'tvdb' => 'required|numeric',
+            'tmdb' => 'required|numeric',
+            'mal' => 'required|numeric',
+            'igdb' => 'required|numeric',
+            'season_number' => $seasonRule,
             'episode_number' => $episodeRule,
-            'anon'           => 'required',
-            'stream'         => 'required',
-            'sd'             => 'required',
+            'anon' => 'required',
+            'stream' => 'required',
+            'sd' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -296,8 +296,8 @@ class TorrentController extends Controller
     public function destroy(Request $request)
     {
         $v = \validator($request->all(), [
-            'id'      => 'required|exists:torrents',
-            'slug'    => 'required|exists:torrents',
+            'id' => 'required|exists:torrents',
+            'slug' => 'required|exists:torrents',
             'message' => 'required|alpha_dash|min:1',
         ]);
 
@@ -378,26 +378,26 @@ class TorrentController extends Controller
             ];
             $temp['type'] = match (1) {
                 $cat->movie_meta => 'movie',
-                $cat->tv_meta    => 'tv',
-                $cat->game_meta  => 'game',
+                $cat->tv_meta => 'tv',
+                $cat->game_meta => 'game',
                 $cat->music_meta => 'music',
-                $cat->no_meta    => 'no',
-                default          => 'no',
+                $cat->no_meta => 'no',
+                default => 'no',
             };
             $categories[(int) $cat->id] = $temp;
         }
 
         return \view('torrent.upload', [
-            'categories'   => $categories,
-            'types'        => Type::all()->sortBy('position'),
-            'resolutions'  => Resolution::all()->sortBy('position'),
-            'regions'      => Region::all()->sortBy('position'),
+            'categories' => $categories,
+            'types' => Type::all()->sortBy('position'),
+            'resolutions' => Resolution::all()->sortBy('position'),
+            'regions' => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
-            'user'         => $user,
-            'category_id'  => $categoryId,
-            'title'        => $title,
-            'imdb'         => \str_replace('tt', '', $imdb),
-            'tmdb'         => $tmdb,
+            'user' => $user,
+            'category_id' => $categoryId,
+            'title' => $title,
+            'imdb' => \str_replace('tt', '', $imdb),
+            'tmdb' => $tmdb,
         ]);
     }
 
@@ -520,31 +520,31 @@ class TorrentController extends Controller
 
         // Validation
         $v = \validator($torrent->toArray(), [
-            'name'           => 'required|unique:torrents',
-            'slug'           => 'required',
-            'description'    => 'required',
-            'info_hash'      => 'required|unique:torrents',
-            'file_name'      => 'required',
-            'num_file'       => 'required|numeric',
-            'announce'       => 'required',
-            'size'           => 'required',
-            'category_id'    => 'required|exists:categories,id',
-            'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => $resolutionRule,
-            'region_id'      => 'nullable|exists:regions,id',
+            'name' => 'required|unique:torrents',
+            'slug' => 'required',
+            'description' => 'required',
+            'info_hash' => 'required|unique:torrents',
+            'file_name' => 'required',
+            'num_file' => 'required|numeric',
+            'announce' => 'required',
+            'size' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'type_id' => 'required|exists:types,id',
+            'resolution_id' => $resolutionRule,
+            'region_id' => 'nullable|exists:regions,id',
             'distributor_id' => 'nullable|exists:distributors,id',
-            'user_id'        => 'required|exists:users,id',
-            'imdb'           => 'required|numeric',
-            'tvdb'           => 'required|numeric',
-            'tmdb'           => 'required|numeric',
-            'mal'            => 'required|numeric',
-            'igdb'           => 'required|numeric',
-            'season_number'  => $seasonRule,
+            'user_id' => 'required|exists:users,id',
+            'imdb' => 'required|numeric',
+            'tvdb' => 'required|numeric',
+            'tmdb' => 'required|numeric',
+            'mal' => 'required|numeric',
+            'igdb' => 'required|numeric',
+            'season_number' => $seasonRule,
             'episode_number' => $episodeRule,
-            'anon'           => 'required',
-            'stream'         => 'required',
-            'sd'             => 'required',
-            'free'           => 'sometimes|between:0,100',
+            'anon' => 'required',
+            'stream' => 'required',
+            'sd' => 'required',
+            'free' => 'sometimes|between:0,100',
         ]);
 
         if ($v->fails()) {

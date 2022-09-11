@@ -44,8 +44,8 @@ class Rss extends Model
      * @var array
      */
     protected $casts = [
-        'name'            => 'string',
-        'json_torrent'    => 'array',
+        'name' => 'string',
+        'json_torrent' => 'array',
         'expected_fields' => 'array',
     ];
 
@@ -56,7 +56,7 @@ class Rss extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -91,27 +91,27 @@ class Rss extends Model
     {
         // Just Torrents for now... extendable to check on feed type in future.
         return [
-            'search'          => null,
-            'description'     => null,
-            'uploader'        => null,
-            'imdb'            => null,
-            'mal'             => null,
-            'categories'      => null,
-            'types'           => null,
-            'resolutions'     => null,
-            'genres'          => null,
-            'freeleech'       => null,
-            'doubleupload'    => null,
-            'featured'        => null,
-            'stream'          => null,
-            'highspeed'       => null,
-            'sd'              => null,
-            'internal'        => null,
+            'search' => null,
+            'description' => null,
+            'uploader' => null,
+            'imdb' => null,
+            'mal' => null,
+            'categories' => null,
+            'types' => null,
+            'resolutions' => null,
+            'genres' => null,
+            'freeleech' => null,
+            'doubleupload' => null,
+            'featured' => null,
+            'stream' => null,
+            'highspeed' => null,
+            'sd' => null,
+            'internal' => null,
             'personalrelease' => null,
-            'bookmark'        => null,
-            'alive'           => null,
-            'dying'           => null,
-            'dead'            => null,
+            'bookmark' => null,
+            'alive' => null,
+            'dying' => null,
+            'dead' => null,
         ];
     }
 }

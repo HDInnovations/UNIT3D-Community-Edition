@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; Iepriekšējais',
-    'next'     => 'Nākamais &raquo;',
+    'next' => 'Nākamais &raquo;',
 ];

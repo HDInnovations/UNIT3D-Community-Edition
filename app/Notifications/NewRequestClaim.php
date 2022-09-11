@@ -44,8 +44,8 @@ class NewRequestClaim extends Notification implements ShouldQueue
     {
         return [
             'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',
-            'body'  => $this->sender.' has claimed your Requested Torrent '.$this->torrentRequest->name,
-            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
+            'body' => $this->sender.' has claimed your Requested Torrent '.$this->torrentRequest->name,
+            'url' => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }
 }

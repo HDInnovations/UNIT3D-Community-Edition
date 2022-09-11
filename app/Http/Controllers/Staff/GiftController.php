@@ -44,9 +44,9 @@ class GiftController extends Controller
         $flTokens = $request->input('fl_tokens');
 
         $v = \validator($request->all(), [
-            'username'  => 'required|exists:users,username|max:180',
+            'username' => 'required|exists:users,username|max:180',
             'seedbonus' => 'required|numeric|min:0',
-            'invites'   => 'required|numeric|min:0',
+            'invites' => 'required|numeric|min:0',
             'fl_tokens' => 'required|numeric|min:0',
         ]);
 

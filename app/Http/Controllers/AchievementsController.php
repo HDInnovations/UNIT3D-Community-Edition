@@ -32,10 +32,10 @@ class AchievementsController extends Controller
         $pending = $user->inProgressAchievements();
 
         return \view('achievement.index', [
-            'route'        => 'achievement',
-            'user'         => $user,
+            'route' => 'achievement',
+            'user' => $user,
             'achievements' => $achievements,
-            'pending'      => $pending,
+            'pending' => $pending,
         ]);
     }
 
@@ -49,8 +49,8 @@ class AchievementsController extends Controller
         $achievements = $user->unlockedAchievements();
 
         return \view('achievement.show', [
-            'route'        => 'achievement',
-            'user'         => $user,
+            'route' => 'achievement',
+            'user' => $user,
             'achievements' => $achievements,
         ]);
     }

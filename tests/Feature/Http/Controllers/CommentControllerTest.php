@@ -38,7 +38,7 @@ class CommentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->post(route('comment_article', ['id' => $article->id]), [
-            'content'   => 'foo',
+            'content' => 'foo',
             'anonymous' => '0',
         ]);
 
@@ -113,12 +113,12 @@ class CommentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->post(route('comment_playlist', ['id' => $playlist->id]), [
-            'content'   => 'foo',
+            'content' => 'foo',
             'anonymous' => 0,
         ]);
 
         $response->assertRedirect(route('playlists.show', [
-            'id'   => $playlist->id,
+            'id' => $playlist->id,
             'hash' => '#comments',
         ]))->assertSessionHas('success', 'Your Comment Has Been Added!');
     }
@@ -139,7 +139,7 @@ class CommentControllerTest extends TestCase
 
         $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
-            'status'  => 1,
+            'status' => 1,
         ]);
 
         $response = $this->actingAs($user)->post(route('comment_thanks', ['id' => $torrent->id]));
@@ -167,7 +167,7 @@ class CommentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->post(route('comment_request', ['id' => $torrentRequest->id]), [
-            'content'   => 'foo',
+            'content' => 'foo',
             'anonymous' => 0,
         ]);
 
@@ -191,11 +191,11 @@ class CommentControllerTest extends TestCase
 
         $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
-            'status'  => 1,
+            'status' => 1,
         ]);
 
         $response = $this->actingAs($user)->post(route('comment_torrent', ['id' => $torrent->id]), [
-            'content'   => 'foo',
+            'content' => 'foo',
             'anonymous' => 0,
         ]);
 

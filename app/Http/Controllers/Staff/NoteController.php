@@ -47,9 +47,9 @@ class NoteController extends Controller
         $note->message = $request->input('message');
 
         $v = \validator($note->toArray(), [
-            'user_id'  => 'required',
+            'user_id' => 'required',
             'staff_id' => 'required',
-            'message'  => 'required',
+            'message' => 'required',
         ]);
 
         if ($v->fails()) {

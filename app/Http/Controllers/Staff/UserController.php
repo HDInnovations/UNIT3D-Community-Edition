@@ -68,10 +68,10 @@ class UserController extends Controller
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('Staff.user.edit', [
-            'user'      => $user,
-            'groups'    => $groups,
+            'user' => $user,
+            'groups' => $groups,
             'internals' => $internals,
-            'notes'     => $notes,
+            'notes' => $notes,
         ]);
     }
 

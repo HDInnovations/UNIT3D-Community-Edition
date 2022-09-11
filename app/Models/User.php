@@ -54,7 +54,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'last_login'  => 'datetime',
+        'last_login' => 'datetime',
         'last_action' => 'datetime',
     ];
 
@@ -64,21 +64,21 @@ class User extends Authenticatable
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Group::class)->withDefault([
-            'color'         => \config('user.group.defaults.color'),
-            'effect'        => \config('user.group.defaults.effect'),
-            'icon'          => \config('user.group.defaults.icon'),
-            'name'          => \config('user.group.defaults.name'),
-            'slug'          => \config('user.group.defaults.slug'),
-            'position'      => \config('user.group.defaults.position'),
-            'is_admin'      => \config('user.group.defaults.is_admin'),
-            'is_freeleech'  => \config('user.group.defaults.is_freeleech'),
-            'is_immune'     => \config('user.group.defaults.is_immune'),
-            'is_incognito'  => \config('user.group.defaults.is_incognito'),
-            'is_internal'   => \config('user.group.defaults.is_internal'),
-            'is_modo'       => \config('user.group.defaults.is_modo'),
-            'is_trusted'    => \config('user.group.defaults.is_trusted'),
-            'can_upload'    => \config('user.group.defaults.can_upload'),
-            'level'         => \config('user.group.defaults.level'),
+            'color' => \config('user.group.defaults.color'),
+            'effect' => \config('user.group.defaults.effect'),
+            'icon' => \config('user.group.defaults.icon'),
+            'name' => \config('user.group.defaults.name'),
+            'slug' => \config('user.group.defaults.slug'),
+            'position' => \config('user.group.defaults.position'),
+            'is_admin' => \config('user.group.defaults.is_admin'),
+            'is_freeleech' => \config('user.group.defaults.is_freeleech'),
+            'is_immune' => \config('user.group.defaults.is_immune'),
+            'is_incognito' => \config('user.group.defaults.is_incognito'),
+            'is_internal' => \config('user.group.defaults.is_internal'),
+            'is_modo' => \config('user.group.defaults.is_modo'),
+            'is_trusted' => \config('user.group.defaults.is_trusted'),
+            'can_upload' => \config('user.group.defaults.can_upload'),
+            'level' => \config('user.group.defaults.level'),
         ]);
     }
 

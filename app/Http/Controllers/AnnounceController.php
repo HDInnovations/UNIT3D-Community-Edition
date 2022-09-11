@@ -31,11 +31,14 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
+
     protected const REJECTED = 2;
+
     protected const POSTPONED = 3;
 
     // Announce Intervals
     private const MIN = 3_600;
+
     private const MAX = 5_400;
 
     // Port Blacklist
@@ -214,10 +217,10 @@ class AnnounceController extends Controller
 
         // Part.2 Extract optional announce fields
         foreach ([
-            'event'   => '',
+            'event' => '',
             'numwant' => 25,
             'corrupt' => 0,
-            'key'     => '',
+            'key' => '',
         ] as $item => $value) {
             $queries[$item] = $request->query->get($item, $value);
         }
@@ -423,12 +426,12 @@ class AnnounceController extends Controller
     {
         // Build Response For Bittorrent Client
         $repDict = [
-            'interval'     => random_int(self::MIN, self::MAX),
+            'interval' => random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
-            'complete'     => (int) $torrent->seeders,
-            'incomplete'   => (int) $torrent->leechers,
-            'peers'        => '',
-            'peers6'       => '',
+            'complete' => (int) $torrent->seeders,
+            'incomplete' => (int) $torrent->leechers,
+            'peers' => '',
+            'peers6' => '',
         ];
 
         /**
@@ -470,7 +473,7 @@ class AnnounceController extends Controller
     {
         return [
             'failure reason' => $trackerException->getMessage(),
-            'min interval'   => self::MIN,
+            'min interval' => self::MIN,
         ];
     }
 

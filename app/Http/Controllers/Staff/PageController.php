@@ -52,8 +52,8 @@ class PageController extends Controller
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'slug'    => 'required',
+            'name' => 'required',
+            'slug' => 'required',
             'content' => 'required',
         ]);
 
@@ -89,8 +89,8 @@ class PageController extends Controller
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'slug'    => 'required',
+            'name' => 'required',
+            'slug' => 'required',
             'content' => 'required',
         ]);
 

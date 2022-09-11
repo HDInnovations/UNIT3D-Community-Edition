@@ -39,10 +39,10 @@ class RssController extends Controller
         $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return \view('rss.index', [
-            'hash'        => $hash,
-            'public_rss'  => $publicRss,
+            'hash' => $hash,
+            'public_rss' => $publicRss,
             'private_rss' => $privateRss,
-            'user'        => $user,
+            'user' => $user,
         ]);
     }
 
@@ -54,11 +54,11 @@ class RssController extends Controller
         $user = $request->user();
 
         return \view('rss.create', [
-            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'             => Genre::all()->sortBy('name'),
-            'user'               => $user,
+            'categories' => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types' => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres' => Genre::all()->sortBy('name'),
+            'user' => $user,
         ]);
     }
 
@@ -70,19 +70,19 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = \validator($request->all(), [
-            'name'          => 'required|min:3|max:255',
-            'search'        => 'max:255',
-            'description'   => 'max:255',
-            'uploader'      => 'max:255',
-            'categories'    => 'sometimes|array|max:999',
-            'categories.*'  => 'sometimes|exists:categories,id',
-            'types'         => 'sometimes|array|max:999',
-            'types.*'       => 'sometimes|exists:types,id',
-            'resolutions'   => 'sometimes|array|max:999',
+            'name' => 'required|min:3|max:255',
+            'search' => 'max:255',
+            'description' => 'max:255',
+            'uploader' => 'max:255',
+            'categories' => 'sometimes|array|max:999',
+            'categories.*' => 'sometimes|exists:categories,id',
+            'types' => 'sometimes|array|max:999',
+            'types.*' => 'sometimes|exists:types,id',
+            'resolutions' => 'sometimes|array|max:999',
             'resolutions.*' => 'sometimes|exists:resolutions,id',
-            'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
-            'position'      => 'sometimes|integer|max:9999',
+            'genres' => 'sometimes|array|max:999',
+            'genres.*' => 'sometimes|exists:genres,id',
+            'position' => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -198,8 +198,8 @@ class RssController extends Controller
 
         return \response()->view('rss.show', [
             'torrents' => $torrents,
-            'user'     => $user,
-            'rss'      => $rss,
+            'user' => $user,
+            'rss' => $rss,
         ])
             ->header('Content-Type', 'text/xml');
     }
@@ -214,12 +214,12 @@ class RssController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
         return \view('rss.edit', [
-            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'             => Genre::all()->sortBy('name'),
-            'user'               => $user,
-            'rss'                => $rss,
+            'categories' => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types' => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'genres' => Genre::all()->sortBy('name'),
+            'user' => $user,
+            'rss' => $rss,
         ]);
     }
 
@@ -231,18 +231,18 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = \validator($request->all(), [
-            'search'        => 'max:255',
-            'description'   => 'max:255',
-            'uploader'      => 'max:255',
-            'categories'    => 'sometimes|array|max:999',
-            'categories.*'  => 'sometimes|exists:categories,id',
-            'types'         => 'sometimes|array|max:999',
-            'types.*'       => 'sometimes|exists:types,id',
-            'resolutions'   => 'sometimes|array|max:999',
+            'search' => 'max:255',
+            'description' => 'max:255',
+            'uploader' => 'max:255',
+            'categories' => 'sometimes|array|max:999',
+            'categories.*' => 'sometimes|exists:categories,id',
+            'types' => 'sometimes|array|max:999',
+            'types.*' => 'sometimes|exists:types,id',
+            'resolutions' => 'sometimes|array|max:999',
             'resolutions.*' => 'sometimes|exists:resolutions,id',
-            'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
-            'position'      => 'sometimes|integer|max:9999',
+            'genres' => 'sometimes|array|max:999',
+            'genres.*' => 'sometimes|exists:genres,id',
+            'position' => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([

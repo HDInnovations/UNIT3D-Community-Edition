@@ -59,11 +59,11 @@ class TicketController extends Controller
         $ticket->body = $request->input('body');
 
         $v = \validator($ticket->toArray(), [
-            'user_id'     => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:ticket_categories,id',
             'priority_id' => 'required|exists:ticket_priorities,id',
-            'subject'     => 'required',
-            'body'        => 'required',
+            'subject' => 'required',
+            'body' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -98,7 +98,7 @@ class TicketController extends Controller
         }
 
         return \view('ticket.show', [
-            'user'   => $user,
+            'user' => $user,
             'ticket' => $ticket,
         ]);
     }
@@ -118,11 +118,11 @@ class TicketController extends Controller
         $ticket->body = $request->input('body');
 
         $v = \validator($ticket->toArray(), [
-            'user_id'     => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:ticket_categories,id',
             'priority_id' => 'required|exists:ticket_priorities,id',
-            'subject'     => 'required',
-            'body'        => 'required',
+            'subject' => 'required',
+            'body' => 'required',
         ]);
 
         if ($v->fails()) {

@@ -50,8 +50,8 @@ class RegionController extends Controller
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
-            'name'     => 'required|unique:regions,name',
-            'slug'     => 'required',
+            'name' => 'required|unique:regions,name',
+            'slug' => 'required',
             'position' => 'required',
         ]);
 
@@ -87,8 +87,8 @@ class RegionController extends Controller
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
+            'name' => 'required',
+            'slug' => 'required',
             'position' => 'required',
         ]);
 

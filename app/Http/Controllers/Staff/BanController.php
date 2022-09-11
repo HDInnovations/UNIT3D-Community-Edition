@@ -107,7 +107,7 @@ class BanController extends Controller
         $ban->removed_at = Carbon::now();
 
         $v = \validator($request->all(), [
-            'group_id'     => 'required',
+            'group_id' => 'required',
             'unban_reason' => 'required',
         ]);
 

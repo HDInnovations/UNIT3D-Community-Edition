@@ -40,9 +40,9 @@ class BonExchange extends Model
      * @var array
      */
     protected $casts = [
-        'upload'             => 'boolean',
-        'download'           => 'boolean',
+        'upload' => 'boolean',
+        'download' => 'boolean',
         'personal_freeleech' => 'boolean',
-        'invite'             => 'boolean',
+        'invite' => 'boolean',
     ];
 }

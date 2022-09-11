@@ -37,7 +37,7 @@ class BotTransaction extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -49,7 +49,7 @@ class BotTransaction extends Model
     {
         return $this->belongsTo(Bot::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 

@@ -12,13 +12,13 @@
  */
 
 return [
-    'downloads'                   => 'Downloads',
-    'extension'                   => 'Udvidelser',
-    'delete-confirm'              => 'Er du sikker på du vil slette denne?',
-    'note'                        => 'Note',
-    'note-help'                   => 'Ekstra info til denne undertekst',
-    'rules-title'                 => 'Undertekst regler!',
-    'rules'                       => '<ul>
+    'downloads' => 'Downloads',
+    'extension' => 'Udvidelser',
+    'delete-confirm' => 'Er du sikker på du vil slette denne?',
+    'note' => 'Note',
+    'note-help' => 'Ekstra info til denne undertekst',
+    'rules-title' => 'Undertekst regler!',
+    'rules' => '<ul>
                                         <li>Det er kun tilladt at uploade ordentlige undertekster (Korrekt billedhastighed, oversættelse, stavning og timing).</li>
                                         <li>Ingen google oversat / maskin oversat / ukorrekte undertekster tilladt.</li>
                                         <li>Undertekster skal være synkroniseret med videoen.</li>
@@ -27,11 +27,11 @@ return [
                                         <li>Hold undertekstens note kort. INGEN webadresser/links er tilladt.</li>
                                         <li>Alle undertekster skal bekræftes, verificeres og synkoniseres korrekt til den specifikke Torrent/Film.</li>
                                       </ul>',
-    'size'                        => 'Størrelse',
-    'subtitle-file'               => 'Undertekst fil',
-    'subtitle-file-types'         => 'Accepterede filer er ICO, SRT and ZIP',
-    'search'                      => 'Søg efter torrent',
-    'uploaded'                    => 'Uploaded',
-    'uploader'                    => 'Uploader',
+    'size' => 'Størrelse',
+    'subtitle-file' => 'Undertekst fil',
+    'subtitle-file-types' => 'Accepterede filer er ICO, SRT and ZIP',
+    'search' => 'Søg efter torrent',
+    'uploaded' => 'Uploaded',
+    'uploader' => 'Uploader',
 
 ];

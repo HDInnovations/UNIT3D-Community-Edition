@@ -45,8 +45,8 @@ class NewFollow extends Notification implements ShouldQueue
     {
         return [
             'title' => $this->sender->username.' Has Followed You!',
-            'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
-            'url'   => \sprintf('/users/%s', $this->sender->username),
+            'body' => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
+            'url' => \sprintf('/users/%s', $this->sender->username),
         ];
     }
 }

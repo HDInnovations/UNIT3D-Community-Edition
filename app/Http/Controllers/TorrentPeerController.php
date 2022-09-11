@@ -32,9 +32,9 @@ class TorrentPeerController extends Controller
             ->map(function ($peer) use ($torrent) {
                 $progress = 100 * (1 - $peer->left / $torrent->size);
                 $peer['progress'] = match (true) {
-                    0 < $progress && $progress < 1    => 1,
+                    0 < $progress && $progress < 1 => 1,
                     99 < $progress && $progress < 100 => 99,
-                    default                           => round($progress),
+                    default => round($progress),
                 };
 
                 return $peer;

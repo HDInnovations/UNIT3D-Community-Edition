@@ -43,39 +43,39 @@ class PagesTableSeeder extends Seeder
     {
         return [
             [
-                'id'      => 1,
-                'name'    => 'Rules',
-                'slug'    => 'rules',
+                'id' => 1,
+                'name' => 'Rules',
+                'slug' => 'rules',
                 'content' => 'RULES GOES HERE',
             ],
             [
-                'id'      => 2,
-                'name'    => 'FAQ',
-                'slug'    => 'faq',
+                'id' => 2,
+                'name' => 'FAQ',
+                'slug' => 'faq',
                 'content' => 'FAQ GOES HERE',
             ],
             [
-                'id'      => 3,
-                'name'    => 'Suggested Clients',
-                'slug'    => 'suggested-clients',
+                'id' => 3,
+                'name' => 'Suggested Clients',
+                'slug' => 'suggested-clients',
                 'content' => 'We suggest the following BitTorrent clients.',
             ],
             [
-                'id'      => 4,
-                'name'    => 'Upload Guide',
-                'slug'    => 'upload-guide',
+                'id' => 4,
+                'name' => 'Upload Guide',
+                'slug' => 'upload-guide',
                 'content' => 'UPLOAD GUIDE HERE',
             ],
             [
-                'id'      => 5,
-                'name'    => 'Tracker Codes',
-                'slug'    => 'tracker-codes',
+                'id' => 5,
+                'name' => 'Tracker Codes',
+                'slug' => 'tracker-codes',
                 'content' => 'Our Tracker Codes/Responses',
             ],
             [
-                'id'      => 6,
-                'name'    => 'Terms Of Use',
-                'slug'    => 'terms-of-use',
+                'id' => 6,
+                'name' => 'Terms Of Use',
+                'slug' => 'terms-of-use',
                 'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
 
 Welcome to our website located at '.config('app.url').' (this "Site")! This Site allows you to:

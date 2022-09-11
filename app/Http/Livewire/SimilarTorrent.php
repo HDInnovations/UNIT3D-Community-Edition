@@ -112,9 +112,9 @@ class SimilarTorrent extends Component
         $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
-            'type'    => 'warning',
+            'type' => 'warning',
             'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!'.\nl2br("\n")
+            'body' => 'If deleted, you will not be able to recover the following files!'.\nl2br("\n")
                         .\nl2br(\implode("\n", $names)),
         ]);
     }
@@ -209,9 +209,9 @@ class SimilarTorrent extends Component
         $this->selectPage = false;
 
         $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
+            'type' => 'success',
             'message' => 'Torrents Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded these torrents.',
+            'text' => 'A personal message has been sent to all users that have downloaded these torrents.',
         ]);
     }
 
@@ -222,9 +222,9 @@ class SimilarTorrent extends Component
         $this->checked = array_diff($this->checked, [$torrentId]);
 
         $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
+            'type' => 'success',
             'message' => 'Torrent Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded this torrent.',
+            'text' => 'A personal message has been sent to all users that have downloaded this torrent.',
         ]);
     }
 
@@ -236,8 +236,8 @@ class SimilarTorrent extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.similar-torrent', [
-            'user'              => \auth()->user(),
-            'torrents'          => $this->torrents,
+            'user' => \auth()->user(),
+            'torrents' => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
         ]);
     }
