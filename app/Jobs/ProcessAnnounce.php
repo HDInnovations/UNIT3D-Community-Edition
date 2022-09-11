@@ -291,7 +291,7 @@ class ProcessAnnounce implements ShouldQueue
                 $this->user->uploaded += $modUploaded;
                 $this->user->downloaded += $modDownloaded;
                 $this->user->save();
-            // End User Update
+                // End User Update
         }
 
         $peerCount = DB::table('peers')

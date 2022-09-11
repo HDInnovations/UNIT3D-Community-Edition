@@ -99,12 +99,12 @@ class CommentController extends Controller
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
-                );
+                \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
+            );
         } else {
             $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
-                );
+                \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
+            );
         }
 
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -115,21 +115,21 @@ class CommentController extends Controller
                     $users->push($c->user);
                 });
                 $this->tag->messageCommentUsers(
-                        'collection',
-                        $users,
-                        $user,
-                        'Staff',
-                        $comment
-                    );
+                    'collection',
+                    $users,
+                    $user,
+                    'Staff',
+                    $comment
+                );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
                 $this->taggedUserRepository->messageTaggedCommentUsers(
-                        'collection',
-                        $request->input('content'),
-                        $user,
-                        $sender,
-                        $comment
-                    );
+                    'collection',
+                    $request->input('content'),
+                    $user,
+                    $sender,
+                    $comment
+                );
             }
         }
 

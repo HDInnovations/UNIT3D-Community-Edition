@@ -156,7 +156,8 @@ class RssController extends Controller
 
         $rss = Rss::query()
             ->where('id', '=', $id)
-            ->where(fn ($query) => $query
+            ->where(
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->orWhere('is_private', '=', 0)
             )

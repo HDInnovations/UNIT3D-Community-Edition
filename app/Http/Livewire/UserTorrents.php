@@ -92,7 +92,9 @@ class UserTorrents extends Component
     final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
-            ->join('torrents', fn ($join) => $join
+            ->join(
+                'torrents',
+                fn ($join) => $join
                 ->on('history.torrent_id', '=', 'torrents.id')
                 ->where('history.user_id', '=', $this->user->id)
             )
@@ -125,18 +127,27 @@ class UserTorrents extends Component
             ->selectRaw('TIMESTAMPDIFF(SECOND, history.created_at, history.completed_at) AS leechtime')
             ->selectRaw('CAST(history.uploaded AS float) / CAST((history.downloaded + 1) AS float) AS ratio')
             ->selectRaw('CAST(history.actual_uploaded AS float) / CAST((history.actual_downloaded + 1) AS float) AS actual_ratio')
-            ->when($this->name, fn ($query) => $query
+            ->when(
+                $this->name,
+                fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
-            ->when(\config('hitrun.enabled') === true, fn ($query) => $query
-                ->when($this->unsatisfied === 'exclude', fn ($query) => $query
-                    ->where(fn ($query) => $query
+            ->when(
+                \config('hitrun.enabled') === true,
+                fn ($query) => $query
+                ->when(
+                    $this->unsatisfied === 'exclude',
+                    fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
                         ->where('seedtime', '>', \config('hitrun.seedtime'))
                         ->orWhere('immune', '=', 1)
                         ->orWhereRaw('actual_downloaded < (torrents.size * ? / 100)', [\config('hitrun.buffer')])
                     )
                 )
-                ->when($this->unsatisfied === 'include', fn ($query) => $query
+                ->when(
+                    $this->unsatisfied === 'include',
+                    fn ($query) => $query
                     ->where('seedtime', '<', \config('hitrun.seedtime'))
                     ->where('immune', '=', 0)
                     ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [\config('hitrun.buffer')])
