@@ -282,13 +282,17 @@ class TorrentController extends BaseController
             if ($free >= 1 && $featured == 0) {
                 if ($torrent->fl_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:'
                     );
                 }
             }
@@ -296,13 +300,17 @@ class TorrentController extends BaseController
             if ($doubleup == 1 && $featured == 0) {
                 if ($torrent->du_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:'
                     );
                 }
             }

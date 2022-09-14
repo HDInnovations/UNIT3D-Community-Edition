@@ -165,7 +165,8 @@ class Markdown
         foreach ($lines as $line) {
             if (\rtrim($line) === '') {
                 if (isset($CurrentBlock)) {
-                    $CurrentBlock['interrupted'] = (isset($CurrentBlock['interrupted'])
+                    $CurrentBlock['interrupted'] = (
+                        isset($CurrentBlock['interrupted'])
                         ? $CurrentBlock['interrupted'] + 1 : 1
                     );
                 }
@@ -798,8 +799,10 @@ class Markdown
         }
 
         if (
-            (! \str_contains((string) $Block['element']['handler']['argument'], '|') && ! \str_contains((string) $Line['text'], '|') && ! \str_contains((string) $Line['text'],
-                    ':')) || \str_contains((string) $Block['element']['handler']['argument'], "\n")
+            (! \str_contains((string) $Block['element']['handler']['argument'], '|') && ! \str_contains((string) $Line['text'], '|') && ! \str_contains(
+                (string) $Line['text'],
+                ':'
+            )) || \str_contains((string) $Block['element']['handler']['argument'], "\n")
         ) {
             return;
         }
@@ -1020,7 +1023,8 @@ class Markdown
 
         $Elements = [];
 
-        $nonNestables = (empty($nonNestables)
+        $nonNestables = (
+            empty($nonNestables)
             ? []
             : \array_combine($nonNestables, $nonNestables)
         );
@@ -1580,7 +1584,8 @@ class Markdown
                 continue;
             }
 
-            $autoBreakNext = ($Element['autobreak'] ?? isset($Element['name'])
+            $autoBreakNext = (
+                $Element['autobreak'] ?? isset($Element['name'])
             );
             // (autobreak === false) covers both sides of an element
             $autoBreak = $autoBreak ? $autoBreakNext : $autoBreak;
