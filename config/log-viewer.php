@@ -1,0 +1,109 @@
+<?php
+
+use Opcodes\LogViewer\Level;
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log Viewer Route
+    |--------------------------------------------------------------------------
+    | Log Viewer will be available under this URL.
+    |
+    */
+
+    'route_path' => 'dashboard/laravel-log-viewer',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back to system URL
+    |--------------------------------------------------------------------------
+    | When set, displays a link to easily get back to this URL.
+    | Set to `null` to hide this link.
+    |
+    | Optional label to display for the above URL.
+    |
+    */
+
+    'back_to_system_url' => config('app.url', null),
+
+    'back_to_system_label' => null, // Displayed by default: "Back to {{ app.name }}"
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log Viewer route middleware.
+    |--------------------------------------------------------------------------
+    | The middleware should enable session and cookies support in order for the Log Viewer to work.
+    | The 'web' middleware will be applied automatically if empty.
+    |
+    */
+
+    'middleware' => ['web', 'owner'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include file patterns
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'include_files' => [
+        '*.log',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exclude file patterns.
+    |--------------------------------------------------------------------------
+    | This will take precedence over included files.
+    |
+    */
+
+    'exclude_files' => [
+        //'my_secret.log'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    |  Shorter stack trace filters.
+    |--------------------------------------------------------------------------
+    | Lines containing any of these strings will be excluded from the full log.
+    | This setting is only active when the function is enabled via the user interface.
+    |
+    */
+
+    'shorter_stack_trace_excludes' => [
+        '/vendor/symfony/',
+        '/vendor/laravel/framework/',
+        '/vendor/barryvdh/laravel-debugbar/',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log matching patterns
+    |--------------------------------------------------------------------------
+    | Regexes for matching log files
+    |
+    */
+
+    'patterns' => [
+        'laravel' => [
+            'log_matching_regex' => '/^\[(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}\.?(\d{6}([\+-]\d\d:\d\d)?)?)\].*/',
+
+            /**
+             * This pattern, used for processing Laravel logs, returns these results:
+             * $matches[0] - the full log line being tested.
+             * $matches[1] - full timestamp between the square brackets (includes microseconds and timezone offset)
+             * $matches[2] - timestamp microseconds, if available
+             * $matches[3] - timestamp timezone offset, if available
+             * $matches[4] - contents between timestamp and the severity level
+             * $matches[5] - environment (local, production, etc)
+             * $matches[6] - log severity (info, debug, error, etc)
+             * $matches[7] - the log text, the rest of the text.
+             */
+            'log_parsing_regex' => '/^\[(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}\.?(\d{6}([\+-]\d\d:\d\d)?)?)\](.*?(\w+)\.|.*?)('
+                .implode('|', array_filter(Level::caseValues()))
+                .')?: (.*?)( in [\/].*?:[0-9]+)?$/is',
+        ],
+    ],
+];

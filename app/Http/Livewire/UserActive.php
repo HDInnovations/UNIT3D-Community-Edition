@@ -99,7 +99,9 @@ class UserActive extends Component
             )
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
             ->where('peers.user_id', '=', $this->user->id)
-            ->when($this->name, fn ($query) => $query
+            ->when(
+                $this->name,
+                fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when($this->ip !== '', fn ($query) => $query->where('ip', '=', $this->ip))

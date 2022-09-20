@@ -36,7 +36,7 @@ class FollowController extends Controller
                 ->withErrors(\trans('user.follow-yourself'));
         }
 
-        if (! $request->user()->isFollowing($user->id)) {
+        if ($request->user()->follows()->following($user->id)->doesntExist()) {
             $follow = new Follow();
             $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
@@ -60,8 +60,8 @@ class FollowController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        if ($request->user()->isFollowing($user->id)) {
-            $follow = $request->user()->follows()->where('target_id', '=', $user->id)->first();
+        if ($request->user()->follows()->following($user->id)->exists()) {
+            $follow = $request->user()->follows()->following($user->id)->first();
             $follow->delete();
             if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_unfollow')) {
                 $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));

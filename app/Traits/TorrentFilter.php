@@ -26,26 +26,29 @@ trait TorrentFilter
 {
     public function scopeOfName(Builder $query, string $name, bool $isRegex = false): Builder
     {
-        return $query->when($isRegex,
-                fn ($query) => $query->where('name', 'REGEXP', \substr($name, 1, -1)),
-                fn ($query) => $query->where('name', 'LIKE', '%'.\str_replace(' ', '%', $name).'%')
-            );
+        return $query->when(
+            $isRegex,
+            fn ($query) => $query->where('name', 'REGEXP', \substr($name, 1, -1)),
+            fn ($query) => $query->where('name', 'LIKE', '%'.\str_replace(' ', '%', $name).'%')
+        );
     }
 
     public function scopeOfDescription(Builder $query, string $description, bool $isRegex = false): Builder
     {
-        return $query->when($isRegex,
-                fn ($query) => $query->where('description', 'REGEXP', \substr($description, 1, -1)),
-                fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
-            );
+        return $query->when(
+            $isRegex,
+            fn ($query) => $query->where('description', 'REGEXP', \substr($description, 1, -1)),
+            fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
+        );
     }
 
     public function scopeOfMediainfo(Builder $query, string $mediainfo, bool $isRegex = false): Builder
     {
-        return $query->when($isRegex,
-                fn ($query) => $query->where('mediainfo', 'REGEXP', \substr($mediainfo, 1, -1)),
-                fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
-            );
+        return $query->when(
+            $isRegex,
+            fn ($query) => $query->where('mediainfo', 'REGEXP', \substr($mediainfo, 1, -1)),
+            fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
+        );
     }
 
     public function scopeOfUploader(Builder $query, string $username): Builder
@@ -88,12 +91,15 @@ trait TorrentFilter
     public function scopeOfGenre(Builder $query, array $genres): Builder
     {
         return $query
-            ->where(fn ($query) => $query
-                ->where(fn ($query) => $query
+            ->where(
+                fn ($query) => $query
+                ->where(
+                    fn ($query) => $query
                     ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
                     ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
                 )
-                ->orWhere(fn ($query) => $query
+                ->orWhere(
+                    fn ($query) => $query
                     ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
                     ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
                 )
@@ -212,7 +218,9 @@ trait TorrentFilter
     public function scopeNotDownloadedBy(Builder $query, User $user): Builder
     {
         return $query
-            ->whereDoesntHave('history', fn ($query) => $query
+            ->whereDoesntHave(
+                'history',
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
             );
     }
@@ -220,7 +228,9 @@ trait TorrentFilter
     public function scopeDownloadedBy(Builder $query, User $user): Builder
     {
         return $query
-            ->whereHas('history', fn (Builder $query) => $query
+            ->whereHas(
+                'history',
+                fn (Builder $query) => $query
                 ->where('user_id', '=', $user->id)
             );
     }
@@ -228,7 +238,9 @@ trait TorrentFilter
     public function scopeSeededBy(Builder $query, User $user): Builder
     {
         return $query
-            ->whereHas('history', fn ($query) => $query
+            ->whereHas(
+                'history',
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->where('active', '=', 1)
                 ->where('seeder', '=', 1)
@@ -238,7 +250,9 @@ trait TorrentFilter
     public function scopeLeechedby(Builder $query, User $user): Builder
     {
         return $query
-            ->whereHas('history', fn ($query) => $query
+            ->whereHas(
+                'history',
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->where('active', '=', 1)
                 ->where('seeder', '=', 0)
@@ -248,7 +262,9 @@ trait TorrentFilter
     public function scopeUncompletedBy(Builder $query, User $user): Builder
     {
         return $query
-            ->whereHas('history', fn ($query) => $query
+            ->whereHas(
+                'history',
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->where('active', '=', 0)
                 ->where('seeder', '=', 0)
@@ -259,7 +275,9 @@ trait TorrentFilter
     public function scopeOfFilename(Builder $query, string $filename): Builder
     {
         return $query
-            ->whereHas('files', fn ($query) => $query
+            ->whereHas(
+                'files',
+                fn ($query) => $query
                 ->where('name', $filename)
             );
     }

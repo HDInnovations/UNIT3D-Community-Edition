@@ -156,10 +156,10 @@
                                         class="text-red text-bold">{{ $history->where('actual_downloaded', '>', 0)->count() }}</span></span>
                             <span class="badge-user badge-float p-10"><i
                                         class="{{ config('other.font-awesome') }} fa-cloud-upload"></i> {{ __('user.total-seeding') }}
-                                        : <span class="text-green text-bold">{{ $user->getSeeding() }}</span></span>
+                                        : <span class="text-green text-bold">{{ $user->seedingTorrents()->count() }}</span></span>
                             <span class="badge-user badge-float p-10"><i
                                         class="{{ config('other.font-awesome') }} fa-cloud-download"></i> {{ __('user.total-leeching') }}
-                                        : <span class="text-red text-bold">{{ $user->getLeeching() }}</span></span>
+                                        : <span class="text-red text-bold">{{ $user->leechingTorrents()->count() }}</span></span>
                         </div>
                     </div>
                 @endif
@@ -282,7 +282,7 @@
                             <tr>
                                 <td>{{ __('user.seeding-size') }}</td>
                                 <td>
-                                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::formatBytes($user->getTotalSeedSize() , 2) }}</span>
+                                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size') , 2) }}</span>
                                 </td>
                             </tr>
                         @endif
@@ -476,7 +476,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-badge text-success"></i>
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
-                            @if ($user->getSeeding() >= '150')
+                            @if ($user->seedingTorrents()->count() >= '150')
                                 <span class="badge-user" style="background-color:#3fb618; color:rgb(255,255,255);"
                                       data-toggle="tooltip"
                                       title="" data-original-title="{{ __('user.certified-seeder-desc') }}"><i

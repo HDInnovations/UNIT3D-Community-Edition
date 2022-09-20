@@ -29,12 +29,11 @@ use Illuminate\Support\Str;
 
 class TMDBScraper implements ShouldQueue
 {
+    use SerializesModels;
     /**
      * @var mixed|array|string|null
      */
     public $id;
-
-    use SerializesModels;
 
     public function __construct(Request $request = null)
     {
@@ -97,8 +96,11 @@ class TMDBScraper implements ShouldQueue
             \preg_match($re, (string) $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
-            $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''],
-                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)));
+            $titleSort = \addslashes(\str_replace(
+                ['The ', 'An ', 'A ', '"'],
+                [''],
+                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)
+            ));
 
             $array = [
                 'adult'             => $movie['adult'] ?? 0,
