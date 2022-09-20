@@ -2,17 +2,17 @@
     <article class="comment">
         <header class="comment__header">
             <img
-                class="comment__avatar"
-                src="{{ url((!$comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
-                alt=""
+                    class="comment__avatar"
+                    src="{{ url((!$comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
+                    alt=""
             >
             <address class="comment__author">
-                <x-user_tag :anon="$comment->anon" :user="$comment->user" />
+                <x-user_tag :anon="$comment->anon" :user="$comment->user"/>
             </address>
             <time
-                class="comment__timestamp"
-                datetime="{{ $comment->created_at }}"
-                title="{{ $comment->created_at }}"
+                    class="comment__timestamp"
+                    datetime="{{ $comment->created_at }}"
+                    title="{{ $comment->created_at }}"
             >
                 {{ $comment->created_at->diffForHumans() }}
             </time>
@@ -33,9 +33,9 @@
                         </abbr>
                     </button>
                     <button
-                        class="comment__delete"
-                        x-on:click="confirmCommentDeletion"
-                        x-data="{
+                            class="comment__delete"
+                            x-on:click="confirmCommentDeletion"
+                            x-data="{
                             confirmCommentDeletion () {
                                 if (window.confirm('You sure?')) {
                                 @this.call('deleteComment')
@@ -55,22 +55,22 @@
             <form wire:submit.prevent="editComment" class="form edit-comment">
                 <p class="form__group">
                     <textarea
-                        name="comment"
-                        id="edit-comment"
-                        class="form__textarea"
-                        aria-describedby="edit-comment__textarea-hint"
-                        wire:model.defer="editState.content"
-                        required
+                            name="comment"
+                            id="edit-comment"
+                            class="form__textarea"
+                            aria-describedby="edit-comment__textarea-hint"
+                            wire:model.defer="editState.content"
+                            required
                     ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
                         @error('editState.content')
-                            <strong>{{ __('common.error') }}: </strong>
+                        <strong>{{ __('common.error') }}: </strong>
                         @enderror
                         Edit your comment...
                     </label>
                     @error('editState.content')
-                        <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</p>
-                    @enderror
+                    <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</p>
+                @enderror
                 </p>
                 <p class="form__group">
                     <button type="submit" class="form__button form__button--filled">
@@ -95,32 +95,33 @@
                 <form wire:submit.prevent="postReply" class="form reply-comment">
                     <p class="form__group">
                         <textarea
-                            name="comment"
-                            id="reply-comment"
-                            class="form__textarea"
-                            aria-describedby="reply-comment__textarea-hint"
-                            wire:model.defer="replyState.content"
-                            required
+                                name="comment"
+                                id="reply-comment"
+                                class="form__textarea"
+                                aria-describedby="reply-comment__textarea-hint"
+                                wire:model.defer="replyState.content"
+                                required
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
                             @error('editState.content')
-                                <strong>{{ __('common.error') }}: </strong>
+                            <strong>{{ __('common.error') }}: </strong>
                             @enderror
                             Reply to parent comment...
                         </label>
                         @error('replyState.content')
-                            <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</p>
-                        @enderror
+                        <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</p>
+                    @enderror
                     </p>
                     <p class="form__group">
-                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:modal="anon" value="1">
+                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:modal="anon">
                         <label for="reply-anon" class="form__label">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">
                         <button type="submit" class="form__button form__button--filled">
                             {{ __('common.comment') }}
                         </button>
-                        <button type="button" wire:click="$toggle('isReplying')" class="form__button form__button--text">
+                        <button type="button" wire:click="$toggle('isReplying')"
+                                class="form__button form__button--text">
                             {{ __('common.cancel') }}
                         </button>
                     </p>

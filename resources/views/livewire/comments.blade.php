@@ -1,9 +1,8 @@
-<div class="panel panel-chat shoutbox">
-    <div class="panel-heading">
-        <h4>
-            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
-        </h4>
-    </div>
+<section class="panelV2">
+    <h4 class="panel__heading">
+        <i class="{{ config('other.font-awesome') }} fa-comment"></i>
+        {{ __('common.comments') }}
+    </h4>
     <div class="panel-body no-padding">
         <form wire:submit.prevent="postComment" class="form new-comment">
             <p class="form__group">
@@ -26,7 +25,7 @@
                 @enderror
             </p>
             <p class="form__group">
-                <input type="checkbox" id="anon" class="form__checkbox" wire:modal="anon" value="1">
+                <input type="checkbox" id="anon" class="form__checkbox" wire:modal="anon">
                 <label for="anon" class="form__label">{{ __('common.anonymous') }}?</label>
             </p>
             <p class="form__group">
@@ -54,4 +53,4 @@
             </div>
         @endif
     </div>
-</div>
+</section>

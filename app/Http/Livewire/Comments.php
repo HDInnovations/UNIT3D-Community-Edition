@@ -27,7 +27,6 @@ use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
-use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,13 +38,11 @@ class Comments extends Component
 
     private TaggedUserRepository $taggedUserRepository;
 
-    private ChatRepository $chatRepository;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user;
+    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
 
     public $model;
 
-    public $anon;
+    public $anon = false;
 
     public int $perPage = 10;
 
@@ -61,10 +58,9 @@ class Comments extends Component
         'newCommentState.content' => 'comment',
     ];
 
-    final public function mount(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository): void
+    final public function mount(TaggedUserRepository $taggedUserRepository): void
     {
         $this->taggedUserRepository = $taggedUserRepository;
-        $this->chatRepository = $chatRepository;
         $this->user = \auth()->user();
     }
 
@@ -115,22 +111,9 @@ class Comments extends Component
             User::find($this->model->user_id)->notify(new NewComment($this->model, $comment));
         }
 
-        // Auto Shout
-        /*$profileUrl = \href_profile($this->user);
-
-        if ($comment->anon === 0) {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $this->user->username, $torrentUrl, $this->model->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $this->model->name)
-            );
-        }
-
         // Tagging
         if ($this->taggedUserRepository->hasTags($this->newCommentState)) {
-            if ($this->taggedUserRepository->contains($this->newCommentState, '@here') && $this->user->group->is_modo) {
+            if ($this->user->group->is_modo && $this->taggedUserRepository->contains($this->newCommentState, '@here')) {
                 $users = \collect([]);
 
                 $this->model->comments()->get()->each(function ($c) use ($users) {
@@ -147,15 +130,15 @@ class Comments extends Component
                 $sender = $comment->anon !== 0 ? $this->user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                     $this->model,
-                    $this->newCommentState,
+                    $this->newCommentState[],
                     $this->user,
                     $sender,
                     $comment
                 );
             }
-        }*/
+        }
 
-        $this->goToPage(1);
+        $this->gotoPage(1);
     }
 
     final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
