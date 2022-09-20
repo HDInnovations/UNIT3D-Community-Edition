@@ -14,11 +14,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\History;
-use App\Models\Peer;
+use App\Models\BonEarning;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
@@ -39,128 +38,79 @@ class EarningController extends Controller
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        // These two partially-built queries are used for constructing all the other queries
-        $distinctSeeds = Peer::query()
-            ->select(['user_id', 'torrent_id', 'seeder'])
-            ->where('user_id', '=', $user->id)
-            ->where('seeder', '=', 1)
-            ->where('active', '=', 1)
-            ->distinct();
+        $bonEarnings = BonEarning::with('conditions')
+            ->orderBy('position')
+            ->get()
+            ->map(function ($bonEarning) use ($user) {
+                $query = DB::table('peers')
+                    ->select([
+                        DB::raw('1 as `1`'),
+                        DB::raw('TIMESTAMPDIFF(SECOND, torrents.created_at, NOW()) as age'),
+                        'torrents.size',
+                        'torrents.seeders',
+                        'torrents.leechers',
+                        'torrents.times_completed',
+                        DB::raw('max(history.seedtime) as seedtime'),
+                        'torrents.personal_release',
+                        'torrents.internal',
+                        DB::raw('max(peers.connectable) as connectable'),
+                        'peers.torrent_id',
+                        'peers.user_id',
+                    ])
+                    ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->where('history.user_id', '=', 'peers.user_id'))
+                    ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                    ->where('peers.seeder', '=', true)
+                    ->where('peers.active', '=', true)
+                    ->where('peers.user_id', '=', $user->id)
+                    ->groupBy(['peers.torrent_id', 'peers.user_id']);
 
-        $history = History::query()
-            ->select(['seedtime', 'active', 'user_id'])
-            ->where('user_id', '=', $user->id)
-            ->where('active', '=', 1);
+                foreach ($bonEarning->conditions as $condition) {
+                    // Validate raw values
+                    if (\in_array($condition->operand1, [
+                        '1',
+                        'age',
+                        'size',
+                        'seeders',
+                        'leechers',
+                        'times_completed',
+                        'seedtime',
+                        'personal_release',
+                        'internal',
+                        'connectable',
+                    ], true)) {
+                        $query->having(DB::raw('`'.$condition->operand1.'`'), $condition->operator, $condition->operand2);
+                    }
+                }
 
-        $SECONDS_PER_MONTH = 60 * 60 * 24 * 30;
+                $peers = $query->get();
 
-        $dying = $distinctSeeds
-            ->clone()
-            ->whereHas(
-                'torrent',
-                fn ($query) => $query
-                    ->where('seeders', '=', 1)
-                    ->where('times_completed', '>=', 3)
-            )
-            ->count();
+                $userEarnings = [];
 
-        $legendary = $distinctSeeds
-            ->clone()
-            ->whereRelation('torrent', 'created_at', '<', Carbon::now()->subYear()->toDateTimeString())
-            ->count();
+                switch ($bonEarning->operation) {
+                    case 'append':
+                        foreach ($peers as $peer) {
+                            @$userEarnings[$peer->torrent_id] += $peer->{$bonEarning->variable} * $bonEarning->multiplier;
+                        }
 
-        $old = $distinctSeeds
-            ->clone()
-            ->whereHas(
-                'torrent',
-                fn ($query) => $query
-                    ->where('created_at', '<', Carbon::now()->subMonths(6)->toDateTimeString())
-                    ->where('created_at', '>', Carbon::now()->subYear()->toDateTimeString()),
-            )
-            ->count();
+                        break;
+                    case 'multiply':
+                        foreach ($peers as $peer) {
+                            @$userEarnings[$peer->torrent_id] *= $peer->{$bonEarning->variable} * $bonEarning->multiplier;
+                        }
 
-        $huge = $distinctSeeds
-            ->clone()
-            ->whereRelation('torrent', 'size', '>=', $this->byteUnits->bytesFromUnit('100GiB'))
-            ->count();
+                        break;
+                }
 
-        $large = $distinctSeeds
-            ->clone()
-            ->whereHas(
-                'torrent',
-                fn ($query) => $query
-                    ->where('size', '>=', $this->byteUnits->bytesFromUnit('25GiB'))
-                    ->where('size', '<', $this->byteUnits->bytesFromUnit('100GiB'))
-            )
-            ->count();
+                $bonEarning->setRelation('user_earnings', array_sum($userEarnings));
+                $bonEarning->setRelation('torrent_count', $peers->count());
 
-        $regular = $distinctSeeds
-            ->clone()
-            ->whereHas(
-                'torrent',
-                fn ($query) => $query
-                    ->where('size', '>=', $this->byteUnits->bytesFromUnit('1GiB'))
-                    ->where('size', '<', $this->byteUnits->bytesFromUnit('25GiB'))
-            )
-            ->count();
-
-        $participant = $history
-            ->clone()
-            ->where('seedtime', '>=', $SECONDS_PER_MONTH)
-            ->where('seedtime', '<', $SECONDS_PER_MONTH * 2)
-            ->count();
-
-        $teamplayer = $history
-            ->clone()
-            ->where('seedtime', '>=', $SECONDS_PER_MONTH * 2)
-            ->where('seedtime', '<', $SECONDS_PER_MONTH * 3)
-            ->count();
-
-        $committed = $history
-            ->clone()
-            ->where('seedtime', '>=', $SECONDS_PER_MONTH * 3)
-            ->where('seedtime', '<', $SECONDS_PER_MONTH * 6)
-            ->count();
-
-        $mvp = $history
-            ->clone()
-            ->where('seedtime', '>=', $SECONDS_PER_MONTH * 6)
-            ->where('seedtime', '<', $SECONDS_PER_MONTH * 12)
-            ->count();
-
-        $legend = $history
-            ->clone()
-            ->where('seedtime', '>=', $SECONDS_PER_MONTH * 12)
-            ->count();
-
-        //Total points per hour
-        $total = 2.00 * $dying
-            + 1.50 * $legendary
-            + 1.00 * $old
-            + 0.75 * $huge
-            + 0.50 * $large
-            + 0.25 * $regular
-            + 0.25 * $participant
-            + 0.50 * $teamplayer
-            + 0.75 * $committed
-            + 1.00 * $mvp
-            + 2.00 * $legend;
+                return $bonEarning;
+            });
 
         return view('user.earning.index', [
             'user'        => $user,
             'bon'         => $user->formatted_seedbonus,
-            'dying'       => $dying,
-            'legendary'   => $legendary,
-            'old'         => $old,
-            'huge'        => $huge,
-            'large'       => $large,
-            'regular'     => $regular,
-            'participant' => $participant,
-            'teamplayer'  => $teamplayer,
-            'committed'   => $committed,
-            'mvp'         => $mvp,
-            'legend'      => $legend,
-            'total'       => $total,
+            'bonEarnings' => $bonEarnings,
         ]);
     }
 }
