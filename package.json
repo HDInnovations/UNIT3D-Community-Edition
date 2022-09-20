@@ -32,7 +32,6 @@
     "alpinejs": "^3.9.1",
     "dayjs": "^1.11.0",
     "emoji-picker-element": "^1.11.0",
-    "keen-slider": "^5.5.1",
     "laravel-echo-server": "^1.6.3",
     "node-vibrant": "^3.1.6",
     "pusher-js": "^7.0.6",

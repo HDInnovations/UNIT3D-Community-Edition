@@ -109,7 +109,7 @@ class HomeController extends Controller
         $groups = \cache()->remember('user-groups', $expiresAt, fn () => Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
 
         // Featured Torrents Block
-        $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent', 'user')->get());
+        $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent', 'torrent.resolution', 'torrent.type', 'torrent.category', 'user', 'user.group')->get());
 
         // Latest Poll Block
         $poll = \cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first());
