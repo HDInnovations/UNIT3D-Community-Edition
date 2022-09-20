@@ -91,5 +91,6 @@
                 </tbody>
             </table>
         </div>
+        {{ $notes->links('partials.pagination') }}
     </section>
 @endsection

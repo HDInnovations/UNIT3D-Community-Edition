@@ -19,17 +19,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
-use App\Models\FreeleechToken;
+use App\Jobs\ProcessAnnounce;
 use App\Models\Group;
-use App\Models\History;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class AnnounceController extends Controller
 {
@@ -155,12 +151,16 @@ class AnnounceController extends Controller
         \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
 
         // Block Browser by checking the User-Agent
-        \throw_if(\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i',
-            (string) $userAgent), new TrackerException(121));
+        \throw_if(\preg_match(
+            '/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i',
+            (string) $userAgent
+        ), new TrackerException(121));
 
         // Block Blacklisted Clients
-        \throw_if(\in_array($request->header('User-Agent'), \config('client-blacklist.clients')),
-            new TrackerException(128, [':ua' => $request->header('User-Agent')]));
+        \throw_if(
+            \in_array($request->header('User-Agent'), \config('client-blacklist.clients')),
+            new TrackerException(128, [':ua' => $request->header('User-Agent')])
+        );
     }
 
     /**
@@ -175,12 +175,16 @@ class AnnounceController extends Controller
         \throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
 
         // If Passkey Length Is Wrong
-        \throw_if(\strlen((string) $passkey) !== 32,
-            new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]));
+        \throw_if(
+            \strlen((string) $passkey) !== 32,
+            new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32])
+        );
 
         // If Passkey Format Is Wrong
-        \throw_if(\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32,
-            new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect']));
+        \throw_if(
+            \strspn(\strtolower($passkey), 'abcdef0123456789') !== 32,
+            new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect'])
+        );
     }
 
     /**
@@ -206,14 +210,18 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            \throw_if(\strlen((string) $queries[$item]) !== 20,
-                new TrackerException(133, [':attribute' => $item, ':rule' => 20]));
+            \throw_if(
+                \strlen((string) $queries[$item]) !== 20,
+                new TrackerException(133, [':attribute' => $item, ':rule' => 20])
+            );
         }
 
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
-            \throw_if(! \is_numeric($itemData) || $itemData < 0,
-                new TrackerException(134, [':attribute' => $item]));
+            \throw_if(
+                ! \is_numeric($itemData) || $itemData < 0,
+                new TrackerException(134, [':attribute' => $item])
+            );
         }
 
         // Part.2 Extract optional announce fields
@@ -227,25 +235,33 @@ class AnnounceController extends Controller
         }
 
         foreach (['numwant', 'corrupt'] as $item) {
-            \throw_if(! \is_numeric($queries[$item]) || $queries[$item] < 0,
-                new TrackerException(134, [':attribute' => $item]));
+            \throw_if(
+                ! \is_numeric($queries[$item]) || $queries[$item] < 0,
+                new TrackerException(134, [':attribute' => $item])
+            );
         }
 
-        \throw_if(! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']),
-            new TrackerException(136, [':event' => \strtolower($queries['event'])]));
+        \throw_if(
+            ! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']),
+            new TrackerException(136, [':event' => \strtolower($queries['event'])])
+        );
 
         // Part.3 check Port is Valid and Allowed
         /**
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
-        \throw_if($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped',
-            new TrackerException(137, [':event' => \strtolower($queries['event'])]));
+        \throw_if(
+            $queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped',
+            new TrackerException(137, [':event' => \strtolower($queries['event'])])
+        );
 
         \throw_if(! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
-            || \in_array($queries['port'],
+            || \in_array(
+                $queries['port'],
                 self::BLACK_PORTS,
-                true), new TrackerException(135, [':port' => $queries['port']]));
+                true
+            ), new TrackerException(135, [':port' => $queries['port']]));
 
         // Part.4 Get User Ip Address
         $queries['ip-address'] = $request->getClientIp();
@@ -271,12 +287,18 @@ class AnnounceController extends Controller
     protected function checkUser($passkey, $queries): object
     {
         // Caached System Required Groups
-        $bannedGroup = \cache()->rememberForever('banned_group',
-            fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group',
-            fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group',
-            fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever(
+            'banned_group',
+            fn () => Group::where('slug', '=', 'banned')->pluck('id')
+        );
+        $validatingGroup = \cache()->rememberForever(
+            'validating_group',
+            fn () => Group::where('slug', '=', 'validating')->pluck('id')
+        );
+        $disabledGroup = \cache()->rememberForever(
+            'disabled_group',
+            fn () => Group::where('slug', '=', 'disabled')->pluck('id')
+        );
 
         // Check Passkey Against Users Table
         $user = User::with('group')
@@ -288,20 +310,28 @@ class AnnounceController extends Controller
         \throw_if($user === null, new TrackerException(140));
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        \throw_if($user->active === 0 || $user->group->id === $validatingGroup[0],
-            new TrackerException(141, [':status' => 'Unactivated/Validating']));
+        \throw_if(
+            $user->active === 0 || $user->group->id === $validatingGroup[0],
+            new TrackerException(141, [':status' => 'Unactivated/Validating'])
+        );
 
         // If User Download Rights Are Disabled Return Error to Client
-        \throw_if($user->can_download === 0 && $queries['left'] !== '0',
-            new TrackerException(142));
+        \throw_if(
+            $user->can_download === 0 && $queries['left'] !== '0',
+            new TrackerException(142)
+        );
 
         // If User Is Banned Return Error to Client
-        \throw_if($user->group->id === $bannedGroup[0],
-            new TrackerException(141, [':status' => 'Banned']));
+        \throw_if(
+            $user->group->id === $bannedGroup[0],
+            new TrackerException(141, [':status' => 'Banned'])
+        );
 
         // If User Is Disabled Return Error to Client
-        throw_if($user->group->id === $disabledGroup[0],
-            new TrackerException(141, [':status' => 'Disabled']));
+        throw_if(
+            $user->group->id === $disabledGroup[0],
+            new TrackerException(141, [':status' => 'Disabled'])
+        );
 
         return $user;
     }
@@ -325,16 +355,22 @@ class AnnounceController extends Controller
         \throw_if($torrent === null, new TrackerException(150));
 
         // If Torrent Is Pending Moderation Return Error to Client
-        \throw_if($torrent->status === self::PENDING,
-            new TrackerException(151, [':status' => 'PENDING In Moderation']));
+        \throw_if(
+            $torrent->status === self::PENDING,
+            new TrackerException(151, [':status' => 'PENDING In Moderation'])
+        );
 
         // If Torrent Is Rejected Return Error to Client
-        \throw_if($torrent->status === self::REJECTED,
-            new TrackerException(151, [':status' => 'REJECTED In Moderation']));
+        \throw_if(
+            $torrent->status === self::REJECTED,
+            new TrackerException(151, [':status' => 'REJECTED In Moderation'])
+        );
 
         // If Torrent Is Postponed Return Error to Client
-        \throw_if($torrent->status === self::POSTPONED,
-            new TrackerException(151, [':status' => 'POSTPONED In Moderation']));
+        \throw_if(
+            $torrent->status === self::POSTPONED,
+            new TrackerException(151, [':status' => 'POSTPONED In Moderation'])
+        );
 
         return $torrent;
     }
@@ -372,9 +408,11 @@ class AnnounceController extends Controller
             ->first();
         $setMin = \config('announce.min_interval.interval') ?? self::MIN;
         $randomMinInterval = random_int($setMin, $setMin * 2);
-        \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
+        \throw_if(
+            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped',
-            new TrackerException(162, [':min' => $randomMinInterval]));
+            new TrackerException(162, [':min' => $randomMinInterval])
+        );
     }
 
     /**
@@ -392,8 +430,10 @@ class AnnounceController extends Controller
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        \throw_if($connections > \config('announce.rate_limit'),
-            new TrackerException(138, [':limit' => \config('announce.rate_limit')]));
+        \throw_if(
+            $connections > \config('announce.rate_limit'),
+            new TrackerException(138, [':limit' => \config('announce.rate_limit')])
+        );
     }
 
     /**
@@ -413,8 +453,10 @@ class AnnounceController extends Controller
                 ->where('seeder', '=', 0)
                 ->count();
 
-            \throw_if($count >= $max,
-                new TrackerException(164, [':max' => $max]));
+            \throw_if(
+                $count >= $max,
+                new TrackerException(164, [':max' => $max])
+            );
         }
     }
 
@@ -464,255 +506,10 @@ class AnnounceController extends Controller
 
     /**
      * Process Announce Database Queries.
-     *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     private function processAnnounceJob($queries, $user, $torrent): void
     {
-        // Flag is tripped if new session is created but client reports up/down > 0
-        $ghost = false;
-
-        // Set Variables
-        $realUploaded = $queries['uploaded'];
-        $realDownloaded = $queries['downloaded'];
-        $event = \strtolower($queries['event']);
-
-        // Get The Current Peer
-        $peer = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('peer_id', '=', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->first();
-
-        // If no Peer record found then create one
-        if ($peer === null) {
-            if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
-                $ghost = true;
-                $event = 'started';
-            }
-
-            $peer = new Peer();
-        }
-
-        // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('user_id', '=', $user->id)
-            ->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-        }
-
-        // Check Ghost Flag
-        if ($ghost) {
-            $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
-            $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
-        } else {
-            $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
-            $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
-        }
-
-        $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
-
-        // Modification of Upload and Download
-        $personalFreeleech = PersonalFreeleech::query()
-            ->where('user_id', '=', $user->id)
-            ->first();
-
-        $freeleechToken = FreeleechToken::query()
-            ->where('user_id', '=', $user->id)
-            ->where('torrent_id', '=', $torrent->id)
-            ->first();
-
-        if ($personalFreeleech ||
-            $user->group->is_freeleech == 1 ||
-            $freeleechToken ||
-            \config('other.freeleech') == 1) {
-            $modDownloaded = 0;
-        } elseif ($torrent->free >= 1) {
-            // FL value in DB are from 0% to 100%.
-            // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloaded * $torrent->free / 100;
-            $modDownloaded = $downloaded - $fl_discount;
-        } else {
-            $modDownloaded = $downloaded;
-        }
-
-        if ($torrent->doubleup == 1 ||
-            $user->group->is_double_upload == 1 ||
-            \config('other.doubleup') == 1) {
-            $modUploaded = $uploaded * 2;
-        } else {
-            $modUploaded = $uploaded;
-        }
-
-        switch ($event) {
-            case 'started':
-                $peer->peer_id = $queries['peer_id'];
-                $peer->md5_peer_id = \md5($queries['peer_id']);
-                $peer->info_hash = $queries['info_hash'];
-                $peer->ip = $queries['ip-address'];
-                $peer->port = $queries['port'];
-                $peer->agent = $queries['user-agent'];
-                $peer->uploaded = $realUploaded;
-                $peer->downloaded = $realDownloaded;
-                $peer->seeder = (int) ($queries['left'] == 0);
-                $peer->left = $queries['left'];
-                $peer->torrent_id = $torrent->id;
-                $peer->user_id = $user->id;
-                $peer->updateConnectableStateIfNeeded();
-                $peer->updated_at = Carbon::now();
-                $peer->save();
-
-                $history->user_id = $user->id;
-                $history->torrent_id = $torrent->id;
-                $history->info_hash = $queries['info_hash'];
-                $history->agent = $queries['user-agent'];
-                $history->active = 1;
-                $history->seeder = (int) ($queries['left'] == 0);
-                $history->immune = $user->group->is_immune == 1;
-                $history->uploaded += 0;
-                $history->actual_uploaded += 0;
-                $history->client_uploaded = $realUploaded;
-                $history->downloaded += 0;
-                $history->actual_downloaded += 0;
-                $history->client_downloaded = $realDownloaded;
-                $history->save();
-                break;
-
-            case 'completed':
-                $peer->peer_id = $queries['peer_id'];
-                $peer->md5_peer_id = \md5($queries['peer_id']);
-                $peer->info_hash = $queries['info_hash'];
-                $peer->ip = $queries['ip-address'];
-                $peer->port = $queries['port'];
-                $peer->agent = $queries['user-agent'];
-                $peer->uploaded = $realUploaded;
-                $peer->downloaded = $realDownloaded;
-                $peer->seeder = (int) ($queries['left'] == 0);
-                $peer->left = $queries['left'];
-                $peer->torrent_id = $torrent->id;
-                $peer->user_id = $user->id;
-                $peer->updateConnectableStateIfNeeded();
-                $peer->updated_at = Carbon::now();
-                $peer->save();
-
-                $history->user_id = $user->id;
-                $history->torrent_id = $torrent->id;
-                $history->info_hash = $queries['info_hash'];
-                $history->agent = $queries['user-agent'];
-                $history->active = 1;
-                $history->seeder = (int) ($queries['left'] == 0);
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
-                $history->completed_at = Carbon::now();
-                // Seedtime allocation
-                if ($queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-                $history->save();
-
-                // User Update
-                $user->uploaded += $modUploaded;
-                $user->downloaded += $modDownloaded;
-                $user->save();
-                // End User Update
-
-                // Torrent Completed Update
-                $torrent->increment('times_completed');
-                break;
-
-            case 'stopped':
-                $peer->delete();
-
-                $history->user_id = $user->id;
-                $history->torrent_id = $torrent->id;
-                $history->info_hash = $queries['info_hash'];
-                $history->agent = $queries['user-agent'];
-                $history->active = 0;
-                $history->seeder = (int) ($queries['left'] == 0);
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
-                // Seedtime allocation
-                if ($queries['left'] == 0) {
-                    $newUpdate = Carbon::now();
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-                $history->save();
-
-                // User Update
-                $user->uploaded += $modUploaded;
-                $user->downloaded += $modDownloaded;
-                $user->save();
-                // End User Update
-                break;
-
-            default:
-                $peer->peer_id = $queries['peer_id'];
-                $peer->md5_peer_id = \md5($queries['peer_id']);
-                $peer->info_hash = $queries['info_hash'];
-                $peer->ip = $queries['ip-address'];
-                $peer->port = $queries['port'];
-                $peer->agent = $queries['user-agent'];
-                $peer->uploaded = $realUploaded;
-                $peer->downloaded = $realDownloaded;
-                $peer->seeder = (int) ($queries['left'] == 0);
-                $peer->left = $queries['left'];
-                $peer->torrent_id = $torrent->id;
-                $peer->user_id = $user->id;
-                $peer->updateConnectableStateIfNeeded();
-                $peer->updated_at = Carbon::now();
-                $peer->save();
-
-                $history->user_id = $user->id;
-                $history->torrent_id = $torrent->id;
-                $history->info_hash = $queries['info_hash'];
-                $history->agent = $queries['user-agent'];
-                $history->active = 1;
-                $history->seeder = (int) ($queries['left'] == 0);
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
-                // Seedtime allocation
-                if ($queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-
-                $history->save();
-
-                // User Update
-                $user->uploaded += $modUploaded;
-                $user->downloaded += $modDownloaded;
-                $user->save();
-                // End User Update
-            }
-
-        $peerCount = DB::table('peers')
-            ->where('torrent_id', '=', $torrent->id)
-            ->selectRaw('count(case when peers.left > 0 then 1 end) as leechers')
-            ->selectRaw('count(case when peers.left = 0 then 1 end) as seeders')
-            ->first();
-        $torrent->seeders = $peerCount->seeders;
-        $torrent->leechers = $peerCount->leechers;
-        $torrent->save();
+        ProcessAnnounce::dispatch($queries, $user, $torrent);
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array

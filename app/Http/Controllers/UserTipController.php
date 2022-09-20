@@ -39,7 +39,8 @@ class UserTipController extends Controller
         $userbon = $user->getSeedbonus();
         $bontransactions = BonTransactions::query()
             ->with(['senderObj', 'receiverObj'])
-            ->where(fn ($query) => $query
+            ->where(
+                fn ($query) => $query
                 ->where('sender', '=', $user->id)
                 ->orwhere('receiver', '=', $user->id)
             )

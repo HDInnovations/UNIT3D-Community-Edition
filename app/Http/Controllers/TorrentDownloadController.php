@@ -98,7 +98,7 @@ class TorrentDownloadController extends Controller
         $torrentDownload = new TorrentDownload();
         $torrentDownload->user_id = $user->id;
         $torrentDownload->torrent_id = $id;
-        $torrentDownload->type = $rsskey ? 'RSS/API' : 'Site';
+        $torrentDownload->type = $rsskey ? 'RSS/API using '.$request->header('User-Agent') : 'Site using '.$request->header('User-Agent');
         $torrentDownload->save();
 
         return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName)->deleteFileAfterSend(true);

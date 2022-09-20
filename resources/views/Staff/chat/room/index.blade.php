@@ -36,39 +36,13 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.chat-rooms') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data>
-                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
+                <div class="panel__action">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.rooms.create') }}"
+                    >
                         {{ __('common.add') }}
-                    </button>
-                    <dialog class="dialog" x-ref="dialog">
-                        <h3 class="dialog__heading">{{ __('common.add') }} {{ __('common.chat-room') }}</h2>
-                        <form
-                            class="dialog__form"
-                            method="POST"
-                            action="{{ route('staff.rooms.store') }}"
-                            x-on:click.outside="$refs.dialog.close()"
-                        >
-                            @csrf
-                            <p class="form__group">
-                                <input
-                                    type="text"
-                                    class="form__text"
-                                    name="name"
-                                    id="name"
-                                    required
-                                >
-                                <label class="form__label form__label--floating" for="chatroom_name">{{ __('common.name') }}</label>
-                            </p>
-                            <p class="form__group">
-                                <button class="form__button form__button--filled">
-                                    {{ __('common.submit') }}
-                                </button>
-                                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
-                                    {{ __('common.cancel') }}
-                                </button>
-                            </p>
-                        </form>
-                    </dialog>
+                    </a>
                 </div>
             </div>
         </header>
@@ -85,47 +59,20 @@
                 @foreach ($chatrooms as $chatroom)
                     <tr>
                         <td>{{ $chatroom->id }}</td>
-                        <td>{{ $chatroom->name }}</td>
+                        <td>
+                            <a href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}">
+                                {{ $chatroom->name }}
+                            </a>
+                        </td>
                         <td>
                             <menu class="data-table__actions">
-                                <li class="data-table__action" x-data>
-                                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
+                                <li class="data-table__action">
+                                    <a
+                                        class="form__button form__button--text"
+                                        href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}"
+                                    >
                                         {{ __('common.edit') }}
-                                    </button>
-                                    <dialog class="dialog" x-ref="dialog">
-                                        <h3 class="dialog__heading">
-                                            {{ __('common.edit') }} {{ __('common.chat-room') }} ({{ $chatroom->name }})
-                                        </h3>
-                                        <form
-                                            class="dialog__form"
-                                            method="POST"
-                                            action="{{ route('staff.rooms.update', ['id' => $chatroom->id]) }}"
-                                            x-on:click.outside="$refs.dialog.close()"
-                                        >
-                                            @csrf
-                                            <p class="form__group">
-                                                <input
-                                                    id="name"
-                                                    class="form__text"
-                                                    name="name"
-                                                    required
-                                                    type="text"
-                                                    value="{{ $chatroom->name }}"
-                                                >
-                                                <label class="form__label form__label--floating" for="chatroom_name">
-                                                    {{ __('common.name') }}
-                                                </label>
-                                            </p>
-                                            <p class="form__group">
-                                                <button class="form__button form__button--filled">
-                                                    {{ __('common.submit') }}
-                                                </button>
-                                                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
-                                                    {{ __('common.cancel') }}
-                                                </button>
-                                            </p>
-                                        </form>
-                                    </dialog>
+                                    </a>
                                 </li>
                                 <li class="data-table__action">
                                     <form

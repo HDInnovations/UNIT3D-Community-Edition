@@ -135,6 +135,7 @@ class User extends Authenticatable
     }
 
     /**
+
      * Has Many Messages.
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany

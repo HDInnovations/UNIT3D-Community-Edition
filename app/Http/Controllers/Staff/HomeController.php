@@ -35,26 +35,32 @@ class HomeController extends Controller
         // User Info
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $users = DB::table('users')
-            ->selectRaw('count(*) as total')
-            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
-            ->first();
+        $users = \cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
+            return DB::table('users')
+                ->selectRaw('count(*) as total')
+                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                ->first();
+        });
 
         // Torrent Info
-        $torrents = DB::table('torrents')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when status = 0 then 1 end) as pending')
-            ->selectRaw('count(case when status = 2 then 1 end) as rejected')
-            ->selectRaw('count(case when status = 3 then 1 end) as postponed')
-            ->first();
+        $torrents = \cache()->remember('dashboard_torrents', 300, function () {
+            return DB::table('torrents')
+                ->selectRaw('count(*) as total')
+                ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                ->selectRaw('count(case when status = 2 then 1 end) as rejected')
+                ->selectRaw('count(case when status = 3 then 1 end) as postponed')
+                ->first();
+        });
 
         // Peers Info
-        $peers = DB::table('peers')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
-            ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
-            ->first();
+        $peers = \cache()->remember('dashboard_peers', 300, function () {
+            return DB::table('peers')
+                ->selectRaw('count(*) as total')
+                ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
+                ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
+                ->first();
+        });
 
         // Reports Info
         $reports = DB::table('reports')

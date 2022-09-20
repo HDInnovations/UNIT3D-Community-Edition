@@ -27,7 +27,7 @@ class Page extends Model
     /**
      * Set The Pages Content After Its Been Purified.
      */
-    public function setContentAttribute(string $value): void
+    public function setContentAttribute(?string $value): void
     {
         $this->attributes['content'] = $value;
     }

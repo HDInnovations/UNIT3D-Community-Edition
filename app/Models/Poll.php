@@ -64,9 +64,9 @@ class Poll extends Model
     /**
      * Set The Poll's Title.
      */
-    public function setTitleAttribute($title): string
+    public function setTitleAttribute($title): void
     {
-        return $this->attributes['title'] = $title;
+        $this->attributes['title'] = $title;
     }
 
     /**

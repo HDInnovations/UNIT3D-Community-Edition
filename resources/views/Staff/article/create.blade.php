@@ -32,6 +32,7 @@
                 enctype="multipart/form-data"
                 action="{{ route('staff.articles.store') }}"
             >
+                @csrf
                 <p class="form__group">
                     <input
                         type="text"

@@ -65,22 +65,10 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
-    | Website (Authorized By Key) (Alpha Ordered)
-    |---------------------------------------------------------------------------------
-    */
-    Route::group(['before' => 'auth'], function () {
-        // RSS (RSS Key Auth)
-        Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
-        Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
-
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -281,7 +269,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
             Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
             Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
-            Route::get('/{username}/activeByClient/{ip}/{port}', [App\Http\Controllers\UserController::class, 'activeByClient'])->name('user_active_by_client');
             Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
             Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
@@ -583,7 +570,6 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
-
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
@@ -682,7 +668,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.rooms.')->group(function () {
                 Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
+                Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
                 Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
+                Route::get('/rooms/{id}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
                 Route::post('/rooms/{id}/update', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
                 Route::delete('/rooms/{id}/destroy', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
@@ -692,7 +680,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.statuses.')->group(function () {
                 Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
+                Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
                 Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
+                Route::get('/statuses/{id}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
                 Route::post('/statuses/{id}/update', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
                 Route::delete('/statuses/{id}/destroy', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
             });
@@ -722,6 +712,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/clear-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearAllCache']);
             Route::post('/set-all-cache', [App\Http\Controllers\Staff\CommandController::class, 'setAllCache']);
             Route::post('/test-email', [App\Http\Controllers\Staff\CommandController::class, 'testEmail']);
+        });
+
+        // Distributors
+        Route::group(['prefix' => 'distributors'], function () {
+            Route::name('staff.distributors.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\DistributorController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\DistributorController::class, 'update'])->name('update');
+                Route::get('/{id}/delete', [App\Http\Controllers\Staff\DistributorController::class, 'delete'])->name('delete');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\DistributorController::class, 'destroy'])->name('destroy');
+            });
         });
 
         // Flush System
@@ -816,6 +819,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Regions
+        Route::group(['prefix' => 'regions'], function () {
+            Route::name('staff.regions.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
             });
         });
 

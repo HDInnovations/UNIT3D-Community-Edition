@@ -38,67 +38,13 @@
                 {{ __('common.user') }} {{ __('staff.chat') }} {{ __('staff.statuses') }}
             </h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data>
-                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
+                <div class="panel__action">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.statuses.create') }}"
+                    >
                         {{ __('common.add') }}
-                    </button>
-                    <dialog class="dialog" x-ref="dialog">
-                        <h3 class="dialog__heading">
-                            {{ __('common.add') }} {{ __('staff.chat') }} {{ __('staff.status') }}
-                        </h3>            
-                        <form
-                            class="dialog__form"
-                            method="POST"
-                            action="{{ route('staff.statuses.store') }}"
-                            x-on:click.outside="$refs.dialog.close()"
-                        >
-                            @csrf
-                            <p class="form__group">
-                                <input
-                                    id="name"
-                                    class="form__text"
-                                    name="name"
-                                    required
-                                    type="text"
-                                >
-                                <label class="form__label form__label--floating" for="name">
-                                    {{ __('common.name') }}
-                                </label>
-                            </p>
-                            <p class="form__group">
-                                <input
-                                    id="color"
-                                    class="form__text"
-                                    name="color"
-                                    required
-                                    type="text"
-                                >
-                                <label class="form__label form__label--floating" for="color">
-                                    {{ __('common.color') }} (e.g. #ff0000)
-                                </label>
-                            </p>
-                            <p class="form__group">
-                                <input
-                                    id="icon"
-                                    class="form__text"
-                                    name="icon"
-                                    required
-                                    type="text"
-                                >
-                                <label class="form__label form__label--floating" for="icon">
-                                    Font Awesome icon code (e.g. fas fa-comment-smile)
-                                </label>
-                            </p>
-                            <p class="form__group">
-                                <button class="form__button form__button--outlined">
-                                    {{ __('common.cancel') }}
-                                </button>
-                                <button class="form__button form__button--filled">
-                                    {{ __('common.submit') }}
-                                </button>
-                            </p>
-                        </form>
-                    </dialog>
+                    </a>
                 </div>
             </div>
         </header>
@@ -117,7 +63,11 @@
                 @foreach ($chatstatuses as $chatstatus)
                     <tr>
                         <td>{{ $chatstatus->id }}</td>
-                        <td>{{ $chatstatus->name }}</td>
+                        <td>
+                            <a href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}">
+                                {{ $chatstatus->name }}
+                            </a>
+                        </td>
                         <td>
                             <i
                                 class="{{ config('other.font-awesome') }} fa-circle"
@@ -131,71 +81,13 @@
                         </td>
                         <td>
                             <menu class="data-table__actions">
-                                <li class="data-table__action" x-data>
-                                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
+                                <li class="data-table__action">
+                                    <a
+                                        class="form__button form__button--text"
+                                        href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}"
+                                    >
                                         {{ __('common.edit') }}
-                                    </button>
-                                    <dialog class="dialog" x-ref="dialog">
-                                        <h3 class="dialog__heading">
-                                            {{ __('common.edit') }} Chat Status ({{ $chatstatus->name }})
-                                        </h3>
-                                        <form
-                                            class="dialog__form"
-                                            method="POST"
-                                            action="{{ route('staff.statuses.update', ['id' => $chatstatus->id]) }}"
-                                            x-on:click.outside="$refs.dialog.close()"
-                                        >
-                                            @csrf
-                                            <p class="form__group">
-                                                <input
-                                                    id="name"
-                                                    class="form__text"
-                                                    name="name"
-                                                    required
-                                                    type="text"
-                                                    value="{{ $chatstatus->name }}"
-                                                >
-                                                <label class="form__label form__label--floating" for="name">
-                                                    {{ __('common.name') }}
-                                                </label>
-                                            </p>
-                                            <p class="form__group">
-                                                <input
-                                                    id="color"
-                                                    class="form__text"
-                                                    name="color"
-                                                    required
-                                                    type="text"
-                                                    value="{{ $chatstatus->color }}"
-                                                >
-                                                <label class="form__label form__label--floating" for="color">
-                                                    {{ __('common.color') }} (e.g. #ff0000)
-                                                </label>
-                                            </p>
-                                            <p class="form__group">
-                                                <input
-                                                    id="icon"
-                                                    class="form__text"
-                                                    name="icon"
-                                                    placeholder="Enter Font Awesome Code Here..."
-                                                    required
-                                                    type="text"
-                                                    value="{{ $chatstatus->icon }}"
-                                                >
-                                                <label class="form__label form__label--floating" for="icon">
-                                                    Font Awesome icon code (e.g. fas fa-comment-smile)
-                                                </label>
-                                            </p>
-                                            <p class="form__group">
-                                                <button class="form__button form__button--filled">
-                                                    {{ __('common.submit') }}
-                                                </button>
-                                                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
-                                                    {{ __('common.cancel') }}
-                                                </button>
-                                            </p>
-                                        </form>
-                                    </dialog>
+                                    </a>
                                 </li>
                                 <li class="data-table__action">
                                     <form

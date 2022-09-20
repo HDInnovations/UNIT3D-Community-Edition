@@ -243,7 +243,7 @@
                                             name="genres[]"
                                             type="checkbox"
                                             value="{{ $genre->id }}"
-                                            @checked(is_array($rss->object_torrent->genres) && in_array($genre->id, $rss->object_torrent->genres, true))
+                                            @checked(is_array($rss->object_torrent->genres) && in_array((string)$genre->id, $rss->object_torrent->genres, true))
                                         >
                                         {{ $genre->name }}
                                     </label>
@@ -359,6 +359,19 @@
                                     >
                                     <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span>
                                     {{ __('torrent.internal') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="personalrelease"
+                                        class="form__checkbox"
+                                        name="personalrelease"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-user-plus" style="color: #865be9;"></span>
+                                    {{ __('torrent.personal-release') }}
                                 </label>
                             </p>
                             <p class="form__group">

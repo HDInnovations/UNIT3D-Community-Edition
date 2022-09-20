@@ -5,8 +5,9 @@ namespace Tests\Todo\Feature\Http\Controllers\Staff;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
-use function route;
 use Tests\TestCase;
+
+use function route;
 
 /**
  * @see \App\Http\Controllers\Staff\CommandController
