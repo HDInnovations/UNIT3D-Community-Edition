@@ -67,7 +67,7 @@
                                 </td>
 
                                 <td>
-                                    <span class="text-green">{{ $uploader->user->getUploads() }}</span>
+                                    <span class="text-green">{{ $uploader->value }}</span>
                                 </td>
                                 <td>
                                         <span class="text-bold"><i
@@ -130,7 +130,7 @@
                                 </td>
 
                                 <td>
-                                    <span class="text-green">{{ $past_uploader->user->getLast30Uploads() }}</span>
+                                    <span class="text-green">{{ $past_uploader->value }}</span>
                                 </td>
                                 <td>
                                         <span class="text-bold"><i
