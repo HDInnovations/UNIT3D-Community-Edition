@@ -41,11 +41,8 @@ class Playlist extends Model
         return $this->hasMany(PlaylistTorrent::class);
     }
 
-    /**
-     * Has Many Comments.
-     */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Comment::class, 'playlist_id');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

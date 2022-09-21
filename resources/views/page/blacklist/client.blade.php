@@ -21,7 +21,7 @@
                 @foreach ($clients as $client)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
-                            <h4>{{ $client }}</h4>
+                            <h4>{{ $client->name }}</h4>
                             <span>{{ __('page.blacklist-btclient') }}</span>
                             <i class="fal fa-ban text-red black-icon"></i>
                         </div>

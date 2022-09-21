@@ -1,4 +1,14 @@
 :root {
+    --message-bubble-bg: white;
+    --message-bubble-fg: currentColor;
+    --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
+    --button-filled-fg: white;
+    --button-text-bg: inherit;
+    --button-text-fg: currentColor;
+    --textarea-border: #555;
+    --textarea-border-hover: #999;
+    --textarea-border-active: #2196f3;
+
     --achievement-fg: inherit;
     --achievement-bg: #e7e7e7;
 
@@ -105,6 +115,14 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #444;
+
+    --torrent-card-bg: #e2e2e2;
+    --torrent-card-fg: inherit;
+    --torrent-card-border: 1px solid #ddd;
+    --torrent-card-head-bg: #373d43;
+    --torrent-card-head-fg: #fff;
+    --torrent-card-link-fg: #3b3b3b;
+    --torrent-card-genre-fg: #444;
 }
 
 .permalink {
@@ -3169,6 +3187,7 @@ button.list-group-item-danger.active:hover {
 
 .panel-body {
     padding: 15px;
+    background-color: #e2e2e2;
 }
 
 .panel-body:after,
@@ -10791,7 +10810,7 @@ div.single_column {
     display: block !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 4px 12px 0 8px;
     margin: 4px 12px 0 48px;
 }
@@ -10799,7 +10818,7 @@ div.single_column {
 .sent > div {
     display: block !important;
     border-bottom-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 0 12px 4px 8px !important;
     margin: 0 12px 4px 48px !important;
 }
@@ -10814,7 +10833,7 @@ div.single_column {
     bottom: 4px;
     left: 38px;
     width: 0;
-    border-right: 10px solid #ffffff;
+    border-right: 10px solid var(--message-bubble-bg);
     border-top: 10px solid transparent;
     /* border-bottom: 10px solid transparent; */
 }

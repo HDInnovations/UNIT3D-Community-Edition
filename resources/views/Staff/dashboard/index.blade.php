@@ -138,6 +138,12 @@
                         {{ __('staff.bon-exchange') }}
                     </a>
                 </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.blacklists.clients.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-ban"></i>
+                        {{ __('torrent.client') }} {{ __('common.blacklist') }}
+                    </a>
+                </p>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">

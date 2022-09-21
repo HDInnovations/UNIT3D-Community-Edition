@@ -1,0 +1,122 @@
+.comments,
+.comment__reply-list {
+    padding: 0;
+    margin-top: 10px;
+    list-style-type: none;
+    background-color: inherit !important; /* Overrides theming */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+
+    > li {
+        background-color: inherit;
+        max-width: 100%;
+    }
+}
+
+.comment {
+    display: grid;
+    grid-template-columns: 0 auto auto 1fr auto;
+    grid-template-rows: min-content auto;
+    grid-template-areas:
+        'avatar author timestamp . actions'
+        'avatar content content content content';
+    gap: 0;
+    align-items: center;
+    padding: 12px 16px;
+    margin-left: 58px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--message-bubble-fg, currentColor);
+    background-color: var(--message-bubble-bg, inherit);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    width: fit-content;
+}
+
+.comment__header {
+    display: contents;
+}
+
+.comment__avatar {
+    grid-area: avatar;
+    position: relative;
+    left: -58px;
+    bottom: -12px;
+    border-radius: 50%;
+    width: 36px;
+    align-self: self-end;
+    background-color: transparent;
+}
+
+.comment__author {
+    grid-area: author;
+    margin: 0;
+    font-size: 13px;
+}
+
+.comment__author-link {
+    font-weight: 600;
+}
+
+.comment__timestamp {
+    grid-area: timestamp;
+    font-size: 11px;
+    margin: 0 8px;
+    white-space: nowrap;
+}
+
+.comment__actions {
+    grid-area: actions;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+.comment__edit,
+.comment__reply,
+.comment__delete {
+    background-color: transparent;
+    border-radius: 50%;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    flex: 1;
+    border: none;
+    font-size: 13px;
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+
+/* Can be removed once `abbr[title]` underlined styling is removed site-wide */
+.comment__edit-abbr,
+.comment__reply-abbr,
+.comment__delete-abbr {
+    border-bottom: none !important;
+    text-decoration: none !important;
+    cursor: unset !important;
+}
+
+.comment__content {
+    grid-area: content;
+    position: relative;
+    margin-top: 0 !important; /* can be removed once site-wide `p` styling is removed */
+}
+
+.edit-comment {
+    grid-area: content;
+    width: 9999px;
+}
+
+.comment__replies {
+    background-color: inherit;
+    margin-left: 54px;
+}
+
+.reply-comment {
+    width: 9999px;
+}
