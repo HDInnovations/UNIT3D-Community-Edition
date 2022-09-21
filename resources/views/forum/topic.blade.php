@@ -37,7 +37,7 @@
             {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(__('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(__('forum.views')) }}</span>
-            @if(auth()->user()->isSubscribed('topic', $topic->id))
+            @if(auth()->user()->subscriptions()->ofTopic($topic->id)->exists())
                 <form action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}"
                       method="POST" style="display: inline;">
                     @csrf

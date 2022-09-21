@@ -51,7 +51,8 @@ class AutoHighspeedTag extends Command
                     ->select('torrent_id')
                     ->whereRaw("ip IN ('".$seedboxIps->implode("','")."')"),
                 'highspeed_torrents',
-                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id'))
+                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
+            )
             ->update([
                 'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
             ]);

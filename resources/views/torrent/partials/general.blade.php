@@ -217,7 +217,7 @@
                             @endif
 
                             @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
-                                @if (auth()->user()->isFollowing($uploader->id))
+                                @if (auth()->user()->follows()->following($uploader->id)->exists())
                                     <form class="form-inline" style="line-height: 0; display: inline-block;" role="form"
                                           action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
                                           style="display: inline-block;" method="POST">
@@ -453,7 +453,7 @@
                     @endif
 
                     @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
-                        @if (auth()->user()->isFollowing($uploader->id))
+                        @if (auth()->user()->follows()->following($uploader->id)->exists())
                             <form class="form-inline" role="form"
                                   action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
                                   style="display: inline-block;" method="POST">

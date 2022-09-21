@@ -86,7 +86,7 @@
                             --
                         </td>
                         <td class="f-display-topic-stats">
-                            @if (auth()->user()->isSubscribed('forum', $r->id))
+                            @if (auth()->user()->subscriptions()->ofForum($r->id)->exists())
                                 <form action="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
                                       method="POST" style="display: inline;">
                                     @csrf
@@ -153,7 +153,7 @@
                                 @endif
                             </td>
                             <td class="f-display-topic-stats">
-                                @if (auth()->user()->isSubscribed('topic',$t->id))
+                                @if (auth()->user()->subscriptions()->ofTopic($t->id)->exists())
                                     <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
                                        class="label label-sm label-danger">
                                         <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> {{ __('forum.unsubscribe') }}
