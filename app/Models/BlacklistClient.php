@@ -15,21 +15,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Collection extends Model
+class BlacklistClient extends Model
 {
-    protected $guarded = [];
-
-    public $timestamps = false;
-
-    protected $table = 'collection';
-
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Movie::class);
-    }
 }
