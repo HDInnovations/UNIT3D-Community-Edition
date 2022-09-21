@@ -56,8 +56,3 @@ window.Swal = require('sweetalert2');
 
 // Vibrant
 window.Vibrant = require('node-vibrant');
-
-// Emoji Picker
-import 'emoji-picker-element';
-
-window.textFieldEdit = require('text-field-edit');
