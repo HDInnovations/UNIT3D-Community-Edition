@@ -38,7 +38,7 @@ class UserWarning extends Notification
             ->greeting('Hit and Run Warning!')
             ->line('You have revieved a hit and run warning on one or more torrents!')
             ->action('View Unsatfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->line('Thank you for using 🚀'.\config('other.title'));
     }
 
     /**

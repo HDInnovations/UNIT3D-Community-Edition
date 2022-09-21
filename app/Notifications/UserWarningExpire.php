@@ -38,7 +38,7 @@ class UserWarningExpire extends Notification
             ->greeting('Hit and Run Warning Expired!')
             ->line('Your Hit and Run Warning has expired or been seeded off!')
             ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->line('Thank you for using 🚀'.\config('other.title'));
     }
 
     /**

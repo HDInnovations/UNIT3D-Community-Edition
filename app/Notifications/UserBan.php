@@ -31,12 +31,12 @@ class UserBan extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
-        $discordUrl = config('other.discord-link');
+        $chatdUrl = \config('unit3d.chat-link-url');
 
         return (new MailMessage())
             ->greeting('You have been banned 😭')
-            ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
-            ->action('Need Support?', $discordUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->line('You have been banned from '.\config('other.title').' for '.$this->ban->ban_reason)
+            ->action('Need Support?', $chatdUrl)
+            ->line('Thank you for using 🚀'.\config('other.title'));
     }
 }

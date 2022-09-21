@@ -38,7 +38,7 @@ class UserManualWarningExpire extends Notification
             ->greeting('Manual Warning Expired!')
             ->line('Your Warning has expired!')
             ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->line('Thank you for using 🚀'.\config('other.title'));
     }
 
     /**
