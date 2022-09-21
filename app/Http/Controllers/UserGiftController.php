@@ -42,7 +42,8 @@ class UserGiftController extends Controller
 
         $gifttransactions = BonTransactions::query()
             ->with(['senderObj', 'receiverObj'])
-            ->where(fn ($query) => $query
+            ->where(
+                fn ($query) => $query
                 ->where('sender', '=', $user->id)
                 ->orwhere('receiver', '=', $user->id)
             )
@@ -118,7 +119,8 @@ class UserGiftController extends Controller
         }
 
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
+            \sprintf(
+                '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
                 \href_profile($user),
                 $user->username,
                 $value,

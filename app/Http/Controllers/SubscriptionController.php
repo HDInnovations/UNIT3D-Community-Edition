@@ -39,7 +39,7 @@ class SubscriptionController extends Controller
             $params = ['id' => $topic->id];
         }
 
-        if (! $request->user()->isSubscribed('topic', $topic->id)) {
+        if ($request->user()->subscriptions()->ofTopic($topic->id)->doesntExist()) {
             $subscription = new Subscription();
             $subscription->user_id = $request->user()->id;
             $subscription->topic_id = $topic->id;
@@ -69,8 +69,8 @@ class SubscriptionController extends Controller
             $params = ['id' => $topic->id];
         }
 
-        if ($request->user()->isSubscribed('topic', $topic->id)) {
-            $subscription = $request->user()->subscriptions()->where('topic_id', '=', $topic->id)->first();
+        if ($request->user()->subscriptions()->ofTopic($topic->id)->exists()) {
+            $subscription = $request->user()->subscriptions()->ofTopic($topic->id)->first();
             $subscription->delete();
 
             return \to_route($logger, $params)
@@ -97,7 +97,7 @@ class SubscriptionController extends Controller
             $params = ['id' => $forum->id];
         }
 
-        if (! $request->user()->isSubscribed('forum', $forum->id)) {
+        if ($request->user()->subscriptions()->ofForum($forum->id)->doesntExist()) {
             $subscription = new Subscription();
             $subscription->user_id = $request->user()->id;
             $subscription->forum_id = $forum->id;
@@ -127,8 +127,8 @@ class SubscriptionController extends Controller
             $params = ['id' => $forum->id];
         }
 
-        if ($request->user()->isSubscribed('forum', $forum->id)) {
-            $subscription = $request->user()->subscriptions()->where('forum_id', '=', $forum->id)->first();
+        if ($request->user()->subscriptions()->ofForum($forum->id)->exists()) {
+            $subscription = $request->user()->subscriptions()->ofForum($forum->id)->first();
             $subscription->delete();
 
             return \to_route($logger, $params)

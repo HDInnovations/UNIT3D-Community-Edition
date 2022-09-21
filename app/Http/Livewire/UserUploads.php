@@ -75,7 +75,9 @@ class UserUploads extends Component
             ->withAnyStatus()
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
-            ->when($this->name, fn ($query) => $query
+            ->when(
+                $this->name,
+                fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))

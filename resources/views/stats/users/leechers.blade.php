@@ -57,7 +57,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="text-red">{{ $l->user->getLeeching() }}</span>
+                                    <span class="text-red">{{ $l->user->leechingTorrents()->count() }}</span>
                                 </td>
                             </tr>
                         @endforeach

@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -44,5 +45,13 @@ class Follow extends Model
             'username' => 'System',
             'id'       => '1',
         ]);
+    }
+
+    /**
+     * Only included follows following a user
+     */
+    public function scopeFollowing($query, $user_id): Builder
+    {
+        return $query->where('target_id', '=', $user_id);
     }
 }

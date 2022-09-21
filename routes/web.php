@@ -69,7 +69,6 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
-
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -129,22 +128,9 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
             Route::get('/staff', [App\Http\Controllers\PageController::class, 'staff'])->name('staff');
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
-            Route::get('/blacklist', [App\Http\Controllers\PageController::class, 'blacklist'])->name('blacklist');
+            Route::get('/blacklist/clients', [App\Http\Controllers\PageController::class, 'clientblacklist'])->name('client_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
             Route::get('/{id}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
-        });
-
-        // Comments System
-        Route::group(['prefix' => 'comments'], function () {
-            Route::post('/article/{id}', [App\Http\Controllers\CommentController::class, 'article'])->name('comment_article');
-            Route::post('/torrent/{id}', [App\Http\Controllers\CommentController::class, 'torrent'])->name('comment_torrent');
-            Route::post('/thanks/{id}', [App\Http\Controllers\CommentController::class, 'quickthanks'])->name('comment_thanks');
-            Route::post('/request/{id}', [App\Http\Controllers\CommentController::class, 'request'])->name('comment_request');
-            Route::post('/playlist/{id}', [App\Http\Controllers\CommentController::class, 'playlist'])->name('comment_playlist');
-            Route::post('/collection/{id}', [App\Http\Controllers\CommentController::class, 'collection'])->name('comment_collection');
-            Route::post('/ticket/{id}', [App\Http\Controllers\CommentController::class, 'ticket'])->name('comment_ticket');
-            Route::post('/edit/{comment_id}', [App\Http\Controllers\CommentController::class, 'editComment'])->name('comment_edit');
-            Route::delete('/delete/{comment_id}', [App\Http\Controllers\CommentController::class, 'deleteComment'])->name('comment_delete');
         });
 
         // Extra-Stats System
@@ -571,7 +557,6 @@ Route::group(['middleware' => 'language'], function () {
     |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
-
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
@@ -627,6 +612,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', [App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
                 Route::post('/{username}/store', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
                 Route::post('/{username}/update', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
+            });
+        });
+
+        // Blacklist System
+        Route::group(['prefix' => 'blacklists'], function () {
+            Route::name('staff.blacklists.clients.')->group(function () {
+                Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
+                Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
+                Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
+                Route::get('/clients/{id}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
+                Route::patch('/clients/{id}/update', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
+                Route::delete('/clients/{id}/destroy', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
             });
         });
 

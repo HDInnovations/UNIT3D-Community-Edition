@@ -19,7 +19,7 @@ class Company
 
     public ?int $page = null;
 
-    public final const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+    final public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
 
     public $data;
 
