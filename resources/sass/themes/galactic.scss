@@ -126,6 +126,14 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #bbb;
+
+    --torrent-card-bg: #272727;
+    --torrent-card-fg: var(--text-color);
+    --torrent-card-border: none;
+    --torrent-card-head-bg: #1c1c1c;
+    --torrent-card-head-fg: #fff;
+    --torrent-card-link-fg: #fff;
+    --torrent-card-genre-fg: #fff;
 }
 
 .tooltip .tooltip-inner {
