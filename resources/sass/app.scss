@@ -9,13 +9,15 @@
 @import 'vendor/virtual-select';
 @import 'vendor/alpinejs';
 
-// UNIT3D components
+// Base
+@import 'base/typography';
+
+// Components
 @import 'variables';
 @import 'main/main';
 @import 'main/aboutus';
 @import 'chat/chatbox';
 @import 'main/tooltips';
-@import 'base/typography';
 @import 'components/achievement';
 @import 'components/article-preview';
 @import 'components/bbcode-input';
@@ -45,11 +47,16 @@
 @import 'components/user-active';
 @import 'components/user-torrents';
 @import 'components/user-uploads';
+
+// Layout
 @import 'layout/header';
 @import 'layout/main';
 @import 'layout/secondary-nav';
 @import 'layout/top_nav';
+
+// Pages
 @import 'pages/error';
 @import 'pages/home';
+@import 'pages/missing';
 @import 'pages/staff';
 @import 'pages/torrents';
