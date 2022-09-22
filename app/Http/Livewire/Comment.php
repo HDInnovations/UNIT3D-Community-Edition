@@ -28,6 +28,7 @@ use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
@@ -36,8 +37,6 @@ class Comment extends Component
     public $comment;
 
     public $anon = false;
-
-    private TaggedUserRepository $taggedUserRepository;
 
     public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
 
@@ -61,9 +60,8 @@ class Comment extends Component
         'content' => '',
     ];
 
-    final public function mount(TaggedUserRepository $taggedUserRepository): void
+    final public function mount(): void
     {
-        $this->taggedUserRepository = $taggedUserRepository;
         $this->user = \auth()->user();
     }
 
@@ -152,14 +150,15 @@ class Comment extends Component
         }
 
         // Tagging
-        if ($this->taggedUserRepository->hasTags($this->replyState)) {
-            if ($this->user->group->is_modo && $this->taggedUserRepository->contains($this->replyState, '@here')) {
+        $taggedUserRepository = App::make(TaggedUserRepository::class);
+        if ($taggedUserRepository->hasTags($this->replyState)) {
+            if ($this->user->group->is_modo && $taggedUserRepository->contains($this->replyState, '@here')) {
                 $users = \collect([]);
 
                 $this->comment->children()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->taggedUserRepository->messageCommentUsers(
+                $taggedUserRepository->messageCommentUsers(
                     $this->comment,
                     $users,
                     $this->user,
@@ -168,7 +167,7 @@ class Comment extends Component
                 );
             } else {
                 $sender = $reply->anon !== 0 ? $this->user->username : 'Anonymous';
-                $this->taggedUserRepository->messageTaggedCommentUsers(
+                $taggedUserRepository->messageTaggedCommentUsers(
                     $this->comment,
                     $this->replyState[],
                     $this->user,
