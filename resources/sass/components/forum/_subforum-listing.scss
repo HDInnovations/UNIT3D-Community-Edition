@@ -8,10 +8,12 @@
 
 .subforum-listings__item:nth-child(odd) {
     background-color: var(--subforum-listing-odd-bg);
+    display: grid;
 }
 
 .subforum-listings__item:nth-child(even) {
     background-color: var(--subforum-listing-even-bg);
+    display: grid;
 }
 
 .subforum-listing {
@@ -74,7 +76,7 @@
 
 .subforum-listing__latest-topic {
     grid-area: latest;
-    display: grid;
+    display: inline-flex;
     grid-template-areas: 'heading heading' 'datetime author';
     grid-template-columns: auto 1fr;
 }

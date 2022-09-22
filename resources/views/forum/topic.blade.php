@@ -27,8 +27,8 @@
 @section('page', 'page__forum--topic')
 
 @section('main')
-    <header class="topic-posts__header">
-        <h2 class="topic-posts__title">{{ $topic->name }}</h2>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $topic->name }}</h2>
         @if ($topic->approved || $topic->denied || $topic->solved || $topic->invalid || $topic->bug || $topic->suggestion || $topic->implemented)
             <ul class="topic-tags">
                 <li class="topic-tag">
@@ -57,8 +57,8 @@
                 @endif
             </ul>
         @endif
-    </header>
-    <div style="display: flex; justify-content: flex-end">{{ $posts->links() }}</div>
+    </section>
+    <div>{{ $posts->links('partials.pagination') }}</div>
     <ol class="topic-posts">
         @foreach ($posts as $k => $post)
             <li class="topic-posts__item">
@@ -66,7 +66,7 @@
             </li>
         @endforeach
     </ol>
-    <div style="display: flex; justify-content: flex-end">{{ $posts->links() }}</div>
+    <div>{{ $posts->links('partials.pagination') }}</div>
     @if ($topic->state === 'close')
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif

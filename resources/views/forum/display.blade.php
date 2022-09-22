@@ -39,7 +39,7 @@
                     </a>
                 @endif
                 @if ($category->getPermission()->show_forum == true)
-                    @if (auth()->user()->isSubscribed('forum', $forum->id))
+                    @if (auth()->user()->subscriptions()->ofForum($forum->id)->exists())
                         <form
                             class="panel__action" 
                             action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"

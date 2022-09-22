@@ -76,11 +76,7 @@
                 @endif
             </span>
         @else
-            <img
-                class="topic-listing__icon"
-                src="{{ url('img/f_icon_read.png') }}"
-                alt="read"
-            >
+            <i class="fad fa-comments"></i>
         @endif
         <figcaption class="topic-listing__forum">
             {{ $topic->forum->name }}

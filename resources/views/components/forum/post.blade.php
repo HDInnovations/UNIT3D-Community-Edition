@@ -57,7 +57,7 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('tip_poster') }}"
+                    action="{{ route('tips.store', ['username' => auth()->user()->id]) }}"
                 >
                     @csrf
                     <input type="hidden" name="recipient" value="{{ $post->user->id }}">
@@ -153,7 +153,7 @@
                 alt=""
             >
         </figure>
-        <x-chip.user
+        <x-user_tag
             class="post__author"
             :anon="false"
             :user="$post->user"
@@ -168,7 +168,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>
-        </x-chip.user>
+        </x-user_tag>
         @if (! empty($post->user->title))
             <p class="post__author-title">
                 {{ $post->user->title }}
@@ -212,7 +212,7 @@
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->signature !!}
+                {!! $post->user->getSignature() !!}
             </p>
         </footer>
     @endif

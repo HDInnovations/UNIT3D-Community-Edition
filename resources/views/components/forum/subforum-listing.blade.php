@@ -27,11 +27,7 @@
         </p>
     </header>
     <figure class="subforum-listing__figure">
-        <img
-            class="subforum-listing__icon"
-            src="{{ url('img/forum.png') }}"
-            alt=""
-        >
+        <i class="fad fa-comments"></i>
     </figure>
     <dl class="subforum-listing__topic-stats">
         <dt>{{ __('forum.topics') }}</dt>
@@ -43,14 +39,14 @@
     </dl>
     <article class="subforum-listing__latest-topic">
         @if ($subforum->last_topic_id !== null && $subforum->last_topic_name !== null)
-            <h4 class="subforum-listing__latest-heading">
+            <p class="subforum-listing__latest-heading">
                 <a
                     class="subforum-listing__latest-link"
                     href="{{ route('forum_topic', ['id' => $subforum->last_topic_id ?? 1]) }}"
                 >
                     {{ $subforum->last_topic_name }}
                 </a>
-            </h4>
+            </p>
         @endif
         <time
             class="subforum-listing__latest-datetime"
