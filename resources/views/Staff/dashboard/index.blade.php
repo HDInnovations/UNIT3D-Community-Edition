@@ -195,6 +195,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.cheated_torrents.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-question"></i>
+                        Cheated Torrents
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
                         <button 

@@ -688,6 +688,15 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Cheated Torrents
+        Route::group(['prefix' => 'cheated-torrents'], function () {
+            Route::name('staff.cheated_torrents.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'index'])->name('index');
+                Route::delete('/{id}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
+                Route::delete('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'massDestroy'])->name('massDestroy');
+            });
+        });
+
         // Cheaters
         Route::group(['prefix' => 'cheaters'], function () {
             Route::name('staff.cheaters.')->group(function () {
