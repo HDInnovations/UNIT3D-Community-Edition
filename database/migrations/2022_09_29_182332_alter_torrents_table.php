@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('torrents', function (Blueprint $table) {
-            $table->bigInteger('balance');
-            $table->bigInteger('balance_offset');
+            $table->bigInteger('balance')->nullable();
+            $table->bigInteger('balance_offset')->nullable();
         });
     }
 };
