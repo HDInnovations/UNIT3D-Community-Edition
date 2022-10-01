@@ -15,7 +15,7 @@
             <table class="data-table">
                 @foreach ($clients as $client)
                     <tr>
-                        <td>{{ $client }}</td>
+                        <td>{{ $client->name }}</td>
                     </tr>
                 @endforeach
             </table>

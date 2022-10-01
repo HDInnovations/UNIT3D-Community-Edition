@@ -64,7 +64,7 @@
                                     <a href="#modal_user_gift" data-toggle="modal"
                                        data-target="#modal_user_gift"><i
                                                 class="{{ config('other.font-awesome') }} fa-gift text-info"></i></a>
-                                    @if ($user->getWarning() > 0)
+                                    @if ($user->warnings()->active()->exists())
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                            aria-hidden="true"
                                            data-toggle="tooltip" title=""
@@ -371,17 +371,17 @@
                                     <ul class="list-inline mb-0">
                                         <li>
           <span class="badge-extra"><strong>{{ __('user.article-comments') }}:</strong>
-            <span class="text-green text-bold">{{ $user->comments()->where('article_id', '>', 0)->count() }}</span>
+            <span class="text-green text-bold">{{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}</span>
           </span>
                                         </li>
                                         <li>
           <span class="badge-extra"><strong>{{ __('user.torrent-comments') }}:</strong>
-            <span class="text-green text-bold">{{ $user->comments()->where('torrent_id', '>', 0)->count() }}</span>
+            <span class="text-green text-bold">{{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}</span>
           </span>
                                         </li>
                                         <li>
           <span class="badge-extra"><strong>{{ __('user.request-comments') }}:</strong>
-            <span class="text-green text-bold">{{ $user->comments()->where('requests_id', '>', 0)->count() }}</span>
+            <span class="text-green text-bold">{{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}</span>
           </span>
                                         </li>
                                     </ul>

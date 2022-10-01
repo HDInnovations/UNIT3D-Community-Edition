@@ -167,67 +167,10 @@
                             @endif
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-md-12 col-sm-12">
-                    <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">
-                            <h4>
-                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
-                            </h4>
-                        </div>
-                        <div class="panel-body no-padding">
-                            <ul class="media-list comments-list">
-                                @if (count($ticket->comments) == 0)
-                                    <div class="text-center">
-                                        <h4 class="text-bold text-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
-                                            !
-                                        </h4>
-                                    </div>
-                                @else
-                                    @foreach ($ticket->comments as $comment)
-                                        <li class="media" style="border-left: 5px solid rgb(1,188,140);">
-                                            <div class="media-body">
-                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                   class="pull-left" style="padding-right: 10px;">
-                                                    @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @else
-                                                    <img src="{{ url('img/profile.png') }}"
-                                                         alt="{{ $comment->user->username }}"
-                                                         class="img-avatar-48"></a>
-                                                @endif
-                                                <strong>
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }};">
-                                                        <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
-                                                    </a>
-                                                </strong>
-                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                <div class="pt-5">
-                                                    @joypixels($comment->getContentHtml())
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <form role="form" method="POST" action="{{ route('comment_ticket', ['id' => $ticket->id]) }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="content">{{ __('common.your-comment') }}:</label>
-                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">{{ __('common.submit') }}</button>
-                    </form>
+                    <livewire:comments :model="$ticket"/>
                 </div>
             </div>
         </div>
