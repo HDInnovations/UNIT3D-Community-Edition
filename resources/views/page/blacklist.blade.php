@@ -6,28 +6,28 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="col-md-12 page">
-            <div class="alert alert-info" id="alert1">
-                <div class="text-center">
-                    <span>
-                        {{ __('page.blacklist-desc', ['title' => config('other.title')]) }}
-                    </span>
-                </div>
-            </div>
-            <div class="row black-list">
-                <h2>{{ __('page.blacklist-clients') }}</h2>
+@section('page', 'page__blacklist--index')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('page.blacklist-clients') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 @foreach ($clients as $client)
-                    <div class="col-xs-6 col-sm-4 col-md-3">
-                        <div class="text-center black-item">
-                            <h4>{{ $client }}</h4>
-                            <span>{{ __('page.blacklist-btclient') }}</span>
-                            <i class="fal fa-ban text-red black-icon"></i>
-                        </div>
-                    </div>
+                    <tr>
+                        <td>{{ $client }}</td>
+                    </tr>
                 @endforeach
-            </div>
+            </table>
         </div>
-    </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <div class="panel__body">
+            {{ __('page.blacklist-desc', ['title' => config('other.title')]) }}
+        </div>
+    </section>
 @endsection

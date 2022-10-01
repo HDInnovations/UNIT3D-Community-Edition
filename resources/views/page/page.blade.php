@@ -11,14 +11,26 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="col-md-12 page">
-            <article class="page-content">
-                @joypixels($page->getContentHtml())
-            </article>
+@section('page', 'page__page--show')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $page->name }}</h2>
+        <div class="panel__body">
+            @joypixels($page->getContentHtml())
         </div>
-    </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <dt>{{ __('common.created_at') }}</dt>
+            <dd>{{ $page->created_at }}</dd>
+            <dt>{{ __('torrent.updated_at') }}</dt>
+            <dd>{{ $page->updated_at }}</dd>
+    </section>
 @endsection
 
 @section('javascripts')

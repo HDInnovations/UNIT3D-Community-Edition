@@ -6,22 +6,21 @@
     </li>
 @endsection
 
+@section('page', 'page__page--index')
+
 @section('content')
-    <div class="container">
-        <div class="block">
-            <h1 class="title">
-                Pages
-            </h1>
-            <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered table-hover">
-                    <thead>
+    <section class="panelV2">
+        <h2 class="panel__heading">Pages</h1>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>
                         <th>Created</th>
                         <th>Updated</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     @foreach($pages as $page)
                         <tr>
                             <td>
@@ -37,9 +36,8 @@
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection
