@@ -6,27 +6,34 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="col-md-12 page">
-            @foreach ($staff as $s)
-            <div class="row oper-list">
-                <h3><u>{{ $s->name }}</u></h3>
-                @foreach($s->users as $user)
-                    <div class="col-xs-6 col-sm-4 col-md-3">
-                        <div class="text-center oper-item" style="background-color: {{ $s->color }};">
-                            <a href="{{ route('users.show', ['username' => $user->username]) }}" style="color:#ffffff;">
-                                <h1>{{ $user->username }}</h1>
-                            </a>
-                            <span class="badge-user">{{ __('page.staff-group') }}: {{ $s->name }}</span>
-                            <br>
-                            <span class="badge-user">{{ __('page.staff-title') }}: {{ $user->title }}</span>
-                            <i class="fal {{ $s->icon }} oper-icon"></i>
-                        </div>
-                    </div>
+@section('page', 'page__staff--index')
+
+@section('main')
+    @foreach ($staff as $group)
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ $group->name }}</h2>
+            <div class="panel__body user-card-wrapper">
+                @foreach ($group->users as $user)
+                    <a
+                        href="{{ route('users.show', ['username' => $user->username]) }}"
+                        class="user-card"
+                        style="background-color: {{ $user->group->color }}; background-image: {{ $group->effect }};"
+                    >
+                        <h3 class="user-card__username">
+                            {{ $user->username }}
+                        </h3>
+                        <i class="fal {{ $user->group->icon }} user-card__icon"></i>
+                        <p class="user-card__group">
+                            {{ __('page.staff-group') }}: {{ $group->name }}
+                        </p>
+                        @if ($user->title !== null)
+                            <p class="user-card__title">
+                                {{ __('page.staff-title') }}: {{ $user->title }}
+                            </p>
+                        @endif
+                    </a>
                 @endforeach
             </div>
-            @endforeach
-        </div>
-    </div>
+        </section>
+    @endforeach
 @endsection

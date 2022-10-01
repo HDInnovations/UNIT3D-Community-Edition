@@ -6,44 +6,38 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="col-md-12 page">
+@section('page', 'page__internal--index')
 
-            <!-- Internals in Groups -->
-            @foreach ($internals as $internal)
-                <div class="row oper-list">
-                    <div class="page-title" style="text-align:center;">
-                        <h1>
-                            @if ($internal->icon !== 'none')
-                                <i class="{{ $internal->icon }}"></i>
-                            @else
-                                <i class="fas fa-magic"></i>
-                            @endif
-                            {{ $internal->name }}
-                        </h1>
-                    </div>
-                    @foreach ($internal->users as $user)
-                            <div class="col-xs-6 col-sm-4 col-md-3">
-                                <div class="text-center oper-item" style="background-color: {{ $user->group->color }}; background-image: {{ $internal->effect }};">
-                                    <a href="{{ route('users.show', ['username' => $user->username]) }}" style="color:#ffffff;">
-                                        <h1>{{ $user->username }}</h1>
-                                    </a>
-                                    <span class="badge-user" style="margin-bottom:5px;">{{ __('page.staff-group') }}: {{ $internal->name }}</span>
-                                    <br>
-                                    @if ($user->title != null)
-                                        <span class="badge-user">{{ __('page.staff-title') }}: {{ $user->title }}</span>
-                                    @else
-                                        <span class="badge-user" style="visibility:hidden;"></span>
-                                    @endif
-                                    <i class="fal {{ $user->group->icon }} oper-icon"></i>
-                                </div>
-                            </div>
-                    @endforeach
-                </div>
-                <br>
-                <hr>
-            @endforeach
-        </div>
-    </div>
+@section('main')
+    <!-- Internals in Groups -->
+    @foreach ($internals as $internal)
+        <section class="panelV2">
+            <h2 class="panel__heading">
+                <i class="{{ $internal->icon === 'none' ? 'fas fa-magic' : $internal->icon }}"></i>
+                {{ $internal->name }}
+            </h2>
+            <div class="panel__body user-card-wrapper">
+                @foreach ($internal->users as $user)
+                    <a
+                        href="{{ route('users.show', ['username' => $user->username]) }}"
+                        class="user-card"
+                        style="background-color: {{ $user->group->color }}; background-image: {{ $internal->effect }};"
+                    >
+                        <h3 class="user-card__username">
+                            {{ $user->username }}
+                        </h3>
+                        <i class="fal {{ $user->group->icon }} user-card__icon"></i>
+                        <p class="user-card__group">
+                            {{ __('page.staff-group') }}: {{ $internal->name }}
+                        </p>
+                        @if ($user->title !== null)
+                            <p class="user-card__title">
+                                {{ __('page.staff-title') }}: {{ $user->title }}
+                            </p>
+                        @endif
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    @endforeach
 @endsection
