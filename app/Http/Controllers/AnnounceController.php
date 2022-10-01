@@ -20,6 +20,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessAnnounce;
+use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
@@ -146,6 +147,7 @@ class AnnounceController extends Controller
             || $request->header('want-digest'), new TrackerException(122));
 
         $userAgent = $request->header('User-Agent');
+        $clientBlacklist = BlacklistClient::all()->pluck('name')->toArray();
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
         \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
@@ -158,7 +160,7 @@ class AnnounceController extends Controller
 
         // Block Blacklisted Clients
         \throw_if(
-            \in_array($request->header('User-Agent'), \config('client-blacklist.clients')),
+            \in_array($request->header('User-Agent'), $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')])
         );
     }

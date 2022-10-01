@@ -54,13 +54,5 @@ require('./wysibb/jquery.wysibb');
 // Sweet Alert
 window.Swal = require('sweetalert2');
 
-// Keen Slider
-window.KeenSlider = require('keen-slider/keen-slider');
-
 // Vibrant
 window.Vibrant = require('node-vibrant');
-
-// Emoji Picker
-import 'emoji-picker-element';
-
-window.textFieldEdit = require('text-field-edit');

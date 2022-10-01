@@ -3,27 +3,29 @@
 
 // Vendor components
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~keen-slider/keen-slider';
 @import 'vendor/font-awesome';
 @import '~sweetalert2/src/sweetalert2';
 @import '../js/wysibb/theme/default/wbbtheme.css';
 @import 'vendor/virtual-select';
 @import 'vendor/alpinejs';
 
-// UNIT3D components
+// Base
+@import 'base/typography';
+
+// Components
 @import 'variables';
 @import 'main/main';
 @import 'main/aboutus';
 @import 'chat/chatbox';
 @import 'main/tooltips';
-@import 'base/typography';
 @import 'components/achievement';
 @import 'components/article-preview';
 @import 'components/bbcode-input';
-@import 'components/chip';
+@import 'components/comment';
 @import 'components/comparison';
 @import 'components/data-table';
 @import 'components/dialog';
+@import 'components/featured-pane';
 @import 'components/form/button';
 @import 'components/form/checkbox';
 @import 'components/form/fieldset.scss';
@@ -41,14 +43,20 @@
 @import 'components/pagination';
 @import 'components/panel';
 @import 'components/quick_search';
+@import 'components/torrent-card';
 @import 'components/user-active';
 @import 'components/user-torrents';
 @import 'components/user-uploads';
+
+// Layout
 @import 'layout/header';
 @import 'layout/main';
 @import 'layout/secondary-nav';
 @import 'layout/top_nav';
+
+// Pages
 @import 'pages/error';
 @import 'pages/home';
+@import 'pages/missing';
 @import 'pages/staff';
 @import 'pages/torrents';
