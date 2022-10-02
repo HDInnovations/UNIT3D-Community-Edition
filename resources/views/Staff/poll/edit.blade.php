@@ -73,8 +73,16 @@
                     </button>
                 </p>
                 <p class="form__group">
-                    <input type="checkbox" name="multiple_choice" @checked($poll->multiple_choice)>
-                    <label class="form__label">{{ __('poll.multiple-choice') }}</label>
+                    <input
+                        id="multiple_choice"
+                        class="form__checkbox"
+                        type="checkbox"
+                        name="multiple_choice"
+                        @checked($poll->multiple_choice)
+                    >
+                    <label class="form__label" for="multiple_choice">
+                        {{ __('poll.multiple-choice') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
