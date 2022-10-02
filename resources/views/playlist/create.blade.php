@@ -19,37 +19,74 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <form name="new-playlist" method="POST" action="{{ route('playlists.store') }}"
-                  enctype="multipart/form-data">
+@section('page', 'page__playlist--create')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('playlist.create') }}</h2>
+        <div class="panel__body">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('playlists.store') }}"
+                enctype="multipart/form-data"
+            >
                 @csrf
-                <h2 class="text-center">{{ __('playlist.create') }}</h2>
-                <div class="form-group">
-                    <label for="name">{{ __('playlist.title') }}</label>
-                    <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">{{ __('playlist.desc') }}</label>
-                    <textarea name="description" type="text" class="form-control">{{ old('description') }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="cover_image">{{ __('playlist.cover') }}</label>
-                    <input type="file" name="cover_image">
-                </div>
-                <label for="is_private" class="control-label">{{ __('playlist.is-private') }}</label>
-                <div class="radio-inline">
-                    <label><input type="radio" name="is_private" value="1">{{ __('common.yes') }}</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="is_private" checked="checked" value="0">{{ __('common.no') }}</label>
-                </div>
-                <br>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">{{ __('common.add') }}</button>
-                </div>
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        type="text"
+                        name="name"
+                        placeholder=""
+                        required
+                        value="{{ old('name') }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('playlist.title') }}
+                    <label>
+                </p>
+                <p class="form__group">
+                    <textarea
+                        id="description"
+                        class="form__textarea"
+                        type="text"
+                        name="description"
+                        placeholder=""
+                        required
+                    >{{ old('description') }}</textarea>
+                    <label class="form__label form__label--floating" for="description">
+                        {{ __('playlist.desc') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <label for="cover_image" class="form__label">
+                        {{ __('playlist.cover') }}
+                    </label>
+                    <input
+                        id="cover_image"
+                        class="form__file"
+                        type="file"
+                        name="cover_image"
+                    >
+                </p>
+                <p class="form__group">
+                    <input type="hidden" name="is_private" value="0">
+                    <input
+                        id="is_private"
+                        class="form__checkbox"
+                        name="is_private"
+                        type="checkbox"
+                        value="1"
+                    >
+                    <label class="form__label" for="is_private">{{ __('playlist.is-private') }}</label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection
