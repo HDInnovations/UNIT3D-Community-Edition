@@ -8,8 +8,8 @@
     filter: brightness(1);
     transition: filter 300ms;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    display: inline-flex;
+    align-items: baseline;
     gap: 0.5ch;
 
     &:hover {
