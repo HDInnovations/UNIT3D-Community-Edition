@@ -13,3 +13,10 @@
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
+
+.form__group--short-horizontal {
+    background-color: inherit;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
