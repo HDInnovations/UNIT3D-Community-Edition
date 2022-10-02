@@ -10,19 +10,24 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="blocks">
-            @foreach ($polls as $poll)
-                <a href="{{ route('poll', ['id' => $poll->id]) }}" style="padding: 0 2px;">
-                    <div class="general media_blocks">
-                        <h2 style="font-size: 20px;"><i class="{{ config('other.font-awesome') }} fa-pie-chart"></i>
-                            {{ $poll->title }}</h2>
-                        <span></span>
-                        <h2 style="font-size: 12px;">{{ __('poll.vote-now') }}</h2>
-                    </div>
-                </a>
-            @endforeach
+@section('page', 'page__poll--index')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('poll.polls') }}: {{ __('poll.vote-now') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                @foreach ($polls as $poll)
+                    <tr>
+                        <td>
+                            <a href="{{ route('poll', ['id' => $poll->id]) }}">
+                                <i class="{{ config('other.font-awesome') }} fa-pie-chart"></i>
+                                {{ $poll->title }}
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
-    </div>
+    </section>
 @endsection
