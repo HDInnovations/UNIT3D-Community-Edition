@@ -39,17 +39,21 @@
         border: var(--select-border-active);
 
         & + .form__label--floating {
-            top: -11px;
+            top: -3px;
             font-size: 11px;
             color: var(--label-fg-active);
+            border-radius: 0;
+            padding: 0 4px;
         }
     }
 
     &:valid:not(.form__select--default),
     &:focus:placeholder-shown {
         & + .form__label--floating {
-            top: -11px;
+            top: -3px;
             font-size: 11px;
+            border-radius: 0;
+            padding: 0 4px;
         }
     }
 

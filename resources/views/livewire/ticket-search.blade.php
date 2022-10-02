@@ -1,98 +1,99 @@
-<div>
-    <div class="mb-10 form-inline pull-left">
-        <a href="{{ route('tickets.create') }}" class="btn btn-success"><i
-                    class="fas fa-plus"></i> {{ __('ticket.create-ticket') }}</a>
-    </div>
-    <div class="mb-10 form-inline pull-left">
-        <div class="form-group" style="padding-top: 8px; padding-left: 15px;">
-            <input type="checkbox" wire:click="toggleProperties('show')">
-            Show Closed Tickets
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        id="show"
+                        class="form__checkbox"
+                        type="checkbox"
+                        wire:click="toggleProperties('show')"
+                    >
+                    <label class="form__label" for="show">
+                        Show Closed Tickets
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <select
+                        id="quantity"
+                        class="form__select"
+                        wire:model="perPage"
+                        required
+                    >
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                    <label class="form__label form__label--floating">
+                        {{ __('common.quantity') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        id="search"
+                        class="form__text"
+                        type="text"
+                        wire:model="search"
+                        placeholder=""
+                    />
+                    <label class="form__label form__label--floating">
+                        {{ __('ticket.subject') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <a href="{{ route('tickets.create') }}" class="form__button form__button--text">
+                    {{ __('ticket.create-ticket') }}
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="mb-10 form-inline pull-right">
-        <div class="form-group">
-            {{ __('common.quantity') }}
-            <select wire:model="perPage" class="form-control">
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <input type="text" wire:model="search" class="form-control" style="width: 275px;"
-                   placeholder="{{ __('ticket.subject') }}"/>
-        </div>
-    </div>
-    <div class="box-body no-padding">
-        <table class="table vertical-align table-hover">
+    </header>
+    <div class="data-table-wrapper">
+        <table class="data-table">
             <tbody>
             <tr>
-                <th>
-                    <div sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null"
-                         role="button">
-                        #
-                        @include('livewire.includes._sort-icon', ['field' => 'id'])
-                    </div>
+                <th wire:click="sortBy('id')" role="columnheader button">
+                    #
+                    @include('livewire.includes._sort-icon', ['field' => 'id'])
                 </th>
-                <th>
-                    <div sortable wire:click="sortBy('subject')"
-                         :direction="$sortField === 'subject' ? $sortDirection : null" role="button">
-                        {{ __('ticket.subject') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'subject'])
-                    </div>
+                <th wire:click="sortBy('subject')" role="columnheader button">
+                    {{ __('ticket.subject') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'subject'])
                 </th>
-                <th>
-                    <div sortable wire:click="sortBy('priority_id')"
-                         :direction="$sortField === 'priority_id' ? $sortDirection : null" role="button">
-                        {{ __('ticket.priority') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'priority_id'])
-                    </div>
+                <th wire:click="sortBy('priority_id')" role="columnheader button">
+                    {{ __('ticket.priority') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'priority_id'])
                 </th>
-                <th>
-                    <div sortable wire:click="sortBy('user_id')"
-                         :direction="$sortField === 'user_id' ? $sortDirection : null" role="button">
-                        {{ __('common.username') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
-                    </div>
+                <th wire:click="sortBy('user_id')" role="columnheader button">
+                    {{ __('common.username') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('closed_at')"
-                         :direction="$sortField === 'closed_at' ? $sortDirection : null"
-                         role="button">
-                        {{ __('common.status') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'closed_at'])
-                    </div>
+                <th wire:click="sortBy('closed_at')" role="columnheader button">
+                    {{ __('common.status') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'closed_at'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('staff_id')"
-                         :direction="$sortField === 'staff_id' ? $sortDirection : null"
-                         role="button">
-                        {{ __('ticket.assigned-staff') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
-                    </div>
+                <th wire:click="sortBy('staff_id')" role="columnheader button">
+                    {{ __('ticket.assigned-staff') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
                 </th>
-                <th class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('created_at')"
-                         :direction="$sortField === 'created_at' ? $sortDirection : null"
-                         role="button">
-                        {{ __('ticket.created') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                    </div>
+                <th wire:click="sortBy('created_at')" role="columnheader button">
+                    {{ __('ticket.created') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                 </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
-            @foreach ($tickets as $ticket)
+            @forelse ($tickets as $ticket)
                 <tr>
                     <td>
-						<span class="badge-user">
-							{{ $ticket->id }}
-						</span>
+                        {{ $ticket->id }}
                     </td>
                     <td>
-						<span>
-							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
-						</span>
+                        <a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
                         @if (auth()->user()->group->is_modo)
                             @php
                                 $myTicketUnread = DB::table('tickets')
@@ -118,86 +119,68 @@
                                 $unasignedTicketUnread = 0
                             @endphp
                         @endif
-
                         @if ($myTicketUnread > 0 || $unasignedTicketUnread > 0)
                             <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
                         @endif
                     </td>
                     <td>
-						<span class="badge-user">
-							@if($ticket->priority->name === 'Low')
+                        @switch($ticket->priority->name)
+							@case ('Low')
                                 <i class="fas fa-circle text-yellow"></i>
-                            @elseif ($ticket->priority->name === 'Medium')
+                                @break
+                            @case ('Medium')
                                 <i class="fas fa-circle text-orange"></i>
-                            @elseif ($ticket->priority->name === 'High')
+                                @break
+                            @case ('High')
                                 <i class="fas fa-circle text-red"></i>
-                            @endif
-                            {{ $ticket->priority->name }}
-						</span>
+                                @break
+                        @endswitch
+                        {{ $ticket->priority->name }}
                     </td>
                     <td>
-						<span class="badge-user">
-							<a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
-								{{ $ticket->user->username }}
-							</a>
-						</span>
+                        <x-user_tag :user="$ticket->user" :anon="false" />
                     </td>
                     <td>
-						<span class="badge-user">
-							@if($ticket->closed_at)
-                                <i class="fas fa-circle text-danger"></i> Closed
-                            @else
-                                <i class="fas fa-circle text-success"></i> Open
-                            @endif
-						</span>
+                        @if($ticket->closed_at)
+                            <i class="fas fa-circle text-danger"></i>
+                            Closed
+                        @else
+                            <i class="fas fa-circle text-success"></i>
+                            Open
+                        @endif
                     </td>
                     <td>
-						<span class="badge-user">
-							<a href="{{ route('users.show', ['username' => $ticket->staff->username ?? 'System']) }}">
-								{{ $ticket->staff->username ?? 'Unassigned' }}
-							</a>
-						</span>
+                        @if ($ticket->staff)
+                            <x-user_tag :user="$ticket->staff" :anon="false" />
+                        @else
+                            Unassigned
+                        @endif
                     </td>
                     <td>
-						<span class="badge-user">
+						<time datetime="{{ $ticket->created_at }}" title="{{ $ticket->created_at }}">
 							{{ $ticket->created_at->diffForHumans() }}
-						</span>
+                        </time>
                     </td>
                     <td>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown" href="#"
-                               aria-expanded="true">
-                                {{ __('common.actions') }}
-                                <i class="fas fa-caret-circle-right"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" target="_blank"
-                                       href="{{ route('tickets.show', ['id' => $ticket->id]) }}">View</a>
-                                </li>
-                                <li role="presentation">
-                                    <form method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
-                                        @csrf
-                                        <button type="submit" role="menuitem" tabindex="-1" style="background-color: #fff; color: #555;
-										font-weight: 400; padding: 7px 15px;">Close
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                        <menu class="data-table__actions">
+                            <li class="data-table__action">
+                                <form method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
+                                    @csrf
+                                    <button class="form__button form__button--text">
+                                        {{ __('ticket.close') }}
+                                    </button>
+                                </form>
+                            </li>
+                        </menu>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8">{{ __('common.no-result') }}</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
-        @if (! $tickets->count())
-            <div class="margin-10">
-                {{ __('common.no-result') }}
-            </div>
-        @endif
-        <br>
-        <div class="text-center">
-            {{ $tickets->links() }}
-        </div>
+        {{ $tickets->links() }}
     </div>
-</div>
+</section>
