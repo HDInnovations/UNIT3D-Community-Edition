@@ -66,7 +66,27 @@
     color: var(--torrent-card-link-fg);
 }
 
+.torrent-card__rating-and-genres {
+    display: inline;
+    font-size: 11px;
+}
+
+.torrent-card__genres {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.torrent-card__genre-item {
+    display: inline;
+}
+
+.torrent-card__genre-item:not(:last-child):after {
+    content: "\2022";
+}
+
 .torrent-card__genre {
+    display: inline;
     color: var(--torrent-card-genre-fg);
     letter-spacing: 2px;
     font-size: 11px;

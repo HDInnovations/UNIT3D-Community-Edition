@@ -141,7 +141,7 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.blacklists.clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
-                        {{ __('torrent.client') }} {{ __('common.blacklist') }}
+                        {{ __('common.blacklist') }}
                     </a>
                 </p>
             </div>
@@ -198,6 +198,12 @@
                     <a class="form__button form__button--text" href="{{ route('staff.media_languages.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         {{ __('common.media-languages') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.cheated_torrents.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-question"></i>
+                        Cheated Torrents
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

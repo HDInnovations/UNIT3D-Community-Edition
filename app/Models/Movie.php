@@ -62,4 +62,11 @@ class Movie extends Model
             $q->where('movie_meta', '=', true);
         });
     }
+
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentRequest::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+            $q->where('movie_meta', '-', true);
+        });
+    }
 }

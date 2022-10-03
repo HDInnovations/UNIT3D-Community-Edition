@@ -1,225 +1,278 @@
-<div>
-    <div class="container box">
-        <div class="text-center">
-            <h3>{{ __('notification.filter-by-type') }}</h3>
-        </div>
-        <div class="form-group text-center">
-            <div class="col-md-12">
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="bon_gifts" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
-                        {{ __('notification.bon-gifts') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="comment" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i>
-                        {{ __('common.comments') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="comment_tags" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
-                        {{ __('notification.comment-tags') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="followers" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i>
-                        {{ __('user.followers') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="posts" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i>
-                        {{ __('common.posts') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="post_tags" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
-                        {{ __('notification.post-tags') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="post_tips" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
-                        {{ __('notification.post-tips') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_bounties" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i>
-                        {{ __('notification.request-bounties') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_claims" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
-                        {{ __('notification.request-claims') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_fills" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i>
-                        {{ __('notification.request-fills') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_approvals" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i>
-                        {{ __('notification.request-approvals') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_rejections" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-success"></i>
-                        {{ __('notification.request-rejections') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="request_unclaims" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i>
-                        {{ __('notification.request-unclaims') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="reseed_requests" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-question text-success"></i>
-                        {{ __('notification.reseed-requests') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="thanks" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i>
-                        {{ __('torrent.thanks') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="upload_tips" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
-                        {{ __('bon.tips') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" value="topics">
-                        <i class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"></i>
-                        {{ __('common.topics') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="unfollows" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i>
-                        {{ __('notification.unfollows') }}
-                    </label>
-                </span>
-                <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" wire:model.prefetch="uploads" value="1">
-                        <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i>
-                        {{ __('user.uploads') }}
-                    </label>
-                </span>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <form action="{{ route('notifications.updateall') }}" method="POST" style="display: inline-block;">
-                @csrf
-                <button type="submit" class="btn btn btn-success" data-toggle="tooltip"
-                        data-original-title="{{ __('notification.mark-all-read') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-eye"></i> {{ __('notification.mark-all-read') }}
-                </button>
-            </form>
-
-            <form action="{{ route('notifications.destroyall') }}" method="POST" style="display: inline-block;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
-                        data-original-title="{{ __('notification.delete-all') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('notification.delete-all') }}
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="block">
-            <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered">
+<div class="sidebar2">
+    <div>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('notification.notifications') }}</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
                     <thead>
                     <tr>
                         <th>{{ __('notification.title') }}</th>
                         <th>{{ __('notification.message') }}</th>
                         <th>{{ __('notification.date') }}</th>
-                        <th>{{ __('notification.read') }}</th>
-                        <th>{{ __('notification.delete') }}</th>
+                        <th>{{ __('common.actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($notifications as $notification)
                         <tr>
                             <td>
-                                <a href="{{ route('notifications.show', ['id' => $notification->id]) }}"
-                                   class="clearfix">
-                                    <span class="notification-title">{{ $notification->data['title'] }}</span>
+                                <a href="{{ route('notifications.show', ['id' => $notification->id]) }}">
+                                    {{ $notification->data['title'] }}
                                 </a>
                             </td>
                             <td>
-                                <span class="notification-message">{{ $notification->data['body'] }}</span>
+                                {{ $notification->data['body'] }}
                             </td>
                             <td>
-                                <span class="notification-ago">{{ $notification->created_at->diffForHumans() }}</span>
+                                <time datetime="{{ $notification->created_at }}" title="{{ $notification->created_at }}">
+                                    {{ $notification->created_at->diffForHumans() }}
+                                </time>
                             </td>
                             <td>
-                                <form action="{{ route('notifications.update', ['id' => $notification->id]) }}"
-                                      method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-xxs btn-success" data-toggle="tooltip"
-                                            data-original-title="{{ __('notification.mark-read') }}"
-                                            @if ($notification->read_at != null)
-                                                disabled @endif>
-                                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ route('notifications.destroy', ['id' => $notification->id]) }}"
-                                      method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-xxs btn-danger" data-toggle="tooltip"
-                                            data-original-title="{{ __('notification.delete') }}">
-                                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                                    </button>
-                                </form>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('notifications.update', ['id' => $notification->id]) }}"
+                                            method="POST"
+                                        >
+                                            @csrf
+                                            <button class="form__button form__button--text" @disabled($notification->read_at !== null)>
+                                                {{ __('notification.mark-read') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('notifications.destroy', ['id' => $notification->id]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button 
+                                                x-on:click.prevent="Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Are you sure you want to delete this notification: {{ $notification->data['body'] }}?',
+                                                    icon: 'warning',
+                                                    showConfirmButton: true,
+                                                    showCancelButton: true,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $root.submit();
+                                                    }
+                                                })"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('notification.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
                             </td>
                         </tr>
                     @empty
-                        {{ __('notification.no-notifications') }}.
+                        <tr>
+                            <td colspan="4">{{ __('notification.no-notifications') }}</td>
+                        </tr>
                     @endforelse
                     </tbody>
                 </table>
-                <div class="text-center">{{ $notifications->links() }}</div>
+                {{ $notifications->links('partials.pagination') }}
             </div>
-        </div>
+        </section>
     </div>
+    <aside>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('notification.filter-by-type') }}</h2>
+            <div class="panel__body">
+                <fieldset class="form__fieldset">
+                    <legend class="form__legend">{{ __('torrent.filters') }}</legend>
+                    <div class="form__fieldset-checkbox-container">
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="bon_gifts" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
+                                {{ __('notification.bon-gifts') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="comment" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i>
+                                {{ __('common.comments') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="comment_tags" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
+                                {{ __('notification.comment-tags') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="followers" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i>
+                                {{ __('user.followers') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="posts" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i>
+                                {{ __('common.posts') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="post_tags" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
+                                {{ __('notification.post-tags') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="post_tips" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
+                                {{ __('notification.post-tips') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_bounties" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i>
+                                {{ __('notification.request-bounties') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_claims" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
+                                {{ __('notification.request-claims') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_fills" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i>
+                                {{ __('notification.request-fills') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_approvals" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i>
+                                {{ __('notification.request-approvals') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_rejections" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-times text-success"></i>
+                                {{ __('notification.request-rejections') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_unclaims" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i>
+                                {{ __('notification.request-unclaims') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="reseed_requests" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-question text-success"></i>
+                                {{ __('notification.reseed-requests') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="thanks" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i>
+                                {{ __('torrent.thanks') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="upload_tips" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
+                                {{ __('bon.tips') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" value="topics">
+                                <i class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"></i>
+                                {{ __('common.topics') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="unfollows" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i>
+                                {{ __('notification.unfollows') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="uploads" value="1">
+                                <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i>
+                                {{ __('user.uploads') }}
+                            </label>
+                        </p>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.actions') }}</h2>
+            <div class="panel__body">
+                <form action="{{ route('notifications.updateall') }}" method="POST" x-data>
+                    @csrf
+                    <p class="form__group form__group--horizontal">
+                        <button
+                            x-on:click.prevent="Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'Are you sure you want to mark all notifications as read?',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            })"
+                            class="form__button form__button--filled"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> {{ __('notification.mark-all-read') }}
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ route('notifications.destroyall') }}" method="POST" x-data>
+                    @csrf
+                    @method('DELETE')
+                    <p class="form__group form__group--horizontal">
+                        <button
+                            x-on:click.prevent="Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'Are you sure you want to delete all notifications?',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            })"
+                            class="form__button form__button--filled"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ __('notification.delete-all') }}
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </aside>
 </div>

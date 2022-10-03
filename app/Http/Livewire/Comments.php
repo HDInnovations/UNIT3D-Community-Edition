@@ -28,6 +28,7 @@ use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
@@ -35,8 +36,6 @@ use voku\helper\AntiXSS;
 class Comments extends Component
 {
     use WithPagination;
-
-    private TaggedUserRepository $taggedUserRepository;
 
     public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
 
@@ -58,9 +57,8 @@ class Comments extends Component
         'newCommentState.content' => 'comment',
     ];
 
-    final public function mount(TaggedUserRepository $taggedUserRepository): void
+    final public function mount(): void
     {
-        $this->taggedUserRepository = $taggedUserRepository;
         $this->user = \auth()->user();
     }
 
@@ -112,14 +110,15 @@ class Comments extends Component
         }
 
         // Tagging
-        if ($this->taggedUserRepository->hasTags($this->newCommentState)) {
-            if ($this->user->group->is_modo && $this->taggedUserRepository->contains($this->newCommentState, '@here')) {
+        $taggedUserRepository = App::make(TaggedUserRepository::class);
+        if ($taggedUserRepository->hasTags($this->newCommentState)) {
+            if ($this->user->group->is_modo && $taggedUserRepository->contains($this->newCommentState, '@here')) {
                 $users = \collect([]);
 
                 $this->model->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->taggedUserRepository->messageCommentUsers(
+                $taggedUserRepository->messageCommentUsers(
                     $this->model,
                     $users,
                     $this->user,
@@ -128,7 +127,7 @@ class Comments extends Component
                 );
             } else {
                 $sender = $comment->anon !== 0 ? $this->user->username : 'Anonymous';
-                $this->taggedUserRepository->messageTaggedCommentUsers(
+                $taggedUserRepository->messageTaggedCommentUsers(
                     $this->model,
                     $this->newCommentState[],
                     $this->user,

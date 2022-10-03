@@ -369,6 +369,7 @@
                                         name="personalrelease"
                                         type="checkbox"
                                         value="1"
+                                        @checked($rss->object_torrent->personalrelease)
                                     >
                                     <span class="{{ config('other.font-awesome') }} fa-user-plus" style="color: #865be9;"></span>
                                     {{ __('torrent.personal-release') }}
@@ -447,5 +448,5 @@
                 </button>
             </p>
         </form>
-    </div>
+    </section>
 @endsection

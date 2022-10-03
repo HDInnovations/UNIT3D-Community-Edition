@@ -15,26 +15,22 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="page-title">
-            <h1>{{ __('poll.poll') }}</h1>
-        </div>
+@section('page', 'page__poll--show')
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-chat">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">{{ $poll->title }}</h1>
-                    </div>
-                    <div class="panel-body">
-                        @include('poll.forms.vote')
-                        @if ($poll->multiple_choice)
-                            <span class="badge-user text-bold text-red poll-note">{{ __('poll.multiple-choice') }}</span>
-                        @endif
-                    </div>
-                </div>
-            </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $poll->title }}</h2>
+        <div class="panel__body">
+            @include('poll.forms.vote')
         </div>
-    </div>
+    </section>
 @endsection
+
+@if ($poll->multiple_choice)
+    @section('sidebar')
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.info') }}</h2>
+            <div class="panel__body">{{ __('poll.multiple-choice') }}</div>
+        </section>
+    @endsection
+@endif

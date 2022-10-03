@@ -64,7 +64,7 @@
                                     <a href="#modal_user_gift" data-toggle="modal"
                                        data-target="#modal_user_gift"><i
                                                 class="{{ config('other.font-awesome') }} fa-gift text-info"></i></a>
-                                    @if ($user->getWarning() > 0)
+                                    @if ($user->warnings()->active()->exists())
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                            aria-hidden="true"
                                            data-toggle="tooltip" title=""
