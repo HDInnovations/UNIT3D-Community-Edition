@@ -26,14 +26,37 @@ main > article,
     gap: 1rem;
 }
 
+.sidebar2 > div {
+    flex-grow: 1;
+    max-width: calc(100% - 300px)
+}
+
+.sidebar2 > aside {
+    flex-grow: 0;
+    width: 300px;
+}
+
 .sidebar2 {
-    display: grid;
-    grid-template-columns: 1fr 300px;
+    display: flex;
+    flex-direction: row;
     gap: 1rem;
+}
+
+.sidebar--inverse {
+    flex-direction: row-reverse;
 }
 
 @media only screen and (max-width: 867px) {
     .sidebar2 {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .sidebar2 > div {
+        max-width: 100%;
+    }
+
+    .sidebar2 > aside {
+        flex-grow: 1;
+        width: 100%;
     }
 }
