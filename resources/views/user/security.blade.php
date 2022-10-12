@@ -35,7 +35,8 @@
                     <li><a href="#rid" data-toggle="tab">RSS Key (RID)</a></li>
                     <li><a href="#api" data-toggle="tab">API Token</a></li>
                     @if (config('auth.TwoStepEnabled') == true)
-                        <li><a href="#twostep" data-toggle="tab">Two Step Auth</a></li>
+                        <li><a href="#twostep" data-toggle="tab">Two Step Auth (E-Mail)</a></li>
+                        <li><a href="{{ route('2fa') }}" target="_blank">Two Step Auth (TOTP)</a></li>
                     @endif
                 </ul>
                 <div class="tab-content">
