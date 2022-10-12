@@ -92,5 +92,6 @@ class Kernel extends HttpKernel
         'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        '2fa'           => \App\Http\Middleware\Google2FAMiddleware::class,
     ];
 }
