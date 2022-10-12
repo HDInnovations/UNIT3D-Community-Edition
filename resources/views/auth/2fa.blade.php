@@ -110,7 +110,7 @@
                                 <br>
                                 <form class="form-horizontal" method="POST" action="{{ route('disable2fa') }}">
                                     <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
-                                        <label for="change-password" class="col-md-4 control-label" style="width: 40%;">Aktuelles Passwort: </label>
+                                        <label for="change-password" class="col-md-4 control-label" style="width: 40%;">Current Password: </label>
                                         <div class="col-md-6">
                                             <input id="current-password" type="password" class="form-control" name="current-password" style="width: 50%;" required>
                                             @if ($errors->has('current-password'))
@@ -130,7 +130,7 @@
                                 <br><br><br>
                                 
                                 <div class="alert alert-success" style="border-color: #1e88e5 !important; color: #fff;">
-                                    <a style="color: red;">Recovery:</a> Es sind {{ count($recovery) }} Recovery Codes aktiv.
+                                    <a style="color: red;">Recovery:</a> {{ count($recovery) }} Recovery Codes are active.
                                 </div>
                                 <br>
                                 <p>{{ __('auth.genreate-new-codes-title') }}</p>
