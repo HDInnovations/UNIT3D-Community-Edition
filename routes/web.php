@@ -65,10 +65,34 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |---------------------------------------------------------------------------------
+    | Website (When Authorized) (Without 2FA)
+    |---------------------------------------------------------------------------------
+    */
+    Route::group(['middleware' => ['auth', 'banned']], function () {
+
+        // 2FA Login Verification
+        Route::post('/2faVerify', function () {
+            return redirect(route('home.index'));
+        })->name('2faVerify')->middleware('2fa');
+
+        // 2FA Recovery
+        Route::post('/recovery2fa',[App\Http\Controllers\Auth\PasswordSecurityController::class, 'recovery2fa'])->name('recovery2fa');
+    });
+
+    /*
+    |---------------------------------------------------------------------------------
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
+
+        // 2FA System
+        Route::get('/2fa', [App\Http\Controllers\Auth\PasswordSecurityController::class, 'show2faForm'])->name('2fa');
+        Route::post('/generate2faSecret', [App\Http\Controllers\Auth\PasswordSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
+        Route::post('/2fa', [App\Http\Controllers\Auth\PasswordSecurityController::class, 'enable2fa'])->name('enable2fa');
+        Route::post('/disable2fa',[App\Http\Controllers\Auth\PasswordSecurityController::class, 'disable2fa'])->name('disable2fa');
+        Route::post('/generate2faRecovery',[App\Http\Controllers\Auth\PasswordSecurityController::class, 'generateNewRecoveryCodes'])->name('generateNewRecoveryCodes');
+
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -435,7 +459,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -490,7 +514,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
@@ -556,7 +580,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', '2fa', 'twostep', 'modo', 'banned']], function () {
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
