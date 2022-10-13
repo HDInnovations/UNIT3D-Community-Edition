@@ -10,172 +10,104 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="stats">
-            <div class="table-responsive">
-                <div class="content">
-                    <div class="inner_content">
-                        <h1>{{ __('stat.nerd-stats') }}</h1>
-                        <p>{{ __('stat.nerd-stats-desc') }}. <b>{{ __('stat.updated') }}</b></p>
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('clients') }}">
+            {{ __('page.blacklist-clients') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('uploaded') }}">
+            {{ __('common.users') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('seeded') }}">
+            {{ __('torrent.torrents') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('bountied') }}">
+            {{ __('request.requests') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('groups') }}">
+            {{ __('common.groups') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('languages') }}">
+            {{ __('common.languages') }}
+        </a>
+    </li>
+@endsection
 
-                        <div class="inner_stats">
-                            @foreach ($categories as $category)
-                                <div class="stat">
-                                    <p>{{ $category->torrents_count }}</p>
-                                    <span class="badge-extra">{{ $category->name }} {{ __('torrent.category') }}</span>
-                                </div>
-                            @endforeach
-
-                            <div class="stat">
-                                <p>{{ $num_torrent }}</p>
-                                <span class="badge-extra">{{ __('stat.total-torrents') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $num_hd }}</p>
-                                <span class="badge-extra">HD {{ __('torrent.torrents') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $num_sd }}</p>
-                                <span class="badge-extra">SD {{ __('torrent.torrents') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ App\Helpers\StringHelper::formatBytes($torrent_size, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.total-torrents') }} {{ __('torrent.size') }}</span>
-                            </div>
-                            <br>
-
-                            <div class="stat">
-                                <p>{{ $all_user }}</p>
-                                <span class="badge-extra">{{ __('stat.all') }} {{ __('common.users') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $active_user }}</p>
-                                <span class="badge-extra">{{ __('stat.active') }} {{ __('common.users') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $disabled_user }}</p>
-                                <span class="badge-extra">{{ __('stat.disabled') }} {{ __('common.users') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $pruned_user }}</p>
-                                <span class="badge-extra">{{ __('stat.pruned') }} {{ __('common.users') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $banned_user }}</p>
-                                <span class="badge-extra">{{ __('stat.banned') }} {{ __('common.users') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $num_seeders }}</p>
-                                <span class="badge-extra">{{ __('torrent.seeders') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $num_leechers }}</p>
-                                <span class="badge-extra">{{ __('torrent.leechers') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ $num_peers }}</p>
-                                <span class="badge-extra">{{ __('torrent.peers') }}</span>
-                            </div>
-
-                            <br>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($actual_upload, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.real') }} {{ __('stat.total-upload') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($actual_download, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.real') }} {{ __('stat.total-download') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($actual_up_down, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.real') }} {{ __('stat.total-traffic') }}</span>
-                            </div>
-
-                            <br>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($credited_upload, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.credited') }} {{ __('stat.total-upload') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.credited') }} {{ __('stat.total-download') }}</span>
-                            </div>
-
-                            <div class="stat">
-                                <p>{{ \App\Helpers\StringHelper::formatBytes($credited_up_down, 2) }}</p>
-                                <span class="badge-extra">{{ __('stat.credited') }} {{ __('stat.total-traffic') }}</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <img src="{{ url('img/sheldon.png') }}" alt="sheldon" width="321" height="379">
-                </div>
-            </div>
-        </div>
-        <br>
-        <h3 class="text-center">{{ __('stat.select-category') }}</h3>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('clients') }}">
-                        <p class="lead text-green text-center">Clients</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('uploaded') }}">
-                        <p class="lead text-green text-center">{{ __('common.users') }}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('seeded') }}">
-                        <p class="lead text-blue text-center">{{ __('torrent.torrents') }}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('bountied') }}">
-                        <p class="lead text-orange text-center">{{ __('request.requests') }}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('groups') }}">
-                        <p class="lead text-red text-center">{{ __('common.groups') }}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="well well-sm">
-                    <a href="{{ route('languages') }}">
-                        <p class="lead text-purple text-center">{{ __('common.languages') }}</p>
-                    </a>
-                </div>
-            </div>
-            <br>
-            <br>
-        </div>
-        <p class="text-purple text-center text-mono">{{ __('stat.stats-format') }}</p>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.nerd-stats') }}</h2>
+        <div class="panel__body">{{ __('stat.nerd-stats-desc') }}. {{ __('stat.updated') }}</p>
+    </section>
+    <div class="stats__panels">
+        <section class="panelV2 panel--grid-item">
+            <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
+            <dl class="key-value">
+                @foreach ($categories as $category)
+                    <dt>{{ $category->name }} {{ __('common.category') }}</dt>
+                    <dd>{{ $category->torrents_count }}</dd>
+                @endforeach
+                <dt>HD</dt>
+                <dd>{{ $num_hd }}</dd>
+                <dt>SD</dt>
+                <dd>{{ $num_sd }}</dd>
+                <dt>{{ __('stat.total-torrents') }}</dt>
+                <dd>{{ $num_torrent }}</dd>
+                <dt>{{ __('stat.total-torrents') }} {{ __('torrent.size') }}</dt>
+                <dd>{{ App\Helpers\StringHelper::formatBytes($torrent_size, 2) }}</dd>
+            </dl>
+        </section>
+        <section class="panelV2 panel--grid-item">
+            <h2 class="panel__heading">{{ __('common.users') }}</h2>
+            <dl class="key-value">
+                <dt>{{ __('stat.all') }} {{ __('common.users') }}</dt>
+                <dd>{{ $all_user }}</dd>
+                <dt>{{ __('stat.active') }} {{ __('common.users') }}</dt>
+                <dd>{{ $active_user }}</dd>
+                <dt>{{ __('stat.disabled') }} {{ __('common.users') }}</dt>
+                <dd>{{ $disabled_user }}</dd>
+                <dt>{{ __('stat.pruned') }} {{ __('common.users') }}</dt>
+                <dd>{{ $pruned_user }}</dd>
+                <dt>{{ __('stat.banned') }} {{ __('common.users') }}</dt>
+                <dd>{{ $banned_user }}</dd>
+            </dl>
+        </section>
+        <section class="panelV2 panel--grid-item">
+            <h2 class="panel__heading">{{ __('torrent.peers') }}</h2>
+            <dl class="key-value">
+                <dt>{{ __('torrent.seeders') }}</dt>
+                <dd>{{ $num_seeders }}</dd>
+                <dt>{{ __('torrent.leechers') }}</dt>
+                <dd>{{ $num_leechers }}</dd>
+                <dt>Total</dt>
+                <dd>{{ $num_peers }}</dd>
+            </dl>
+        </section>
+        <section class="panelV2 panel--grid-item">
+            <h2 class="panel__heading">{{ __('stat.total-traffic') }}</h2>
+            <dl class="key-value">
+                <dt>{{ __('stat.real') }} {{ __('stat.total-upload') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_upload, 2) }}</dd>
+                <dt>{{ __('stat.real') }} {{ __('stat.total-download') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_download, 2) }}</dd>
+                <dt>{{ __('stat.real') }} {{ __('stat.total-traffic') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_up_down, 2) }}</dd>
+                <dt>{{ __('stat.credited') }} {{ __('stat.total-upload') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_upload, 2) }}</dd>
+                <dt>{{ __('stat.credited') }} {{ __('stat.total-download') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}</dd>
+                <dt>{{ __('stat.credited') }} {{ __('stat.total-traffic') }}</dt>
+                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_up_down, 2) }}</dd>
+            </dl>
+        </section>
     </div>
 @endsection
