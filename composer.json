@@ -17,7 +17,6 @@
         "appstract/laravel-opcache": "^4.0",
         "assada/laravel-achievements": "^2.5",
         "doctrine/dbal": "^2.10",
-        "fruitcake/laravel-cors": "^2.0.5",
         "gabrielelana/byte-units": "^0.5.0",
         "guzzlehttp/guzzle": "^7.2",
         "hdvinnie/laravel-html-purifier": "^1.0",
