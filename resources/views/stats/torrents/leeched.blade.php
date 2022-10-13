@@ -19,48 +19,38 @@
     @include('partials.statstorrentmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-leeched') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-warning"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i>
-                            {{ __('stat.top-leeched') }}
-                        </strong></p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--leeched')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-leeched') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('torrent.torrent') }}</th>
+                        <th>{{ __('torrent.seeders') }}</th>
+                        <th>{{ __('torrent.leechers') }}</th>
+                        <th>{{ __('torrent.completed') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($leeched as $torrent)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('torrent.torrent') }}</th>
-                            <th>{{ __('torrent.seeders') }}</th>
-                            <th>{{ __('torrent.leechers') }}</th>
-                            <th>{{ __('torrent.completed') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                                    {{ $torrent->name }}
+                                </a>
+                            </td>
+                            <td>{{ $torrent->seeders }}</td>
+                            <td>{{ $torrent->leechers }}</td>
+                            <td>{{ $torrent->times_completed }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($leeched as $key => $l)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['id' => $l->id]) }}">
-                                        {{ $l->name }}
-                                    </a>
-                                </td>
-                                <td>{{ $l->seeders }}</td>
-                                <td><span class="text-red">{{ $l->leechers }}</span></td>
-                                <td>
-                                    <span>{{ $l->times_completed }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

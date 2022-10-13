@@ -6,6 +6,14 @@
         {{ __('user.top-uploaders-data') }}
     </a>
 </li>
+<li class="{{ Route::is('downloaded') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('downloaded') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('downloaded') }}"
+    >
+        {{ __('user.top-downloaders-data') }}
+    </a>
+</li>
 <li class="{{ Route::is('seeders') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
         class="{{ Route::is('seeders') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
