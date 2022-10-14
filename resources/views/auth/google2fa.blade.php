@@ -66,13 +66,6 @@
                                     </div>
                                 </div>
 
-                                <div class="captcha" style="margin-bottom: 80px;">
-                                    <span class="col-md-4 control-label" style="width: 47.5%; height: 36px; padding-top: 0px;">{!! captcha_img('inverse') !!}</span>
-                                    <div class="col-md-6">
-                                        <input id="captcha" type="text" class="form-control" name="captcha" placeholder="Enter captcha" style="width: 230px;" required>
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
                                     <div style="text-align: center;">
                                         <button class="btn btn-primary" type="submit">{{ __('auth.disable-2fa') }}</button>

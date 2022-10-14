@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95c88e2c690001ebefb7c81a18ba56a0",
+    "content-hash": "c27098e430b26a719e63efef7e2c1125",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -3148,79 +3148,6 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
             },
             "time": "2022-08-18T16:18:26+00:00"
-        },
-        {
-            "name": "mews/captcha",
-            "version": "v3.2.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mewebstudio/captcha.git",
-                "reference": "68e35397f9d511e91ac67499e1baf53829571dca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/68e35397f9d511e91ac67499e1baf53829571dca",
-                "reference": "68e35397f9d511e91ac67499e1baf53829571dca",
-                "shasum": ""
-            },
-            "require": {
-                "ext-gd": "*",
-                "illuminate/config": "~5|^6|^7|^8|^9",
-                "illuminate/filesystem": "~5|^6|^7|^8|^9",
-                "illuminate/hashing": "~5|^6|^7|^8|^9",
-                "illuminate/session": "~5|^6|^7|^8|^9",
-                "illuminate/support": "~5|^6|^7|^8|^9",
-                "intervention/image": "~2.5",
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^8.5|^9.0"
-            },
-            "type": "package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Mews\\Captcha\\CaptchaServiceProvider"
-                    ],
-                    "aliases": {
-                        "Captcha": "Mews\\Captcha\\Facades\\Captcha"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Mews\\Captcha\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Muharrem ERİN",
-                    "email": "me@mewebstudio.com",
-                    "homepage": "https://github.com/mewebstudio",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel 5 & 6 Captcha Package",
-            "homepage": "https://github.com/mewebstudio/captcha",
-            "keywords": [
-                "captcha",
-                "laravel5 Security",
-                "laravel6 Captcha",
-                "laravel6 Security"
-            ],
-            "support": {
-                "issues": "https://github.com/mewebstudio/captcha/issues",
-                "source": "https://github.com/mewebstudio/captcha/tree/v3.2.9"
-            },
-            "time": "2022-09-22T17:21:47+00:00"
         },
         {
             "name": "monolog/monolog",

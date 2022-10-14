@@ -181,8 +181,7 @@ class PasswordSecurityController extends Controller
         $valid = in_array($recoveryCode, $recovery);
 
         $validatedData = $request->validate([
-            'one_time_recovery' => 'required',
-            'captcha'           => 'required|captcha'
+            'one_time_recovery' => 'required'
         ]);
 
         if ($valid) {
