@@ -41,7 +41,7 @@
                             </td>
                             <td>
                                 <time datetime="{{ $user->created_at }}" title="{{ $user->created_at }}">
-                                    {{ date('d M Y', strtotime($u->created_at)) }}
+                                    {{ date('d M Y', strtotime($user->created_at)) }}
                                 </time>
                             </td>
                         </tr>

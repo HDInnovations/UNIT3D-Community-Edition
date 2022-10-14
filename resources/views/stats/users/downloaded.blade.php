@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($downloaded $user)
+                    @foreach ($downloaded as $user)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
