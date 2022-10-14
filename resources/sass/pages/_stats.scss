@@ -1,0 +1,5 @@
+.stats__panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(240px, 20%), 1fr));
+    gap: 1rem;
+}

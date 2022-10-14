@@ -19,19 +19,14 @@
     @include('partials.statstorrentmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-completed') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-info"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i>
-                            {{ __('stat.top-downloaded') }}
-                        </strong></p>
-                </div>
-                <table class="table table-condensed table-striped table-bordered">
-                    <thead>
+@section('page', 'page__stats--completed')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-completed') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
                     <tr>
                         <th>#</th>
                         <th>{{ __('torrent.torrent') }}</th>
@@ -39,29 +34,23 @@
                         <th>{{ __('torrent.leechers') }}</th>
                         <th>{{ __('torrent.completed') }}</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($completed as $key => $c)
+                </thead>
+                <tbody>
+                    @foreach ($completed as $torrent)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>
-                                {{ ++$key }}
-                            </td>
-                            <td>
-                                <a class="text-bold" href="{{ route('torrent', ['id' => $c->id]) }}">
-                                    {{ $c->name }}
+                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                                    {{ $torrent->name }}
                                 </a>
                             </td>
-                            <td>{{ $c->seeders }}</td>
-                            <td>{{ $c->leechers }}</td>
-                            <td>
-                                <span class="text-orange">{{ $c->times_completed }}</span>
-                            </td>
+                            <td>{{ $torrent->seeders }}</td>
+                            <td>{{ $torrent->leechers }}</td>
+                            <td>{{ $torrent->times_completed }}</td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-    </div>
-    </div>
+    </section>
 @endsection

@@ -19,45 +19,36 @@
     @include('partials.statsgroupmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.groups') }}</h2>
-            <hr>
-            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i>
-                    {{ __('stat.groups') }}</strong>
-                ({{ __('stat.users-per-group') }})</p>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--groups')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.groups') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.group') }}</th>
+                        <th>{{ __('common.users') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($groups as $group)
                         <tr>
-                            <th>{{ __('common.group') }}</th>
-                            <th class="text-right">{{ __('common.users') }}</th>
+                            <td>
+                                <a
+                                    href="{{ route('group', ['id' => $group->id]) }}"
+                                    style="color:{{ $group->color }};"
+                                >
+                                        <i class="{{ $group->icon }}"></i>
+                                        {{ $group->name }}
+                                </a>
+                            </td>
+                            <td>{{ $group->users()->withTrashed()->count() }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($groups as $group)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('group', ['id' => $group->id]) }}">
-                                        <span style="color:{{ $group->color }};">
-                                            <i class="{{ $group->icon }}" aria-hidden="true"></i>
-                                            {{ $group->name }}
-                                        </span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <p class="text-blue text-right">
-                                        {{ $group->users()->withTrashed()->count() }}
-                                    </p>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection
