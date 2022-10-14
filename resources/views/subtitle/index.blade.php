@@ -10,8 +10,8 @@
     </li>
 @endsection
 
+@section('page', 'page__subtitle--index')
+
 @section('content')
-    <div>
-        @livewire('subtitle-search')
-    </div>
+    @livewire('subtitle-search')
 @endsection
