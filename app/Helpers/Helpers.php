@@ -134,7 +134,7 @@ if (! function_exists('language_flag')) {
             'Arabic'     => 'ae',
             'Belarusian' => 'by',
             'Bulgarian'  => 'bg',
-            'Catalan'    => 'ad',
+            'Catalan'    => 'ca',
             'Chinese'    => 'cn',
             'Croatian'   => 'hr',
             'Czech'      => 'cz',
