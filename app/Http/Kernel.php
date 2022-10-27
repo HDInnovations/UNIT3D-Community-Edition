@@ -89,7 +89,6 @@ class Kernel extends HttpKernel
         'modo'          => \App\Http\Middleware\CheckForModo::class,
         'owner'         => \App\Http\Middleware\CheckForOwner::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
-        'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         '2fa'           => \App\Http\Middleware\Google2FAMiddleware::class,

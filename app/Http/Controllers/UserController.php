@@ -301,25 +301,6 @@ class UserController extends Controller
     }
 
     /**
-     * User TwoStep Auth.
-     */
-    protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        if ($request->getMethod() == 'GET') {
-            return \to_route('user_security', ['username' => $request->user()->username]);
-        }
-
-        $user = \auth()->user();
-
-        \abort_unless(\config('auth.TwoStepEnabled') == true, 403);
-        $user->twostep = $request->input('twostep');
-        $user->save();
-
-        return \to_route('users.show', ['username' => $user->username])
-            ->withSuccess('You Changed Your TwoStep Auth Status!');
-    }
-
-    /**
      * User Password Change.
      */
     protected function changePassword(Request $request, string $username): \Illuminate\Http\RedirectResponse

@@ -84,7 +84,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', '2fa', 'banned']], function () {
 
         // 2FA System
         Route::get('/2fa', [App\Http\Controllers\Auth\PasswordSecurityController::class, 'show2faForm'])->name('2fa');
@@ -123,13 +123,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy');
             });
-        });
-
-        // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
-            Route::get('/needed', [App\Http\Controllers\Auth\TwoStepController::class, 'showVerification'])->name('verificationNeeded');
-            Route::post('/verify', [App\Http\Controllers\Auth\TwoStepController::class, 'verify'])->name('verify');
-            Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
         });
 
         // Reports System
@@ -289,7 +282,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\UserController::class, 'notification'])->name('user_notification');
-            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep']);
             Route::post('/{username}/settings/change_settings', [App\Http\Controllers\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change_password');
             Route::post('/{username}/settings/change_email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change_email');
@@ -313,7 +305,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/achievement', [App\Http\Controllers\UserController::class, 'changeAchievement'])->name('privacy_achievement');
             Route::post('/{username}/settings/privacy/request', [App\Http\Controllers\UserController::class, 'changeRequest'])->name('privacy_request');
             Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\UserController::class, 'changeOther'])->name('privacy_other');
-            Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep'])->name('change_twostep');
             Route::post('/{username}/settings/hidden', [App\Http\Controllers\UserController::class, 'makeHidden'])->name('user_hidden');
             Route::post('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
             Route::post('/{username}/settings/private', [App\Http\Controllers\UserController::class, 'makePrivate'])->name('user_private');
@@ -459,7 +450,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', '2fa', 'banned']], function () {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -514,7 +505,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', '2fa', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', '2fa', 'banned']], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
@@ -580,7 +571,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', '2fa', 'twostep', 'modo', 'banned']], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', '2fa', 'modo', 'banned']], function () {
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');

@@ -56,7 +56,6 @@ class UserFactory extends Factory
             'private_profile'     => $this->faker->boolean(),
             'block_notifications' => $this->faker->boolean(),
             'stat_hidden'         => $this->faker->boolean(),
-            'twostep'             => false,
             'remember_token'      => Str::random(10),
             'api_token'           => $this->faker->uuid(),
             //'last_login'          => $this->faker->dateTime(),
