@@ -77,7 +77,7 @@ class ModerationController extends Controller
                     }
                 );
         }
-    
+
         $user = $torrent->user;
 
         switch ($request->status) {
@@ -85,7 +85,7 @@ class ModerationController extends Controller
                 $appurl = \config('app.url');
                 $username = $user->username;
                 $anon = $torrent->anon;
-    
+
                 // Announce To Shoutbox
                 if ($anon == 0) {
                     $this->chatRepository->systemMessage(
@@ -96,9 +96,9 @@ class ModerationController extends Controller
                         \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                     );
                 }
-    
+
                 TorrentHelper::approveHelper($torrent->id);
-    
+
                 return \to_route('staff.moderation.index')
                     ->withSuccess('Torrent Approved');
 
@@ -108,7 +108,7 @@ class ModerationController extends Controller
                     'slug'    => 'required|exists:torrents',
                     'message' => 'required',
                 ]);
-        
+
                 if ($v->fails()) {
                     return \to_route('staff.moderation.index')
                         ->withErrors($v->errors());
@@ -121,7 +121,7 @@ class ModerationController extends Controller
                 $privateMessage->subject = \sprintf('Your upload, %s ,has been rejected by %s', $torrent->name, $user->username);
                 $privateMessage->message = \sprintf("Greetings, \n\nYour upload %s has been rejected. Please see below the message from the staff member.\n\n%s", $torrent->name, $request->message);
                 $privateMessage->save();
-        
+
                 return \to_route('staff.moderation.index')
                     ->withSuccess('Torrent Rejected');
 
@@ -131,7 +131,7 @@ class ModerationController extends Controller
                     'slug'    => 'required|exists:torrents',
                     'message' => 'required',
                 ]);
-        
+
                 if ($v->fails()) {
                     return \to_route('staff.moderation.index')
                         ->withErrors($v->errors());
@@ -144,7 +144,7 @@ class ModerationController extends Controller
                 $privateMessage->subject = \sprintf('Your upload, %s ,has been postponed by %s', $torrent->name, $user->username);
                 $privateMessage->message = \sprintf("Greetings, \n\nYour upload, %s ,has been postponed. Please see below the message from the staff member.\n\n%s", $torrent->name, $request->message);
                 $privateMessage->save();
-        
+
                 return \to_route('staff.moderation.index')
                     ->withSuccess('Torrent Postponed');
 
