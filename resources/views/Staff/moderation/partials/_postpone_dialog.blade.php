@@ -10,15 +10,17 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route('staff.moderation.postpone') }}"
+            action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
             x-on:click.outside="open = false; $refs.dialog.close();"
         >
             @csrf
             <input type="hidden" name="type" value="{{ __('torrent.torrent') }}">
             <input type="hidden" name="id" value="{{ $torrent->id }}">
             <input type="hidden" name="slug" value="{{ $torrent->slug }}">
+            <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+            <input type="hidden" name="status" value="3">
             <p class="form__group">
-                <textarea class="form__textarea" name="message" id="message"></textarea>
+                <textarea class="form__textarea" name="message" id="message">{{ old('message') }}</textarea>
                 <label class="form__label form__label--floating" for="message">Postpone Message</label>
             </p>
             <p class="form__group">
