@@ -207,6 +207,10 @@ class TorrentController extends BaseController
 
             return $this->sendError('Validation Error.', $v->errors());
         }
+        
+        if (config('torrent.size_freeleech') == true && $torrent->size >= \config('torrent.size_threshold')){
+            $torrent->free = 100;
+        }
 
         // Save The Torrent
         $torrent->save();
