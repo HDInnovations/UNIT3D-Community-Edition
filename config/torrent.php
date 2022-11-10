@@ -68,5 +68,17 @@ return [
     */
 
     'magnet' => 0,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Freeleech on torrents over specified size threshold
+    |--------------------------------------------------------------------------
+    |
+    | Enable/Disable freeleech on torrents over specified size threshold
+    |
+    */
+
+    'size_freeleech' => False,
+    'size_threshold' => '53687091200', //in bytes, default is 53687091200 (50GiB)
 
 ];
