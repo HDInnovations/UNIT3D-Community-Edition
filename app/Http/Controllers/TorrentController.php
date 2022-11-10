@@ -555,6 +555,10 @@ class TorrentController extends Controller
             return \to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors($v->errors())->withInput();
         }
+        
+        if (config('torrent.size_freeleech') == true && $torrent->size >= \config('torrent.size_threshold')){
+            $torrent->free = 100;
+        }
 
         // Save The Torrent
         $torrent->save();
