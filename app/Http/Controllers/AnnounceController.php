@@ -69,6 +69,15 @@ class AnnounceController extends Controller
         6699,
     ];
 
+    private const HEADERS = [
+        'Content-Type'  => 'text/plain; charset=utf-8',
+        'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma'        => 'no-cache',
+        'Expires'       => 0,
+        'Connection'    => 'close'
+
+    ];
+
     /**
      * Announce Code.
      *
@@ -111,7 +120,7 @@ class AnnounceController extends Controller
                 $this->checkDownloadSlots($queries, $user);
             }
 
-            // Generate A Response For The Torrent Clent.
+            // Generate A Response For The Torrent Client.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
@@ -131,6 +140,9 @@ class AnnounceController extends Controller
      */
     protected function checkClient(Request $request): void
     {
+        // Query count check
+        \throw_if($request->query->count() < 6, new TrackerException(129));
+
         // Miss Header User-Agent is not allowed.
         \throw_if(! $request->header('User-Agent'), new TrackerException(120));
 
@@ -526,9 +538,6 @@ class AnnounceController extends Controller
      */
     protected function sendFinalAnnounceResponse($repDict): Response
     {
-        return \response(Bencode::bencode($repDict))
-            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
-            ->withHeaders(['Connection' => 'close'])
-            ->withHeaders(['Pragma' => 'no-cache']);
+        return response(Bencode::bencode($repDict), headers: self::HEADERS);
     }
 }
