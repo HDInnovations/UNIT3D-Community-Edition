@@ -1442,7 +1442,7 @@ class UserController extends Controller
         $carbon = new Carbon();
 
         // Get Peer List from User
-        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])
+        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])
             ->where('user_id', '=', $user->id)
             ->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())
             ->get();
