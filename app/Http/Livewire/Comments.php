@@ -106,7 +106,7 @@ class Comments extends Component
 
         //Notification
         if ($this->user->id !== $this->model->user_id) {
-            User::find($this->model->user_id)->notify(new NewComment($this->model, $comment));
+            User::find($this->model->user_id)->notify(new NewComment(strtolower(class_basename($this->model)), $comment));
         }
 
         // Tagging
