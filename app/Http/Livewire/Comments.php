@@ -110,7 +110,7 @@ class Comments extends Component
         }
 
         // Tagging
-        $taggedUserRepository = App::make(TaggedUserRepository::class);
+        /*$taggedUserRepository = App::make(TaggedUserRepository::class);
         if ($taggedUserRepository->hasTags($this->newCommentState)) {
             if ($this->user->group->is_modo && $taggedUserRepository->contains($this->newCommentState, '@here')) {
                 $users = \collect([]);
@@ -135,7 +135,7 @@ class Comments extends Component
                     $comment
                 );
             }
-        }
+        }*/
 
         $this->gotoPage(1);
     }
