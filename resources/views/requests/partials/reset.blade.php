@@ -1,9 +1,10 @@
 <form
     method="POST"
     action="{{ route("resetRequest", ['id' => $torrentRequest->id]) }}"
-    x-on:click.outside="open = false; $refs.dialog.close();"
+    x-data
 >
-    <div class="form__group form__group--short-horizontal" x-data="{ open: false }">
+    @csrf
+    <div class="form__group form__group--short-horizontal">
         <button
             x-on:click.prevent="Swal.fire({
                 title: 'Are you sure?',

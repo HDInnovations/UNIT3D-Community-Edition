@@ -1,8 +1,10 @@
 <form
     action="{{ route("deleteRequest", ['id' => $torrentRequest->id]) }}"
     method="POST"
+    x-data
 >
-    <div class="form__group form__group--short-horizontal" x-data="{ open: false }">
+    @csrf
+    <div class="form__group form__group--short-horizontal">
         <button
             x-on:click.prevent="Swal.fire({
                 title: 'Are you sure?',
