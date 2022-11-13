@@ -292,21 +292,21 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
         }
 
-        $oldSeeders = $this->torrents->peers->where('left', '=', 0)->count();
-        $oldLeechers = $this->torrents->peers->where('left', '>', 0)->count();
+        $otherSeeders = $this
+            ->torrents
+            ->peers
+            ->where('left', '=', 0)
+            ->where('peer_id', '<>', $this->queries['peer_id'])
+            ->count();
+        $otherLeechers = $this
+            ->torrents
+            ->peers
+            ->where('left', '>', 0)
+            ->where('peer_id', '<>', $this->queries['peer_id'])
+            ->count();
 
-        $this->torrent->seeders = match ($event) {
-            'started'   => $oldSeeders + (int) ($this->queries['left'] == 0),
-            'completed' => $oldSeeders + 1,
-            'stopped'   => $oldSeeders - (int) ($this->queries['left'] == 0),
-            default     => $oldSeeders
-        };
-        $this->torrent->leechers = match ($event) {
-            'started'   => $oldLeechers + (int) ($this->queries['left'] > 0),
-            'completed' => $oldLeechers - 1,
-            'stopped'   => $oldLeechers - (int) ($this->queries['left'] > 0),
-            default     => $oldLeechers
-        };
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0);
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0);
 
         $this->torrent->save();
     }
