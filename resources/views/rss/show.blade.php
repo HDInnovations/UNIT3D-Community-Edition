@@ -22,8 +22,8 @@
                 <item>
                     <title>{{ $data->name }}</title>
                     <category>{{ $data->category->name }}</category>
-                    <link>{{ route('home.index') }}</link>
-                    <guid>{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $user->rsskey ]) }}</guid>
+                    <link>{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $user->rsskey ]) }}</link>
+                    <guid>{{ $data->id }}</guid>
                     <description>
                         <![CDATA[<p>
                             <strong>Name</strong>: {{ $data->name }}<br>
