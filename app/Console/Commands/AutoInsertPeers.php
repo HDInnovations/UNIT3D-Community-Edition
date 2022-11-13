@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 /**
@@ -49,7 +50,7 @@ class AutoInsertPeers extends Command
     public function handle(): void
     {
         $key = config('cache.prefix').':peers:batch';
-        $peerCount = Redis::connection('cache')->command('LRANGE', [$key, '0', '-1']);
+        $peerCount = Redis::connection('cache')->command('LLEN', [$key]);
         $cycles = ceil($peerCount / self::PEERS_PER_CYCLE);
 
         for ($i = 0; $i < $cycles; $i++) {
