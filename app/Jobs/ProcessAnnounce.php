@@ -294,13 +294,13 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         $otherSeeders = $this
-            ->torrents
+            ->torrent
             ->peers
             ->where('left', '=', 0)
             ->where('peer_id', '<>', $this->queries['peer_id'])
             ->count();
         $otherLeechers = $this
-            ->torrents
+            ->torrent
             ->peers
             ->where('left', '>', 0)
             ->where('peer_id', '<>', $this->queries['peer_id'])
