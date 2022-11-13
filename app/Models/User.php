@@ -129,7 +129,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs To Many Seeding Torrents.
+     * Belongs To Many Leeching Torrents.
      */
     public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
