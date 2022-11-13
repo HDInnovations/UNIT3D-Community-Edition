@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use App\Models\History;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class AutoTorrentBalance extends Command
 {
