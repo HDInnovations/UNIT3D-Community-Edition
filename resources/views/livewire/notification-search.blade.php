@@ -15,7 +15,7 @@
                     <tbody>
                     @forelse($notifications as $notification)
                         <tr>
-                            <td>
+                            <td class="{{ $notification->read_at === null ? 'notification--unread' : 'notification--read' }}">
                                 <a href="{{ route('notifications.show', ['id' => $notification->id]) }}">
                                     {{ $notification->data['title'] }}
                                 </a>
