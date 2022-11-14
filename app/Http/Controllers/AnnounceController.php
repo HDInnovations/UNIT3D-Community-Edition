@@ -27,6 +27,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redis;
 
 class AnnounceController extends Controller
 {
@@ -71,9 +72,7 @@ class AnnounceController extends Controller
 
     private const HEADERS = [
         'Content-Type'  => 'text/plain; charset=utf-8',
-        'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
         'Pragma'        => 'no-cache',
-        'Expires'       => 0,
         'Connection'    => 'close'
 
     ];
@@ -104,27 +103,31 @@ class AnnounceController extends Controller
             // Get Torrent Info Array from queries and judge if user can reach it.
             $torrent = $this->checkTorrent($queries['info_hash']);
 
-            // Check if a user is announcing a torrent as completed but no peer is in db.
-            $this->checkPeer($torrent, $queries, $user);
+            // Check if announce request is a re-announce.
+            if ($this->isReAnnounce($queries, $request) === false) {
 
-            // Lock Min Announce Interval.
-            if (\config('announce.min_interval.enabled')) {
-                $this->checkMinInterval($torrent, $queries, $user);
-            }
+                // Check if a user is announcing a torrent as completed but no peer is in db.
+                $this->checkPeer($torrent, $queries, $user);
 
-            // Check User Max Connections Per Torrent.
-            $this->checkMaxConnections($torrent, $user);
+                // Lock Min Announce Interval.
+                if (\config('announce.min_interval.enabled')) {
+                    $this->checkMinInterval($queries);
+                }
 
-            // Check Download Slots.
-            if (\config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($queries, $user);
+                // Check User Max Connections Per Torrent.
+                $this->checkMaxConnections($torrent, $user);
+
+                // Check Download Slots.
+                if (\config('announce.slots_system.enabled')) {
+                    $this->checkDownloadSlots($queries, $user);
+                }
+
+                // Process Annnounce Job.
+                $this->processAnnounceJob($queries, $user, $torrent);
             }
 
             // Generate A Response For The Torrent Client.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
-
-            // Process Annnounce Job.
-            $this->processAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
             $repDict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -390,6 +393,32 @@ class AnnounceController extends Controller
     }
 
     /**
+     * If Our Tracker is in these situations:
+     *    - Using multi-tracker Extension (BEP 0012), All query_string are the same
+     *    - Tracker Url can resolve to multiple IP addresses (BEP 0007 Tracker Hostname Resolution)，
+     *    - All element except `key` in query_string  are the same
+     *
+     * Some Bittorrent Client May ReAnnounce many times,
+     * Depending on Client Behaviour (Network Interfaces), Tracker/Tier Number, Resolved IP of each Tracker
+     * Add we SHOULD only process the first announce requests which we received,
+     * and just return the empty peer_list in other announce request.
+     */
+    private function isReAnnounce($queries, Request $request): bool
+    {
+        $query_string = \urldecode($request->getQueryString());
+        $identity = \md5(\str_replace($queries['key'], '', $query_string));
+
+        $prev_lock_expire_at = Redis::connection('cache')->command('ZSCORE', [\config('cache.prefix').':announce_flood:lock', $identity ?: $queries['timestamp']]);
+        if ($queries['timestamp'] >= $prev_lock_expire_at) {
+            Redis::connection('cache')->command('ZADD', [\config('cache.prefix').':announce_flood:lock', $queries['timestamp'] + 30, $identity]);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Check If Peer Exist In Database.
      *
      * @throws \App\Exceptions\TrackerException
@@ -414,19 +443,24 @@ class AnnounceController extends Controller
      * @throws \Exception
      * @throws \Throwable
      */
-    private function checkMinInterval($torrent, $queries, $user): void
+    private function checkMinInterval($queries): void
     {
-        $prevAnnounce = $torrent->peers
-            ->where('peer_id', '=', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->first();
-        $setMin = \config('announce.min_interval.interval') ?? self::MIN;
-        $randomMinInterval = random_int($setMin, $setMin * 2);
-        \throw_if(
-            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
-            && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped',
-            new TrackerException(162, [':min' => $randomMinInterval])
-        );
+        $identity = \md5(\implode(':', [
+            // Use `passkey, info_hash, peer_id, key` as a unique key to check if this announce is in min interval
+            $queries['passkey'], // Identify User
+            $queries['info_hash'], // Identify Torrent
+            $queries['peer_id'], $queries['key'], // Identify Peer (peer_id + key)
+            $queries['event']  // We should also add `event` params to prevent peer completed announce been blocked after common announce
+        ]));
+
+        $prev_lock_expire = Redis::connection('cache')->command('ZSCORE', [config('cache.prefix').':announce_min_interval:lock', $identity ?: $queries['timestamp']]);
+
+        if ($prev_lock_expire > $queries['timestamp']) {
+            throw new TrackerException(162, [':min' => \config('announce.min_interval.interval') ?? self::MIN]);
+        }
+
+        $min_interval = (int)(\config('tracker.min_interval') * (3 / 4));
+        Redis::connection('cache')->command('ZADD', [config('cache.prefix').':announce_min_interval:lock', $queries['timestamp'] + $min_interval, $identity]);
     }
 
     /**
