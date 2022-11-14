@@ -56,7 +56,7 @@ class ModerationController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::withAnyStatus()->with('user')->findOrFail($id);
 
         if ((int) $request->old_status !== $torrent->status) {
             return \to_route('torrent', ['id' => $id])
@@ -78,18 +78,16 @@ class ModerationController extends Controller
                 );
         }
 
-        $user = $torrent->user;
+        $user = \auth()->user();
 
         switch ($request->status) {
             case 1: // Approve
                 $appurl = \config('app.url');
-                $username = $user->username;
-                $anon = $torrent->anon;
 
                 // Announce To Shoutbox
-                if ($anon == 0) {
+                if ($torrent->anon === 0) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                        \sprintf('User [url=%s/users/', $appurl).$torrent->user->username.']'.$torrent->user->username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
@@ -115,6 +113,7 @@ class ModerationController extends Controller
                 }
 
                 $torrent->markRejected();
+
                 $privateMessage = new PrivateMessage();
                 $privateMessage->sender_id = $user->id;
                 $privateMessage->receiver_id = $torrent->user_id;
@@ -138,6 +137,7 @@ class ModerationController extends Controller
                 }
 
                 $torrent->markPostponed();
+
                 $privateMessage = new PrivateMessage();
                 $privateMessage->sender_id = $user->id;
                 $privateMessage->receiver_id = $torrent->user_id;
