@@ -458,7 +458,7 @@ class AnnounceController extends Controller
             throw new TrackerException(162, [':min' => \config('announce.min_interval.interval') ?? self::MIN]);
         }
 
-        $min_interval = (int)(\config('tracker.min_interval') * (3 / 4));
+        $min_interval = \config('announce.min_interval.interval') ?? self::MIN * (3 / 4));
         Redis::connection('cache')->command('ZADD', [config('cache.prefix').':announce_min_interval:lock', $queries['timestamp'] + $min_interval, $identity]);
     }
 
