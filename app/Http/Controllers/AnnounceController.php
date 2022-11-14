@@ -404,11 +404,11 @@ class AnnounceController extends Controller
      */
     private function isReAnnounce($queries, Request $request): bool
     {
-        $query_string = \urldecode($request->getQueryString());
-        $identity = \md5(\str_replace($queries['key'], '', $query_string));
+        $queryString = \urldecode($request->getQueryString());
+        $identity = \md5(\str_replace($queries['key'], '', $queryString));
 
-        $prev_lock_expire_at = Redis::connection('cache')->command('ZSCORE', [\config('cache.prefix').':announce_flood:lock', $identity ?: $queries['timestamp']]);
-        if ($queries['timestamp'] >= $prev_lock_expire_at) {
+        $prevLockExpireAt = Redis::connection('cache')->command('ZSCORE', [\config('cache.prefix').':announce_flood:lock', $identity ?: $queries['timestamp']]);
+        if ($queries['timestamp'] >= $prevLockExpireAt) {
             Redis::connection('cache')->command('ZADD', [\config('cache.prefix').':announce_flood:lock', $queries['timestamp'] + 30, $identity]);
 
             return false;
@@ -452,14 +452,14 @@ class AnnounceController extends Controller
             $queries['event']  // We should also add `event` params to prevent peer completed announce been blocked after common announce
         ]));
 
-        $prev_lock_expire = Redis::connection('cache')->command('ZSCORE', [config('cache.prefix').':announce_min_interval:lock', $identity ?: $queries['timestamp']]);
+        $prevLockExpire = Redis::connection('cache')->command('ZSCORE', [config('cache.prefix').':announce_min_interval:lock', $identity ?: $queries['timestamp']]);
 
-        if ($prev_lock_expire > $queries['timestamp']) {
+        if ($prevLockExpire > $queries['timestamp']) {
             throw new TrackerException(162, [':min' => \config('announce.min_interval.interval') ?? self::MIN]);
         }
 
-        $min_interval = \config('announce.min_interval.interval') ?? self::MIN * (3 / 4));
-        Redis::connection('cache')->command('ZADD', [config('cache.prefix').':announce_min_interval:lock', $queries['timestamp'] + $min_interval, $identity]);
+        $minInterval = \config('announce.min_interval.interval') ?? self::MIN * (3 / 4);
+        Redis::connection('cache')->command('ZADD', [config('cache.prefix').':announce_min_interval:lock', $queries['timestamp'] + $minInterval, $identity]);
     }
 
     /**
