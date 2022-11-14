@@ -105,7 +105,6 @@ class AnnounceController extends Controller
 
             // Check if announce request is a re-announce.
             if ($this->isReAnnounce($queries, $request) === false) {
-
                 // Check if a user is announcing a torrent as completed but no peer is in db.
                 $this->checkPeer($torrent, $queries, $user);
 
