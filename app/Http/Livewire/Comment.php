@@ -146,35 +146,7 @@ class Comment extends Component
 
         //Notification
         if ($this->user->id !== $this->comment->user_id) {
-            User::find($this->comment->user_id)->notify(new NewComment($this->comment, $reply));
-        }
-
-        // Tagging
-        $taggedUserRepository = App::make(TaggedUserRepository::class);
-        if ($taggedUserRepository->hasTags($this->replyState)) {
-            if ($this->user->group->is_modo && $taggedUserRepository->contains($this->replyState, '@here')) {
-                $users = \collect([]);
-
-                $this->comment->children()->get()->each(function ($c) use ($users) {
-                    $users->push($c->user);
-                });
-                $taggedUserRepository->messageCommentUsers(
-                    $this->comment,
-                    $users,
-                    $this->user,
-                    'Staff',
-                    $reply
-                );
-            } else {
-                $sender = $reply->anon !== 0 ? $this->user->username : 'Anonymous';
-                $taggedUserRepository->messageTaggedCommentUsers(
-                    $this->comment,
-                    $this->replyState[],
-                    $this->user,
-                    $sender,
-                    $reply
-                );
-            }
+            User::find($this->comment->user_id)->notify(new NewComment(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
         }
 
         $this->isReplying = false;

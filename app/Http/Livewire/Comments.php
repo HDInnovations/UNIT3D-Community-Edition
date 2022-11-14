@@ -106,36 +106,8 @@ class Comments extends Component
 
         //Notification
         if ($this->user->id !== $this->model->user_id) {
-            User::find($this->model->user_id)->notify(new NewComment(strtolower(class_basename($this->model)), $comment));
+            User::find($this->model->user_id)->notify(new NewComment(\strtolower(\class_basename($this->model)), $comment));
         }
-
-        // Tagging
-        /*$taggedUserRepository = App::make(TaggedUserRepository::class);
-        if ($taggedUserRepository->hasTags($this->newCommentState)) {
-            if ($this->user->group->is_modo && $taggedUserRepository->contains($this->newCommentState, '@here')) {
-                $users = \collect([]);
-
-                $this->model->comments()->get()->each(function ($c) use ($users) {
-                    $users->push($c->user);
-                });
-                $taggedUserRepository->messageCommentUsers(
-                    $this->model,
-                    $users,
-                    $this->user,
-                    'Staff',
-                    $comment
-                );
-            } else {
-                $sender = $comment->anon !== 0 ? $this->user->username : 'Anonymous';
-                $taggedUserRepository->messageTaggedCommentUsers(
-                    $this->model,
-                    $this->newCommentState[],
-                    $this->user,
-                    $sender,
-                    $comment
-                );
-            }
-        }*/
 
         $this->gotoPage(1);
     }
