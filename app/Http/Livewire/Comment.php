@@ -27,8 +27,6 @@ use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
-use App\Repositories\TaggedUserRepository;
-use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
