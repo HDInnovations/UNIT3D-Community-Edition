@@ -15,44 +15,44 @@
     @include('partials.pmmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div>
-            <div>
-                <div class="block">
-                    <form role="form" method="POST" action="{{ route('send-pm') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="users">{{ __('common.username') }}</label>
-                            <label>
-                                <label>
-                                    <input name="receiver_id" class="form-control"
-                                           placeholder="{{ __('common.username') }}"
-                                           {{request()->has('username') ? 'readonly' : 'required'}} value="{{request()->has('username') ? request()->get('username') : '' }}">
-                                </label>
-                            </label>
-                        </div>
+@section('page', 'page__pm--send')
 
-                        <div class="form-group">
-                            <label for="">{{ __('pm.subject') }}</label>
-                            <label>
-                                <input name="subject" class="form-control" placeholder="{{ __('pm.enter-subject') }}"
-                                       required>
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">{{ __('pm.message') }}</label>
-                            <label for="message"></label>
-                            <textarea id="editor" name="message" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-
-                        <button class="btn btn-primary">
-                            <i class="{{ config('other.font-awesome') }} fa-save"></i> {{ __('pm.send') }}
-                        </button>
-                    </form>
-                </div>
-            </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('pm.new') }}</h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('send-pm') }}">
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="receiver_id"
+                        class="form__text"
+                        name="receiver_id"
+                        {{ request()->has('username') ? 'readonly' : 'required' }}
+                        value="{{request()->has('username') ? request()->get('username') : '' }}"
+                    >
+                    <label for="receiver_id" class="form__label form__label--floating">
+                        {{ __('common.username') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="subject"
+                        class="form__text"
+                        name="subject"
+                        required
+                    />
+                    <label for="subject" class="form__label form__label--floating">
+                        {{ __('pm.enter-subject') }}
+                    </label>
+                </p>
+                @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('pm.reply') }}
+                    </button>
+                </p>
+            </form>
         </div>
-    </div>
+    </section>
 @endsection

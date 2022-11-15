@@ -123,15 +123,19 @@ class User extends Authenticatable
      */
     public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Torrent::class, 'history')->wherePivot('active', '=', 1);
+        return $this->belongsToMany(Torrent::class, 'history')
+            ->wherePivot('active', '=', 1)
+            ->wherePivot('seeder', '=', 1);
     }
 
     /**
-     * Belongs To Many Seeding Torrents.
+     * Belongs To Many Leeching Torrents.
      */
     public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Torrent::class, 'history')->wherePivot('active', '=', 0);
+        return $this->belongsToMany(Torrent::class, 'history')
+            ->wherePivot('active', '=', 1)
+            ->wherePivot('seeder', '=', 0);
     }
 
     /**

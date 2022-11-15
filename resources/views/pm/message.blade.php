@@ -15,63 +15,62 @@
     @include('partials.pmmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div>
-            <div>
-                <div class="block">
-                    <h3>Re: {{ $pm->subject }}</h3>
-                    @if ($pm->sender_id == auth()->user()->id)
-                        <div class="mt-10 message message-unread message-sent">
-                            @else
-                                <div class="mt-10 message message-read">
-                                    @endif
-                                    <div class="row message-headers">
-                                        <div class="col-sm-4">
-                                            <div><strong>{{ __('pm.from') }}:</strong> <a
-                                                        href="{{ route('users.show', ['username' => $pm->sender->username]) }}">{{ $pm->sender->username }}</a>
-                                            </div>
-                                            <div><strong>{{ __('pm.to') }}:</strong> <a
-                                                        href="{{ route('users.show', ['username' => $pm->receiver->username]) }}">{{ $pm->receiver->username }}</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <div><strong>{{ __('pm.subject') }}:</strong> Re: {{ $pm->subject }}
-                                            </div>
-                                            <div>
-                                                <strong>{{ __('pm.sent') }}:</strong> {{ $pm->created_at }}
-                                            </div>
-                                        </div>
-                                        <form role="form" method="POST"
-                                              action="{{ route('delete-pm', ['id' => $pm->id]) }}">
-                                            @csrf
-                                            <div class="col-sm-1">
-                                                <button type="submit" class="btn btn-sm btn-danger pull-right"
-                                                        title="{{ __('pm.delete') }}"><i
-                                                            class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="row message-body">
-                                        <div class="col-sm-12">
-                                            @joypixels($pm->getMessageHtml())
-                                        </div>
-                                    </div>
-                                </div>
-                                <form role="form" method="POST" action="{{ route('reply-pm', ['id' => $pm->id]) }}">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="message"></label>
-                                        <textarea id="editor" name="message" cols="30" rows="10"
-                                                  class="form-control"></textarea>
-                                        <button type="submit" class="btn btn-primary"
-                                                style="float:right;">{{ __('pm.reply') }}</button>
-                                    </div>
-                                </form>
-                        </div>
-                </div>
-            </div>
+@section('page', 'page__pm--message')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">Re: {{ $pm->subject }}</h2>
+        <div class="panel__body">
+            @joypixels($pm->getMessageHtml())
         </div>
-    </div>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('pm.reply') }}</h2>
+        <div class="panel__body">
+            <form method="POST" action="{{ route('reply-pm', ['id' => $pm->id]) }}">
+                @csrf
+                @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('pm.reply') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <dt>{{ __('pm.from') }}</dt>
+            <dd>
+                <x-user_tag :user="$pm->sender" :anon="false" />
+            </dd>
+            <dt>{{ __('pm.to') }}</dt>
+            <dd>
+                <x-user_tag :user="$pm->receiver" :anon="false" />
+            </dd>
+            <dt>{{ __('pm.sent') }}</dt>
+            <dd>
+                <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
+                    {{ $pm->created_at->diffForHumans() }}
+                </time>
+            </dd>
+        </dl>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.actions') }}</h2>
+        <div class="panel__body">
+            <form action="{{ route('delete-pm', ['id' => $pm->id]) }}" method="POST">
+                <p class="form__group form__group--horizontal">
+                    <button class="form__button form__button--filled">
+                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                        {{ __('pm.delete') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

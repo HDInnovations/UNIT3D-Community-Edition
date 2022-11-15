@@ -24,7 +24,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 
 class ProcessAnnounce implements ShouldQueue
 {
@@ -64,8 +63,7 @@ class ProcessAnnounce implements ShouldQueue
         $event = \strtolower($this->queries['event']);
 
         // Get The Current Peer
-        $peer = Peer::query()
-            ->where('torrent_id', '=', $this->torrent->id)
+        $peer = $this->torrent->peers
             ->where('peer_id', '=', $this->queries['peer_id'])
             ->where('user_id', '=', $this->user->id)
             ->first();
@@ -218,7 +216,21 @@ class ProcessAnnounce implements ShouldQueue
                 break;
 
             case 'stopped':
-                $peer->touch();
+                $peer->peer_id = $this->queries['peer_id'];
+                $peer->md5_peer_id = \md5($this->queries['peer_id']);
+                $peer->info_hash = $this->queries['info_hash'];
+                $peer->ip = $this->queries['ip-address'];
+                $peer->port = $this->queries['port'];
+                $peer->agent = $this->queries['user-agent'];
+                $peer->uploaded = $realUploaded;
+                $peer->downloaded = $realDownloaded;
+                $peer->seeder = (int) ($this->queries['left'] == 0);
+                $peer->left = $this->queries['left'];
+                $peer->torrent_id = $this->torrent->id;
+                $peer->user_id = $this->user->id;
+                $peer->updateConnectableStateIfNeeded();
+                $peer->updated_at = \now();
+                $peer->save();
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
@@ -294,13 +306,22 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
         }
 
-        $peerCount = DB::table('peers')
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->selectRaw('count(case when peers.left > 0 then 1 end) as leechers')
-            ->selectRaw('count(case when peers.left = 0 then 1 end) as seeders')
-            ->first();
-        $this->torrent->seeders = $peerCount->seeders;
-        $this->torrent->leechers = $peerCount->leechers;
+        $otherSeeders = $this
+            ->torrent
+            ->peers
+            ->where('left', '=', 0)
+            ->where('peer_id', '<>', $this->queries['peer_id'])
+            ->count();
+        $otherLeechers = $this
+            ->torrent
+            ->peers
+            ->where('left', '>', 0)
+            ->where('peer_id', '<>', $this->queries['peer_id'])
+            ->count();
+
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0);
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0);
+
         $this->torrent->save();
     }
 }

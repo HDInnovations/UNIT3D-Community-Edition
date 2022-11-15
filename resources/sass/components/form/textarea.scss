@@ -37,9 +37,11 @@
         height: 140px;
 
         & ~ .form__label--floating {
-            top: -11px;
+            top: -3px;
             font-size: 11px;
             color: var(--label-fg-active);
+            border-radius: 0;
+            padding: 0 4px;
         }
     }
 
@@ -48,8 +50,10 @@
         height: 140px;
 
         & ~ .form__label--floating {
-            top: -11px;
+            top: -3px;
             font-size: 11px;
+            border-radius: 0;
+            padding: 0 4px;
         }
     }
 

@@ -75,6 +75,9 @@
     --meter-fg: #333;
     --meter-bg: #505050;
 
+    --notification-unread: #444;
+    --notification-read: transparent;
+
     --paginate-bg: #272727;
     --paginate-bg-hover: #222;
     --paginate-bg-current: #202020;
@@ -106,7 +109,7 @@
     --textarea-fg: #bbb;
 
     --torrent-card-bg: #222;
-    --torrent-card-fg: inherit
+    --torrent-card-fg: inherit;
     --torrent-card-border: 3px solid rgba(14, 21, 34, 0.25);
     --torrent-card-head-bg: #19191b;
     --torrent-card-head-fg: #fff;

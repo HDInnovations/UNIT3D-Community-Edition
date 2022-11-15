@@ -20,3 +20,11 @@
     overflow-y: auto;
     resize: vertical;
 }
+
+.form__fieldset-checkbox-container--shrink {
+    margin: -6px -12px -12px -12px;
+    padding: 6px 12px 12px 12px;
+    max-height: 160px;
+    overflow-y: auto;
+    resize: vertical;
+}

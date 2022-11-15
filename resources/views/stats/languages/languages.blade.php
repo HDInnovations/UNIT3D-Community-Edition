@@ -15,22 +15,20 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.languages') }}</h2>
-            <hr>
-            <div class="row col-md-offset-1">
+@section('page', 'page__stats--languages')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.languages') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 @foreach ($languages as $code => $name)
-                    <div class="well col-md-3" style="margin: 10px;">
-                        <div class="text-center">
-                            <h3 class="text-success">{{ $name }}</h3>
-                            @php $count = App\Models\User::where('locale', '=', $code)->count() @endphp
-                            <span class="badge-extra text-blue">Used By {{ $count }} Users</span>
-                        </div>
-                    </div>
+                    <tr>
+                        <td>{{ $name }}</td>
+                        <td>Used By {{ App\Models\User::where('locale', '=', $code)->count() }} Users</td>
+                    </tr>
                 @endforeach
-            </div>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

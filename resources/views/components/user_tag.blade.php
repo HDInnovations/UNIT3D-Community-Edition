@@ -17,12 +17,12 @@
 @if ($anon)
     @if (auth()->user()->id === $user->id || auth()->user()->group->is_modo)
         <span
-            {{ $attributes->class('chip--user fas fa-eye-slash') }}
+            {{ $attributes->class('user-tag fas fa-eye-slash') }}
             {{ $attributes->merge(['style' => 'background-image: '.$user->group->effect.';'.$style]) }}
         >
             (
             <a
-                class="chip--user__link chip--anonymous__link {{ $user->group->icon }}"
+                class="user-tag__link user-tag__link--anonymous {{ $user->group->icon }}"
                 href="{{ route('users.show', ['username' => $user->username]) }}"
                 style="color: {{ $user->group->color }}"
                 title="{{ $user->group->name }}"
@@ -34,18 +34,18 @@
         </span>
     @else
         <span
-            {{ $attributes->class('chip--user fas fa-eye-slash') }}
+            {{ $attributes->class('user-tag fas fa-eye-slash') }}
         >
             ({{ __('common.anonymous') }})
         </span>
     @endif
 @else
     <span
-        {{ $attributes->class('chip--user') }}
+        {{ $attributes->class('user-tag') }}
         {{ $attributes->merge(['style' => 'background-image: '.$user->group->effect.';'.$style]) }}
     >
         <a
-            class="chip--user__link {{ $user->group->icon }}"
+            class="user-tag__link {{ $user->group->icon }}"
             href="{{ route('users.show', ['username' => $user->username]) }}"
             style="color: {{ $user->group->color }}"
             title="{{ $user->group->name }}"

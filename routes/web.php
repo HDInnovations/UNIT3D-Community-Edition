@@ -687,6 +687,15 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Cheated Torrents
+        Route::group(['prefix' => 'cheated-torrents'], function () {
+            Route::name('staff.cheated_torrents.')->group(function () {
+                Route::get('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'index'])->name('index');
+                Route::delete('/{id}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
+                Route::delete('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'massDestroy'])->name('massDestroy');
+            });
+        });
+
         // Cheaters
         Route::group(['prefix' => 'cheaters'], function () {
             Route::name('staff.cheaters.')->group(function () {
@@ -790,9 +799,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'moderation'], function () {
             Route::name('staff.moderation.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ModerationController::class, 'approve'])->name('approve');
-                Route::post('/reject', [App\Http\Controllers\Staff\ModerationController::class, 'reject'])->name('reject');
-                Route::post('/postpone', [App\Http\Controllers\Staff\ModerationController::class, 'postpone'])->name('postpone');
+                Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update');
             });
         });
 

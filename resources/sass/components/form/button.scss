@@ -9,8 +9,8 @@
     text-align: center;
     transition: filter 300ms;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    display: inline-flex;
+    align-items: baseline;
     gap: 0.5ch;
 
     &:hover {
@@ -27,6 +27,7 @@
 
 .form__button--centered {
     text-align: center;
+    justify-content: center;
 }
 
 /* Filled */
