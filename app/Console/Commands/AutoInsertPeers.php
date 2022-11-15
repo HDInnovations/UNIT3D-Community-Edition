@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Peer;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 /**
@@ -57,9 +57,9 @@ class AutoInsertPeers extends Command
             $peers = Redis::connection('cache')->command('RPOP', [$key, self::PEERS_PER_CYCLE]);
             $peers = array_map('unserialize', $peers);
 
-            DB::table('peers')->upsert(
+            Peer::upsert(
                 $peers,
-                ['torrent_id', 'user_id', 'peer_id'],
+                ['peer_id'],
                 [
                     'peer_id',
                     'md5_peer_id',

@@ -150,7 +150,8 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->user_id = $this->user->id;
                 $peer->updateConnectableStateIfNeeded();
                 $peer->updated_at = \now();
-                Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
+                $peer->save();
+                //Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
@@ -183,7 +184,8 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->user_id = $this->user->id;
                 $peer->updateConnectableStateIfNeeded();
                 $peer->updated_at = \now();
-                Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
+                $peer->save();
+                //Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
@@ -217,7 +219,21 @@ class ProcessAnnounce implements ShouldQueue
                 break;
 
             case 'stopped':
-                $peer->touch();
+                $peer->peer_id = $this->queries['peer_id'];
+                $peer->md5_peer_id = \md5($this->queries['peer_id']);
+                $peer->info_hash = $this->queries['info_hash'];
+                $peer->ip = $this->queries['ip-address'];
+                $peer->port = $this->queries['port'];
+                $peer->agent = $this->queries['user-agent'];
+                $peer->uploaded = $realUploaded;
+                $peer->downloaded = $realDownloaded;
+                $peer->seeder = (int) ($this->queries['left'] == 0);
+                $peer->left = $this->queries['left'];
+                $peer->torrent_id = $this->torrent->id;
+                $peer->user_id = $this->user->id;
+                $peer->updateConnectableStateIfNeeded();
+                $peer->updated_at = \now();
+                $peer->save();
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
@@ -263,7 +279,8 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->user_id = $this->user->id;
                 $peer->updateConnectableStateIfNeeded();
                 $peer->updated_at = \now();
-                Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
+                $peer->save();
+                //Redis::connection('cache')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
 
                 $history->user_id = $this->user->id;
                 $history->torrent_id = $this->torrent->id;
