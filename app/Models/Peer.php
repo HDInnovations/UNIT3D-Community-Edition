@@ -21,12 +21,6 @@ class Peer extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'peer_id';
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     /**
      * Belongs To A User.
      */
