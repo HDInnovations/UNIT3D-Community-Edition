@@ -146,7 +146,7 @@ class TicketController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
 
-        Comment::where('ticket_id', '=', $id)->delete();
+        $ticket->comments()->delete();
         TicketAttachment::where('ticket_id', '=', $id)->delete();
         $ticket->delete();
 
