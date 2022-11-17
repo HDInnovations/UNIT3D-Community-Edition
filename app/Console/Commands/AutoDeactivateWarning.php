@@ -45,23 +45,32 @@ class AutoDeactivateWarning extends Command
     public function handle(): void
     {
         $current = Carbon::now();
-        $warnings = Warning::with(['warneduser', 'torrenttitle'])->where('active', '=', 1)->where('expires_on', '<', $current)->get();
+        $warnings = Warning::with(['warneduser', 'torrenttitle'])
+            ->where('active', '=', 1)
+            ->get();
 
         foreach ($warnings as $warning) {
-            // Set Records Active To 0 in warnings table
-            $warning->active = '0';
-            $warning->save();
+            if ($warning->expires_on <= $current || $warning->torrenttitle->history()->seedtime >= \config('hitrun.seedtime')) {
+                // Set Records Active To 0 in warnings table
+                $warning->active = '0';
+                $warning->save();
 
-            // Send Notifications
-            if ($warning->torrenttitle) {
-                $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
-            } else {
-                $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
+                // Send Notifications
+                if ($warning->torrenttitle) {
+                    $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
+                } else {
+                    $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
+                }
             }
         }
 
-        // Calculate User Warning Count and Disable DL Priv If Required.
-        $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '<', \config('hitrun.max_warnings'))->get();
+        // Calculate User Warning Count and Enable DL Priv If Required.
+        $warnings = Warning::with('warneduser')
+            ->select(DB::raw('user_id, count(*) as value'))
+            ->where('active', '=', 1)
+            ->groupBy('user_id')
+            ->having('value', '<', \config('hitrun.max_warnings'))
+            ->get();
 
         foreach ($warnings as $warning) {
             if ($warning->warneduser->can_download === 0) {
