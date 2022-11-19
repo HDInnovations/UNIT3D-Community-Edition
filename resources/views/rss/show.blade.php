@@ -9,14 +9,14 @@
         <title>{{ config('other.title') }}: {{ $rss->name }}</title>
         <link>{{ config('app.url') }}</link>
         <description>
-            <![CDATA[This feed contains your secure RSS PID, please do not share with anyone.]]>
+            {!! __('This feed contains your secure rsskey, please do not share with anyone.') !!}
         </description>
         <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}"
                    type="application/rss+xml" rel="self"></atom:link>
         <copyright>{{ config('other.title') }} {{ now()->year }}</copyright>
-        <language>en</language>
+        <language>en-us</language>
         <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
-        <ttl>600</ttl>
+        <ttl>5</ttl>
         @if($torrents)
             @foreach($torrents as $data)
                 <item>
@@ -24,7 +24,8 @@
                     <category>{{ $data->category->name }}</category>
                     <link>{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $user->rsskey ]) }}</link>
                     <guid>{{ $data->id }}</guid>
-                    <description><![CDATA[<p>
+                    <description>
+                        <![CDATA[<p>
                             <strong>Name</strong>: {{ $data->name }}<br>
                             <strong>Category</strong>: {{ $data->category->name }}<br>
                             <strong>Type</strong>: {{ $data->type->name }}<br>

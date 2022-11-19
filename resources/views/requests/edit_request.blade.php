@@ -192,7 +192,7 @@
                             id="anon"
                             name="anon"
                             value="1"
-                            @checked(old('anon'))
+                            @checked($torrentRequest->anon)
                         >
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>

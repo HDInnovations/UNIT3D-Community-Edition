@@ -14,10 +14,10 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
-use App\Models\PrivateMessage;
 use App\Models\Warning;
+use App\Notifications\UserPreWarning;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoPreWarningTest
@@ -73,15 +73,8 @@ class AutoPreWarning extends Command
                     if ($exsist === null) {
                         $timeleft = \config('hitrun.grace') - \config('hitrun.prewarn');
 
-                        // Send Private Message
-                        $pm = new PrivateMessage();
-                        $pm->sender_id = 1;
-                        $pm->receiver_id = $pre->user->id;
-                        $pm->subject = 'Hit and Run Warning Incoming';
-                        $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.\config('hitrun.prewarn').\sprintf(' days on Torrent %s
-                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).\config('other.title').\sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).\config('hitrun.expire').' days![/b]
-                                            [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                        $pm->save();
+                        // Send Notifications
+                        $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
 
                         // Set History Prewarn
                         $pre->prewarn = 1;

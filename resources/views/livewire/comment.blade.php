@@ -82,9 +82,9 @@
                 </p>
             </form>
         @else
-            <p class="comment__content">
+            <div class="comment__content">
                 @joypixels($comment->getContentHtml())
-            </p>
+            </div>
         @endif
     </article>
 

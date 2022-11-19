@@ -101,6 +101,6 @@ class TorrentDownloadController extends Controller
         $torrentDownload->type = $rsskey ? 'RSS/API using '.$request->header('User-Agent') : 'Site using '.$request->header('User-Agent');
         $torrentDownload->save();
 
-        return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName)->deleteFileAfterSend(true);
+        return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName, null, ['Content-Type' => 'application/x-bittorrent'])->deleteFileAfterSend(true);
     }
 }

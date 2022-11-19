@@ -200,7 +200,7 @@
                     {{-- Unfilled --}}
                     @case ($torrentRequest->filled_hash === null)
                         @include('requests.partials.claim')
-                        @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.upload')
+                        @includeWhen($user->group->is_modo || $torrentRequestClaim?->username == $user->username, 'requests.partials.upload')
                         @include('requests.partials.fulfill')
                         @include('requests.partials.report')
                         @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.edit')

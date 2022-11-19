@@ -218,5 +218,4 @@ return [
     | The ID value of staff forum area. Should be the main / parent ID.
     */
     'staff-forum-id' => '',
-
 ];

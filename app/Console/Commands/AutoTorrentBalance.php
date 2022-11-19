@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use App\Models\History;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class AutoTorrentBalance extends Command
 {
@@ -42,7 +43,7 @@ class AutoTorrentBalance extends Command
             History::query()
                 ->select('torrent_id')
                 ->selectRaw('SUM(actual_uploaded) - SUM(actual_downloaded) AS balance')
-                ->groupby('torrent_id'),
+                ->groupBy('torrent_id'),
             'balances',
             fn ($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
         )

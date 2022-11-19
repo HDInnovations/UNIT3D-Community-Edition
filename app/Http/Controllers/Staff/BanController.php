@@ -14,14 +14,13 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Mail\BanUser;
-use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
+use App\Notifications\UserBan;
+use App\Notifications\UserBanExpire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Mail;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -75,8 +74,9 @@ class BanController extends Controller
 
         $user->save();
         $ban->save();
-        // Send Email
-        Mail::to($user->email)->send(new BanUser($user->email, $ban));
+
+        // Send Notifications
+        $user->notify(new UserBan($ban));
 
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
@@ -118,8 +118,9 @@ class BanController extends Controller
 
         $user->save();
         $ban->save();
-        // Send Email
-        Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
+
+        // Send Notifications
+        $user->notify(new UserBanExpire());
 
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
