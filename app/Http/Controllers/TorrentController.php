@@ -187,7 +187,7 @@ class TorrentController extends Controller
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->category_id = $request->input('category_id');
-        $torrent->imdb = $request->input('imdb');
+        $torrent->imdb = $request->input('imdb') == '0' ? '0' : str_pad($request->input('imdb'), 7, "0", STR_PAD_LEFT);
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
@@ -487,7 +487,7 @@ class TorrentController extends Controller
         $torrent->region_id = $request->input('region_id');
         $torrent->distributor_id = $request->input('distributor_id');
         $torrent->user_id = $user->id;
-        $torrent->imdb = $request->input('imdb');
+        $torrent->imdb = $request->input('imdb') == '0' ? '0' : str_pad($request->input('imdb'), 7, "0", STR_PAD_LEFT);
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
