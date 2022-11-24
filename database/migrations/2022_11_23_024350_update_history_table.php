@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -24,7 +23,7 @@ return new class extends Migration
             ->having('count', '>', 1)
             ->get();
 
-        foreach($duplicates as $duplicate) {
+        foreach ($duplicates as $duplicate) {
             $records = History::query()
                 ->where('torrent_id', '=', $duplicate->torrent_id)
                 ->where('user_id', '=', $duplicate->user_id)
@@ -39,7 +38,7 @@ return new class extends Migration
             $merged->actual_uploaded = $records->sum('actual_uploaded');
             $merged->save();
 
-            foreach($records->where('id', '!=', $merged->id) as $record) {
+            foreach ($records->where('id', '!=', $merged->id) as $record) {
                 $record->delete();
             }
         }
@@ -47,5 +46,5 @@ return new class extends Migration
         Schema::table('history', function (Blueprint $table) {
             $table->unique(['user_id', 'torrent_id']);
         });
-    }    
+    }
 };

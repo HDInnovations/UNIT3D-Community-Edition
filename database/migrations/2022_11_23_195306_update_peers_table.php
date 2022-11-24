@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -24,7 +23,7 @@ return new class extends Migration
             ->having('count', '>', 1)
             ->get();
 
-        foreach($duplicates as $duplicate) {
+        foreach ($duplicates as $duplicate) {
             $records = Peer::query()
                 ->where('torrent_id', '=', $duplicate->torrent_id)
                 ->where('user_id', '=', $duplicate->user_id)
@@ -33,7 +32,7 @@ return new class extends Migration
 
             $first = $records->first();
 
-            foreach($records->where('id', '!=', $first->id) as $record) {
+            foreach ($records->where('id', '!=', $first->id) as $record) {
                 $record->delete();
             }
         }
@@ -41,5 +40,5 @@ return new class extends Migration
         Schema::table('peers', function (Blueprint $table) {
             $table->unique(['user_id', 'torrent_id', 'peer_id']);
         });
-    }    
+    }
 };
