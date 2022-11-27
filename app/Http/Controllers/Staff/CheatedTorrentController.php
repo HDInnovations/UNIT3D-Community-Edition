@@ -36,8 +36,8 @@ class CheatedTorrentController extends Controller
                 'balance_offset',
                 'created_at',
             ])
-            ->selectRaw('balance + balance_offset AS current_balance')
-            ->selectRaw('(CAST((balance + balance_offset) AS float) / CAST((size + 1) AS float)) AS times_cheated')
+            ->selectRaw('balance + COALESCE(balance_offset, 0) AS current_balance')
+            ->selectRaw('(CAST((balance + COALESCE(balance_offset, 0)) AS float) / CAST((size + 1) AS float)) AS times_cheated')
             ->having('current_balance', '<>', '0')
             ->orderByDesc('times_cheated')
             ->paginate(25);
