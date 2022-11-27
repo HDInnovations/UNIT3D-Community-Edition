@@ -26,7 +26,7 @@
         "hootlex/laravel-moderation": "^1.0",
         "intervention/image": "^2.5",
         "joypixels/assets": "^6.0",
-        "laravel/framework": "v9.30.0",
+        "laravel/framework": "^v9.30.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.1.0",
         "league/flysystem-sftp-v3": "^3.0",
