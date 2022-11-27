@@ -64,6 +64,7 @@
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
             <form action="{{ route('delete-pm', ['id' => $pm->id]) }}" method="POST">
+                @csrf
                 <p class="form__group form__group--horizontal">
                     <button class="form__button form__button--filled">
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
