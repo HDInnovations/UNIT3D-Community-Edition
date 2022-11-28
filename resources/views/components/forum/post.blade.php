@@ -106,7 +106,14 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-on:click="$('#topic-response').wysibb().insertAtCursor('[quote={{ '@'.$post->user->username }}]{{ $post->content }}[/quote]', true);"
+                        x-data
+                        x-on:click="
+                            document.getElementById('forum_reply_form').style.display = 'block';
+                            input = document.getElementById('bbcode-content');
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]{{ \htmlspecialchars($post->content) }}[/quote]';
+                            input.dispatchEvent(new Event('input'));
+                            input.focus();
+                        "
                     >
                         <i class="{{ \config('other.font-awesome') }} fa-quote-left"></i>
                     </button>

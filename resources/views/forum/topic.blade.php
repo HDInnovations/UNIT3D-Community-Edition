@@ -58,7 +58,7 @@
             </ul>
         @endif
     </section>
-    <div>{{ $posts->links('partials.pagination') }}</div>
+    {{ $posts->links('partials.pagination') }}
     <ol class="topic-posts">
         @foreach ($posts as $k => $post)
             <li class="topic-posts__item">
@@ -66,12 +66,18 @@
             </li>
         @endforeach
     </ol>
-    <div>{{ $posts->links('partials.pagination') }}</div>
+    {{ $posts->links('partials.pagination') }}
     @if ($topic->state === 'close')
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif
     @if ($topic->state === 'open' || auth()->user()->group->is_modo)
-        <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
+        <form
+            id="forum_reply_form"
+            method="POST"
+            action="{{ route('forum_reply', ['id' => $topic->id]) }}"
+            x-data="{ showReply: {{ $posts->onLastPage() ? 'true' : 'false' }} }"
+            x-show="showReply"
+        >
             @csrf
             @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
             <p class="form__group">
@@ -107,7 +113,7 @@
                 <form class="form" action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST">
                     @csrf
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled form__button--fullwidth">
+                        <button class="form__button form__button--filled form__button--centered">
                             <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
                             {{ __('forum.unsubscribe') }}
                         </button>
@@ -117,7 +123,7 @@
                 <form class="form" action="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST">
                     @csrf
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled">
+                        <button class="form__button form__button--filled form__button--centered">
                             <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
                         </button>
                     </p>
@@ -133,7 +139,7 @@
                     <form class="form" action="{{ route('forum_open', ['id' => $topic->id]) }}" method="POST">
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled">
+                            <button class="form__button form__button--filled form__button--centered">
                                 {{ __('forum.open') }}
                             </button>
                         </p>
@@ -142,7 +148,7 @@
                     <form class="form" action="{{ route('forum_close', ['id' => $topic->id]) }}" method="POST">
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled">
+                            <button class="form__button form__button--filled form__button--centered">
                                 {{ __('common.close') }}
                             </button>
                         </p>
@@ -150,7 +156,10 @@
                 @endif
                 <div class="form">
                     <p class="form__group form__group--horizontal">
-                        <a href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}" class="form__button form__button--filled">
+                        <a
+                            href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
+                            class="form__button form__button--filled form__button--centered"
+                        >
                             {{ __('common.edit') }}
                         </a>
                     </p>
@@ -159,7 +168,7 @@
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled">
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('common.delete') }}
                         </button>
                     </p>
@@ -169,7 +178,7 @@
                         <form class="form" action="{{ route('forum_pin_topic', ['id' => $topic->id]) }}" method="POST">
                             @csrf
                             <p class="form__group form__group--horizontal">
-                                <button class="form__button form__button--filled">
+                                <button class="form__button form__button--filled form__button--centered">
                                     {{ __('forum.pin') }}
                                 </button>
                             </p>
@@ -178,7 +187,7 @@
                         <form class="form" action="{{ route('forum_unpin_topic', ['id' => $topic->id]) }}" method="POST">
                             @csrf
                             <p class="form__group form__group--horizontal">
-                                <button class="form__button form__button--filled">
+                                <button class="form__button form__button--filled form__button--centered">
                                     {{ __('forum.unpin') }}
                                 </button>
                             </p>

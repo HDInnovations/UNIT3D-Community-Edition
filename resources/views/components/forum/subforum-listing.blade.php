@@ -27,7 +27,7 @@
         </p>
     </header>
     <figure class="subforum-listing__figure">
-        <i class="fad fa-comments"></i>
+        <i class="fad fa-comments subforum-listing__icon"></i>
     </figure>
     <dl class="subforum-listing__topic-stats">
         <dt>{{ __('forum.topics') }}</dt>

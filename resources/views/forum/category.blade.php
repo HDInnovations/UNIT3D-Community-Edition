@@ -35,10 +35,8 @@
                     </li>
                 @endforeach
             </ul>
+            {{ $topics->links('partials.pagination') }}
         </section>
-        <div class="text-center">
-            {{ $topics->links() }}
-        </div>
 @endsection
 
 @section('sidebar')

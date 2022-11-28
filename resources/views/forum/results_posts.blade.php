@@ -317,17 +317,13 @@
 @endsection
 
 @section('main')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.search-results') }}</h2>
-        <ul class="topic-listings">
-            @foreach($results as $post)
-                <li class="topic-listings__item">
-                    <x-forum.post :post="$post" />
-                </li>
-            @endforeach
-        </ul>
-        <div class="text-center col-md-12">
-            {{ $results->links() }}
-        </div>
-    </div>
+    <h2 class="panel__heading">{{ __('common.search-results') }}</h2>
+    <ul class="topic-posts">
+        @foreach($results as $post)
+            <li class="post-listings__item">
+                <x-forum.post :post="$post" />
+            </li>
+        @endforeach
+    </ul>
+    {{ $results->links('partials.pagination') }}
 @endsection

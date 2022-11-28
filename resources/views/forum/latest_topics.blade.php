@@ -27,13 +27,13 @@
         <h2 class="panel__heading">{{ __('common.latest-topics') }}</h2>
         <ul class="topic-listings">
             @foreach ($results as $topic)
-                <x-forum.topic-listing :topic="$topic" />
+                <li class="topic-listings__item">
+                    <x-forum.topic-listing :topic="$topic" />
+                </li>
             @endforeach
         </ul>
-        <div class="text-center col-md-12">
-            {{ $results->links() }}
-        </div>
-    </div>
+        {{ $results->links('partials.pagination') }}
+    </section>
 @endsection
 
 @section('sidebar')

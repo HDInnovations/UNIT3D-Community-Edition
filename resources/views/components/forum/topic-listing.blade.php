@@ -76,7 +76,7 @@
                 @endif
             </span>
         @else
-            <i class="fad fa-comments"></i>
+            <i class="fad fa-comments topic-listing__icon"></i>
         @endif
         <figcaption class="topic-listing__forum">
             {{ $topic->forum->name }}

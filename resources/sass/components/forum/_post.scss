@@ -33,52 +33,6 @@
     box-shadow: var(--post-shadow);
     background-color: var(--post-bg);
     overflow: hidden;
-
-    --post-bg: var(--panel-bg);
-    --post-fg: var(--panel-fg);
-    --post-shadow: var(--panel-box-shadow);
-    --post-head-fg: var(--panel-fg);
-    --post-toolbar-bg: #191919;
-    --post-toolbar-fg: var(--panel-fg);
-    --post-toolbar-hover-bg: #262626;
-    --post-like-fg: green;
-    --post-dislike-fg: red;
-    --post-aside-bg: var(--panel-head-bg);
-    --post-aside-fg: var(--panel-head-fg);
-    --post-footer-fg: var(--panel-fg);
-
-
-    --post-bg: #e9e9e9;
-    --post-fg: #212121;
-    --post-shadow: 0 5px 5px rgba(93,93,93,.83);
-    --post-head-fg: var(--panel-fg);
-    --post-head-bg: none;
-    --post-toolbar-bg: #989898;
-    --post-toolbar-fg: #e5e5e5;
-    --post-toolbar-hover-bg: #777;
-    --post-toolbar-hover-fg: inherit;
-    --post-like-fg: green;
-    --post-dislike-fg: red;
-    --post-aside-bg: #d6d6d6;
-    --post-aside-fg: #696969;
-    --post-footer-fg: var(--panel-fg);
-
-
-    --post-bg: #2b2b2b;
-    --post-fg: #ccc;
-    --post-shadow: var(--panel-box-shadow);
-    --post-head-fg: var(--panel-fg);
-    --post-head-bg: none;
-    --post-toolbar-bg: #1d1d1d;
-    --post-toolbar-fg: #ccc;
-    --post-toolbar-hover-bg: #262626;
-    --post-toolbar-hover-fg: inherit;
-    --post-like-fg: green;
-    --post-dislike-fg: red;
-    --post-aside-bg: #393939;
-    --post-aside-fg: #ccc;
-    --post-footer-fg: var(--panel-fg);
-
 }
 
 .post__header {
@@ -127,6 +81,7 @@
     margin: 0;
     padding: 0;
     color: var(--post-toolbar-fg);
+    overflow-x: auto;
 }
 
 .post__toolbar-item {

@@ -74,9 +74,7 @@
                 </li>
             @endforeach
         </ul>
-        <div class="text-center col-md-12">
-            {{ $topics->links() }}
-        </div>
+        {{ $topics->links('partials.pagination') }}
     </section>
 @endsection
 

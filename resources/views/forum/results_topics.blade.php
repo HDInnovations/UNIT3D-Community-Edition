@@ -326,8 +326,6 @@
                 </li>
             @endforeach
         </ul>
-        <div class="text-center col-md-12">
-            {{ $results->links() }}
-        </div>
+        {{ $results->links('partials.pagination') }}
     </div>
 @endsection

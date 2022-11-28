@@ -8,12 +8,12 @@
 
 .subforum-listings__item:nth-child(odd) {
     background-color: var(--subforum-listing-odd-bg);
-    display: grid;
+    list-style-type: none;
 }
 
 .subforum-listings__item:nth-child(even) {
     background-color: var(--subforum-listing-even-bg);
-    display: grid;
+    list-style-type: none;
 }
 
 .subforum-listing {
@@ -46,10 +46,11 @@
 .subforum-listing__figure {
     grid-area: figure;
     padding: 5px;
+    text-align: center;
 }
 
 .subforum-listing__icon {
-    max-width: 100%;
+    font-size: 18px;
 }
 
 .subforum-listing__topic-stats,
@@ -76,7 +77,7 @@
 
 .subforum-listing__latest-topic {
     grid-area: latest;
-    display: inline-flex;
+    display: grid;
     grid-template-areas: 'heading heading' 'datetime author';
     grid-template-columns: auto 1fr;
 }
