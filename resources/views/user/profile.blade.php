@@ -84,7 +84,7 @@
                                     @if ($watched && auth()->user()->group->is_modo)
                                         <i class="{{ config('other.font-awesome') }} fa-eye fa-beat text-danger"
                                            aria-hidden="true" data-toggle="tooltip"
-                                           title="" data-original-title="User is being watched!">
+                                           title="" data-original-title="Watched reason: {{ $watched->message }}">
                                         </i>
                                     @endif
                                 </h2>
