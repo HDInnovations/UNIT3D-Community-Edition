@@ -4,6 +4,19 @@
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
+                    <input
+                        id="show"
+                        class="form__checkbox"
+                        type="checkbox"
+                        wire:click="toggleProperties('show')"
+                    >
+                    <label class="form__label" for="show">
+                        Show Soft Deletes
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
                     <select
                         id="quantity"
                         class="form__select"
