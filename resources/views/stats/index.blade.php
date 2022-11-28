@@ -41,6 +41,11 @@
             {{ __('common.languages') }}
         </a>
     </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('themes') }}">
+            Themes
+        </a>
+    </li>
 @endsection
 
 @section('main')
