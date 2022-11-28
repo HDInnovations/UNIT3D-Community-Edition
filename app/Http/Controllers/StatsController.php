@@ -367,4 +367,22 @@ class StatsController extends Controller
 
         return \view('stats.clients.clients', ['clients' => $clients]);
     }
+
+    /**
+     * Show Extra-Stats Themes.
+     */
+    public function themes(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $siteThemes = User::select(DB::raw('style, count(*) as value'))->groupBy('style')->latest('value')->get();
+        $customThemes = User::where('custom_css', '!=', '')->select(DB::raw('custom_css, count(*) as value'))->groupBy('custom_css')->latest('value')->get();
+        $standaloneThemes = User::whereNotNull('standalone_css')->select(DB::raw('standalone_css, count(*) as value'))->groupBy('standalone_css')->latest('value')->get();
+
+
+
+        return \view('stats.themes.index', [
+            'siteThemes'       => $siteThemes,
+            'customThemes'     => $customThemes,
+            'standaloneThemes' => $standaloneThemes,
+        ]);
+    }
 }

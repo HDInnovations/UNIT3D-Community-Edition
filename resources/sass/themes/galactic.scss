@@ -117,6 +117,21 @@
     --panel-head-bg: #1c1c1c;
     --panel-head-fg: #fff;
 
+    --post-bg: #2b2b2b;
+    --post-fg: #ccc;
+    --post-shadow: none;
+    --post-head-fg: var(--text-color);
+    --post-head-bg: none;
+    --post-toolbar-bg: #1d1d1d;
+    --post-toolbar-fg: #ccc;
+    --post-toolbar-hover-bg: #262626;
+    --post-toolbar-hover-fg: inherit;
+    --post-like-fg: green;
+    --post-dislike-fg: red;
+    --post-aside-bg: #393939;
+    --post-aside-fg: #ccc;
+    --post-footer-fg: var(--text-color);
+
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
     --select-border-error: 1px solid #ba1b1b;
