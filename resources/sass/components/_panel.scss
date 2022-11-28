@@ -39,6 +39,16 @@
     text-align: center;
 }
 
+.panel__header-link {
+    color: var(--panel-head-fg);
+
+    &:hover {
+        color: var(--panel-head-fg);
+        filter: brightness(1.1);
+        text-decoration: underline;
+    }
+}
+
 .panel__actions {
     display: flex;
     flex-direction: row;
