@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use App\Http\Livewire\NoteSearch;
 use App\Models\Group;
 use App\Models\Note;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 /**
@@ -54,11 +56,10 @@ class NoteControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get(route('staff.notes.index'));
+        $this->actingAs($user)->get(route('staff.notes.index'));
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.note.index');
-        $response->assertViewHas('notes');
+        $component = Livewire::test(NoteSearch::class);
+        $component->assertStatus(200);
     }
 
     /**
