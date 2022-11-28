@@ -207,19 +207,6 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <input name="is_incognito" type="hidden" value="0">
-                    <input
-                        id="is_incognito"
-                        class="form__checkbox"
-                        name="is_incognito"
-                        type="checkbox"
-                        value="1"
-                    >
-                    <label class="form__label" for="is_incognito">
-                        Incognito
-                    </label>
-                </p>
-                <p class="form__group">
                     <input name="can_upload" type="hidden" value="0">
                     <input
                         id="can_upload"
@@ -230,6 +217,45 @@
                     >
                     <label class="form__label" for="can_upload">
                         Upload
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="can_download" type="hidden" value="0">
+                    <input
+                            id="can_download"
+                            class="form__checkbox"
+                            name="can_download"
+                            type="checkbox"
+                            value="1"
+                    >
+                    <label class="form__label" for="can_download">
+                        Download
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="can_request" type="hidden" value="0">
+                    <input
+                            id="can_request"
+                            class="form__checkbox"
+                            name="can_request"
+                            type="checkbox"
+                            value="1"
+                    >
+                    <label class="form__label" for="can_request">
+                        Request
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="can_invite" type="hidden" value="0">
+                    <input
+                            id="can_invite"
+                            class="form__checkbox"
+                            name="can_invite"
+                            type="checkbox"
+                            value="1"
+                    >
+                    <label class="form__label" for="can_invite">
+                        Invite
                     </label>
                 </p>
                 <p class="form__group">

@@ -56,18 +56,12 @@ class AutoGroup extends Command
             // Leech ratio dropped below sites minimum
             if ($user->getRatio() < \config('other.ratio') && $user->group_id != UserGroups::LEECH) {
                 $user->group_id = UserGroups::LEECH;
-                $user->can_request = 0;
-                $user->can_invite = 0;
-                $user->can_download = 0;
                 $user->save();
             }
 
             // User >= 0 and ratio above sites minimum
             if ($user->uploaded >= 0 && $user->getRatio() >= \config('other.ratio') && $user->group_id != UserGroups::USER) {
                 $user->group_id = UserGroups::USER;
-                $user->can_request = 1;
-                $user->can_invite = 1;
-                $user->can_download = 1;
                 $user->save();
             }
 

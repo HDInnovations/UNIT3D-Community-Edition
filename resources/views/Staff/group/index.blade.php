@@ -46,8 +46,10 @@
                     <th>Immune</th>
                     <th>Freeleech</th>
                     <th>Double Upload</th>
-                    <th>Incognito</th>
                     <th>Upload</th>
+                    <th>Download</th>
+                    <th>Request</th>
+                    <th>Invite</th>
                     <th>Autogroup</th>
                 </tr>
                 </thead>
@@ -135,14 +137,28 @@
                             @endif
                         </td>
                         <td>
-                            @if ($group->is_incognito)
+                            @if ($group->can_upload)
                                 <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                             @else
                                 <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </td>
                         <td>
-                            @if ($group->can_upload)
+                            @if ($group->can_download)
+                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                            @else
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->can_request)
+                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                            @else
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->can_invite)
                                 <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                             @else
                                 <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

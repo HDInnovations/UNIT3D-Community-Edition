@@ -74,8 +74,10 @@ class GroupController extends Controller
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');
         $group->is_double_upload = $request->input('is_double_upload');
-        $group->is_incognito = $request->input('is_incognito');
         $group->can_upload = $request->input('can_upload');
+        $group->can_download = $request->input('can_download');
+        $group->can_request = $request->input('can_request');
+        $group->can_invite = $request->input('can_invite');
         $group->autogroup = $request->input('autogroup');
 
         $v = \validator($group->toArray(), [
@@ -151,8 +153,10 @@ class GroupController extends Controller
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');
         $group->is_double_upload = $request->input('is_double_upload');
-        $group->is_incognito = $request->input('is_incognito');
         $group->can_upload = $request->input('can_upload');
+        $group->can_download = $request->input('can_download');
+        $group->can_request = $request->input('can_request');
+        $group->can_invite = $request->input('can_invite');
         $group->autogroup = $request->input('autogroup');
 
         $v = \validator($group->toArray(), [
