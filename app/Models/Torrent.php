@@ -204,6 +204,22 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many MediaInfos.
+     */
+    public function mediainfos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentMediainfo::class);
+    }
+
+    /**
+     * Has Many BDInfos.
+     */
+    public function bdinfos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentBdinfo::class);
+    }
+
+    /**
      * Relationship To A Single Request.
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\HasOne

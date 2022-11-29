@@ -22,7 +22,9 @@ use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
 use App\Models\Torrent;
+use App\Models\TorrentBdinfo;
 use App\Models\TorrentFile;
+use App\Models\TorrentMediainfo;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
@@ -104,8 +106,6 @@ class TorrentController extends BaseController
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
-        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
-        $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
         $torrent->num_file = $meta['count'];
@@ -210,6 +210,19 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
+        // Torrent MediaInfo
+        if ($request->has('mediainfos')) {
+            $mediaInfos = \collect(TorrentTools::anonymizeMediainfo($request->input('mediainfos')))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
+            $torrent->mediainfos()->saveMany($mediaInfos);
+        }
+
+        // Torrent BDInfo
+        if ($request->has('bdinfos')) {
+            $bdInfos = \collect($request->input('bdinfos'))->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
+            $torrent->bdinfos()->saveMany($bdInfos);
+        }
+
         // Set torrent to featured
         if ($torrent->featured == 1) {
             $featuredTorrent = new FeaturedTorrent();
@@ -221,6 +234,7 @@ class TorrentController extends BaseController
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
+
         // Backup the files contained in the torrent
         foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
@@ -231,6 +245,7 @@ class TorrentController extends BaseController
             unset($torrentFile);
         }
 
+        // TMDB Meta
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);

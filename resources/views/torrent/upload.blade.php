@@ -338,26 +338,59 @@
                     </p>
                     @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                     <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
-                        <textarea
-                            id="upload-form-mediainfo"
-                            name="mediainfo"
-                            class="form__textarea"
-                            placeholder=""
-                        >{{ old('mediainfo') }}</textarea>
-                        <label class="form__label form__label--floating" for="upload-form-mediainfo">
-                            {{ __('torrent.media-info-parser') }}
-                        </label>
-                    </p>
-                    <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
-                        <textarea
-                            id="upload-form-bdinfo"
-                            name="bdinfo"
-                            class="form__textarea"
-                            placeholder=""
-                        >{{ old('bdinfo') }}</textarea>
-                        <label class="form__label form__label--floating" for="upload-form-bdinfo">
-                            BDInfo (Quick Summary)
-                        </label>
+                        <template x-for="mediainfo in mediainfos">
+                            <textarea
+                                x-bind:id="'mediainfo' + mediainfo"
+                                class="form__text"
+                                name="mediainfos[]"
+                                type="text"
+                                placeholder=""
+                            ></textarea>
+                            <label class="form__label form__label--floating" x-bind:for="'mediainfo' + mediainfo">
+                                {{ __('torrent.media-info-parser') }}
+                            </label>
+                        </template>
+                        <p class="form__group">
+                            <button
+                                x-on:click.prevent="mediainfos++"
+                                class="form__button form__button--outlined"
+                            >
+                                Add MediaInfo
+                            </button>
+                            <button
+                                class="form__button form__button--outlined"
+                                x-on:click.prevent="mediainfos - 1"
+                            >
+                                Remove MediaInfo
+                            </button>
+                        </p>
+
+                        <template x-for="bdinfo in bdinfos">
+                            <textarea
+                                x-bind:id="'bdinfo' + bdinfo"
+                                class="form__text"
+                                name="bdinfos[]"
+                                type="text"
+                                placeholder=""
+                            ></textarea>
+                            <label class="form__label form__label--floating" x-bind:for="'bdinfo' + bdinfo">
+                                BDInfo (Quick Summary)
+                            </label>
+                        </template>
+                        <p class="form__group">
+                            <button
+                                x-on:click.prevent="bdinfos++"
+                                class="form__button form__button--outlined"
+                            >
+                                Add BDInfo
+                            </button>
+                            <button
+                                class="form__button form__button--outlined"
+                                x-on:click.prevent="bdinfos - 1"
+                            >
+                                Remove BDInfo
+                            </button>
+                        </p>
                     </p>
                     <p class="form__group">
                         <input type="hidden" name="anonymous" value="0">

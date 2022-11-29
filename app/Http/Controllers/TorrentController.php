@@ -37,7 +37,9 @@ use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\Torrent;
+use App\Models\TorrentBdinfo;
 use App\Models\TorrentFile;
+use App\Models\TorrentMediainfo;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
@@ -472,8 +474,6 @@ class TorrentController extends Controller
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
-        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
-        $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
         $torrent->num_file = $meta['count'];
@@ -543,6 +543,7 @@ class TorrentController extends Controller
             'anon'           => 'required',
             'stream'         => 'required',
             'sd'             => 'required',
+            'internal'       => 'required',
             'free'           => 'sometimes|between:0,100',
         ]);
 
@@ -557,6 +558,18 @@ class TorrentController extends Controller
 
         // Save The Torrent
         $torrent->save();
+
+        // Torrent MediaInfo
+        if ($request->has('mediainfos')) {
+            $mediaInfos = \collect(TorrentTools::anonymizeMediainfo($request->input('mediainfos')))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
+            $torrent->mediainfos()->saveMany($mediaInfos);
+        }
+
+        // Torrent BDInfo
+        if ($request->has('bdinfos')) {
+            $bdInfos = \collect($request->input('bdinfos'))->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
+            $torrent->bdinfos()->saveMany($bdInfos);
+        }
 
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
