@@ -49,8 +49,6 @@ class TorrentResource extends JsonResource
                 'resolution'        => $this->when(isset($this->resolution_id), $this->resolution->name ?? ''),
                 'distributor'       => $this->when(isset($this->distributor_id), $this->distributor->name ?? ''),
                 'region'            => $this->when(isset($this->region_id), $this->region->name ?? ''),
-                'media_info'        => $this->mediainfo,
-                'bd_info'           => $this->bdinfo,
                 'description'       => $this->description,
                 'info_hash'         => $this->info_hash,
                 'size'              => $this->size,

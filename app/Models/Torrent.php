@@ -206,7 +206,7 @@ class Torrent extends Model
     /**
      * Has Many MediaInfos.
      */
-    public function mediainfos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function mediainfo(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentMediainfo::class);
     }
@@ -214,7 +214,7 @@ class Torrent extends Model
     /**
      * Has Many BDInfos.
      */
-    public function bdinfos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bdinfo(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentBdinfo::class);
     }
@@ -243,14 +243,6 @@ class Torrent extends Model
         $bbcode = new Bbcode();
 
         return (new Linkify())->linky($bbcode->parse($this->description, true));
-    }
-
-    /**
-     * Set The Torrents MediaInfo After Its Been Purified.
-     */
-    public function setMediaInfoAttribute(?string $value): void
-    {
-        $this->attributes['mediainfo'] = $value;
     }
 
     /**

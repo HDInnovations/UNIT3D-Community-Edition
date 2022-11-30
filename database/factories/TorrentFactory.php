@@ -24,7 +24,6 @@ class TorrentFactory extends Factory
             'name'               => $this->faker->name(),
             'slug'               => $this->faker->slug(),
             'description'        => $this->faker->text(),
-            'mediainfo'          => $this->faker->text(),
             'info_hash'          => $this->faker->word(),
             'file_name'          => $this->faker->word(),
             'num_file'           => $this->faker->randomNumber(),

@@ -338,55 +338,55 @@
                     </p>
                     @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                     <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
-                        <template x-for="mediainfo in mediainfos">
+                        <template x-for="info in mediainfo">
                             <textarea
-                                x-bind:id="'mediainfo' + mediainfo"
+                                x-bind:id="'info' + info"
                                 class="form__text"
-                                name="mediainfos[]"
+                                name="mediainfo[]"
                                 type="text"
                                 placeholder=""
                             ></textarea>
-                            <label class="form__label form__label--floating" x-bind:for="'mediainfo' + mediainfo">
+                            <label class="form__label form__label--floating" x-bind:for="'info' + info">
                                 {{ __('torrent.media-info-parser') }}
                             </label>
                         </template>
                         <p class="form__group">
                             <button
-                                x-on:click.prevent="mediainfos++"
+                                x-on:click.prevent="mediainfo++"
                                 class="form__button form__button--outlined"
                             >
                                 Add MediaInfo
                             </button>
                             <button
                                 class="form__button form__button--outlined"
-                                x-on:click.prevent="mediainfos - 1"
+                                x-on:click.prevent="mediainfo - 1"
                             >
                                 Remove MediaInfo
                             </button>
                         </p>
 
-                        <template x-for="bdinfo in bdinfos">
+                        <template x-for="info in bdinfo">
                             <textarea
-                                x-bind:id="'bdinfo' + bdinfo"
+                                x-bind:id="'info' + info"
                                 class="form__text"
-                                name="bdinfos[]"
+                                name="bdinfo[]"
                                 type="text"
                                 placeholder=""
                             ></textarea>
-                            <label class="form__label form__label--floating" x-bind:for="'bdinfo' + bdinfo">
+                            <label class="form__label form__label--floating" x-bind:for="'info' + info">
                                 BDInfo (Quick Summary)
                             </label>
                         </template>
                         <p class="form__group">
                             <button
-                                x-on:click.prevent="bdinfos++"
+                                x-on:click.prevent="bdinfo++"
                                 class="form__button form__button--outlined"
                             >
                                 Add BDInfo
                             </button>
                             <button
                                 class="form__button form__button--outlined"
-                                x-on:click.prevent="bdinfos - 1"
+                                x-on:click.prevent="bdinfo - 1"
                             >
                                 Remove BDInfo
                             </button>

@@ -212,15 +212,31 @@ class TorrentController extends BaseController
         $torrent->save();
 
         // Torrent MediaInfo
-        if ($request->has('mediainfos')) {
-            $mediaInfos = \collect(TorrentTools::anonymizeMediainfo($request->input('mediainfos')))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
-            $torrent->mediainfos()->saveMany($mediaInfos);
+        if ($request->has('mediainfo')) {
+            $validator = \validator($request->input('mediainfo'), [
+                'mediainfo' => \is_array($request->input('mediainfo')) ? 'array' : 'string',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $mediaInfo = \collect(TorrentTools::anonymizeMediainfo($validator->validated()))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
+            $torrent->mediainfo()->saveMany($mediaInfo);
         }
 
         // Torrent BDInfo
-        if ($request->has('bdinfos')) {
-            $bdInfos = \collect($request->input('bdinfos'))->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
-            $torrent->bdinfos()->saveMany($bdInfos);
+        if ($request->has('bdinfo')) {
+            $validator = \validator($request->input('bdinfo'), [
+                'bdinfo' => \is_array($request->input('bdinfo')) ? 'array' : 'string',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $bdInfo = \collect($validator->validated())->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
+            $torrent->bdinfo()->saveMany($bdInfo);
         }
 
         // Set torrent to featured
