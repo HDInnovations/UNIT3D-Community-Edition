@@ -72,8 +72,8 @@
                         type="text"
                         value="0"
                     >
-                    <button class="post__tip-button" type="submit">
-                        {{ __('forum.tip-this-post') }}
+                    <button class="post__tip-button" type="submit" title="{{ __('forum.tip-this-post') }}">
+                        Tip
                     </button>
                     <datalist id="quick-tip-values">
                         <option value="10">

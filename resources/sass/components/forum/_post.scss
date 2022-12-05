@@ -59,6 +59,7 @@
 .post__tip-stats {
     grid-area: tip-stats;
     display: flex;
+    margin-bottom: 0;
 }
 
 .post__tip-stats dt {
@@ -138,7 +139,7 @@
 }
 
 .post__tip-input {
-    margin: 5px 5px 5px 9px;
+    margin: 5px 5px 2px 9px;
     border-width: 0 0 2px 0;
     border-style: solid;
     border-color: var(--post-toolbar-bg);
