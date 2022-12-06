@@ -57,7 +57,7 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('tips.store', ['username' => auth()->user()->id]) }}"
+                    action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
                 >
                     @csrf
                     <input type="hidden" name="recipient" value="{{ $post->user->id }}">
