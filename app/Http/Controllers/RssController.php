@@ -165,7 +165,7 @@ class RssController extends Controller
 
         $search = $rss->object_torrent;
 
-        $cacheKey = \md5(\sprintf('%s.%s.%s', $rss->id, $user->id, $user->rsskey));
+        $cacheKey = 'rss:'.$rss->id;
 
         $torrents = \cache()->remember($cacheKey, 300, function () use ($search, $user) {
             return Torrent::with('user', 'category', 'type', 'resolution')
