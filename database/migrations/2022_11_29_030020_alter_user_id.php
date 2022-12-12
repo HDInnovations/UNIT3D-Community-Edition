@@ -354,7 +354,7 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        
+
         // Remove constraint
         Schema::table('articles', function (Blueprint $table) {
             $table->dropForeign('fk_articles_users1');
@@ -458,7 +458,7 @@ return new class () extends Migration {
         Schema::table('bon_transactions', function (Blueprint $table) {
             $table->dropIndex(['sender']);
             $table->foreign('sender')->references('id')->on('users')->cascadeOnUpdate();
-            
+
             $table->dropIndex(['receiver']);
             $table->foreign('receiver')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -499,7 +499,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('target_id')->change();
             $table->dropIndex(['target_id']);
             $table->foreign('target_id')->references('id')->on('users')->cascadeOnUpdate();
@@ -531,7 +531,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-            
+
             $table->unsignedInteger('accepted_by')->nullable()->change();
             $table->dropIndex('accepted_by');
             $table->foreign('accepted_by')->references('id')->on('users')->cascadeOnUpdate();
@@ -584,7 +584,7 @@ return new class () extends Migration {
         Schema::table('private_messages', function (Blueprint $table) {
             $table->dropIndex(['sender_id']);
             $table->foreign('sender_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->dropIndex('private_messages_reciever_id_index');
             $table->foreign('receiver_id')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -593,11 +593,11 @@ return new class () extends Migration {
             $table->unsignedInteger('reporter_id')->change();
             $table->dropIndex('reporter_id');
             $table->foreign('reporter_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('staff_id')->nullable()->change();
             $table->dropIndex('staff_id');
             $table->foreign('staff_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->foreign('reported_user')->references('id')->on('users')->cascadeOnUpdate();
         });
 
@@ -611,11 +611,11 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex('requests_user_id_foreign');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('filled_by')->change();
             $table->dropIndex('filled_by');
             $table->foreign('filled_by')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('approved_by')->change();
             $table->dropIndex('approved_by');
             $table->foreign('approved_by')->references('id')->on('users')->cascadeOnUpdate();
@@ -624,7 +624,7 @@ return new class () extends Migration {
         Schema::table('rss', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->default('1')->change();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('staff_id')->default('0')->change();
             $table->foreign('staff_id')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -666,7 +666,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('staff_id')->nullable()->change();
             $table->dropIndex(['staff_id']);
             $table->foreign('staff_id')->references('id')->on('users')->cascadeOnUpdate();
@@ -675,7 +675,7 @@ return new class () extends Migration {
         Schema::table('topics', function (Blueprint $table) {
             $table->unsignedInteger('first_post_user_id')->nullable()->change();
             $table->foreign('first_post_user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('last_post_user_id')->nullable()->change();
             $table->foreign('last_post_user_id')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -706,7 +706,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('target_id')->nullable()->change();
             $table->dropIndex(['target_id']);
             $table->foreign('target_id')->references('id')->on('users')->cascadeOnUpdate();
@@ -716,7 +716,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('target_id')->nullable()->change();
             $table->dropIndex(['target_id']);
             $table->foreign('target_id')->references('id')->on('users')->cascadeOnUpdate();
@@ -726,7 +726,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->change();
             $table->dropIndex(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('staff_id')->change();
             $table->dropIndex(['staff_id']);
             $table->foreign('staff_id')->references('id')->on('users')->cascadeOnUpdate();
@@ -751,10 +751,10 @@ return new class () extends Migration {
         Schema::table('warnings', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->change();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('warned_by')->change();
             $table->foreign('warned_by')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('deleted_by')->nullable()->change();
             $table->foreign('deleted_by')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -763,7 +763,7 @@ return new class () extends Migration {
             $table->unsignedInteger('user_id')->unique()->change();
             $table->dropUnique(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        
+
             $table->unsignedInteger('staff_id')->change();
             $table->dropIndex(['staff_id']);
             $table->foreign('staff_id')->references('id')->on('users')->cascadeOnUpdate();
