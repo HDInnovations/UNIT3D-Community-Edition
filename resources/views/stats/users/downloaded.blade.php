@@ -19,57 +19,36 @@
     @include('partials.statsusermenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-downloaders') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-red"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ __('stat.top-downloaders') }}
-                        </strong></p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--downloaded')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-downloaders') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('common.upload') }}</th>
+                        <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.ratio') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($downloaded as $user)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('common.user') }}</th>
-                            <th>{{ __('common.upload') }}</th>
-                            <th>{{ __('common.download') }}</th>
-                            <th>{{ __('common.ratio') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <x-user_tag :user="$user" :anon="$user->private_profile" />
+                            </td>
+                            <td>{{ \App\Helpers\StringHelper::formatBytes($user->uploaded, 2) }}</td>
+                            <td>{{ \App\Helpers\StringHelper::formatBytes($user->downloaded, 2) }}</td>
+                            <td>{{ $user->getRatio() }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($downloaded as $key => $d)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $d->username) class="mentions" @endif>
-                                    @if ($d->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $d->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $d->username]) }}">({{ $d->username }}</a></span>
-                                    @endif
-                                    @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $d->username]) }}">{{ $d->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>{{ \App\Helpers\StringHelper::formatBytes($d->uploaded, 2) }}</td>
-                                <td>
-                                    <span class="text-red">{{ \App\Helpers\StringHelper::formatBytes($d->downloaded, 2) }}</span>
-                                </td>
-                                <td>
-                                    <span>{{ $d->getRatio() }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

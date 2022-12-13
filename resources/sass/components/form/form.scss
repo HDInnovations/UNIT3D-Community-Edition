@@ -6,3 +6,8 @@
     background-color: inherit;
     max-width: 100%;
 }
+
+.form--horizontal {
+    flex-direction: row;
+    padding-top: 0;
+}

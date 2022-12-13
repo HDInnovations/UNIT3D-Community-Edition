@@ -1,180 +1,174 @@
-<div>
-    <div class="container-fluid">
-        <div class="block">
-            <div class="container box search mt-5 fatten-me form-horizontal form-condensed form-torrent-search form-bordered">
-                <div class="mx-0 mt-5 form-group fatten-me">
-                    <label for="search"
-                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('torrent.name') }}</label>
-                    <div class="col-sm-9 fatten-me">
-                        <label for="search"></label>
-                        <input wire:model="search" type="text" class="form-control" placeholder="{{ __('torrent.name') }}">
-                    </div>
-                </div>
-
-                <div class="mx-0 mt-5 form-group fatten-me">
-                    <label for="language_id"
-                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.language') }}</label>
-                    <div class="col-sm-9">
-                        <select class="form-control" wire:model="language">
-                            <option value="">--{{ __('common.select') }} {{ __('common.language') }}--</option>
+<div class="sidebar2 sidebar--inverse">
+    <div>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.subtitles') }}</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="torrents-icon"></th>
+                            <th wire:click="sortBy('title')" role="columnheader button">
+                                {{ __('torrent.torrent') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'title'])
+                            </th>
+                            <th wire:click="sortBy('language_id')" role="columnheader button">
+                                {{ __('common.language') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'language_id'])
+                            </th>
+                            <th wire:click="sortBy('extension')" role="columnheader button">
+                                {{ __('subtitle.extension') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'extension'])
+                            </th>
+                            <th wire:click="sortBy('file_size')" role="columnheader button">
+                                {{ __('subtitle.size') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'file_size'])
+                            </th>
+                            <th wire:click="sortBy('downloads')" role="columnheader button">
+                                {{ __('subtitle.downloads') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'downloads'])
+                            </th>
+                            <th wire:click="sortBy('created_at')" role="columnheader button">
+                                {{ __('subtitle.uploaded') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            </th>
+                            <th wire:click="sortBy('user_id')" role="columnheader button">
+                                {{ __('subtitle.uploader') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                            </th>
+                            <th>{{ __('common.actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($subtitles as $subtitle)
+                            <tr>
+                                <td>
+                                    @if ($subtitle->torrent->category->image === null)
+                                            <i
+                                                class="{{ $subtitle->torrent->category->icon }} torrent-icon"
+                                                title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
+                                            ></i>
+                                        @else
+                                            <img
+                                                src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
+                                                title="{{$subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
+                                                alt="{{ $subtitle->torrent->category->name }}"
+                                            >
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('torrent', ['id' => $subtitle->torrent->id]) }}">
+                                        {{ $subtitle->torrent->name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ $subtitle->language->name }}
+                                    <i class="{{ config("other.font-awesome") }} fa-closed-captioning" title="{{ $subtitle->note }}"></i>
+                                </td>
+                                <td>{{ $subtitle->extension }}</td>
+                                <td>{{ $subtitle->getSize() }}</td>
+                                <td>{{ $subtitle->downloads }}</td>
+                                <td>
+                                    <time datetime="{{ $subtitle->created_at }}" title="{{ $subtitle->created_at }}">
+                                        {{ $subtitle->created_at->diffForHumans() }}
+                                    </time>
+                                </td>
+                                <td>
+                                    <x-user_tag :user="$subtitle->user" :anon="$subtitle->anon" />
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                class="form__button form__button--text"
+                                                href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                            >
+                                                {{ __('common.download') }}
+                                            </a>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            {{ $subtitles->links('partials.pagination') }}
+        </section>
+    </div>
+    <aside>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
+            <div class="panel__body">
+                <form class="form">
+                    <p class="form__group">
+                        <input
+                            id="search"
+                            wire:model="search"
+                            type="search"
+                            class="form__text"
+                            placeholder=""
+                        >
+                        <label for="search" class="form__label form__label--floating">
+                            {{ __('torrent.name') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <select
+                            id="language_id"
+                            class="form__select"
+                            wire:model="language"   
+                            x-data="{ language: '' }"
+                            x-model="language"
+                            x-bind:class="language === '' ? 'form__select--default' : ''"
+                        >
+                            <option hidden disabled selected value=""></option>
                             @foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
-                                <option value="{{ $media_language->id }}">{{ $media_language->name }}
-                                    ({{ $media_language->code }})
+                                <option class="form__option" value="{{ $media_language->id }}">
+                                    {{ $media_language->name }} ({{ $media_language->code }})
                                 </option>
                             @endforeach
                         </select>
+                        <label for="language_id" class="form__label form__label--floating">
+                            {{ __('common.language') }}
+                        </label>
+                    </p>
+                    <div class="form__group">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">{{ __('common.category') }}</legend>
+                            <div class="form__fieldset-checkbox-container--shrink">
+                                @foreach (App\Models\Category::all()->sortBy('position') as $category)
+                                    <p class="form__group">
+                                        <label class="form__label">
+                                            <input
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $category->id }}"
+                                                wire:model="categories"
+                                            >
+                                            {{ $category->name }}
+                                        </label>
+                                    </p>
+                                @endforeach
+                            </div>
+                        </fieldset>
                     </div>
-                </div>
-
-                <div class="mx-0 mt-5 form-group fatten-me">
-                    <label for="categories"
-                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.category') }}</label>
-                    <div class="col-sm-9">
-                        @foreach (App\Models\Category::all()->sortBy('position') as $category)
-                            <span class="badge-user">
-								<label class="inline">
-									<input type="checkbox" wire:model="categories" value="{{ $category->id }}"> {{ $category->name }}
-								</label>
-							</span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="mx-0 mt-5 form-group fatten-me">
-                    <label for="perPage"
-                           class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.quantity') }}</label>
-                    <div class="col-sm-2">
-                        <select wire:model="perPage" class="form-control">
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
+                    <p class="form__group">
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model="perPage"
+                            required
+                        >
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
                         </select>
-                    </div>
-                </div>
+                        <label class="form__label form__label--floating">
+                            {{ __('common.quantity') }}
+                        </label>
+                    </p>
+                </form>
             </div>
-            <br>
-            <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th class="torrents-icon"></th>
-                        <th class="torrents-filename">
-                            <div sortable wire:click="sortBy('title')"
-                                 :direction="$sortField === 'title' ? $sortDirection : null" role="button">
-                                {{ __('torrent.torrent') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'title'])
-                            </div>
-                        </th>
-                        <th>
-                            <div sortable wire:click="sortBy('language_id')"
-                                 :direction="$sortField === 'language_id' ? $sortDirection : null" role="button">
-                                {{ __('common.language') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'language_id'])
-                            </div>
-                        </th>
-                        <th>{{ __('common.download') }}</th>
-                        <th>
-                            <div sortable wire:click="sortBy('extension')"
-                                 :direction="$sortField === 'extension' ? $sortDirection : null" role="button">
-                                {{ __('subtitle.extension') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'extension'])
-                            </div>
-                        </th>
-                        <th>
-                            <div sortable wire:click="sortBy('file_size')"
-                                 :direction="$sortField === 'file_size' ? $sortDirection : null" role="button">
-                                {{ __('subtitle.size') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'file_size'])
-                            </div>
-                        </th>
-                        <th>
-                            <div sortable wire:click="sortBy('downloads')"
-                                 :direction="$sortField === 'downloads' ? $sortDirection : null" role="button">
-                                {{ __('subtitle.downloads') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'downloads'])
-                            </div>
-                        </th>
-                        <th>
-                            <div sortable wire:click="sortBy('created_at')"
-                                 :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                                {{ __('subtitle.uploaded') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                            </div>
-                        </th>
-                        <th>
-                            <div sortable wire:click="sortBy('user_id')"
-                                 :direction="$sortField === 'user_id' ? $sortDirection : null" role="button">
-                                {{ __('subtitle.uploader') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'user_id'])
-                            </div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($subtitles as $subtitle)
-                        <tr>
-                            <td>
-                                @if ($subtitle->torrent->category->image != null)
-                                    <div class="text-center">
-                                        <img src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
-                                             data-toggle="tooltip"
-                                             data-original-title="{{$subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
-                                             alt="{{ $subtitle->torrent->category->name }}">
-                                    </div>
-                                @else
-                                    <div class="text-center">
-                                        <i class="{{ $subtitle->torrent->category->icon }} torrent-icon"
-                                           data-toggle="tooltip"
-                                           data-original-title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"></i>
-                                    </div>
-                                @endif
-                            </td>
-                            <td>
-                                <a class="movie-title" href="{{ route('torrent', ['id' => $subtitle->torrent->id]) }}">
-                                    {{ $subtitle->torrent->name }}
-                                </a>
-                            </td>
-                            <td>
-                                {{ $subtitle->language->name }}
-                                <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip"
-                                   data-title="{{ $subtitle->note }}"></i>
-                            </td>
-                            <td>
-                                <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
-                                   class="btn btn-xs btn-warning">{{ __('common.download') }}</a>
-                            </td>
-                            <td>{{ $subtitle->extension }}</td>
-                            <td>{{ $subtitle->getSize() }}</td>
-                            <td>{{ $subtitle->downloads }}</td>
-                            <td>{{ $subtitle->created_at->diffForHumans() }}</td>
-                            <td>
-                                @if ($subtitle->anon == true)
-                                    <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
-                                        @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
-                                            <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
-                                                ({{ $subtitle->user->username }})
-                                            </a>
-                                        @endif
-                                    </span>
-                                @else
-                                    <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
-                                        <span class="badge-user text-bold"
-                                              style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
-                                        <i class="{{ $subtitle->user->group->icon }}" data-toggle="tooltip"
-                                           data-original-title="{{ $subtitle->user->group->name }}"></i>
-	                                        {{ $subtitle->user->username }}
-                                        </span>
-                                    </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    {{ $subtitles->links() }}
-                </div>
-            </div>
-        </div>
-    </div>
+        </section>
+    </aside>
 </div>

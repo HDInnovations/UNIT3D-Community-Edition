@@ -245,13 +245,13 @@
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ auth()->user()->getSeeding() }}
+                    {{ auth()->user()->seedingTorrents()->count() }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
                 <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ auth()->user()->getLeeching() }}
+                    {{ auth()->user()->leechingTorrents()->count() }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
@@ -283,7 +283,7 @@
             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
-                @if (auth()->user()->getWarning() > 0)
+                @if (auth()->user()->warnings()->active()->exists())
                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                         title="{{ __('common.active-warning') }}"></i>
                 @endif
@@ -353,7 +353,7 @@
                             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
-                                @if (auth()->user()->getWarning() > 0)
+                                @if (auth()->user()->warnings()->active()->exists())
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                        title="{{ __('common.active-warning') }}"></i>
                                 @endif

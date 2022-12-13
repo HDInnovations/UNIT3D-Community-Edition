@@ -131,7 +131,7 @@
 
                 <br>
                 @if ($torrent->keywords)
-                    @foreach ($torrent->keywords as $keyword)
+                    @foreach ($torrent->keywords->take(10) as $keyword)
                         <span class="badge-user text-bold text-green">
                             <a href="{{ route('torrents', ['keywords' => $keyword->name]) }}">
                                 <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $keyword->name }}

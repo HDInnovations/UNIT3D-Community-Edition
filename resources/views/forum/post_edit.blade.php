@@ -35,19 +35,17 @@
 @endsection
 
 @section('content')
-    <div class="forum box container">
-        <div class="col-md-12">
-            <h2>{{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}
-                : {{ $forum->name }}</h2>
-            <form role="form" method="POST"
-                  action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}: {{ $forum->name }}
+        </h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">
                 @csrf
-                <div class="form-group">
-                    <label for="content"></label>
-                    <textarea id="editor" name="content" cols="30" rows="10"
-                              class="form-control">{{ $post->content }}</textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])
+                <button class="form__button form__button--filled">
+                    {{ __('common.submit') }}
+                </button>
             </form>
         </div>
     </div>

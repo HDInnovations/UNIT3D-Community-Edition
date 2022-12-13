@@ -20,6 +20,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessAnnounce;
+use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
@@ -68,6 +69,15 @@ class AnnounceController extends Controller
         6699,
     ];
 
+    private const HEADERS = [
+        'Content-Type'  => 'text/plain; charset=utf-8',
+        'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma'        => 'no-cache',
+        'Expires'       => 0,
+        'Connection'    => 'close'
+
+    ];
+
     /**
      * Announce Code.
      *
@@ -110,7 +120,7 @@ class AnnounceController extends Controller
                 $this->checkDownloadSlots($queries, $user);
             }
 
-            // Generate A Response For The Torrent Clent.
+            // Generate A Response For The Torrent Client.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
@@ -130,6 +140,9 @@ class AnnounceController extends Controller
      */
     protected function checkClient(Request $request): void
     {
+        // Query count check
+        \throw_if($request->query->count() < 6, new TrackerException(129));
+
         // Miss Header User-Agent is not allowed.
         \throw_if(! $request->header('User-Agent'), new TrackerException(120));
 
@@ -146,6 +159,7 @@ class AnnounceController extends Controller
             || $request->header('want-digest'), new TrackerException(122));
 
         $userAgent = $request->header('User-Agent');
+        $clientBlacklist = BlacklistClient::all()->pluck('name')->toArray();
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
         \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
@@ -158,7 +172,7 @@ class AnnounceController extends Controller
 
         // Block Blacklisted Clients
         \throw_if(
-            \in_array($request->header('User-Agent'), \config('client-blacklist.clients')),
+            \in_array($request->header('User-Agent'), $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')])
         );
     }
@@ -345,7 +359,7 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::query()
+        $torrent = Torrent::with('peers')
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
@@ -383,12 +397,14 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        \throw_if(\strtolower($queries['event']) === 'completed' &&
-            ! Peer::query()
-                ->where('torrent_id', '=', $torrent->id)
+        \throw_if(
+            \strtolower($queries['event']) === 'completed'
+            && $torrent->peers
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
-                ->exists(), new TrackerException(152));
+                ->isEmpty(),
+            new TrackerException(152)
+        );
     }
 
     /**
@@ -400,9 +416,7 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = Peer::query()
-            ->select('updated_at')
-            ->where('torrent_id', '=', $torrent->id)
+        $prevAnnounce = $torrent->peers
             ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
@@ -424,8 +438,7 @@ class AnnounceController extends Controller
     private function checkMaxConnections($torrent, $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Peer::query()
-            ->where('torrent_id', '=', $torrent->id)
+        $connections = $torrent->peers
             ->where('user_id', '=', $user->id)
             ->count();
 
@@ -485,12 +498,12 @@ class AnnounceController extends Controller
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            $peers = Peer::query()
-                ->where('torrent_id', '=', $torrent->id)
+            $peers = $torrent->peers
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
                 ->take($limit)
-                ->get(['ip', 'port'])
+                ->map
+                ->only(['ip', 'port'])
                 ->toArray();
 
             foreach ($peers as $peer) {
@@ -525,9 +538,6 @@ class AnnounceController extends Controller
      */
     protected function sendFinalAnnounceResponse($repDict): Response
     {
-        return \response(Bencode::bencode($repDict))
-            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
-            ->withHeaders(['Connection' => 'close'])
-            ->withHeaders(['Pragma' => 'no-cache']);
+        return response(Bencode::bencode($repDict), headers: self::HEADERS);
     }
 }

@@ -15,108 +15,136 @@
     @include('partials.pmmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div>
-            <div>
-                <div class="block">
-                    <div class="row">
-                        <div class="col-md-8 col-xs-5">
-                            <div class="btn-group">
-                                <form action="{{ route('mark-all-read') }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" id="mark-all-read" class="btn btn-success dropdown-toggle"
-                                            data-toggle="tooltip" data-placement="top"
-                                            data-original-title="{{ __('pm.mark-all-read') }}">
-                                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                                    </button>
-                                </form>
-                                <a href="{{ route('inbox') }}">
-                                    <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
-                                            data-toggle="tooltip" data-placement="top"
-                                            data-original-title="{{ __('pm.refresh') }}"><i
-                                                class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
-                                </a>
-                                <form role="form" method="POST" action="{{ route('empty-inbox') }}"
-                                      style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger dropdown-toggle">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> {{ __('pm.empty-inbox') }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-xs-7">
-                            <div class="input-group pull-right">
-                                <form role="form" method="POST" action="{{ route('searchPMInbox') }}">
-                                    @csrf
-                                    <label for="subject"></label><input type="text" name="subject" id="subject"
-                                                                        class="form-control"
-                                                                        placeholder="{{ __('pm.search') }}">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <td class="col-sm-2">{{ __('pm.from') }}</td>
-                                <td class="col-sm-5">{{ __('pm.subject') }}</td>
-                                <td class="col-sm-2">{{ __('pm.received-at') }}</td>
-                                <td class="col-sm-2">{{ __('pm.read') }}</td>
-                                <td class="col-sm-2">{{ __('pm.delete') }}</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($pms as $p)
-                                <tr>
-                                    <td class="col-sm-2">
-                                        <a href="{{ route('users.show', ['username' => $p->sender->username]) }}">{{ $p->sender->username }}
-                                        </a>
-                                    </td>
-                                    <td class="col-sm-5">
-                                        <a href="{{ route('message', ['id' => $p->id]) }}">
-                                            {{ $p->subject }}
-                                        </a>
-                                    </td>
-                                    <td class="col-sm-2">
-                                        {{ $p->created_at->diffForHumans() }}
-                                    </td>
-                                    @if ($p->read == 0)
-                                        <td class="col-sm-2">
-                                                <span class='label label-danger'>
-                                                    {{ __('pm.unread') }}
-                                                </span>
-                                        </td>
-                                    @else ($p->read >= 1)
-                                        <td class="col-sm-2">
-                                                <span class='label label-success'>
-                                                    {{ __('pm.read') }}
-                                                </span>
-                                        </td>
-                                    @endif
-                                    <td class="col-sm-2">
-                                        <form role="form" method="POST"
-                                              action="{{ route('delete-pm', ['id' => $p->id]) }}">
-                                            @csrf
-                                            <div class="col-sm-1">
-                                                <button type="submit" class="btn btn-xs btn-danger"
-                                                        title="{{ __('pm.delete') }}"><i
-                                                            class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="align-center">{{ $pms->links() }}</div>
-                </div>
+@section('page', 'page__pm--inbox')
+
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('pm.inbox') }}</h2>
+            <div class="panel__actions">
+                <form
+                    class="panel__action"
+                    action="{{ route('searchPMInbox') }}"
+                    method="POST"
+                >
+                    @csrf
+                    <p class="form__group">
+                        <input
+                            id="search"
+                            class="form__text"
+                            name="subject"
+                            required
+                        />
+                        <label class="form__label form__label--floating" for="search">
+                            {{ __('pm.search') }}
+                        </label>
+                    </p>
+                </form>
             </div>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('pm.from') }}</th>
+                        <th>{{ __('pm.subject') }}</th>
+                        <th>{{ __('pm.received-at') }}</th>
+                        <th>{{ __('pm.read') }}</th>
+                        <th>{{ __('pm.delete') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pms as $pm)
+                        <tr>
+                            <td>
+                                <x-user_tag :user="$pm->sender" :anon="false" />
+                            </td>
+                            <td>
+                                <a href="{{ route('message', ['id' => $pm->id]) }}">
+                                    {{ $pm->subject }}
+                                </a>
+                            </td>
+                            <td>
+                                <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
+                                    {{ $pm->created_at->diffForHumans() }}
+                                </time>
+                            </td>
+                            <td>
+                                @if ($pm->read == 0)
+                                    <i class="{{ \config('other.font-awesome') }} fa-cross text-red" title="{{ __('pm.unread') }}"></i>
+                                @else
+                                    <i class="{{ \config('other.font-awesome') }} fa-check text-green" title="{{ __('pm.read') }}"></i>
+                                @endif
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('delete-pm', ['id' => $pm->id]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            <button
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{ $pms->links('partials.pagination') }}
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.actions') }}</h2>
+        <div class="panel__body">
+            <form action="{{ route('mark-all-read') }}" method="POST">
+                <p class="form__group form__group--horizontal">
+                    @csrf
+                    <button class="form__button form__button--filled">
+                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
+                        {{ __('pm.mark-all-read') }}
+                    </button>
+                </p>
+            </form>
+            <p class="form__group form__group--horizontal">
+                <a href="{{ route('inbox') }}" class="form__button form__button--filled">
+                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
+                    {{ __('pm.refresh') }}
+                </a>
+            </p>
+            <form method="POST" action="{{ route('empty-inbox') }}" x-data>
+                @csrf
+                @method('DELETE')
+                <p class="form__group form__group--horizontal">
+                    <button
+                        x-on:click.prevent="Swal.fire({
+                            title: 'Are you sure?',
+                            text: 'Are you sure you want to delete all private messages?',
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            showCancelButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $root.submit();
+                            }
+                        })"
+                        class="form__button form__button--filled"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                        {{ __('pm.empty-inbox') }}
+                    </button>
+                </p>
+            </form>
         </div>
     </div>
 @endsection

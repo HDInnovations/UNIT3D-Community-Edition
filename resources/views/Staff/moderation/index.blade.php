@@ -64,9 +64,11 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                        action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
                                     >
                                         @csrf
+                                        <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                                        <input type="hidden" name="status" value="1">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}
@@ -135,9 +137,11 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                        action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
                                     >
                                         @csrf
+                                        <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                                        <input type="hidden" name="status" value="1">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}
@@ -214,9 +218,11 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                        action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
                                     >
                                         @csrf
+                                        <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                                        <input type="hidden" name="status" value="1">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}

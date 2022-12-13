@@ -98,7 +98,7 @@
             @endif
         @else
             <li class="nav-tabV2">
-                @if (auth()->user()->isFollowing($user->id))
+                @if (auth()->user()->follows()->following($user->id)->exists())
                     <form
                         action="{{ route('follow.destroy', ['username' => $user->username]) }}"
                         method="POST"

@@ -11,361 +11,167 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            @php $tmdb_backdrop = isset($meta->backdrop) ? tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' @endphp
-            <section class="inner_content header" style="background-image: url('{{ $tmdb_backdrop }}')">
-                <div class="bg_filter">
-                    <div class="single_column">
-                        <h2>{{ $playlist->name }}</h2>
-
-                        <ul class="list_menu_bar">
-                            <li class="account">
-                                <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
-                                    @if ($playlist->user->image != null)
-                                        <img src="{{ url('files/img/' . $playlist->user->image) }}"
-                                             alt="{{ $playlist->user->username }}" style=" width: 50px;">
-                                    @else
-                                        <img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}"
-                                             style=" width: 50px;">
-                                    @endif
-                                </a>
-                                <p>{{ __('playlist.list-by') }}<br><a
-                                            href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a>
-                                </p>
-                            </li>
-                        </ul>
-
-                        <h3 class="text-bold">{{ __('playlist.list-about') }}</h3>
-                        <div class="description">
-                            <p>{{ $playlist->description }}</p>
-                            <br>
-                            @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
-                                <button data-toggle="modal" data-target="#modal_playlist_torrent"
-                                        class="btn btn-md btn-success">
-                                    <i class="{{ config('other.font-awesome') }} fa-search-plus"></i> {{ __('playlist.add-torrent') }}
+@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+    @section('sidebar')
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.actions') }}</h2>
+            <div class="panel__body">
+                <div class="form__group form__group--horizontal" x-data="{ open: false }">
+                    <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                        <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
+                        {{ __('playlist.add-torrent') }}
+                    </button>
+                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                        <h4 class="dialog__heading">
+                            {{ __('playlist.add-to-playlist') }}
+                        </h4>
+                        <form
+                            class="dialog__form"
+                            method="POST"
+                            action="{{ route('playlists.attach') }}"
+                            x-on:click.outside="open = false; $refs.dialog.close();"
+                        >
+                            @csrf
+                            <p class="form__group">
+                                <input id="playlist_id" name="playlist_id" type="hidden" value="{{ $playlist->id }}">
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="torrent_id"
+                                    class="form__text"
+                                    name="torrent_id"
+                                    type="text"
+                                    required
+                                >
+                                <label class="form__label form__label--floating" for="torrent_id">Torrent ID</label>
+                            </p>
+                            <p class="form__group">
+                                <button class="form__button form__button--filled">
+                                    {{ __('common.add') }}
                                 </button>
-                                <form action="{{ route('playlists.destroy', ['id' => $playlist->id]) }}" method="POST"
-                                      style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
-                                       class="btn btn-warning">
-                                        <i class="{{ config('other.font-awesome') }} fa-edit"></i> {{ __('playlist.edit-playlist') }}
-                                    </a>
-                                    <button type="submit" class="btn btn-danger pull-right">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> {{ __('playlist.delete-playlist') }}
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
-                    </div>
+                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                    {{ __('common.cancel') }}
+                                </button>
+                            </p>
+                        </form>
+                    </dialog>
                 </div>
-            </section>
-        </div>
-
-        <div class="block">
-            <div class="row">
-                <div class="text-center">
-                    <a href="{{ route('playlists.download', ['id' => $playlist->id]) }}" role="button"
-                       class="btn btn-sm btn-labeled btn-success">
-                    <span class='btn-label'>
-                        <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('playlist.download-all') }}
-                    </span>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
+                        class="form__button form__button--filled"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-edit"></i>
+                        {{ __('playlist.edit-playlist') }}
                     </a>
-                    <a href="{{ route('torrents', ['playlistId' => $playlist->id]) }}" role="button"
-                       class="btn btn-sm btn-labeled btn-success">
-                    <span class='btn-label'>
-                        <i class='{{ config('other.font-awesome') }} fa-eye'></i> Playlist Torrents List
-                    </span>
-                    </a>
-                </div>
-                @php $meta = null @endphp
-                @foreach($torrents as $t)
-                    @if ($t->torrent->category->tv_meta)
-                        @if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
-                            @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $t->torrent->tmdb)->first() @endphp
-                        @endif
-                    @endif
-                    @if ($t->torrent->category->movie_meta)
-                        @if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
-                            @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $t->torrent->tmdb)->first() @endphp
-                        @endif
-                    @endif
-                    <div class="col-md-6">
-                        <div class="card is-torrent">
-                            <div class="card_head">
-                                @if ($t->torrent->tmdb != 0)
-                                    <a href="{{ route('torrents.similar', ['category_id' => $t->torrent->category_id, 'tmdb' => $t->torrent->tmdb]) }}"
-                                       role="button"
-                                       data-toggle="tooltip" data-placement="top"
-                                       data-original-title="{{ __('torrent.similar') }}" class="btn btn-xs btn-primary"
-                                       style="float: left; margin-right: 10px;">
-                                        <i class='{{ config("other.font-awesome") }} fa-copy'></i>
-                                    </a>
-                                @endif
-                                &nbsp;
-                                @if (config('torrent.download_check_page') == 1)
-                                    <a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
-                                       data-toggle="tooltip" data-placement="top"
-                                       data-original-title="{{ __('common.download') }}" class="btn btn-xs btn-success"
-                                       style="float: left; margin-right: 10px;">
-                                        <i class='{{ config("other.font-awesome") }} fa-download'></i>
-                                    </a>
-                                @else
-                                    <a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
-                                       data-toggle="tooltip" data-placement="top"
-                                       data-original-title="{{ __('common.download') }}" class="btn btn-xs btn-success"
-                                       style="float: left; margin-right: 10px;">
-                                        <i class='{{ config("other.font-awesome") }} fa-download'></i>
-                                    </a>
-                                @endif
-                                &nbsp;
-                                @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
-                                    <form action="{{ route('playlists.detach', ['id' => $t->id]) }}" method="POST"
-                                          style="float: left; margin-right: 10px;"
-                                          data-toggle="tooltip" data-placement="top"
-                                          data-original-title="{{ __('common.delete') }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                        </button>
-                                    </form>
-                                @endif
-
-                                <span class="badge-user text-bold" style="float:right;">
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up text-green"></i> {{ $t->torrent->seeders }} /
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i> {{ $t->torrent->leechers }} /
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->torrent->times_completed }}
-                                </span>&nbsp;
-                                <span class="badge-user text-bold text-blue"
-                                      style="float:right;">{{ $t->torrent->getSize() }}</span>
-                                <span class="badge-user text-bold text-blue"
-                                      style="float:right;">{{ $t->torrent->resolution->name }}</span>
-                                <span class="badge-user text-bold text-blue"
-                                      style="float:right;">{{ $t->torrent->type->name }}</span>
-                                <span class="badge-user text-bold text-blue"
-                                      style="float:right;">{{ $t->torrent->category->name }}</span>
-                            </div>
-                            <div class="card_body">
-                                <div class="body_poster">
-                                    @if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta)
-                                        <img src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
-                                             class="show-poster" alt="{{ __('torrent.poster') }}">
-                                    @endif
-
-                                    @if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
-                                        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $t->torrent->meta->cover->image_id }}.jpg"
-                                             class="show-poster" alt="{{ __('torrent.poster') }}">
-                                    @endif
-
-                                    @if ($t->torrent->category->no_meta || $t->torrent->category->music_meta)
-                                        <img src="https://via.placeholder.com/160x240"
-                                             class="show-poster" alt="{{ __('torrent.poster') }}">
-                                    @endif
-                                </div>
-                                <div class="body_description">
-                                    <h3 class="description_title">
-                                        <a href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
-                                            @if($t->torrent->category->movie_meta || ($t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear))
-                                                <span class="text-bold text-pink"> {{ $meta->releaseYear ?? '' }}</span>
-                                            @endif
-                                            @if($t->torrent->category->game_meta && isset($meta) && $meta->first_release_date)
-                                                <span class="text-bold text-pink"> {{ date('Y', strtotime( $meta->first_release_date)) }}</span>
-                                            @endif
-                                        </a>
-                                    </h3>
-                                    @if ($t->torrent->category->movie_meta && isset($meta) && $meta->genres)
-                                        @foreach ($meta->genres as $genre)
-                                            <span class="genre-label">{{ $genre->name }}</span>
-                                        @endforeach
-                                    @endif
-                                    @if ($t->torrent->category->tv_meta && isset($meta) && $meta->genres)
-                                        @foreach ($meta->genres as $genre)
-                                            <span class="genre-label">{{ $genre->name }}</span>
-                                        @endforeach
-                                    @endif
-                                    @if ($t->torrent->category->game_meta && isset($meta) && $meta->genres)
-                                        @foreach ($meta->genres as $genre)
-                                            <span class="genre-label">{{ $genre->name }}</span>
-                                        @endforeach
-                                    @endif
-                                    <p class="description_plot">
-                                        @if($t->torrent->category->movie_meta || ($t->torrent->category->tv_meta && $meta && $meta->plot))
-                                            {{ $meta->overview ?? '' }}
-                                        @endif
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card_footer">
-                                <div style="float: left;">
-                                    @if ($t->torrent->anon == 1)
-                                        <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
-                                            @if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
-                                                            ({{ $t->torrent->user->username }})
-                                                        </a>
-                                            @endif
-                                                </span>
-                                    @else
-                                        <a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
-                                            <span class="badge-user text-bold"
-                                                  style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
-                                                <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip"
-                                                   title=""
-                                                   data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
-                                            </span>
-                                        </a>
-                                    @endif
-                                </div>
-                                <span class="badge-user text-bold" style="float: right;">
-									<i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                    {{ $meta->vote_average ?? '0' }}/10 ({{ $meta->vote_count ?? '0' }} {{ __('torrent.votes') }})
-								</span>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                </p>
+                <form
+                    action="{{ route('playlists.destroy', ['id' => $playlist->id]) }}"
+                    method="POST"
+                    x-data
+                >
+                    @csrf
+                    @method('DELETE')
+                        <p class="form__group form__group--horizontal">
+                        <button 
+                            x-on:click.prevent="Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'Are you sure you want to delete this playlist: {{ $playlist->name }}?',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            })"
+                            class="form__button form__button--filled"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                            {{ __('common.delete') }}
+                        </p>
+                    </button>
+                </form>
             </div>
-            <div class="text-center">{{ $torrents->links() }}</div>
-        </div>
+        </section>
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.download') }}</h2>
+            <div class="panel__body">
+                <p class="form__group form__group--horizontal">
+                    <button
+                        href="{{ route('playlists.download', ['id' => $playlist->id]) }}"
+                        class="form__button form__button--filled"
+                    >
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i>
+                        {{ __('playlist.download-all') }}
+                    </button>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        href="{{ route('torrents', ['playlistId' => $playlist->id]) }}"
+                        class="form__button form__button--filled"
+                    >
+                        <i class='{{ config('other.font-awesome') }} fa-eye'></i>
+                        Playlist Torrents List
+                    </a>
+                </p>
+            </div>
+        </section>
+    @endsection
+@endif
 
-        <div class="block" id="comments">
-            <div class="row ">
-                <div class="col-md-12 col-sm-12">
-                    <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">
-                            <h4>
-                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
-                            </h4>
-                        </div>
-                        <div class="panel-body no-padding">
-                            <ul class="media-list comments-list">
-                                @if (count($playlist->comments) == 0)
-                                    <div class="text-center"><h4 class="text-bold text-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
-                                            !</h4>
-                                    </div>
-                                @else
-                                    @foreach ($playlist->comments as $comment)
-                                        <li class="media" style="border-left: 5px solid #01BC8C;">
-                                            <div class="media-body">
-                                                @if ($comment->anon == 1)
-                                                    <a href="#" class="pull-left" style="padding-right: 10px;">
-                                                        <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(__('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                           style="color:{{ $comment->user->group->color }};">(<span><i
-                                                                        class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
-                                                @else
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       class="pull-left" style="padding-right: 10px;">
-                                                        @if ($comment->user->image != null)
-                                                            <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                                 alt="{{ $comment->user->username }}"
-                                                                 class="img-avatar-48"></a>
-                                                    @else
-                                                        <img src="{{ url('img/profile.png') }}"
-                                                             alt="{{ $comment->user->username }}"
-                                                             class="img-avatar-48"></a>
-                                                    @endif
-                                                    <strong><a
-                                                                href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                                style="color:{{ $comment->user->group->color }};"><span><i
-                                                                        class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                    <div class="pull-right" style="display: inline-block;">
-                                                        <a data-toggle="modal"
-                                                           data-target="#modal-comment-edit-{{ $comment->id }}">
-                                                            <button class="btn btn-circle btn-info">
-                                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form action="{{ route('comment_delete', ['comment_id' => $comment->id]) }}"
-                                                              method="POST" style="display: inline-block;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-circle btn-danger">
-                                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                @endif
-                                                <div class="pt-5">
-                                                    @joypixels($comment->getContentHtml())
-                                                </div>
-                                            </div>
-                                        </li>
-                                        @include('partials.modals', ['comment' => $comment])
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="col-md-12">
-                    <form role="form" method="POST" action="{{ route('comment_playlist', ['id' => $playlist->id]) }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="content">{{ __('common.your-comment') }}:</label>
-                            <span class="badge-extra">BBCode {{ __('common.is-allowed') }}</span>
-                            <span class="pull-right" x-data="{ emoji: false }">
-                                <img src="{{ url('img/emoji-add.png') }}" width="32px" x-on:click="emoji = ! emoji">
-
-                                <div style="position: absolute; z-index: 1;" x-show="emoji" @click.away="emoji = false">
-                                    <emoji-picker></emoji-picker>
-                                </div>
-                            </span>
-                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-danger">{{ __('common.submit') }}</button>
-                        <label class="radio-inline"><strong>{{ __('common.anonymous') }} {{ __('common.comment') }}
-                                :</strong></label>
-                        <input type="radio" value="1" name="anonymous"> {{ __('common.yes') }}
-                        <input type="radio" value="0" checked="checked" name="anonymous"> {{ __('common.no') }}
-                    </form>
-                </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $playlist->name }}</h2>
+        @php $tmdb_backdrop = isset($meta->backdrop) ? tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' @endphp
+        <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">
+            <div class="playlist__backdrop-filter">
+                <a class="playlist__author-link" href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
+                    <img
+                        class="playlist__author-avatar"
+                        src="{{ url($playlist->user->image ? 'files/img/'.$playlist->user->image : 'img/profile.png') }}"
+                        alt="{{ $playlist->user->username }}"
+                    >
+                </a>
+                <p class="playlist__author">
+                    <x-user_tag :user="$playlist->user" :anon="false" />
+                </p>
+                <p class="playlist__description">
+                    {{ $playlist->description }}
+                </p>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog{{ modal_style() }}">
-            <div class="modal-content">
-                <div class="container-fluid">
-                    <form role="form" method="POST" action="{{ route('playlists.attach') }}">
-                        @csrf
-                        <input id="playlist_id" name="playlist_id" type="hidden" value="{{ $playlist->id }}">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
+        <div class="panel__body playlist__torrents">
+            @foreach($torrents as $playlistTorrent)
+                @php
+                    $meta = match(1) {
+                        $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'cast', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
+                        default => null,
+                    };
+                @endphp
+                <div class="playlist__torrent-container">
+                    <x-torrent.card :meta="$meta" :torrent="$playlistTorrent->torrent" />
+                    @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+                        <form
+                            action="{{ route('playlists.detach', ['id' => $playlistTorrent->id]) }}"
+                            method="POST"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button class="form__standard-icon-button">
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">{{ __('playlist.add-to-playlist') }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="report_reason">Torrent ID</label>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    <input type="text" name="torrent_id" class="form-control">
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input class="btn btn-success" type="submit" value="{{ __('common.save') }}">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-primary" type="button"
-                                    data-dismiss="modal">{{ __('common.close') }}</button>
-                        </div>
-                    </form>
+                        </form>
+                    @endif
                 </div>
-            </div>
+            @endforeach
         </div>
-    </div>
+        {{ $torrents->links() }}
+    </section>
+    <livewire:comments :model="$playlist"/>
 @endsection

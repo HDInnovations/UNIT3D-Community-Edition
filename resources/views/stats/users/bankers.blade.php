@@ -19,52 +19,32 @@
     @include('partials.statsusermenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-bankers') }} ({{ __('bon.bon') }})</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-purple"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('stat.top-bankers') }}
-                        </strong>
-                        ({{ __('bon.bon') }})</p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--bankers')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-bankers') }} ({{ __('bon.bon') }})</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('common.balance') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bankers as $user)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('common.user') }}</th>
-                            <th>{{ __('common.balance') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <x-user_tag :user="$user" :anon="$user->private_profile" />
+                            </td>
+                            <td>{{ $user->seedbonus }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($bankers as $key => $b)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $b->username) class="mentions" @endif>
-                                    @if ($b->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $b->username]) }}">({{ $b->username }}</a></span>
-                                    @endif
-                                    @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $b->username]) }}">{{ $b->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-purple">{{ $b->seedbonus }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

@@ -142,9 +142,11 @@
                     @if (auth()->user()->group->is_modo)
                         <div class="torrent-moderation-controls">
                             <form role="form" method="POST"
-                                  action="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}"
+                                  action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
                                   style="display: inline-block;">
                                 @csrf
+                                <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                                <input type="hidden" name="status" value="1">
                                 <button type="submit"
                                         class="btn btn-labeled btn-xs btn-success @if ($torrent->isApproved()) disabled @endif">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ __('common.moderation-approve') }}

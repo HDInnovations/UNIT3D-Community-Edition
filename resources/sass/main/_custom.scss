@@ -1,4 +1,14 @@
 :root {
+    --message-bubble-bg: white;
+    --message-bubble-fg: currentColor;
+    --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
+    --button-filled-fg: white;
+    --button-text-bg: inherit;
+    --button-text-fg: currentColor;
+    --textarea-border: #555;
+    --textarea-border-hover: #999;
+    --textarea-border-active: #2196f3;
+
     --achievement-fg: inherit;
     --achievement-bg: #e7e7e7;
 
@@ -70,8 +80,11 @@
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
 
-    --meter-fg: #888;
-    --meter-bg: #444;
+    --meter-fg: #d6d6d6;
+    --meter-bg: #bbb;
+
+    --notification-read: transparent;
+    --notification-unread: #2bb666;
 
     --paginate-bg: #e2e2e2;
     --paginate-bg-hover: #d8d8d8;
@@ -89,6 +102,21 @@
     --panel-head-bg: #373d43;
     --panel-head-fg: #fff;
 
+    --post-bg: #e9e9e9;
+    --post-fg: #212121;
+    --post-shadow: 0 3px 4px 0 rgba(0,0,0,0.14), 0 3px 3px -2px rgba(0,0,0,0.12), 0 1px 8px 0 rgba(0,0,0,0.20);
+    --post-head-fg: var(--panel-fg);
+    --post-head-bg: none;
+    --post-toolbar-bg: #989898;
+    --post-toolbar-fg: #e5e5e5;
+    --post-toolbar-hover-bg: #777;
+    --post-toolbar-hover-fg: inherit;
+    --post-like-fg: green;
+    --post-dislike-fg: red;
+    --post-aside-bg: #d6d6d6;
+    --post-aside-fg: #696969;
+    --post-footer-fg: var(--panel-fg);
+
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
     --select-border-error: 1px solid #ba1b1b;
@@ -96,12 +124,23 @@
     --select-border-radius: 5px;
     --select-fg: #444;
 
+    --subforum-listing-odd-bg: #ddd;
+    --subforum-listing-even-bg: transparent;
+
     --textarea-border: 1px solid #555;
     --textarea-border-active: 2px solid #2196f3;
     --textarea-border-error: 1px solid #ba1b1b;
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #444;
+
+    --torrent-card-bg: #e2e2e2;
+    --torrent-card-fg: inherit;
+    --torrent-card-border: 1px solid #ddd;
+    --torrent-card-head-bg: #373d43;
+    --torrent-card-head-fg: #fff;
+    --torrent-card-link-fg: #3b3b3b;
+    --torrent-card-genre-fg: #444;
 }
 
 .permalink {
@@ -3166,6 +3205,7 @@ button.list-group-item-danger.active:hover {
 
 .panel-body {
     padding: 15px;
+    background-color: #e2e2e2;
 }
 
 .panel-body:after,
@@ -10788,7 +10828,7 @@ div.single_column {
     display: block !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 4px 12px 0 8px;
     margin: 4px 12px 0 48px;
 }
@@ -10796,7 +10836,7 @@ div.single_column {
 .sent > div {
     display: block !important;
     border-bottom-right-radius: 15px;
-    background-color: #ffffff;
+    background-color: var(--message-bubble-bg);
     padding: 0 12px 4px 8px !important;
     margin: 0 12px 4px 48px !important;
 }
@@ -10811,7 +10851,7 @@ div.single_column {
     bottom: 4px;
     left: 38px;
     width: 0;
-    border-right: 10px solid #ffffff;
+    border-right: 10px solid var(--message-bubble-bg);
     border-top: 10px solid transparent;
     /* border-bottom: 10px solid transparent; */
 }

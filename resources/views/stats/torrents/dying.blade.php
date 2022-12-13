@@ -19,48 +19,38 @@
     @include('partials.statstorrentmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-dying') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-orange"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
-                            {{ __('stat.top-dying') }}</strong></p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--dying')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-dying') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('torrent.torrent') }}</th>
+                        <th>{{ __('torrent.seeders') }}</th>
+                        <th>{{ __('torrent.leechers') }}</th>
+                        <th>{{ __('torrent.completed') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dying as $torrent)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('torrent.torrent') }}</th>
-                            <th>{{ __('torrent.seeders') }}</th>
-                            <th>{{ __('torrent.leechers') }}</th>
-                            <th>{{ __('torrent.completed') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                                    {{ $torrent->name }}
+                                </a>
+                            </td>
+                            <td>{{ $torrent->seeders }}</td>
+                            <td>{{ $torrent->leechers }}</td>
+                            <td>{{ $torrent->times_completed }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($dying as $key => $d)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['id' => $d->id]) }}">
-                                        {{ $d->name }}
-                                    </a>
-                                </td>
-                                <td>{{ $d->seeders }}</td>
-                                <td>{{ $d->leechers }}</td>
-                                <td>
-                                    <span>{{ $d->times_completed }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

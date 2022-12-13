@@ -22,7 +22,6 @@ use App\Helpers\TorrentTools;
 use App\Models\Audit;
 use App\Models\BonTransactions;
 use App\Models\Category;
-use App\Models\Comment;
 use App\Models\Distributor;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
@@ -333,7 +332,7 @@ class TorrentController extends Controller
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
-                Comment::where('torrent_id', '=', $id)->delete();
+                $torrent->comments()->delete();
                 Peer::where('torrent_id', '=', $id)->delete();
                 History::where('torrent_id', '=', $id)->delete();
                 Warning::where('torrent', '=', $id)->delete();

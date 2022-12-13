@@ -35,6 +35,7 @@ class TrackerException extends \Exception
         126 => 'Client :ua is not acceptable! Please check our Whitelist.',
         127 => 'Client :ua banned due to: :comment .',
         128 => 'Client :ua is not acceptable! Please check our Blacklist.',
+        129 => 'Invalid request !',
 
         // Error message about Requests ( Part.2 request params )
         130 => 'key: :attribute is Missing !',

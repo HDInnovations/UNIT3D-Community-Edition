@@ -108,12 +108,9 @@ class TorrentRequest extends Model
         return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
     }
 
-    /**
-     * Has Many Comments.
-     */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Comment::class, 'requests_id', 'id');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**

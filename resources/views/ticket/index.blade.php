@@ -10,13 +10,8 @@
     </li>
 @endsection
 
-@section('content')
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
-    </style>
-    <div class="box container">
-        @livewire('ticket-search')
-    </div>
+@section('page', 'page__ticket--index')
+
+@section('main')
+    @livewire('ticket-search')
 @endsection

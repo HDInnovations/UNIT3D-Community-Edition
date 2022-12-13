@@ -1,4 +1,6 @@
 :root {
+    --message-bubble-bg: #363636;
+
     --achievement-fg: inherit;
     --achievement-bg: #272727;
 
@@ -73,6 +75,9 @@
     --meter-fg: #333;
     --meter-bg: #505050;
 
+    --notification-unread: #444;
+    --notification-read: transparent;
+
     --paginate-bg: #272727;
     --paginate-bg-hover: #222;
     --paginate-bg-current: #202020;
@@ -89,6 +94,21 @@
     --panel-head-bg: #19191b;
     --panel-head-fg: #fff;
 
+    --post-bg: #2b2b2b;
+    --post-fg: #ccc;
+    --post-shadow: none;
+    --post-head-fg: var(--text-color);
+    --post-head-bg: none;
+    --post-toolbar-bg: #242424;
+    --post-toolbar-fg: #b0b0b0;
+    --post-toolbar-hover-bg: #2a2a2a;
+    --post-toolbar-hover-fg: inherit;
+    --post-like-fg: green;
+    --post-dislike-fg: red;
+    --post-aside-bg: #303030;
+    --post-aside-fg: #ccc;
+    --post-footer-fg: var(--text-color);
+
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
     --select-border-error: 1px solid #ba1b1b;
@@ -102,6 +122,14 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #bbb;
+
+    --torrent-card-bg: #222;
+    --torrent-card-fg: inherit;
+    --torrent-card-border: 3px solid rgba(14, 21, 34, 0.25);
+    --torrent-card-head-bg: #19191b;
+    --torrent-card-head-fg: #fff;
+    --torrent-card-link-fg: #fff;
+    --torrent-card-genre-fg: #fff;
 }
 
 body {

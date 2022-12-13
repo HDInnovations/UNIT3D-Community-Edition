@@ -23,388 +23,309 @@
     @include('forum.buttons')
 @endsection
 
-@section('content')
-    <div class="box container">
-        <div class="forum-categories">
-            <table class="table table-bordered table-hover">
-                <thead class="no-space">
-                <tr class="no-space">
-                    <td colspan="5" class="no-space">
-                        <div class="header gradient teal some-padding">
-                            <div class="inner_content">
-                                <h1 class="no-space">{{ __('forum.forum') }} {{ __('forum.forums-topic-search') }}</h1>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-                <thead class="no-space">
-                <tr>
-                    <td colspan="5">
-                        <div>
-                            <div class="box">
-                                <div class="container well search mt-5 fatten-me table-me"
-                                     style="width: 90% !important; margin: auto !important;">
-                                    <form role="form" method="GET" action="{{ route('forum_search_form') }}"
-                                          class="form-horizontal form-condensed form-torrent-search form-bordered table-me">
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="name"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.topic') }}</label>
-                                            <div class="col-sm-9 fatten-me">
-                                                <label>
-                                                    <input type="text" name="name" placeholder="{{ __('forum.topic') }}"
-                                                           value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                                                           class="form-control">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="body"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.post') }}</label>
-                                            <div class="col-sm-9 fatten-me">
-                                                <label>
-                                                    <input type="text" name="body" placeholder="{{ __('forum.post') }}"
-                                                           value="{{ isset($params) && is_array($params) && array_key_exists('body', $params) ? $params['body'] : '' }}"
-                                                           class="form-control">
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.forum') }}</label>
-                                            <div class="col-sm-9 fatten-me">
-                                                <label for="category"></label><select id="category" name="category"
-                                                                                      class="form-control">
-                                                    <option value="0">{{ __('forum.select-all-forum') }}</option>
-                                                    @foreach ($categories as $category)
-                                                        @if ($category->getPermission() != null &&
-                                                            $category->getPermission()->show_forum == true &&
-                                                            $category->getForumsInCategory()->count() > 0)
-                                                            <option value="{{ $category->id }}"
-                                                                    {{ isset($params) && is_array($params) && array_key_exists('category', $params) && $params['category'] == $category->id ? 'SELECTED' : '' }}>
-                                                                {{ $category->name }}</option>
-                                                            @foreach ($category->getForumsInCategory()->sortBy('position') as
-                                                                $categoryChild)
-                                                                @if ($categoryChild->getPermission() != null &&
-                                                                    $categoryChild->getPermission()->show_forum == true)
-                                                                    <option value="{{ $categoryChild->id }}"
-                                                                            {{ isset($params) && is_array($params) && array_key_exists('category', $params) && $params['category'] == $categoryChild->id ? 'SELECTED' : '' }}>
-                                                                        &raquo; {{ $categoryChild->name }}</option>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.label') }}</label>
-                                            <div class="col-sm-10">
-    
-                                                    <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('implemented',$params) &&
-                                                                $params['implemented'] == 1)
-                                                                <input type="checkbox" value="1" name="implemented"
-                                                                       CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-check text-purple"></span>
-                                                                {{ __('forum.implemented') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="implemented">
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-check text-purple"></span>
-                                                                {{ __('forum.implemented') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-
-
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('approved',$params) && $params['approved'] ==
-                                                                1)
-                                                                <input type="checkbox" value="1" name="approved"
-                                                                       CHECKED> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-tag text-green"></span>
-                                                                {{ __('forum.approved') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="approved"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-tag text-green"></span>
-                                                                {{ __('forum.approved') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('denied',$params) && $params['denied'] == 1)
-                                                                <input type="checkbox" value="1" name="denied" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-tag text-red"></span>
-                                                                {{ __('forum.denied') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="denied"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-tag text-red"></span>
-                                                                {{ __('forum.denied') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('solved',$params) && $params['solved'] == 1)
-                                                                <input type="checkbox" value="1" name="solved" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-thumbs-up text-green"></span>
-                                                                {{ __('forum.solved') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="solved"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-thumbs-up text-green"></span>
-                                                                {{ __('forum.solved') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('invalid',$params) && $params['invalid'] == 1)
-                                                                <input type="checkbox" value="1" name="invalid" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-thumbs-down text-red"></span>
-                                                                {{ __('forum.invalid') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="invalid"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-thumbs-down text-red"></span>
-                                                                {{ __('forum.invalid') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('bug',$params) && $params['bug'] == 1)
-                                                                <input type="checkbox" value="1" name="bug" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bug text-red"></span>
-                                                                {{ __('forum.bug') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="bug"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bug text-red"></span>
-                                                                {{ __('forum.bug') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                                <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('suggestion',$params) && $params['suggestion']
-                                                                == 1)
-                                                                <input type="checkbox" value="1" name="suggestion"
-                                                                       CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-info text-blue"></span>
-                                                                {{ __('forum.suggestion') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="suggestion">
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-info text-blue"></span>
-                                                                {{ __('forum.suggestion') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-
-                                            </div>
-                                        </div>
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.state') }}</label>
-                                            <div class="col-sm-10">
-                                                    <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('open',$params) && $params['open'] == 1)
-                                                                <input type="checkbox" value="1" name="open" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-lock-open text-green"></span>
-                                                                {{ __('forum.open') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="open"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-lock-open text-green"></span>
-                                                                {{ __('forum.open') }}
-                                                            @endif
-                                                        </label>
-                                                    </span><span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('closed',$params) && $params['closed'] == 1)
-                                                                <input type="checkbox" value="1" name="closed" CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-lock text-red"></span>
-                                                                {{ __('forum.closed') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="closed"> <span
-                                                                        class="{{ config('other.font-awesome') }} fa-lock text-red"></span>
-                                                                {{ __('forum.closed') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="type"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('forum.activity') }}</label>
-                                            <div class="col-sm-10">
-                                                    <span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('subscribed',$params) && $params['subscribed']
-                                                                == 1)
-                                                                <input type="checkbox" value="1" name="subscribed"
-                                                                       CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bell text-green"></span>
-                                                                {{ __('forum.subscribed') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="subscribed">
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bell text-green"></span>
-                                                                {{ __('forum.subscribed') }}
-                                                            @endif
-                                                        </label>
-                                                    </span><span class="badge-user">
-                                                        <label class="inline">
-                                                            @if(isset($params) && is_array($params) &&
-                                                                array_key_exists('notsubscribed',$params) &&
-                                                                $params['notsubscribed'] == 1)
-                                                                <input type="checkbox" value="1" name="notsubscribed"
-                                                                       CHECKED>
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bell-slash text-red"></span>
-                                                                {{ __('forum.not-subscribed') }}
-                                                            @else
-                                                                <input type="checkbox" value="1" name="notsubscribed">
-                                                                <span
-                                                                        class="{{ config('other.font-awesome') }} fa-bell-slash text-red"></span>
-                                                                {{ __('forum.not-subscribed') }}
-                                                            @endif
-                                                        </label>
-                                                    </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.sort') }}</label>
-                                            <div class="col-sm-2">
-                                                <label for="sorting"></label><select id="sorting" name="sorting"
-                                                                                     class="form-control">
-                                                    <option value="updated_at"
-                                                            {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '' }}>
-                                                        {{ __('forum.updated-at') }}</option>
-                                                    <option value="created_at"
-                                                            {{ isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '' }}>
-                                                        {{ __('forum.created-at') }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="mx-0 mt-5 form-group fatten-me">
-                                            <label for="sort"
-                                                   class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.direction') }}</label>
-                                            <div class="col-sm-2">
-                                                <label for="direction"></label><select id="direction" name="direction"
-                                                                                       class="form-control">
-                                                    <option value="desc"
-                                                            {{ isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'desc' ? 'SELECTED' : '' }}>
-                                                        {{ __('common.descending') }}</option>
-                                                    <option value="asc"
-                                                            {{ isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'asc' ? 'SELECTED' : '' }}>
-                                                        {{ __('common.ascending') }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="button-holder" style="margin-top: 20px !important;">
-                                            <div class="button-center">
-                                                <button type="submit"
-                                                        class="btn btn-primary">{{ __('common.search') }}</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-                <thead>
-                <tr>
-                    <th>{{ __('forum.forum') }}</th>
-                    <th>{{ __('forum.topic') }}</th>
-                    <th>{{ __('forum.author') }}</th>
-                    <th>{{ __('forum.stats') }}</th>
-                    <th>{{ __('forum.last-post-info') }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($results as $r)
-                    <tr>
-                        <td class="f-display-topic-icon"><span
-                                    class="badge-extra text-bold">{{ $r->forum->name }}</span>
-                        </td>
-                        <td class="f-display-topic-title">
-                            <strong><a href="{{ route('forum_topic', ['id' => $r->id]) }}">{{ $r->name }}</a></strong>
-                            @if ($r->state == "close") <span
-                                    class='label label-sm label-default'>{{ strtoupper(__('forum.closed')) }}</span> @endif
-                            @if ($r->approved == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(__('forum.approved')) }}</span> @endif
-                            @if ($r->denied == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.denied')) }}</span> @endif
-                            @if ($r->solved == "1") <span
-                                    class='label label-sm label-info'>{{ strtoupper(__('forum.solved')) }}</span> @endif
-                            @if ($r->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(__('forum.invalid')) }}</span> @endif
-                            @if ($r->bug == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(__('forum.bug')) }}</span> @endif
-                            @if ($r->suggestion == "1") <span
-                                    class='label label-sm label-primary'>{{ strtoupper(__('forum.suggestion')) }}</span>
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('forum.forums-topic-search') }}</h2>
+        <div class="panel__body">
+            <form class="form" method="GET" action="{{ route('forum_search_form') }}">
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        placeholder=""
+                        type="text"
+                        value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('forum.topic') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="body"
+                        class="form__text"
+                        name="body"
+                        placeholder=""
+                        type="text"
+                        value="{{ isset($params) && is_array($params) && array_key_exists('body', $params) ? $params['body'] : '' }}"
+                    >
+                    <label class="form__label form__label--floating" for="body">
+                        {{ __('forum.post') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select
+                        name="category"
+                        id="category"
+                        class="form__select"
+                        required
+                    >
+                        <option value="0">{{ __('forum.select-all-forum') }}</option>
+                        @foreach ($categories as $category)
+                            @if ($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
+                                <option
+                                    value="{{ $category->id }}"
+                                    @selected(isset($params) && is_array($params) && array_key_exists('category', $params) && $params['category'] == $category->id)
+                                >
+                                    {{ $category->name }}
+                                </option>
+                                @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
+                                    @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
+                                        <option
+                                            value="{{ $categoryChild->id }}"
+                                            @selected(isset($params) && is_array($params) && array_key_exists('category', $params) && $params['category'] == $categoryChild->id)
+                                        >
+                                            &raquo; {{ $categoryChild->name }}
+                                        </option>
+                                    @endif
+                                @endforeach
                             @endif
-                            @if ($r->implemented == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(__('forum.implemented')) }}</span>
-                            @endif
-                        </td>
-                        <td class="f-display-topic-started"><a
-                                    href="{{ route('users.show', ['username' => $r->first_post_user_username]) }}">{{ $r->first_post_user_username }}</a>
-                        </td>
-                        <td class="f-display-topic-stats">
-                            {{ $r->num_post - 1 }} {{ __('forum.replies') }}
-                            \ {{ $r->views }} {{ __('forum.views') }}
-                        </td>
-                        <td class="f-display-topic-last-post">
-                            <a
-                                    href="{{ route('users.show', ['username' => $r->last_post_user_username]) }}">{{ $r->last_post_user_username }}</a>,
-                            @if($r->last_reply_at && $r->last_reply_at != null)
-                                <time datetime="{{ date('d-m-Y h:m', strtotime($r->last_reply_at)) }}">
-                                    {{ date('M d Y', strtotime($r->last_reply_at)) }}
-                                </time>
-                            @else
-                                <time datetime="N/A">
-                                    N/A
-                                </time>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </select>
+                    <label class="form__label form__label--floating" for="category">
+                        {{ __('common.forum') }}
+                    </label>
+                </p>
+                <div class="form__group--horizontal">
+                    <div class="form__group">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">{{ __('forum.label') }}</legend>
+                            <p class="form__group">
+                                <input
+                                    id="implemented"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="implemented"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('implemented', $params) && $params['implemented'])    
+                                >
+                                <label class="form__label" for="implemented">
+                                    <i class="{{ config('other.font-awesome') }} fa-check text-purple"></i>
+                                    {{ __('forum.implemented') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="approved"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="approved"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('approved', $params) && $params['approved'])    
+                                >
+                                <label class="form__label" for="approved">
+                                    <i class="{{ config('other.font-awesome') }} fa-tag text-green"></i>
+                                    {{ __('forum.approved') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="denied"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="denied"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('denied', $params) && $params['denied'])    
+                                >
+                                <label class="form__label" for="denied">
+                                    <i class="{{ config('other.font-awesome') }} fa-tag text-red"></i>
+                                    {{ __('forum.denied') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="solved"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="solved"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('solved', $params) && $params['solved'])    
+                                >
+                                <label class="form__label" for="solved">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-green"></i>
+                                    {{ __('forum.solved') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="invalid"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="invalid"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('invalid', $params) && $params['invalid'])    
+                                >
+                                <label class="form__label" for="invalid">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-down text-red"></i>
+                                    {{ __('forum.invalid') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="bug"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="bug"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('bug', $params) && $params['bug'])    
+                                >
+                                <label class="form__label" for="bug">
+                                    <i class="{{ config('other.font-awesome') }} fa-bug text-red"></i>
+                                    {{ __('forum.bug') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="suggestion"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="suggestion"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('suggestion', $params) && $params['suggestion'])    
+                                >
+                                <label class="form__label" for="suggestion">
+                                    <i class="{{ config('other.font-awesome') }} fa-info text-blue"></i>
+                                    {{ __('forum.suggestion') }}
+                                </label>
+                            </p>
+                        </fieldset>
+                    </div>
+                    <div class="form__group">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">{{ __('forum.state') }}</legend>
+                            <p class="form__group">
+                                <input
+                                    id="open"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="open"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('open', $params) && $params['open'])    
+                                >
+                                <label class="form__label" for="open">
+                                    <i class="{{ config('other.font-awesome') }} fa-lock-open text-green"></i>
+                                    {{ __('forum.open') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="closed"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="closed"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('closed', $params) && $params['closed'])    
+                                >
+                                <label class="form__label" for="closed">
+                                    <i class="{{ config('other.font-awesome') }} fa-lock text-red"></i>
+                                    {{ __('forum.closed') }}
+                                </label>
+                            </p>
+                        </fieldset>
+                    </div>
+                    <div class="form__group">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">{{ __('forum.activity') }}</legend>
+                            <p class="form__group">
+                                <input
+                                    id="subscribed"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="subscribed"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('subscribed', $params) && $params['subscribed'])    
+                                >
+                                <label class="form__label" for="subscribed">
+                                    <i class="{{ config('other.font-awesome') }} fa-bell text-green"></i>
+                                    {{ __('forum.subscribed') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="notsubscribed"
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    value="1"
+                                    name="notsubscribed"
+                                    @checked(isset($params) && is_array($params) && array_key_exists('notsubscribed', $params) && $params['notsubscribed'])    
+                                >
+                                <label class="form__label" for="notsubscribed">
+                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash text-red"></i>
+                                    {{ __('forum.not-subscribed') }}
+                                </label>
+                            </p>
+                        </fieldset>
+                    </div>
+                </div>
+                <p class="form__group">
+                    <select
+                        id="sorting"
+                        class="form__select"
+                        name="sorting"
+                        required
+                    >
+                        <option
+                            value="updated_at"
+                            @selected(isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'updated_at')
+                        >
+                            {{ __('forum.updated-at') }}
+                        </option>
+                        <option
+                            value="created_at"
+                            @selected(isset($params) && is_array($params) && array_key_exists('sorting', $params) && $params['sorting'] == 'created_at')
+                        >
+                            {{ __('forum.created-at') }}
+                        </option>
+                    </select>
+                    <label class="form__label form__label--floating" for="sorting">
+                        {{ __('common.sort') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select
+                        id="direction"
+                        class="form__select"
+                        name="direction"
+                        required
+                    >
+                        <option
+                            value="desc"
+                            @selected(isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'desc')
+                        >
+                            {{ __('common.descending') }}
+                        </option>
+                        <option
+                            value="asc"
+                            @selected(isset($params) && is_array($params) && array_key_exists('direction', $params) && $params['direction'] == 'asc')
+                        >
+                            {{ __('common.ascending') }}
+                        </option>
+                    </select>
+                    <label class="form__label form__label--floating" for="direction">
+                        {{ __('common.direction') }}
+                    </label>
+                </p>
+                <p class="form__group--horizontal">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.search') }}
+                    </button>
+                </p>
+            </form>
         </div>
-        <div class="text-center col-md-12">
-            {{ $results->links() }}
-        </div>
-    </div>
+    </section>
+@endsection
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.search-results') }}</h2>
+        <ul class="topic-listings">
+            @foreach($results as $topic)
+                <li class="topic-listings__item">
+                    <x-forum.topic-listing :topic="$topic" />
+                </li>
+            @endforeach
+        </ul>
+        {{ $results->links('partials.pagination') }}
     </div>
 @endsection
