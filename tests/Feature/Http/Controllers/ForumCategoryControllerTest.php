@@ -31,7 +31,9 @@ class ForumCategoryControllerTest extends TestCase
         ]);
 
         $forum = Forum::factory()->create([
-            'parent_id' => $parentForum->id,
+            'parent_id'               => $parentForum->id,
+            'last_post_user_id'       => $user->id,
+            'last_post_user_username' => $user->username,
         ]);
 
         $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]))
