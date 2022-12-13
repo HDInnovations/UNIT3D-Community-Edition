@@ -24,14 +24,18 @@
 @endsection
 
 @section('main')
-    <h2>{{ __('common.latest-posts') }}</h2>
-    <ul class="topic-posts">
-        @foreach ($results as $post)
-            <li class="post-listings__item">
-                <x-forum.post :post="$post" />
-            </li>
-        @endforeach
-    </ul>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.latest-posts') }}</h2>
+    </section>
+    <div class="panel__body">
+        <ul class="topic-posts">
+            @foreach ($results as $post)
+                <li class="post-listings__item">
+                    <x-forum.post :post="$post" />
+                </li>
+            @endforeach
+        </ul>
+    </div>
     {{ $results->links('partials.pagination') }}
 @endsection
 
