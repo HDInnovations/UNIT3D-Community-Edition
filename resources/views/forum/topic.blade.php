@@ -59,13 +59,15 @@
         @endif
     </section>
     {{ $posts->links('partials.pagination') }}
-    <ol class="topic-posts">
-        @foreach ($posts as $k => $post)
-            <li class="topic-posts__item">
-                <x-forum.post :post="$post" />
-            </li>
-        @endforeach
-    </ol>
+    <div class="panel__body">
+        <ol class="topic-posts">
+            @foreach ($posts as $k => $post)
+                <li class="topic-posts__item">
+                    <x-forum.post :post="$post" />
+                </li>
+          @endforeach
+        </ol>
+    </div>
     {{ $posts->links('partials.pagination') }}
     @if ($topic->state === 'close')
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
