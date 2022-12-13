@@ -73,20 +73,20 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
+        $user = User::factory()->create();
+
         // This Forum does not have a parent, which makes it a proper Forum
         // (and not a "Forum Category").
 
         $forum = Forum::factory()->create([
-            'parent_id' => 0,
+            'parent_id'               => 0,
+            'last_post_user_id'       => $user->id,
+            'last_post_user_username' => $user->username,
         ]);
 
         $permissions = Permission::factory()->create([
             'forum_id'   => $forum->id,
             'show_forum' => true,
-        ]);
-
-        $user = User::factory()->create([
-            'group_id' => $permissions['group_id'],
         ]);
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))
