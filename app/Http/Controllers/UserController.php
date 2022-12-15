@@ -50,7 +50,11 @@ class UserController extends Controller
      */
     public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
+        $user = User::with(['privacy', 'history'])
+            ->withCount('torrents')
+            ->where('username', '=', $username)
+            ->when(\auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
+            ->firstOrFail();
 
         $groups = Group::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();

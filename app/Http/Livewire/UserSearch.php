@@ -21,6 +21,8 @@ class UserSearch extends Component
 {
     use WithPagination;
 
+    public bool $show = false;
+
     public int $perPage = 25;
 
     public string $search = '';
@@ -28,6 +30,13 @@ class UserSearch extends Component
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
+
+    protected $queryString = [
+        'search'  => ['except' => ''],
+        'show'    => ['except' => false],
+        'page'    => ['except' => 1],
+        'perPage' => ['except' => ''],
+    ];
 
     final public function paginationView(): string
     {
@@ -44,11 +53,24 @@ class UserSearch extends Component
         $this->resetPage();
     }
 
+    final public function updatingShow(): void
+    {
+        $this->resetPage();
+    }
+
+    final public function toggleProperties($property): void
+    {
+        if ($property === 'show') {
+            $this->show = ! $this->show;
+        }
+    }
+
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
             ->with('group')
             ->when($this->search, fn ($query) => $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

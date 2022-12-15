@@ -104,22 +104,12 @@ config/secure-headers.php   <-- Content Security Policy must be disabled
 **A UNIT3D Installer has been released by Poppabear.**
 
 **Officially Supported OS's**
-- Ubuntu 20.04 LTS (Recommended)
-- Ubuntu 18.04 LTS
-- Ubuntu 16.04 LTS
+- Ubuntu 20.04 LTS
 
 **For Ubuntu 20.04 LTS:**
 ```
 git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
 cd installer
-sudo ./install.sh
-```
-
-**For Ubuntu 16.04 LTS or Ubuntu 18.04 LTS:**
-```
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
-cd installer
-git checkout Ubuntu-16.04-18.04
 sudo ./install.sh
 ```
 

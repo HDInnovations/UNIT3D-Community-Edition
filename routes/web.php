@@ -154,6 +154,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/groups', [App\Http\Controllers\StatsController::class, 'groups'])->name('groups');
             Route::get('/groups/group/{id}', [App\Http\Controllers\StatsController::class, 'group'])->name('group');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
+            Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');
         });
 
         // Private Messages System

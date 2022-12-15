@@ -3,7 +3,7 @@
         <i class="{{ config('other.font-awesome') }} fa-comment"></i>
         {{ __('common.comments') }}
     </h4>
-    <div class="panel-body no-padding">
+    <div class="panel__body">
         <form wire:submit.prevent="postComment" class="form new-comment">
             <p class="form__group">
                 <textarea
@@ -49,7 +49,7 @@
         </ul>
         @if ($comments->hasMorePages())
             <div class="text-center">
-                <button class="btn btn-md btn-primary" wire:click.prevent="loadMore">Load More Comments</button>
+                <button class="form__button form__button--filled" wire:click.prevent="loadMore">Load More Comments</button>
             </div>
         @endif
     </div>

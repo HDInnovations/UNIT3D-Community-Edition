@@ -201,30 +201,30 @@
                             {{ __('torrent.uploaded-by') }}
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
-                                    @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
-                                        <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                                            ({{ $uploader->username }})
+                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                        <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
+                                            ({{ $torrent->user->username }})
                                         </a>
                                     @endif
                                 </span>
                             @else
-                                <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                                    <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
-                                        <i class="{{ $uploader->group->icon }}" data-toggle="tooltip"
-                                           data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
+                                <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
+                                    <span class="badge-user text-bold" style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
+                                        <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
+                                           data-original-title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
                                     </span>
                                 </a>
                             @endif
 
-                            @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
-                                @if (auth()->user()->follows()->following($uploader->id)->exists())
+                            @if ($torrent->anon !== 1 && $torrent->user->private_profile !== 1)
+                                @if (auth()->user()->follows()->following($torrent->user->id)->exists())
                                     <form class="form-inline" style="line-height: 0; display: inline-block;" role="form"
-                                          action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
+                                          action="{{ route('follow.destroy', ['username' => $torrent->user->username]) }}"
                                           style="display: inline-block;" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <div class="form-group">
-                                            <button type="submit" id="delete-follow-{{ $uploader->target_id }}"
+                                            <button type="submit" id="delete-follow-{{ $torrent->user->id }}"
                                                     class="btn btn-xs btn-info"
                                                     title="{{ __('user.unfollow') }}">
                                                 {{ __('user.unfollow') }}
@@ -233,11 +233,11 @@
                                     </form>
                                 @else
                                     <form class="form-inline" style="line-height: 0; display: inline-block;" role="form"
-                                          action="{{ route('follow.store', ['username' => $uploader->username]) }}"
+                                          action="{{ route('follow.store', ['username' => $torrent->user->username]) }}"
                                           style="display: inline-block;" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <button type="submit" id="follow-user-{{ $uploader->id }}"
+                                            <button type="submit" id="follow-user-{{ $torrent->user->id }}"
                                                     class="btn btn-xs btn-success"
                                                     title="{{ __('user.follow') }}">
                                                 {{ __('user.follow') }}
@@ -437,30 +437,30 @@
                 <td>
                     @if ($torrent->anon == 1)
                         <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
-                            @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
-                                <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                                    ({{ $uploader->username }})
+                            @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
+                                    ({{ $torrent->user->username }})
                                 </a>
                             @endif
                         </span>
                     @else
-                        <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                            <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
-                                <i class="{{ $uploader->group->icon }}" data-toggle="tooltip"
-                                   data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
+                        <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
+                            <span class="badge-user text-bold" style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
+                                <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
+                                   data-original-title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
                             </span>
                         </a>
                     @endif
 
-                    @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
-                        @if (auth()->user()->follows()->following($uploader->id)->exists())
+                    @if ($torrent->anon !== 1 && $torrent->user->private_profile !== 1)
+                        @if (auth()->user()->follows()->following($torrent->user->id)->exists())
                             <form class="form-inline" role="form"
-                                  action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
+                                  action="{{ route('follow.destroy', ['username' => $torrent->user->username]) }}"
                                   style="display: inline-block;" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <div class="form-group">
-                                    <button type="submit" id="delete-follow-{{ $uploader->target_id }}"
+                                    <button type="submit" id="delete-follow-{{ $torrent->user->id }}"
                                             class="btn btn-xs btn-info"
                                             title="{{ __('user.unfollow') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('user.unfollow') }}
@@ -469,11 +469,11 @@
                             </form>
                         @else
                             <form class="form-inline" role="form"
-                                  action="{{ route('follow.store', ['username' => $uploader->username]) }}"
+                                  action="{{ route('follow.store', ['username' => $torrent->user->username]) }}"
                                   style="display: inline-block;" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <button type="submit" id="follow-user-{{ $uploader->id }}"
+                                    <button type="submit" id="follow-user-{{ $torrent->user->id }}"
                                             class="btn btn-xs btn-success"
                                             title="{{ __('user.follow') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('user.follow') }}

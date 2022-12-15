@@ -83,14 +83,13 @@ class TorrentController extends Controller
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
-        $uploader = $torrent->user;
         $user = $request->user();
+
+        $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(10);
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
-        $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
+        $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
         $audits = Audit::with('user')->where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get();
 
@@ -133,7 +132,6 @@ class TorrentController extends Controller
 
         return \view('torrent.torrent', [
             'torrent'            => $torrent,
-            'comments'           => $comments,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
             'freeleech_token'    => $freeleechToken,
@@ -144,7 +142,6 @@ class TorrentController extends Controller
             'user_tips'          => $userTips,
             'featured'           => $featured,
             'mediaInfo'          => $mediaInfo,
-            'uploader'           => $uploader,
             'last_seed_activity' => $lastSeedActivity,
             'playlists'          => $playlists,
             'audits'             => $audits,

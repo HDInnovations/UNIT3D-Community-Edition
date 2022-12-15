@@ -28,9 +28,7 @@ class NoteController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $notes = Note::latest()->paginate(25);
-
-        return \view('Staff.note.index', ['notes' => $notes]);
+        return \view('Staff.note.index');
     }
 
     /**
