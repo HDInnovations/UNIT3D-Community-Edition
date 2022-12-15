@@ -13,28 +13,28 @@ return new class () extends Migration {
      */
     public function up()
     {
-        TorrentRequest::withAnyStatus()
+        TorrentRequest::query()
             ->whereNull('imdb')
             ->orWhere('imdb', '<', 0)
             ->orWhere('imdb', '>', 2_000_000_000)
             ->orWhere('imdb', 'not regex', '\d+')
             ->update(['imdb' => '0']);
 
-        TorrentRequest::withAnyStatus()
+        TorrentRequest::query()
             ->whereNull('tmdb')
             ->orWhere('tmdb', '<', 0)
             ->orWhere('tmdb', '>', 2_000_000_000)
             ->orWhere('tmdb', 'not regex', '\d+')
             ->update(['tmdb' => '0']);
 
-        TorrentRequest::withAnyStatus()
+        TorrentRequest::query()
             ->whereNull('tvdb')
             ->orWhere('tvdb', '<', 0)
             ->orWhere('tvdb', '>', 2_000_000_000)
             ->orWhere('tvdb', 'not regex', '\d+')
             ->update(['tvdb' => '0']);
 
-        TorrentRequest::withAnyStatus()
+        TorrentRequest::query()
             ->whereNull('mal')
             ->orWhere('mal', '<', 0)
             ->orWhere('mal', '>', 2_000_000_000)
