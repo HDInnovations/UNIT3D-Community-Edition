@@ -156,7 +156,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id || $user->group_id === 29, 403);
+        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
             'categories'   => Category::all()->sortBy('position'),
@@ -178,7 +178,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id || $user->group_id === 29, 403);
+        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
@@ -516,10 +516,10 @@ class TorrentController extends Controller
 
         // Validation
         $v = \validator($torrent->toArray(), [
-            'name'           => 'required|unique:torrents,name,NULL,id,deleted_at,NULL',
+            'name'           => 'required|unique:torrents',
             'slug'           => 'required',
             'description'    => 'required',
-            'info_hash'      => 'required|unique:torrents,info_hash,NULL,id,deleted_at,NULL',
+            'info_hash'      => 'required|unique:torrents',
             'file_name'      => 'required',
             'num_file'       => 'required|numeric',
             'announce'       => 'required',
