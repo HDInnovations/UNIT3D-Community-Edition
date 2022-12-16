@@ -42,12 +42,12 @@ class TorrentHelper
         $appname = \config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
 
-        $uploader = $torrent->uploader;
+        $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
         if ($wishes) {
