@@ -168,8 +168,8 @@ export default {
         this.user = this.$parent.auth;
     },
     mounted() {
-        this.editor = $('#chat-message').wysibb();
-        this.input = $('.wysibb-body');
+        this.editor = $('#chat-message').val();
+        this.input = $('#chat-message');
         this.input.keyup(this.keyup);
         this.input.keydown(this.keydown);
     },
