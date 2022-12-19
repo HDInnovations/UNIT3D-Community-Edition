@@ -298,22 +298,3 @@
         </section>
     @endif
 @endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#topic-response').wysibb()
-      })
-    </script>
-
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('.profil').on('click', 'button#quote', function () {
-          let author = $(this).closest('.profil').find('.post-info-username').first().text()
-          let text = $(this).closest('.profil').find('.post-content').data('bbcode')
-          $('#topic-response').wysibb().insertAtCursor('[quote=@' + author.trim() + ']' + text.trim() + '[/quote]\r\n', true)
-        })
-      })
-
-    </script>
-@endsection
