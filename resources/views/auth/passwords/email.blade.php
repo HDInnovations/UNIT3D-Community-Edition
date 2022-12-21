@@ -19,7 +19,7 @@
     @show
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
+    @vite('resources/css/main/login.css')
 </head>
 
 <body>
@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
+@vite('resources/js/app.js')
 
 @foreach (['warning', 'success', 'info'] as $key)
     @if (Session::has($key))

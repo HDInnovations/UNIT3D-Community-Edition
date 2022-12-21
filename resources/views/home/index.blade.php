@@ -6,7 +6,7 @@
 
         @if (!auth()->user()->chat_hidden)
             <div id="vue">
-                <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
+                @vite('resources/js/chat.js')
                 @include('blocks.chat')
             </div>
         @endif

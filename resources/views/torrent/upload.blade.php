@@ -488,5 +488,5 @@
 @endif
 
 @section('javascripts')
-    <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    @vite('resources/js/imgbb.js')
 @endsection

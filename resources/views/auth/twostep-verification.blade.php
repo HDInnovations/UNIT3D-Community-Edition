@@ -9,7 +9,7 @@
 @endsection
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" crossorigin="anonymous">
+    @vite('resources/css/main/twostep.css')
 @endsection
 
 @section('breadcrumbs')
