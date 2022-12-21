@@ -64,7 +64,7 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
-        
+
         History::withoutGlobalScopes()
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
@@ -109,7 +109,7 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('torrent', $torrentIds)
             ->whereNotNull('torrent')
             ->delete();
-        
+
         // Remove constraint
         Schema::table('warnings', function (Blueprint $table) {
             $table->dropForeign(['torrent']);
