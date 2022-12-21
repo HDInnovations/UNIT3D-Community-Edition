@@ -97,7 +97,12 @@ class ProcessMovieJob implements ShouldQueue
 
         if (isset($this->movie['credits']['crew'])) {
             foreach ($this->movie['credits']['crew'] as $crew) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
+                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))
+                    ->movie()
+                    ->syncWithoutDetaching([$this->movie['id'] => [
+                        'department' => $crew['department'] ?? null,
+                        'job'        => $crew['job'] ?? null,
+                    ]]);
             }
         }
 
