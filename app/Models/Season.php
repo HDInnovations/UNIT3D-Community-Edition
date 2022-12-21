@@ -56,6 +56,6 @@ class Season extends Model
 
     public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Crew::class);
+        return $this->belongsToMany(Crew::class, 'crew_season', 'person_id', 'season_id');
     }
 }

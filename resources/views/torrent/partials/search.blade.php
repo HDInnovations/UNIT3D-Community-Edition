@@ -40,12 +40,12 @@
                         <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="playlist" class="form__text" placeholder="">
-                        <label class="form__label form__label--floating">Playlist</label>
+                        <input wire:model="playlistId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Playlist ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="collection" class="form__text" placeholder="">
-                        <label class="form__label form__label--floating">Collection</label>
+                        <input wire:model="collectionId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Collection ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">

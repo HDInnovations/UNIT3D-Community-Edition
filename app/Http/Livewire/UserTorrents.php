@@ -132,9 +132,6 @@ class UserTorrents extends Component
                 fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
-            ->when(
-                \config('hitrun.enabled') === true,
-                fn ($query) => $query
                 ->when(
                     $this->unsatisfied === 'exclude',
                     fn ($query) => $query
@@ -152,7 +149,6 @@ class UserTorrents extends Component
                     ->where('immune', '=', 0)
                     ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [\config('hitrun.buffer')])
                 )
-            )
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
             ->when($this->active === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('active', '=', 0)->orWhereNull('active')))
             ->when($this->completed === 'include', fn ($query) => $query->where('seeder', '=', 1))

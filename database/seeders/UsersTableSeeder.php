@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
@@ -43,7 +44,7 @@ class UsersTableSeeder extends Seeder
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 9,
-                'password'  => \Hash::make(config('unit3d.default-owner-password')),
+                'password'  => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(random_bytes(60)),
                 'rsskey'    => md5(random_bytes(60)),
                 'api_token' => Str::random(100),
@@ -53,7 +54,7 @@ class UsersTableSeeder extends Seeder
                 'username'  => 'Bot',
                 'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 9,
-                'password'  => \Hash::make(config('unit3d.default-owner-password')),
+                'password'  => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(random_bytes(60)),
                 'rsskey'    => md5(random_bytes(60)),
                 'api_token' => Str::random(100),
@@ -63,7 +64,7 @@ class UsersTableSeeder extends Seeder
                 'username'  => config('unit3d.owner-username'),
                 'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 10,
-                'password'  => \Hash::make(config('unit3d.default-owner-password')),
+                'password'  => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(random_bytes(60)),
                 'rsskey'    => md5(random_bytes(60)),
                 'api_token' => Str::random(100),
