@@ -1,6 +1,5 @@
 name: PHPUnit Test
-on:
-  - push
+on: [push, pull_request]
 jobs:
   test:
     strategy:
