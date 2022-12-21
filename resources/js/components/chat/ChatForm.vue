@@ -117,7 +117,7 @@
 }
 </style>
 <script>
-import ChatroomsDropdown from './ChatroomsDropdown';
+import ChatroomsDropdown from './ChatroomsDropdown.vue';
 
 export default {
     components: {

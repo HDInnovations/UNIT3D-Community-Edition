@@ -232,11 +232,11 @@
 }
 </style>
 <script>
-import ChatroomsDropdown from './ChatroomsDropdown';
-import ChatMessages from './ChatMessages';
-import ChatForm from './ChatForm';
-import ChatPms from './ChatPms';
-import ChatUserList from './ChatUserList';
+import ChatroomsDropdown from './ChatroomsDropdown.vue';
+import ChatMessages from './ChatMessages.vue';
+import ChatForm from './ChatForm.vue';
+import ChatPms from './ChatPms.vue';
+import ChatUserList from './ChatUserList.vue';
 
 export default {
     props: {
