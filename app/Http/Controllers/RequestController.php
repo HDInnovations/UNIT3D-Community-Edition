@@ -69,7 +69,6 @@ class RequestController extends Controller
         $user = $request->user();
         $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
-        $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
 
         $meta = null;
@@ -95,8 +94,8 @@ class RequestController extends Controller
 
         return \view('requests.request', [
             'torrentRequest'      => $torrentRequest,
-            'voters'              => $voters, 'user' => $user,
-            'comments'            => $comments,
+            'voters'              => $voters,
+            'user'                => $user,
             'carbon'              => $carbon,
             'meta'                => $meta,
             'torrentRequestClaim' => $torrentRequestClaim,

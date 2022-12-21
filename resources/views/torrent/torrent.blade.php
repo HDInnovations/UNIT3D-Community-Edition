@@ -59,7 +59,7 @@
             @include('torrent.partials.general')
 
             {{-- Tools Block --}}
-            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id || auth()->user()->group->is_internal)
+            @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user->id || auth()->user()->group->is_internal)
                 @include('torrent.partials.tools')
             @endif
 

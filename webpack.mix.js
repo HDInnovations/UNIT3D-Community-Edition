@@ -24,9 +24,6 @@ mix.options({
 
     /*
      * Themes
-     *
-     * Note: Default wysibb theme is compiled into public/css/app.css from resources/sass/app.scss
-     *
      */
     .sass('resources/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
     .sass('resources/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
@@ -42,8 +39,6 @@ mix.options({
      * Login and TwoStep Auth styles
      *
      * We compile each of these separately since they should only be loaded with the certain views
-     *
-     * Note: These will likely be reworked into VueJS component(s)
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
@@ -58,7 +53,6 @@ mix.options({
     /*
      * Copy assets
      */
-    .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
     .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap')
 
