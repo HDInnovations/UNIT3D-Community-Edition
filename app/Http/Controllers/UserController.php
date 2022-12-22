@@ -85,7 +85,11 @@ class UserController extends Controller
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
-        $peers = Peer::where('user_id', '=', $user->id)->get();
+        $clients = $user->peers()
+            ->select('agent', 'port')
+            ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at), MAX(updated_at), COUNT(*) as num_peers')
+            ->groupBy(['ip', 'port', 'agent'])
+            ->get();
 
         $achievements = AchievementProgress::with('details')
             ->where('achiever_id', '=', $user->id)
@@ -117,7 +121,7 @@ class UserController extends Controller
             'requested'     => $requested,
             'filled'        => $filled,
             'invitedBy'     => $invitedBy,
-            'peers'         => $peers,
+            'clients'       => $clients,
             'achievements'  => $achievements,
         ]);
     }

@@ -564,44 +564,39 @@
                                 <th>{{ __('common.port') }}</th>
                                 <th>{{ __('torrent.started') }}</th>
                                 <th>{{ __('torrent.last-update') }}</th>
-                                <th>{{ __('torrent.torrents') }}</th>
+                                <th>{{ __('torrent.peers') }}</th>
                                 @if (\config('announce.connectable_check') == true)
                                     <th>Connectable</th>
                                 @endif
                             </tr>
                             </thead>
                             <tbody>
-                            @php $peer_array = []; @endphp
-                            @foreach ($peers as $p)
-                                @if (!in_array([$p->ip, $p->port], $peer_array))
-                                    @php $count = App\Models\Peer::where('user_id', '=', $user->id)->where('ip', '=', $p->ip)->where('port', '=', $p->port)->count(); @endphp
-                                    <tr>
-                                        <td>
-                                            <span class="badge-extra text-purple text-bold">{{ $p->agent }}</span>
-                                        </td>
-                                        <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
-                                        <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
-                                        <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
-                                        <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
-                                        <td>
-                                            <a href="{{ route('user_active', ['username' => $user->username, 'ip' => $p->ip, 'port' => $p->port, 'client' => $p->agent]) }}"
-                                               itemprop="url" class="l-breadcrumb-item-link">
-                                                <span itemprop="title"
-                                                      class="l-breadcrumb-item-link-title">{{ $count }}</span>
-                                            </a>
-                                        </td>
-                                        @if (\config('announce.connectable_check') == true)
-                                            @php
-                                                $connectable = false;
-                                                if (cache()->has('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent)) {
-                                                    $connectable = cache()->get('peers:connectable:'.$p->ip.'-'.$p->port.'-'.$p->agent);
-                                                }
-                                            @endphp
-                                            <td>@choice('user.client-connectable-state', $connectable)</td>
-                                        @endif
-                                    </tr>
-                                    @php $peer_array[] = [$p->ip, $p->port] @endphp
-                                @endif
+                            @foreach ($clients as $client)
+                                <tr>
+                                    <td>
+                                        <span class="badge-extra text-purple text-bold">{{ $client->agent }}</span>
+                                    </td>
+                                    <td><span class="badge-extra text-bold">{{ $client->ip }}</span></td>
+                                    <td><span class="badge-extra text-bold">{{ $client->port }}</span></td>
+                                    <td>{{ $client->created_at ? $client->created_at->diffForHumans() : 'N/A' }}</td>
+                                    <td>{{ $client->updated_at ? $client->updated_at->diffForHumans() : 'N/A' }}</td>
+                                    <td>
+                                        <a href="{{ route('user_active', ['username' => $user->username, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
+                                            itemprop="url" class="l-breadcrumb-item-link">
+                                            <span itemprop="title"
+                                                    class="l-breadcrumb-item-link-title">{{ $client->num_peers }}</span>
+                                        </a>
+                                    </td>
+                                    @if (\config('announce.connectable_check') == true)
+                                        @php
+                                            $connectable = false;
+                                            if (cache()->has('peers:connectable:'.$client->ip.'-'.$client->port.'-'.$client->agent)) {
+                                                $connectable = cache()->get('peers:connectable:'.$client->ip.'-'.$client->port.'-'.$client->agent);
+                                            }
+                                        @endphp
+                                        <td>@choice('user.client-connectable-state', $connectable)</td>
+                                    @endif
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>

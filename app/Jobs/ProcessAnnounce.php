@@ -135,8 +135,6 @@ class ProcessAnnounce implements ShouldQueue
 
         // Common Parts Extracted From Switch
         $peer->peer_id = $this->queries['peer_id'];
-        $peer->md5_peer_id = \md5($this->queries['peer_id']);
-        $peer->info_hash = $this->queries['info_hash'];
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
