@@ -16,6 +16,7 @@
         "ext-zip": "*",
         "appstract/laravel-opcache": "^4.0",
         "assada/laravel-achievements": "^2.3",
+        "doctrine/dbal": "^3.5",
         "fruitcake/laravel-cors": "^2.0.5",
         "gabrielelana/byte-units": "^0.5.0",
         "guzzlehttp/guzzle": "^7.2",
