@@ -152,7 +152,6 @@ class ProcessAnnounce implements ShouldQueue
 
         $history->user_id = $this->user->id;
         $history->torrent_id = $this->torrent->id;
-        $history->info_hash = $this->queries['info_hash'];
         $history->agent = $this->queries['user-agent'];
 
         switch ($event) {
@@ -161,11 +160,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->active = 1;
                 $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->immune = $this->user->group->is_immune == 1;
-                $history->uploaded += 0;
-                $history->actual_uploaded += 0;
                 $history->client_uploaded = $realUploaded;
-                $history->downloaded += 0;
-                $history->actual_downloaded += 0;
                 $history->client_downloaded = $realDownloaded;
                 $history->save();
                 break;
