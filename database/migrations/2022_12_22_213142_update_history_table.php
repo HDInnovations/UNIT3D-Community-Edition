@@ -24,7 +24,7 @@ return new class () extends Migration {
                 'client_downloaded' => DB::raw('COALESCE(client_downloaded, 0)'),
                 'updated_at'        => DB::raw('updated_at'),
             ]);
-        
+
         Schema::table('history', function (Blueprint $table) {
             $table->dropForeign(['info_hash']);
             $table->dropIndex('info_hash');
