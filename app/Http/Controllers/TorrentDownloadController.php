@@ -42,7 +42,7 @@ class TorrentDownloadController extends Controller
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $hasHistory = $user->history()->where([['info_hash', '=', $torrent->info_hash], ['seeder', '=', 1]])->count();
+        $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->count();
         // User's ratio is too low
         if ($user->getRatio() < \config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
