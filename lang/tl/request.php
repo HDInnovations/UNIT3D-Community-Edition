@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Wala kang sapat na Bonus',
     'edit-request'        => 'Mag-edit ng kahilingan',
     'enter-bp'            => 'Ipasok ang mga puntos ng bonus (minimum na 100)',
-    'enter-hash'          => 'Ipasok ang Info Hash ng na-upload na torrent',
+    'enter-hash'          => 'Ipasok ang ID ng na-upload na torrent',
     'fill'                => 'Punan',
     'fill-request'        => 'Punan ang kahilingang ito',
     'filled'              => 'Napuno',

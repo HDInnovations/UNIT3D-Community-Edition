@@ -1085,7 +1085,7 @@ class UserController extends Controller
 
             if ($request->has('filled') && $request->input('filled') != null) {
                 $torrentRequests->whereNotNull('filled_by')
-                    ->whereNotNull('filled_hash')
+                    ->whereNotNull('torrent_id')
                     ->whereNotNull('filled_when')
                     ->whereNotNull('approved_by')
                     ->whereNotNull('approved_when');
@@ -1093,7 +1093,7 @@ class UserController extends Controller
 
             if ($request->has('pending') && $request->input('pending') != null) {
                 $torrentRequests->whereNotNull('filled_by')
-                    ->whereNotNull('filled_hash')
+                    ->whereNotNull('torrent_id')
                     ->whereNotNull('filled_when')
                     ->whereNull('approved_by')
                     ->whereNull('approved_when');
@@ -1106,7 +1106,7 @@ class UserController extends Controller
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
                 $torrentRequests->where(function ($query) {
                     $query->whereNull('filled_by')
-                        ->orWhereNull('filled_hash')
+                        ->orWhereNull('torrent_id')
                         ->orWhereNull('approved_by');
                 });
             }

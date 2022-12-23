@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Jums nav pietiekami daudz bonusa',
     'edit-request'        => 'Rediģēt pieprasījumu',
     'enter-bp'            => 'Ievadiet bonusa punktus (vismaz 100)',
-    'enter-hash'          => 'Ievadiet augšupielādētās Torrent informācijas informāciju',
+    'enter-hash'          => 'Ievadiet augšupielādētās Torrent ID',
     'fill'                => 'Aizpildiet',
     'fill-request'        => 'Aizpildiet šo pieprasījumu',
     'filled'              => 'Aizpildīts',

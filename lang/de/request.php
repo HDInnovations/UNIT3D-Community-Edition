@@ -45,7 +45,7 @@ return [
     'edit-request'        => 'Anfrage bearbeiten',
     'edited-request'      => 'Request erfolgreich bearbeitet.',
     'enter-bp'            => 'Bonuspunkte eingeben (mindestens 100)',
-    'enter-hash'          => 'Gebe den Info-Hash des hochgeladenen Torrents ein',
+    'enter-hash'          => 'Gebe den ID des hochgeladenen Torrents ein',
     'fill'                => 'Erfüllen',
     'fill-request'        => 'Erfüllen diesen Request',
     'filled'              => 'Erfüllt',
