@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTipRequest;
 use App\Models\BonTransactions;
 use App\Models\Post;
@@ -25,7 +26,7 @@ use Illuminate\Http\Request;
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
  */
-class UserTipController extends Controller
+class TipController extends Controller
 {
     /**
      * Show previous tip history.
