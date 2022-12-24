@@ -59,7 +59,7 @@ class TipController extends Controller
             ->where('name', '=', 'tip')
             ->sum('cost');
 
-        return \view('bonus.tips', [
+        return \view('user.tip.index', [
             'user'              => $user,
             'bontransactions'   => $bontransactions,
             'userbon'           => $userbon,

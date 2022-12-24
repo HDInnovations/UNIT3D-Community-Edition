@@ -40,7 +40,7 @@ class WarningController extends Controller
         $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
         $softDeletedWarningCount = Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
 
-        return \view('user.warninglog', [
+        return \view('user.warning.index', [
             'warnings'                => $warnings,
             'warningcount'            => $warningcount,
             'softDeletedWarnings'     => $softDeletedWarnings,

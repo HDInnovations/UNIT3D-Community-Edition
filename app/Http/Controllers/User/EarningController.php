@@ -149,7 +149,7 @@ class EarningController extends Controller
             + 1.00 * $mvp
             + 2.00 * $legend;
 
-        return \view('bonus.index', [
+        return \view('user.earning.index', [
             'user'              => $user,
             'userbon'           => $userbon,
             'dying'             => $dying,

@@ -44,7 +44,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_active', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.private.active');
+        $response->assertViewIs('user.peer.index');
         $response->assertViewHas('user');
         $response->assertViewHas('route');
         $response->assertViewHas('his_upl');
@@ -197,7 +197,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_edit_profile_form', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.edit_profile');
+        $response->assertViewIs('user.profile.edit');
         $response->assertViewHas('user');
         $response->assertViewHas('route');
 
@@ -234,7 +234,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_followers', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.followers');
+        $response->assertViewIs('user.follower.index');
         $response->assertViewHas('route');
         $response->assertViewHas('results');
         $response->assertViewHas('user');
@@ -255,7 +255,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('banlog', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.banlog');
+        $response->assertViewIs('user.ban.index');
         $response->assertViewHas('user');
         $response->assertViewHas('bans');
 
@@ -363,7 +363,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_notification', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.notification');
+        $response->assertViewIs('user.settings.notification.index');
         $response->assertViewHas('user');
         $response->assertViewHas('groups');
 
@@ -383,7 +383,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_posts', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.posts');
+        $response->assertViewIs('user.post.index');
         $response->assertViewHas('route');
         $response->assertViewHas('results');
         $response->assertViewHas('user');
@@ -404,7 +404,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_privacy', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.privacy');
+        $response->assertViewIs('user.settings.privacy.index');
         $response->assertViewHas('user');
         $response->assertViewHas('groups');
 
@@ -445,7 +445,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_resurrections', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.private.resurrections');
+        $response->assertViewIs('user.resurrection.index');
         $response->assertViewHas('route');
         $response->assertViewHas('user');
         $response->assertViewHas('resurrections');
@@ -466,7 +466,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_security', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.security');
+        $response->assertViewIs('user.settings.security.index');
         $response->assertViewHas('user');
 
         // TODO: perform additional assertions
@@ -485,7 +485,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_settings', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.settings');
+        $response->assertViewIs('user.settings.general.index');
         $response->assertViewHas('user');
         $response->assertViewHas('route');
 
@@ -505,7 +505,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('users.show', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.profile');
+        $response->assertViewIs('user.profile.show');
         $response->assertViewHas('route');
         $response->assertViewHas('user');
         $response->assertViewHas('groups');
@@ -537,7 +537,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_topics', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.topics');
+        $response->assertViewIs('user.topic.index');
         $response->assertViewHas('route');
         $response->assertViewHas('results');
         $response->assertViewHas('user');
@@ -558,7 +558,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('user_torrents', ['username' => $user->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.private.torrents');
+        $response->assertViewIs('user.history.index');
         $response->assertViewHas('route');
         $response->assertViewHas('user');
         $response->assertViewHas('his_upl');

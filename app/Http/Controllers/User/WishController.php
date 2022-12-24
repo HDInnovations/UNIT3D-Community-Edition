@@ -42,7 +42,7 @@ class WishController extends Controller
 
         $wishes = $user->wishes()->latest()->paginate(25);
 
-        return \view('user.wishlist', [
+        return \view('user.wish.index', [
             'user'               => $user,
             'wishes'             => $wishes,
             'route'              => 'wish',

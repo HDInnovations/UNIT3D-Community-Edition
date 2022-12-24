@@ -49,7 +49,7 @@ class TransactionController extends Controller
         $activefl = $user->personalFreeleeches()->exists();
         $items = BonExchange::all();
 
-        return \view('bonus.store', [
+        return \view('user.transaction.create', [
             'user'              => $user,
             'userbon'           => $userbon,
             'activefl'          => $activefl,

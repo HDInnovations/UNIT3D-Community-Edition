@@ -41,7 +41,7 @@ class WishControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('wishes.index', ['username' => $wish->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.wishlist');
+        $response->assertViewIs('user.wish.index');
         $response->assertViewHas('user');
         $response->assertViewHas('wishes');
         $response->assertViewHas('route');

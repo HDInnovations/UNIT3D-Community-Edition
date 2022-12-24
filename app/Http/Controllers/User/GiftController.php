@@ -62,7 +62,7 @@ class GiftController extends Controller
             ->where('name', '=', 'gift')
             ->sum('cost');
 
-        return \view('bonus.gifts', [
+        return \view('user.gift.index', [
             'user'              => $user,
             'gifttransactions'  => $gifttransactions,
             'userbon'           => $userbon,
@@ -82,7 +82,7 @@ class GiftController extends Controller
 
         $userbon = $user->getSeedbonus();
 
-        return \view('bonus.gift', [
+        return \view('user.gift.create', [
             'user'              => $user,
             'userbon'           => $userbon,
         ]);

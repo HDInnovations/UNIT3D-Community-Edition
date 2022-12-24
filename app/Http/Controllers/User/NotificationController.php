@@ -27,7 +27,7 @@ class NotificationController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('notification.index');
+        return \view('user.notification.index');
     }
 
     /**

@@ -35,7 +35,7 @@ class SeedboxController extends Controller
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
-        return \view('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return \view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
     }
 
     /**

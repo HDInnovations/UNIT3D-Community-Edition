@@ -39,7 +39,7 @@ class InviteController extends Controller
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
-        return \view('user.invites', ['user' => $owner, 'invites' => $invites, 'route' => 'invite']);
+        return \view('user.invite.index', ['user' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 
     /**
@@ -64,7 +64,7 @@ class InviteController extends Controller
                 ->withErrors(\trans('user.invites-disabled-group'));
         }
 
-        return \view('user.invite', ['user' => $user, 'route' => 'invite']);
+        return \view('user.invite.create', ['user' => $user, 'route' => 'invite']);
     }
 
     /**
