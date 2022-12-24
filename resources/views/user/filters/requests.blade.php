@@ -50,15 +50,15 @@
                         </span>
                 </td>
                 <td>
-                    @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
+                    @if ($torrentRequest->claimed != null && $torrentRequest->torrent_id === null)
                         <button class="btn btn-xs btn-primary">
                             <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> {{ __('request.claimed') }}
                         </button>
-                    @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+                    @elseif ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
                         <button class="btn btn-xs btn-info">
                             <i class="{{ config('other.font-awesome') }} fa-question-circle"></i> {{ __('request.pending') }}
                         </button>
-                    @elseif ($torrentRequest->filled_hash == null)
+                    @elseif ($torrentRequest->torrent_id === null)
                         <button class="btn btn-xs btn-danger">
                             <i class="{{ config('other.font-awesome') }} fa-times-circle"></i> {{ __('request.unfilled') }}
                         </button>

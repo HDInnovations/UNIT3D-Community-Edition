@@ -315,17 +315,13 @@ class TorrentController extends Controller
                 }
 
                 // Reset Requests
-                $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
-                foreach ($torrentRequest as $req) {
-                    if ($req) {
-                        $req->filled_by = null;
-                        $req->filled_when = null;
-                        $req->filled_hash = null;
-                        $req->approved_by = null;
-                        $req->approved_when = null;
-                        $req->save();
-                    }
-                }
+                $torrent->requests()->update([
+                    'filled_by'     => null,
+                    'filled_when'   => null,
+                    'torrent_id'    => null,
+                    'approved_by'   => null,
+                    'approved_when' => null,
+                ]);
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));

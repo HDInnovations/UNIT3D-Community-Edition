@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Je hebt niet genoeg bonus',
     'edit-request'        => 'Verzoek bewerken',
     'enter-bp'            => 'Voer bonuspunten in (minimaal 100)',
-    'enter-hash'          => 'Voer de Info Hash van de geüploade Torrent in',
+    'enter-hash'          => 'Voer de ID van de geüploade Torrent in',
     'fill'                => 'Vullen',
     'fill-request'        => 'Vul dit verzoek in',
     'filled'              => 'gevulde',

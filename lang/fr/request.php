@@ -45,7 +45,7 @@ return [
     'edit-request'        => 'Demande de modification',
     'edited-request'      => 'Demande éditée avec succès.',
     'enter-bp'            => 'Entrez des points bonus (minimum 100)',
-    'enter-hash'          => 'Entrez le hachage d informations du torrent téléchargé',
+    'enter-hash'          => 'Entrez l\'identifiant du torrent téléchargé',
     'fill'                => 'Remplir',
     'fill-request'        => 'Remplir cette demande',
     'filled'              => 'Rempli',

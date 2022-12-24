@@ -57,7 +57,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)
             ->whereNull('filled_by')
             ->whereNull('filled_when')
-            ->whereNull('filled_hash')
+            ->whereNull('torrent_id')
             ->get();
 
         foreach ($torrentRequests as $torrentRequest) {

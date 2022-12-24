@@ -195,7 +195,7 @@ class Torrent extends Model
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+        return $this->hasOne(TorrentRequest::class);
     }
 
     /**

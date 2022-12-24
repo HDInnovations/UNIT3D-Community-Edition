@@ -168,22 +168,22 @@ class TorrentRequestSearch extends Component
                 $query->where(function ($query) {
                     $query->where(function ($query) {
                         if ($this->unfilled) {
-                            $query->whereNull('filled_hash')->whereNull('claimed');
+                            $query->whereNull('torrent_id')->whereNull('claimed');
                         }
                     })
                     ->orWhere(function ($query) {
                         if ($this->claimed) {
-                            $query->whereNotNull('claimed')->whereNull('filled_hash')->whereNull('approved_by');
+                            $query->whereNotNull('claimed')->whereNull('torrent_id')->whereNull('approved_by');
                         }
                     })
                     ->orWhere(function ($query) {
                         if ($this->pending) {
-                            $query->whereNotNull('filled_hash')->whereNull('approved_by');
+                            $query->whereNotNull('torrent_id')->whereNull('approved_by');
                         }
                     })
                     ->orWhere(function ($query) {
                         if ($this->filled) {
-                            $query->whereNotNull('filled_hash')->whereNotNull('approved_by');
+                            $query->whereNotNull('torrent_id')->whereNotNull('approved_by');
                         }
                     });
                 });
@@ -192,8 +192,8 @@ class TorrentRequestSearch extends Component
                 $query->where('user_id', '=', \auth()->user()->id);
             })
             ->when($this->myClaims, function ($query) {
-                $requestCliams = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
-                $query->whereIntegerInRaw('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
+                $requestClaims = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
+                $query->whereIntegerInRaw('id', $requestClaims)->whereNull('torrent_id')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) {
                 $requestVotes = TorrentRequestBounty::where('user_id', '=', \auth()->user()->id)->pluck('requests_id');
