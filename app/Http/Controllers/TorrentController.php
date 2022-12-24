@@ -38,7 +38,6 @@ use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\Warning;

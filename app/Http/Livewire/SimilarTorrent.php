@@ -25,7 +25,6 @@ use App\Models\PrivateMessage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Warning;
 use Livewire\Component;
