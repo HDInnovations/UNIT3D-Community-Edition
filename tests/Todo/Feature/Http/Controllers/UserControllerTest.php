@@ -555,7 +555,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_torrents', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.history.index', ['username' => $user->username]));
 
         $response->assertOk();
         $response->assertViewIs('user.history.index');

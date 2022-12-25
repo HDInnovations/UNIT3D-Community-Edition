@@ -419,6 +419,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
         });
 
+        Route::group(['prefix' => 'torrents', 'as' => 'history.'], function () {
+            Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
+        });
+
         // Peers
         Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
@@ -471,7 +475,6 @@ Route::group(['middleware' => 'language'], function () {
 
         // History
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/torrents', [App\Http\Controllers\User\UserController::class, 'torrents'])->name('user_torrents');
             Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\User\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
         });
 

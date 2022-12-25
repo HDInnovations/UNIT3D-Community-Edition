@@ -28,14 +28,14 @@
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>{{ __('user.total-download') }}:</strong>
-                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl, 2) }}</span>
+                        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($history->download, 2) }}</span>
                         <span class="badge-extra text-orange" data-toggle="tooltip"
-                              data-original-title="{{ __('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre, 2) }}</span>
+                              data-original-title="{{ __('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($history->credited_download, 2) }}</span>
                     </span>
                     <span class="badge-user"><strong>{{ __('user.total-upload') }}:</strong>
-                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl, 2) }}</span>
+                        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($history->upload, 2) }}</span>
                         <span class="badge-extra text-blue" data-toggle="tooltip"
-                              data-original-title="{{ __('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre, 2) }}</span>
+                              data-original-title="{{ __('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($history->credited_upload, 2) }}</span>
                     </span>
                 </div>
             </div>
