@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
@@ -39,7 +40,7 @@ class WarningController extends Controller
         $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
         $softDeletedWarningCount = Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
 
-        return \view('user.warninglog', [
+        return \view('user.warning.index', [
             'warnings'                => $warnings,
             'warningcount'            => $warningcount,
             'softDeletedWarnings'     => $softDeletedWarnings,

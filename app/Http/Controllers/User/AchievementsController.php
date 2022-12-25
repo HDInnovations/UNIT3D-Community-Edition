@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class AchievementsController extends Controller
         $achievements = $user->unlockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return \view('achievement.index', [
+        return \view('user.achievement.index', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,
@@ -48,7 +49,7 @@ class AchievementsController extends Controller
 
         $achievements = $user->unlockedAchievements();
 
-        return \view('achievement.show', [
+        return \view('user.achievement.show', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,

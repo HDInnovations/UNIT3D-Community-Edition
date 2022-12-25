@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class SeedboxController extends Controller
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
-        return \view('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return \view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
     }
 
     /**

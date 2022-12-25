@@ -796,5 +796,5 @@
         @endif
     </div>
 
-    @include('user.user_modals', ['user' => $user])
+    @include('user.profile.partials.modals', ['user' => $user])
 @endsection

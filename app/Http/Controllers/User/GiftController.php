@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGiftRequest;
 use App\Models\BonTransactions;
 use App\Models\User;
@@ -20,7 +21,7 @@ use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class UserGiftController extends Controller
+class GiftController extends Controller
 {
     /**
      * UserGiftController Constructor.
@@ -61,7 +62,7 @@ class UserGiftController extends Controller
             ->where('name', '=', 'gift')
             ->sum('cost');
 
-        return \view('bonus.gifts', [
+        return \view('user.gift.index', [
             'user'              => $user,
             'gifttransactions'  => $gifttransactions,
             'userbon'           => $userbon,
@@ -81,7 +82,7 @@ class UserGiftController extends Controller
 
         $userbon = $user->getSeedbonus();
 
-        return \view('bonus.gift', [
+        return \view('user.gift.create', [
             'user'              => $user,
             'userbon'           => $userbon,
         ]);

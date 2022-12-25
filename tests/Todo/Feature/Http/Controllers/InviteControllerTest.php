@@ -40,7 +40,7 @@ class InviteControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('invites.index', ['username' => $invite->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.invites');
+        $response->assertViewIs('user.invite.index');
         $response->assertViewHas('owner');
         $response->assertViewHas('invites');
         $response->assertViewHas('route');

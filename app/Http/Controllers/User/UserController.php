@@ -11,9 +11,10 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Helpers\Bencode;
+use App\Http\Controllers\Controller;
 use App\Models\Ban;
 use App\Models\BonTransactions;
 use App\Models\Follow;
@@ -96,7 +97,7 @@ class UserController extends Controller
             ->whereNotNull('unlocked_at')
             ->get();
 
-        return \view('user.profile', [
+        return \view('user.profile.show', [
             'route'        => 'profile',
             'user'         => $user,
             'groups'       => $groups,
@@ -134,7 +135,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('user.followers', [
+        return \view('user.follower.index', [
             'route'   => 'follower',
             'results' => $results,
             'user'    => $user,
@@ -149,7 +150,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('user.topics', [
+        return \view('user.topic.index', [
             'route'   => 'forum',
             'results' => $results,
             'user'    => $user,
@@ -164,7 +165,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->latest('posts.created_at')->paginate(25);
 
-        return \view('user.posts', [
+        return \view('user.post.index', [
             'route'   => 'forum',
             'results' => $results,
             'user'    => $user,
@@ -180,7 +181,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        return \view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
+        return \view('user.profile.edit', ['user' => $user, 'route' => 'edit']);
     }
 
     /**
@@ -248,7 +249,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        return \view('user.settings', ['user' => $user, 'route' => 'settings']);
+        return \view('user.settings.general.index', ['user' => $user, 'route' => 'settings']);
     }
 
     /**
@@ -305,7 +306,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        return \view('user.security', ['user' => $user]);
+        return \view('user.settings.security.index', ['user' => $user]);
     }
 
     /**
@@ -1052,7 +1053,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.settings.privacy.index', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1066,7 +1067,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.settings.notification.index', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1140,7 +1141,7 @@ class UserController extends Controller
                     ->paginate(25);
             }
 
-            return \view('user.filters.requests', [
+            return \view('user.request.partials.index', [
                 'user'            => $user,
                 'torrentRequests' => $table,
             ])->render();
@@ -1194,7 +1195,7 @@ class UserController extends Controller
                     ->paginate(50);
             }
 
-            return \view('user.filters.resurrections', [
+            return \view('user.resurrection.partials.index', [
                 'user'          => $user,
                 'resurrections' => $table,
             ])->render();
@@ -1210,7 +1211,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
-            $logger = 'user.private.requests';
+            $logger = 'user.request.private';
 
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
@@ -1221,7 +1222,7 @@ class UserController extends Controller
             ]);
         }
 
-        $logger = 'user.requests';
+        $logger = 'user.request.index';
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
         return \view($logger, [
@@ -1244,7 +1245,7 @@ class UserController extends Controller
         $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
-        return \view('user.private.torrents', [
+        return \view('user.history.index', [
             'route'         => 'torrents',
             'user'          => $user,
             'his_upl'       => $hisUpl,
@@ -1267,7 +1268,7 @@ class UserController extends Controller
         $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
-        return \view('user.private.uploads', [
+        return \view('user.torrent.index', [
             'route'         => 'uploads',
             'user'          => $user,
             'his_upl'       => $hisUpl,
@@ -1287,7 +1288,7 @@ class UserController extends Controller
 
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
 
-        return \view('user.private.resurrections', [
+        return \view('user.resurrection.index', [
             'route'         => 'resurrections',
             'user'          => $user,
             'resurrections' => $resurrections,
@@ -1308,7 +1309,7 @@ class UserController extends Controller
         $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
         $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
-        return \view('user.private.active', ['user' => $user,
+        return \view('user.peer.index', ['user' => $user,
             'route'                                 => 'active',
             'his_upl'                               => $hisUpl,
             'his_upl_cre'                           => $hisUplCre,
@@ -1327,7 +1328,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
 
-        return \view('user.banlog', [
+        return \view('user.ban.index', [
             'user'      => $user,
             'bans'      => $bans,
         ]);

@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\User;
@@ -22,7 +23,7 @@ use Illuminate\Support\Carbon;
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
  */
-class UserEarningController extends Controller
+class EarningController extends Controller
 {
     /**
      * BonusController Constructor.
@@ -148,7 +149,7 @@ class UserEarningController extends Controller
             + 1.00 * $mvp
             + 2.00 * $legend;
 
-        return \view('bonus.index', [
+        return \view('user.earning.index', [
             'user'              => $user,
             'userbon'           => $userbon,
             'dying'             => $dying,

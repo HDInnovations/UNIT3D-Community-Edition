@@ -11,8 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PrivateMessageController extends Controller
             ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
-        return \view('pm.inbox', ['pms' => $pms, 'user' => $user]);
+        return \view('user.pm.index', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
@@ -45,7 +46,7 @@ class PrivateMessageController extends Controller
             ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
-        return \view('pm.outbox', ['pms' => $pms, 'user' => $user]);
+        return \view('user.pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
@@ -56,7 +57,7 @@ class PrivateMessageController extends Controller
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('pm.inbox', ['pms' => $pms, 'user' => $user]);
+        return \view('user.pm.index', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
@@ -67,7 +68,7 @@ class PrivateMessageController extends Controller
         $user = $request->user();
         $pms = PrivateMessage::where('sender_id', '=', $user->id)->latest()->paginate(20);
 
-        return \view('pm.outbox', ['pms' => $pms, 'user' => $user]);
+        return \view('user.pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
@@ -84,7 +85,7 @@ class PrivateMessageController extends Controller
                 $pm->save();
             }
 
-            return \view('pm.message', ['pm' => $pm, 'user' => $user]);
+            return \view('user.pm.show', ['pm' => $pm, 'user' => $user]);
         }
 
         return \to_route('inbox')
@@ -98,7 +99,7 @@ class PrivateMessageController extends Controller
     {
         $user = $request->user();
 
-        return \view('pm.send', ['user' => $user, 'receiver_id' => $receiverId, 'username' => $username]);
+        return \view('user.pm.create', ['user' => $user, 'receiver_id' => $receiverId, 'username' => $username]);
     }
 
     /**
