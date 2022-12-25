@@ -237,7 +237,7 @@
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                     {{ auth()->user()->getDownloaded() }}
                 </a>
@@ -249,13 +249,13 @@
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                     {{ auth()->user()->leechingTorrents()->count() }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
                     {{ auth()->user()->untilRatio(config('other.ratio')) }}
                 </a>
@@ -267,7 +267,7 @@
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
                     {{ auth()->user()->getRatioString() }}
                 </a>

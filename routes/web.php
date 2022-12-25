@@ -419,6 +419,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
         });
 
+        Route::group(['prefix' => 'torrents', 'as' => 'history.'], function () {
+            Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
+        });
+
         // Peers
         Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
@@ -433,6 +437,11 @@ Route::group(['middleware' => 'language'], function () {
         // Topics
         Route::group(['prefix' => 'topics', 'as' => 'topics.'], function () {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
+        });
+
+        // Torrent Zip
+        Route::group(['prefix' => 'torrent-zip', 'as' => 'torrent_zip.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TorrentZipController::class, 'show'])->name('show');
         });
 
         // Torrents
@@ -467,12 +476,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
-        });
-
-        // History
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/torrents', [App\Http\Controllers\User\UserController::class, 'torrents'])->name('user_torrents');
-            Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\User\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
         });
 
         // Invites
