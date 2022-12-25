@@ -166,15 +166,6 @@ class TorrentListSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTorrentsStatProperty(): ?object
-    {
-        return DB::table('torrents')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when seeders > 0 then 1 end) as alive')
-            ->selectRaw('count(case when seeders = 0 then 1 end) as dead')
-            ->first();
-    }
-
     final public function getPersonalFreeleechProperty()
     {
         return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
@@ -250,7 +241,6 @@ class TorrentListSearch extends Component
         return \view('livewire.torrent-list-search', [
             'user'              => User::with(['group'])->findOrFail(\auth()->user()->id),
             'torrents'          => $this->torrents,
-            'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,
         ]);
     }
