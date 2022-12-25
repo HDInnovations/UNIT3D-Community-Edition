@@ -409,46 +409,81 @@ Route::group(['middleware' => 'language'], function () {
     |-------------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
-        // Achievements System
-        Route::group(['prefix' => 'achievements'], function () {
-            Route::name('achievements.')->group(function () {
-                Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
-                Route::get('/{username}', [App\Http\Controllers\User\AchievementsController::class, 'show'])->name('show');
-            });
+        // Achievements
+        Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
+            Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
+            Route::get('/{username}', [App\Http\Controllers\User\AchievementsController::class, 'show'])->name('show');
         });
 
-        // Follow System
-        Route::group(['prefix' => 'follow'], function () {
-            Route::name('follow.')->group(function () {
-                Route::post('/{username}', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
-                Route::delete('/{username}', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
-            });
+        // Bans
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/banlog', [App\Http\Controllers\User\UserController::class, 'getBans'])->name('banlog');
         });
 
-        // Invite System
-        Route::group(['prefix' => 'invites'], function () {
-            Route::name('invites.')->group(function () {
-                Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
-                Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
-                Route::get('/{username}', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
-            });
+        // Earnings
+        Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function () {
+            Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
         });
 
-        // Notifications System
-        Route::group(['prefix' => 'notifications'], function () {
-            Route::name('notifications.')->group(function () {
-                Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
-                Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
-                Route::post('/{id}/update', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
-                Route::post('/updateall', [App\Http\Controllers\User\NotificationController::class, 'updateAll'])->name('updateall');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
-                Route::delete('/destroyall', [App\Http\Controllers\User\NotificationController::class, 'destroyAll'])->name('destroyall');
-                Route::get('/{id}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
-            });
+        // Filters
+        Route::group(['prefix' => 'users'], function () {
+            Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
         });
 
-        // Private Messages System
+        // Followers
+        Route::group(['prefix' => 'follow', 'as' => 'follow.'], function () {
+            Route::post('/{username}', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
+            Route::delete('/{username}', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/followers', [App\Http\Controllers\User\UserController::class, 'followers'])->name('user_followers');
+        });
+
+        // Gifts
+        Route::group(['prefix' => 'users/{username}/gifts', 'as' => 'gifts.'], function () {
+            Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
+        });
+
+        // History
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/torrents', [App\Http\Controllers\User\UserController::class, 'torrents'])->name('user_torrents');
+            Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\User\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
+        });
+
+        // Invites
+        Route::group(['prefix' => 'invites', 'as' => 'invites.'], function () {
+            Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
+            Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
+            Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
+            Route::get('/{username}', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
+        });
+
+        // Notifications
+        Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
+            Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
+            Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
+            Route::post('/{id}/update', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
+            Route::post('/updateall', [App\Http\Controllers\User\NotificationController::class, 'updateAll'])->name('updateall');
+            Route::delete('/{id}/destroy', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
+            Route::delete('/destroyall', [App\Http\Controllers\User\NotificationController::class, 'destroyAll'])->name('destroyall');
+            Route::get('/{id}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
+        });
+
+        // Peers
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/active', [App\Http\Controllers\User\UserController::class, 'active'])->name('user_active');
+            Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\User\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
+        });
+
+        // Posts
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/posts', [App\Http\Controllers\User\UserController::class, 'posts'])->name('user_posts');
+        });
+
+        // Private Messages
         Route::group(['prefix' => 'mail'], function () {
             Route::post('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
             Route::post('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
@@ -463,23 +498,37 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/destroy', [App\Http\Controllers\User\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
         });
 
-        // Users System
+        // Profile
         Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
             Route::get('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
             Route::post('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('user_edit_profile');
-            Route::get('/{username}/banlog', [App\Http\Controllers\User\UserController::class, 'getBans'])->name('banlog');
-            Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
-            Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\User\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
-            Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\User\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
-            Route::get('/{username}/resurrections', [App\Http\Controllers\User\UserController::class, 'resurrections'])->name('user_resurrections');
+        });
+
+        // Requests
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/requested', [App\Http\Controllers\User\UserController::class, 'requested'])->name('user_requested');
-            Route::get('/{username}/active', [App\Http\Controllers\User\UserController::class, 'active'])->name('user_active');
-            Route::get('/{username}/torrents', [App\Http\Controllers\User\UserController::class, 'torrents'])->name('user_torrents');
-            Route::get('/{username}/uploads', [App\Http\Controllers\User\UserController::class, 'uploads'])->name('user_uploads');
-            Route::get('/{username}/topics', [App\Http\Controllers\User\UserController::class, 'topics'])->name('user_topics');
-            Route::get('/{username}/posts', [App\Http\Controllers\User\UserController::class, 'posts'])->name('user_posts');
-            Route::get('/{username}/followers', [App\Http\Controllers\User\UserController::class, 'followers'])->name('user_followers');
+        });
+
+        // Resurrections
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/resurrections', [App\Http\Controllers\User\UserController::class, 'resurrections'])->name('user_resurrections');
+        });
+
+        // Rules
+        Route::group(['prefix' => 'users'], function () {
+            Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
+        });
+
+        // Seedboxes
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
+            Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
+            Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
+        });
+
+        // Settings
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/settings', [App\Http\Controllers\User\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\User\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
@@ -513,33 +562,31 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/visible', [App\Http\Controllers\User\UserController::class, 'makeVisible'])->name('user_visible');
             Route::post('/{username}/settings/private', [App\Http\Controllers\User\UserController::class, 'makePrivate'])->name('user_private');
             Route::post('/{username}/settings/public', [App\Http\Controllers\User\UserController::class, 'makePublic'])->name('user_public');
-            Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
-            Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
-            Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
-            Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-
-            // Bonus System
-            Route::group(['prefix' => '{username}/bonus'], function () {
-                Route::name('earnings.')->prefix('earnings')->group(function () {
-                    Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-                });
-                Route::name('gifts.')->prefix('gifts')->group(function () {
-                    Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
-                    Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
-                    Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
-                });
-                Route::name('tips.')->prefix('tips')->group(function () {
-                    Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
-                    Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
-                });
-                Route::name('transactions.')->prefix('transactions')->group(function () {
-                    Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
-                    Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
-                });
-            });
         });
 
-        // Warnings System
+        // Tips
+        Route::group(['prefix' => 'users/{username}/tips', 'as' => 'tips.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
+        });
+
+        // Topics
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/topics', [App\Http\Controllers\User\UserController::class, 'topics'])->name('user_topics');
+        });
+
+        // Torrents
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/uploads', [App\Http\Controllers\User\UserController::class, 'uploads'])->name('user_uploads');
+        });
+
+        // Transactions
+        Route::group(['prefix' => 'users/{username}/transactions', 'as' => 'transactions.'], function () {
+            Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
+        });
+
+        // Warnings
         Route::group(['prefix' => 'warnings'], function () {
             Route::post('/{id}/deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivate'])->name('deactivateWarning');
             Route::post('/{username}/mass-deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
@@ -549,13 +596,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}', [App\Http\Controllers\User\WarningController::class, 'show'])->name('warnings.show');
         });
 
-        // Wishlist System
-        Route::group(['prefix' => 'wishes'], function () {
-            Route::name('wishes.')->group(function () {
-                Route::get('/{username}', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
-            });
+        // Wishlist
+        Route::group(['prefix' => 'wishes', 'as' => 'wishes.'], function () {
+            Route::get('/{username}', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
+            Route::post('/store', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
+            Route::delete('/{id}/destroy', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
         });
     });
 
