@@ -243,7 +243,7 @@
                 </a>
             </li>
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.peers.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                     {{ auth()->user()->seedingTorrents()->count() }}
                 </a>

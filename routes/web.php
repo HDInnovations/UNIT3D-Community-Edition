@@ -419,6 +419,12 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
         });
 
+        // Peers
+        Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
+            Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
+            Route::delete('/', [App\Http\Controllers\User\PeerController::class, 'massDestroy'])->name('mass_destroy');
+        });
+
         // Posts
         Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
             Route::get('/', [App\Http\Controllers\User\PostController::class, 'index'])->name('index');
@@ -481,12 +487,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::delete('/{id}/destroy', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
             Route::delete('/destroyall', [App\Http\Controllers\User\NotificationController::class, 'destroyAll'])->name('destroyall');
             Route::get('/{id}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
-        });
-
-        // Peers
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/active', [App\Http\Controllers\User\UserController::class, 'active'])->name('user_active');
-            Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\User\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
         });
 
         // Private Messages
