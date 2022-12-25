@@ -252,7 +252,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('banlog', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.bans.index', ['username' => $user->username]));
 
         $response->assertOk();
         $response->assertViewIs('user.ban.index');

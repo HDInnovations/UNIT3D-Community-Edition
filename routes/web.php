@@ -414,6 +414,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
 
+        // Bans
+        Route::group(['prefix' => 'bans', 'as' => 'bans.'], function () {
+            Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
+        });
+
         // Posts
         Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
             Route::get('/', [App\Http\Controllers\User\PostController::class, 'index'])->name('index');
@@ -426,11 +431,6 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
-        // Bans
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/banlog', [App\Http\Controllers\User\UserController::class, 'getBans'])->name('banlog');
-        });
-
         // Earnings
         Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function () {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');

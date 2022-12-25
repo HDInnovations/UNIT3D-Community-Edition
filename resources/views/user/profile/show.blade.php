@@ -457,7 +457,7 @@
                                         @if (auth()->user()->group->is_modo)
                                             <a href="{{ route('warnings.show', ['username' => $user->username]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.warning-log') }}</strong></span></a>
-                                            <a href="{{ route('banlog', ['username' => $user->username]) }}"><span
+                                            <a href="{{ route('users.bans.index', ['username' => $user->username]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.ban-log') }}</strong></span></a>
                                         @endif
                                     </div>

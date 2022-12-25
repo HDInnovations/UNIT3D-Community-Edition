@@ -1303,22 +1303,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Bans.
-     */
-    public function getBans(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        \abort_unless($request->user()->group->is_modo, 403);
-
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
-
-        return \view('user.ban.index', [
-            'user'      => $user,
-            'bans'      => $bans,
-        ]);
-    }
-
-    /**
      * Download All History Torrents.
      */
     public function downloadHistoryTorrents(Request $request, string $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
