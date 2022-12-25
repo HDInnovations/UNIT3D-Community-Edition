@@ -434,6 +434,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'topics', 'as' => 'topics.'], function () {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
         });
+
+        // Torrents
+        Route::group(['prefix' => 'uploads', 'as' => 'torrents.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TorrentController::class, 'index'])->name('index');
+        });
     });
 
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
@@ -574,11 +579,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'users/{username}/tips', 'as' => 'tips.'], function () {
             Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
-        });
-
-        // Torrents
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/uploads', [App\Http\Controllers\User\UserController::class, 'uploads'])->name('user_uploads');
         });
 
         // Transactions
