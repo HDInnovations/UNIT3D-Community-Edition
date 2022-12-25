@@ -15,7 +15,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\AchievementsControllerTest
