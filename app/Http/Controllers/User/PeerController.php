@@ -74,7 +74,9 @@ class PeerController extends Controller
 
         $user->own_flushes--;
 
-        $peers->join('history', fn ($join) => $join
+        $peers->join(
+            'history',
+            fn ($join) => $join
             ->on('peers.user_id', '=', 'history.user_id')
             ->on('peers.torrent_id', '=', 'history.torrent_id')
         )->update(['active' => false]);
