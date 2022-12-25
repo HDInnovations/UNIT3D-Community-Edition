@@ -385,7 +385,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('achievements.index') }}">
+                        <a href="{{ route('users.achievements.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                             My {{ __('user.achievements') }}
                         </a>
