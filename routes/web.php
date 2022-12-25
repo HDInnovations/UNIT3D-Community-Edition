@@ -413,6 +413,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
+
+        // Posts
+        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
+            Route::get('/', [App\Http\Controllers\User\PostController::class, 'index'])->name('index');
+        });
     });
 
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
@@ -477,11 +482,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/active', [App\Http\Controllers\User\UserController::class, 'active'])->name('user_active');
             Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\User\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
-        });
-
-        // Posts
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/posts', [App\Http\Controllers\User\UserController::class, 'posts'])->name('user_posts');
         });
 
         // Private Messages

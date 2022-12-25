@@ -23,7 +23,6 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
 use App\Models\Peer;
-use App\Models\Post;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -151,21 +150,6 @@ class UserController extends Controller
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('user.topic.index', [
-            'route'   => 'forum',
-            'results' => $results,
-            'user'    => $user,
-        ]);
-    }
-
-    /**
-     * User Posts.
-     */
-    public function posts(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->latest('posts.created_at')->paginate(25);
-
-        return \view('user.post.index', [
             'route'   => 'forum',
             'results' => $results,
             'user'    => $user,

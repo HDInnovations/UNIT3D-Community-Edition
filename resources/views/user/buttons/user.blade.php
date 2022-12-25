@@ -263,7 +263,7 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('users.achievements.*', 'user_topics', 'user_posts', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('users.achievements.*', 'user_topics', 'users.posts.index', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -288,10 +288,10 @@
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
-                <li class="{{ Route::is('user_posts') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.posts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_posts') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_posts', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.posts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.posts.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.posts') }}
                     </a>
