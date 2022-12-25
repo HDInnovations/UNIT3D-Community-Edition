@@ -23,7 +23,7 @@ class AchievementsControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('achievements.index'));
 
         $response->assertOk()
-            ->assertViewIs('achievement.index')
+            ->assertViewIs('user.achievement.index')
             ->assertViewHas('route')
             ->assertViewHas('user')
             ->assertViewHas('achievements')
@@ -44,7 +44,7 @@ class AchievementsControllerTest extends TestCase
         ]));
 
         $response->assertOk()
-            ->assertViewIs('achievement.show')
+            ->assertViewIs('user.achievement.show')
             ->assertViewHas('route')
             ->assertViewHas('user')
             ->assertViewHas('achievements');
