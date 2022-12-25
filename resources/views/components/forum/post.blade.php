@@ -195,7 +195,7 @@
         </dl>
         <dl class="post__author-topics">
             <dt>
-                <a href="{{ route('user_topics', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.topics.index', ['username' => $post->user->username]) }}">
                 {{ __('forum.topics') }}
                 </a>
             </dt>

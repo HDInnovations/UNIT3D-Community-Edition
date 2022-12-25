@@ -47,7 +47,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($results as $r)
+                        @foreach ($topics as $r)
                             @if ($r->viewable())
                                 <tr>
                                     <td class="f-display-topic-icon"><span
@@ -95,7 +95,7 @@
                     </table>
                 </div>
                 <div class="text-center col-md-12">
-                    {{ $results->links() }}
+                    {{ $topics->links() }}
                 </div>
             </div>
         @endif
