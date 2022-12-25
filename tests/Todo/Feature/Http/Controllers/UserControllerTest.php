@@ -158,7 +158,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('download_history_torrents', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.torrent_zip.show', ['username' => $user->username]));
 
         $response->assertRedirect(withErrors('Torrent File Not Found! Please Report This Torrent!'));
 

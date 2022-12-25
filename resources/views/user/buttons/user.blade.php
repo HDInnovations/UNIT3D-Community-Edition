@@ -249,7 +249,7 @@
                     </button>
                 </form>
                 <li class="nav-tabV2">
-                    <a download class="nav-tab__link" href="{{ route('download_history_torrents', ['username' => $user->username]) }}">
+                    <a download class="nav-tab__link" href="{{ route('users.torrent_zip.show', ['username' => $user->username]) }}">
                         {{ __('torrent.download-all') }}
                     </a>
                 </li>
