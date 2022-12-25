@@ -408,13 +408,14 @@ Route::group(['middleware' => 'language'], function () {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'users/{username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function () {
         // Achievements
         Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
-            Route::get('/{username}', [App\Http\Controllers\User\AchievementsController::class, 'show'])->name('show');
         });
+    });
 
+    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
         // Bans
         Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/banlog', [App\Http\Controllers\User\UserController::class, 'getBans'])->name('banlog');

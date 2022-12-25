@@ -23,11 +23,11 @@ use Illuminate\Http\Request;
 class AchievementsController extends Controller
 {
     /**
-     * Display All Achievements.
+     * Display User Achievements.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         $achievements = $user->unlockedAchievements();
         $pending = $user->inProgressAchievements();
@@ -37,22 +37,6 @@ class AchievementsController extends Controller
             'user'         => $user,
             'achievements' => $achievements,
             'pending'      => $pending,
-        ]);
-    }
-
-    /**
-     * Show A Users Achievements.
-     */
-    public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        $achievements = $user->unlockedAchievements();
-
-        return \view('user.achievement.show', [
-            'route'        => 'achievement',
-            'user'         => $user,
-            'achievements' => $achievements,
         ]);
     }
 }

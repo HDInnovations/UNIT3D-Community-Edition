@@ -263,15 +263,15 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('achievements.*', 'user_topics', 'user_posts', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('users.achievements.*', 'user_topics', 'user_posts', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
-                <li class="{{ Route::is('achievements.show') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('achievements.show') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('achievements.show', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.achievements.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.achievements.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.achievements') }}
                     </a>
