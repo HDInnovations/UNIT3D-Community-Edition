@@ -581,7 +581,7 @@
                                     <td>{{ $client->created_at ? $client->created_at->diffForHumans() : 'N/A' }}</td>
                                     <td>{{ $client->updated_at ? $client->updated_at->diffForHumans() : 'N/A' }}</td>
                                     <td>
-                                        <a href="{{ route('user_active', ['username' => $user->username, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
+                                        <a href="{{ route('users.peers.index', ['username' => $user->username, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
                                             itemprop="url" class="l-breadcrumb-item-link">
                                             <span itemprop="title"
                                                     class="l-breadcrumb-item-link-title">{{ $client->num_peers }}</span>

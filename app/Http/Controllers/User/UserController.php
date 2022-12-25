@@ -15,14 +15,12 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\Bencode;
 use App\Http\Controllers\Controller;
-use App\Models\Ban;
 use App\Models\BonTransactions;
 use App\Models\Follow;
 use App\Models\Graveyard;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
-use App\Models\Peer;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -33,7 +31,6 @@ use App\Models\Warning;
 use App\Rules\EmailBlacklist;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -1280,29 +1277,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Active Table.
-     */
-    public function active(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-
-        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
-        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
-        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
-
-        return \view('user.peer.index', ['user' => $user,
-            'route'                                 => 'active',
-            'his_upl'                               => $hisUpl,
-            'his_upl_cre'                           => $hisUplCre,
-            'his_downl'                             => $hisDownl,
-            'his_downl_cre'                         => $hisDownlCre,
-        ]);
-    }
-
-    /**
      * Download All History Torrents.
      */
     public function downloadHistoryTorrents(Request $request, string $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -1400,51 +1374,5 @@ class UserController extends Controller
         $user = $request->user();
         $user->read_rules = 1;
         $user->save();
-    }
-
-    /**
-     * Flushes own Peers.
-     */
-    public function flushOwnGhostPeers(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        // Authorized User
-        $user = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($request->user()->id == $user->id, 403);
-
-        // Check if User can flush
-        if ($request->user()->own_flushes == 0) {
-            return \redirect()->back()->withErrors('You can only flush twice a day!');
-        }
-
-        $carbon = new Carbon();
-
-        // Get Peer List from User
-        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])
-            ->where('user_id', '=', $user->id)
-            ->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())
-            ->get();
-
-        // Return with Error if no Peer exists
-        if ($peers->isEmpty()) {
-            return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
-        }
-
-        $new_value = $user->own_flushes - 1;
-        User::where('username', '=', $username)->update(['own_flushes' => $new_value]);
-
-        // Iterate over Peers
-        foreach ($peers as $peer) {
-            $history = History::where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->first();
-            if ($history) {
-                $history->active = false;
-                $history->save();
-            }
-
-            $peer->delete();
-        }
-
-        return \redirect()->back()->withSuccess('Peers were flushed successfully!');
     }
 }

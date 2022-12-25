@@ -179,7 +179,7 @@
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
             <a
-                class="{{ Route::is('user_torrents', 'user_uploads', 'user_active', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                class="{{ Route::is('user_torrents', 'user_uploads', 'users.peers.index', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                 href="{{ route('user_torrents', ['username' => $user->username]) }}"
             >
                 {{ __('torrent.torrents') }}
@@ -204,10 +204,10 @@
                         {{ __('user.uploads') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('user_active') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.peers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_active') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_active', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.peers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.peers.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.active') }}
                     </a>
@@ -238,11 +238,12 @@
                     </a>
                 </li>
                 <form
-                    action="{{ route('flush_own_ghost_peers', ['username' => $user->username]) }}"
+                    action="{{ route('users.peers.mass_destroy', ['username' => $user->username]) }}"
                     method="POST"
                     style="display: contents;"
                 >
-                    @csrf
+                    @csrf()
+                    @method('DELETE')
                     <button class="nav-tab__link" type="submit">
                         {{ __('staff.flush-ghost-peers') }}
                     </button>
