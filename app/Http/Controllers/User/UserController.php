@@ -139,21 +139,6 @@ class UserController extends Controller
     }
 
     /**
-     * User Topics.
-     */
-    public function topics(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
-
-        return \view('user.topic.index', [
-            'route'   => 'forum',
-            'results' => $results,
-            'user'    => $user,
-        ]);
-    }
-
-    /**
      * Edit Profile Form.
      */
     public function editProfileForm(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1120,29 +1105,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users History Table.
-     */
-    public function torrents(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
-        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
-        $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $hisDownlCre = History::where('user_id', '=', $user->id)->sum('downloaded');
-
-        return \view('user.history.index', [
-            'route'         => 'torrents',
-            'user'          => $user,
-            'his_upl'       => $hisUpl,
-            'his_upl_cre'   => $hisUplCre,
-            'his_downl'     => $hisDownl,
-            'his_downl_cre' => $hisDownlCre,
-        ]);
-    }
-
-    /**
      * Get A Users Graveyard Resurrections.
      */
     public function resurrections(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1157,96 +1119,6 @@ class UserController extends Controller
             'user'          => $user,
             'resurrections' => $resurrections,
         ]);
-    }
-
-    /**
-     * Download All History Torrents.
-     */
-    public function downloadHistoryTorrents(Request $request, string $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
-    {
-        //  Extend The Maximum Execution Time
-        \set_time_limit(1200);
-
-        // Authorized User
-        $user = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($request->user()->id == $user->id, 403);
-
-        // Define Dir For Zip
-        $zipPath = \getcwd().'/files/tmp_zip/';
-
-        // Check Directory exists
-        if (! File::isDirectory($zipPath)) {
-            File::makeDirectory($zipPath, 0755, true, true);
-        }
-
-        // Zip File Name
-        $zipFileName = \sprintf('%s.zip', $user->username);
-
-        // Create ZipArchive Obj
-        $zipArchive = new ZipArchive();
-
-        // Get Users History
-        $historyTorrents = History::whereHas('torrent')
-            ->where('user_id', '=', $user->id)
-            ->pluck('torrent_id');
-
-        if ($zipArchive->open($zipPath.'/'.$zipFileName, ZipArchive::CREATE) === true) {
-            // Match History Results To Torrents
-            $failCSV = '"Name","URL","ID","info_hash"
-';
-            $failCount = 0;
-            foreach ($historyTorrents as $historyTorrent) {
-                // Get Torrent
-                $torrent = Torrent::withAnyStatus()
-                    ->where('id', '=', $historyTorrent)
-                    ->first();
-
-                // Define The Torrent Filename
-                $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
-
-                // The Torrent File Exist?
-                if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$torrent->info_hash.'"
-';
-                    $failCount++;
-                } else {
-                    // Delete The Last Torrent Tmp File If Exist
-                    if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {
-                        \unlink(\getcwd().'/files/tmp/'.$tmpFileName);
-                    }
-
-                    // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
-                    // Set the announce key and add the user passkey
-                    $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
-                    // Remove Other announce url
-                    unset($dict['announce-list']);
-
-                    $fileToDownload = Bencode::bencode($dict);
-                    \file_put_contents(\getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
-
-                    // Add Files To ZipArchive
-                    $zipArchive->addFile(\getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
-                }
-            }
-
-            if ($failCount > 0) {
-                $CSVtmpName = \sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
-                \file_put_contents(\getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-                $zipArchive->addFile(\getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
-            }
-
-            // Close ZipArchive
-            $zipArchive->close();
-        }
-
-        $zipFile = $zipPath.'/'.$zipFileName;
-
-        if (\file_exists($zipFile)) {
-            return \response()->download($zipFile)->deleteFileAfterSend(true);
-        }
-
-        return \redirect()->back()->withErrors('Something Went Wrong!');
     }
 
     /**
