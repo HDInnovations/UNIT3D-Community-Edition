@@ -397,7 +397,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('requests.index', ['requestor' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i>
                             {{ __('user.my-requested') }}
                         </a>

@@ -519,11 +519,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('user_edit_profile');
         });
 
-        // Requests
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/requested', [App\Http\Controllers\User\UserController::class, 'requested'])->name('user_requested');
-        });
-
         // Resurrections
         Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/resurrections', [App\Http\Controllers\User\UserController::class, 'resurrections'])->name('user_resurrections');
