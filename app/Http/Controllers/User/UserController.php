@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Helpers\Bencode;
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
 use App\Models\Follow;
@@ -21,7 +20,6 @@ use App\Models\Graveyard;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
-use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
@@ -31,11 +29,9 @@ use App\Models\Warning;
 use App\Rules\EmailBlacklist;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use ZipArchive;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
