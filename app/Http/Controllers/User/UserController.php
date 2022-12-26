@@ -1061,72 +1061,6 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-        if ($request->has('view') && $request->input('view') == 'requests') {
-            $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
-            $order = null;
-            $sorting = null;
-            if ($request->has('name') && $request->input('name') != null) {
-                $torrentRequests->where('name', 'like', '%'.$request->input('name').'%');
-            }
-
-            if ($request->has('filled') && $request->input('filled') != null) {
-                $torrentRequests->whereNotNull('filled_by')
-                    ->whereNotNull('torrent_id')
-                    ->whereNotNull('filled_when')
-                    ->whereNotNull('approved_by')
-                    ->whereNotNull('approved_when');
-            }
-
-            if ($request->has('pending') && $request->input('pending') != null) {
-                $torrentRequests->whereNotNull('filled_by')
-                    ->whereNotNull('torrent_id')
-                    ->whereNotNull('filled_when')
-                    ->whereNull('approved_by')
-                    ->whereNull('approved_when');
-            }
-
-            if ($request->has('claimed') && $request->input('claimed') != null) {
-                $torrentRequests->where('claimed', '=', 1);
-            }
-
-            if ($request->has('unfilled') && $request->input('unfilled') != null) {
-                $torrentRequests->where(function ($query) {
-                    $query->whereNull('filled_by')
-                        ->orWhereNull('torrent_id')
-                        ->orWhereNull('approved_by');
-                });
-            }
-
-            if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = $request->input('sorting');
-            }
-
-            if ($request->has('direction') && $request->input('direction') != null) {
-                $order = $request->input('direction');
-            }
-
-            if (! $sorting || ! $order) {
-                $sorting = 'created_at';
-                $order = 'desc';
-                // $order = 'asc';
-            }
-
-            $direction = $order == 'asc' ? 1 : 2;
-            if ($sorting == 'date') {
-                $table = $torrentRequests->where('user_id', '=', $user->id)
-                    ->orderBy('created_at', $order)
-                    ->paginate(25);
-            } else {
-                $table = $torrentRequests->where('user_id', '=', $user->id)
-                    ->orderBy($sorting, $order)
-                    ->paginate(25);
-            }
-
-            return \view('user.request.partials.index', [
-                'user'            => $user,
-                'torrentRequests' => $table,
-            ])->render();
-        }
 
         if ($request->has('view') && $request->input('view') == 'resurrections') {
             $history = Graveyard::with(['torrent', 'user'])
@@ -1183,34 +1117,6 @@ class UserController extends Controller
         }
 
         return false;
-    }
-
-    /**
-     * Get A Users Requested Table.
-     */
-    public function requested(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
-            $logger = 'user.request.private';
-
-            $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
-
-            return \view($logger, [
-                'route'           => 'requests',
-                'user'            => $user,
-                'torrentRequests' => $torrentRequests,
-            ]);
-        }
-
-        $logger = 'user.request.index';
-        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
-
-        return \view($logger, [
-            'route'           => 'requests',
-            'user'            => $user,
-            'torrentRequests' => $torrentRequests,
-        ]);
     }
 
     /**

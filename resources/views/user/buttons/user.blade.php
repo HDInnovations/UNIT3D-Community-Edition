@@ -175,11 +175,11 @@
         </ul>
     </li>
 @endif
-@if ($isProfileOwner || $isModo || auth()->user()->isAllowed($user, 'forum', 'show_requested'))
+@if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
             <a
-                class="{{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                class="{{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'user_resurrections') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                 href="{{ route('users.history.index', ['username' => $user->username]) }}"
             >
                 {{ __('torrent.torrents') }}
@@ -222,10 +222,10 @@
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, '', 'show_requested'))
-                <li class="{{ Route::is('user_requested') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="nav-tavV2">
                     <a
-                        class="{{ Route::is('user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_requested', ['username' => $user->username]) }}"
+                        class="nav-tab__link"
+                        href="{{ route('requests.index', ['requestor' => $user->username]) }}"
                     >
                         {{ __('user.requested') }}
                     </a>
