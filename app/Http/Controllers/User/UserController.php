@@ -16,7 +16,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
 use App\Models\Follow;
-use App\Models\Graveyard;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
