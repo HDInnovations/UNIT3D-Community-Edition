@@ -67,7 +67,7 @@ class Comment extends Component
 
     final public function taggedUsers(): array
     {
-        \preg_match_all('/@([\w\-]+)/', $this->editState, $matches);
+        \preg_match_all('/@([\w\-]+)/', \implode('', $this->editState), $matches);
 
         return $matches[1];
     }
@@ -153,7 +153,7 @@ class Comment extends Component
         // User Tagged Notification
         if ($this->user->id !== $this->model->user_id) {
             $users = User::whereIn('username', $this->taggedUsers())->get();
-            Notification::send($users, new NewCommentTag(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
+            Notification::sendNow($users, new NewCommentTag(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
         }
 
         $this->isReplying = false;
