@@ -54,7 +54,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             return [
                 'title' => 'You Have Been Tagged',
                 'body'  => 'Anonymous has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->torrent->id,
+                'url'   => '/torrents/'.$this->comment->commentable->id,
             ];
         }
 
