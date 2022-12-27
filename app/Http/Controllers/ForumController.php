@@ -17,7 +17,6 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -25,13 +24,6 @@ use Illuminate\Http\Request;
  */
 class ForumController extends Controller
 {
-    /**
-     * ForumController Constructor.
-     */
-    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Search For Topics.
      */
