@@ -179,7 +179,7 @@
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
             <a
-                class="{{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'user_resurrections') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                class="{{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                 href="{{ route('users.history.index', ['username' => $user->username]) }}"
             >
                 {{ __('torrent.torrents') }}
@@ -212,10 +212,10 @@
                         {{ __('user.active') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('user_resurrections') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a 
-                        class="{{ Route::is('user_resurrections') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_resurrections', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.resurrections.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.resurrections') }}
                     </a>
