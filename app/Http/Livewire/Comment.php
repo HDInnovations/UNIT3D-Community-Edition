@@ -27,6 +27,8 @@ use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
+use App\Notifications\NewCommentTag;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
@@ -61,6 +63,13 @@ class Comment extends Component
     final public function mount(): void
     {
         $this->user = \auth()->user();
+    }
+
+    final public function taggedUsers(): array
+    {
+        \preg_match_all('/@([\w\-]+)/', $this->editState, $matches);
+
+        return $matches[1];
     }
 
     final public function updatedIsEditing($isEditing): void
@@ -136,9 +145,15 @@ class Comment extends Component
             $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
-        //Notification
+        // New Comment Notification
         if ($this->user->id !== $this->comment->user_id) {
             User::find($this->comment->user_id)->notify(new NewComment(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
+        }
+
+        // User Tagged Notification
+        if ($this->user->id !== $this->model->user_id) {
+            $users = User::whereIn('username', $this->taggedUsers())->get();
+            Notification::send($users, new NewCommentTag(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
         }
 
         $this->isReplying = false;
