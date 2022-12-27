@@ -16,7 +16,6 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 /**
