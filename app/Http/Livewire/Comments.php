@@ -91,10 +91,6 @@ class Comments extends Component
         $comment->anon = $this->anon;
         $comment->save();
 
-        $this->newCommentState = [
-            'content' => '',
-        ];
-
         // Achievements
         if ($comment->anon === 0) {
             $this->user->unlock(new UserMadeComment(), 1);
@@ -121,6 +117,10 @@ class Comments extends Component
             $users = User::whereIn('username', $this->taggedUsers())->get();
             Notification::sendNow($users, new NewCommentTag(\strtolower(\class_basename($this->model)), $comment));
         }
+
+        $this->newCommentState = [
+            'content' => '',
+        ];
 
         $this->gotoPage(1);
     }

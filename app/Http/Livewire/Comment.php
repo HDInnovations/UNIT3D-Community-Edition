@@ -125,10 +125,6 @@ class Comment extends Component
         $reply->anon = $this->anon;
         $reply->save();
 
-        $this->replyState = [
-            'content' => '',
-        ];
-
         // Achievements
         if ($reply->anon === 0) {
             $this->user->unlock(new UserMadeComment(), 1);
@@ -155,6 +151,10 @@ class Comment extends Component
             $users = User::whereIn('username', $this->taggedUsers())->get();
             Notification::sendNow($users, new NewCommentTag(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
         }
+
+        $this->replyState = [
+            'content' => '',
+        ];
 
         $this->isReplying = false;
 
