@@ -18,7 +18,7 @@ class HistoryFactory extends Factory
         return [
             'user_id'           => fn () => User::factory()->create()->id,
             'agent'             => $this->faker->word(),
-            'info_hash'         => fn () => Torrent::factory()->create()->id,
+            'torrent_id'        => fn () => Torrent::factory()->create()->id,
             'uploaded'          => $this->faker->randomNumber(),
             'actual_uploaded'   => $this->faker->randomNumber(),
             'client_uploaded'   => $this->faker->randomNumber(),
@@ -32,7 +32,6 @@ class HistoryFactory extends Factory
             'hitrun'            => $this->faker->boolean(),
             'prewarn'           => $this->faker->boolean(),
             'completed_at'      => $this->faker->dateTime(),
-            'deleted_at'        => $this->faker->dateTime(),
         ];
     }
 }

@@ -363,13 +363,13 @@ class RequestController extends Controller
 
         $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = $user->id;
-        $torrentRequest->filled_hash = $request->input('info_hash');
+        $torrentRequest->torrent_id = $request->input('torrent_id');
         $torrentRequest->filled_when = Carbon::now();
         $torrentRequest->filled_anon = $request->input('filled_anon');
 
         $v = \validator($request->all(), [
             'request_id'  => 'required|exists:requests,id',
-            'info_hash'   => 'required|exists:torrents,info_hash',
+            'torrent_id'  => 'required|exists:torrents,id',
             'filled_anon' => 'required',
         ]);
 
@@ -378,7 +378,7 @@ class RequestController extends Controller
                 ->withErrors($v->errors());
         }
 
-        $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
+        $torrent = Torrent::withAnyStatus()->where('id', '=', $torrentRequest->torrent_id)->first();
         if ($torrent->isApproved() === false) {
             return \to_route('request', ['id' => $request->input('request_id')])
                 ->withErrors(\trans('request.pending-moderation'));
@@ -490,7 +490,7 @@ class RequestController extends Controller
 
             $torrentRequest->filled_by = null;
             $torrentRequest->filled_when = null;
-            $torrentRequest->filled_hash = null;
+            $torrentRequest->torrent_id = null;
             $torrentRequest->save();
 
             return \to_route('request', ['id' => $id])
@@ -603,7 +603,7 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = null;
         $torrentRequest->filled_when = null;
-        $torrentRequest->filled_hash = null;
+        $torrentRequest->torrent_id = null;
         $torrentRequest->approved_by = null;
         $torrentRequest->approved_when = null;
         $torrentRequest->save();

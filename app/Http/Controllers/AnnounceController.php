@@ -278,16 +278,13 @@ class AnnounceController extends Controller
             ), new TrackerException(135, [':port' => $queries['port']]));
 
         // Part.4 Get User Ip Address
-        $queries['ip-address'] = $request->getClientIp();
+        $queries['ip-address'] = \inet_pton($request->getClientIp());
 
         // Part.5 Get Users Agent
         $queries['user-agent'] = $request->headers->get('user-agent');
 
         // Part.6 bin2hex info_hash
         $queries['info_hash'] = \bin2hex($queries['info_hash']);
-
-        // Part.7 bin2hex peer_id
-        $queries['peer_id'] = \bin2hex($queries['peer_id']);
 
         return $queries;
     }
@@ -359,7 +356,11 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::with('peers')
+        $torrent = Torrent::with([
+                'peers' => fn ($query) => $query
+                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port'])
+                    ->selectRaw('INET6_NTOA(ip) as ip')
+            ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)

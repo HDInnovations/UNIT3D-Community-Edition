@@ -231,31 +231,31 @@
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.torrents.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                     {{ auth()->user()->getUploaded() }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                     {{ auth()->user()->getDownloaded() }}
                 </a>
             </li>
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.peers.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                     {{ auth()->user()->seedingTorrents()->count() }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                     {{ auth()->user()->leechingTorrents()->count() }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
                     {{ auth()->user()->untilRatio(config('other.ratio')) }}
                 </a>
@@ -267,7 +267,7 @@
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['username' => auth()->user()->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
                     {{ auth()->user()->getRatioString() }}
                 </a>
@@ -385,19 +385,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('achievements.index') }}">
+                        <a href="{{ route('users.achievements.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                             My {{ __('user.achievements') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.torrents.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                             {{ __('user.my-uploads') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('requests.index', ['requestor' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i>
                             {{ __('user.my-requested') }}
                         </a>

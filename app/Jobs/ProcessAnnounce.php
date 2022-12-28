@@ -135,8 +135,6 @@ class ProcessAnnounce implements ShouldQueue
 
         // Common Parts Extracted From Switch
         $peer->peer_id = $this->queries['peer_id'];
-        $peer->md5_peer_id = \md5($this->queries['peer_id']);
-        $peer->info_hash = $this->queries['info_hash'];
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
@@ -152,7 +150,6 @@ class ProcessAnnounce implements ShouldQueue
 
         $history->user_id = $this->user->id;
         $history->torrent_id = $this->torrent->id;
-        $history->info_hash = $this->queries['info_hash'];
         $history->agent = $this->queries['user-agent'];
 
         switch ($event) {
@@ -161,11 +158,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->active = 1;
                 $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->immune = $this->user->group->is_immune == 1;
-                $history->uploaded += 0;
-                $history->actual_uploaded += 0;
                 $history->client_uploaded = $realUploaded;
-                $history->downloaded += 0;
-                $history->actual_downloaded += 0;
                 $history->client_downloaded = $realDownloaded;
                 $history->save();
                 break;

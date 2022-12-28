@@ -29,7 +29,6 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -42,7 +41,7 @@ class TopicController extends Controller
     /**
      * TopicController Constructor.
      */
-    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
