@@ -45,34 +45,34 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($results as $f)
+                        @foreach ($followers as $follower)
                             <tr>
-                                @if ($f->user->image != null)
-                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
+                                @if ($follower->image != null)
+                                    <td><a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                                            <img src="{{ url('files/img/' . $follower->image) }}" alt="avatar"
                                                  data-toggle="tooltip"
-                                                 title="{{ $f->user->username }}" height="50px"
-                                                 data-original-title="{{ $f->user->username }}">
+                                                 title="{{ $follower->username }}" height="50px"
+                                                 data-original-title="{{ $follower->username }}">
                                         </a></td>
                                 @else
-                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                    <td><a href="{{ route('users.show', ['username' => $follower->username]) }}">
                                             <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
-                                                 title="{{ $f->user->username }}" height="50px"
-                                                 data-original-title="{{ $f->user->username }}">
+                                                 title="{{ $follower->username }}" height="50px"
+                                                 data-original-title="{{ $follower->username }}">
                                         </a></td>
                                 @endif
-                                <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                <td><a href="{{ route('users.show', ['username' => $follower->username]) }}">
                                             <span class="badge-user text-bold"
-                                                  style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                                  style="color:{{ $follower->group->color }};">{{ $follower->username }}</span>
                                     </a></td>
-                                <td>{{ $f->created_at }}</td>
+                                <td>{{ $follower->follow->created_at }}</td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="text-center col-md-12">
-                    {{ $results->links() }}
+                    {{ $followers->links() }}
                 </div>
             </div>
         @endif

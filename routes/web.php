@@ -423,6 +423,12 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
         });
 
+        Route::group(['prefix' => 'followers', 'as' => 'followers.'], function () {
+            Route::get('/', [App\Http\Controllers\User\FollowController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
+            Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
+        });
+
         // Peers
         Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
@@ -464,16 +470,6 @@ Route::group(['middleware' => 'language'], function () {
         // Filters
         Route::group(['prefix' => 'users'], function () {
             Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
-        });
-
-        // Followers
-        Route::group(['prefix' => 'follow', 'as' => 'follow.'], function () {
-            Route::post('/{username}', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
-            Route::delete('/{username}', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
-        });
-
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/followers', [App\Http\Controllers\User\UserController::class, 'followers'])->name('user_followers');
         });
 
         // Gifts

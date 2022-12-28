@@ -130,11 +130,11 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Follow::withoutGlobalScopes()
+        DB::table('follows')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Follow::withoutGlobalScopes()
+        DB::table('follows')
             ->whereIntegerNotInRaw('target_id', $userIds)
             ->whereNotNull('target_id')
             ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
