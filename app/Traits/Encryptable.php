@@ -25,7 +25,7 @@ trait Encryptable
             try {
                 $decryptedValue = Crypt::decrypt($value);
             } catch (\Illuminate\Contracts\Encryption\DecryptException $decryptException) {
-                $decryptedValue = 'The Value could not be decrypted.';
+                $decryptedValue = 'The value could not be decrypted.';
             }
             return $decryptedValue;
         }
