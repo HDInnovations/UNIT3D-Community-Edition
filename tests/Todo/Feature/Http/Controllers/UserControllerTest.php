@@ -231,7 +231,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_followers', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.followers.index', ['username' => $user->username]));
 
         $response->assertOk();
         $response->assertViewIs('user.follower.index');

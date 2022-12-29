@@ -67,13 +67,9 @@ class TorrentHelper
         }
 
         if ($torrent->anon == 0) {
-            $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
-            if ($followers) {
-                foreach ($followers as $follower) {
-                    $pushto = User::with('notification')->find($follower->user_id);
-                    if ($pushto->acceptsNotification($uploader, $pushto, 'following', 'show_following_upload')) {
-                        $pushto->notify(new NewUpload('follower', $torrent));
-                    }
+            foreach ($uploader->followers()->get() as $follower) {
+                if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
+                    $follower->notify(new NewUpload('follower', $torrent));
                 }
             }
         }

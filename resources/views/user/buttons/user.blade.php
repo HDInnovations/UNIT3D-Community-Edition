@@ -98,9 +98,9 @@
             @endif
         @else
             <li class="nav-tabV2">
-                @if (auth()->user()->follows()->following($user->id)->exists())
+                @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
                     <form
-                        action="{{ route('follow.destroy', ['username' => $user->username]) }}"
+                        action="{{ route('users.followers.destroy', ['username' => $user->username]) }}"
                         method="POST"
                         style="display: contents;"
                     >
@@ -112,7 +112,7 @@
                     </form>
                 @else
                     <form
-                        action="{{ route('follow.store', ['username' => $user->username]) }}"
+                        action="{{ route('users.followers.store', ['username' => $user->username]) }}"
                         method="POST"
                         style="display: contents;"
                     >
@@ -264,7 +264,7 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -299,10 +299,10 @@
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
-                <li class="{{ Route::is('user_followers') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_followers', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.followers.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.followers') }}
                     </a>

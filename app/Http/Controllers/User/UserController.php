@@ -49,7 +49,7 @@ class UserController extends Controller
             ->firstOrFail();
 
         $groups = Group::all();
-        $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
+        $followers = $user->followers()->latest()->limit(25)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
         $hitrun = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->latest()->paginate(10);
@@ -115,21 +115,6 @@ class UserController extends Controller
             'invitedBy'     => $invitedBy,
             'clients'       => $clients,
             'achievements'  => $achievements,
-        ]);
-    }
-
-    /**
-     * User Followers.
-     */
-    public function followers(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
-
-        return \view('user.follower.index', [
-            'route'   => 'follower',
-            'results' => $results,
-            'user'    => $user,
         ]);
     }
 

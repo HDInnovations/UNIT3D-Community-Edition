@@ -530,20 +530,20 @@
                         <i class="{{ config('other.font-awesome') }} fa-users text-success"></i>
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_follower'))
-                            @foreach ($followers as $f)
-                                @if ($f->user->image != null)
-                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                        <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
-                                             title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}"
-                                             alt="{{ $f->user->username }}">
+                            @foreach ($followers as $follower)
+                                @if ($follower->image != null)
+                                    <a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                                        <img src="{{ url('files/img/' . $follower->image) }}" data-toggle="tooltip"
+                                             title="{{ $follower->username }}" height="50px"
+                                             data-original-title="{{ $follower->username }}"
+                                             alt="{{ $follower->username }}">
                                     </a>
                                 @else
-                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
+                                    <a href="{{ route('users.show', ['username' => $follower->username]) }}">
                                         <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
-                                             title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}"
-                                             alt="{{ $f->user->username }}">
+                                             title="{{ $follower->username }}" height="50px"
+                                             data-original-title="{{ $follower->username }}"
+                                             alt="{{ $follower->username }}">
                                     </a>
                                 @endif
                             @endforeach
