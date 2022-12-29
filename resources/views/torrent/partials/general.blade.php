@@ -212,7 +212,7 @@
                             @if ($torrent->anon !== 1 && $torrent->user->private_profile !== 1)
                                 @if ($torrent->user->followers()->where('users.id', '=', auth()->user()->id)->exists())
                                     <form class="form-inline" style="line-height: 0; display: inline-block;" role="form"
-                                          action="{{ route('users.followers.destroy', ['username' => $torrent->user->username]) }}"
+                                          action="{{ route('users.followers.destroy', ['user' => $torrent->user]) }}"
                                           style="display: inline-block;" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -226,7 +226,7 @@
                                     </form>
                                 @else
                                     <form class="form-inline" style="line-height: 0; display: inline-block;" role="form"
-                                          action="{{ route('users.followers.store', ['username' => $torrent->user->username]) }}"
+                                          action="{{ route('users.followers.store', ['user' => $torrent->user]) }}"
                                           style="display: inline-block;" method="POST">
                                         @csrf
                                         <div class="form-group">
@@ -448,7 +448,7 @@
                     @if ($torrent->anon !== 1 && $torrent->user->private_profile !== 1)
                         @if ($torrent->user->followers()->where('users.id', '=', auth()->user()->id)->exists())
                             <form class="form-inline" role="form"
-                                  action="{{ route('users.followers.destroy', ['username' => $torrent->user->username]) }}"
+                                  action="{{ route('users.followers.destroy', ['user' => $torrent->user]) }}"
                                   style="display: inline-block;" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -462,7 +462,7 @@
                             </form>
                         @else
                             <form class="form-inline" role="form"
-                                  action="{{ route('users.followers.store', ['username' => $torrent->user->username]) }}"
+                                  action="{{ route('users.followers.store', ['user' => $torrent->user]) }}"
                                   style="display: inline-block;" method="POST">
                                 @csrf
                                 <div class="form-group">

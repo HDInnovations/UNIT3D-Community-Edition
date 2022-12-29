@@ -20,7 +20,7 @@ class AchievementsControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.achievements.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.achievements.index', ['user' => $user]));
 
         $response->assertOk()
             ->assertViewIs('user.achievement.index')

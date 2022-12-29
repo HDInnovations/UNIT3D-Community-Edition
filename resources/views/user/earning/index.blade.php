@@ -185,7 +185,7 @@
         </dl>
         <div class="panel__body">
             <a
-                href="{{ route('users.history.index', ['username' => $user->username, 'completed' => 'include', 'active' => 'include']) }}"
+                href="{{ route('users.history.index', ['user' => $user, 'completed' => 'include', 'active' => 'include']) }}"
                 class="form__button form__button--filled"
             >
                 {{ __('bon.review-seeds') }}

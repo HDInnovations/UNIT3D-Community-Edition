@@ -22,11 +22,10 @@ class BanController extends Controller
     /**
      * Show user bans.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
-        $user = User::where('username', '=', $username)->sole();
         $bans = $user->userban()->latest()->get();
 
         return \view('user.ban.index', [

@@ -23,10 +23,8 @@ class TorrentController extends Controller
     /**
      * Show user uploads.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
         \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $history = DB::table('history')
