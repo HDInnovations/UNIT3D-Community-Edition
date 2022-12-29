@@ -10,7 +10,6 @@ use App\Models\BotTransaction;
 use App\Models\Comment;
 use App\Models\FailedLoginAttempt;
 use App\Models\FeaturedTorrent;
-use App\Models\Follow;
 use App\Models\Forum;
 use App\Models\FreeleechToken;
 use App\Models\Graveyard;

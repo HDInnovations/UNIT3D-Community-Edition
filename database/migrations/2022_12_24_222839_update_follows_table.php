@@ -18,7 +18,7 @@ return new class () extends Migration {
                 $query->from('follows')->selectRaw('MIN(id)')->groupBy('user_id', 'target_id');
             }, 'f'))
             ->delete();
-        
+
         Schema::table('follows', function (Blueprint $table) {
             $table->dropColumn('id');
             $table->primary(['user_id', 'target_id']);

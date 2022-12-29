@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Follow;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
