@@ -38,7 +38,6 @@ use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\Warning;
@@ -83,14 +82,13 @@ class TorrentController extends Controller
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
-        $uploader = $torrent->user;
         $user = $request->user();
+
+        $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(10);
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
-        $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
+        $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
         $audits = Audit::with('user')->where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get();
 
@@ -133,7 +131,6 @@ class TorrentController extends Controller
 
         return \view('torrent.torrent', [
             'torrent'            => $torrent,
-            'comments'           => $comments,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
             'freeleech_token'    => $freeleechToken,
@@ -144,7 +141,6 @@ class TorrentController extends Controller
             'user_tips'          => $userTips,
             'featured'           => $featured,
             'mediaInfo'          => $mediaInfo,
-            'uploader'           => $uploader,
             'last_seed_activity' => $lastSeedActivity,
             'playlists'          => $playlists,
             'audits'             => $audits,
@@ -318,17 +314,13 @@ class TorrentController extends Controller
                 }
 
                 // Reset Requests
-                $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
-                foreach ($torrentRequest as $req) {
-                    if ($req) {
-                        $req->filled_by = null;
-                        $req->filled_when = null;
-                        $req->filled_hash = null;
-                        $req->approved_by = null;
-                        $req->approved_when = null;
-                        $req->save();
-                    }
-                }
+                $torrent->requests()->update([
+                    'filled_by'     => null,
+                    'filled_when'   => null,
+                    'torrent_id'    => null,
+                    'approved_by'   => null,
+                    'approved_when' => null,
+                ]);
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));

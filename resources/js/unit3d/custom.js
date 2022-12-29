@@ -51,8 +51,3 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
-
-// WYSIBB Editor
-$(document).ready(function () {
-    $('#editor').wysibb({});
-});

@@ -139,6 +139,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs to many followers
+     */
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'target_id', 'user_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
+     * Belongs to many followees
+     */
+    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'target_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
 
      * Has Many Messages.
      */
@@ -265,14 +285,6 @@ class User extends Authenticatable
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
-    }
-
-    /**
-     * Has Many Followers.
-     */
-    public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Follow::class);
     }
 
     /**

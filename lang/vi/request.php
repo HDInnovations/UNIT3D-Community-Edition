@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Bạn không có đủ tiền thưởng',
     'edit-request'        => 'Chỉnh sửa yêu cầu',
     'enter-bp'            => 'Nhập điểm thưởng (tối thiểu 100)',
-    'enter-hash'          => 'Nhập thông tin Hash của Torrent đã tải lên',
+    'enter-hash'          => 'Nhập thông tin ID của Torrent đã tải lên',
     'fill'                => 'Lấp đầy',
     'fill-request'        => 'Điền vào yêu cầu này',
     'filled'              => 'Đầy',

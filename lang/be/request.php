@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Вы не маеце дастаткова Bonus',
     'edit-request'        => 'змяніць запыт',
     'enter-bp'            => 'Увядзіце бонусныя ачкі (мінімум 100)',
-    'enter-hash'          => 'Увядзіце Info Hash запампоўваецца Torrent',
+    'enter-hash'          => 'Увядзіце ID запампоўваецца Torrent',
     'fill'                => 'запоўніць',
     'fill-request'        => 'Запоўніце гэтую заяўку',
     'filled'              => 'запоўнены',

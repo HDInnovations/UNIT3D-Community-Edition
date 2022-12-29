@@ -10,7 +10,6 @@ use App\Models\BotTransaction;
 use App\Models\Comment;
 use App\Models\FailedLoginAttempt;
 use App\Models\FeaturedTorrent;
-use App\Models\Follow;
 use App\Models\Forum;
 use App\Models\FreeleechToken;
 use App\Models\Graveyard;
@@ -95,9 +94,9 @@ return new class () extends Migration {
             ->whereNotNull('owned_by')
             ->update(['owned_by' => 1, 'updated_at' => DB::raw('updated_at')]);
         Ban::withoutGlobalScopes()
-            ->whereIntegerNotInRaw('created_at', $userIds)
-            ->whereNotNull('created_at')
-            ->update(['created_at' => 1, 'updated_at' => DB::raw('updated_at')]);
+            ->whereIntegerNotInRaw('created_by', $userIds)
+            ->whereNotNull('created_by')
+            ->update(['created_by' => 1, 'updated_at' => DB::raw('updated_at')]);
         BonTransactions::withoutGlobalScopes()
             ->whereIntegerNotInRaw('sender', $userIds)
             ->whereNotNull('sender')
@@ -130,11 +129,11 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Follow::withoutGlobalScopes()
+        DB::table('follows')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Follow::withoutGlobalScopes()
+        DB::table('follows')
             ->whereIntegerNotInRaw('target_id', $userIds)
             ->whereNotNull('target_id')
             ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);

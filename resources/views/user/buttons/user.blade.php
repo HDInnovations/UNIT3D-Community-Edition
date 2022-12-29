@@ -98,9 +98,9 @@
             @endif
         @else
             <li class="nav-tabV2">
-                @if (auth()->user()->follows()->following($user->id)->exists())
+                @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
                     <form
-                        action="{{ route('follow.destroy', ['username' => $user->username]) }}"
+                        action="{{ route('users.followers.destroy', ['username' => $user->username]) }}"
                         method="POST"
                         style="display: contents;"
                     >
@@ -112,7 +112,7 @@
                     </form>
                 @else
                     <form
-                        action="{{ route('follow.store', ['username' => $user->username]) }}"
+                        action="{{ route('users.followers.store', ['username' => $user->username]) }}"
                         method="POST"
                         style="display: contents;"
                     >
@@ -175,12 +175,12 @@
         </ul>
     </li>
 @endif
-@if ($isProfileOwner || $isModo || auth()->user()->isAllowed($user, 'forum', 'show_requested'))
+@if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
             <a
-                class="{{ Route::is('user_torrents', 'user_uploads', 'user_active', 'user_resurrections', 'user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                href="{{ route('user_torrents', ['username' => $user->username]) }}"
+                class="{{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                href="{{ route('users.history.index', ['username' => $user->username]) }}"
             >
                 {{ __('torrent.torrents') }}
             </a>
@@ -191,41 +191,41 @@
         @endif
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li class="{{ Route::is('user_torrents') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.history.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_torrents') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_torrents', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.history.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.history.index', ['username' => $user->username]) }}"
                     >
                         {{ __('torrent.history') }}
                     </a>
                 </li>
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('user_uploads', ['username' => $user->username]) }}">
+                    <a class="nav-tab__link" href="{{ route('users.torrents.index', ['username' => $user->username]) }}">
                         {{ __('user.uploads') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('user_active') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.peers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_active') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_active', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.peers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.peers.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.active') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('user_resurrections') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a 
-                        class="{{ Route::is('user_resurrections') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_resurrections', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.resurrections.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.resurrections') }}
                     </a>
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, '', 'show_requested'))
-                <li class="{{ Route::is('user_requested') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="nav-tavV2">
                     <a
-                        class="{{ Route::is('user_requested') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_requested', ['username' => $user->username]) }}"
+                        class="nav-tab__link"
+                        href="{{ route('requests.index', ['requestor' => $user->username]) }}"
                     >
                         {{ __('user.requested') }}
                     </a>
@@ -238,17 +238,18 @@
                     </a>
                 </li>
                 <form
-                    action="{{ route('flush_own_ghost_peers', ['username' => $user->username]) }}"
+                    action="{{ route('users.peers.mass_destroy', ['username' => $user->username]) }}"
                     method="POST"
                     style="display: contents;"
                 >
-                    @csrf
+                    @csrf()
+                    @method('DELETE')
                     <button class="nav-tab__link" type="submit">
                         {{ __('staff.flush-ghost-peers') }}
                     </button>
                 </form>
                 <li class="nav-tabV2">
-                    <a download class="nav-tab__link" href="{{ route('download_history_torrents', ['username' => $user->username]) }}">
+                    <a download class="nav-tab__link" href="{{ route('users.torrent_zip.show', ['username' => $user->username]) }}">
                         {{ __('torrent.download-all') }}
                     </a>
                 </li>
@@ -263,45 +264,45 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('achievements.*', 'user_topics', 'user_posts', 'user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
-                <li class="{{ Route::is('achievements.show') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('achievements.show') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('achievements.show', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.achievements.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.achievements.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.achievements') }}
                     </a>
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, 'forum', 'show_topic'))
-                <li class="{{ Route::is('user_topics') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.topics.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_topics') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_topics', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.topics.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.topics.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.topics') }}
                     </a>
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
-                <li class="{{ Route::is('user_posts') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.posts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_posts') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_posts', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.posts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.posts.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.posts') }}
                     </a>
                 </li>
             @endif
             @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
-                <li class="{{ Route::is('user_followers') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('user_followers') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('user_followers', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.followers.index', ['username' => $user->username]) }}"
                     >
                         {{ __('user.followers') }}
                     </a>

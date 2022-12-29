@@ -24,7 +24,7 @@ export default {
                 confirmButtonText: 'Send',
                 showLoaderOnConfirm: true,
                 willOpen: () => {
-                    this.editor = $('#chat-message-pm').wysibb();
+                    this.editor = $('#chat-message-pm').val();
                     this.target = $('#receiver-id').val();
                 },
                 willClose: () => {
