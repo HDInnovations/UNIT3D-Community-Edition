@@ -138,7 +138,7 @@ class TorrentRequestSearch extends Component
                 if ($match) {
                     $query
                         ->where('user_id', '=', $match->id)
-                        ->when(! (\auth()->user()->group->is_modo || \auth()->user()->id === $match->id), function ($query) {
+                        ->when(!\auth()->user()->group->is_modo && \auth()->user()->id !== $match->id, function ($query) {
                             $query->where('anon', '=', 0);
                         });
                 }

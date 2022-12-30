@@ -70,7 +70,7 @@ class UserSearch extends Component
         return User::query()
             ->with('group')
             ->when($this->search, fn ($query) => $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%'))
-            ->when($this->show === true, fn ($query) => $query->onlyTrashed())
+            ->when($this->show, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

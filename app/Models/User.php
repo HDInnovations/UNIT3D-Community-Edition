@@ -575,7 +575,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden && $target->hidden == 1) {
+        if ($target->getHidden() && $target->getHidden() == 1) {
             return false;
         }
 
@@ -737,7 +737,7 @@ class User extends Authenticatable
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->signature, true));
+        return (new Linkify())->linky($bbcode->parse($this->signature));
     }
 
     /**
@@ -759,7 +759,7 @@ class User extends Authenticatable
 
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->about, true));
+        return (new Linkify())->linky($bbcode->parse($this->about));
     }
 
     /**

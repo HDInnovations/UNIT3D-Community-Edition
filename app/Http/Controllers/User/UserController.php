@@ -170,7 +170,7 @@ class UserController extends Controller
 
         // Prevent User from abusing BBCODE Font Size (max. 99)
         $aboutTemp = $request->input('about');
-        if (\str_contains((string) $aboutTemp, '[size=') && \preg_match('/\[size=[0-9]{3,}\]/', (string) $aboutTemp)) {
+        if (\str_contains((string) $aboutTemp, '[size=') && \preg_match('/\[size=\d{3,}\]/', (string) $aboutTemp)) {
             return \to_route('users.show', ['username' => $user->username])
                 ->withErrors('Font size is too big!');
         }

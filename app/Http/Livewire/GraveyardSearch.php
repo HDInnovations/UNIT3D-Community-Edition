@@ -124,12 +124,12 @@ class GraveyardSearch extends Component
             ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
-            ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
-            ->when($this->featured !== false, fn ($query) => $query->featured())
-            ->when($this->stream !== false, fn ($query) => $query->streamOptimized())
-            ->when($this->sd !== false, fn ($query) => $query->sd())
-            ->when($this->highspeed !== false, fn ($query) => $query->highspeed())
-            ->when($this->internal !== false, fn ($query) => $query->internal())
+            ->when($this->doubleup, fn ($query) => $query->doubleup())
+            ->when($this->featured, fn ($query) => $query->featured())
+            ->when($this->stream, fn ($query) => $query->streamOptimized())
+            ->when($this->sd, fn ($query) => $query->sd())
+            ->when($this->highspeed, fn ($query) => $query->highspeed())
+            ->when($this->internal, fn ($query) => $query->internal())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

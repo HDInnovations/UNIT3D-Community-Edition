@@ -99,7 +99,7 @@ class TMDBScraper implements ShouldQueue
             $titleSort = \addslashes(\str_replace(
                 ['The ', 'An ', 'A ', '"'],
                 [''],
-                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)
+                Str::limit($matches['namesort'] !== '' && $matches['namesort'] !== '0' ? $matches['namesort'].' '.$year : $movie['title'], 100)
             ));
 
             $array = [

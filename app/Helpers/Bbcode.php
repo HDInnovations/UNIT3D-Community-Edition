@@ -272,9 +272,8 @@ class Bbcode
                 $validatedUrls = \collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
                 $chunkedUrls = $validatedUrls->chunk(\count($comparates));
                 $html = \view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
-                $html = \preg_replace('/\s+/', ' ', $html);
 
-                return $html;
+                return \preg_replace('/\s+/', ' ', $html);
             },
             $source
         );
@@ -301,7 +300,7 @@ class Bbcode
             }
 
             // Is the potential tag opening or closing?
-            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
+            if ($source[$index + 1] === '/' && $openedElements !== []) {
                 $name = \array_pop($openedElements);
                 $el = $this->parsers[$name];
                 $tag = \substr($source, $index, \strlen($el['closeBbcode']));
@@ -333,7 +332,7 @@ class Bbcode
             $index++;
         }
 
-        while (! empty($openedElements)) {
+        while ($openedElements !== []) {
             $source .= $this->parsers[\array_pop($openedElements)]['closeHtml'];
         }
 

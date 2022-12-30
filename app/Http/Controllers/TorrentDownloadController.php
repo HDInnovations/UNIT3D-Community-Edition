@@ -44,13 +44,13 @@ class TorrentDownloadController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->count();
         // User's ratio is too low
-        if ($user->getRatio() < \config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
+        if ($user->getRatio() < \config('other.ratio') && ($torrent->user_id !== $user->id && !$hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && ! ($torrent->user_id === $user->id || $hasHistory)) {
+        if ($user->can_download == 0 && ($torrent->user_id !== $user->id && !$hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }

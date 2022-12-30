@@ -99,7 +99,7 @@ class ProcessAnnounce implements ShouldQueue
             $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
         }
 
-        $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
+        $oldUpdate = $peer->updated_at->timestamp ?? \now()->getTimestamp();
 
         // Modification of Upload and Download
         $personalFreeleech = PersonalFreeleech::query()
@@ -176,7 +176,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->completed_at = \now();
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
+                    $newUpdate = $peer->updated_at->getTimestamp();
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
@@ -204,7 +204,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->client_downloaded = $realDownloaded;
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
+                    $newUpdate = $peer->updated_at->getTimestamp();
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
@@ -231,7 +231,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->client_downloaded = $realDownloaded;
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
+                    $newUpdate = $peer->updated_at->getTimestamp();
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }

@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards): mixed
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = $guards === [] ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (\auth()->guard($guard)->check()) {

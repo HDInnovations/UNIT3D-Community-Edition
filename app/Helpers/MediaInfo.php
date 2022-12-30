@@ -346,13 +346,7 @@ class MediaInfo
 
     private function formatOutput($data): array
     {
-        $output = [];
-        $output['general'] = empty($data['general']) ? null : $data['general'];
-        $output['video'] = empty($data['video']) ? null : $data['video'];
-        $output['audio'] = empty($data['audio']) ? null : $data['audio'];
-        $output['text'] = empty($data['text']) ? null : $data['text'];
-
-        return $output;
+        return ['general' => empty($data['general']) ? null : $data['general'], 'video' => empty($data['video']) ? null : $data['video'], 'audio' => empty($data['audio']) ? null : $data['audio'], 'text' => empty($data['text']) ? null : $data['text']];
     }
 
     private function computerSize($number, $size): float

@@ -143,7 +143,7 @@ class BBCodeConverter
      */
     protected function replaceTables(): void
     {
-        $replaceRow = function ($matches) {
+        $replaceRow = function ($matches): string {
             $columns = $matches['columns'];
             $columns = \trim($columns);
 
@@ -159,13 +159,13 @@ class BBCodeConverter
         $this->text = \preg_replace_callback('#\[table?\](?P<rows>[\W\w\s]*?)\[/table\]#iu', function ($tableMatches) use ($replaceRow) {
             \preg_match_all('#\[th?\](?P<columns>[\W\w\s]*?)\[/th\]#iu', $tableMatches['rows'], $headerMatches, PREG_SET_ORDER);
             $headers = [];
-            if (\count($headerMatches) !== 0) {
+            if ($headerMatches !== []) {
                 $headers = \array_map($replaceRow, $headerMatches);
             }
 
             \preg_match_all('#\[tr?\](?P<columns>[\W\w\s]*?)\[/tr\]#iu', $tableMatches['rows'], $contentMatches, PREG_SET_ORDER);
             $rows = [];
-            if (\count($contentMatches) !== 0) {
+            if ($contentMatches !== []) {
                 $rows = \array_map($replaceRow, $contentMatches);
             }
 

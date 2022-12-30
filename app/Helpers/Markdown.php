@@ -16,7 +16,7 @@ namespace App\Helpers;
 
 class Markdown
 {
-    public function text($text)
+    public function text($text): string
     {
         $Elements = $this->textElements($text);
 
@@ -299,12 +299,12 @@ class Markdown
         return $Component['element'];
     }
 
-    protected function isBlockContinuable($Type)
+    protected function isBlockContinuable($Type): bool
     {
         return \method_exists($this, 'block'.$Type.'Continue');
     }
 
-    protected function isBlockCompletable($Type)
+    protected function isBlockCompletable($Type): bool
     {
         return \method_exists($this, 'block'.$Type.'Complete');
     }
@@ -1702,7 +1702,7 @@ class Markdown
     // Static Methods
     //
 
-    protected static function escape($text, $allowQuotes = false)
+    protected static function escape($text, $allowQuotes = false): string
     {
         return \htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
     }

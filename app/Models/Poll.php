@@ -96,7 +96,7 @@ class Poll extends Model
     protected static function boot(): void
     {
         parent::boot();
-        self::creating(function ($poll) {
+        self::creating(function ($poll): bool {
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }

@@ -99,7 +99,7 @@ class Http2ServerPush
      */
     protected function getCrawler(Response $response): ?Crawler
     {
-        if ($this->crawler) {
+        if ($this->crawler !== null) {
             return $this->crawler;
         }
 
