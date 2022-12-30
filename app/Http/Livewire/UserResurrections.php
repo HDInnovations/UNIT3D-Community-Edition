@@ -68,8 +68,8 @@ class UserResurrections extends Component
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id')
             ->where('graveyard.user_id', '=', $this->user->id)
-            ->when($this->rewarded === 'include', fn ($query) => $query->where('rewarded', '=', 1))
-            ->when($this->rewarded === 'exclude', fn ($query) => $query->where('rewarded', '=', 0))
+            ->when($this->rewarded === 'include', static fn($query) => $query->where('rewarded', '=', 1))
+            ->when($this->rewarded === 'exclude', static fn($query) => $query->where('rewarded', '=', 0))
             ->when($this->name, fn ($query) => $query->where('name', 'like', '%'.\str_replace(' ', '%', $this->name).'%'))
             ->when(
                 \in_array($this->sortField, ['created_at', 'seedtime', 'rewarded']),

@@ -43,7 +43,7 @@ class AutoHighspeedTag extends Command
      */
     public function handle(): void
     {
-        $seedboxIps = Seedbox::all()->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+        $seedboxIps = Seedbox::all()->pluck('ip')->filter(static fn($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
         Torrent::withAnyStatus()
             ->leftJoinSub(
@@ -51,7 +51,7 @@ class AutoHighspeedTag extends Command
                     ->select('torrent_id')
                     ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
                 'highspeed_torrents',
-                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
+                static fn($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )
             ->update([
                 'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),

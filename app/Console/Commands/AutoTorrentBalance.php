@@ -45,7 +45,7 @@ class AutoTorrentBalance extends Command
                 ->selectRaw('SUM(actual_uploaded) - SUM(actual_downloaded) AS balance')
                 ->groupBy('torrent_id'),
             'balances',
-            fn ($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
+            static fn($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
         )
             ->update(['torrents.balance' => DB::raw('balances.balance')]);
 

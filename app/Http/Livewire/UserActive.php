@@ -107,8 +107,8 @@ class UserActive extends Component
             ->when($this->ip !== '', fn ($query) => $query->where('ip', '=', $this->ip))
             ->when($this->port !== '', fn ($query) => $query->where('port', '=', $this->port))
             ->when($this->client !== '', fn ($query) => $query->where('agent', '=', $this->client))
-            ->when($this->seeding === 'include', fn ($query) => $query->where('seeder', '=', 1))
-            ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
+            ->when($this->seeding === 'include', static fn($query) => $query->where('seeder', '=', 1))
+            ->when($this->seeding === 'exclude', static fn($query) => $query->where('seeder', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -50,7 +50,7 @@ class SyncPeers extends Command
                     ->addSelect(DB::raw('sum(case when peers.left <> 0 then 1 else 0 end) as updated_leechers'))
                     ->groupBy('torrent_id'),
                 'seeders_leechers',
-                fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
+                static fn($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
             )
             ->update([
                 'seeders'  => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),

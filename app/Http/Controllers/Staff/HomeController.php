@@ -33,8 +33,8 @@ class HomeController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // User Info
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', static fn() => Group::where('slug', '=', 'validating')->pluck('id'));
         $users = \cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
             return DB::table('users')
                 ->selectRaw('count(*) as total')

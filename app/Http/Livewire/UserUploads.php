@@ -81,8 +81,8 @@ class UserUploads extends Component
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when($this->status !== [], fn ($query) => $query->whereIntegerInRaw('status', $this->status))
-            ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', 1))
-            ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', 0))
+            ->when($this->personalRelease === 'include', static fn($query) => $query->where('personal_release', '=', 1))
+            ->when($this->personalRelease === 'exclude', static fn($query) => $query->where('personal_release', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

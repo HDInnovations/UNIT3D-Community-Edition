@@ -300,15 +300,15 @@ class AnnounceController extends Controller
         // Caached System Required Groups
         $bannedGroup = \cache()->rememberForever(
             'banned_group',
-            fn () => Group::where('slug', '=', 'banned')->pluck('id')
+            static fn() => Group::where('slug', '=', 'banned')->pluck('id')
         );
         $validatingGroup = \cache()->rememberForever(
             'validating_group',
-            fn () => Group::where('slug', '=', 'validating')->pluck('id')
+            static fn() => Group::where('slug', '=', 'validating')->pluck('id')
         );
         $disabledGroup = \cache()->rememberForever(
             'disabled_group',
-            fn () => Group::where('slug', '=', 'disabled')->pluck('id')
+            static fn() => Group::where('slug', '=', 'disabled')->pluck('id')
         );
 
         // Check Passkey Against Users Table
@@ -357,7 +357,7 @@ class AnnounceController extends Controller
     {
         // Check Info Hash Against Torrents Table
         $torrent = Torrent::with([
-                'peers' => fn ($query) => $query
+                'peers' => static fn($query) => $query
                     ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port'])
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
@@ -500,7 +500,7 @@ class AnnounceController extends Controller
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
             $peers = $torrent->peers
-                ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
+                ->when($queries['left'] == 0, static fn($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
                 ->take($limit)
                 ->map

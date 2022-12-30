@@ -44,10 +44,10 @@ class MassActionController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', static fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabledGroup = \cache()->rememberForever('disabled_group', static fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedGroup = \cache()->rememberForever('pruned_group', static fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
         $users = User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
 
         $subject = $request->input('subject');
@@ -78,8 +78,8 @@ class MassActionController extends Controller
      */
     public function update(): \Illuminate\Http\RedirectResponse
     {
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', static fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $memberGroup = \cache()->rememberForever('member_group', static fn() => Group::where('slug', '=', 'user')->pluck('id'));
         foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
             $user->group_id = $memberGroup[0];
             $user->active = 1;

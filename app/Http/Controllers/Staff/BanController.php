@@ -46,7 +46,7 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
 
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 

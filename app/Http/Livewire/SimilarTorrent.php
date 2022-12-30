@@ -51,13 +51,13 @@ class SimilarTorrent extends Component
 
     final public function updatedSelectPage($value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray() : [];
+        $this->checked = $value ? $this->torrents->pluck('id')->map(static fn($item) => (string) $item)->toArray() : [];
     }
 
     final public function selectAll(): void
     {
         $this->selectAll = true;
-        $this->checked = $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+        $this->checked = $this->torrents->pluck('id')->map(static fn($item) => (string) $item)->toArray();
     }
 
     final public function updatedChecked(): void

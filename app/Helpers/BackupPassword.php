@@ -59,7 +59,7 @@ class BackupPassword
         $zipArchive->open($path, ZipArchive::OVERWRITE);
         $zipArchive->addFile($path, 'backup.zip');
         $zipArchive->setPassword($this->password);
-        Collection::times($zipArchive->numFiles, fn ($i) => $zipArchive->setEncryptionIndex($i - 1, $encryption));
+        Collection::times($zipArchive->numFiles, static fn($i) => $zipArchive->setEncryptionIndex($i - 1, $encryption));
         $zipArchive->close();
 
         $this->path = $path;

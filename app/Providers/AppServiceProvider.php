@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {
-            $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+            $footerPages = \cache()->remember('cached-pages', 3_600, static fn() => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
             $view->with(['footer_pages' => $footerPages]);
         });
@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Pagination\Paginator::useBootstrap();
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        Blade::directive('hiddencaptcha', static fn($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',

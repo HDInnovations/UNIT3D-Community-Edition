@@ -61,7 +61,7 @@ class EarningController extends Controller
             ->clone()
             ->whereHas(
                 'torrent',
-                fn ($query) => $query
+                static fn($query) => $query
                 ->where('seeders', '=', 1)
                 ->where('times_completed', '>=', 3)
             )
@@ -76,7 +76,7 @@ class EarningController extends Controller
             ->clone()
             ->whereHas(
                 'torrent',
-                fn ($query) => $query
+                static fn($query) => $query
                 ->where('created_at', '<', Carbon::now()->subMonths(6)->toDateTimeString())
                 ->where('created_at', '>', Carbon::now()->subYear()->toDateTimeString()),
             )

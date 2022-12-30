@@ -67,7 +67,7 @@ class RegisterController extends Controller
                 ->withErrors(\trans('auth.invalid-key'));
         }
 
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', static fn() => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
