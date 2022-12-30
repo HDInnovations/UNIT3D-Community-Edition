@@ -134,9 +134,9 @@ class UserTorrents extends Component
             )
                 ->when(
                     $this->unsatisfied === 'exclude',
-                    static fn($query) => $query
+                    static fn ($query) => $query
                     ->where(
-                        static fn($query) => $query
+                        static fn ($query) => $query
                         ->where('seedtime', '>', \config('hitrun.seedtime'))
                         ->orWhere('immune', '=', 1)
                         ->orWhereRaw('actual_downloaded < (torrents.size * ? / 100)', [\config('hitrun.buffer')])
@@ -144,25 +144,25 @@ class UserTorrents extends Component
                 )
                 ->when(
                     $this->unsatisfied === 'include',
-                    static fn($query) => $query
+                    static fn ($query) => $query
                     ->where('seedtime', '<', \config('hitrun.seedtime'))
                     ->where('immune', '=', 0)
                     ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [\config('hitrun.buffer')])
                 )
-            ->when($this->active === 'include', static fn($query) => $query->where('active', '=', 1))
-            ->when($this->active === 'exclude', static fn($query) => $query->where(static fn($query) => $query->where('active', '=', 0)->orWhereNull('active')))
-            ->when($this->completed === 'include', static fn($query) => $query->where('seeder', '=', 1))
-            ->when($this->completed === 'exclude', static fn($query) => $query->where(static fn($query) => $query->where('seeder', '=', 0)->orWhereNull('seeder')))
-            ->when($this->prewarn === 'include', static fn($query) => $query->where('prewarn', '=', 1))
-            ->when($this->prewarn === 'exclude', static fn($query) => $query->where(static fn($query) => $query->where('prewarn', '=', 0)->orWhereNull('prewarn')))
-            ->when($this->hitrun === 'include', static fn($query) => $query->where('hitrun', '=', 1))
-            ->when($this->hitrun === 'exclude', static fn($query) => $query->where(static fn($query) => $query->where('hitrun', '=', 0)->orWhereNull('hitrun')))
-            ->when($this->immune === 'include', static fn($query) => $query->where('immune', '=', 1))
-            ->when($this->immune === 'exclude', static fn($query) => $query->where(static fn($query) => $query->where('immune', '=', 0)->orWhereNull('immune')))
+            ->when($this->active === 'include', static fn ($query) => $query->where('active', '=', 1))
+            ->when($this->active === 'exclude', static fn ($query) => $query->where(static fn ($query) => $query->where('active', '=', 0)->orWhereNull('active')))
+            ->when($this->completed === 'include', static fn ($query) => $query->where('seeder', '=', 1))
+            ->when($this->completed === 'exclude', static fn ($query) => $query->where(static fn ($query) => $query->where('seeder', '=', 0)->orWhereNull('seeder')))
+            ->when($this->prewarn === 'include', static fn ($query) => $query->where('prewarn', '=', 1))
+            ->when($this->prewarn === 'exclude', static fn ($query) => $query->where(static fn ($query) => $query->where('prewarn', '=', 0)->orWhereNull('prewarn')))
+            ->when($this->hitrun === 'include', static fn ($query) => $query->where('hitrun', '=', 1))
+            ->when($this->hitrun === 'exclude', static fn ($query) => $query->where(static fn ($query) => $query->where('hitrun', '=', 0)->orWhereNull('hitrun')))
+            ->when($this->immune === 'include', static fn ($query) => $query->where('immune', '=', 1))
+            ->when($this->immune === 'exclude', static fn ($query) => $query->where(static fn ($query) => $query->where('immune', '=', 0)->orWhereNull('immune')))
             ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', $this->user->id))
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
-            ->when($this->downloaded === 'include', static fn($query) => $query->where('history.actual_downloaded', '>', 0))
-            ->when($this->downloaded === 'exclude', static fn($query) => $query->where('history.actual_downloaded', '=', 0))
+            ->when($this->downloaded === 'include', static fn ($query) => $query->where('history.actual_downloaded', '>', 0))
+            ->when($this->downloaded === 'exclude', static fn ($query) => $query->where('history.actual_downloaded', '=', 0))
             ->when($this->status !== [], fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

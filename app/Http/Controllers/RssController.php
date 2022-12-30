@@ -149,15 +149,15 @@ class RssController extends Controller
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
 
-        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', static fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabledGroup = \cache()->rememberForever('disabled_group', static fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         \abort_if($user->group->id == $bannedGroup[0] || $user->group->id == $disabledGroup[0] || ! $user->active, 404);
 
         $rss = Rss::query()
             ->where('id', '=', $id)
             ->where(
-                static fn($query) => $query
+                static fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->orWhere('is_private', '=', 0)
             )
@@ -169,29 +169,29 @@ class RssController extends Controller
 
         $torrents = \cache()->remember($cacheKey, 300, function () use ($search, $user) {
             return Torrent::with('user', 'category', 'type', 'resolution')
-                ->when($search->search !== null, static fn($query) => $query->ofName($search->search))
-                ->when($search->description !== null, static fn($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
-                ->when($search->uploader !== null, static fn($query) => $query->ofUploader($search->uploader))
-                ->when($search->categories !== null, static fn($query) => $query->ofCategory($search->categories))
-                ->when($search->types !== null, static fn($query) => $query->ofType($search->types))
-                ->when($search->resolutions !== null, static fn($query) => $query->ofResolution($search->resolutions))
-                ->when($search->genres !== null, static fn($query) => $query->ofGenre($search->genres))
-                ->when($search->tmdb !== null, static fn($query) => $query->ofTmdb((int) $search->tmdb))
-                ->when($search->imdb !== null, static fn($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)))
-                ->when($search->tvdb !== null, static fn($query) => $query->ofTvdb((int) $search->tvdb))
-                ->when($search->mal !== null, static fn($query) => $query->ofMal((int) $search->mal))
-                ->when($search->freeleech !== null, static fn($query) => $query->ofFreeleech([25, 50, 75, 100]))
-                ->when($search->doubleupload !== null, static fn($query) => $query->doubleup())
-                ->when($search->featured !== null, static fn($query) => $query->featured())
-                ->when($search->stream !== null, static fn($query) => $query->streamOptimized())
-                ->when($search->sd !== null, static fn($query) => $query->sd())
-                ->when($search->highspeed !== null, static fn($query) => $query->highspeed())
-                ->when($search->bookmark !== null, static fn($query) => $query->bookmarkedBy($user))
-                ->when($search->internal !== null, static fn($query) => $query->internal())
-                ->when($search->personalrelease !== null, static fn($query) => $query->personalRelease())
-                ->when($search->alive !== null, static fn($query) => $query->alive())
-                ->when($search->dying !== null, static fn($query) => $query->dying())
-                ->when($search->dead !== null, static fn($query) => $query->dead())
+                ->when($search->search !== null, static fn ($query) => $query->ofName($search->search))
+                ->when($search->description !== null, static fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
+                ->when($search->uploader !== null, static fn ($query) => $query->ofUploader($search->uploader))
+                ->when($search->categories !== null, static fn ($query) => $query->ofCategory($search->categories))
+                ->when($search->types !== null, static fn ($query) => $query->ofType($search->types))
+                ->when($search->resolutions !== null, static fn ($query) => $query->ofResolution($search->resolutions))
+                ->when($search->genres !== null, static fn ($query) => $query->ofGenre($search->genres))
+                ->when($search->tmdb !== null, static fn ($query) => $query->ofTmdb((int) $search->tmdb))
+                ->when($search->imdb !== null, static fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)))
+                ->when($search->tvdb !== null, static fn ($query) => $query->ofTvdb((int) $search->tvdb))
+                ->when($search->mal !== null, static fn ($query) => $query->ofMal((int) $search->mal))
+                ->when($search->freeleech !== null, static fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+                ->when($search->doubleupload !== null, static fn ($query) => $query->doubleup())
+                ->when($search->featured !== null, static fn ($query) => $query->featured())
+                ->when($search->stream !== null, static fn ($query) => $query->streamOptimized())
+                ->when($search->sd !== null, static fn ($query) => $query->sd())
+                ->when($search->highspeed !== null, static fn ($query) => $query->highspeed())
+                ->when($search->bookmark !== null, static fn ($query) => $query->bookmarkedBy($user))
+                ->when($search->internal !== null, static fn ($query) => $query->internal())
+                ->when($search->personalrelease !== null, static fn ($query) => $query->personalRelease())
+                ->when($search->alive !== null, static fn ($query) => $query->alive())
+                ->when($search->dying !== null, static fn ($query) => $query->dying())
+                ->when($search->dead !== null, static fn ($query) => $query->dead())
                 ->orderByDesc('bumped_at')
                 ->take(50)
                 ->get();

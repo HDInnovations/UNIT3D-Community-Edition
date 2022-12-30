@@ -24,8 +24,8 @@ class ActivationController extends Controller
 {
     public function activate($token): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', static fn() => Group::where('slug', '=', 'user')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $memberGroup = \cache()->rememberForever('member_group', static fn () => Group::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup[0]) {

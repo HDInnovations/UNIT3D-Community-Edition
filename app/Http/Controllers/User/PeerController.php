@@ -72,7 +72,7 @@ class PeerController extends Controller
 
         $peers->join(
             'history',
-            static fn($join) => $join
+            static fn ($join) => $join
             ->on('peers.user_id', '=', 'history.user_id')
             ->on('peers.torrent_id', '=', 'history.torrent_id')
         )->update(['active' => false]);

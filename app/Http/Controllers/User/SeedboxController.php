@@ -47,7 +47,7 @@ class SeedboxController extends Controller
 
         // The user's seedbox IPs are encrypted, so they have to be decrypted first to check that the new IP inputted is unique
         $userSeedboxes = Seedbox::where('user_id', '=', $user->id)->get(['ip', 'name']);
-        $seedboxIps = $userSeedboxes->pluck('ip')->filter(static fn($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+        $seedboxIps = $userSeedboxes->pluck('ip')->filter(static fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
         $seedboxNames = $userSeedboxes->pluck('name');
 
         $v = \validator(

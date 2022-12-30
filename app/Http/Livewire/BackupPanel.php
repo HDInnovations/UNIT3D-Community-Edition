@@ -43,8 +43,8 @@ class BackupPanel extends Component
 
     final public function updateBackupStatuses(): void
     {
-        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), static fn() => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
-            ->map(static fn(BackupDestinationStatus $backupDestinationStatus) => [
+        $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), static fn () => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
+            ->map(static fn (BackupDestinationStatus $backupDestinationStatus) => [
                 'name'      => $backupDestinationStatus->backupDestination()->backupName(),
                 'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
                 'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
@@ -63,7 +63,7 @@ class BackupPanel extends Component
         }
 
         $this->disks = collect($this->backupStatuses)
-            ->map(static fn($backupStatus): mixed => $backupStatus['disk'])
+            ->map(static fn ($backupStatus): mixed => $backupStatus['disk'])
             ->values()
             ->all();
 
@@ -83,7 +83,7 @@ class BackupPanel extends Component
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), static fn() => $backupDestination
+        $this->files = Cache::remember("backups-{$this->activeDisk}", now()->addSeconds(4), static fn () => $backupDestination
             ->backups()
             ->map(function (Backup $backup) {
                 $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
@@ -118,11 +118,11 @@ class BackupPanel extends Component
 
         $backupDestination
             ->backups()
-            ->first(static fn(Backup $backup) => $backup->path() === $deletingFile['path'])
+            ->first(static fn (Backup $backup) => $backup->path() === $deletingFile['path'])
             ->delete();
 
         $this->files = collect($this->files)
-            ->reject(static fn($file) => $file['path'] === $deletingFile['path']
+            ->reject(static fn ($file) => $file['path'] === $deletingFile['path']
                 && $file['date'] === $deletingFile['date']
                 && $file['size'] === $deletingFile['size'])
             ->values()
@@ -139,7 +139,7 @@ class BackupPanel extends Component
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $backup = $backupDestination->backups()->first(static fn(Backup $backup) => $backup->path() === $filePath);
+        $backup = $backupDestination->backups()->first(static fn (Backup $backup) => $backup->path() === $filePath);
 
         if (! $backup) {
             return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);

@@ -107,7 +107,7 @@ class GraveyardSearch extends Component
     {
         $user = \auth()->user();
         $isRegexAllowed = $user->group->is_modo;
-        $isRegex = static fn($field) => $isRegexAllowed
+        $isRegex = static fn ($field) => $isRegexAllowed
             && \strlen($field) >= 2
             && $field[0] === '/'
             && $field[-1] === '/';
@@ -124,12 +124,12 @@ class GraveyardSearch extends Component
             ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
-            ->when($this->doubleup, static fn($query) => $query->doubleup())
-            ->when($this->featured, static fn($query) => $query->featured())
-            ->when($this->stream, static fn($query) => $query->streamOptimized())
-            ->when($this->sd, static fn($query) => $query->sd())
-            ->when($this->highspeed, static fn($query) => $query->highspeed())
-            ->when($this->internal, static fn($query) => $query->internal())
+            ->when($this->doubleup, static fn ($query) => $query->doubleup())
+            ->when($this->featured, static fn ($query) => $query->featured())
+            ->when($this->stream, static fn ($query) => $query->streamOptimized())
+            ->when($this->sd, static fn ($query) => $query->sd())
+            ->when($this->highspeed, static fn ($query) => $query->highspeed())
+            ->when($this->internal, static fn ($query) => $query->internal())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

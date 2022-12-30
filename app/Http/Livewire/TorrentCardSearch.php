@@ -184,7 +184,7 @@ class TorrentCardSearch extends Component
     {
         $user = \auth()->user();
         $isRegexAllowed = $user->group->is_modo;
-        $isRegex = static fn($field) => $isRegexAllowed
+        $isRegex = static fn ($field) => $isRegexAllowed
             && \strlen($field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
@@ -212,23 +212,23 @@ class TorrentCardSearch extends Component
             ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
             ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
-            ->when($this->doubleup, static fn($query) => $query->doubleup())
-            ->when($this->featured, static fn($query) => $query->featured())
-            ->when($this->stream, static fn($query) => $query->streamOptimized())
-            ->when($this->sd, static fn($query) => $query->sd())
-            ->when($this->highspeed, static fn($query) => $query->highspeed())
-            ->when($this->bookmarked, static fn($query) => $query->bookmarkedBy($user))
-            ->when($this->wished, static fn($query) => $query->wishedBy($user))
-            ->when($this->internal, static fn($query) => $query->internal())
-            ->when($this->personalRelease, static fn($query) => $query->personalRelease())
-            ->when($this->alive, static fn($query) => $query->alive())
-            ->when($this->dying, static fn($query) => $query->dying())
-            ->when($this->dead, static fn($query) => $query->dead())
-            ->when($this->notDownloaded, static fn($query) => $query->notDownloadedBy($user))
-            ->when($this->downloaded, static fn($query) => $query->downloadedBy($user))
-            ->when($this->seeding, static fn($query) => $query->seededBy($user))
-            ->when($this->leeching, static fn($query) => $query->leechedBy($user))
-            ->when($this->incomplete, static fn($query) => $query->uncompletedBy($user))
+            ->when($this->doubleup, static fn ($query) => $query->doubleup())
+            ->when($this->featured, static fn ($query) => $query->featured())
+            ->when($this->stream, static fn ($query) => $query->streamOptimized())
+            ->when($this->sd, static fn ($query) => $query->sd())
+            ->when($this->highspeed, static fn ($query) => $query->highspeed())
+            ->when($this->bookmarked, static fn ($query) => $query->bookmarkedBy($user))
+            ->when($this->wished, static fn ($query) => $query->wishedBy($user))
+            ->when($this->internal, static fn ($query) => $query->internal())
+            ->when($this->personalRelease, static fn ($query) => $query->personalRelease())
+            ->when($this->alive, static fn ($query) => $query->alive())
+            ->when($this->dying, static fn ($query) => $query->dying())
+            ->when($this->dead, static fn ($query) => $query->dead())
+            ->when($this->notDownloaded, static fn ($query) => $query->notDownloadedBy($user))
+            ->when($this->downloaded, static fn ($query) => $query->downloadedBy($user))
+            ->when($this->seeding, static fn ($query) => $query->seededBy($user))
+            ->when($this->leeching, static fn ($query) => $query->leechedBy($user))
+            ->when($this->incomplete, static fn ($query) => $query->uncompletedBy($user))
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

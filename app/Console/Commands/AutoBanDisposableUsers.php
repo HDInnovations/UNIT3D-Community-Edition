@@ -48,7 +48,7 @@ class AutoBanDisposableUsers extends Command
      */
     public function handle(): void
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', static fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', static fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup) {
             foreach ($users as $user) {

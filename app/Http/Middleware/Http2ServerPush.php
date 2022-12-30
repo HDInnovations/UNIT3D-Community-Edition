@@ -71,7 +71,7 @@ class Http2ServerPush
                     return false;
                 }
 
-                $excludeKeywords = \collect($excludeKeywords)->map(static fn($keyword) => \preg_quote($keyword));
+                $excludeKeywords = \collect($excludeKeywords)->map(static fn ($keyword) => \preg_quote($keyword));
                 if ($excludeKeywords->count() <= 0) {
                     return true;
                 }
@@ -121,7 +121,7 @@ class Http2ServerPush
      */
     private function buildLinkHeaderString(string $url): ?string
     {
-        $type = \collect(self::LINK_TYPE_MAP)->first(static fn($type, $extension) => Str::contains(\strtoupper($url), $extension));
+        $type = \collect(self::LINK_TYPE_MAP)->first(static fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.\ltrim($url, $basePath);

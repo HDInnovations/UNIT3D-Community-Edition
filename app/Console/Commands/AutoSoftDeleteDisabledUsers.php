@@ -59,8 +59,8 @@ class AutoSoftDeleteDisabledUsers extends Command
     public function handle(): void
     {
         if (\config('pruning.user_pruning')) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', static fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $prunedGroup = \cache()->rememberForever('pruned_group', static fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $disabledGroup = \cache()->rememberForever('disabled_group', static fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $prunedGroup = \cache()->rememberForever('pruned_group', static fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabledGroup[0])

@@ -44,7 +44,7 @@ class UserController extends Controller
         $user = User::with(['privacy', 'history'])
             ->withCount('torrents')
             ->where('username', '=', $username)
-            ->when(\auth()->user()->group->is_modo == true, static fn($query) => $query->withTrashed())
+            ->when(\auth()->user()->group->is_modo == true, static fn ($query) => $query->withTrashed())
             ->firstOrFail();
 
         $groups = Group::all();

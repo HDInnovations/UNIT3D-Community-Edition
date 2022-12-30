@@ -32,8 +32,8 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password): void
     {
-        $validatingGroup = \cache()->rememberForever('validating_group', static fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', static fn() => Group::where('slug', '=', 'user')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', static fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $memberGroup = \cache()->rememberForever('member_group', static fn () => Group::where('slug', '=', 'user')->pluck('id'));
         $user->password = \bcrypt($password);
         $user->remember_token = Str::random(60);
 

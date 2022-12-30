@@ -44,7 +44,7 @@ class GiftController extends Controller
         $gifttransactions = BonTransactions::query()
             ->with(['senderObj', 'receiverObj'])
             ->where(
-                static fn($query) => $query
+                static fn ($query) => $query
                 ->where('sender', '=', $user->id)
                 ->orwhere('receiver', '=', $user->id)
             )

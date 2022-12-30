@@ -51,7 +51,7 @@ class LaravelLogViewer extends Component
         $directory = \storage_path('logs');
 
         return \collect(File::allFiles($directory))
-            ->sortByDesc(static fn(SplFileInfo $file) => $file->getMTime())->values();
+            ->sortByDesc(static fn (SplFileInfo $file) => $file->getMTime())->values();
     }
 
     final public function getEntriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

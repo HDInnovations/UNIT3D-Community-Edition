@@ -40,7 +40,7 @@ class AutoStatsClients extends Command
     {
         $clients = Peer::selectRaw('agent, count(*) as count')
             ->fromSub(
-                static fn($sub) => $sub
+                static fn ($sub) => $sub
                     ->select(['agent', 'user_id'])
                     ->from('peers')
                     ->groupBy('agent', 'user_id'),
@@ -49,7 +49,7 @@ class AutoStatsClients extends Command
             ->groupBy('agent')
             ->orderBy('agent')
             ->get()
-            ->mapWithKeys(static fn($item, $key) => [$item['agent'] => $item['count']])
+            ->mapWithKeys(static fn ($item, $key) => [$item['agent'] => $item['count']])
             ->toArray();
 
         if (! empty($clients)) {
