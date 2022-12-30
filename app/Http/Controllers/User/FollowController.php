@@ -27,9 +27,8 @@ class FollowController extends Controller
     /**
      * User Followers.
      */
-    public function index(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
         $followers = $user->followers()->orderByPivot('created_at', 'desc')->paginate(25);
 
         return \view('user.follower.index', [
@@ -41,10 +40,8 @@ class FollowController extends Controller
     /**
      * Follow A User.
      */
-    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-
         if ($request->user()->id === $user->id) {
             return \to_route('users.show', ['username' => $user->username])
                 ->withErrors(\trans('user.follow-yourself'));
@@ -63,10 +60,8 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      */
-    public function destroy(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-
         $user->followers()->detach($request->user()->id);
 
         if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_unfollow')) {

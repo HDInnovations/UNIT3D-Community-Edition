@@ -408,7 +408,7 @@ Route::group(['middleware' => 'language'], function () {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'users/{username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'users/{user:username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function () {
         // Achievements
         Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');

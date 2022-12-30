@@ -22,7 +22,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('users.bans.index', ['username' => $user->username]) }}">
+        <a class="nav-tab--active__link" href="{{ route('users.bans.index', ['user' => $user]) }}">
             {{ __('user.ban-log') }}
         </a>
     </li>

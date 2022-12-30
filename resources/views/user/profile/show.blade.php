@@ -457,7 +457,7 @@
                                         @if (auth()->user()->group->is_modo)
                                             <a href="{{ route('warnings.show', ['username' => $user->username]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.warning-log') }}</strong></span></a>
-                                            <a href="{{ route('users.bans.index', ['username' => $user->username]) }}"><span
+                                            <a href="{{ route('users.bans.index', ['user' => $user]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.ban-log') }}</strong></span></a>
                                         @endif
                                     </div>
@@ -581,7 +581,7 @@
                                     <td>{{ $client->created_at ? $client->created_at->diffForHumans() : 'N/A' }}</td>
                                     <td>{{ $client->updated_at ? $client->updated_at->diffForHumans() : 'N/A' }}</td>
                                     <td>
-                                        <a href="{{ route('users.peers.index', ['username' => $user->username, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
+                                        <a href="{{ route('users.peers.index', ['user' => $user, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
                                             itemprop="url" class="l-breadcrumb-item-link">
                                             <span itemprop="title"
                                                     class="l-breadcrumb-item-link-title">{{ $client->num_peers }}</span>

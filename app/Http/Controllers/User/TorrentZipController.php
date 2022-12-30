@@ -22,13 +22,12 @@ class TorrentZipController extends Controller
     /**
      * Show zip file containing all torrents user has history of.
      */
-    public function show(Request $request, string $username): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function show(Request $request, User $user): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(1200);
 
         // Authorized User
-        $user = User::where('username', '=', $username)->sole();
         \abort_unless($request->user()->id == $user->id, 403);
 
         // Define Dir For Zip

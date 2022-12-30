@@ -41,7 +41,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.peers.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.peers.index', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.peer.index');
@@ -158,7 +158,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.torrent_zip.show', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.torrent_zip.show', ['user' => $user]));
 
         $response->assertRedirect(withErrors('Torrent File Not Found! Please Report This Torrent!'));
 
@@ -231,7 +231,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.followers.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.followers.index', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.follower.index');
@@ -252,7 +252,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.bans.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.bans.index', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.ban.index');
@@ -380,7 +380,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.posts.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.posts.index', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.post.index');
@@ -555,7 +555,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.history.index', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.history.index', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.history.index');
