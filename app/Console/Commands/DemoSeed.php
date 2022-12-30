@@ -51,7 +51,7 @@ class DemoSeed extends Command
 
         $abort = false;
 
-        foreach ($this->movie_ids() as $key => $id) {
+        foreach ($this->movie_ids() as $id) {
             // Users
             $this->info('Creating User Account');
 
@@ -261,7 +261,7 @@ Menu
             }
         }
 
-        foreach ($this->tv_ids() as $key => $id) {
+        foreach ($this->tv_ids() as $id) {
             // Users
             $this->info('Creating User Account');
 

@@ -92,7 +92,7 @@ class TorrentTools
     {
         $size = 0;
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            foreach ($decodedTorrent['info']['files'] as $k => $file) {
+            foreach ($decodedTorrent['info']['files'] as $file) {
                 $dir = '';
                 $size += $file['length'];
                 $count = \is_countable($file['path']) ? \count($file['path']) : 0;
@@ -143,7 +143,7 @@ class TorrentTools
         $filenames = [];
 
         if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            foreach ($decodedTorrent['info']['files'] as $k => $file) {
+            foreach ($decodedTorrent['info']['files'] as $file) {
                 $count = \is_countable($file['path']) ? \count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
                     if (! \in_array($file['path'][$i], $filenames)) {

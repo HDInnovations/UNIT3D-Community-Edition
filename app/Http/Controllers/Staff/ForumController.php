@@ -71,7 +71,7 @@ class ForumController extends Controller
         $forum->save();
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
             if ($perm == null) {
                 $perm = new Permission();
@@ -136,7 +136,7 @@ class ForumController extends Controller
         $forum->save();
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
             if ($perm == null) {
                 $perm = new Permission();

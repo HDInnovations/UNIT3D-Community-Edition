@@ -189,7 +189,7 @@ class SystemBot
             }
 
             $receiverListening = false;
-            foreach ($receiverEchoes as $se => $receiverEcho) {
+            foreach ($receiverEchoes as $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
@@ -217,7 +217,7 @@ class SystemBot
             }
 
             $receiverListening = false;
-            foreach ($receiverAudibles as $se => $receiverEcho) {
+            foreach ($receiverAudibles as $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
                 }
