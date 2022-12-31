@@ -429,6 +429,12 @@ Route::group(['middleware' => 'language'], function () {
             Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
         });
 
+        // Privacy settings
+        Route::group(['prefix' => 'privacy-settings', 'as' => 'privacy_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\PrivacySettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PrivacySettingController::class, 'update'])->name('update');
+        });
+
         // Peers
         Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
@@ -535,7 +541,6 @@ Route::group(['middleware' => 'language'], function () {
         // Settings
         Route::group(['prefix' => 'users'], function () {
             Route::get('/{username}/settings', [App\Http\Controllers\User\UserController::class, 'settings'])->name('user_settings');
-            Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\User\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\User\UserController::class, 'notification'])->name('user_notification');
             Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
@@ -555,18 +560,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/notification/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrentNotification'])->name('notification_torrent');
             Route::post('/{username}/settings/notification/bon', [App\Http\Controllers\User\UserController::class, 'changeBonNotification'])->name('notification_bon');
             Route::post('/{username}/settings/notification/request', [App\Http\Controllers\User\UserController::class, 'changeRequestNotification'])->name('notification_request');
-            Route::post('/{username}/settings/privacy/profile', [App\Http\Controllers\User\UserController::class, 'changeProfile'])->name('privacy_profile');
-            Route::post('/{username}/settings/privacy/forum', [App\Http\Controllers\User\UserController::class, 'changeForum'])->name('privacy_forum');
-            Route::post('/{username}/settings/privacy/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrent'])->name('privacy_torrent');
-            Route::post('/{username}/settings/privacy/follower', [App\Http\Controllers\User\UserController::class, 'changeFollower'])->name('privacy_follower');
-            Route::post('/{username}/settings/privacy/achievement', [App\Http\Controllers\User\UserController::class, 'changeAchievement'])->name('privacy_achievement');
-            Route::post('/{username}/settings/privacy/request', [App\Http\Controllers\User\UserController::class, 'changeRequest'])->name('privacy_request');
-            Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\User\UserController::class, 'changeOther'])->name('privacy_other');
             Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep'])->name('change_twostep');
-            Route::post('/{username}/settings/hidden', [App\Http\Controllers\User\UserController::class, 'makeHidden'])->name('user_hidden');
-            Route::post('/{username}/settings/visible', [App\Http\Controllers\User\UserController::class, 'makeVisible'])->name('user_visible');
-            Route::post('/{username}/settings/private', [App\Http\Controllers\User\UserController::class, 'makePrivate'])->name('user_private');
-            Route::post('/{username}/settings/public', [App\Http\Controllers\User\UserController::class, 'makePublic'])->name('user_public');
         });
 
         // Tips
