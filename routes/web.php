@@ -419,14 +419,22 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
         });
 
+        // History
         Route::group(['prefix' => 'torrents', 'as' => 'history.'], function () {
             Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
         });
 
+        // Followers
         Route::group(['prefix' => 'followers', 'as' => 'followers.'], function () {
             Route::get('/', [App\Http\Controllers\User\FollowController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
             Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
+        });
+
+        // Notification settings
+        Route::group(['prefix' => 'notification-settings', 'as' => 'notification_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\NotificationSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\NotificationSettingController::class, 'update'])->name('update');
         });
 
         // Peers
@@ -537,7 +545,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/settings', [App\Http\Controllers\User\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\User\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
-            Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\User\UserController::class, 'notification'])->name('user_notification');
             Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
             Route::post('/{username}/settings/change_settings', [App\Http\Controllers\User\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
@@ -545,16 +552,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
             Route::post('/{username}/settings/change_rid', [App\Http\Controllers\User\UserController::class, 'changeRID'])->name('change_rid');
             Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\User\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::post('/{username}/settings/notification/disable', [App\Http\Controllers\User\UserController::class, 'disableNotifications'])->name('notification_disable');
-            Route::post('/{username}/settings/notification/enable', [App\Http\Controllers\User\UserController::class, 'enableNotifications'])->name('notification_enable');
-            Route::post('/{username}/settings/notification/account', [App\Http\Controllers\User\UserController::class, 'changeAccountNotification'])->name('notification_account');
-            Route::post('/{username}/settings/notification/following', [App\Http\Controllers\User\UserController::class, 'changeFollowingNotification'])->name('notification_following');
-            Route::post('/{username}/settings/notification/forum', [App\Http\Controllers\User\UserController::class, 'changeForumNotification'])->name('notification_forum');
-            Route::post('/{username}/settings/notification/subscription', [App\Http\Controllers\User\UserController::class, 'changeSubscriptionNotification'])->name('notification_subscription');
-            Route::post('/{username}/settings/notification/mention', [App\Http\Controllers\User\UserController::class, 'changeMentionNotification'])->name('notification_mention');
-            Route::post('/{username}/settings/notification/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrentNotification'])->name('notification_torrent');
-            Route::post('/{username}/settings/notification/bon', [App\Http\Controllers\User\UserController::class, 'changeBonNotification'])->name('notification_bon');
-            Route::post('/{username}/settings/notification/request', [App\Http\Controllers\User\UserController::class, 'changeRequestNotification'])->name('notification_request');
             Route::post('/{username}/settings/privacy/profile', [App\Http\Controllers\User\UserController::class, 'changeProfile'])->name('privacy_profile');
             Route::post('/{username}/settings/privacy/forum', [App\Http\Controllers\User\UserController::class, 'changeForum'])->name('privacy_forum');
             Route::post('/{username}/settings/privacy/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrent'])->name('privacy_torrent');
