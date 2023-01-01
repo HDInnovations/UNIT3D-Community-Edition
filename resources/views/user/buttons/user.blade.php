@@ -28,51 +28,6 @@
                     {{ __('user.edit-profile') }}
                 </a>
             </li>
-            @if(auth()->user()->hidden)
-                <form
-                    method="POST"
-                    action="{{ route('user_visible', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.become-visible') }}
-                    </button>
-                </form>
-            @else
-                <form
-                    method="POST"
-                    action="{{ route('user_hidden', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.become-hidden') }}
-                    </button>
-                </form>
-            @endif
-            @if(auth()->user()->private_profile)
-                <form
-                    method="POST"
-                    action="{{ route('user_public', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.go-public') }}
-                    </button>
-                </form>
-            @else
-                <form
-                    method="POST"
-                    action="{{ route('user_private', ['username' => $user->username]) }}"
-                    style="display: contents;">
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.go-private') }}
-                    </button>
-                </form>
-            @endif
         @else
             <li class="nav-tabV2">
                 @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
