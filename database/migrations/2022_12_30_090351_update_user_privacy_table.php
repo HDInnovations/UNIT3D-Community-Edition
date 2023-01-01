@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\UserGroups;
+use App\Models\Group;
 use App\Models\UserPrivacy;
 use Illuminate\Database\Migrations\Migration;
 
