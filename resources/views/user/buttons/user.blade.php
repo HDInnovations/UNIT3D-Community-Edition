@@ -73,29 +73,6 @@
                     </button>
                 </form>
             @endif
-            @if(auth()->user()->block_notifications)
-                <form
-                    method="POST"
-                    action="{{ route('notification_enable', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.enable-notifications') }}
-                    </button>
-                </form>
-            @else
-                <form
-                    method="POST"
-                    action="{{ route('notification_disable', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                    >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.disable-notifications') }}
-                    </button>
-                </form>
-            @endif
         @else
             <li class="nav-tabV2">
                 @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
@@ -134,7 +111,7 @@
 @if ($isProfileOwner)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('user_settings', 'user_security', 'user_privacy', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            class="{{ Route::is('user_settings', 'user_security', 'user_privacy', 'users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('user_settings', ['username' => $user->username]) }}"
         >
             {{ __('user.settings') }}
@@ -164,10 +141,10 @@
                     {{ __('user.privacy') }}
                 </a>
             </li>
-            <li class="{{ Route::is('user_notification') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_notification', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.notification_settings.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.notification') }}
                 </a>
