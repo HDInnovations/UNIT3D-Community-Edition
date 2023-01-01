@@ -435,6 +435,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'privacy-settings', 'as' => 'privacy_settings.'], function () {
             Route::get('/edit', [App\Http\Controllers\User\PrivacySettingController::class, 'edit'])->name('edit');
             Route::patch('/', [App\Http\Controllers\User\PrivacySettingController::class, 'update'])->name('update');
+        });
 
         // Notification settings
         Route::group(['prefix' => 'notification-settings', 'as' => 'notification_settings.'], function () {
