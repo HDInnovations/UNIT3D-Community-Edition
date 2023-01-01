@@ -367,7 +367,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="top-nav--right__link" href="{{ route('user_settings', ['username' => auth()->user()->username]) }}">
+                        <a class="top-nav--right__link" href="{{ route('users.general_settings.edit', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
                             {{ __('user.my-settings') }}
                         </a>

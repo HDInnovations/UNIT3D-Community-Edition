@@ -122,7 +122,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('change_settings', ['username' => $user->username]), [
+        $response = $this->actingAs($user)->post(route('users.general_settings.update', ['user' => $user]), [
             // TODO: send request data
         ]);
 
@@ -380,10 +380,10 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_settings', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('users.general_settings.edit', ['user' => $user]));
 
         $response->assertOk();
-        $response->assertViewIs('user.settings.general.index');
+        $response->assertViewIs('user.general_setting.edit');
         $response->assertViewHas('user');
         $response->assertViewHas('route');
 
