@@ -18,7 +18,6 @@ use App\Models\BonTransactions;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
-use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Models\Warning;
