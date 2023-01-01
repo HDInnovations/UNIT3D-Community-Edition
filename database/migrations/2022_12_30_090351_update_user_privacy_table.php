@@ -23,7 +23,7 @@ return new class () extends Migration {
             ->pluck('id')
             ->toArray();
 
-        // 
+        //
         // Input format looks like:
         // {
         //   "default_groups": {
@@ -33,7 +33,7 @@ return new class () extends Migration {
         //     "4": 1,
         //   }
         // }
-        // 
+        //
         // Output format looks like:
         // [
         //   1,
@@ -47,7 +47,7 @@ return new class () extends Migration {
             ARRAY_FILTER_USE_BOTH
         ));
 
-        foreach(UserPrivacy::all() as $user_privacy) {
+        foreach (UserPrivacy::all() as $user_privacy) {
             $user_privacy->json_profile_groups = $migrate($user_privacy->json_profile_groups['default_groups']);
             $user_privacy->json_torrent_groups = $migrate($user_privacy->json_torrent_groups['default_groups']);
             $user_privacy->json_forum_groups = $migrate($user_privacy->json_forum_groups['default_groups']);
