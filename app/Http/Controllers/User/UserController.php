@@ -186,63 +186,6 @@ class UserController extends Controller
     }
 
     /**
-     * User Account Settings.
-     */
-    public function settings(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        \abort_unless($request->user()->id == $user->id, 403);
-
-        return \view('user.settings.general.index', ['user' => $user, 'route' => 'settings']);
-    }
-
-    /**
-     * Change User Account Settings.
-     */
-    public function changeSettings(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        \abort_unless($request->user()->id == $user->id, 403);
-
-        // General Settings
-        $user->censor = $request->input('censor');
-        $user->chat_hidden = $request->input('chat_hidden');
-
-        // Language Settings
-        $user->locale = $request->input('language');
-
-        // Style Settings
-        $user->style = (int) $request->input('theme');
-
-        $customCss = $request->input('custom_css');
-        if (isset($customCss) && ! \filter_var($customCss, FILTER_VALIDATE_URL)) {
-            return \to_route('users.show', ['username' => $user->username])
-                ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
-        }
-
-        $user->custom_css = $customCss;
-
-        $standaloneCss = $request->input('standalone_css');
-        if (isset($standaloneCss) && ! \filter_var($standaloneCss, FILTER_VALIDATE_URL)) {
-            return \to_route('users.show', ['username' => $user->username])
-                ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
-        }
-
-        $user->standalone_css = $standaloneCss;
-
-        // Torrent Settings
-        $user->torrent_layout = (int) $request->input('torrent_layout');
-        $user->show_poster = $request->input('show_poster');
-        $user->ratings = $request->input('ratings');
-        $user->save();
-
-        return \to_route('user_settings', ['username' => $user->username])
-            ->withSuccess('Your Account Was Updated Successfully!');
-    }
-
-    /**
      * User Security Settings.
      */
     public function security(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View

@@ -134,16 +134,16 @@
 @if ($isProfileOwner)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('user_settings', 'user_security', 'user_privacy', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-            href="{{ route('user_settings', ['username' => $user->username]) }}"
+            class="{{ Route::is('users.general_settings.edit', 'user_security', 'user_privacy', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
         >
             {{ __('user.settings') }}
         </a>
         <ul class="nav-tab-menu__items">
-            <li class="{{ Route::is('user_settings') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_settings') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_settings', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.general') }}
                 </a>

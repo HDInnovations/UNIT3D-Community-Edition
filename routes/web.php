@@ -429,6 +429,12 @@ Route::group(['middleware' => 'language'], function () {
             Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
         });
 
+        // General settings
+        Route::group(['prefix' => 'general-settings', 'as' => 'general_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\GeneralSettingController::class, 'update'])->name('update');
+        });
+
         // Peers
         Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
@@ -534,12 +540,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Settings
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/settings', [App\Http\Controllers\User\UserController::class, 'settings'])->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\User\UserController::class, 'privacy'])->name('user_privacy');
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\User\UserController::class, 'notification'])->name('user_notification');
             Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
-            Route::post('/{username}/settings/change_settings', [App\Http\Controllers\User\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
             Route::post('/{username}/settings/change_email', [App\Http\Controllers\User\UserController::class, 'changeEmail'])->name('change_email');
             Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
