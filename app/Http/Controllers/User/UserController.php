@@ -21,7 +21,6 @@ use App\Models\Invite;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
-use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
 use App\Rules\EmailBlacklist;

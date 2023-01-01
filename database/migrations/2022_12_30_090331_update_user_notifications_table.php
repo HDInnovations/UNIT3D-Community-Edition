@@ -23,7 +23,7 @@ return new class () extends Migration {
             ->pluck('id')
             ->toArray();
 
-        // 
+        //
         // Input format looks like:
         // {
         //   "default_groups": {
@@ -33,13 +33,13 @@ return new class () extends Migration {
         //     "4": 1,
         //   }
         // }
-        // 
+        //
         // Output format looks like:
         // [
         //   1,
         //   3,
         // ]
-        // 
+        //
 
         $migrate = fn ($groups) => array_keys(array_filter(
             $groups,
@@ -47,7 +47,7 @@ return new class () extends Migration {
             ARRAY_FILTER_USE_BOTH
         ));
 
-        foreach(UserNotification::all() as $user_notification) {
+        foreach (UserNotification::all() as $user_notification) {
             $user_notification->json_account_groups = $migrate($user_notification->json_account_groups['default_groups']);
             $user_notification->json_bon_groups = $migrate($user_notification->json_bon_groups['default_groups']);
             $user_notification->json_mention_groups = $migrate($user_notification->json_mention_groups['default_groups']);

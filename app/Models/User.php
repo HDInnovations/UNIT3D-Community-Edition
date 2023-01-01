@@ -13,7 +13,6 @@
 
 namespace App\Models;
 
-use App\Enums\UserGroups;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
