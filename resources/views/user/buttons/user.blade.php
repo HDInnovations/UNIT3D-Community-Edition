@@ -28,51 +28,6 @@
                     {{ __('user.edit-profile') }}
                 </a>
             </li>
-            @if(auth()->user()->hidden)
-                <form
-                    method="POST"
-                    action="{{ route('user_visible', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.become-visible') }}
-                    </button>
-                </form>
-            @else
-                <form
-                    method="POST"
-                    action="{{ route('user_hidden', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.become-hidden') }}
-                    </button>
-                </form>
-            @endif
-            @if(auth()->user()->private_profile)
-                <form
-                    method="POST"
-                    action="{{ route('user_public', ['username' => $user->username]) }}"
-                    style="display: contents;"
-                >
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.go-public') }}
-                    </button>
-                </form>
-            @else
-                <form
-                    method="POST"
-                    action="{{ route('user_private', ['username' => $user->username]) }}"
-                    style="display: contents;">
-                    @csrf
-                    <button type="submit" class="nav-tab__link">
-                        {{ __('user.go-private') }}
-                    </button>
-                </form>
-            @endif
         @else
             <li class="nav-tabV2">
                 @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
@@ -111,7 +66,7 @@
 @if ($isProfileOwner)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('user_settings', 'user_security', 'user_privacy', 'users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            class="{{ Route::is('user_settings', 'user_security', 'users.privacy_settings.edit', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('user_settings', ['username' => $user->username]) }}"
         >
             {{ __('user.settings') }}
@@ -133,10 +88,10 @@
                     {{ __('user.security') }}
                 </a>
             </li>
-            <li class="{{ Route::is('user_privacy') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_privacy') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_privacy', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.privacy_settings.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.privacy') }}
                 </a>

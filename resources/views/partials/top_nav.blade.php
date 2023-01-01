@@ -373,7 +373,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_privacy', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.privacy_settings.edit', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                             {{ __('user.my-privacy') }}
                         </a>
