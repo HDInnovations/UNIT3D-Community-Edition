@@ -28,26 +28,48 @@
                     {{ __('user.edit-profile') }}
                 </a>
             </li>
-            @if(auth()->user()->block_notifications)
+            @if(auth()->user()->hidden)
                 <form
                     method="POST"
-                    action="{{ route('notification_enable', ['username' => $user->username]) }}"
+                    action="{{ route('user_visible', ['username' => $user->username]) }}"
                     style="display: contents;"
                 >
                     @csrf
                     <button type="submit" class="nav-tab__link">
-                        {{ __('user.enable-notifications') }}
+                        {{ __('user.become-visible') }}
                     </button>
                 </form>
             @else
                 <form
                     method="POST"
-                    action="{{ route('notification_disable', ['username' => $user->username]) }}"
+                    action="{{ route('user_hidden', ['username' => $user->username]) }}"
                     style="display: contents;"
-                    >
+                >
                     @csrf
                     <button type="submit" class="nav-tab__link">
-                        {{ __('user.disable-notifications') }}
+                        {{ __('user.become-hidden') }}
+                    </button>
+                </form>
+            @endif
+            @if(auth()->user()->private_profile)
+                <form
+                    method="POST"
+                    action="{{ route('user_public', ['username' => $user->username]) }}"
+                    style="display: contents;"
+                >
+                    @csrf
+                    <button type="submit" class="nav-tab__link">
+                        {{ __('user.go-public') }}
+                    </button>
+                </form>
+            @else
+                <form
+                    method="POST"
+                    action="{{ route('user_private', ['username' => $user->username]) }}"
+                    style="display: contents;">
+                    @csrf
+                    <button type="submit" class="nav-tab__link">
+                        {{ __('user.go-private') }}
                     </button>
                 </form>
             @endif
@@ -119,10 +141,10 @@
                     {{ __('user.privacy') }}
                 </a>
             </li>
-            <li class="{{ Route::is('user_notification') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_notification', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.notification_settings.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.notification') }}
                 </a>

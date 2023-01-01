@@ -549,12 +549,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->notification?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
