@@ -19,101 +19,106 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
-    <div class="container-fluid">
-        <div class="block">
-            <div class="some-padding">
-                <div class="row mb-20">
-                    <div class="col-md-12">
-                        <form action="{{ route('wishes.store') }}" method="POST" class="form-inline pull-right">
-                            @csrf
-
-                            <div class="form-group mt-5">
-                                <label for="tmdb"></label><input type="text" class="form-control" name="tmdb" id="tmdb"
-                                                                 placeholder="TMDB ID">
-                            </div>
-
-                            <button type="submit" class="btn btn-success mt-10">
-                                <span class="{{ config('other.font-awesome') }} fa-plus"></span> {{ __('common.add') }}
-                            </button>
-
-                        </form>
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('user.wishlist') }}</h2>
+            <div class="panel__actions">
+                <form
+                    class="form form--horizontal panel__action"
+                    action="{{ route('wishes.store') }}"
+                    method="POST"
+                >
+                    @csrf
+                    <div class="form__group">
+                        <input
+                            id="tmdb"
+                            class="form__text"
+                            name="tmdb"
+                            required
+                            type="text"
+                        />
+                        <label class="form__label form__label--floating">
+                            TMDB ID
+                        </label>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>{{ __('torrent.title') }}</th>
-                                    <th>TMDB</th>
-                                    <th>{{ __('common.status') }}</th>
-                                    <th>{{ __('common.delete') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($wishes as $wish)
-                                    <tr>
-                                        <td>
-                                            @if ($wish->source !== null)
-                                                <a href="{{ $wish->source }}">
-                                                    @endif
-
-                                                    {{ $wish->title }}
-
-                                                    @if ($wish->source !== null)
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}"
-                                               target="_blank">
-                                                MediaHub
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @if ($wish->source === null)
-                                                <i class="{{ config('other.font-awesome') }} fa-times red-text"></i>
-                                            @else
-                                                <i class="{{ config('other.font-awesome') }} fa-check green-text"></i>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
-                                                  method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-xs btn-danger">
-                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="text-center">
-                            {{ $wishes->links() }}
-                        </div>
-
-                        @if (count($wishes) <= 0)
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <h1 class="text-blue"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>
-                                        No Wishes</h1>
-                                </div>
-                            </div>
-                        @endif
-
-                    </div>
-                </div>
+                    <button class="form__button form__button--text">
+                        {{ __('common.add') }}
+                    </button>
+                </form>
             </div>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('torrent.title') }}</th>
+                        <th>TMDB</th>
+                        <th>{{ __('common.status') }}</th>
+                        <th>{{ __('common.actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($wishes as $wish)
+                        <tr>
+                            <td>
+                                @if ($wish->source === null)
+                                    {{ $wish->title }}
+                                @else
+                                    <a href="{{ $wish->source }}">{{ $wish->title }}</a>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}" target="_blank">
+                                    MediaHub
+                                </a>
+                            </td>
+                            <td>
+                                @if ($wish->source === null)
+                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                @else
+                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                @endif
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button 
+                                                x-on:click.prevent="Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Are you sure you want to delete this wish: {{ $wish->title }}?',
+                                                    icon: 'warning',
+                                                    showConfirmButton: true,
+                                                    showCancelButton: true,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $root.submit();
+                                                    }
+                                                })"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">No wishes</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-
-    </div>
+        {{ $wishes->links('partials.pagination') }}
+    </section>
 @endsection
