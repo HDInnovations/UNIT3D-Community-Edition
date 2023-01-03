@@ -62,6 +62,15 @@ return new class () extends Migration {
      */
     public function up()
     {
+        // Update user_id columns that are using 0 instead of null
+        Schema::table('bon_transactions', function (Blueprint $table) {
+            $table->unsignedInteger('sender')->nullable()->default(null)->change();
+            $table->unsignedInteger('receiver')->nullable()->default(null)->change();
+        });
+
+        BonTransactions::withoutGlobalScopes()->where('sender', '=', 0)->update(['sender' => null]);
+        BonTransactions::withoutGlobalScopes()->where('receiver', '=', 0)->update(['receiver' => null]);
+
         $userIds = User::withoutGlobalScopes()->pluck('id');
 
         // 1 is ID of the System account

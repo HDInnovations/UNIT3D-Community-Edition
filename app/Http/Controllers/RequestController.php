@@ -187,7 +187,6 @@ class RequestController extends Controller
         $BonTransactions->name = 'request';
         $BonTransactions->cost = $request->input('bounty');
         $BonTransactions->sender = $user->id;
-        $BonTransactions->receiver = 0;
         $BonTransactions->comment = \sprintf('new request - %s', $request->input('name'));
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bounty');
@@ -326,7 +325,6 @@ class RequestController extends Controller
         $BonTransactions->name = 'request';
         $BonTransactions->cost = $request->input('bonus_value');
         $BonTransactions->sender = $user->id;
-        $BonTransactions->receiver = 0;
         $BonTransactions->comment = \sprintf('adding bonus to %s', $tr->name);
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bonus_value');
@@ -423,7 +421,6 @@ class RequestController extends Controller
             $BonTransactions->itemID = 0;
             $BonTransactions->name = 'request';
             $BonTransactions->cost = $fillAmount;
-            $BonTransactions->sender = 0;
             $BonTransactions->receiver = $fillUser->id;
             $BonTransactions->comment = \sprintf('%s has filled %s and has been awarded %s BONUS.', $fillUser->username, $tr->name, $fillAmount);
             $BonTransactions->save();
