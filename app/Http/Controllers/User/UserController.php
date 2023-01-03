@@ -15,14 +15,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
-use App\Models\Group;
-use App\Models\History;
 use App\Models\Invite;
-use App\Models\TorrentRequest;
+use App\Models\Peer;
 use App\Models\User;
-use App\Models\Warning;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -35,40 +33,61 @@ class UserController extends Controller
      */
     public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with(['privacy', 'history'])
-            ->withCount('torrents')
+        $user = User::with(['privacy'])
+            ->withCount([
+                'torrents',
+                'topics',
+                'posts',
+                'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),
+                'requests',
+                'userwarning as warnings_count',
+                'userwarning as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
+            ])
+            ->with([
+                'userban' => ['banneduser', 'staffuser'],
+            ])
             ->where('username', '=', $username)
             ->when(auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
-            ->firstOrFail();
+            ->sole();
 
-        $groups = Group::all();
         $followers = $user->followers()->latest()->limit(25)->get();
-        $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(config('hitrun.max_warnings'))->get();
-        $hitrun = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->latest()->paginate(10);
 
-        $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        //$bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+        $warnings = $user
+            ->userwarning()
+            ->latest()
+            ->paginate(2, ['*'], 'warningsPage');
 
-        //  With Multipliers
-        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
-        //  Without Multipliers
-        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $softDeletedWarnings = $user
+            ->userwarning()
+            ->with(['torrenttitle', 'warneduser'])
+            ->latest('created_at')
+            ->onlyTrashed()
+            ->paginate(2, ['*'], 'deletedWarningsPage');
 
-        $defUpl = config('other.default_upload');
-        $multiUpload = $hisUplCre - $hisUpl;
-        $manUpload = $user->uploaded - $hisUplCre - $defUpl - $bonupload;
-        $realupload = $user->getUploaded();
+        $watch = $user->watchlist;
 
-        $hisDown = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $defDown = config('other.default_download');
-        $freeDownload = $hisDown + $defDown - $user->downloaded;
-        $realdownload = $user->getDownloaded();
+        $boughtUpload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        //$boughtDownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+
+        $history = DB::table('history')
+            ->where('user_id', '=', $user->id)
+            ->where('created_at', '>', $user->created_at)
+            ->selectRaw('SUM(actual_uploaded) as upload_sum')
+            ->selectRaw('SUM(uploaded) as credited_upload_sum')
+            ->selectRaw('SUM(actual_downloaded) as download_sum')
+            ->selectRaw('SUM(downloaded) as credited_download_sum')
+            ->selectRaw('SUM(seedtime) as seedtime_sum')
+            ->selectRaw('SUM(actual_downloaded > 0) as download_count')
+            ->selectRaw('COUNT(*) as count')
+            ->first();
+
+        $peers = Peer::query()
+            ->selectRaw('SUM(seeder = 0) as leeching')
+            ->selectRaw('SUM(seeder = 1) as seeding')
+            ->where('user_id', '=', $user->id)
+            ->first();
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
-
-        $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
-        $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
         $clients = $user->peers()
             ->select('agent', 'port')
@@ -82,32 +101,18 @@ class UserController extends Controller
             ->get();
 
         return view('user.profile.show', [
-            'route'     => 'profile',
-            'user'      => $user,
-            'groups'    => $groups,
-            'followers' => $followers,
-            'history'   => $history,
-            'warnings'  => $warnings,
-            'hitrun'    => $hitrun,
-
-            //'bondownload'  => $bondownload,
-            'realdownload' => $realdownload,
-            'def_download' => $defDown,
-            'his_down'     => $hisDown,
-            'free_down'    => $freeDownload,
-
-            'realupload'   => $realupload,
-            'def_upload'   => $defUpl,
-            'his_upl'      => $hisUpl,
-            'multi_upload' => $multiUpload,
-            'bonupload'    => $bonupload,
-            'man_upload'   => $manUpload,
-
-            'requested'    => $requested,
-            'filled'       => $filled,
+            'user'                => $user,
+            'followers'           => $followers,
+            'history'             => $history,
+            'warnings'            => $warnings,
+            'softDeletedWarnings' => $softDeletedWarnings,
+            'boughtUpload'        => $boughtUpload,
+            // 'boughtDownload'        => $boughtDownload,
             'invitedBy'    => $invitedBy,
             'clients'      => $clients,
             'achievements' => $achievements,
+            'peers'        => $peers,
+            'watch'        => $watch,
         ]);
     }
 

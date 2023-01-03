@@ -32,7 +32,6 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'username'    => 'required',
-            'email'       => 'required|max:255',
             'uploaded'    => 'required|integer',
             'downloaded'  => 'required|integer',
             'title'       => 'nullable|present|string|max:255',

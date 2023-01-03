@@ -30,32 +30,6 @@
             </li>
         @else
             <li class="nav-tabV2">
-                @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
-                    <form
-                        action="{{ route('users.followers.destroy', ['user' => $user]) }}"
-                        method="POST"
-                        style="display: contents;"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button class="nav-tab__link" type="submit" id="delete-follow-{{ $user->target_id }}">
-                            {{ __('user.unfollow') }}
-                        </button>
-                    </form>
-                @else
-                    <form
-                        action="{{ route('users.followers.store', ['user' => $user]) }}"
-                        method="POST"
-                        style="display: contents;"
-                    >
-                        @csrf
-                        <button class="nav-tab__link" type="submit" id="follow-user-{{ $user->id }}">
-                            {{ __('user.follow') }}
-                        </button>
-                    </form>
-                @endif
-            </li>
-            <li class="nav-tabV2">
                 <button class="nav-tab__link" data-toggle="modal" data-target="#modal_user_report">
                     {{ __('user.report') }}
                 </button>

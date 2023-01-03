@@ -1,0 +1,28 @@
+.profileV2 {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas: "avatar username" "avatar registration" "avatar title" "avatar about";
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.profile__username {
+    grid-area: username;
+    font-size: 22px;
+}
+
+.profile__avatar {
+    grid-area: avatar;
+}
+
+.profile__registration {
+    grid-area: registration;
+}
+
+.profile__title {
+    grid-area: title;
+}
+
+.profile__about {
+    grid-area: about;
+}
