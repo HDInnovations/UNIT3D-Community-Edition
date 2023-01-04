@@ -151,29 +151,27 @@ class ProcessAnnounce implements ShouldQueue
         $history->user_id = $this->user->id;
         $history->torrent_id = $this->torrent->id;
         $history->agent = $this->queries['user-agent'];
+        $history->seeder = (int) ($this->queries['left'] == 0);
+        $history->client_uploaded = $realUploaded;
+        $history->client_downloaded = $realDownloaded;
 
         switch ($event) {
             case 'started':
 
                 $history->active = 1;
-                $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->immune = $this->user->group->is_immune == 1;
-                $history->client_uploaded = $realUploaded;
-                $history->client_downloaded = $realDownloaded;
                 $history->save();
                 break;
 
             case 'completed':
 
                 $history->active = 1;
-                $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
                 $history->downloaded += $modDownloaded;
                 $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
                 $history->completed_at = \now();
+
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
                     $newUpdate = $peer->updated_at->timestamp;
@@ -195,13 +193,11 @@ class ProcessAnnounce implements ShouldQueue
             case 'stopped':
 
                 $history->active = 0;
-                $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
                 $history->downloaded += $modDownloaded;
                 $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
+
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
                     $newUpdate = $peer->updated_at->timestamp;
@@ -222,13 +218,11 @@ class ProcessAnnounce implements ShouldQueue
             default:
 
                 $history->active = 1;
-                $history->seeder = (int) ($this->queries['left'] == 0);
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
-                $history->client_uploaded = $realUploaded;
                 $history->downloaded += $modDownloaded;
                 $history->actual_downloaded += $downloaded;
-                $history->client_downloaded = $realDownloaded;
+
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
                     $newUpdate = $peer->updated_at->timestamp;

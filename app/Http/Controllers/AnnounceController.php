@@ -27,6 +27,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class AnnounceController extends Controller
 {
@@ -159,7 +160,6 @@ class AnnounceController extends Controller
             || $request->header('want-digest'), new TrackerException(122));
 
         $userAgent = $request->header('User-Agent');
-        $clientBlacklist = BlacklistClient::all()->pluck('name')->toArray();
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
         \throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
@@ -170,9 +170,11 @@ class AnnounceController extends Controller
             (string) $userAgent
         ), new TrackerException(121));
 
+        $clientBlacklist = \cache()->remember('client_blacklist', 86_400, fn () => BlacklistClient::all()->pluck('name')->toArray());
+
         // Block Blacklisted Clients
         \throw_if(
-            \in_array($request->header('User-Agent'), $clientBlacklist),
+            \in_array($userAgent, $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')])
         );
     }
@@ -312,17 +314,17 @@ class AnnounceController extends Controller
         );
 
         // Check Passkey Against Users Table
-        $user = User::with('group')
-            ->select(['id', 'group_id', 'active', 'can_download', 'uploaded', 'downloaded'])
+        $user = \cache()->remember('user:'.$passkey, 1_800, fn () => User::with('group')
+            ->select(['id', 'group_id', 'can_download', 'uploaded', 'downloaded'])
             ->where('passkey', '=', $passkey)
-            ->first();
+            ->first());
 
         // If User Doesn't Exist Return Error to Client
         \throw_if($user === null, new TrackerException(140));
 
         // If User Account Is Unactivated/Validating Return Error to Client
         \throw_if(
-            $user->active === 0 || $user->group->id === $validatingGroup[0],
+            $user->group_id === $validatingGroup[0],
             new TrackerException(141, [':status' => 'Unactivated/Validating'])
         );
 
@@ -334,13 +336,13 @@ class AnnounceController extends Controller
 
         // If User Is Banned Return Error to Client
         \throw_if(
-            $user->group->id === $bannedGroup[0],
+            $user->group_id === $bannedGroup[0],
             new TrackerException(141, [':status' => 'Banned'])
         );
 
         // If User Is Disabled Return Error to Client
         throw_if(
-            $user->group->id === $disabledGroup[0],
+            $user->group_id === $disabledGroup[0],
             new TrackerException(141, [':status' => 'Disabled'])
         );
 
@@ -356,13 +358,13 @@ class AnnounceController extends Controller
     protected function checkTorrent($infoHash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::with([
+        $torrent = Torrent::withAnyStatus()
+            ->with([
                 'peers' => fn ($query) => $query
                     ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port'])
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->withAnyStatus()
             ->where('info_hash', '=', $infoHash)
             ->first();
 
@@ -422,9 +424,9 @@ class AnnounceController extends Controller
             ->where('user_id', '=', $user->id)
             ->first();
         $setMin = \config('announce.min_interval.interval') ?? self::MIN;
-        $randomMinInterval = random_int($setMin, $setMin * 2);
+        $randomMinInterval = \random_int($setMin, $setMin * 2);
         \throw_if(
-            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
+            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(\now()->subSeconds($randomMinInterval))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped',
             new TrackerException(162, [':min' => $randomMinInterval])
         );
@@ -461,7 +463,7 @@ class AnnounceController extends Controller
         $max = $user->group->download_slots;
 
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
-            $count = Peer::query()
+            $count = DB::table('peers')
                 ->where('user_id', '=', $user->id)
                 ->where('peer_id', '!=', $queries['peer_id'])
                 ->where('seeder', '=', 0)
