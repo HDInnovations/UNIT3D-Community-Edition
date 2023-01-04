@@ -182,10 +182,12 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
 
                 // Torrent Completed Update
@@ -211,10 +213,12 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->delete();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
                 break;
 
@@ -236,10 +240,12 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
         }
 
