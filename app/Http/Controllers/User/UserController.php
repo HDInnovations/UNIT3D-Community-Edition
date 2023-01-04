@@ -295,7 +295,7 @@ class UserController extends Controller
         $user->passkey = \md5(\random_bytes(60).$user->password);
         $user->save();
 
-        \cache()->forget(\sprintf('user:%s', $user->passkey));
+        \cache()->forget('user:'.$user->passkey);
 
         return \to_route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');

@@ -22,7 +22,6 @@ use App\Helpers\Bencode;
 use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\Group;
-use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -100,7 +99,7 @@ class AnnounceController extends Controller
             $queries = $this->checkAnnounceFields($request);
 
             // Check user via supplied passkey.
-            $user = $this->checkUser($passkey, $queries);
+            [$user, $group] = $this->checkUser($passkey, $queries);
 
             // Get Torrent Info Array from queries and judge if user can reach it.
             $torrent = $this->checkTorrent($queries['info_hash']);
@@ -118,14 +117,14 @@ class AnnounceController extends Controller
 
             // Check Download Slots.
             if (\config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($queries, $user);
+                $this->checkDownloadSlots($queries, $user, $group);
             }
 
             // Generate A Response For The Torrent Client.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
-            $this->processAnnounceJob($queries, $user, $torrent);
+            $this->processAnnounceJob($queries, $user, $torrent, $group);
         } catch (TrackerException $exception) {
             $repDict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -170,7 +169,7 @@ class AnnounceController extends Controller
             (string) $userAgent
         ), new TrackerException(121));
 
-        $clientBlacklist = \cache()->remember('client_blacklist', 86_400, fn () => BlacklistClient::all()->pluck('name')->toArray());
+        $clientBlacklist = \cache()->rememberForever('client_blacklist', fn () => BlacklistClient::all()->pluck('name')->toArray());
 
         // Block Blacklisted Clients
         \throw_if(
@@ -185,7 +184,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    protected function checkPasskey($passkey): void
+    protected function checkPasskey(string $passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
         \throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
@@ -297,9 +296,9 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    protected function checkUser($passkey, $queries): object
+    protected function checkUser(string $passkey, array $queries): array
     {
-        // Caached System Required Groups
+        // Cached System Required Groups
         $bannedGroup = \cache()->rememberForever(
             'banned_group',
             fn () => Group::where('slug', '=', 'banned')->pluck('id')
@@ -314,9 +313,14 @@ class AnnounceController extends Controller
         );
 
         // Check Passkey Against Users Table
-        $user = \cache()->remember('user:'.$passkey, 1_800, fn () => User::with('group')
-            ->select(['id', 'group_id', 'can_download', 'uploaded', 'downloaded'])
+        $user = \cache()->rememberForever('user:'.$passkey, fn () => User::query()
+            ->select(['id', 'group_id', 'can_download'])
             ->where('passkey', '=', $passkey)
+            ->first());
+
+        $group = \cache()->rememberForever('group:'.$user->group_id, fn () => Group::query()
+            ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
+            ->where('id', '=', $user->group_id)
             ->first());
 
         // If User Doesn't Exist Return Error to Client
@@ -346,7 +350,7 @@ class AnnounceController extends Controller
             new TrackerException(141, [':status' => 'Disabled'])
         );
 
-        return $user;
+        return [$user, $group];
     }
 
     /**
@@ -355,7 +359,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    protected function checkTorrent($infoHash): object
+    protected function checkTorrent(string $infoHash): Torrent
     {
         // Check Info Hash Against Torrents Table
         $torrent = Torrent::withAnyStatus()
@@ -398,7 +402,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    private function checkPeer($torrent, $queries, $user): void
+    private function checkPeer(Torrent $torrent, array $queries, User $user): void
     {
         \throw_if(
             \strtolower($queries['event']) === 'completed'
@@ -417,7 +421,7 @@ class AnnounceController extends Controller
      * @throws \Exception
      * @throws \Throwable
      */
-    private function checkMinInterval($torrent, $queries, $user): void
+    private function checkMinInterval(Torrent $torrent, array $queries, User $user): void
     {
         $prevAnnounce = $torrent->peers
             ->where('peer_id', '=', $queries['peer_id'])
@@ -438,7 +442,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    private function checkMaxConnections($torrent, $user): void
+    private function checkMaxConnections(Torrent $torrent, User $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers
@@ -458,9 +462,9 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    private function checkDownloadSlots($queries, $user): void
+    private function checkDownloadSlots(array $queries, User $user, Group $group): void
     {
-        $max = $user->group->download_slots;
+        $max = $group->download_slots;
 
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
             $count = DB::table('peers')
@@ -481,7 +485,7 @@ class AnnounceController extends Controller
      *
      * @throws \Exception
      */
-    private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
+    private function generateSuccessAnnounceResponse(array $queries, Torrent $torrent, User $user): array
     {
         // Build Response For Bittorrent Client
         $repDict = [
@@ -523,9 +527,9 @@ class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob($queries, $user, $torrent): void
+    private function processAnnounceJob(array $queries, User $user, Torrent $torrent, Group $group): void
     {
-        ProcessAnnounce::dispatch($queries, $user, $torrent);
+        ProcessAnnounce::dispatch($queries, $user, $torrent, $group);
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
@@ -539,7 +543,7 @@ class AnnounceController extends Controller
     /**
      * Send Final Announce Response.
      */
-    protected function sendFinalAnnounceResponse($repDict): Response
+    protected function sendFinalAnnounceResponse(array $repDict): Response
     {
         return response(Bencode::bencode($repDict), headers: self::HEADERS);
     }

@@ -35,7 +35,7 @@ class ProcessAnnounce implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $queries, protected $user, protected $torrent)
+    public function __construct(protected $queries, protected $user, protected $torrent, protected $group)
     {
     }
 
@@ -112,7 +112,7 @@ class ProcessAnnounce implements ShouldQueue
             ->first();
 
         if ($personalFreeleech ||
-            $this->user->group->is_freeleech == 1 ||
+            $this->group->is_freeleech == 1 ||
             $freeleechToken ||
             \config('other.freeleech') == 1) {
             $modDownloaded = 0;
@@ -126,7 +126,7 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         if ($this->torrent->doubleup == 1 ||
-            $this->user->group->is_double_upload == 1 ||
+            $this->group->is_double_upload == 1 ||
             \config('other.doubleup') == 1) {
             $modUploaded = $uploaded * 2;
         } else {
@@ -159,7 +159,8 @@ class ProcessAnnounce implements ShouldQueue
             case 'started':
 
                 $history->active = 1;
-                $history->immune = $this->user->group->is_immune == 1;
+                // Allow downgrading from `immune`, but never upgrade to it
+                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
                 $history->save();
                 break;
 
@@ -181,9 +182,10 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->uploaded += $modUploaded;
-                $this->user->downloaded += $modDownloaded;
-                $this->user->save();
+                $this->user->update([
+                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                ]);
                 // End User Update
 
                 // Torrent Completed Update
@@ -209,9 +211,10 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->delete();
 
                 // User Update
-                $this->user->uploaded += $modUploaded;
-                $this->user->downloaded += $modDownloaded;
-                $this->user->save();
+                $this->user->update([
+                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                ]);
                 // End User Update
                 break;
 
@@ -233,9 +236,10 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->uploaded += $modUploaded;
-                $this->user->downloaded += $modDownloaded;
-                $this->user->save();
+                $this->user->update([
+                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                ]);
                 // End User Update
         }
 
