@@ -42,7 +42,7 @@
         <div class="torrent-card__left-header">
             <span class="torrent-card__category">{{ $torrent->category->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
-            <span class="torrent-card__resolution">{{ $torrent->resolution->name }}</span>
+            <span class="torrent-card__resolution">{{ $torrent->resolution->name ?? 'No Res'}}</span>
             <span class="torrent-card__meta-seperator"> </span>
             <span class="torrent-card__type">{{ $torrent->type->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
