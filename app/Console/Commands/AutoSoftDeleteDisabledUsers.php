@@ -81,6 +81,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->deleted_by = 1;
                 $user->save();
 
+                \cache()->forget('user:'.$user->passkey);
+
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
                 foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
                     $tor->user_id = 1;

@@ -76,6 +76,8 @@ class AutoDeactivateWarning extends Command
             if ($warning->warneduser->can_download === 0) {
                 $warning->warneduser->can_download = 1;
                 $warning->warneduser->save();
+
+                \cache()->forget('user:'.$warning->warneduser->passkey);
             }
         }
 

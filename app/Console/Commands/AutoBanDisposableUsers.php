@@ -87,6 +87,8 @@ class AutoBanDisposableUsers extends Command
                     // Send Email
                     Mail::to($user->email)->send(new BanUser($user->email, $logban));
                 }
+
+                \cache()->forget('user:'.$user->passkey);
             }
         });
         $this->comment('Automated User Banning Command Complete');
