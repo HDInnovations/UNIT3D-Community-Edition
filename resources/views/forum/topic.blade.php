@@ -69,7 +69,7 @@
         </ol>
     </div>
     {{ $posts->links('partials.pagination') }}
-    @if ($topic->state === 'close')
+    @if ($topic->state === 'close' && auth()->user()->group->is_modo)
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif
     @if ($topic->state === 'open' || auth()->user()->group->is_modo)
@@ -88,7 +88,7 @@
                 </button>
             </p>
         </form>
-    @elseif ($topic->state === "close")
+    @elseif ($topic->state === 'close')
         <p>{{ __('forum.topic-closed') }}</p>
     @endif
 @endsection
@@ -297,23 +297,4 @@
             </div>
         </section>
     @endif
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#topic-response').wysibb()
-      })
-    </script>
-
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $(document).ready(function () {
-        $('.profil').on('click', 'button#quote', function () {
-          let author = $(this).closest('.profil').find('.post-info-username').first().text()
-          let text = $(this).closest('.profil').find('.post-content').data('bbcode')
-          $('#topic-response').wysibb().insertAtCursor('[quote=@' + author.trim() + ']' + text.trim() + '[/quote]\r\n', true)
-        })
-      })
-
-    </script>
 @endsection

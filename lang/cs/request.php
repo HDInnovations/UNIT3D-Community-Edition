@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Nemáte dostatek bonusu',
     'edit-request'        => 'Upravit požadavek',
     'enter-bp'            => 'Zadejte bonusové body (minimálně 100)',
-    'enter-hash'          => 'Zadejte Info Hash nahraného Torrentu',
+    'enter-hash'          => 'Zadejte ID nahraného Torrentu',
     'fill'                => 'Vyplnit',
     'fill-request'        => 'Vyplňte tento požadavek',
     'filled'              => 'Naplněné',

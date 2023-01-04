@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Nu aveți suficient Bonus',
     'edit-request'        => 'Editați solicitarea',
     'enter-bp'            => 'Introduceți puncte bonus (minim 100)',
-    'enter-hash'          => 'Introduceți Info Hash a încărcat Torrent',
+    'enter-hash'          => 'Introduceți ID a încărcat Torrent',
     'fill'                => 'Completati',
     'fill-request'        => 'Completați această solicitare',
     'filled'              => 'Umplut',

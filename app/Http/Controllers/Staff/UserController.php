@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\Follow;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -229,9 +228,8 @@ class UserController extends Controller
         }
 
         // Removes all follows for user
-        foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-            $follow->delete();
-        }
+        $user->followers()->detach();
+        $user->following()->detach();
 
         // Removes UserID from Sent Invites if any and replaces with System UserID (1)
         foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {

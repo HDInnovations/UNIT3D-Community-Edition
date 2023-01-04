@@ -131,7 +131,7 @@
                 <a
                     class="form__standard-icon-button"
                     download
-                    href="{{ route('download_check_page', ['id' => $torrent->id]) }}"
+                    href="{{ route('download_check', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>
                 </a>

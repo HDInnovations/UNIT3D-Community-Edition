@@ -77,15 +77,15 @@
                                 </td>
                                 <td>
                                     @switch(true)
-                                        @case ($torrentRequest->claimed !== null && $torrentRequest->filled_hash === null)
+                                        @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-blue"></i>
                                             {{ __('request.claimed') }}
                                             @break
-                                        @case ($torrentRequest->filled_hash !== null && $torrentRequest->approved_by === null)
+                                        @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
                                             <i class="fas fa-circle text-purple"></i>
                                             {{ __('request.pending') }}
                                             @break
-                                        @case ($torrentRequest->filled_hash === null)
+                                        @case ($torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-red"></i>
                                             {{ __('request.unfilled') }}
                                             @break

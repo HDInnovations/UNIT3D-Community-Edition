@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Huna Bonus ya kutosha',
     'edit-request'        => 'Badilisha ombi',
     'enter-bp'            => 'Ingiza pointi za ziada (chini ya 100)',
-    'enter-hash'          => 'Ingiza Info Hash ya Torrent iliyopakiwa',
+    'enter-hash'          => 'Ingiza ID ya Torrent iliyopakiwa',
     'fill'                => 'Jaza',
     'fill-request'        => 'Jaza ombi hili',
     'filled'              => 'Imejazwa',

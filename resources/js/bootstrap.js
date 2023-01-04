@@ -48,9 +48,6 @@ if (token) {
 /*
  * NPM Packages
  */
-// WYSIBB Dditor
-require('./wysibb/jquery.wysibb');
-
 // Sweet Alert
 window.Swal = require('sweetalert2');
 

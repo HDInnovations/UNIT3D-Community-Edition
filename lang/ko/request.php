@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => '충분한 보너스가 없다.',
     'edit-request'        => '요청 수정',
     'enter-bp'            => '보너스 포인트 입력 (최소 100)',
-    'enter-hash'          => '업로드 된 Torrent의 Info Hash를 입력하십시오.',
+    'enter-hash'          => '업로드 된 Torrent의 ID를 입력하십시오.',
     'fill'                => '작성하세요',
     'fill-request'        => '이 요청을 작성하십시오.',
     'filled'              => '작성된',
