@@ -243,7 +243,11 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $activeToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+
+        $activeToken = \cache()->rememberForever(
+            'freeleech_token:'.$user->id.':'.$torrent->id,
+            fn () => $user->freeleechTokens()->where('torrent_id', '=', $torrent->id)->exists()
+        );
 
         if ($user->fl_tokens >= 1 && ! $activeToken) {
             $freeleechToken = new FreeleechToken();

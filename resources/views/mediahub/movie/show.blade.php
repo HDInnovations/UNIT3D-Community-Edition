@@ -194,7 +194,7 @@
                                             </span>
                                             @endif
 
-                                            @php $freeleech_token = App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first() @endphp
+                                            @php $freeleech_token = \cache()->rememberForever('freeleech_token:'.$user->id.':'.$torrent->id, fn () => $user->freeleechTokens()->where('torrent_id', '=', $torrent->id)->exists()) @endphp
                                             @if ($freeleech_token)
                                                 <span class='badge-extra'>
                                                 <i class='{{ config('other.font-awesome') }} fa-star'

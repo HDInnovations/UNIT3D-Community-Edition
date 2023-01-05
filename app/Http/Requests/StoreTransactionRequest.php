@@ -51,7 +51,7 @@ class StoreTransactionRequest extends FormRequest
                         case $item->download && $user->downloaded < $item->value:
                             $fail('Not enough download.');
                             break;
-                        case $item->personal_freeleech && $user->personalFreeleeches()->exists():
+                        case $item->personal_freeleech && \cache()->rememberForever('personal_freeleech:'.$user()->id, fn () => $user->personalFreeleeches()->exists()):
                             $fail('Your previous personal freeleech is still active.');
                             break;
                     }

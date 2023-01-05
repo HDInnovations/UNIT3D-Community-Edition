@@ -85,8 +85,14 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
-        $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleechToken = \cache()->rememberForever(
+            'freeleech_token:'.$user->id.':'.$torrent->id,
+            fn () => $user->freeleechTokens()->where('torrent_id', '=', $torrent->id)->exists()
+        );
+        $personalFreeleech = \cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => $user->personalFreeleeches()->exists()
+        );
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -332,7 +338,15 @@ class TorrentController extends Controller
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
                 Subtitle::where('torrent_id', '=', $id)->delete();
                 Graveyard::where('torrent_id', '=', $id)->delete();
-                FreeleechToken::where('torrent_id', '=', $id)->delete();
+
+                $freeleechTokens = $torrent->freeleechTokens;
+
+                foreach ($freeleechTokens as $freeleechToken) {
+                    \cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+                }
+
+                $freeleechTokens->delete();
+
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }

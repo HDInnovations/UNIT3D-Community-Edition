@@ -299,17 +299,11 @@ class AnnounceController extends Controller
     protected function checkUser(string $passkey, array $queries): array
     {
         // Cached System Required Groups
-        $bannedGroup = \cache()->rememberForever(
-            'banned_group',
-            fn () => Group::where('slug', '=', 'banned')->pluck('id')
-        );
-        $validatingGroup = \cache()->rememberForever(
-            'validating_group',
-            fn () => Group::where('slug', '=', 'validating')->pluck('id')
-        );
-        $disabledGroup = \cache()->rememberForever(
-            'disabled_group',
-            fn () => Group::where('slug', '=', 'disabled')->pluck('id')
+        $deniedGroups = \cache()->rememberForever('denied_groups', fn () => Group::query()
+                ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
+                ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
+                ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
+                ->first()
         );
 
         // Check Passkey Against Users Table
@@ -328,7 +322,7 @@ class AnnounceController extends Controller
 
         // If User Account Is Unactivated/Validating Return Error to Client
         \throw_if(
-            $user->group_id === $validatingGroup[0],
+            $user->group_id === $deniedGroups->validating_id,
             new TrackerException(141, [':status' => 'Unactivated/Validating'])
         );
 
@@ -340,13 +334,13 @@ class AnnounceController extends Controller
 
         // If User Is Banned Return Error to Client
         \throw_if(
-            $user->group_id === $bannedGroup[0],
+            $user->group_id === $deniedGroups->banned_id,
             new TrackerException(141, [':status' => 'Banned'])
         );
 
         // If User Is Disabled Return Error to Client
         throw_if(
-            $user->group_id === $disabledGroup[0],
+            $user->group_id === $deniedGroups->disabled_id,
             new TrackerException(141, [':status' => 'Disabled'])
         );
 

@@ -102,14 +102,15 @@ class ProcessAnnounce implements ShouldQueue
         $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
 
         // Modification of Upload and Download
-        $personalFreeleech = PersonalFreeleech::query()
-            ->where('user_id', '=', $this->user->id)
-            ->first();
+        $personalFreeleech = \cache()->rememberForever(
+            'personal_freeleech:'.$this->user->id,
+            fn () => $this->user->personalFreeleeches()->exists()
+        );
 
-        $freeleechToken = FreeleechToken::query()
-            ->where('user_id', '=', $this->user->id)
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->first();
+        $freeleechToken = \cache()->rememberForever(
+            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            fn () => $this->user->freeleechTokens()->where('torrent_id', '=', $this->torrent->id)->exists()
+        );
 
         if ($personalFreeleech ||
             $this->group->is_freeleech == 1 ||
@@ -182,10 +183,12 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
 
                 // Torrent Completed Update
@@ -211,10 +214,12 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->delete();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
                 break;
 
@@ -236,10 +241,12 @@ class ProcessAnnounce implements ShouldQueue
                 $history->save();
 
                 // User Update
-                $this->user->update([
-                    'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                    'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
-                ]);
+                if ($modUploaded > 0 || $modDownloaded > 0) {
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                    ]);
+                }
                 // End User Update
         }
 
