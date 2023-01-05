@@ -102,15 +102,15 @@ class ProcessAnnounce implements ShouldQueue
         $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
 
         // Modification of Upload and Download
-        $freeleechToken = FreeleechToken::query()
-            ->where('user_id', '=', $this->user->id)
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->first();
         $personalFreeleech = \cache()->rememberForever(
             'personal_freeleech:'.$this->user->id,
             fn () => $this->user->personalFreeleeches()->exists()
         );
 
+        $freeleechToken = \cache()->rememberForever(
+            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            fn () => $this->user->freeleechTokens()->where('torrent_id', '=', $this->torrent->id)->exists()
+        );
 
         if ($personalFreeleech ||
             $this->group->is_freeleech == 1 ||

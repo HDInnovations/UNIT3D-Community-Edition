@@ -260,6 +260,7 @@ class UserController extends Controller
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
+            \cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
         }
 
         if ($user->delete()) {

@@ -174,6 +174,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all FL Tokens for user
                 foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
                     $token->delete();
+
+                    \cache()->forget('freeleech_token:'.$token->user_id.':'.$token->torrent_id);
                 }
 
                 $user->delete();

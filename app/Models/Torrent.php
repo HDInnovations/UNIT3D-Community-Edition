@@ -199,6 +199,14 @@ class Torrent extends Model
     }
 
     /**
+     * Has many free leech tokens.
+     */
+    public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FreeleechToken::class);
+    }
+
+    /**
      * Set The Torrents Description After Its Been Purified.
      */
     public function setDescriptionAttribute(?string $value): void
