@@ -15,7 +15,6 @@ namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
 use App\Models\Movie;
-use App\Models\PersonalFreeleech;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller

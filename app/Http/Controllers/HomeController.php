@@ -18,7 +18,6 @@ use App\Models\Bookmark;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Group;
-use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
 use App\Models\Topic;

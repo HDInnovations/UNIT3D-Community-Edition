@@ -13,7 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
