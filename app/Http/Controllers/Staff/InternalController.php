@@ -26,11 +26,8 @@ class InternalController extends Controller
     /**
      * Display All Internal Groups.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
-
         $internals = Internal::all()->sortBy('name');
 
         return \view('Staff.internals.index', ['internals' => $internals]);
@@ -39,12 +36,8 @@ class InternalController extends Controller
     /**
      * Edit A group.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
-
-        $date = Carbon::now();
         $internal = Internal::findOrFail($id);
 
         return \view('Staff.internals.edit', ['internal' => $internal]);
@@ -55,9 +48,6 @@ class InternalController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
-
         $internal = Internal::findOrFail($id);
 
         $internal->name = $request->input('name');
@@ -94,9 +84,6 @@ class InternalController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         $internal = new Internal();
         $internal->name = $request->input('name');
         $internal->icon = $request->input('icon');
@@ -122,12 +109,9 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
         $internal = Internal::findOrFail($id);
-
-        \abort_unless($user->group->is_admin, 403);
         $internal->delete();
 
         return \to_route('staff.internals.index')
