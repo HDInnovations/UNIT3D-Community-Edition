@@ -55,7 +55,10 @@ class HomeController extends Controller
         }
 
         // Latest Torrents Block
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = \cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => $user->personalFreeleeches()->exists()
+        );
 
         $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])

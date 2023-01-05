@@ -177,7 +177,10 @@ class TorrentCardSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return \cache()->rememberForever(
+            'personal_freeleech:'.\auth()->user()->id,
+            fn () => \auth()->user()->personalFreeleeches()->exists()
+        );
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

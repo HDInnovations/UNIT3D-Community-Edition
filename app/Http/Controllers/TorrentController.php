@@ -86,7 +86,10 @@ class TorrentController extends Controller
 
         $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
         $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = \cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => $user->personalFreeleeches()->exists()
+        );
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();

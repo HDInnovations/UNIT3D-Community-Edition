@@ -282,7 +282,7 @@ class Torrent extends Model
      */
     public function isFreeleech($user = null): bool
     {
-        $pfree = $user && ($user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first());
+        $pfree = $user && ($user->group->is_freeleech || \cache()->rememberForever('personal_freeleech:'.$user->id, fn () => $user->personalFreeleeches()->exists()));
 
         return $this->free || \config('other.freeleech') || $pfree;
     }
