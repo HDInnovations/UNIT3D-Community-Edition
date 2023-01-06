@@ -28,11 +28,8 @@ class GroupController extends Controller
     /**
      * Display All Groups.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         $groups = Group::all()->sortBy('position');
 
         return \view('Staff.group.index', ['groups' => $groups]);
@@ -41,11 +38,8 @@ class GroupController extends Controller
     /**
      * Group Add Form.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         return \view('Staff.group.create');
     }
 
@@ -54,9 +48,6 @@ class GroupController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         $group = new Group();
         $group->name = $request->input('name');
         $group->slug = Str::slug($request->input('name'));
@@ -115,11 +106,8 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         $group = Group::findOrFail($id);
 
         return \view('Staff.group.edit', ['group' => $group]);
@@ -130,9 +118,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
-
         $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');

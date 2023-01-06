@@ -25,10 +25,8 @@ class BlacklistClientController extends Controller
     /**
      * Display All Blacklisted Clients.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
-
         $clients = BlacklistClient::latest()->get();
 
         return \view('Staff.blacklist.clients.index', ['clients' => $clients]);
@@ -37,10 +35,8 @@ class BlacklistClientController extends Controller
     /**
      * Blacklisted Client Edit Form.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
-
         $client = BlacklistClient::findOrFail($id);
 
         return \view('Staff.blacklist.clients.edit', ['client' => $client]);
@@ -51,8 +47,6 @@ class BlacklistClientController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_modo, 403);
-
         $client = BlacklistClient::findOrFail($id);
         $client->name = $request->input('name');
         $client->reason = $request->input('reason');
@@ -88,8 +82,6 @@ class BlacklistClientController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_admin, 403);
-
         $client = new BlacklistClient();
         $client->name = $request->input('name');
         $client->reason = $request->input('reason');
@@ -115,12 +107,9 @@ class BlacklistClientController extends Controller
     /**
      * Delete A Blacklisted Client.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_admin, 403);
-
-        $client = BlacklistClient::findOrFail($id);
-        $client->delete();
+        BlacklistClient::findOrFail($id)->delete();
 
         \cache()->forget('client_blacklist');
 

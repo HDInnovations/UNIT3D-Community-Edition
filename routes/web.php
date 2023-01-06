@@ -643,7 +643,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Backup System
-        Route::group(['prefix' => 'backups'], function () {
+        Route::group(['prefix' => 'backups', 'middleware' => ['owner']], function () {
             Route::name('staff.backups.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
@@ -752,7 +752,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Commands
-        Route::group(['prefix' => 'commands'], function () {
+        Route::group(['prefix' => 'commands', 'middleware' => ['owner']], function () {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
             Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
             Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
@@ -787,7 +787,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Forums System
-        Route::group(['prefix' => 'forums'], function () {
+        Route::group(['prefix' => 'forums', 'middleware' => ['admin']], function () {
             Route::name('staff.forums.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
@@ -799,7 +799,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Groups System
-        Route::group(['prefix' => 'groups'], function () {
+        Route::group(['prefix' => 'groups', 'middleware' => ['admin']], function () {
             Route::name('staff.groups.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
