@@ -17,7 +17,6 @@
             <p class="form__group">
                 <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}">
                 <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">
-                <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
             </p>
             <p class="form__group">
                 <textarea class="form__textarea" name="message" id="message"></textarea>

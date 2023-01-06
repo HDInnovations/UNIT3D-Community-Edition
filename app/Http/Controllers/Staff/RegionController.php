@@ -46,12 +46,10 @@ class RegionController extends Controller
     {
         $region = new Region();
         $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
             'name'     => 'required|unique:regions,name',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -83,12 +81,10 @@ class RegionController extends Controller
     {
         $region = Region::findOrFail($id);
         $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 

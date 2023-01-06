@@ -104,7 +104,6 @@ class TypeControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.types.store'), [
             'name'     => $type->name,
-            'slug'     => $type->slug,
             'position' => $type->position,
         ]);
 
@@ -123,7 +122,6 @@ class TypeControllerTest extends TestCase
 
         $response = $this->actingAs($user)->patch(route('staff.types.update', ['id' => $type->id]), [
             'name'     => $type->name,
-            'slug'     => $type->slug,
             'position' => $type->position,
         ]);
 

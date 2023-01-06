@@ -48,12 +48,10 @@ class TypeController extends Controller
     {
         $type = new Type();
         $type->name = $request->input('name');
-        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -85,12 +83,10 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
-        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
