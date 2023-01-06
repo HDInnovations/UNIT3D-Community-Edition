@@ -121,6 +121,8 @@ class UserController extends Controller
         $user->internal_id = (int) $request->input('internal_id');
         $user->save();
 
+        \cache()->forget('user:'.$user->passkey);
+
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
@@ -138,6 +140,8 @@ class UserController extends Controller
         $user->can_request = $request->input('can_request');
         $user->can_chat = $request->input('can_chat');
         $user->save();
+
+        \cache()->forget('user:'.$user->passkey);
 
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
@@ -256,12 +260,15 @@ class UserController extends Controller
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
+            \cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
         }
 
         if ($user->delete()) {
             return \to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
+
+        \cache()->forget('user:'.$user->passkey);
 
         return \to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');

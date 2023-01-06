@@ -19,7 +19,6 @@ use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Movie;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
 use App\Models\Subtitle;
@@ -225,7 +224,10 @@ class SimilarTorrent extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return \cache()->rememberForever(
+            'personal_freeleech:'.\auth()->user()->id,
+            fn () => \auth()->user()->personalFreeleeches()->exists()
+        );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

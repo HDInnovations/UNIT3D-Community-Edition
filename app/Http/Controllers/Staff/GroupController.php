@@ -175,6 +175,8 @@ class GroupController extends Controller
 
         $group->save();
 
+        \cache()->forget('group:'.$group->id);
+
         return \to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }

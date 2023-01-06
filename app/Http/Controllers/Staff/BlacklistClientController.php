@@ -69,6 +69,8 @@ class BlacklistClientController extends Controller
 
         $client->save();
 
+        \cache()->forget('client_blacklist');
+
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Was Updated Successfully!');
     }
@@ -104,6 +106,8 @@ class BlacklistClientController extends Controller
 
         $client->save();
 
+        \cache()->forget('client_blacklist');
+
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Stored Successfully!');
     }
@@ -117,6 +121,8 @@ class BlacklistClientController extends Controller
 
         $client = BlacklistClient::findOrFail($id);
         $client->delete();
+
+        \cache()->forget('client_blacklist');
 
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Destroyed Successfully!');
