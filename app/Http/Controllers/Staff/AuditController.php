@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Audit;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\AuditControllerTest

@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
