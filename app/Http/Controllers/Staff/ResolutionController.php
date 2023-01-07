@@ -45,12 +45,10 @@ class ResolutionController extends Controller
     {
         $resolution = new Resolution();
         $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -82,12 +80,10 @@ class ResolutionController extends Controller
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 

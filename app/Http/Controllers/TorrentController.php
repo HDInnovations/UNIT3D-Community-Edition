@@ -183,7 +183,6 @@ class TorrentController extends Controller
 
         \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->category_id = $request->input('category_id');
         $torrent->imdb = $request->input('imdb');
@@ -224,7 +223,6 @@ class TorrentController extends Controller
 
         $v = \validator($torrent->toArray(), [
             'name'           => 'required',
-            'slug'           => 'required',
             'description'    => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
@@ -296,7 +294,6 @@ class TorrentController extends Controller
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
-            'slug'    => 'required|exists:torrents',
             'message' => 'required|alpha_dash|min:1',
         ]);
 
@@ -377,7 +374,6 @@ class TorrentController extends Controller
         foreach (Category::all()->sortBy('position') as $cat) {
             $temp = [
                 'name' => $cat->name,
-                'slug' => $cat->slug,
             ];
             $temp['type'] = match (1) {
                 $cat->movie_meta => 'movie',
@@ -474,7 +470,6 @@ class TorrentController extends Controller
         // Create the torrent (DB)
         $torrent = new Torrent();
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->bdinfo = $request->input('bdinfo');
@@ -524,7 +519,6 @@ class TorrentController extends Controller
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
-            'slug'           => 'required',
             'description'    => 'required',
             'info_hash'      => 'required|unique:torrents',
             'file_name'      => 'required',

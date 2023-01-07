@@ -89,7 +89,6 @@ class ChatBotController extends Controller
 
         if ($v->passes()) {
             $bot->name = $request->input('name');
-            $bot->slug = Str::slug($request->input('name'));
             $bot->position = $request->input('position');
             $bot->color = $request->input('color');
             $bot->icon = $request->input('icon');

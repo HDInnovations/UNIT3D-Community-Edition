@@ -102,7 +102,6 @@ class TorrentController extends BaseController
         // Create the torrent (DB)
         $torrent = \app()->make(Torrent::class);
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->bdinfo = $request->input('bdinfo');
@@ -169,7 +168,6 @@ class TorrentController extends BaseController
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
-            'slug'              => 'required',
             'description'       => 'required',
             'info_hash'         => 'required|unique:torrents',
             'file_name'         => 'required',

@@ -104,7 +104,6 @@ class CategoryControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.categories.store'), [
             'name'       => $category->name,
-            'slug'       => $category->slug,
             'position'   => $category->position,
             'image'      => $category->image,
             'icon'       => $category->icon,
@@ -130,7 +129,6 @@ class CategoryControllerTest extends TestCase
 
         $response = $this->actingAs($user)->patch(route('staff.categories.update', ['id' => $category->id]), [
             'name'       => $category->name,
-            'slug'       => $category->slug,
             'position'   => $category->position,
             'image'      => $category->image,
             'icon'       => $category->icon,

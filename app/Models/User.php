@@ -520,14 +520,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the Users username as slug.
-     */
-    public function getSlugAttribute(): string
-    {
-        return Str::slug($this->username);
-    }
-
-    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool

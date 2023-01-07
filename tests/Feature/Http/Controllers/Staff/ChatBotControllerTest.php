@@ -118,7 +118,6 @@ class ChatBotControllerTest extends TestCase
 
         $response = $this->actingAs($user)->patch(route('staff.bots.update', ['id' => $bot->id]), [
             'position'     => $bot->position,
-            'slug'         => $bot->slug,
             'name'         => $bot->name,
             'command'      => $bot->command,
             'color'        => $bot->color,

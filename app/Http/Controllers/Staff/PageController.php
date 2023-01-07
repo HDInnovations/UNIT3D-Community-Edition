@@ -48,12 +48,10 @@ class PageController extends Controller
     {
         $page = new Page();
         $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
             'name'    => 'required',
-            'slug'    => 'required',
             'content' => 'required',
         ]);
 
@@ -85,12 +83,10 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
             'name'    => 'required',
-            'slug'    => 'required',
             'content' => 'required',
         ]);
 
