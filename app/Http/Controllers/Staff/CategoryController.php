@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 /**

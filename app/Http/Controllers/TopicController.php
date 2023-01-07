@@ -31,7 +31,6 @@ use App\Models\Topic;
 use App\Repositories\ChatRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TopicControllerTest

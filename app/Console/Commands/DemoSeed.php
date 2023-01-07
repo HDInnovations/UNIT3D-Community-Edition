@@ -20,7 +20,6 @@ use App\Services\Tmdb\Client\TV;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class DemoSeed extends Command
 {

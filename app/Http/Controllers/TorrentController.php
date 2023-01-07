@@ -45,7 +45,6 @@ use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;

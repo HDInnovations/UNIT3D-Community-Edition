@@ -19,11 +19,11 @@ return new class () extends Migration {
         Schema::table('bots', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('distributors', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
@@ -31,11 +31,11 @@ return new class () extends Migration {
         Schema::table('forums', function (Blueprint $table) {
             $table->dropColumn('last_topic_slug');
         });
-        
+
         Schema::table('pages', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('polls', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
@@ -43,19 +43,19 @@ return new class () extends Migration {
         Schema::table('regions', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('resolutions', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('topics', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('torrents', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
-        
+
         Schema::table('types', function (Blueprint $table) {
             $table->dropColumn('slug');
         });

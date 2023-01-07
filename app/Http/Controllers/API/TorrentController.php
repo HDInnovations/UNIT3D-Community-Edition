@@ -29,7 +29,6 @@ use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest

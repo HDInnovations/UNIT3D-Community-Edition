@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\TypeControllerTest
