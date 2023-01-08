@@ -50,6 +50,13 @@ class Rss extends Model
     ];
 
     /**
+     * The attributes that aren't mass assignable.
+     * 
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
