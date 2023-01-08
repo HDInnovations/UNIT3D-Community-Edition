@@ -14,9 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreNoteRequest;
 use App\Models\Note;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
@@ -34,30 +34,15 @@ class NoteController extends Controller
     /**
      * Store A New User Note.
      */
-    public function store(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreNoteRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $staff = $request->user();
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        $note = new Note();
-        $note->user_id = $user->id;
-        $note->staff_id = $staff->id;
-        $note->message = $request->input('message');
-
-        $v = \validator($note->toArray(), [
-            'user_id'  => 'required',
-            'staff_id' => 'required',
-            'message'  => 'required',
+        Note::create([
+            'user_id'  => User::where('username', '=', $username)->firstOrFail()->id,
+            'staff_id' => $request->user()->id,
+            'message'  => $request->message,
         ]);
 
-        if ($v->fails()) {
-            return \to_route('users.show', ['username' => $user->username])
-                ->withErrors($v->errors());
-        }
-
-        $note->save();
-
-        return \to_route('users.show', ['username' => $user->username])
+        return \to_route('users.show', ['username' => $username])
             ->withSuccess('Note Has Successfully Posted');
     }
 
