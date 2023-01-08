@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreTypeRequest;
+use App\Http\Requests\Staff\UpdateTypeRequest;
 use App\Models\Type;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\TypeControllerTest
@@ -43,23 +44,9 @@ class TypeController extends Controller
     /**
      * Store A New Type.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTypeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $type = new Type();
-        $type->name = $request->input('name');
-        $type->position = $request->input('position');
-
-        $v = \validator($type->toArray(), [
-            'name'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.types.index')
-                ->withErrors($v->errors());
-        }
-
-        $type->save();
+        Type::create($request->validated());
 
         return \to_route('staff.types.index')
             ->withSuccess('Type Successfully Added');
@@ -78,23 +65,9 @@ class TypeController extends Controller
     /**
      * Edit A Type.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTypeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $type = Type::findOrFail($id);
-        $type->name = $request->input('name');
-        $type->position = $request->input('position');
-
-        $v = \validator($type->toArray(), [
-            'name'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.types.index')
-                ->withErrors($v->errors());
-        }
-
-        $type->save();
+        Type::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.types.index')
             ->withSuccess('Type Successfully Modified');

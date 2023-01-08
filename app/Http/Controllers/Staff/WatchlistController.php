@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreWatchedUserRequest;
+use App\Models\User;
 use App\Models\Watchlist;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WatchlistControllerTest
@@ -33,25 +34,11 @@ class WatchlistController extends Controller
     /**
      * Store A New Watched User.
      */
-    final public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    final public function store(StoreWatchedUserRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $watchedUser = new Watchlist();
-        $watchedUser->user_id = $id;
-        $watchedUser->staff_id = $request->user()->id;
-        $watchedUser->message = $request->input('message');
+        $user = User::where('id', '=', $id)->sole();
 
-        $v = \validator($watchedUser->toArray(), [
-            'user_id'  => 'required|exists:users,id',
-            'staff_id' => 'required|exists:users,id',
-            'message'  => 'required|min:3',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.watchlist.index')
-                ->withErrors($v->errors());
-        }
-
-        $watchedUser->save();
+        Watchlist::create(['user_id' => $user->id, 'staff_id' => $request->user()->id] + $request->validated());
 
         return \to_route('staff.watchlist.index')
             ->withSuccess('User Successfully Being Watched');

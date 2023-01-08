@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\UpdateChatBotRequest;
 use App\Models\Bot;
 use Illuminate\Http\Request;
 
@@ -51,67 +52,12 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateChatBotRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        $bot = Bot::findOrFail($id);
-
-        if ($request->has('command') && $request->input('command') == $bot->command) {
-            $v = \validator($request->all(), [
-                'name'     => 'required|min:3|max:255',
-                'command'  => 'required|alpha_dash|min:3|max:255',
-                'position' => 'required',
-                'color'    => 'required',
-                'icon'     => 'required',
-                'emoji'    => 'required',
-                'help'     => 'sometimes|max:9999',
-                'info'     => 'sometimes|max:9999',
-                'about'    => 'sometimes|max:9999',
-            ]);
-        } else {
-            $v = \validator($request->all(), [
-                'name'     => 'required|min:3|max:255',
-                'command'  => 'required|alpha_dash|min:3|max:255|unique:bots',
-                'position' => 'required',
-                'color'    => 'required',
-                'icon'     => 'required',
-                'emoji'    => 'required',
-                'help'     => 'sometimes|max:9999',
-                'info'     => 'sometimes|max:9999',
-                'about'    => 'sometimes|max:9999',
-            ]);
-        }
-
-        $error = null;
-        $success = null;
-        $redirect = null;
-
-        if ($v->passes()) {
-            $bot->name = $request->input('name');
-            $bot->position = $request->input('position');
-            $bot->color = $request->input('color');
-            $bot->icon = $request->input('icon');
-            $bot->emoji = $request->input('emoji');
-            $bot->about = $request->input('about');
-            $bot->info = $request->input('info');
-            $bot->help = $request->input('help');
-            $bot->command = $request->input('command');
-            $bot->save();
-            $success = 'The Bot Has Been Updated';
-        }
-
-        if ($success === null) {
-            $error = 'Unable To Process Request';
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('staff.bots.edit', ['id' => $id])
-                ->withErrors($error);
-        }
+        Bot::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.bots.edit', ['id' => $id])
-            ->withSuccess($success);
+            ->withSuccess("The Bot Has Been Updated");
     }
 
     /**

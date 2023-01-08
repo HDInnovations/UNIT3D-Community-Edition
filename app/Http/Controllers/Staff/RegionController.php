@@ -14,6 +14,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreRegionRequest;
+use App\Http\Requests\Staff\UpdateRegionRequest;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -41,23 +43,9 @@ class RegionController extends Controller
     /**
      * Store A New Region.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreRegionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $region = new Region();
-        $region->name = $request->input('name');
-        $region->position = $request->input('position');
-
-        $v = \validator($region->toArray(), [
-            'name'     => 'required|unique:regions,name',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.regions.index')
-                ->withErrors($v->errors());
-        }
-
-        $region->save();
+        Region::create($request->validated());
 
         return \to_route('staff.regions.index')
                 ->withSuccess('Region Successfully Added');
@@ -76,23 +64,9 @@ class RegionController extends Controller
     /**
      * Edit A Region.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateRegionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $region = Region::findOrFail($id);
-        $region->name = $request->input('name');
-        $region->position = $request->input('position');
-
-        $v = \validator($region->toArray(), [
-            'name'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.regions.index')
-                ->withErrors($v->errors());
-        }
-
-        $region->save();
+        Region::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.regions.index')
                 ->withSuccess('Region Successfully Modified');

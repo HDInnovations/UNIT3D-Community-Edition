@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StorePageRequest;
+use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -43,23 +44,9 @@ class PageController extends Controller
     /**
      * Store A New Page.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $page = new Page();
-        $page->name = $request->input('name');
-        $page->content = $request->input('content');
-
-        $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'content' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.pages.index')
-                ->withErrors($v->errors());
-        }
-
-        $page->save();
+        Page::create($request->validated());
 
         return \to_route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
@@ -78,23 +65,9 @@ class PageController extends Controller
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $page = Page::findOrFail($id);
-        $page->name = $request->input('name');
-        $page->content = $request->input('content');
-
-        $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'content' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.pages.index')
-                ->withErrors($v->errors());
-        }
-
-        $page->save();
+        Page::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
