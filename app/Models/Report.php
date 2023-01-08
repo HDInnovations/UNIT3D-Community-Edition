@@ -23,13 +23,11 @@ class Report extends Model
     use Auditable;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
-     *
-     * @var array
+     * The attributes that aren't mass assignable.
+     * 
+     * @var string[]
      */
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A Request.
