@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\TypeControllerTest
@@ -48,12 +47,10 @@ class TypeController extends Controller
     {
         $type = new Type();
         $type->name = $request->input('name');
-        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -85,12 +82,10 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
-        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = \validator($type->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 

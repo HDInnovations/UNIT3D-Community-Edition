@@ -73,14 +73,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-        // Achievements System
-        Route::group(['prefix' => 'achievements'], function () {
-            Route::name('achievements.')->group(function () {
-                Route::get('/', [App\Http\Controllers\AchievementsController::class, 'index'])->name('index');
-                Route::get('/{username}', [App\Http\Controllers\AchievementsController::class, 'show'])->name('show');
-            });
-        });
-
         // Articles System
         Route::group(['prefix' => 'articles'], function () {
             Route::name('articles.')->group(function () {
@@ -157,21 +149,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');
         });
 
-        // Private Messages System
-        Route::group(['prefix' => 'mail'], function () {
-            Route::post('/searchPMInbox', [App\Http\Controllers\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
-            Route::post('/searchPMOutbox', [App\Http\Controllers\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
-            Route::get('/inbox', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessages'])->name('inbox');
-            Route::get('/message/{id}', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
-            Route::get('/outbox', [App\Http\Controllers\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
-            Route::get('/create', [App\Http\Controllers\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
-            Route::post('/mark-all-read', [App\Http\Controllers\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
-            Route::delete('/empty-inbox', [App\Http\Controllers\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
-            Route::post('/send', [App\Http\Controllers\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
-            Route::post('/{id}/reply', [App\Http\Controllers\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
-            Route::post('/{id}/destroy', [App\Http\Controllers\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
-        });
-
         // Requests System
         Route::group(['prefix' => 'requests'], function () {
             Route::name('requests.')->group(function () {
@@ -235,119 +212,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
         });
 
-        // Warnings System
-        Route::group(['prefix' => 'warnings'], function () {
-            Route::post('/{id}/deactivate', [App\Http\Controllers\WarningController::class, 'deactivate'])->name('deactivateWarning');
-            Route::post('/{username}/mass-deactivate', [App\Http\Controllers\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
-            Route::delete('/{id}', [App\Http\Controllers\WarningController::class, 'deleteWarning'])->name('deleteWarning');
-            Route::delete('/{username}/mass-delete', [App\Http\Controllers\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
-            Route::post('/{id}/restore', [App\Http\Controllers\WarningController::class, 'restoreWarning'])->name('restoreWarning');
-            Route::get('/{username}', [App\Http\Controllers\WarningController::class, 'show'])->name('warnings.show');
-        });
-
-        // Users System
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}', [App\Http\Controllers\UserController::class, 'show'])->name('users.show');
-            Route::get('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
-            Route::post('/{username}/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->name('user_edit_profile');
-            Route::get('/{username}/banlog', [App\Http\Controllers\UserController::class, 'getBans'])->name('banlog');
-            Route::post('/{username}/userFilters', [App\Http\Controllers\UserController::class, 'myFilter'])->name('myfilter');
-            Route::get('/{username}/downloadHistoryTorrents', [App\Http\Controllers\UserController::class, 'downloadHistoryTorrents'])->name('download_history_torrents');
-            Route::post('/{username}/flushOwnGhostPeers', [App\Http\Controllers\UserController::class, 'flushOwnGhostPeers'])->name('flush_own_ghost_peers');
-            Route::get('/{username}/resurrections', [App\Http\Controllers\UserController::class, 'resurrections'])->name('user_resurrections');
-            Route::get('/{username}/requested', [App\Http\Controllers\UserController::class, 'requested'])->name('user_requested');
-            Route::get('/{username}/active', [App\Http\Controllers\UserController::class, 'active'])->name('user_active');
-            Route::get('/{username}/torrents', [App\Http\Controllers\UserController::class, 'torrents'])->name('user_torrents');
-            Route::get('/{username}/uploads', [App\Http\Controllers\UserController::class, 'uploads'])->name('user_uploads');
-            Route::get('/{username}/topics', [App\Http\Controllers\UserController::class, 'topics'])->name('user_topics');
-            Route::get('/{username}/posts', [App\Http\Controllers\UserController::class, 'posts'])->name('user_posts');
-            Route::get('/{username}/followers', [App\Http\Controllers\UserController::class, 'followers'])->name('user_followers');
-            Route::get('/{username}/settings', [App\Http\Controllers\UserController::class, 'settings'])->name('user_settings');
-            Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\UserController::class, 'privacy'])->name('user_privacy');
-            Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\UserController::class, 'security'])->name('user_security');
-            Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\UserController::class, 'notification'])->name('user_notification');
-            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep']);
-            Route::post('/{username}/settings/change_settings', [App\Http\Controllers\UserController::class, 'changeSettings'])->name('change_settings');
-            Route::post('/{username}/settings/change_password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change_password');
-            Route::post('/{username}/settings/change_email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change_email');
-            Route::post('/{username}/settings/change_pid', [App\Http\Controllers\UserController::class, 'changePID'])->name('change_pid');
-            Route::post('/{username}/settings/change_rid', [App\Http\Controllers\UserController::class, 'changeRID'])->name('change_rid');
-            Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::post('/{username}/settings/notification/disable', [App\Http\Controllers\UserController::class, 'disableNotifications'])->name('notification_disable');
-            Route::post('/{username}/settings/notification/enable', [App\Http\Controllers\UserController::class, 'enableNotifications'])->name('notification_enable');
-            Route::post('/{username}/settings/notification/account', [App\Http\Controllers\UserController::class, 'changeAccountNotification'])->name('notification_account');
-            Route::post('/{username}/settings/notification/following', [App\Http\Controllers\UserController::class, 'changeFollowingNotification'])->name('notification_following');
-            Route::post('/{username}/settings/notification/forum', [App\Http\Controllers\UserController::class, 'changeForumNotification'])->name('notification_forum');
-            Route::post('/{username}/settings/notification/subscription', [App\Http\Controllers\UserController::class, 'changeSubscriptionNotification'])->name('notification_subscription');
-            Route::post('/{username}/settings/notification/mention', [App\Http\Controllers\UserController::class, 'changeMentionNotification'])->name('notification_mention');
-            Route::post('/{username}/settings/notification/torrent', [App\Http\Controllers\UserController::class, 'changeTorrentNotification'])->name('notification_torrent');
-            Route::post('/{username}/settings/notification/bon', [App\Http\Controllers\UserController::class, 'changeBonNotification'])->name('notification_bon');
-            Route::post('/{username}/settings/notification/request', [App\Http\Controllers\UserController::class, 'changeRequestNotification'])->name('notification_request');
-            Route::post('/{username}/settings/privacy/profile', [App\Http\Controllers\UserController::class, 'changeProfile'])->name('privacy_profile');
-            Route::post('/{username}/settings/privacy/forum', [App\Http\Controllers\UserController::class, 'changeForum'])->name('privacy_forum');
-            Route::post('/{username}/settings/privacy/torrent', [App\Http\Controllers\UserController::class, 'changeTorrent'])->name('privacy_torrent');
-            Route::post('/{username}/settings/privacy/follower', [App\Http\Controllers\UserController::class, 'changeFollower'])->name('privacy_follower');
-            Route::post('/{username}/settings/privacy/achievement', [App\Http\Controllers\UserController::class, 'changeAchievement'])->name('privacy_achievement');
-            Route::post('/{username}/settings/privacy/request', [App\Http\Controllers\UserController::class, 'changeRequest'])->name('privacy_request');
-            Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\UserController::class, 'changeOther'])->name('privacy_other');
-            Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\UserController::class, 'changeTwoStep'])->name('change_twostep');
-            Route::post('/{username}/settings/hidden', [App\Http\Controllers\UserController::class, 'makeHidden'])->name('user_hidden');
-            Route::post('/{username}/settings/visible', [App\Http\Controllers\UserController::class, 'makeVisible'])->name('user_visible');
-            Route::post('/{username}/settings/private', [App\Http\Controllers\UserController::class, 'makePrivate'])->name('user_private');
-            Route::post('/{username}/settings/public', [App\Http\Controllers\UserController::class, 'makePublic'])->name('user_public');
-            Route::post('/accept-rules', [App\Http\Controllers\UserController::class, 'acceptRules'])->name('accept.rules');
-            Route::get('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'index'])->name('seedboxes.index');
-            Route::post('/{username}/seedboxes', [App\Http\Controllers\SeedboxController::class, 'store'])->name('seedboxes.store');
-            Route::delete('/seedboxes/{id}', [App\Http\Controllers\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-
-            // Bonus System
-            Route::group(['prefix' => '{username}/bonus'], function () {
-                Route::name('earnings.')->prefix('earnings')->group(function () {
-                    Route::get('/', [App\Http\Controllers\UserEarningController::class, 'index'])->name('index');
-                });
-                Route::name('gifts.')->prefix('gifts')->group(function () {
-                    Route::get('/', [App\Http\Controllers\UserGiftController::class, 'index'])->name('index');
-                    Route::get('/create', [App\Http\Controllers\UserGiftController::class, 'create'])->name('create');
-                    Route::post('/', [App\Http\Controllers\UserGiftController::class, 'store'])->name('store');
-                });
-                Route::name('tips.')->prefix('tips')->group(function () {
-                    Route::get('/', [App\Http\Controllers\UserTipController::class, 'index'])->name('index');
-                    Route::post('/', [App\Http\Controllers\UserTipController::class, 'store'])->name('store');
-                });
-                Route::name('transactions.')->prefix('transactions')->group(function () {
-                    Route::get('/create', [App\Http\Controllers\UserTransactionController::class, 'create'])->name('create');
-                    Route::post('/', [App\Http\Controllers\UserTransactionController::class, 'store'])->name('store');
-                });
-            });
-        });
-
-        // Wishlist System
-        Route::group(['prefix' => 'wishes'], function () {
-            Route::name('wishes.')->group(function () {
-                Route::get('/{username}', [App\Http\Controllers\WishController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\WishController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\WishController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Follow System
-        Route::group(['prefix' => 'follow'], function () {
-            Route::name('follow.')->group(function () {
-                Route::post('/{username}', [App\Http\Controllers\FollowController::class, 'store'])->name('store');
-                Route::delete('/{username}', [App\Http\Controllers\FollowController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Invite System
-        Route::group(['prefix' => 'invites'], function () {
-            Route::name('invites.')->group(function () {
-                Route::get('/create', [App\Http\Controllers\InviteController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\InviteController::class, 'store'])->name('store');
-                Route::post('/{id}/send', [App\Http\Controllers\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
-                Route::get('/{username}', [App\Http\Controllers\InviteController::class, 'index'])->name('index');
-            });
-        });
-
         // Poll System
         Route::group(['prefix' => 'polls'], function () {
             Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('polls');
@@ -362,19 +226,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', [App\Http\Controllers\GraveyardController::class, 'index'])->name('index');
                 Route::post('/{id}/store', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Notifications System
-        Route::group(['prefix' => 'notifications'], function () {
-            Route::name('notifications.')->group(function () {
-                Route::get('/filter', [App\Http\Controllers\NotificationController::class, 'faceted']);
-                Route::get('/', [App\Http\Controllers\NotificationController::class, 'index'])->name('index');
-                Route::post('/{id}/update', [App\Http\Controllers\NotificationController::class, 'update'])->name('update');
-                Route::post('/updateall', [App\Http\Controllers\NotificationController::class, 'updateAll'])->name('updateall');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('destroy');
-                Route::delete('/destroyall', [App\Http\Controllers\NotificationController::class, 'destroyAll'])->name('destroyall');
-                Route::get('/{id}', [App\Http\Controllers\NotificationController::class, 'show'])->name('show');
             });
         });
 
@@ -553,6 +404,197 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*
+    |-------------------------------------------------------------------------------
+    | User Private Routes Group (When authorized) (Alpha ordered)
+    |-------------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => 'users/{user:username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+        // Achievements
+        Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
+            Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
+        });
+
+        // Bans
+        Route::group(['prefix' => 'bans', 'as' => 'bans.'], function () {
+            Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
+        });
+
+        // History
+        Route::group(['prefix' => 'torrents', 'as' => 'history.'], function () {
+            Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
+        });
+
+        // Followers
+        Route::group(['prefix' => 'followers', 'as' => 'followers.'], function () {
+            Route::get('/', [App\Http\Controllers\User\FollowController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
+            Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
+        });
+
+        // General settings
+        Route::group(['prefix' => 'general-settings', 'as' => 'general_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\GeneralSettingController::class, 'update'])->name('update');
+        });
+
+        // Privacy settings
+        Route::group(['prefix' => 'privacy-settings', 'as' => 'privacy_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\PrivacySettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PrivacySettingController::class, 'update'])->name('update');
+        });
+
+        // Notification settings
+        Route::group(['prefix' => 'notification-settings', 'as' => 'notification_settings.'], function () {
+            Route::get('/edit', [App\Http\Controllers\User\NotificationSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\NotificationSettingController::class, 'update'])->name('update');
+        });
+
+        // Peers
+        Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
+            Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
+            Route::delete('/', [App\Http\Controllers\User\PeerController::class, 'massDestroy'])->name('mass_destroy');
+        });
+
+        // Posts
+        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
+            Route::get('/', [App\Http\Controllers\User\PostController::class, 'index'])->name('index');
+        });
+
+        // Resurrections
+        Route::group(['prefix' => 'resurrections', 'as' => 'resurrections.'], function () {
+            Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
+        });
+
+        // Topics
+        Route::group(['prefix' => 'topics', 'as' => 'topics.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
+        });
+
+        // Torrent Zip
+        Route::group(['prefix' => 'torrent-zip', 'as' => 'torrent_zip.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TorrentZipController::class, 'show'])->name('show');
+        });
+
+        // Torrents
+        Route::group(['prefix' => 'uploads', 'as' => 'torrents.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TorrentController::class, 'index'])->name('index');
+        });
+    });
+
+    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+        // Earnings
+        Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function () {
+            Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
+        });
+
+        // Filters
+        Route::group(['prefix' => 'users'], function () {
+            Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
+        });
+
+        // Gifts
+        Route::group(['prefix' => 'users/{username}/gifts', 'as' => 'gifts.'], function () {
+            Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
+        });
+
+        // Invites
+        Route::group(['prefix' => 'invites', 'as' => 'invites.'], function () {
+            Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
+            Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
+            Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
+            Route::get('/{username}', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
+        });
+
+        // Notifications
+        Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
+            Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
+            Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
+            Route::post('/{id}/update', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
+            Route::post('/updateall', [App\Http\Controllers\User\NotificationController::class, 'updateAll'])->name('updateall');
+            Route::delete('/{id}/destroy', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
+            Route::delete('/destroyall', [App\Http\Controllers\User\NotificationController::class, 'destroyAll'])->name('destroyall');
+            Route::get('/{id}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
+        });
+
+        // Private Messages
+        Route::group(['prefix' => 'mail'], function () {
+            Route::post('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
+            Route::post('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
+            Route::get('/inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessages'])->name('inbox');
+            Route::get('/message/{id}', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
+            Route::get('/outbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
+            Route::get('/create', [App\Http\Controllers\User\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
+            Route::post('/mark-all-read', [App\Http\Controllers\User\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
+            Route::delete('/empty-inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
+            Route::post('/send', [App\Http\Controllers\User\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
+            Route::post('/{id}/reply', [App\Http\Controllers\User\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
+            Route::post('/{id}/destroy', [App\Http\Controllers\User\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
+        });
+
+        // Profile
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
+            Route::get('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
+            Route::post('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('user_edit_profile');
+        });
+
+        // Rules
+        Route::group(['prefix' => 'users'], function () {
+            Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
+        });
+
+        // Seedboxes
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
+            Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
+            Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
+        });
+
+        // Settings
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
+            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
+            Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
+            Route::post('/{username}/settings/change_email', [App\Http\Controllers\User\UserController::class, 'changeEmail'])->name('change_email');
+            Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
+            Route::post('/{username}/settings/change_rid', [App\Http\Controllers\User\UserController::class, 'changeRID'])->name('change_rid');
+            Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\User\UserController::class, 'changeApiToken'])->name('change_api_token');
+            Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep'])->name('change_twostep');
+        });
+
+        // Tips
+        Route::group(['prefix' => 'users/{username}/tips', 'as' => 'tips.'], function () {
+            Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
+        });
+
+        // Transactions
+        Route::group(['prefix' => 'users/{username}/transactions', 'as' => 'transactions.'], function () {
+            Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
+        });
+
+        // Warnings
+        Route::group(['prefix' => 'warnings'], function () {
+            Route::post('/{id}/deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivate'])->name('deactivateWarning');
+            Route::post('/{username}/mass-deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
+            Route::delete('/{id}', [App\Http\Controllers\User\WarningController::class, 'deleteWarning'])->name('deleteWarning');
+            Route::delete('/{username}/mass-delete', [App\Http\Controllers\User\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
+            Route::post('/{id}/restore', [App\Http\Controllers\User\WarningController::class, 'restoreWarning'])->name('restoreWarning');
+            Route::get('/{username}', [App\Http\Controllers\User\WarningController::class, 'show'])->name('warnings.show');
+        });
+
+        // Wishlist
+        Route::group(['prefix' => 'wishes', 'as' => 'wishes.'], function () {
+            Route::get('/{username}', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
+            Route::post('/store', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
+            Route::delete('/{id}/destroy', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
+        });
+    });
+
+    /*
     |---------------------------------------------------------------------------------
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
@@ -601,7 +643,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Backup System
-        Route::group(['prefix' => 'backups'], function () {
+        Route::group(['prefix' => 'backups', 'middleware' => ['owner']], function () {
             Route::name('staff.backups.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
@@ -710,7 +752,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Commands
-        Route::group(['prefix' => 'commands'], function () {
+        Route::group(['prefix' => 'commands', 'middleware' => ['owner']], function () {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
             Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
             Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
@@ -745,7 +787,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Forums System
-        Route::group(['prefix' => 'forums'], function () {
+        Route::group(['prefix' => 'forums', 'middleware' => ['admin']], function () {
             Route::name('staff.forums.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
@@ -757,7 +799,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Groups System
-        Route::group(['prefix' => 'groups'], function () {
+        Route::group(['prefix' => 'groups', 'middleware' => ['admin']], function () {
             Route::name('staff.groups.')->group(function () {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');

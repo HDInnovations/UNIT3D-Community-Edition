@@ -177,7 +177,7 @@
                                 @endif
                             </td>
                             <td class="torrent-listings-overview" style="vertical-align: middle;">
-                                @if($user->group->is_modo || $user->id === $torrent->user_id || $user->group_id === 29)
+                                @if($user->group->is_modo || $user->id === $torrent->user_id)
                                     <a href="{{ route('edit_form', ['id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"
                                                 title="{{ __('common.edit') }}">
@@ -390,6 +390,7 @@
                                 @endif
                             </td>
                             <td class="torrent-listings-download" style="vertical-align: middle;">
+                                @livewire('small-bookmark-button', ['torrent' => $torrent->id], key('torrent-'.$torrent->id))
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"
@@ -485,51 +486,3 @@
         </div>
     </section>
 </div>
-
-<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-  document.addEventListener('livewire:load', function () {
-    let myOptions = [
-            @foreach($regions as $region)
-      {
-        label: "{{ $region->name }}", value: "{{ $region->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#regions',
-      options: myOptions,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Regions')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let regions = document.querySelector('#regions')
-    regions.addEventListener('change', () => {
-      let data = regions.value
-    @this.set('regions', data)
-    })
-
-    let myOptions2 = [
-            @foreach($distributors as $distributor)
-      {
-        label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#distributors',
-      options: myOptions2,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Distributor')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let distributors = document.querySelector('#distributors')
-    distributors.addEventListener('change', () => {
-      let data = distributors.value
-    @this.set('distributors', data)
-    })
-  })
-</script>

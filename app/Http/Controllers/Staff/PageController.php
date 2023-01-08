@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -48,12 +47,10 @@ class PageController extends Controller
     {
         $page = new Page();
         $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
             'name'    => 'required',
-            'slug'    => 'required',
             'content' => 'required',
         ]);
 
@@ -85,12 +82,10 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = \validator($page->toArray(), [
             'name'    => 'required',
-            'slug'    => 'required',
             'content' => 'required',
         ]);
 

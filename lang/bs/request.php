@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Nemate dovoljno bonusa',
     'edit-request'        => 'Uredi zahtjev',
     'enter-bp'            => 'Unesite bonus bodove (minimum 100)',
-    'enter-hash'          => 'Unesite Info Hash za učitani Torrent',
+    'enter-hash'          => 'Unesite ID za učitani Torrent',
     'fill'                => 'Fill',
     'fill-request'        => 'Ispunite ovaj zahtjev',
     'filled'              => 'Filled',

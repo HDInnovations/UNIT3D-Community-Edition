@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Resolution;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ResolutionController extends Controller
 {
@@ -45,12 +44,10 @@ class ResolutionController extends Controller
     {
         $resolution = new Resolution();
         $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -82,12 +79,10 @@ class ResolutionController extends Controller
     {
         $resolution = Resolution::findOrFail($id);
         $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
         $v = \validator($resolution->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 

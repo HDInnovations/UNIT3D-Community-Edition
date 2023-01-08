@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {
-            $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+            $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get());
 
             $view->with(['footer_pages' => $footerPages]);
         });

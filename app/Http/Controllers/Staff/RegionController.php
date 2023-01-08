@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Region;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class RegionController extends Controller
@@ -46,12 +45,10 @@ class RegionController extends Controller
     {
         $region = new Region();
         $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
             'name'     => 'required|unique:regions,name',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 
@@ -83,12 +80,10 @@ class RegionController extends Controller
     {
         $region = Region::findOrFail($id);
         $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
         $region->position = $request->input('position');
 
         $v = \validator($region->toArray(), [
             'name'     => 'required',
-            'slug'     => 'required',
             'position' => 'required',
         ]);
 

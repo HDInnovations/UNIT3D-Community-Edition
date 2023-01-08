@@ -40,12 +40,12 @@
                         <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="playlist" class="form__text" placeholder="">
-                        <label class="form__label form__label--floating">Playlist</label>
+                        <input wire:model="playlistId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Playlist ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="collection" class="form__text" placeholder="">
-                        <label class="form__label form__label--floating">Collection</label>
+                        <input wire:model="collectionId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Collection ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
@@ -416,3 +416,51 @@
         </div>
     </section>
 </div>
+
+<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+  document.addEventListener('livewire:load', function () {
+    let myRegions = [
+        @foreach($regions as $region)
+        {
+            label: "{{ $region->name }}", value: "{{ $region->id }}"
+        },
+        @endforeach
+    ]
+    VirtualSelect.init({
+      ele: '#regions',
+      options: myRegions,
+      multiple: true,
+      search: true,
+      placeholder: "{{__('Select Regions')}}",
+      noOptionsText: "{{__('No results found')}}",
+    })
+
+    let regions = document.querySelector('#regions')
+    regions.addEventListener('change', () => {
+      let data = regions.value
+      @this.set('regions', data)
+    })
+
+    let myDistributors = [
+        @foreach($distributors as $distributor)
+        {
+            label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
+        },
+        @endforeach
+    ]
+    VirtualSelect.init({
+      ele: '#distributors',
+      options: myDistributors,
+      multiple: true,
+      search: true,
+      placeholder: "{{__('Select Distributor')}}",
+      noOptionsText: "{{__('No results found')}}",
+    })
+
+    let distributors = document.querySelector('#distributors')
+    distributors.addEventListener('change', () => {
+      let data = distributors.value
+      @this.set('distributors', data)
+    })
+  })
+</script>

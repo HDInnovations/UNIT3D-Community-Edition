@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Bot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatBotControllerTest
@@ -89,7 +88,6 @@ class ChatBotController extends Controller
 
         if ($v->passes()) {
             $bot->name = $request->input('name');
-            $bot->slug = Str::slug($request->input('name'));
             $bot->position = $request->input('position');
             $bot->color = $request->input('color');
             $bot->icon = $request->input('icon');

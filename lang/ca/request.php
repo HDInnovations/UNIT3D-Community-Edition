@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'No teniu prou bons',
     'edit-request'        => 'Edició de la sol·licitud',
     'enter-bp'            => 'Introduïu punts de bonificació (mínim 100)',
-    'enter-hash'          => 'Introduïu Info Hash del Torrent penjat',
+    'enter-hash'          => 'Introduïu ID del Torrent penjat',
     'fill'                => 'Ompliu',
     'fill-request'        => 'Ompliu aquesta sol·licitud',
     'filled'              => 'Omplert',

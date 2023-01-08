@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'شما پاداش کافی ندارید',
     'edit-request'        => 'ویرایش درخواست',
     'enter-bp'            => 'امتیاز جایزه (حداقل 100) را وارد کنید',
-    'enter-hash'          => 'اطلاعات Hash Torrent آپلود را وارد کنید',
+    'enter-hash'          => 'اطلاعات ID Torrent آپلود را وارد کنید',
     'fill'                => 'پر کنید',
     'fill-request'        => 'این درخواست را پر کنید',
     'filled'              => 'پر شده',

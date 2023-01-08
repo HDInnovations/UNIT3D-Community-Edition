@@ -29,7 +29,6 @@ use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -102,7 +101,6 @@ class TorrentController extends BaseController
         // Create the torrent (DB)
         $torrent = \app()->make(Torrent::class);
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->bdinfo = $request->input('bdinfo');
@@ -169,7 +167,6 @@ class TorrentController extends BaseController
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
-            'slug'              => 'required',
             'description'       => 'required',
             'info_hash'         => 'required|unique:torrents',
             'file_name'         => 'required',

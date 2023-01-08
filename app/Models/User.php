@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use voku\helper\AntiXSS;
 
 class User extends Authenticatable
@@ -136,6 +135,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Torrent::class, 'history')
             ->wherePivot('active', '=', 1)
             ->wherePivot('seeder', '=', 0);
+    }
+
+    /**
+     * Belongs to many followers
+     */
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'target_id', 'user_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
+     * Belongs to many followees
+     */
+    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'target_id')
+            ->as('follow')
+            ->withTimestamps();
     }
 
     /**
@@ -265,14 +284,6 @@ class User extends Authenticatable
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
-    }
-
-    /**
-     * Has Many Followers.
-     */
-    public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Follow::class);
     }
 
     /**
@@ -508,14 +519,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the Users username as slug.
-     */
-    public function getSlugAttribute(): string
-    {
-        return Str::slug($this->username);
-    }
-
-    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
@@ -537,12 +540,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->notification?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
@@ -571,12 +570,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->privacy?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
         }
 
         return true;

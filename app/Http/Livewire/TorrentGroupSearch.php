@@ -13,7 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Livewire\Component;
@@ -167,7 +166,10 @@ class TorrentGroupSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return \cache()->rememberForever(
+            'personal_freeleech:'.\auth()->user()->id,
+            fn () => \auth()->user()->personalFreeleeches()->exists()
+        );
     }
 
     final public function getTorrentsProperty()

@@ -26,10 +26,8 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
-use App\Models\Follow;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
-use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
 use Illuminate\Support\Carbon;
@@ -42,12 +40,12 @@ class TorrentHelper
         $appname = \config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
 
-        $uploader = $torrent->uploader;
+        $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
         if ($wishes) {
@@ -67,13 +65,9 @@ class TorrentHelper
         }
 
         if ($torrent->anon == 0) {
-            $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
-            if ($followers) {
-                foreach ($followers as $follower) {
-                    $pushto = User::with('notification')->find($follower->user_id);
-                    if ($pushto->acceptsNotification($uploader, $pushto, 'following', 'show_following_upload')) {
-                        $pushto->notify(new NewUpload('follower', $torrent));
-                    }
+            foreach ($uploader->followers()->get() as $follower) {
+                if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
+                    $follower->notify(new NewUpload('follower', $torrent));
                 }
             }
         }

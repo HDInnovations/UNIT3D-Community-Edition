@@ -16,13 +16,13 @@
             <input id="type" type="hidden" name="request_id" value="{{ $torrentRequest->id }}">
             <p class="form__group">
                 <input
-                    id="info_hash"
+                    id="torrent_id"
                     class="form__text"
-                    name="info_hash"
+                    name="torrent_id"
                     placeholder=""
                     type="text"
                 >
-                <label for="info_hash" class="form__label form__label--floating">
+                <label for="torrent_id" class="form__label form__label--floating">
                     {{ __('request.enter-hash') }}
                 </label>
             </p>

@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\Follow;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -122,6 +121,8 @@ class UserController extends Controller
         $user->internal_id = (int) $request->input('internal_id');
         $user->save();
 
+        \cache()->forget('user:'.$user->passkey);
+
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
@@ -139,6 +140,8 @@ class UserController extends Controller
         $user->can_request = $request->input('can_request');
         $user->can_chat = $request->input('can_chat');
         $user->save();
+
+        \cache()->forget('user:'.$user->passkey);
 
         return \to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
@@ -229,9 +232,8 @@ class UserController extends Controller
         }
 
         // Removes all follows for user
-        foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-            $follow->delete();
-        }
+        $user->followers()->detach();
+        $user->following()->detach();
 
         // Removes UserID from Sent Invites if any and replaces with System UserID (1)
         foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
@@ -258,12 +260,15 @@ class UserController extends Controller
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
+            \cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
         }
 
         if ($user->delete()) {
             return \to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
+
+        \cache()->forget('user:'.$user->passkey);
 
         return \to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');

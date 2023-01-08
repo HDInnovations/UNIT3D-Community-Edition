@@ -112,6 +112,8 @@ class AutoGroup extends Command
                 $user->group_id = UserGroups::ARCHIVIST;
                 $user->save();
             }
+
+            \cache()->forget('user:'.$user->passkey);
         }
 
         $this->comment('Automated User Group Command Complete');

@@ -25,7 +25,7 @@ class NewCommentTag extends Notification implements ShouldQueue
     /**
      * NewCommentTag Constructor.
      */
-    public function __construct(public string $type, public string $tagger, public Comment $comment)
+    public function __construct(public string $type, public Comment $comment)
     {
     }
 
@@ -43,25 +43,97 @@ class NewCommentTag extends Notification implements ShouldQueue
     public function toArray($notifiable): array
     {
         if ($this->type == 'torrent') {
+            if ($this->comment->anon == 0) {
+                return [
+                    'title' => $this->comment->user->username.' Has Tagged You',
+                    'body'  => $this->comment->user->username.' has tagged you in an comment on Torrent '.$this->comment->commentable->name,
+                    'url'   => '/torrents/'.$this->comment->commentable->id,
+                ];
+            }
+
             return [
-                'title' => $this->tagger.' Has Tagged You In A Torrent Comment',
-                'body'  => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
-                'url'   => \sprintf('/torrents/%s', $this->comment->torrent->id),
+                'title' => 'You Have Been Tagged',
+                'body'  => 'Anonymous has tagged you in an comment on Torrent '.$this->comment->commentable->name,
+                'url'   => '/torrents/'.$this->comment->commentable->id,
             ];
         }
 
-        if ($this->type == 'request') {
+        if ($this->type == 'torrentrequest') {
+            if ($this->comment->anon == 0) {
+                return [
+                    'title' => $this->comment->user->username.' Has Tagged You',
+                    'body' => $this->comment->user->username.' has tagged you in an comment on Torrent Request '.$this->comment->commentable->name,
+                    'url' => '/requests/'.$this->comment->commentable->id,
+                ];
+            }
+
             return [
-                'title' => $this->tagger.' Has Tagged You In A Request Comment',
-                'body'  => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,
-                'url'   => \sprintf('/requests/%s', $this->comment->request->id),
+                'title' => 'You Have Been Tagged',
+                'body' => 'Anonymous has tagged you in an comment on Torrent Request '.$this->comment->commentable->name,
+                'url' => '/requests/'.$this->comment->commentable->id,
+            ];
+        }
+
+        if ($this->type == 'ticket') {
+            if ($this->comment->anon == 0) {
+                return [
+                    'title' => $this->comment->user->username.' Has Tagged You',
+                    'body' => $this->comment->user->username.' has tagged you in an comment on Ticket '.$this->comment->commentable->subject,
+                    'url' => '/tickets/'.$this->comment->commentable->id,
+                ];
+            }
+
+            return [
+                'title' => 'You Have Been Tagged',
+                'body' => 'Anonymous has tagged you in an comment on Ticket '.$this->comment->commentable->subject,
+                'url' => '/tickets/'.$this->comment->commentable->id,
+            ];
+        }
+
+        if ($this->type == 'playlist') {
+            if ($this->comment->anon == 0) {
+                return [
+                    'title' => $this->comment->user->username.' Has Tagged You',
+                    'body' => $this->comment->user->username.' has tagged you in an comment on Playlist '.$this->comment->commentable->name,
+                    'url' => '/playlists/'.$this->comment->commentable->id,
+                ];
+            }
+
+            return [
+                'title' => 'You Have Been Tagged',
+                'body' => 'Anonymous has tagged you in an comment on Playlist '.$this->comment->commentable->name,
+                'url' => '/playlists/'.$this->comment->commentable->id,
+            ];
+        }
+
+        if ($this->type == 'collection') {
+            if ($this->comment->anon == 0) {
+                return [
+                    'title' => $this->comment->user->username.' Has Tagged You',
+                    'body' => $this->comment->user->username.' has tagged you in an comment on Collection '.$this->comment->commentable->name,
+                    'url' => '/mediahub/collections/'.$this->comment->commentable->id,
+                ];
+            }
+
+            return [
+                'title' => 'You Have Been Tagged',
+                'body' => 'Anonymous has tagged you in an comment on Collection '.$this->comment->commentable->name,
+                'url' => '/mediahub/collections/'.$this->comment->commentable->id,
+            ];
+        }
+
+        if ($this->comment->anon == 0) {
+            return [
+                'title' => $this->comment->user->username.' Has Tagged You',
+                'body' => $this->comment->user->username.' has tagged you in an comment on Article '.$this->comment->commentable->title,
+                'url' => '/articles/'.$this->comment->commentable->id,
             ];
         }
 
         return [
-            'title' => $this->tagger.' Has Tagged You In An Article Comment',
-            'body'  => $this->tagger.' has tagged you in a Comment for Article '.$this->comment->article->title,
-            'url'   => \sprintf('/articles/%s', $this->comment->article->id),
+            'title' => 'You Have Been Tagged',
+            'body' => 'Anonymous has tagged you in an comment on Article '.$this->comment->commentable->title,
+            'url' => '/articles/'.$this->comment->commentable->id,
         ];
     }
 }
