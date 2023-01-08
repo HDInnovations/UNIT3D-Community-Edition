@@ -14,10 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreForumRequest;
+use App\Http\Requests\Staff\UpdateForumRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 /**
@@ -49,21 +50,23 @@ class ForumController extends Controller
     /**
      * Store A New Forum.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreForumRequest $request): \Illuminate\Http\RedirectResponse
     {
         $groups = Group::all();
 
-        $forum = new Forum();
-        $forum->name = $request->input('title');
-        $forum->position = $request->input('position');
-        $forum->slug = Str::slug($request->input('title'));
-        $forum->description = $request->input('description');
-        $forum->parent_id = $request->input('parent_id');
-        $forum->save();
+        $forum = Forum::create(
+            ['slug' => Str::slug($request->title)]
+            + $request->safe()->only([
+                'title',
+                'position',
+                'description',
+                'parent_id'
+            ]
+        ));
 
         // Permissions
         foreach ($groups as $k => $group) {
-            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
+            $perm = Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();
             }
@@ -108,26 +111,26 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateForumRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $forum = Forum::findOrFail($id);
         $groups = Group::all();
 
-        $forum->name = $request->input('title');
-        $forum->position = $request->input('position');
-        $forum->slug = Str::slug($request->input('title'));
-        $forum->description = $request->input('description');
-        $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
-        $forum->save();
+        Forum::where('id', '=', $id)->update(
+            [
+                'slug' => Str::slug($request->title),
+                'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
+            ]
+            + $request->safe()->only(['title', 'position', 'description'])
+        );
 
         // Permissions
         foreach ($groups as $k => $group) {
-            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
+            $perm = Permission::where('forum_id', '=', $id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();
             }
 
-            $perm->forum_id = $forum->id;
+            $perm->forum_id = $id;
             $perm->group_id = $group->id;
             if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
