@@ -52,7 +52,7 @@ class ReportController extends Controller
     {
         $staff = \auth()->user();
         $report = Report::findOrFail($id);
-            
+
         if ($report->solved == 1) {
             return \to_route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');

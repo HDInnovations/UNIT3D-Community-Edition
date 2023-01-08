@@ -56,13 +56,15 @@ class ForumController extends Controller
 
         $forum = Forum::create(
             ['slug' => Str::slug($request->title)]
-            + $request->safe()->only([
+            + $request->safe()->only(
+                [
                 'title',
                 'position',
                 'description',
                 'parent_id'
             ]
-        ));
+            )
+        );
 
         // Permissions
         foreach ($groups as $k => $group) {

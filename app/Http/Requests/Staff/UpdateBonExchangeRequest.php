@@ -14,7 +14,6 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateBonExchangeRequest extends FormRequest
 {

@@ -58,7 +58,7 @@ class UpdateRssRequest extends FormRequest
             'personalrelease' => 'sometimes|boolean',
             'bookmark'        => 'sometimes|boolean',
             'alive'           => 'sometimes|boolean',
-            'dying'           => 'sometimes|boolean', 
+            'dying'           => 'sometimes|boolean',
             'dead'            => 'sometimes|boolean',
         ];
     }
