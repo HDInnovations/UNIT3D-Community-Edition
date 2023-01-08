@@ -57,6 +57,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that aren't mass assignable.
+     * 
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A Group.
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo

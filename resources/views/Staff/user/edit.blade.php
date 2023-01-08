@@ -102,13 +102,14 @@
                         </p>
                         <p class="form__group">
                             <input
-                                id="downloaded"
+                                id="title"
                                 class="form__text"
                                 name="title"
                                 placeholder=""
+                                type="text"
                                 value="{{ $user->title }}"
                             >
-                            <label class="form__label form__label--floating" for="downloaded">
+                            <label class="form__label form__label--floating" for="title">
                                 {{ __('user.title') }}
                             </label>
                         </p>
@@ -143,7 +144,7 @@
                                             {{ $user->internal->name }} (Default)
                                         </option>
                                     @endif
-                                    <option class="form__option" value="i0">None</option>
+                                    <option class="form__option" value="">None</option>
                                     @foreach ($internals as $internal)
                                         <option class="form__option" value="{{ $internal->id }}">
                                             {{ $internal->name }}
