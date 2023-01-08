@@ -23,6 +23,13 @@ class ChatStatus extends Model
     use Auditable;
 
     /**
+     * The attributes that aren't mass assignable.
+     * 
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * A Status Has Many Users.
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
