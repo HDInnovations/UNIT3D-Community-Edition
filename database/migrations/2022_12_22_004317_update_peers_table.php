@@ -13,29 +13,12 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Peer::query()
-            ->update([
-                'ip' => DB::raw('INET6_ATON(`ip`)'),
-                'peer_id' => DB::raw('UNHEX(`peer_id`)'),
-            ]);
-
-        Peer::query()
-            ->whereNull('peer_id')
-            ->orWhereNull('ip')
-            ->orWhereNull('port')
-            ->orWhereNull('agent')
-            ->orWhereNull('uploaded')
-            ->orWhereNull('downloaded')
-            ->orWhereNull('left')
-            ->orWhereNull('seeder')
-            ->orWhereNull('torrent_id')
-            ->orWhereNull('user_id')
-            ->delete();
+        Peer::truncate();
 
         Schema::disableForeignKeyConstraints();
 
         Schema::table('peers', function (Blueprint $table) {
-            $table->dropColumn(['md5_peer_id', 'info_hash', 'connectable']);
+            $table->dropColumn(['md5_peer_id', 'info_hash']);
             $table->unsignedSmallInteger('port')->nullable(false)->change();
             $table->string('agent', 64)->nullable(false)->change();
             $table->unsignedBigInteger('uploaded')->nullable(false)->change();
