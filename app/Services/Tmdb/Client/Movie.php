@@ -198,11 +198,11 @@ class Movie
 
     public function get_cast()
     {
-        return $this->data['credits']['cast'];
+        return $this->data['credits']['cast'] ?? null;
     }
 
     public function get_crew()
     {
-        return $this->data['credits']['crew'];
+        return $this->data['credits']['crew'] ?? null;
     }
 }
