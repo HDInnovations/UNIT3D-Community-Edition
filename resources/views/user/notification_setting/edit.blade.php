@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
             {{ __('user.settings') }}
         </a>
     </li>
