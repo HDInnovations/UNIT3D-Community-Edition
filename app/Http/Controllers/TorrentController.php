@@ -314,7 +314,7 @@ class TorrentController extends Controller
                 }
 
                 // Reset Requests
-                $torrent->request()->update([
+                $torrent->requests()->update([
                     'filled_by'     => null,
                     'filled_when'   => null,
                     'torrent_id'    => null,
@@ -333,7 +333,7 @@ class TorrentController extends Controller
                 Subtitle::where('torrent_id', '=', $id)->delete();
                 Graveyard::where('torrent_id', '=', $id)->delete();
 
-                $freeleechTokens = $torrent->freeleechTokens;
+                $freeleechTokens = $torrent->freeleechTokens();
 
                 foreach ($freeleechTokens as $freeleechToken) {
                     \cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
