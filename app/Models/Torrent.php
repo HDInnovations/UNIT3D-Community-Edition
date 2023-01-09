@@ -191,11 +191,11 @@ class Torrent extends Model
     }
 
     /**
-     * Relationship To A Single Request.
+     * Relationship To Many Requests.
      */
-    public function request(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 
     /**
