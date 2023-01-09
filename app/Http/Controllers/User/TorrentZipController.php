@@ -13,9 +13,13 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\Bencode;
 use App\Http\Controllers\Controller;
+use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class TorrentZipController extends Controller
 {
