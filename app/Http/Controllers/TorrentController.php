@@ -314,7 +314,7 @@ class TorrentController extends Controller
                 }
 
                 // Reset Requests
-                $torrent->requests()->update([
+                $torrent->request()->update([
                     'filled_by'     => null,
                     'filled_when'   => null,
                     'torrent_id'    => null,
