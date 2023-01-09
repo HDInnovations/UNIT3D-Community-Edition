@@ -33,7 +33,6 @@ class UpdateModerationRequest extends FormRequest
         return [
             'old_status' => 'required|in:0,1,2,3',
             'status'     => 'required|in:1,2,3',
-            'id'         => 'required|exists:torrents,id',
             'message'    => 'required_if:status,2,3|string'
         ];
     }
