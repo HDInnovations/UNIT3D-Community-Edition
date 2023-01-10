@@ -157,12 +157,27 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $categories = Category::all()
+            ->sortBy('position')
+            ->mapWithKeys(fn ($cat) => [
+                $cat['id'] => [
+                    'name' => $cat['name'],
+                    'type' => match (1) {
+                        $cat->movie_meta => 'movie',
+                        $cat->tv_meta => 'tv',
+                        $cat->game_meta => 'game',
+                        $cat->music_meta => 'music',
+                        $cat->no_meta => 'no'
+                    },
+                ]
+            ]);
+        $types = Type::all()->sortBy('position')->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]);
 
         \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
-            'categories'   => Category::all()->sortBy('position'),
-            'types'        => Type::all()->sortBy('position'),
+            'categories'   => $categories,
+            'types'        => $types,
             'resolutions'  => Resolution::all()->sortBy('position'),
             'regions'      => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
