@@ -146,8 +146,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 }
 
                 // Removes all follows for user
-                $user->followers()->delete();
-                $user->followees()->delete();
+                $user->followers()->detach();
+                $user->following()->detach();
 
                 // Removes UserID from Sent Invites if any and replaces with System UserID (1)
                 foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
