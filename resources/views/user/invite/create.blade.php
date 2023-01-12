@@ -43,6 +43,7 @@
                     action="{{ route('invites.store') }}"
                     method="post"
                 >
+                    @csrf
                     <p class="form__group">
                         <input
                             id="email"
