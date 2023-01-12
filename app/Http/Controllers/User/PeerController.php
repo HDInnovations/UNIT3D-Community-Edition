@@ -55,29 +55,19 @@ class PeerController extends Controller
             return \redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
-        $carbon = new Carbon();
+        // Only peers older than 70 minutes are allowed to be flushed otherwise users could use this to exploit leech slots
+        $cutoff = (new Carbon())->copy()->subMinutes(70)->toDateTimeString();
 
-        // Get Peer List from User
-        $peers = $user->peers()
-            ->select(['id', 'torrent_id', 'user_id', 'updated_at'])
-            ->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())
-            ->get();
+        $user->peers()
+            ->where('updated_at', '<', $cutoff)
+            ->delete();
 
-        // Return with Error if no Peer exists
-        if ($peers->isEmpty()) {
-            return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
-        }
+        $user->history()
+            ->where('updated_at', '<', $cutoff)
+            ->update(['active' => false]);
 
         $user->own_flushes--;
 
-        $peers->join(
-            'history',
-            fn ($join) => $join
-            ->on('peers.user_id', '=', 'history.user_id')
-            ->on('peers.torrent_id', '=', 'history.torrent_id')
-        )->update(['active' => false]);
-        $peers->delete();
-
-        return \redirect()->back()->withSuccess('Peers were flushed successfully!');
+        return \redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }
 }
