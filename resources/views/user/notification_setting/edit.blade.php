@@ -346,7 +346,7 @@
                                         type="checkbox"
                                         name="json_account_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_account_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_account_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -363,7 +363,7 @@
                                         type="checkbox"
                                         name="json_bon_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_bon_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_bon_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -380,7 +380,7 @@
                                         type="checkbox"
                                         name="json_following_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_following_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_following_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -397,7 +397,7 @@
                                         type="checkbox"
                                         name="json_forum_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_forum_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_forum_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -414,7 +414,7 @@
                                         type="checkbox"
                                         name="json_request_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_request_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_request_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -431,7 +431,7 @@
                                         type="checkbox"
                                         name="json_subscription_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_subscription_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_subscription_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -448,7 +448,7 @@
                                         type="checkbox"
                                         name="json_torrent_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_torrent_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_torrent_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
@@ -465,7 +465,7 @@
                                         type="checkbox"
                                         name="json_mention_groups[]"
                                         value="{{ $group->id }}"
-                                        @checked(\in_array($group->id, $user->notification->json_mention_groups, true))
+                                        @checked($user->notification !== null && \in_array($group->id, $user->notification->json_mention_groups, true))
                                     />
                                     {{ $group->name }}
                                 </label>
