@@ -78,58 +78,32 @@
                     >
                 </p>
                 <p class="form__group">
-                    <input type="hidden" name="movie_meta" value="0">
-                    <input
-                        id="movie_meta"
-                        class="form__checkbox"
-                        type="checkbox"
-                        name="movie_meta"
-                        value="1"
+                    <select
+                        name="meta"
+                        id="meta"
+                        class="form__select"
+                        required
                     >
-                    <label for="movie_meta">Movie metadata?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="tv_meta" value="0">
-                    <input
-                        id="tv_meta"
-                        class="form__checkbox"
-                        type="checkbox"
-                        name="tv_meta"
-                        value="1"
-                    >
-                    <label for="tv_meta">TV metadata?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="game_meta" value="0">
-                    <input
-                        id="game_meta"
-                        class="form__checkbox"
-                        type="checkbox"
-                        name="game_meta"
-                        value="1"
-                    >
-                    <label for="game_meta">Game metadata?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="music_meta" value="0">
-                    <input
-                        id="music_meta"
-                        class="form__checkbox"
-                        type="checkbox"
-                        name="music_meta"
-                        value="1"
-                    >
-                    <label for="music_meta">Music metadata?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="no_meta" value="0">
-                    <input
-                        class="form__checkbox"
-                        type="checkbox"
-                        name="no_meta"
-                        value="1"
-                    >
-                    <label for="no_meta">No metadata?</label>
+                        <option hidden selected disabled value=""></option>
+                        <option class="form__option" value="movie">
+                            Movie metdata
+                        </option>
+                        <option class="form__option" value="tv">
+                            TV metadata
+                        </option>
+                        <option class="form__option" value="game">
+                            Game metadata
+                        </option>
+                        <option class="form__option" value="music">
+                            Music metdata
+                        </option>
+                        <option class="form__option" value="no">
+                            No metadata
+                        </option>
+                    </select>
+                    <label class="form__label form__label--floating" for="meta">
+                        Meta
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

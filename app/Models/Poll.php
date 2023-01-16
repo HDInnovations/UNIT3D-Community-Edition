@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Poll extends Model
 {
@@ -30,7 +29,6 @@ class Poll extends Model
      */
     protected $fillable = [
         'title',
-        'slug',
         'multiple_choice',
     ];
 
@@ -70,17 +68,6 @@ class Poll extends Model
     }
 
     /**
-     * Create A Poll Title Slug.
-     */
-    public function makeSlugFromTitle($title): string
-    {
-        $slug = \strlen((string) $title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
-        $count = $this->where('slug', 'LIKE', '%'.$slug.'%')->count();
-
-        return $count ? \sprintf('%s-%s', $slug, $count) : $slug;
-    }
-
-    /**
      * Get Total Votes On A Poll Option.
      */
     public function totalVotes(): int
@@ -91,17 +78,5 @@ class Poll extends Model
         }
 
         return $result;
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-        self::creating(function ($poll) {
-            if (empty($poll->slug)) {
-                $poll->slug = $poll->makeSlugFromTitle($poll->title);
-            }
-
-            return true;
-        });
     }
 }

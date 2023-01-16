@@ -25,7 +25,7 @@
                 @enderror
             </p>
             <p class="form__group">
-                <input type="checkbox" id="anon" class="form__checkbox" wire:modal="anon">
+                <input type="checkbox" id="anon" class="form__checkbox" wire:model="anon">
                 <label for="anon" class="form__label">{{ __('common.anonymous') }}?</label>
             </p>
             <p class="form__group">

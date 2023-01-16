@@ -14,9 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreDistributorRequest;
+use App\Http\Requests\Staff\UpdateDistributorRequest;
 use App\Models\Distributor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class DistributorController extends Controller
@@ -42,25 +43,9 @@ class DistributorController extends Controller
     /**
      * Store A New Distributor.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreDistributorRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $distributor = new Distributor();
-        $distributor->name = $request->input('name');
-        $distributor->slug = Str::slug($distributor->name);
-        $distributor->position = $request->input('position');
-
-        $v = \validator($distributor->toArray(), [
-            'name'     => 'required|unique:distributors,name',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.distributors.index')
-                ->withErrors($v->errors());
-        }
-
-        $distributor->save();
+        Distributor::create($request->validated());
 
         return \to_route('staff.distributors.index')
                 ->withSuccess('Distributor Successfully Added');
@@ -79,25 +64,9 @@ class DistributorController extends Controller
     /**
      * Edit A Distributor.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $distributor = Distributor::findOrFail($id);
-        $distributor->name = $request->input('name');
-        $distributor->slug = Str::slug($distributor->name);
-        $distributor->position = $request->input('position');
-
-        $v = \validator($distributor->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.distributors.index')
-                ->withErrors($v->errors());
-        }
-
-        $distributor->save();
+        Distributor::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.distributors.index')
                 ->withSuccess('Distributor Successfully Modified');

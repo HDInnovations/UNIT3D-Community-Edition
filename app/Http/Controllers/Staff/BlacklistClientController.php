@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreBlacklistClientRequest;
+use App\Http\Requests\Staff\UpdateBlacklistClientRequest;
 use App\Models\BlacklistClient;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -25,10 +26,8 @@ class BlacklistClientController extends Controller
     /**
      * Display All Blacklisted Clients.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
-
         $clients = BlacklistClient::latest()->get();
 
         return \view('Staff.blacklist.clients.index', ['clients' => $clients]);
@@ -37,10 +36,8 @@ class BlacklistClientController extends Controller
     /**
      * Blacklisted Client Edit Form.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
-
         $client = BlacklistClient::findOrFail($id);
 
         return \view('Staff.blacklist.clients.edit', ['client' => $client]);
@@ -49,25 +46,11 @@ class BlacklistClientController extends Controller
     /**
      * Edit A Blacklisted Client.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateBlacklistClientRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        BlacklistClient::where('id', '=', $id)->update($request->validated());
 
-        $client = BlacklistClient::findOrFail($id);
-        $client->name = $request->input('name');
-        $client->reason = $request->input('reason');
-
-        $v = \validator($client->toArray(), [
-            'name'   => 'required|string',
-            'reason' => 'sometimes|string',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.blacklists.clients.index')
-                ->withErrors($v->errors());
-        }
-
-        $client->save();
+        \cache()->forget('client_blacklist');
 
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Was Updated Successfully!');
@@ -84,25 +67,11 @@ class BlacklistClientController extends Controller
     /**
      * Store A New Blacklisted Client.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreBlacklistClientRequest $request): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_admin, 403);
+        BlacklistClient::create($request->validated());
 
-        $client = new BlacklistClient();
-        $client->name = $request->input('name');
-        $client->reason = $request->input('reason');
-
-        $v = \validator($client->toArray(), [
-            'name'   => 'required|string|unique:blacklist_clients',
-            'reason' => 'sometimes|string',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.blacklists.clients.index')
-                ->withErrors($v->errors());
-        }
-
-        $client->save();
+        \cache()->forget('client_blacklist');
 
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Stored Successfully!');
@@ -111,12 +80,11 @@ class BlacklistClientController extends Controller
     /**
      * Delete A Blacklisted Client.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->group->is_admin, 403);
+        BlacklistClient::findOrFail($id)->delete();
 
-        $client = BlacklistClient::findOrFail($id);
-        $client->delete();
+        \cache()->forget('client_blacklist');
 
         return \to_route('staff.blacklists.clients.index')
             ->withSuccess('Blacklisted Client Destroyed Successfully!');

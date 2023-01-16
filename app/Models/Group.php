@@ -23,11 +23,11 @@ class Group extends Model
     use Auditable;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Indicates If The Model Should Be Timestamped.

@@ -105,7 +105,7 @@ class TorrentRequest extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
+        return $this->belongsTo(Torrent::class);
     }
 
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany

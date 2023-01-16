@@ -53,7 +53,7 @@ class NewComment extends Notification
             return [
                 'title' => 'New Torrent Comment Received',
                 'body'  => 'Anonymous has left you a comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->torrent->id,
+                'url'   => '/torrents/'.$this->comment->commentable->id,
             ];
         }
 

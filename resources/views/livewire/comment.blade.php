@@ -113,7 +113,7 @@
                     @enderror
                     </p>
                     <p class="form__group">
-                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:modal="anon">
+                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model="anon">
                         <label for="reply-anon" class="form__label">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">

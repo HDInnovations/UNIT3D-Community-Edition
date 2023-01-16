@@ -24,13 +24,11 @@ use App\Models\BonTransactions;
 use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\FeaturedTorrent;
-use App\Models\FreeleechToken;
 use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Keyword;
 use App\Models\Movie;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
 use App\Models\Region;
@@ -40,7 +38,6 @@ use App\Models\Torrent;
 use App\Models\TorrentBdinfo;
 use App\Models\TorrentFile;
 use App\Models\TorrentMediainfo;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\Warning;
@@ -50,7 +47,6 @@ use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -88,8 +84,14 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
-        $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleechToken = \cache()->rememberForever(
+            'freeleech_token:'.$user->id.':'.$torrent->id,
+            fn () => $user->freeleechTokens()->where('torrent_id', '=', $torrent->id)->exists()
+        );
+        $personalFreeleech = \cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => $user->personalFreeleeches()->exists()
+        );
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -157,12 +159,27 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $categories = Category::all()
+            ->sortBy('position')
+            ->mapWithKeys(fn ($cat) => [
+                $cat['id'] => [
+                    'name' => $cat['name'],
+                    'type' => match (1) {
+                        $cat->movie_meta => 'movie',
+                        $cat->tv_meta => 'tv',
+                        $cat->game_meta => 'game',
+                        $cat->music_meta => 'music',
+                        $cat->no_meta => 'no'
+                    },
+                ]
+            ]);
+        $types = Type::all()->sortBy('position')->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]);
 
         \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
-            'categories'   => Category::all()->sortBy('position'),
-            'types'        => Type::all()->sortBy('position'),
+            'categories'   => $categories,
+            'types'        => $types,
             'resolutions'  => Resolution::all()->sortBy('position'),
             'regions'      => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
@@ -182,7 +199,6 @@ class TorrentController extends Controller
 
         \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->category_id = $request->input('category_id');
         $torrent->imdb = $request->input('imdb');
@@ -223,7 +239,6 @@ class TorrentController extends Controller
 
         $v = \validator($torrent->toArray(), [
             'name'           => 'required',
-            'slug'           => 'required',
             'description'    => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
@@ -295,7 +310,6 @@ class TorrentController extends Controller
     {
         $v = \validator($request->all(), [
             'id'      => 'required|exists:torrents',
-            'slug'    => 'required|exists:torrents',
             'message' => 'required|alpha_dash|min:1',
         ]);
 
@@ -317,17 +331,13 @@ class TorrentController extends Controller
                 }
 
                 // Reset Requests
-                $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
-                foreach ($torrentRequest as $req) {
-                    if ($req) {
-                        $req->filled_by = null;
-                        $req->filled_when = null;
-                        $req->filled_hash = null;
-                        $req->approved_by = null;
-                        $req->approved_when = null;
-                        $req->save();
-                    }
-                }
+                $torrent->requests()->update([
+                    'filled_by'     => null,
+                    'filled_when'   => null,
+                    'torrent_id'    => null,
+                    'approved_by'   => null,
+                    'approved_when' => null,
+                ]);
 
                 //Remove Torrent related info
                 \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
@@ -339,7 +349,15 @@ class TorrentController extends Controller
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
                 Subtitle::where('torrent_id', '=', $id)->delete();
                 Graveyard::where('torrent_id', '=', $id)->delete();
-                FreeleechToken::where('torrent_id', '=', $id)->delete();
+
+                $freeleechTokens = $torrent->freeleechTokens();
+
+                foreach ($freeleechTokens as $freeleechToken) {
+                    \cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+                }
+
+                $freeleechTokens->delete();
+
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
@@ -372,7 +390,6 @@ class TorrentController extends Controller
         foreach (Category::all()->sortBy('position') as $cat) {
             $temp = [
                 'name' => $cat->name,
-                'slug' => $cat->slug,
             ];
             $temp['type'] = match (1) {
                 $cat->movie_meta => 'movie',
@@ -469,7 +486,6 @@ class TorrentController extends Controller
         // Create the torrent (DB)
         $torrent = new Torrent();
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
@@ -517,7 +533,6 @@ class TorrentController extends Controller
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
-            'slug'           => 'required',
             'description'    => 'required',
             'info_hash'      => 'required|unique:torrents',
             'file_name'      => 'required',

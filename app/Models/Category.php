@@ -30,6 +30,13 @@ class Category extends Model
     public $timestamps = false;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id'];
+
+    /**
      * Has Many Torrents.
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany

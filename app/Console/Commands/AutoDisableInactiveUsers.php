@@ -68,6 +68,8 @@ class AutoDisableInactiveUsers extends Command
                     $user->disabled_at = Carbon::now();
                     $user->save();
 
+                    \cache()->forget('user:'.$user->passkey);
+
                     // Send Email
                     \dispatch(new SendDisableUserMail($user));
                 }

@@ -25,6 +25,13 @@ class Page extends Model
     use Auditable;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Set The Pages Content After Its Been Purified.
      */
     public function setContentAttribute(?string $value): void

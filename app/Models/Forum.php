@@ -24,6 +24,13 @@ class Forum extends Model
     use Auditable;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Has Many Topic.
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany

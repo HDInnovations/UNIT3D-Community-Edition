@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreBonExchangeRequest;
+use App\Http\Requests\Staff\UpdateBonExchangeRequest;
 use App\Models\BonExchange;
-use Illuminate\Http\Request;
 
 class BonExchangeController extends Controller
 {
@@ -40,33 +41,15 @@ class BonExchangeController extends Controller
     /**
      * Store A Bon Exchange.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreBonExchangeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $bonExchange = new BonExchange();
-        $bonExchange->description = $request->description;
-        $bonExchange->value = $request->value;
-        $bonExchange->cost = $request->cost;
-        $bonExchange->upload = $request->type === 'upload';
-        $bonExchange->download = $request->type === 'download';
-        $bonExchange->personal_freeleech = $request->type === 'personal_freeleech';
-        $bonExchange->invite = $request->type === 'invite';
-
-        $v = \validator($bonExchange->toArray(), [
-            'description'        => 'required',
-            'value'              => 'required|numeric',
-            'cost'               => 'required|numeric',
-            'upload'             => 'required|boolean',
-            'download'           => 'required|boolean',
-            'personal_freeleech' => 'required|boolean',
-            'invite'             => 'required|boolean',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.bon_exchanges.create')
-                ->withErrors($v->errors());
-        }
-
-        $bonExchange->save();
+        BonExchange::create([
+            'upload'             => $request->type === 'upload',
+            'download'           => $request->type === 'download',
+            'personal_freeleech' => $request->type === 'personal_freeleech',
+            'upload'             => $request->type === 'invite',
+        ]
+        + $request->validated());
 
         return \to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Added');
@@ -85,33 +68,15 @@ class BonExchangeController extends Controller
     /**
      * Update A Bon Exchange.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $bonExchange = BonExchange::findOrFail($id);
-        $bonExchange->description = $request->description;
-        $bonExchange->value = $request->value;
-        $bonExchange->cost = $request->cost;
-        $bonExchange->upload = $request->type === 'upload';
-        $bonExchange->download = $request->type === 'download';
-        $bonExchange->personal_freeleech = $request->type === 'personal_freeleech';
-        $bonExchange->invite = $request->type === 'invite';
-
-        $v = \validator($bonExchange->toArray(), [
-            'description'        => 'required',
-            'value'              => 'required|numeric',
-            'cost'               => 'required|numeric',
-            'upload'             => 'required|boolean',
-            'download'           => 'required|boolean',
-            'personal_freeleech' => 'required|boolean',
-            'invite'             => 'required|boolean',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.bon_exchanges.edit', ['bonExchange' => $id])
-                ->withErrors($v->errors());
-        }
-
-        $bonExchange->save();
+        BonExchange::where('id', '=', $id)->update([
+            'upload'             => $request->type === 'upload',
+            'download'           => $request->type === 'download',
+            'personal_freeleech' => $request->type === 'personal_freeleech',
+            'upload'             => $request->type === 'invite',
+        ]
+        + $request->validated());
 
         return \to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Modified');

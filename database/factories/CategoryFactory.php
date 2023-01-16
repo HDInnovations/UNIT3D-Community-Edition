@@ -15,7 +15,6 @@ class CategoryFactory extends Factory
     {
         return [
             'name'        => $this->faker->name(),
-            'slug'        => $this->faker->slug(),
             'image'       => $this->faker->word(),
             'position'    => $this->faker->randomNumber(),
             'icon'        => $this->faker->word(),
