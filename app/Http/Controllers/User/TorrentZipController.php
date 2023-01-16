@@ -15,11 +15,13 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\Bencode;
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use ZipArchive;
 
 class TorrentZipController extends Controller
 {
@@ -32,7 +34,7 @@ class TorrentZipController extends Controller
         \set_time_limit(1200);
 
         // Authorized User
-        \abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id === $user->id, 403);
 
         // Define Dir For Zip
         $zipPath = \getcwd().'/files/tmp_zip/';
