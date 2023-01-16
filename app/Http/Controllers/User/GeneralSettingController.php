@@ -43,7 +43,7 @@ class GeneralSettingController extends Controller
         // General Settings
         $user->censor = $request->censor;
         $user->chat_hidden = $request->chat_hidden;
-        $user->locale = $request->input('local');
+        $user->locale = $request->input('locale');
         $user->style = $request->style;
         $user->custom_css = $request->custom_css;
         $user->standalone_css = $request->standalone_css;
