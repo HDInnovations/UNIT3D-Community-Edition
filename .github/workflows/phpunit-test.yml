@@ -5,9 +5,9 @@ jobs:
     strategy:
       matrix:
         operating-system:
-          - ubuntu-latest
+          - ubuntu-20.04
         php-version:
-          - '8.1'
+          - '8.2'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -42,7 +42,7 @@ jobs:
       - name: Configure NPM
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
