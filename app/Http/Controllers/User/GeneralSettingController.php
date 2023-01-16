@@ -32,7 +32,7 @@ class GeneralSettingController extends Controller
             'censor'         => 'required|boolean',
             'chat_hidden'    => 'required|boolean',
             'locale'         => ['required', Rule::in(\array_keys(Language::allowed()))],
-            'style'          => ['required', Rule::in([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])],
+            'style'          => 'required|numeric',
             'custom_css'     => 'nullable|url',
             'standalone_css' => 'nullable|url',
             'torrent_layout' => ['required', Rule::in([0])],
@@ -43,7 +43,7 @@ class GeneralSettingController extends Controller
         // General Settings
         $user->censor = $request->censor;
         $user->chat_hidden = $request->chat_hidden;
-        $user->locale = $request->locale;
+        $user->locale = $request->input('local');
         $user->style = $request->style;
         $user->custom_css = $request->custom_css;
         $user->standalone_css = $request->standalone_css;
