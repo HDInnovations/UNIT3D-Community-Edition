@@ -49,7 +49,7 @@ class AutoHighspeedTag extends Command
             ->leftJoinSub(
                 Peer::distinct()
                     ->select('torrent_id')
-                    ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
+                    ->whereRaw("ip IN ('".$seedboxIps->implode("','")."')"),
                 'highspeed_torrents',
                 fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )
