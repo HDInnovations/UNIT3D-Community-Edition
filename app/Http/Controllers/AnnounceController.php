@@ -315,27 +315,32 @@ class AnnounceController extends Controller
             ->first();
 
         // If User Doesn't Exist Return Error to Client
-        \throw_if($user === null,
+        \throw_if(
+            $user === null,
             new TrackerException(140)
         );
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        \throw_if($user->group_id === $deniedGroups->validating_id,
+        \throw_if(
+            $user->group_id === $deniedGroups->validating_id,
             new TrackerException(141, [':status' => 'Unactivated/Validating'])
         );
 
         // If User Download Rights Are Disabled Return Error to Client
-        \throw_if($user->can_download === 0 && $queries['left'] !== '0',
+        \throw_if(
+            $user->can_download === 0 && $queries['left'] !== '0',
             new TrackerException(142)
         );
 
         // If User Is Banned Return Error to Client
-        \throw_if($user->group_id === $deniedGroups->banned_id,
+        \throw_if(
+            $user->group_id === $deniedGroups->banned_id,
             new TrackerException(141, [':status' => 'Banned'])
         );
 
         // If User Is Disabled Return Error to Client
-        throw_if($user->group_id === $deniedGroups->disabled_id,
+        throw_if(
+            $user->group_id === $deniedGroups->disabled_id,
             new TrackerException(141, [':status' => 'Disabled'])
         );
 
@@ -361,17 +366,20 @@ class AnnounceController extends Controller
         \throw_if($torrent === null, new TrackerException(150));
 
         // If Torrent Is Pending Moderation Return Error to Client
-        \throw_if($torrent->status === self::PENDING,
+        \throw_if(
+            $torrent->status === self::PENDING,
             new TrackerException(151, [':status' => 'PENDING In Moderation'])
         );
 
         // If Torrent Is Rejected Return Error to Client
-        \throw_if($torrent->status === self::REJECTED,
+        \throw_if(
+            $torrent->status === self::REJECTED,
             new TrackerException(151, [':status' => 'REJECTED In Moderation'])
         );
 
         // If Torrent Is Postponed Return Error to Client
-        \throw_if($torrent->status === self::POSTPONED,
+        \throw_if(
+            $torrent->status === self::POSTPONED,
             new TrackerException(151, [':status' => 'POSTPONED In Moderation'])
         );
 
@@ -386,7 +394,8 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        \throw_if(\strtolower($queries['event']) === 'completed'
+        \throw_if(
+            \strtolower($queries['event']) === 'completed'
             && $torrent->peers
                 ->where('peer_id', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
@@ -410,7 +419,8 @@ class AnnounceController extends Controller
             ->first();
         $setMin = \config('announce.min_interval.interval') ?? self::MIN;
         $randomMinInterval = \random_int($setMin, $setMin * 2);
-        \throw_if($prevAnnounce && $prevAnnounce->updated_at->greaterThan(\now()->subSeconds($randomMinInterval))
+        \throw_if(
+            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(\now()->subSeconds($randomMinInterval))
             && \strtolower($queries['event']) !== 'completed' && \strtolower($queries['event']) !== 'stopped',
             new TrackerException(162, [':min' => $randomMinInterval])
         );
@@ -430,7 +440,8 @@ class AnnounceController extends Controller
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        \throw_if($connections > \config('announce.rate_limit'),
+        \throw_if(
+            $connections > \config('announce.rate_limit'),
             new TrackerException(138, [':limit' => \config('announce.rate_limit')])
         );
     }
@@ -452,7 +463,8 @@ class AnnounceController extends Controller
                 ->where('seeder', '=', 0)
                 ->count();
 
-            \throw_if($count >= $max,
+            \throw_if(
+                $count >= $max,
                 new TrackerException(164, [':max' => $max])
             );
         }
