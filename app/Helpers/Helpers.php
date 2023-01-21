@@ -151,7 +151,7 @@ if (! function_exists('language_flag')) {
             'Greek', 'Greek (GR)'                                                                                                     => 'gr',
             'Hebrew', 'Hebrew (IL)'                                                                                                   => 'il',
             'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)'                                                     => 'in',
-	    'Hungarian', 'Hungarian (HU)'					                                                      => 'hu',
+            'Hungarian', 'Hungarian (HU)'					                                                      => 'hu',
             'Icelandic'                                                                                                               => 'is',
             'Indonesian', 'Indonesian (ID)'					                                                      => 'id',
             'Italian', 'Italian (IT)'                                                                                                 => 'it',
