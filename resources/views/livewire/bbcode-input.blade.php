@@ -174,7 +174,7 @@
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insert('[alert]', '[/alert]')">
-                <abbr title="Note">
+                <abbr title="Alert">
                     <i class="{{ config('other.font-awesome') }} fa-file-exclamation"></i>
                 </abbr>
             </button>
