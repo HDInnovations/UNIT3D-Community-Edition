@@ -59,10 +59,12 @@ class ProcessAnnounce implements ShouldQueue
         $realUploaded = $this->queries['uploaded'];
         $realDownloaded = $this->queries['downloaded'];
         $event = \strtolower($this->queries['event']);
+        $peerId = \base64_decode($this->queries['encoded_peer_id']);
+        $ipAddress = \base64_decode($this->queries['ip-address']);
 
         // Get The Current Peer
         $peer = $this->torrent->peers
-            ->where('peer_id', '=', $this->queries['peer_id'])
+            ->where('peer_id', '=', $peerId)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -133,8 +135,8 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Common Parts Extracted From Switch
-        $peer->peer_id = $this->queries['peer_id'];
-        $peer->ip = $this->queries['ip-address'];
+        $peer->peer_id = $peerId;
+        $peer->ip = $ipAddress;
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
         $peer->uploaded = $realUploaded;
