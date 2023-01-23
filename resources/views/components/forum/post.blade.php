@@ -110,7 +110,7 @@
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]{{ \htmlspecialchars($post->content) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
