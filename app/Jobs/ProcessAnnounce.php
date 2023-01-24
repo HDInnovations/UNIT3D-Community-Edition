@@ -59,7 +59,7 @@ class ProcessAnnounce implements ShouldQueue
         $realUploaded = $this->queries['uploaded'];
         $realDownloaded = $this->queries['downloaded'];
         $event = \strtolower($this->queries['event']);
-        $peerId = \base64_decode($this->queries['encoded_peer_id']);
+        $peerId = \base64_decode($this->queries['peer_id']);
         $ipAddress = \base64_decode($this->queries['ip-address']);
 
         // Get The Current Peer
@@ -243,13 +243,13 @@ class ProcessAnnounce implements ShouldQueue
             ->torrent
             ->peers
             ->where('left', '=', 0)
-            ->where('peer_id', '!=', $this->queries['peer_id'])
+            ->where('peer_id', '!=', $peerId)
             ->count();
         $otherLeechers = $this
             ->torrent
             ->peers
             ->where('left', '>', 0)
-            ->where('peer_id', '!=', $this->queries['peer_id'])
+            ->where('peer_id', '!=', $peerId)
             ->count();
 
         $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0);

@@ -287,7 +287,7 @@ class AnnounceController extends Controller
         $queries['info_hash'] = \bin2hex($queries['info_hash']);
 
         // Part.7 base64_encode binary peer_id for job
-        $queries['encoded_peer_id'] = \base64_encode($queries['peer_id']);
+        $queries['peer_id'] = \base64_encode($queries['peer_id']);
 
         return $queries;
     }
@@ -401,7 +401,7 @@ class AnnounceController extends Controller
         \throw_if(
             \strtolower($queries['event']) === 'completed'
             && $torrent->peers
-                ->where('peer_id', $queries['peer_id'])
+                ->where('peer_id', '=', \base64_decode($queries['peer_id']))
                 ->where('user_id', '=', $user->id)
                 ->isEmpty(),
             new TrackerException(152)
@@ -418,7 +418,7 @@ class AnnounceController extends Controller
     private function checkMinInterval($torrent, $queries, $user): void
     {
         $prevAnnounce = $torrent->peers
-            ->where('peer_id', '=', $queries['peer_id'])
+            ->where('peer_id', '=', \base64_decode($queries['peer_id']))
             ->where('user_id', '=', $user->id)
             ->first();
         $setMin = \config('announce.min_interval.interval') ?? self::MIN;
@@ -463,7 +463,7 @@ class AnnounceController extends Controller
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
             $count = Peer::query()
                 ->where('user_id', '=', $user->id)
-                ->where('peer_id', '!=', $queries['peer_id'])
+                ->where('peer_id', '!=', \base64_decode($queries['peer_id']))
                 ->where('seeder', '=', 0)
                 ->count();
 
