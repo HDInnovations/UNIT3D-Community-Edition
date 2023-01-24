@@ -102,15 +102,8 @@ class ProcessAnnounce implements ShouldQueue
         $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
 
         // Modification of Upload and Download
-        $personalFreeleech = \cache()->rememberForever(
-            'personal_freeleech:'.$this->user->id,
-            fn () => $this->user->personalFreeleeches()->exists()
-        );
-
-        $freeleechToken = \cache()->rememberForever(
-            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
-            fn () => $this->user->freeleechTokens()->where('torrent_id', '=', $this->torrent->id)->exists()
-        );
+        $personalFreeleech = \cache()->get('personal_freeleech:'.$this->user->id);
+        $freeleechToken = \cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id);
 
         if ($personalFreeleech ||
             $this->user->group->is_freeleech == 1 ||
@@ -160,7 +153,6 @@ class ProcessAnnounce implements ShouldQueue
             case 'started':
 
                 $history->active = 1;
-                // Allow downgrading from `immune`, but never upgrade to it
                 $history->immune = (int) ($history->immune === null ? $this->user->group->is_immune : (bool) $history->immune && (bool) $this->user->group->is_immune);
                 $history->save();
                 break;

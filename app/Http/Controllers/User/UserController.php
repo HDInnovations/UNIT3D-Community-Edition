@@ -75,7 +75,7 @@ class UserController extends Controller
 
         $clients = $user->peers()
             ->select('agent', 'port')
-            ->selectRaw('ip as ip, MIN(created_at), MAX(updated_at), COUNT(*) as num_peers')
+            ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at), MAX(updated_at), COUNT(*) as num_peers')
             ->groupBy(['ip', 'port', 'agent'])
             ->get();
 

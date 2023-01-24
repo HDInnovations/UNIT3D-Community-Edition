@@ -80,6 +80,7 @@ class TransactionController extends Controller
                 $personalFreeleech = new PersonalFreeleech();
                 $personalFreeleech->user_id = $user->id;
                 $personalFreeleech->save();
+                \cache()->put('personal_freeleech:'.$user->id, true);
 
                 // Send Private Message
                 $privateMessage = new PrivateMessage();

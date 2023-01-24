@@ -16,8 +16,8 @@ class PeerFactory extends Factory
     public function definition(): array
     {
         return [
-            'peer_id'     => $this->faker->randomNumber(),
-            'ip'          => $this->faker->ipv4(),
+            'peer_id'     => $this->faker->asciify('-qB4450-************'),
+            'ip'          => \inet_pton($this->faker->ipv4()),
             'port'        => $this->faker->numberBetween(0, 65535),
             'agent'       => $this->faker->word(),
             'uploaded'    => $this->faker->randomNumber(),
