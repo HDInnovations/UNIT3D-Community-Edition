@@ -180,6 +180,7 @@
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
             <div class="form__group--short-horizontal">
+                @includeWhen($torrentRequest->torrent_id === null, 'requests.partials.vote')
                 @switch(true)
                     {{-- Claimed --}}
                     @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
@@ -220,9 +221,6 @@
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('request.voters') }}</h2>
-            <div class="panel__actions">
-                @includeWhen($torrentRequest->torrent_id === null, 'requests.partials.vote')
-            </div>
         </header>
         <div class="data-table-wrapper">
             <table class="data-table">

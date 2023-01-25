@@ -82,6 +82,12 @@ class Comments extends Component
             return;
         }
 
+        if (\strtolower(\class_basename($this->model)) === 'torrent' && ! $this->model->isApproved()) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => \trans('comment.torrent-status')]);
+
+            return;
+        }
+
         $this->validate([
             'newCommentState.content' => 'required',
         ]);
