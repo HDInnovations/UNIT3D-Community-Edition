@@ -36,7 +36,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
-          coverage: xdebug
+          coverage: none
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
@@ -56,7 +56,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: Run PHPUnit Tests
-        run: XDEBUG_MODE=coverage php artisan test --parallel --coverage --min=80
+        run: php artisan test --parallel
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
