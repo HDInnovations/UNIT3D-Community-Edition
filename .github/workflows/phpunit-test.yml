@@ -31,12 +31,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP 8.1
+      - name: Setup PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
-          coverage: none
+          coverage: xdebug
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
@@ -56,7 +56,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: Run PHPUnit Tests
-        run: php artisan test --parallel
+        run: php artisan test --parallel --coverage
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
