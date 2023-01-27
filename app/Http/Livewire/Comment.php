@@ -147,7 +147,7 @@ class Comment extends Component
         }
 
         // User Tagged Notification
-        if ($this->user->id !== $this->model->user_id) {
+        if ($this->user->id !== $this->comment->user_id) {
             $users = User::whereIn('username', $this->taggedUsers())->get();
             Notification::sendNow($users, new NewCommentTag(\strtolower(\class_basename($this->comment->commentable_type)), $reply));
         }
