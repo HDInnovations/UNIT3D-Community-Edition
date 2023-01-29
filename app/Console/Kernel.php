@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('auto:insert_peers')->everyMinute();
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
         $schedule->command('auto:graveyard')->daily();
