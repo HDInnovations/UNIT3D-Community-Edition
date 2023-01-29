@@ -21,6 +21,7 @@ use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
+use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
@@ -101,6 +102,9 @@ class AnnounceController extends Controller
             // Check user via supplied passkey.
             $user = $this->checkUser($passkey, $queries);
 
+            // Check users group.
+            $group = $this->checkGroup($user);
+
             // Get Torrent Info Array from queries and judge if user can reach it.
             $torrent = $this->checkTorrent($queries['info_hash']);
 
@@ -117,14 +121,14 @@ class AnnounceController extends Controller
 
             // Check Download Slots.
             if (\config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($queries, $user);
+                $this->checkDownloadSlots($queries, $user, $group);
             }
 
             // Generate A Response For The Torrent Client.
             $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
-            $this->processAnnounceJob($queries, $user, $torrent);
+            $this->processAnnounceJob($queries, $user, $group, $torrent);
         } catch (TrackerException $exception) {
             $repDict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -300,6 +304,37 @@ class AnnounceController extends Controller
      */
     protected function checkUser($passkey, $queries): object
     {
+        // Check Passkey Against Users Table
+        $user = \cache()->remember('user:'.$passkey, 300, function () use ($passkey) {
+            return User::query()
+                ->select(['id', 'group_id', 'can_download'])
+                ->where('passkey', '=', $passkey)
+                ->first();
+        });
+
+        // If User Doesn't Exist Return Error to Client
+        \throw_if(
+            $user === null,
+            new TrackerException(140)
+        );
+
+        // If User Download Rights Are Disabled Return Error to Client
+        \throw_if(
+            $user->can_download === 0 && $queries['left'] !== '0',
+            new TrackerException(142)
+        );
+
+        return $user;
+    }
+
+    /**
+     * Get Users Group.
+     *
+     * @throws \App\Exceptions\TrackerException
+     * @throws \Throwable
+     */
+    protected function checkGroup($user): object
+    {
         $deniedGroups = \cache()->remember('denied_groups', 300, function () {
             return DB::table('groups')
                 ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
@@ -308,28 +343,18 @@ class AnnounceController extends Controller
                 ->first();
         });
 
-        // Check Passkey Against Users Table
-        $user = User::with('group')
-            ->select(['id', 'group_id', 'can_download', 'uploaded', 'downloaded'])
-            ->where('passkey', '=', $passkey)
-            ->first();
-
-        // If User Doesn't Exist Return Error to Client
-        \throw_if(
-            $user === null,
-            new TrackerException(140)
-        );
+        // Get The Users Group
+        $group = \cache()->remember('group:'.$user->group_id, 300, function () use ($user) {
+            return Group::query()
+                ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
+                ->where('id', '=', $user->group_id)
+                ->first();
+        });
 
         // If User Account Is Unactivated/Validating Return Error to Client
         \throw_if(
             $user->group_id === $deniedGroups->validating_id,
             new TrackerException(141, [':status' => 'Unactivated/Validating'])
-        );
-
-        // If User Download Rights Are Disabled Return Error to Client
-        \throw_if(
-            $user->can_download === 0 && $queries['left'] !== '0',
-            new TrackerException(142)
         );
 
         // If User Is Banned Return Error to Client
@@ -344,7 +369,7 @@ class AnnounceController extends Controller
             new TrackerException(141, [':status' => 'Disabled'])
         );
 
-        return $user;
+        return $group;
     }
 
     /**
@@ -456,9 +481,9 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws \Throwable
      */
-    private function checkDownloadSlots($queries, $user): void
+    private function checkDownloadSlots($queries, $user, $group): void
     {
-        $max = $user->group->download_slots;
+        $max = $group->download_slots;
 
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
             $count = Peer::query()
@@ -521,9 +546,9 @@ class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob($queries, $user, $torrent): void
+    private function processAnnounceJob($queries, $user, $group, $torrent): void
     {
-        ProcessAnnounce::dispatch($queries, $user, $torrent);
+        ProcessAnnounce::dispatch($queries, $user, $group, $torrent);
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
