@@ -36,7 +36,13 @@ class SystemInformation
     public function avg()
     {
         if (\is_readable('/proc/loadavg')) {
-            return (float) \file_get_contents('/proc/loadavg');
+            $loads = \explode(' ', \file_get_contents('/proc/loadavg'));
+
+            return [
+                '1-minute'  => $loads[0],
+                '5-minute'  => $loads[1],
+                '15-minute' => $loads[2],
+            ];
         }
     }
 
