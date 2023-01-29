@@ -54,8 +54,8 @@ class AutoInsertPeers extends Command
         $cycles = \ceil($peerCount / self::PEERS_PER_CYCLE);
 
         for ($i = 0; $i < $cycles; $i++) {
-            $peers = Redis::connection('peer')->command('RPOP', [$key, self::PEERS_PER_CYCLE]);
-            $peers = \array_map('unserialize', [$peers]);
+            $peers = Redis::connection('peer')->command('LPOP', [$key, self::PEERS_PER_CYCLE]);
+            $peers = \array_map('unserialize', $peers);
 
             Peer::upsert(
                 $peers,
