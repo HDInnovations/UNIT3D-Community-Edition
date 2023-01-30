@@ -1,23 +1,22 @@
 <p align="center">
-    <img src="https://i.postimg.cc/vZb6tpnw/Screen-Shot-2021-10-21-at-5-09-07-PM.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/GpMQ3bj2/68747470733a2f2f692e706f7374696d672e63632f765a623674706e772f53637265656e2d53686f742d323032312d31302d.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
-
-<hr>
 
 <p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-9-f4645f.svg" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
-<br>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
-<br>
 <a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
-<a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-<br>
-<a href="https://huntr.dev"><img src="https://cdn.huntr.dev/huntr_security_badge_mono.svg"></a>    
 </p>
+
+<a href=https://github.com/sponsors/HDVinnie>
+<p align="center">
+    <img src="https://i.postimg.cc/QMRRNgmV/support.png" alt="UNIT3D-Community-Edition Support Image">
+</p>
+</a>
 
 <p align="center">
     🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://github.com/sponsors/HDVinnie">Sponsors</a></b>🎉
@@ -36,14 +35,14 @@
 8. [Contributing](#contributing)
 9. [License](#license)
 10. [Demo](#demo)
-11. [Sponsor-Chat](#chat)
+11. [Discord-Chat](#chat)
 12. [Sponsoring](#sponsor)
 13. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based on the lovely Laravel Framework -- currently Laravel Framework 8, MySQL Strict Mode Compliant, and PHP 8.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Privare Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 9, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.2 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -70,26 +69,13 @@ UNIT3D currently offers the following features:
 ## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
-- PHP 8.0 + is required
-- Dependencies for PHP,
-  -   php-curl -> This is specifically needed for the various APIs we have running.
-  -   php-intl -> This is required for the Spatie\SslCertificate.
-  -   php-zip -> This is required for the Backup Manager.
+- PHP 8.1 + is required
 - Crontab access
 - A Redis server
 - MySQL 8.0 + or MariaDB 10.2 +
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
-- A decent dedicated server. Dont try running this on some basic server if you plann to run a large tracker!
-<pre>
-Processor: Intel  Xeon E3-1245v2 -
-Cores/Threads: 4c/8t
-Frequency: 3.4GHz /3.8GHz
-RAM: 32GB DDR3 1333 MHz
-Disks: SoftRaid  2x240 GB   SSD
-Bandwidth: 250 Mbps
-Traffic: Unlimited
-<b>Is Under $50 A Month</b>
-</pre>
+- A good dedicated server. Dont try running this on some basic server if you plan to run a large tracker!
+
 
 ## <a name="installation"></a> 🖥️ Installation
 ```
@@ -106,8 +92,7 @@ config/secure-headers.php   <-- Content Security Policy must be disabled
 **Officially Supported OS's**
 - Ubuntu 20.04 LTS
 
-**For Ubuntu 20.04 LTS:**
-```
+```bash
 git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
 cd installer
 sudo ./install.sh
@@ -147,29 +132,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 UNIT3D is open-sourced software licensed under the [GNU Affero General Public License v3.0](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE).
 
-<b> As per license do not remove the license from sourcecode files
-```
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
-```
-
- Or the credits from footer in `/resources/views/partials/footer.blade.php`
-```
-<li>
-<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition" target="_blank" class="btn btn-xs btn-primary">@lang('common.powered-by')</a>
-</li>
-```
-</b>
-
 ## <a name="demo"></a>  🖥️ Demo
 
 URL: https://unit3d.site
@@ -180,7 +142,7 @@ Password: UNIT3D
 
 Demo is reset every 72 hours!
 
-## <a name="chat"></a>  💬 Sponsors Can Chat With Us
+## <a name="chat"></a>  💬 Come Chat With Us
 
 URL: https://discord.gg/J8dsx7F5yT
 
