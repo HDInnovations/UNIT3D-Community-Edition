@@ -222,8 +222,7 @@
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 										<span class="badge-user text-bold"
                                               style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
-											<i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
-                                               data-original-title="{{ $torrent->user->group->name }}"></i>
+											<i class="{{ $torrent->user->group->icon }}" title="{{ $torrent->user->group->name }}"></i>
 											{{ $torrent->user->username }}
 										</span>
                                     </a>
