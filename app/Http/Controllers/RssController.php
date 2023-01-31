@@ -70,15 +70,19 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'name'          => 'required|min:3|max:255',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -101,6 +105,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',
@@ -151,7 +156,8 @@ class RssController extends Controller
 
         $rss = Rss::query()
             ->where('id', '=', $id)
-            ->where(fn ($query) => $query
+            ->where(
+                fn ($query) => $query
                 ->where('user_id', '=', $user->id)
                 ->orWhere('is_private', '=', 0)
             )
@@ -159,32 +165,37 @@ class RssController extends Controller
 
         $search = $rss->object_torrent;
 
-        $torrents = Torrent::with('user', 'category', 'type', 'resolution')
-            ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
-            ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
-            ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
-            ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
-            ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
-            ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
-            ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
-            ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb((int) $search->tmdb))
-            ->when($search->imdb !== null, fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)))
-            ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb((int) $search->tvdb))
-            ->when($search->mal !== null, fn ($query) => $query->ofMal((int) $search->mal))
-            ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
-            ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
-            ->when($search->featured !== null, fn ($query) => $query->featured())
-            ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
-            ->when($search->sd !== null, fn ($query) => $query->sd())
-            ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
-            ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
-            ->when($search->internal !== null, fn ($query) => $query->internal())
-            ->when($search->alive !== null, fn ($query) => $query->alive())
-            ->when($search->dying !== null, fn ($query) => $query->dying())
-            ->when($search->dead !== null, fn ($query) => $query->dead())
-            ->latest()
-            ->take(50)
-            ->get();
+        $cacheKey = 'rss:'.$rss->id;
+
+        $torrents = \cache()->remember($cacheKey, 300, function () use ($search, $user) {
+            return Torrent::with('user', 'category', 'type', 'resolution')
+                ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
+                ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
+                ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
+                ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
+                ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
+                ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
+                ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
+                ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb((int) $search->tmdb))
+                ->when($search->imdb !== null, fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)))
+                ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb((int) $search->tvdb))
+                ->when($search->mal !== null, fn ($query) => $query->ofMal((int) $search->mal))
+                ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+                ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
+                ->when($search->featured !== null, fn ($query) => $query->featured())
+                ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
+                ->when($search->sd !== null, fn ($query) => $query->sd())
+                ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
+                ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
+                ->when($search->internal !== null, fn ($query) => $query->internal())
+                ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
+                ->when($search->alive !== null, fn ($query) => $query->alive())
+                ->when($search->dying !== null, fn ($query) => $query->dying())
+                ->when($search->dead !== null, fn ($query) => $query->dead())
+                ->orderByDesc('bumped_at')
+                ->take(50)
+                ->get();
+        });
 
         return \response()->view('rss.show', [
             'torrents' => $torrents,
@@ -221,14 +232,18 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = \validator($request->all(), [
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres.*'    => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+            'search'        => 'max:255',
+            'description'   => 'max:255',
+            'uploader'      => 'max:255',
+            'categories'    => 'sometimes|array|max:999',
+            'categories.*'  => 'sometimes|exists:categories,id',
+            'types'         => 'sometimes|array|max:999',
+            'types.*'       => 'sometimes|exists:types,id',
+            'resolutions'   => 'sometimes|array|max:999',
+            'resolutions.*' => 'sometimes|exists:resolutions,id',
+            'genres'        => 'sometimes|array|max:999',
+            'genres.*'      => 'sometimes|exists:genres,id',
+            'position'      => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -250,6 +265,7 @@ class RssController extends Controller
             'highspeed',
             'sd',
             'internal',
+            'personalrelease',
             'bookmark',
             'alive',
             'dying',

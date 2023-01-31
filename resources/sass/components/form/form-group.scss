@@ -1,0 +1,22 @@
+/* Used alongside floating labels */
+
+.form__group {
+    background-color: inherit;
+    position: relative;
+    margin-top: 0 !important; /* Can be removed once site-wide `p` styles are removed */
+    width: 100%;
+}
+
+.form__group--horizontal {
+    background-color: inherit;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.form__group--short-horizontal {
+    background-color: inherit;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}

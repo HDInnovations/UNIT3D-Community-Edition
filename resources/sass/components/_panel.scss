@@ -1,0 +1,81 @@
+/**
+ * Usage
+ * 
+ * <section class="panel2">
+ *     <h2 class="panel__heading">Heading</h2>
+ *     <div class="panel__body">Body</div>
+ * </section
+ */
+
+.panelV2 {
+    border: var(--panel-border);
+    background-color: var(--panel-bg);
+    box-shadow: var(--panel-box-shadow);
+    border-radius: var(--panel-border-radius);
+    height: fit-content;
+    break-inside: avoid;
+}
+
+.panel__header {
+    background-color: var(--panel-head-bg);
+    color: var(--panel-head-fg);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel__heading {
+    background-color: var(--panel-head-bg);
+    color: var(--panel-head-fg);
+    display: block;
+    margin: 0;
+    padding: 7px 5px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.panel__heading--centered {
+    text-align: center;
+}
+
+.panel__header-link {
+    color: var(--panel-head-fg);
+
+    &:hover {
+        color: var(--panel-head-fg);
+        filter: brightness(1.1);
+        text-decoration: underline;
+    }
+}
+
+.panel__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    padding: 4px 4px 4px 12px;
+    color: var(--panel-action-fg);
+    background-color: var(--panel-head-bg);
+}
+
+.panel__action {
+    flex-shrink: 0;
+    color: var(--panel-action-fg);
+    font-size: 14px;
+    background-color: var(--panel-head-bg);
+}
+
+.panel__body {
+    padding: 20px;
+    font-size: 15px;
+    display: flow-root;
+    color: var(--panel-fg);
+    background-color: var(--panel-bg);
+    overflow-wrap: break-word;
+}
+
+.panel--grid-item {
+    height: 100%;
+}

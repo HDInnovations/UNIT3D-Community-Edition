@@ -17,7 +17,6 @@ class TopicFactory extends Factory
     {
         return [
             'name'                     => $this->faker->name(),
-            'slug'                     => $this->faker->slug(),
             'state'                    => $this->faker->word(),
             'pinned'                   => $this->faker->boolean(),
             'approved'                 => $this->faker->boolean(),

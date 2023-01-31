@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
@@ -47,7 +48,12 @@ class PageController extends Controller
      */
     public function staff(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $staff = Group::with('users:id,username,group_id,title')->where('is_modo', '=', 1)->orWhere('is_admin', '=', 1)->get()->sortByDesc('position');
+        $staff = Group::query()
+            ->with('users:id,username,group_id,title')
+            ->where('is_modo', '=', 1)
+            ->orWhere('is_admin', '=', 1)
+            ->get()
+            ->sortByDesc('position');
 
         return \view('page.staff', ['staff' => $staff]);
     }
@@ -57,19 +63,22 @@ class PageController extends Controller
      */
     public function internal(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internals = Internal::with('users')->get()->sortBy('name');
+        $internals = Internal::query()
+            ->with('users')
+            ->get()
+            ->sortBy('name');
 
         return \view('page.internal', ['internals' => $internals]);
     }
 
     /**
-     * Show Blacklist Page.
+     * Show Client-Blacklist Page.
      */
-    public function blacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function clientblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = \config('client-blacklist.clients', []);
+        $clients = BlacklistClient::all();
 
-        return \view('page.blacklist', ['clients' => $clients]);
+        return \view('page.blacklist.client', ['clients' => $clients]);
     }
 
     /**

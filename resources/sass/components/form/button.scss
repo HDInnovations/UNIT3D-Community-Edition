@@ -1,0 +1,110 @@
+.form__button {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    margin: 6px;
+    padding: 8px 12px;
+    align-self: flex-start;
+    filter: brightness(1);
+    text-align: center;
+    transition: filter 300ms;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5ch;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &:active {
+        filter: brightness(0.9);
+        transition: none;
+    }
+}
+
+/* Centered text */
+
+.form__button--centered {
+    text-align: center;
+    justify-content: center;
+}
+
+/* Filled */
+
+.form__button--filled {
+    background: var(--button-filled-bg);
+    color: var(--button-filled-fg);
+    border: var(--button-filled-border);
+    border-radius: var(--button-filled-border-radius);
+}
+
+/* Text */
+
+.form__button--text {
+    background: var(--button-text-bg);
+    color: var(--button-text-fg);
+    border: var(--button-text-border);
+    border-radius: var(--button-text-border-radius);
+}
+
+/* Outlined */
+
+.form__button--outlined {
+    background: var(--button-outlined-bg);
+    color: var(--button-outlined-fg);
+    border: var(--button-outlined-border);
+    border-radius: var(--button-outlined-border-radius);
+}
+
+/* Standard Icon Buttons
+---------------------------------------------------------------------------- */
+
+.form__standard-icon-button {
+    font-size: 13px;
+    font-weight: 600px;
+    line-height: 1;
+    margin: 14px 6px;
+    border-radius: var(--icon-button-border-radius);
+    border: var(--icon-button-border);
+    background: var(--icon-button-bg);
+    color: var(--icon-button-fg);
+    transition: filter 300ms;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &:active {
+        filter: brightness(0.9);
+        transition: none;
+    }
+}
+
+/* Contained Icon Buttons
+---------------------------------------------------------------------------- */
+
+.form__contained-icon-button {
+    font-size: 13px;
+    font-weight: 600px;
+    line-height: 1;
+    padding: 8px;
+    margin: 6px;
+    border-radius: var(--icon-button-border-radius);
+    transition: filter 300ms;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &:active {
+        filter: brightness(0.9);
+        transition: none;
+    }
+}
+
+.form__contained-icon-button--filled {
+    background: var(--icon-button-filled-bg);
+    color: var(--icon-button-filled-fg);
+    border: var(--icon-button-filled-border);
+}

@@ -1,0 +1,13 @@
+.form__meter {
+    background: var(--meter-bg);
+    appearance: none;
+    border: 2px solid var(--meter-bg);
+    border-radius: 4px;
+    height: 22px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.form__meter::-moz-meter-bar {
+    background: var(--meter-fg);
+}

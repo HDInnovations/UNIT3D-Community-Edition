@@ -4,7 +4,7 @@ Contributions are **welcome**.
 
 We accept contributions via Pull Requests on [Github](https://github.com/HDInnovations/UNIT3D).
 
-**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)\
+**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
 ## Commits
 

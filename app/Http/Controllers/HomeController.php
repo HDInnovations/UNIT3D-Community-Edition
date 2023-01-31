@@ -18,7 +18,6 @@ use App\Models\Bookmark;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Group;
-use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
 use App\Models\Topic;
@@ -55,7 +54,7 @@ class HomeController extends Controller
         }
 
         // Latest Torrents Block
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = \cache()->get('personal_freeleech:'.$user->id);
 
         $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -109,7 +108,7 @@ class HomeController extends Controller
         $groups = \cache()->remember('user-groups', $expiresAt, fn () => Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
 
         // Featured Torrents Block
-        $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent', 'user')->get());
+        $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent', 'torrent.resolution', 'torrent.type', 'torrent.category', 'user', 'user.group')->get());
 
         // Latest Poll Block
         $poll = \cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first());

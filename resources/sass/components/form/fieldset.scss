@@ -1,0 +1,30 @@
+.form__fieldset {
+    background-color: inherit;
+    border: var(--input-text-border);
+    border-radius: 5px;
+    color: var(--input-text-fg);
+    font-size: 14px;
+    font-weight: normal;
+    max-width: 100%;
+    outline: none;
+    padding: 6px 12px 12px 12px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Firefox/Chrome don't seem to let you use `resize` on a fieldset element, so this has to be used instead */
+.form__fieldset-checkbox-container {
+    margin: -6px -12px -12px -12px;
+    padding: 6px 12px 12px 12px;
+    height: 160px;
+    overflow-y: auto;
+    resize: vertical;
+}
+
+.form__fieldset-checkbox-container--shrink {
+    margin: -6px -12px -12px -12px;
+    padding: 6px 12px 12px 12px;
+    max-height: 160px;
+    overflow-y: auto;
+    resize: vertical;
+}

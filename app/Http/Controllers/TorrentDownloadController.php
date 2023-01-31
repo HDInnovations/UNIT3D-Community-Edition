@@ -42,7 +42,7 @@ class TorrentDownloadController extends Controller
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $hasHistory = $user->history()->where([['info_hash', '=', $torrent->info_hash], ['seeder', '=', 1]])->count();
+        $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->count();
         // User's ratio is too low
         if ($user->getRatio() < \config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
             return \to_route('torrent', ['id' => $torrent->id])
@@ -82,6 +82,12 @@ class TorrentDownloadController extends Controller
             $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
             // Remove Other announce url
             unset($dict['announce-list']);
+            // Set link to torrent as the comment
+            if (config('torrent.comment')) {
+                $dict['comment'] = \config('torrent.comment').'. '.\route('torrent', ['id' => $id]);
+            } else {
+                $dict['comment'] = \route('torrent', ['id' => $id]);
+            }
         } else {
             return \to_route('login');
         }
@@ -92,9 +98,9 @@ class TorrentDownloadController extends Controller
         $torrentDownload = new TorrentDownload();
         $torrentDownload->user_id = $user->id;
         $torrentDownload->torrent_id = $id;
-        $torrentDownload->type = $rsskey ? 'RSS/API' : 'Site';
+        $torrentDownload->type = $rsskey ? 'RSS/API using '.$request->header('User-Agent') : 'Site using '.$request->header('User-Agent');
         $torrentDownload->save();
 
-        return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName)->deleteFileAfterSend(true);
+        return \response()->download(\getcwd().'/files/tmp/'.$tmpFileName, null, ['Content-Type' => 'application/x-bittorrent'])->deleteFileAfterSend(true);
     }
 }

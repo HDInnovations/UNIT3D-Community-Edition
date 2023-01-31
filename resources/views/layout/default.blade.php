@@ -4,6 +4,7 @@
     @include('partials.head')
 </head>
 <body>
+@include('cookie-consent::index')
 <header>
     @include('partials.top_nav')
     <nav class="secondary-nav">
@@ -21,7 +22,6 @@
             @yield('nav-tabs')
         </ul>
     </nav>
-    @include('cookie-consent::index')
     @include('partials.alerts')
     @if (Session::has('achievement'))
         @include('partials.achievement_modal')
@@ -34,10 +34,27 @@
         </div>
     @endif
 </header>
-<main>
-    <article>
-        @yield('content')
-    </article>
+<main class="@yield('page')">
+    @hasSection('main')
+        @hasSection('sidebar')
+            <article class="sidebar2">
+                <div>
+                    @yield('main')
+                </div>
+                <aside>
+                    @yield('sidebar')
+                </aside>
+            </article>
+        @else
+            <article>
+                @yield('main')
+            </article>
+        @endif
+    @else
+        <article>
+            @yield('content')
+        </article>
+    @endif
 </main>
 @include('partials.footer')
 

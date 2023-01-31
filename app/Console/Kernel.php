@@ -30,8 +30,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:prewarning')->hourly();
         $schedule->command('auto:warning')->daily();
         $schedule->command('auto:deactivate_warning')->hourly();
-        $schedule->command('auto:revoke_permissions')->hourly();
-        $schedule->command('auto:ban')->hourly();
         $schedule->command('auto:flush_peers')->hourly();
         $schedule->command('auto:bon_allocation')->hourly();
         $schedule->command('auto:remove_personal_freeleech')->hourly();
@@ -48,6 +46,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:reset_user_flushes')->daily();
         $schedule->command('auto:stats_clients')->daily();
         $schedule->command('auto:remove_torrent_buffs')->hourly();
+        $schedule->command('auto:torrent_balance')->hourly();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();

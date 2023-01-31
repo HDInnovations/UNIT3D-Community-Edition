@@ -14,10 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreChatRoomRequest;
+use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
 use App\Models\User;
 use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatRoomControllerTest
@@ -44,46 +45,40 @@ class ChatRoomController extends Controller
     }
 
     /**
+     * Show Form For Creating A New Chatroom.
+     */
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return \view('Staff.chat.room.create');
+    }
+
+    /**
      * Store A New Chatroom.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreChatRoomRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $chatroom = new Chatroom();
-        $chatroom->name = $request->input('name');
-
-        $v = \validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.rooms.index')
-                ->withErrors($v->errors());
-        }
-
-        $chatroom->save();
+        Chatroom::create($request->validated());
 
         return \to_route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
 
     /**
-     * Update A Chatroom.
+     * Chatroom Edit Form.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $chatroom = Chatroom::findOrFail($id);
-        $chatroom->name = $request->input('name');
 
-        $v = \validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
+        return \view('Staff.chat.room.edit', ['chatroom' => $chatroom]);
+    }
 
-        if ($v->fails()) {
-            return \to_route('staff.rooms.index')
-                ->withErrors($v->errors());
-        }
-
-        $chatroom->save();
+    /**
+     * Update A Chatroom.
+     */
+    public function update(UpdateChatRoomRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    {
+        Chatroom::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');

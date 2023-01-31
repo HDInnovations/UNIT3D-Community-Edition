@@ -1,0 +1,79 @@
+/**
+ * Usage
+ *
+ * <p class="form__group">
+ *     <input type="text" id="input" class="form__text" required>
+ *     <label class="form__label form__label--floating" for="input"></label>
+ *     @error('error')
+ *         <span class="form__hint">{{ $error }}</span>
+ *     @enderror
+ * </p>
+ */
+
+.form__text {
+    background-color: inherit;
+    border: var(--input-text-border);
+    border-radius: 5px;
+    color: var(--input-text-fg);
+    font-size: 14px;
+    font-weight: normal;
+    height: 40px;
+    max-width: 100%;
+    outline: none;
+    padding: 12px;
+    width: 100%;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+        transition: border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    &:hover {
+        border: var(--input-text-border-hover);
+    }
+
+    &:focus,
+    &:focus:hover {
+        border: var(--input-text-border-active);
+
+        & + .form__label--floating {
+            top: -3px;
+            font-size: 11px;
+            color: var(--label-fg-active);
+            border-radius: 0;
+            padding: 0 4px;
+        }
+    }
+
+    &:valid:not(:placeholder-shown),
+    &:focus:placeholder-shown {
+        & + .form__label--floating {
+            top: -3px;
+            font-size: 11px;
+            border-radius: 0;
+            padding: 0 4px;
+        }
+    }
+
+    &:invalid:focus,
+    &:user-invalid {
+        border: var(--input-text-border-error);
+
+        & + .form__label--floating {
+            color: var(--label-fg-error);
+
+            > strong {
+                color: inherit; /* Can be removed once site-wide `strong` styling is removed */
+            }
+        }
+
+        & ~ .form__hint {
+            color: var(--label-fg-error);
+            font-size: 12px;
+            margin-left: 16px;
+
+            > strong {
+                color: inherit; /* Can be removed once site-wide `strong` styling is removed */
+            }
+        }
+    }
+}

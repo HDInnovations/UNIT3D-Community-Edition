@@ -19,52 +19,32 @@
     @include('partials.statsusermenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-seedtime') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-purple"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-star"></i> {{ __('stat.top-seedtime') }}
-                        </strong>
-                    </p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--seedtime')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-seedtime') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('torrent.seedtime') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('common.user') }}</th>
-                            <th>{{ __('torrent.seedtime') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <x-user_tag :user="$user" :anon="$user->private_profile" />
+                            </td>
+                            <td>{{ \App\Helpers\StringHelper::timeElapsed($user->seedtime ?? 0) }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($seedtime as $key => $s)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $s->user->username) class="mentions" @endif>
-                                    @if ($s->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $b->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $s->username]) }}">({{ $s->username }}</a></span>
-                                    @endif
-                                    @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $s->username]) }}">{{ $s->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-purple">{{ App\Helpers\StringHelper::timeElapsed($s) }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

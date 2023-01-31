@@ -78,34 +78,21 @@
                                     <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                 class="badge-user text-bold"
                                                 style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                                    class="{{ $p->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $p->user->group->name }}"></i>
+                                                    class="{{ $p->user->group->icon }}" title="{{ $p->user->group->name }}"></i>
                                                 {{ $p->user->username }}</span></a>
                                 </td>
                             @endif
-                            @if ($p->seeder == 0)
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                             aria-valuenow="{{ ($p->downloaded / $torrent->size) * 100 }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                             style="width: {{ ($p->downloaded / $torrent->size) * 100 }}%;">
-                                            {{ round(($p->downloaded / $torrent->size) * 100) }}%
-                                        </div>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                            aria-valuenow="{{ $p->progress }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style="width: {{ $p->progress }}%;">
+                                        {{ $p->progress }}%
                                     </div>
-                                </td>
-                            @elseif ($p->seeder == 1)
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                             style="width: 100%;">
-                                            100%
-                                        </div>
-                                    </div>
-                                </td>
-                            @endif
+                                </div>
+                            </td>
                             <td>
                                     <span
                                             class="badge-extra text-green text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->uploaded, 2) }}</span>

@@ -1,0 +1,242 @@
+.topic-posts {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 18px;
+}
+
+.topic-posts__header {
+    // background-color: var(--panel-bg);
+    border-radius: 5px;
+    padding: 21px 18px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+}
+
+.topic-posts__title {
+    margin: 0;
+    font-size: 22px;
+}
+
+.post {
+    display: grid;
+    grid-template-areas:
+        'aside header'
+        'aside content'
+        'aside footer';
+    grid-template-columns: 153px 1fr;
+    grid-template-rows: auto 1fr auto;
+    border-radius: 5px;
+    box-shadow: var(--post-shadow);
+    background-color: var(--post-bg);
+    overflow: hidden;
+}
+
+.post__header {
+    grid-area: header;
+    display: grid;
+    grid-template-areas: 'datetime topic . tip-stats toolbar';
+    grid-template-columns: auto auto 1fr auto auto;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--post-head-fg);
+    background-color: var(--post-head-bg);
+    padding-left: 9px;
+}
+
+.post__datetime {
+    grid-area: datetime;
+}
+
+.post__topic {
+    grid-area: topic;
+}
+
+.post__tip-stats {
+    grid-area: tip-stats;
+    display: flex;
+    margin-bottom: 0;
+}
+
+.post__tip-stats dt {
+    font-weight: normal;
+}
+
+.post__tip-stats dt:after {
+    content: ':';
+    margin-right: 0.5ch;
+}
+
+.post__toolbar {
+    grid-area: toolbar;
+    display: flex;
+    align-items: stretch;
+    background-color: var(--post-toolbar-bg);
+    border-bottom-left-radius: 9px;
+    overflow: hidden;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    color: var(--post-toolbar-fg);
+    overflow-x: auto;
+}
+
+.post__toolbar-item {
+    list-style-type: none;
+}
+
+.post__permalink,
+.post__quote,
+.post__edit,
+.post__delete-button,
+.votes__like,
+.votes__dislike,
+.post__tip-button {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    padding: 7px 14px;
+    background-color: transparent;
+    color: inherit;
+    min-width: 54px;
+    text-align: center;
+    border: none;
+}
+
+.votes__like,
+.votes__dislike {
+    grid-template-columns: auto auto;
+}
+
+.post__permalink:hover,
+.post__quote:hover,
+.post__edit:hover,
+.post__delete:hover,
+.votes__like:hover,
+.votes__dislike:hover,
+.post__tip-button:hover {
+    background-color: var(--post-toolbar-hover-bg);
+}
+
+.post__permalink:hover,
+.post__quote:hover,
+.post__edit:hover,
+.post__delete:hover,
+.post__tip-button:hover {
+    color: var(--post-toolbar-hover-fg);
+}
+
+.post__tip {
+    display: flex;
+}
+
+.post__tip-label {
+    font-weight: normal;
+}
+
+.post__tip-input {
+    margin: 5px 5px 2px 9px;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: var(--post-toolbar-bg);
+    width: 72px;
+    background-color: transparent;
+    text-align: right;
+}
+
+.post__votes {
+    grid-area: votes;
+    padding: 5px 9px 0;
+}
+
+.votes__like {
+    background-color: transparent;
+    color: var(--post-like-fg);
+}
+.votes__dislike {
+    background-color: transparent;
+    color: var(--post-dislike-fg);
+}
+
+.post__delete {
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.post__aside {
+    grid-area: aside;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--post-aside-bg);
+    color: var(--post-aside-fg);
+}
+
+.post__figure {
+    margin-bottom: 9px;
+}
+
+.post__avatar {
+    width: 100%;
+}
+
+.post__author {
+    font-size: 14px;
+    text-align: center;
+}
+
+.post__author-title {
+    font-size: 13px;
+    text-align: center;
+}
+
+.post__author-join,
+.post__author-topics,
+.post__author-posts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.post__author-join dt,
+.post__author-topics dt,
+.post__author-posts dt {
+    font-weight: normal;
+}
+
+.post__author-join dt:after,
+.post__author-topics dt:after,
+.post__author-posts dt:after {
+    content: ':';
+}
+
+.post__author-join-datetime {
+    color: inherit;
+}
+
+.post__content {
+    grid-area: content;
+    padding: 14px 9px 9px 9px;
+    font-size: 14px;
+    color: var(--post-fg);
+    line-height: 1.5;
+}
+
+.post__footer {
+    grid-area: footer;
+    border-top: 2px solid var(--post-aside-bg);
+    padding: 9px;
+    font-size: 13px;
+    color: var(--post-footer-fg);
+}
+
+.post__signature {
+    text-align: center;
+}

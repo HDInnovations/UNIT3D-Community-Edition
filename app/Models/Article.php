@@ -26,6 +26,13 @@ class Article extends Model
     use Auditable;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -36,12 +43,9 @@ class Article extends Model
         ]);
     }
 
-    /**
-     * Has Many Comments.
-     */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
@@ -75,7 +79,7 @@ class Article extends Model
     /**
      * Set The Articles Content After Its Been Purified.
      */
-    public function setContentAttribute(string $value): void
+    public function setContentAttribute(?string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

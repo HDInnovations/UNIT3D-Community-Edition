@@ -1,0 +1,81 @@
+.data-table {
+    width: 100%;
+    border: 0;
+    color: var(--data-table-fg);
+    border-collapse: collapse;
+}
+
+.data-table-wrapper {
+    overflow-x: auto;
+}
+
+/* header */
+.data-table > tr > th,
+.data-table > thead > tr > th,
+.data-table > tbody > tr > th,
+.data-table > tfoot > tr > th {
+    background-color: var(--data-table-th-bg);
+    border-bottom: var(--data-table-thead-border);
+    text-align: left;
+    padding: 7px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* cell */
+.data-table > tr > td,
+.data-table > thead > tr > td,
+.data-table > tbody > tr > td,
+.data-table > tfoot > tr > td {
+    padding: 7px;
+    font-size: 14px;
+}
+
+.data-table > tr:not(.data-table > tr:last-child) > td,
+.data-table > tbody > tr:not(.data-table > tbody > tr:last-child) > td {
+    border-bottom: var(--data-table-tr-border);
+}
+
+.data-table tr:nth-child(even) > td {
+    background-color: var(--data-table-tr-even-bg);
+}
+
+.data-table tr:nth-child(odd) > td {
+    background-color: var(--data-table-tr-odd-bg);
+}
+
+/* hovered row */
+.data-table > tr:hover > td,
+.data-table > thead > tr:hover > td,
+.data-table > tbody > tr:hover > td,
+.data-table > tfoot > tr:hover > td {
+    background-color: var(--data-table-tr-hover-bg);
+}
+
+/* footer */
+.data-table > tfoot > tr > td {
+    border-top: var(--data-table-tfoot-border);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* Actions */
+.data-table__actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.data-table__action > :not(.dialog) {
+    @media (hover: hover) {
+        visibility: hidden;
+    }
+
+    .data-table tr:hover & {
+        visibility: visible;
+    }
+}

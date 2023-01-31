@@ -1,0 +1,26 @@
+.form__label {
+    user-select: none;
+    font-size: 14px;
+    font-weight: normal !important; /* Needed until site-wide `label` styles are removed */
+}
+
+.form__label--floating {
+    background-color: inherit;
+    border-radius: 50% 50% 0 0 / 8px;
+    cursor: text;
+    height: auto;
+    line-height: 1;
+    position: absolute;
+    padding: 8px 4px 0 4px;
+    display: inline-block;
+    top: 6px;
+    left: 8px;
+    color: var(--label-fg);
+    pointer-events: none;
+    white-space: nowrap;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+        transition: top 400ms cubic-bezier(0.25, 0.8, 0.25, 1), font-size 400ms cubic-bezier(0.25, 0.8, 0.25, 1),
+            color 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+}

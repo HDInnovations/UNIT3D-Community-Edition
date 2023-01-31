@@ -24,7 +24,7 @@ export default {
                 confirmButtonText: 'Send',
                 showLoaderOnConfirm: true,
                 willOpen: () => {
-                    this.editor = $('#chat-message-pm').wysibb();
+                    this.editor = $('#chat-message-pm').val();
                     this.target = $('#receiver-id').val();
                 },
                 willClose: () => {
@@ -33,7 +33,7 @@ export default {
                 },
                 preConfirm: (msg) => {
                     let target = this.target;
-                    msg = this.editor.bbcode().trim();
+                    msg = this.input.val().trim();
                     if (msg !== null && msg !== '') {
                         this.$emit('pm-sent', {
                             message: msg,
@@ -41,7 +41,7 @@ export default {
                             user_id: this.$parent.auth.id,
                             receiver_id: target,
                         });
-                        $('#chat-message-pm').html('');
+                        $('#chat-message-pm').val('');
                     }
                     return user;
                 },

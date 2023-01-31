@@ -14,6 +14,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreRssRequest;
+use App\Http\Requests\Staff\UpdateRssRequest;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Resolution;
@@ -58,78 +60,21 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function store(StoreRssRequest $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $user = $request->user();
+        $staff = $request->user();
 
-        $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
-        ]);
-
-        $params = $request->only([
-            'type',
-            'name',
-            'position',
-            'search',
-            'description',
-            'uploader',
-            'imdb',
-            'tvdb',
-            'tmdb',
-            'mal',
-            'categories',
-            'types',
-            'resolutions',
-            'genres',
-            'freeleech',
-            'doubleupload',
-            'featured',
-            'stream',
-            'highspeed',
-            'sd',
-            'internal',
-            'bookmark',
-            'alive',
-            'dying',
-            'dead',
-        ]);
-
-        $error = null;
-        $success = null;
-
-        if ($v->passes()) {
-            $rss = new Rss();
-            $rss->name = $request->input('name');
-            $rss->user_id = $user->id;
-            $expected = $rss->expected_fields;
-            $rss->json_torrent = \array_merge($expected, $params);
-            $rss->is_private = 0;
-            $rss->staff_id = $user->id;
-            $rss->position = (int) $request->input('position');
-            $rss->save();
-            $success = 'Public RSS Feed Created';
-        }
-
-        if ($success === null) {
-            $error = 'Unable To Process Request';
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('staff.rss.create')
-                ->withErrors($error);
-        }
+        $rss = new Rss();
+        $rss->name = $request->name;
+        $rss->user_id = $staff->id;
+        $rss->json_torrent = \array_merge($rss->expected_fields, $request->validated());
+        $rss->is_private = 0;
+        $rss->staff_id = $staff->id;
+        $rss->position = $request->position;
+        $rss->save();
 
         return \to_route('staff.rss.index')
-            ->withSuccess($success);
+            ->withSuccess('Public RSS Feed Created');
     }
 
     /**
@@ -153,76 +98,18 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(UpdateRssRequest $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
-        $v = \validator($request->all(), [
-            'name'        => 'required|min:3|max:255',
-            'search'      => 'max:255',
-            'description' => 'max:255',
-            'uploader'    => 'max:255',
-            'categories'  => 'sometimes|array|max:999',
-            'types'       => 'sometimes|array|max:999',
-            'resolutions' => 'sometimes|array|max:999',
-            'genres'      => 'exists:genres,id|sometimes|array|max:999',
-            'position'    => 'sometimes|integer|max:9999',
+        $rss->update([
+            'json_torrent' => \array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
+            'name'         => $request->name,
+            'position'     => $request->position,
         ]);
-
-        $params = $request->only([
-            'type',
-            'position',
-            'search',
-            'description',
-            'uploader',
-            'imdb',
-            'tvdb',
-            'tmdb',
-            'mal',
-            'categories',
-            'types',
-            'resolutions',
-            'genres',
-            'freeleech',
-            'doubleupload',
-            'featured',
-            'stream',
-            'highspeed',
-            'sd',
-            'internal',
-            'bookmark',
-            'alive',
-            'dying',
-            'dead',
-        ]);
-
-        $error = null;
-        $success = null;
-        $redirect = null;
-
-        if ($v->passes()) {
-            $expected = $rss->expected_fields;
-            $push = \array_merge($expected, $params);
-            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
-            $rss->is_private = 0;
-            $rss->name = $request->input('name');
-            $rss->position = (int) $request->input('position');
-            $rss->save();
-            $success = 'Public RSS Feed Updated';
-        }
-
-        if ($success === null) {
-            $error = 'Unable To Process Request';
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('staff.rss.edit', ['id' => $id])
-                ->withErrors($error);
-        }
 
         return \to_route('staff.rss.index')
-            ->withSuccess($success);
+            ->withSuccess('Public RSS Feed Updated');
     }
 
     /**

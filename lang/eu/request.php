@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Ez duzu nahikoa bonus',
     'edit-request'        => 'Editatu eskaera',
     'enter-bp'            => 'Sartu bonus puntuak (gutxienez 100)',
-    'enter-hash'          => 'Sartu kargatutako Torrent informazioaren hasiera',
+    'enter-hash'          => 'Sartu kargatutako Torrent ID',
     'fill'                => 'Bete',
     'fill-request'        => 'Bete eskaera hau',
     'filled'              => 'Beteta',

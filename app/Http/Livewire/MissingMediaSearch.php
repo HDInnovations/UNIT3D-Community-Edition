@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Movie;
+use App\Models\Type;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,10 +13,6 @@ class MissingMediaSearch extends Component
 
     public array $categories = [];
 
-    public array $types = [];
-
-    public array $resolutions = [];
-
     public int $perPage = 50;
 
     public string $sortField = 'created_at';
@@ -24,8 +21,6 @@ class MissingMediaSearch extends Component
 
     protected $queryString = [
         'categories'      => ['except' => []],
-        'types'           => ['except' => []],
-        'resolutions'     => ['except' => []],
         'sortField'       => ['except' => 'created_at'],
         'sortDirection'   => ['except' => 'desc'],
         'page'            => ['except' => 1],
@@ -39,9 +34,15 @@ class MissingMediaSearch extends Component
 
     final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Movie::with(['torrents:tmdb,type_id,resolution_id'])
+        return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
+            ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    final public function getTypesProperty(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Type::select('id', 'position', 'name')->orderBy('position')->get();
     }
 
     final public function sortBy($field): void
@@ -56,6 +57,6 @@ class MissingMediaSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.missing-media-search', ['medias' => $this->medias]);
+        return view('livewire.missing-media-search', ['medias' => $this->medias, 'types' => $this->types]);
     }
 }

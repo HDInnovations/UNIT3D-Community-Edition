@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
-use App\Models\Follow;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -59,7 +58,7 @@ class AutoSoftDeleteDisabledUsers extends Command
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning') == true) {
+        if (\config('pruning.user_pruning')) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
             $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
@@ -81,6 +80,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->group_id = $prunedGroup[0];
                 $user->deleted_by = 1;
                 $user->save();
+
+                \cache()->forget('user:'.$user->passkey);
 
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
                 foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
@@ -145,9 +146,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 }
 
                 // Removes all follows for user
-                foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-                    $follow->delete();
-                }
+                $user->followers()->detach();
+                $user->following()->detach();
 
                 // Removes UserID from Sent Invites if any and replaces with System UserID (1)
                 foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
@@ -174,6 +174,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all FL Tokens for user
                 foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
                     $token->delete();
+
+                    \cache()->forget('freeleech_token:'.$token->user_id.':'.$token->torrent_id);
                 }
 
                 $user->delete();

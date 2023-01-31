@@ -19,61 +19,53 @@
     @include('partials.statsrequestmenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('stat.top-bountied') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-success"><strong><i class="{{ config('other.font-awesome') }} fa-trophy"></i>
-                            {{ __('stat.top-bountied') }}
-                        </strong></p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--bountied')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('stat.top-bountied') }}</h2>
+        <div class="panelV2">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('request.request') }}</th>
+                        <th>{{ __('request.bounty') }}</th>
+                        <th>{{ __('request.filled') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bountied as $request)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('request.request') }}</th>
-                            <th>{{ __('request.bounty') }}</th>
-                            <th>{{ __('request.filled') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <a href="{{ route('request', ['id' => $request->id]) }}">
+                                    {{ $request->name }}
+                                </a>
+                            </td>
+                            <td>{{ $request->bounty }}</td>
+                            <td>
+                                @if ($request->torrent_id === null)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times-circle text-danger"
+                                        title="{{ __('stat.request-not-fulfilled') }}"
+                                    ></i>
+                                @elseif ($request->torrent_id !== null && $request->approved_by === null)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-question-circle text-info"
+                                        title="{{ __('stat.request-pending-aproval') }}">
+                                    </i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check-circle text-success"
+                                        title="{{ __('stat.request-fulfilled') }}">
+                                    </i>
+                                @endif
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($bountied as $key => $b)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td>
-                                    <a class="text-bold" href="{{ route('request', ['id' => $b->id]) }}">
-                                        {{ $b->name }}
-                                    </a>
-                                </td>
-                                <td><span class="text-green">{{ $b->bounty }}</span></td>
-                                <td>
-                                    @if ($b->filled_hash == null)
-                                        <span class="label label-default" data-toggle="tooltip"
-                                              data-original-title="{{ __('stat.request-not-fulfilled') }}">
-                                                <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i>
-                                            </span>
-                                    @elseif ($b->filled_hash != null && $b->approved_by == null)
-                                        <span class="label label-default" data-toggle="tooltip"
-                                              data-original-title="{{ __('stat.request-pending-aproval') }}">
-                                                <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
-                                            </span>
-                                    @else
-                                        <span class="label label-default" data-toggle="tooltip"
-                                              data-original-title="{{ __('stat.request-fulfilled') }}">
-                                                <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
-                                            </span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

@@ -1,0 +1,98 @@
+.topic-tags {
+    display: inline;
+    margin: 0;
+    padding: 0 ;
+}
+
+.topic-tag {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 0 8px;
+    font-size: 11px;
+    line-height: 18px;
+
+    --forum-tag-pinned-bg: transparent;
+    --forum-tag-pinned-fg: inherit;
+    --forum-tag-closed-bg: transparent;
+    --forum-tag-closed-fg: inherit;
+    --forum-tag-approved-bg: #008672;
+    --forum-tag-approved-fg: #fff;
+    --forum-tag-denied-bg: #fff;
+    --forum-tag-denied-fg: #000;
+    --forum-tag-solved-bg: #7057ff;
+    --forum-tag-solved-fg: #fff;
+    --forum-tag-invalid-bg: #e4e669;
+    --forum-tag-invalid-fg: #000;
+    --forum-tag-bug-bg: #d73a4a;
+    --forum-tag-bug-fg: #fff;
+    --forum-tag-suggestion-bg: #d876e3;
+    --forum-tag-suggestion-fg: #000;
+    --forum-tag-implemented-bg: #A2EEEF;
+    --forum-tag-implemented-fg: #000;
+
+
+
+    --forum-tag-pinned-bg: transparent;
+    --forum-tag-pinned-fg: inherit;
+    --forum-tag-closed-bg: transparent;
+    --forum-tag-closed-fg: inherit;
+    --forum-tag-approved-bg: rgba(0, 134, 114, 0.18);
+    --forum-tag-approved-fg: rgb(0, 230, 196);
+    --forum-tag-denied-bg: rgba(255, 255, 255, 0.18);
+    --forum-tag-denied-fg: #fff;
+    --forum-tag-solved-bg: rgba(112, 87, 255, 0.18);
+    --forum-tag-solved-fg: rgb(193, 184, 255);
+    --forum-tag-invalid-bg: rgba(228, 230, 105, 0.18);
+    --forum-tag-invalid-fg: rgb(229, 229, 102);
+    --forum-tag-bug-bg: rgba(215, 58, 74, 0.18);
+    --forum-tag-bug-fg: rgb(235, 156, 166);
+    --forum-tag-suggestion-bg: rgba(216, 118, 227, 0.18);
+    --forum-tag-suggestion-fg: rgb(217, 126, 229);
+    --forum-tag-implemented-bg: rgba(162, 238, 239, 0.18);
+    --forum-tag-implemented-fg: rgb(160, 238, 238);
+}
+
+.topic-tag--pinned {
+    background-color: var(--forum-tag-pinned-bg);
+    color: var(--forum-tag-pinned-fg);
+}
+
+.topic-tag--closed {
+    background-color: var(--forum-tag-closed-bg);
+    color: var(--forum-tag-closed-fg);
+}
+
+.topic-tag--approved {
+    background-color: var(--forum-tag-approved-bg);
+    color: var(--forum-tag-approved-fg);
+}
+
+.topic-tag--denied {
+    background-color: var(--forum-tag-denied-bg);
+    color: var(--forum-tag-denied-fg);
+}
+
+.topic-tag--solved {
+    background-color: var(--forum-tag-solved-bg);
+    color: var(--forum-tag-solved-fg);
+}
+
+.topic-tag--invalid {
+    background-color: var(--forum-tag-invalid-bg);
+    color: var(--forum-tag-invalid-fg);
+}
+
+.topic-tag--bug {
+    background-color: var(--forum-tag-bug-bg);
+    color: var(--forum-tag-bug-fg);
+}
+
+.topic-tag--suggestion {
+    background-color: var(--forum-tag-suggestion-bg);
+    color: var(--forum-tag-suggestion-fg);
+}
+
+.topic-tag--implemented {
+    background-color: var(--forum-tag-implemented-bg);
+    color: var(--forum-tag-implemented-fg);
+}

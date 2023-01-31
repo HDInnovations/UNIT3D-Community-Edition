@@ -121,14 +121,17 @@ class PlaylistController extends Controller
             \abort_unless($playlist->user_id === \auth()->id(), 403, \trans('playlist.private-error'));
         }
 
-        $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
-        if (isset($random)) {
-            $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
-        }
+        $random = PlaylistTorrent::query()
+            ->where('playlist_id', '=', $playlist->id)
+            ->whereHas('torrent')
+            ->inRandomOrder()
+            ->first();
 
         $meta = null;
 
-        if (isset($random, $torrent)) {
+        if (isset($random)) {
+            $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
+
             if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
                 $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
             }
@@ -138,8 +141,9 @@ class PlaylistController extends Controller
             }
         }
 
-        $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon'])
+        $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon,created_at'])
             ->where('playlist_id', '=', $playlist->id)
+            ->whereHas('torrent')
             ->orderBy(function ($query) {
                 $query->select('name')
                     ->from('torrents')
@@ -270,7 +274,7 @@ class PlaylistController extends Controller
                 $torrent = Torrent::withAnyStatus()->find($playlistTorrent->torrent_id);
 
                 // Define The Torrent Filename
-                $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
+                $tmpFileName = \sprintf('%s.torrent', Str::slug($torrent->title));
 
                 // The Torrent File Exist?
                 if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {

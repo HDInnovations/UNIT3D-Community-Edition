@@ -52,7 +52,7 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request): void
     {
-        if (\config('captcha.enabled') == true) {
+        if (\config('captcha.enabled')) {
             $this->validate($request, [
                 $this->username()      => 'required|string',
                 'password'             => 'required|string',
@@ -100,6 +100,8 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
+            \cache()->forget('user:'.$user->passkey);
+
             return \to_route('home.index')
                 ->withSuccess(\trans('auth.welcome-restore'));
         }
@@ -114,6 +116,8 @@ class LoginController extends Controller
             $user->can_chat = 1;
             $user->disabled_at = null;
             $user->save();
+
+            \cache()->forget('user:'.$user->passkey);
 
             return \to_route('home.index')
                 ->withSuccess(\trans('auth.welcome-restore'));

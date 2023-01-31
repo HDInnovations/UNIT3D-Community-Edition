@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreMediaLanguageRequest;
+use App\Http\Requests\Staff\UpdateMediaLanguageRequest;
 use App\Models\MediaLanguage;
-use Illuminate\Http\Request;
 
 class MediaLanguageController extends Controller
 {
@@ -40,23 +41,9 @@ class MediaLanguageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreMediaLanguageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = new MediaLanguage();
-        $mediaLanguage->name = $request->input('name');
-        $mediaLanguage->code = $request->input('code');
-
-        $v = \validator($mediaLanguage->toArray(), [
-            'name' => 'required|unique:media_languages',
-            'code' => 'required|unique:media_languages',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.media_languages.index')
-                ->withErrors($v->errors());
-        }
-
-        $mediaLanguage->save();
+        MediaLanguage::create($request->validated());
 
         return \to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Added');
@@ -65,7 +52,7 @@ class MediaLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MediaLanguage $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
 
@@ -75,23 +62,9 @@ class MediaLanguageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateMediaLanguageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
-        $mediaLanguage->name = $request->input('name');
-        $mediaLanguage->code = $request->input('code');
-
-        $v = \validator($mediaLanguage->toArray(), [
-            'name' => 'required',
-            'code' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.media_languages.index')
-                ->withErrors($v->errors());
-        }
-
-        $mediaLanguage->save();
+        MediaLanguage::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');

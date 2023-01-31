@@ -1,93 +1,112 @@
-<div>
-    <div class="mb-10 form-inline pull-right">
-        <div class="form-group">
-            {{ __('common.quantity') }}
-            <select wire:model="perPage" class="form-control">
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-            </select>
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">Watchlist</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <p class="form__group">
+                    <select
+                        id="quantity"
+                        class="form__select"
+                        wire:model="perPage"
+                        required
+                    >
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                    <label class="form__label form__label--floating" for="quantity">
+                        {{ __('common.quantity') }}
+                    </label>
+                </p>
+            </div>
+            <div class="panel__action">
+                <p class="form__group">
+                    <input
+                        id="search"
+                        class="form__text"
+                        type="text"
+                        wire:model="search"
+                        placeholder=""
+                    />
+                    <label class="form__label form__label--floating" for="search">
+                        Search by message
+                    </label>
+                </p>
+            </div>
         </div>
-
-        <div class="form-group">
-            <input type="text" wire:model="search" class="form-control" style="width: 275px;"
-                   placeholder="Search by message"/>
-        </div>
-    </div>
-    <div class="box-body no-padding">
-        <table class="table vertical-align table-hover">
+    </header>
+    <div class="data-table-wrapper">
+        <table class="data-table">
             <tbody>
             <tr>
-                <th style="width: 15%;">
-                    <div sortable wire:click="sortBy('user_id')"
-                         :direction="$sortField === 'user_id' ? $sortDirection : null" role="button">
-                        Watching
-                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
-                    </div>
+                <th wire:click="sortBy('user_id')" role="columnheader button">
+                    Watching
+                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                 </th>
-                <th style="width: 15%;">
-                    <div sortable wire:click="sortBy('staff_id')"
-                         :direction="$sortField === 'staff_id' ? $sortDirection : null" role="button">
-                        Watched By
-                        @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
-                    </div>
+                <th wire:click="sortBy('staff_id')" role="columnheader button">
+                    Watched By
+                    @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
                 </th>
-                <th style="width: 40%;" class="hidden-sm hidden-xs">
-                    <div sortable wire:click="sortBy('message')"
-                         :direction="$sortField === 'message' ? $sortDirection : null"
-                         role="button">
-                        Message
-                        @include('livewire.includes._sort-icon', ['field' => 'message'])
-                    </div>
+                <th wire:click="sortBy('message')" role="columnheader button">
+                    Message
+                    @include('livewire.includes._sort-icon', ['field' => 'message'])
                 </th>
-                <th style="width: 15%;">
-                    <div sortable wire:click="sortBy('created_at')"
-                         :direction="$sortField === 'created_at' ? $sortDirection : null" role="button">
-                        Created At
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                    </div>
+                <th wire:click="sortBy('created_at')" role="columnheader button">
+                    Created At
+                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                 </th>
-                <th style="width: 15%;">{{ __('common.action') }}</th>
+                <th>{{ __('common.action') }}</th>
             </tr>
-            @foreach ($watchedUsers as $watching)
+            @forelse ($watchedUsers as $watching)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $watching->user->username]) }}">
-							<span class="badge-user text-bold">
-                                {{ $watching->user->username }}
-                            </span>
-                        </a>
+                        <x-user_tag :anon="false" :user="$watching->user" />
                     </td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $watching->author->username]) }}">
-							<span class="badge-user text-bold">
-                                {{ $watching->author->username }}
-                            </span>
-                        </a>
+                        <x-user_tag :anon="false" :user="$watching->author" />
                     </td>
-                    <td class="hidden-sm hidden-xs">{{ $watching->message }}</td>
-                    <td class="hidden-sm hidden-xs">{{ $watching->created_at }}</td>
+                    <td>{{ $watching->message }}</td>
                     <td>
-                        <form action="{{ route('staff.watchlist.destroy', ['id' => $watching->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-xs btn-info" type="submit">
-                                <i class="{{ config('other.font-awesome') }} fa-eye-slash"></i> Unwatch
-                            </button>
-                        </form>
+                        <time datetime="{{ $watching->created_at }}">{{ $watching->created_at }}</time>
+                    </td>
+                    <td>
+                        <menu class="data-table__actions">
+                            <li class="data-table__action">
+                                <form
+                                    action="{{ route('staff.watchlist.destroy', ['id' => $watching->id]) }}"
+                                    method="POST"
+                                    x-data
+                                >
+                                    @csrf
+                                    @method('DELETE')
+                                    <button 
+                                        x-on:click.prevent="Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: 'Are you sure you want to unwatch this user: {{ $watching->user->username }}?',
+                                            icon: 'warning',
+                                            showConfirmButton: true,
+                                            showCancelButton: true,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $root.submit();
+                                            }
+                                        })"
+                                        class="form__button form__button--text"
+                                    >
+                                        Unwatch
+                                    </button>
+                                </form>
+                            </li>
+                        </menu>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5">No watched users</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
-        @if (! $watchedUsers->count())
-            <div class="margin-10">
-                {{ __('common.no-result') }}
-            </div>
-        @endif
-        <br>
-        <div class="text-center">
-            {{ $watchedUsers->links() }}
-        </div>
     </div>
-</div>
+    {{ $watchedUsers->links('partials.pagination') }}
+</section>

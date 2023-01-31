@@ -59,7 +59,7 @@
             @include('torrent.partials.general')
 
             {{-- Tools Block --}}
-            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id || auth()->user()->group->is_internal)
+            @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user->id || auth()->user()->group->is_internal)
                 @include('torrent.partials.tools')
             @endif
 
@@ -136,7 +136,19 @@
           showConfirmButton: true,
           showCloseButton: true,
         }).then((result) => {
-          if (result.isConfirmed) {
+          if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: 'This torrent has 0 seeders!',
+              icon: 'warning',
+              showConfirmButton: true,
+              showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                form.submit();
+              }
+            });
+          } else if (result.isConfirmed) {
             form.submit();
           }
         });

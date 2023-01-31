@@ -45,7 +45,7 @@ class AutoDisableInactiveUsers extends Command
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning') == true) {
+        if (\config('pruning.user_pruning')) {
             $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
@@ -57,7 +57,7 @@ class AutoDisableInactiveUsers extends Command
                 ->all();
 
             foreach ($users as $user) {
-                if ($user->getSeeding() === 0) {
+                if ($user->seedingTorrents()->count() === 0) {
                     $user->group_id = $disabledGroup[0];
                     $user->can_upload = 0;
                     $user->can_download = 0;
@@ -67,6 +67,8 @@ class AutoDisableInactiveUsers extends Command
                     $user->can_chat = 0;
                     $user->disabled_at = Carbon::now();
                     $user->save();
+
+                    \cache()->forget('user:'.$user->passkey);
 
                     // Send Email
                     \dispatch(new SendDisableUserMail($user));

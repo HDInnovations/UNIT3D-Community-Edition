@@ -50,7 +50,7 @@
             <ul>
                 <li><a href="{{ route('staff') }}">{{ __('common.staff') }}</a></li>
                 <li><a href="{{ route('internal') }}">{{ __('common.internal') }}</a></li>
-                <li><a href="{{ route('blacklist') }}">{{ __('common.blacklist') }}</a></li>
+                <li><a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a></li>
                 <li><a href="{{ route('about') }}">{{ __('common.about') }}</a></li>
             </ul>
         </div>
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="text-bold">
-                        This page took {{ round(microtime(true) - LARAVEL_START, 3) }} seconds to render
+                        This page took {{ number_format(microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT')), 3) }} seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB of memory
                     </span>
                 </div>
             </div>
@@ -81,9 +81,9 @@
     </div>
 </div>
 
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
+<a id="top-of-page" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
 </a>
-<a id="back-to-down" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
+<a id="bottom-of-page" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-down"></i>
 </a>

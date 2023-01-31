@@ -209,7 +209,7 @@ class StatsController extends Controller
     public function uploaders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Uploaders
-        $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
+        $uploaders = Torrent::with('user')->where('anon', '=', 0)->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
 
         return \view('stats.users.uploaders', ['uploaders' => $uploaders]);
     }
@@ -238,9 +238,9 @@ class StatsController extends Controller
     public function seedtime(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Total Seedtime
-        $seedtime = User::with('history')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
+        $users = User::withSum('history as seedtime', 'seedtime')->orderByDesc('seedtime')->take(100)->get();
 
-        return \view('stats.users.seedtime', ['seedtime' => $seedtime]);
+        return \view('stats.users.seedtime', ['users' => $users]);
     }
 
     /**
@@ -249,9 +249,9 @@ class StatsController extends Controller
     public function seedsize(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Fetch Top Total Seedsize Users
-        $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
+        $users = User::withSum('seedingTorrents as seedsize', 'size')->orderByDesc('seedsize')->take(100)->get();
 
-        return \view('stats.users.seedsize', ['seedsize' => $seedsize]);
+        return \view('stats.users.seedsize', ['users' => $users]);
     }
 
     /**
@@ -366,5 +366,23 @@ class StatsController extends Controller
         }
 
         return \view('stats.clients.clients', ['clients' => $clients]);
+    }
+
+    /**
+     * Show Extra-Stats Themes.
+     */
+    public function themes(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $siteThemes = User::select(DB::raw('style, count(*) as value'))->groupBy('style')->latest('value')->get();
+        $customThemes = User::where('custom_css', '!=', '')->select(DB::raw('custom_css, count(*) as value'))->groupBy('custom_css')->latest('value')->get();
+        $standaloneThemes = User::whereNotNull('standalone_css')->select(DB::raw('standalone_css, count(*) as value'))->groupBy('standalone_css')->latest('value')->get();
+
+
+
+        return \view('stats.themes.index', [
+            'siteThemes'       => $siteThemes,
+            'customThemes'     => $customThemes,
+            'standaloneThemes' => $standaloneThemes,
+        ]);
     }
 }

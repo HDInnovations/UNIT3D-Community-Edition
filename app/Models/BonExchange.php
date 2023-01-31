@@ -47,52 +47,9 @@ class BonExchange extends Model
     ];
 
     /**
-     * @method getDownloadOptions
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
      */
-    public function getDownloadOptions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return self::where('download', '=', true)
-            ->oldest('value')
-            ->get();
-    }
-
-    /**
-     * @method getUploadOptions
-     */
-    public function getUploadOptions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return self::where('upload', '=', true)
-            ->oldest('value')
-            ->get();
-    }
-
-    /**
-     * @method getPersonalFreeleechOption
-     */
-    public function getPersonalFreeleechOption(): \Illuminate\Database\Eloquent\Collection
-    {
-        return self::where('personal_freeleech', '=', true)
-            ->oldest('value')
-            ->get();
-    }
-
-    /**
-     * @method getInviteOption
-     */
-    public function getInviteOption(): \Illuminate\Database\Eloquent\Collection
-    {
-        return self::where('invite', '=', true)
-            ->oldest('value')
-            ->get();
-    }
-
-    /**
-     * @method getItemCost
-     */
-    public function getItemCost(int $id): int
-    {
-        return self::where('id', '=', $id)
-            ->get()
-            ->toArray()[0]['cost'];
-    }
+    protected $guarded = ['id'];
 }

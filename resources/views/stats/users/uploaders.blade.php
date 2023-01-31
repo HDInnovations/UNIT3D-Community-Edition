@@ -19,52 +19,32 @@
     @include('partials.statsusermenu')
 @endsection
 
-@section('content')
-    <div class="container">
-        <div class="block">
-            <h2>{{ __('user.top-uploaders-count') }}</h2>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-green"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ __('user.top-uploaders-count') }}
-                        </strong></p>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+@section('page', 'page__stats--uploaders')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('user.top-uploaders-count') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('torrent.uploaded') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($uploaders as $user)
                         <tr>
-                            <th>#</th>
-                            <th>{{ __('common.user') }}</th>
-                            <th>{{ __('torrent.uploaded') }}</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <x-user_tag :user="$user->user" :anon="$user->user->private_profile" />
+                            </td>
+                            <td>{{ $user->user->torrents()->count() }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($uploaders as $key => $u)
-                            <tr>
-                                <td>
-                                    {{ ++$key }}
-                                </td>
-                                <td @if (auth()->user()->username == $u->user->username) class="mentions" @endif>
-                                    @if ($u->user->private_profile == 1)
-                                        <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(__('common.hidden')) }}</span>@if (auth()->user()->id == $u->user->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('users.show', ['username' => $u->user->username]) }}">({{ $u->user->username }}
-                                                    )</a></span>
-                                    @endif
-                                    @else
-                                        <span class="badge-user text-bold"><a
-                                                    href="{{ route('users.show', ['username' => $u->user->username]) }}">{{ $u->user->username }}</a></span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="text-green">{{ $u->user->getUploads() }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
 @endsection

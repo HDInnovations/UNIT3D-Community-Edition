@@ -15,201 +15,393 @@
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-        <h1 class="upload-title">{{ __('rss.create-private-feed') }}</h1>
-        <form role="form" method="POST" action="{{ route('rss.store') }}">
+@section('page', 'page__rss--create')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('rss.create-public-feed') }}</h2>
+        <div class="panel__body">
+        <form
+            class="form"
+            method="POST"
+            action="{{ route('rss.store') }}"
+        >
             @csrf
-            <div class="block">
-                <div class="upload col-md-12">
-                    <div class="form-group">
-                        <label for="name">{{ __('rss.feed') }} {{ __('rss.name') }}</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="search">{{ __('torrent.torrent') }} {{ __('torrent.name') }}</label>
-                        <input type="text" class="form-control" id="search" name="search"
-                               placeholder="{{ __('torrent.torrent') }} {{ __('torrent.name') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">{{ __('torrent.torrent') }} {{ __('torrent.description') }}</label>
-                        <input type="text" class="form-control" id="description" name="description"
-                               placeholder="{{ __('torrent.torrent') }} {{ __('torrent.description') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="uploader">{{ __('torrent.torrent') }} {{ __('torrent.uploader') }}</label>
-                        <input type="text" class="form-control" id="uploader" name="uploader"
-                               placeholder="{{ __('torrent.torrent') }} {{ __('torrent.uploader') }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="imdb">IMDB ID</label>
-                        <input type="text" class="form-control" id="imdb" name="imdb" placeholder="IMDB #">
-                        <label for="tvdb">TVDB ID</label><input type="text" class="form-control" id="tvdb" name="tvdb"
-                                                                placeholder="TVDB #">
-                        <label for="tmdb">TMDB ID</label><input type="text" class="form-control" id="tmdb" name="tmdb"
-                                                                placeholder="TMDB #">
-                        <label for="mal">MAL ID</label><input type="text" class="form-control" id="mal" name="mal"
-                                                              placeholder="MAL #">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">{{ __('torrent.category') }}</label>
-                        <div>
+            <p class="form__group">
+                <input
+                    id="name"
+                    class="form__text"
+                    type="text"
+                    name="name"
+                    required
+                >
+                <label class="form__label form__label--floating" for="name">
+                    {{ __('rss.feed') }} {{ __('rss.name') }}
+                </label>
+            </p>
+            <p class="form__group">
+                <input
+                    id="search"
+                    class="form__text"
+                    name="search"
+                    placeholder=""
+                    type="text"
+                >
+                <label class="form__label form__label--floating" for="search">
+                    {{ __('torrent.torrent') }} {{ __('torrent.name') }}
+                </label>
+            </p>
+            <p class="form__group">
+                <input
+                    id="description"
+                    type="text"
+                    class="form__text"
+                    name="description"
+                    placeholder=""
+                >
+                <label class="form__label form__label--floating" for="description">
+                    {{ __('torrent.torrent') }} {{ __('torrent.description') }}
+                </label>
+            </p>
+            <p class="form__group">
+                <input
+                    id="uploader"
+                    type="text"
+                    class="form__text"
+                    name="uploader"
+                    placeholder=""
+                >
+                <label class="form__label form__label--floating" for="uploader">
+                    {{ __('torrent.torrent') }} {{ __('torrent.uploader') }}
+                </label>
+            </p>
+            <div class="form__group--horizontal">
+                <p class="form__group">
+                    <input
+                        id="autotmdb"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="tmdb"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="tmdb">
+                        TMDB ID
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="autoimdb"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="imdb"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="imdb">
+                        IMDB ID
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="autotvdb"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="tvdb"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="tvdb">
+                        TVDB ID
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input type="hidden" name="mal" value="0" />
+                    <input
+                        id="automal"
+                        class="form__text"
+                        inputmode="numeric"
+                        name="mal"
+                        pattern="[0-9]*"
+                        placeholder=""
+                        type="text"
+                    >
+                    <label class="form__label form__label--floating" for="mal">
+                        MAL ID
+                    </label>
+                </p>
+            </div>
+            <div class="form__group--horizontal">
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.category') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
                             @foreach ($categories as $category)
-                                <span class="badge-user">
-                                    <label class="inline">
-                                        <input type="checkbox" id="{{ $category->name }}" name="categories[]"
-                                               value="{{ $category->id }}" class="category">
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            id="{{ $category->name }}"
+                                            class="form__checkbox"
+                                            name="categories[]"
+                                            type="checkbox"
+                                            value="{{ $category->id }}"
+                                        >
                                         {{ $category->name }}
                                     </label>
-                                </span>
+                                </p>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">{{ __('torrent.type') }}</label>
-                        <div>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.type') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
                             @foreach ($types as $type)
-                                <span class="badge-user">
-                                    <label class="inline">
-                                        <input type="checkbox" id="{{ $type->name }}" name="types[]"
-                                               value="{{ $type->id }}" class="type">
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            id="{{ $type->name }}"
+                                            class="form__checkbox"
+                                            name="types[]"
+                                            type="checkbox"
+                                            value="{{ $type->id }}"
+                                        >
                                         {{ $type->name }}
                                     </label>
-                                </span>
+                                </p>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="resolution">{{ __('torrent.resolution') }}</label>
-                        <div>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.resolution') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
                             @foreach ($resolutions as $resolution)
-                                <span class="badge-user">
-                                    <label class="inline">
-                                        <input type="checkbox" id="{{ $resolution->name }}"
-                                               value="{{ $resolution->id }}" class="resolution" name="resolutions[]">
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            id="{{ $resolution->name }}"
+                                            class="form__checkbox"
+                                            name="resolutions[]"
+                                            type="checkbox"
+                                            value="{{ $resolution->id }}"
+                                        >
                                         {{ $resolution->name }}
                                     </label>
-                                </span>
+                                </p>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="genre">{{ __('torrent.genre') }}</label>
-                        <div>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.genre') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
                             @foreach ($genres as $genre)
-                                <span class="badge-user">
-                                    <label class="inline">
-                                        <input type="checkbox" id="{{ $genre->name }}" name="genres[]"
-                                               value="{{ $genre->id }}" class="genre">
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            id="{{ $genre->name }}"
+                                            class="form__checkbox"
+                                            name="genres[]"
+                                            type="checkbox"
+                                            value="{{ $genre->id }}"
+                                        >
                                         {{ $genre->name }}
                                     </label>
-                                </span>
+                                </p>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="type">{{ __('torrent.discounts') }}</label>
-                        <div>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="freeleech" name="freeleech" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.discounts') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="freeleech"
+                                        class="form__checkbox"
+                                        name="freeleech"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
                                     {{ __('torrent.freeleech') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="doubleupload" name="doubleupload" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="doubleupload"
+                                        class="form__checkbox"
+                                        name="doubleupload"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
                                     {{ __('torrent.double-upload') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="featured" name="featured" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="featured"
+                                        class="form__checkbox"
+                                        name="featured"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
                                     {{ __('torrent.featured') }}
                                 </label>
-                            </span>
+                            </p>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="type">{{ __('torrent.special') }}</label>
-                        <div>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="stream" name="stream" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-play text-red"></span>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.special') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="stream"
+                                        class="form__checkbox"
+                                        name="stream"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-play text-red"></span>
                                     {{ __('torrent.stream-optimized') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="highspeed" name="highspeed" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="highspeed"
+                                        class="form__checkbox"
+                                        name="highspeed"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
                                     {{ __('common.high-speeds') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="sd" name="sd" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="sd"
+                                        class="form__checkbox"
+                                        name="sd"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span>
                                     {{ __('torrent.sd-content') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="internal" name="internal" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-magic"
-                                            style="color: #baaf92;"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="internal"
+                                        class="form__checkbox"
+                                        name="internal"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span>
                                     {{ __('torrent.internal') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="bookmark" name="bookmark" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="personalrelease"
+                                        class="form__checkbox"
+                                        name="personalrelease"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-user-plus" style="color: #865be9;"></span>
+                                    {{ __('torrent.personal-release') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="bookmark"
+                                        class="form__checkbox"
+                                        name="bookmark"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-bookmark text-blue"></span>
                                     {{ __('torrent.bookmark') }}
                                 </label>
-                            </span>
+                            </p>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="type">{{ __('torrent.health') }}</label>
-                        <div>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="alive" name="alive" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
+                    </fieldset>
+                </div>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.health') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="alive"
+                                        class="form__checkbox"
+                                        name="alive"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
                                     {{ __('torrent.alive') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="dying" name="dying" value="1"> <span
-                                            class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="dying"
+                                        class="form__checkbox"
+                                        name="dying"
+                                        type="checkbox"
+                                        value="1"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
                                     {{ __('torrent.dying-torrent') }}
                                 </label>
-                            </span>
-                            <span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" id="dead" name="dead" value="0"> <span
-                                            class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        id="dead"
+                                        class="form__checkbox"
+                                        name="dead"
+                                        type="checkbox"
+                                        value="0"
+                                    >
+                                    <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
                                     {{ __('torrent.dead-torrent') }}
                                 </label>
-                            </span>
+                            </p>
                         </div>
-                    </div>
-                </div>
-                <br>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">{{ __('common.create') }}</button>
+                    </fieldset>
                 </div>
             </div>
+            <p class="form__group">
+                <button class="form__button form__button--filled">
+                    {{ __('common.create') }}
+                </button>
+            </p>
         </form>
-    </div>
+    </section>
 @endsection

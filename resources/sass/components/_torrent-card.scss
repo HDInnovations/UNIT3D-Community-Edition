@@ -1,0 +1,106 @@
+.torrent-card {
+    height: 300px;
+    min-width: 320px;
+    width: 100%;
+    border: var(--torrent-card-border);
+    background-color: var(--torrent-card-bg);
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+    border-radius: 4px;
+    contain: content;
+    display: grid;
+    grid-template-rows: 40px 220px 40px;
+    grid-template-areas: "header header" "poster body" "footer footer";
+}
+
+.torrent-card__header {
+    grid-area: header;
+}
+.torrent-card__footer {
+    grid-area: footer;
+}
+
+.torrent-card__header,
+.torrent-card__footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 11px;
+    color: var(--torrent-card-head-fg);
+    background-color: var(--torrent-card-head-bg);
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.torrent-card__body {
+    grid-area: body;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 13px;
+    color: var(--torrent-card-fg);
+}
+
+.torrent-card__aside {
+    grid-area: poster;
+}
+
+.torrent-card__figure {
+    height: 220px;
+}
+
+.torrent-card__image {
+    max-height: 100%;
+}
+
+.torrent-card__title {
+    margin: 0;
+    font-size: 14px;
+}
+
+.torrent-card__link {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: bold;
+    color: var(--torrent-card-link-fg);
+}
+
+.torrent-card__rating-and-genres {
+    display: inline;
+    font-size: 11px;
+}
+
+.torrent-card__genres {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.torrent-card__genre-item {
+    display: inline;
+}
+
+.torrent-card__genre-item:not(:last-child):after {
+    content: "\2022";
+}
+
+.torrent-card__genre {
+    display: inline;
+    color: var(--torrent-card-genre-fg);
+    letter-spacing: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.torrent-card__plot {
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.torrent-card__uploader {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}

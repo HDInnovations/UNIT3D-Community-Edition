@@ -17,14 +17,23 @@ use App\Events\TicketWentStale;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 class Comment extends Model
 {
     use HasFactory;
     use Auditable;
+
+    /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'content',
+        'user_id',
+        'anon',
+    ];
 
     /**
      * Belongs To A User.
@@ -37,52 +46,24 @@ class Comment extends Model
         ]);
     }
 
-    /**
-     * Belongs To A Torrent.
-     */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->morphTo();
     }
 
-    /**
-     * Belongs To A Article.
-     */
-    public function article(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsTo(Article::class);
+        return $this->hasMany(__CLASS__, 'parent_id')->oldest();
     }
 
-    /**
-     * Belongs To A Request.
-     */
-    public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function isParent(): bool
     {
-        return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
+        return is_null($this->parent_id);
     }
 
-    /**
-     * Belongs To A Playlist.
-     */
-    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function scopeParent(Builder $builder): void
     {
-        return $this->belongsTo(Playlist::class);
-    }
-
-    /**
-     * Belongs To A Ticket.
-     */
-    public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Ticket::class);
-    }
-
-    /**
-     * Set The Comments Content After Its Been Purified.
-     */
-    public function setContentAttribute(string $value): void
-    {
-        $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $builder->whereNull('parent_id');
     }
 
     /**

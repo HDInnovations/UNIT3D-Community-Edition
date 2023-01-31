@@ -47,19 +47,6 @@ class Torrent extends Model
     }
 
     /**
-     * Belongs To A Uploader.
-     */
-    public function uploader(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        // Not needed yet but may use this soon.
-
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
-    }
-
-    /**
      * Belongs To A Category.
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -182,12 +169,9 @@ class Torrent extends Model
         return $this->hasMany(TorrentFile::class);
     }
 
-    /**
-     * Has Many Comments.
-     */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
@@ -207,11 +191,19 @@ class Torrent extends Model
     }
 
     /**
-     * Relationship To A Single Request.
+     * Relationship To Many Requests.
      */
-    public function request(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+        return $this->hasMany(TorrentRequest::class);
+    }
+
+    /**
+     * Has many free leech tokens.
+     */
+    public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FreeleechToken::class);
     }
 
     /**
@@ -298,7 +290,7 @@ class Torrent extends Model
      */
     public function isFreeleech($user = null): bool
     {
-        $pfree = $user && ($user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first());
+        $pfree = $user && ($user->group->is_freeleech || \cache()->get('personal_freeleech:'.$user->id));
 
         return $this->free || \config('other.freeleech') || $pfree;
     }

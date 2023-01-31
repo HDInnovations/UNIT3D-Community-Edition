@@ -19,13 +19,11 @@ use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Movie;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Warning;
 use Livewire\Component;
@@ -78,13 +76,13 @@ class SimilarTorrent extends Component
         $query = Torrent::query();
         $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments']);
-        if ($category->movie_meta == true) {
+        if ($category->movie_meta) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('movie_meta', '=', true);
             });
         }
 
-        if ($category->tv_meta == true) {
+        if ($category->tv_meta) {
             $query = $query->whereHas('category', function ($q) {
                 $q->where('tv_meta', '=', true);
             });
@@ -161,17 +159,13 @@ class SimilarTorrent extends Component
             }
 
             // Reset Requests
-            $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
-            foreach ($torrentRequest as $req) {
-                if ($req) {
-                    $req->filled_by = null;
-                    $req->filled_when = null;
-                    $req->filled_hash = null;
-                    $req->approved_by = null;
-                    $req->approved_when = null;
-                    $req->save();
-                }
-            }
+            $torrent->requests()->update([
+                'filled_by'     => null,
+                'filled_when'   => null,
+                'torrent_id'    => null,
+                'approved_by'   => null,
+                'approved_when' => null,
+            ]);
 
             //Remove Torrent related info
             \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
@@ -230,7 +224,7 @@ class SimilarTorrent extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return \cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

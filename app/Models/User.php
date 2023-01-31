@@ -22,8 +22,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use voku\helper\AntiXSS;
 
 class User extends Authenticatable
@@ -57,6 +55,13 @@ class User extends Authenticatable
         'last_login'  => 'datetime',
         'last_action' => 'datetime',
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A Group.
@@ -120,6 +125,47 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs To Many Seeding Torrents.
+     */
+    public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'history')
+            ->wherePivot('active', '=', 1)
+            ->wherePivot('seeder', '=', 1);
+    }
+
+    /**
+     * Belongs To Many Leeching Torrents.
+     */
+    public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'history')
+            ->wherePivot('active', '=', 1)
+            ->wherePivot('seeder', '=', 0);
+    }
+
+    /**
+     * Belongs to many followers
+     */
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'target_id', 'user_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
+     * Belongs to many followees
+     */
+    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'target_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
+
      * Has Many Messages.
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -245,14 +291,6 @@ class User extends Authenticatable
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
-    }
-
-    /**
-     * Has Many Followers.
-     */
-    public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Follow::class);
     }
 
     /**
@@ -480,11 +518,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the Users username as slug.
+     * Has Many Personal Freeleeches.
      */
-    public function getSlugAttribute(): string
+    public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return Str::slug($this->username);
+        return $this->hasMany(PersonalFreeleech::class);
     }
 
     /**
@@ -509,12 +547,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->notification?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
@@ -543,12 +577,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->privacy?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
         }
 
         return true;
@@ -586,26 +616,6 @@ class User extends Authenticatable
         }
 
         return true;
-    }
-
-    /**
-     * Does Subscription Exist.
-     */
-    public function isSubscribed(string $type, int $topicId): bool
-    {
-        if ($type === 'topic') {
-            return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
-        }
-
-        return (bool) $this->subscriptions()->where('forum_id', '=', $topicId)->first(['id']);
-    }
-
-    /**
-     * Get All Followers Of A User.
-     */
-    public function isFollowing(int $targetId): bool
-    {
-        return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
 
     /**
@@ -750,122 +760,5 @@ class User extends Authenticatable
     public function getSeedbonus(): string
     {
         return \number_format($this->seedbonus, 0, '.', ',');
-    }
-
-    /**
-     * @method getSeeding
-     *
-     * Gets the amount of torrents a user seeds
-     */
-    public function getSeeding(): int
-    {
-        return Peer::where('user_id', '=', $this->id)
-            ->where('seeder', '=', '1')
-            ->distinct('torrent_id')
-            ->count();
-    }
-
-    /**
-     * @method getLast30Uploads
-     *
-     * Gets the amount of torrents a user seeds
-     */
-    public function getLast30Uploads(): int
-    {
-        $current = Carbon::now();
-
-        return Torrent::withAnyStatus()
-            ->where('user_id', '=', $this->id)
-            ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
-            ->count();
-    }
-
-    /**
-     * @method getUploads
-     *
-     * Gets the amount of torrents a user seeds
-     */
-    public function getUploads(): int
-    {
-        return Torrent::withAnyStatus()
-            ->where('user_id', '=', $this->id)
-            ->count();
-    }
-
-    /**
-     * @method getLeeching
-     *
-     * Gets the amount of torrents a user seeds
-     */
-    public function getLeeching(): int
-    {
-        return Peer::where('user_id', '=', $this->id)
-            ->where('left', '>', '0')
-            ->distinct('torrent_id')
-            ->count();
-    }
-
-    /**
-     * @method getWarning
-     *
-     * Gets count on users active warnings
-     */
-    public function getWarning(): int
-    {
-        return Warning::where('user_id', '=', $this->id)
-            ->whereNotNull('torrent')
-            ->where('active', '=', '1')
-            ->count();
-    }
-
-    /**
-     * @method getTotalSeedTime
-     *
-     * Gets the users total seedtime
-     */
-    public function getTotalSeedTime(): int
-    {
-        return History::where('user_id', '=', $this->id)
-            ->sum('seedtime');
-    }
-
-    /**
-     * @method getTotalSeedSize
-     *
-     * Gets the users total seedsoze
-     */
-    public function getTotalSeedSize(): int
-    {
-        $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
-
-        return Torrent::whereIntegerInRaw('id', $peers)->sum('size');
-    }
-
-    /**
-     * @method getCompletedSeeds
-     *
-     * Gets the users satisfied torrent count.
-     */
-    public function getCompletedSeeds(): int
-    {
-        return History::where('user_id', '=', $this->id)->where('seedtime', '>=', \config('hitrun.seedtime'))->count();
-    }
-
-    /**
-     * @method getSpecialSeedingSize
-     *
-     * Gets the seeding size of torrents with at least 15 days seedtime in the past 30 days.
-     */
-    public function getSpecialSeedingSize(): int
-    {
-        $current = Carbon::now();
-        $seeding = History::where('user_id', '=', $this->id)
-            ->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())
-            ->where('active', '=', 1)
-            ->where('seeder', '=', 1)
-            ->where('seedtime', '>=', 1_296_000)
-            ->pluck('torrent_id');
-
-        return Torrent::whereIntergerIn('id', $seeding)->sum('size');
     }
 }

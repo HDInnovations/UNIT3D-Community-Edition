@@ -36,7 +36,13 @@ class SystemInformation
     public function avg()
     {
         if (\is_readable('/proc/loadavg')) {
-            return (float) \file_get_contents('/proc/loadavg');
+            $loads = \explode(' ', \file_get_contents('/proc/loadavg'));
+
+            return [
+                '1-minute'  => $loads[0],
+                '5-minute'  => $loads[1],
+                '15-minute' => $loads[2],
+            ];
         }
     }
 
@@ -46,22 +52,20 @@ class SystemInformation
             $content = \file_get_contents('/proc/meminfo');
             \preg_match('#^MemTotal: \s*(\d*)#m', (string) $content, $matches);
             $total = $matches[1] * 1_024;
-            \preg_match('#^MemFree: \s*(\d*)#m', (string) $content, $matches);
-            $free = $matches[1] * 1_024;
-            //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
-            //$used = $this->formatBytes($matches[1] * 1024);
+            \preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
+            $available = $matches[1] * 1_024;
 
             return [
-                'total' => $this->formatBytes($total),
-                'free'  => $this->formatBytes($free),
-                'used'  => $this->formatBytes($total - $free),
+                'total'      => $this->formatBytes($total),
+                'available'  => $this->formatBytes($available),
+                'used'       => $this->formatBytes($total - $available),
             ];
         }
 
         return [
-            'total' => 0,
-            'free'  => 0,
-            'used'  => 0,
+            'total'      => 0,
+            'available'  => 0,
+            'used'       => 0,
         ];
     }
 

@@ -29,7 +29,6 @@ use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -102,7 +101,6 @@ class TorrentController extends BaseController
         // Create the torrent (DB)
         $torrent = \app()->make(Torrent::class);
         $torrent->name = $request->input('name');
-        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->bdinfo = $request->input('bdinfo');
@@ -169,7 +167,6 @@ class TorrentController extends BaseController
         // Validation
         $v = \validator($torrent->toArray(), [
             'name'              => 'required|unique:torrents',
-            'slug'              => 'required',
             'description'       => 'required',
             'info_hash'         => 'required|unique:torrents',
             'file_name'         => 'required',
@@ -282,13 +279,17 @@ class TorrentController extends BaseController
             if ($free >= 1 && $featured == 0) {
                 if ($torrent->fl_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:'
                     );
                 }
             }
@@ -296,13 +297,17 @@ class TorrentController extends BaseController
             if ($doubleup == 1 && $featured == 0) {
                 if ($torrent->du_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/torrents/',
-                            $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:'
+                        \sprintf(
+                            'Ladies and Gents, [url=%s/torrents/',
+                            $appurl
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:'
                     );
                 }
             }
@@ -357,7 +362,7 @@ class TorrentController extends BaseController
             ->when($request->filled('malId'), fn ($query) => $query->ofMal((int) $request->malId))
             ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
             ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
-            ->when($request->filled('free'), fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+            ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
             ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
             ->when($request->filled('featured'), fn ($query) => $query->featured())
             ->when($request->filled('stream'), fn ($query) => $query->streamOptimized())

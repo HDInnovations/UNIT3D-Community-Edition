@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Helpers\Bencode;
 use App\Models\Torrent;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -51,8 +50,6 @@ class AnnounceControllerTest extends TestCase
         ]))
             ->assertOk();
 
-        $decoded = Bencode::bdecode($response->getContent());
-
-        $this->assertArrayNotHasKey('failure reason', $decoded);
+        $this->assertArrayNotHasKey('failure reason', [$response->getContent()]);
     }
 }

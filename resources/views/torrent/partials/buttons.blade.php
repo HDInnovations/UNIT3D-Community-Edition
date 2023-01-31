@@ -15,7 +15,6 @@
                       style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-primary btn-sm torrent-freeleech-token"
-                            data-toggle=tooltip
                             data-html="true"
                             title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
                         {{ __('torrent.use-fl-token') }}
@@ -37,13 +36,6 @@
             <i class='{{ config("other.font-awesome") }} fa-info-circle'></i> NFO
         </button>
     @endif
-
-    <form action="{{ route('comment_thanks', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
-        @csrf
-        <button type="submit" class="btn btn-sm btn-primary">
-            <i class='{{ config("other.font-awesome") }} fa-heart'></i> {{ __('torrent.quick-comment') }}
-        </button>
-    </form>
 
     <a data-toggle="modal" href="#myModal" role="button" class="btn btn-sm btn-primary">
         <i class='{{ config("other.font-awesome") }} fa-file'></i> {{ __('torrent.show-files') }}

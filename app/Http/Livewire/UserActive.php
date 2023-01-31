@@ -28,6 +28,12 @@ class UserActive extends Component
 
     public string $name = '';
 
+    public string $ip = '';
+
+    public string $port = '';
+
+    public string $client = '';
+
     public string $seeding = 'any';
 
     public string $sortField = 'created_at';
@@ -39,6 +45,9 @@ class UserActive extends Component
     protected $queryString = [
         'perPage'           => ['except' => 50],
         'name'              => ['except' => ''],
+        'ip'                => ['except' => ''],
+        'port'              => ['except' => ''],
+        'client'            => ['excpet' => ''],
         'seeding'           => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
@@ -71,7 +80,6 @@ class UserActive extends Component
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
             ->select(
                 'peers.id',
-                'peers.ip',
                 'peers.port',
                 'peers.agent',
                 'peers.uploaded',
@@ -88,11 +96,17 @@ class UserActive extends Component
                 'torrents.leechers',
                 'torrents.times_completed',
             )
+            ->selectRaw('INET6_NTOA(ip) as ip')
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
             ->where('peers.user_id', '=', $this->user->id)
-            ->when($this->name, fn ($query) => $query
+            ->when(
+                $this->name,
+                fn ($query) => $query
                 ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
+            ->when($this->ip !== '', fn ($query) => $query->where('ip', '=', $this->ip))
+            ->when($this->port !== '', fn ($query) => $query->where('port', '=', $this->port))
+            ->when($this->client !== '', fn ($query) => $query->where('agent', '=', $this->client))
             ->when($this->seeding === 'include', fn ($query) => $query->where('seeder', '=', 1))
             ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)

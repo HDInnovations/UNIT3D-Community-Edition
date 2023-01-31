@@ -14,10 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreMassActionRequest;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\MassActionControllerTest
@@ -42,7 +42,7 @@ class MassActionController extends Controller
      *
      * @throws \Exception
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreMassActionRequest $request): \Illuminate\Http\RedirectResponse
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -50,21 +50,8 @@ class MassActionController extends Controller
         $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
         $users = User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
 
-        $subject = $request->input('subject');
-        $message = $request->input('message');
-
-        $v = \validator($request->all(), [
-            'subject' => 'required|min:5',
-            'message' => 'required|min:5',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.mass-pm.create')
-                ->withErrors($v->errors());
-        }
-
         foreach ($users as $userId) {
-            ProcessMassPM::dispatch(self::SENDER_ID, $userId, $subject, $message);
+            ProcessMassPM::dispatch(self::SENDER_ID, $userId, $request->subject, $request->message);
         }
 
         return \to_route('staff.mass-pm.create')

@@ -50,6 +50,13 @@ class Rss extends Model
     ];
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -90,9 +97,28 @@ class Rss extends Model
     public function getExpectedFieldsAttribute(): array
     {
         // Just Torrents for now... extendable to check on feed type in future.
-        return ['search'             => null, 'description' => null, 'uploader' => null, 'imdb' => null,
-            'mal'                    => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null,
-            'freeleech'              => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null,
-            'sd'                     => null, 'internal' => null, 'bookmark' => null, 'alive' => null, 'dying' => null, 'dead' => null, ];
+        return [
+            'search'          => null,
+            'description'     => null,
+            'uploader'        => null,
+            'imdb'            => null,
+            'mal'             => null,
+            'categories'      => null,
+            'types'           => null,
+            'resolutions'     => null,
+            'genres'          => null,
+            'freeleech'       => null,
+            'doubleupload'    => null,
+            'featured'        => null,
+            'stream'          => null,
+            'highspeed'       => null,
+            'sd'              => null,
+            'internal'        => null,
+            'personalrelease' => null,
+            'bookmark'        => null,
+            'alive'           => null,
+            'dying'           => null,
+            'dead'            => null,
+        ];
     }
 }

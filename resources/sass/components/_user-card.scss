@@ -1,0 +1,46 @@
+.user-card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(240px, 320px), 1fr));
+    grid-gap: 1rem;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 15px;
+    color: inherit;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-card__username {
+    font-size: 30px;
+    color: #fff;
+}
+
+.user-card__icon {
+    position: absolute;
+    right: -30px;
+    top: -5px;
+    font-size: 84px;
+    color: #fff;
+    transition-duration: .5s;
+    transition-property: transform,opacity;
+    transition-timing-function: ease;
+    opacity: .5;
+}
+
+.user-card:hover .user-card__icon {
+    opacity: .3;
+    transform: scale(1.5);
+}
+
+.user-card__title {
+    color: #fff;
+}
+
+.user-card__group {
+    color: #fff;
+}

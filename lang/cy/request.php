@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Nid oes gennych ddigon o fonws',
     'edit-request'        => 'Golygu r cais',
     'enter-bp'            => 'Rhowch bwyntiau bonws (o leiaf 100)',
-    'enter-hash'          => 'Rhowch yr Hash Info o r Torrent wedi i lwytho i fyny',
+    'enter-hash'          => 'Rhowch yr ID o r Torrent wedi i lwytho i fyny',
     'fill'                => 'Llenwch',
     'fill-request'        => 'Llenwch y cais hwn',
     'filled'              => 'Llenwyd',

@@ -11,225 +11,120 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('ticket.ticket') }} #{{ $ticket->id }}
+        {{ $ticket->subject }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container well">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                @if(session('errors'))
-                    <div class="alert alert-danger fade show">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h6><b>{{ __('ticket.fix-errors') }}</b></h6>
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+@section('page', 'page__ticket--show')
 
-                <div class="col-md-8">
-                    <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">{{ __('ticket.ticket') }} <i
-                                    class="fas fa-hashtag"></i> {{ $ticket->id }}</div>
-                        <div class="panel-body">
-                        <span class="float-right small text-right">
-                            <i class="far fa-user"></i> {{ __('ticket.opened-by') }}
-                            <a href="{{ route('users.show', ['username' => $ticket->user->username]) }}">
-                                {{ $ticket->user->username }}
-                            </a>
-                            <i class="far fa-clock"></i>  {{ $ticket->created_at->format('m/d/Y') }}
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    @if(empty($ticket->closed_at))
-                                        <form style="display: inline;" role="form" method="POST"
-                                              action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
-                                            @csrf
-                                            <button type="submit" class="btn btn-xs btn-warning"><i
-                                                        class="fas fa-times"></i> {{ __('ticket.close') }}</button>
-                                        </form>
-                                    @endif
-                                    @if(!empty($ticket->closed_at))
-                                        <span style="display: inline;"
-                                              class="text-danger">{{ __('ticket.closed') }} {{ $ticket->closed_at->format('m/d/Y') }}</span>
-                                    @endif
-                                        <form style="display: inline;" role="form" method="POST"
-                                              action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-xs btn-danger"><i
-                                                        class="fas fa-times"></i> {{ __('ticket.delete') }}</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </span>
-                            @if($user->group->is_modo)
-                                <div class="btn-group" role="group">
-                                    <div class="mb-10 form-inline pull-right">
-                                        <div class="form-group">
-                                            @if(empty($ticket->staff_id))
-                                                <form role="form" method="POST"
-                                                      action="{{ route('tickets.assign', ['id' => $ticket->id]) }}">
-                                                    @csrf
-                                                    <select name="user_id" class="form-control">
-                                                        @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->username }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <button type="submit"
-                                                            class="btn btn-sm btn-warning">{{ __('ticket.assign') }}</button>
-                                                </form>
-                                            @else
-                                                <form role="form" method="POST"
-                                                      action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="btn btn-sm btn-warning">{{ __('ticket.unassign') }}</button>
-                                                </form>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            <hr style="margin: 8px">
-                            <div class="row">
-                                @if(isset($ticket->staff_id))
-                                    <div class="col-md-3">
-                                        <label for=""><b>{{ __('ticket.assigned-staff') }}</b></label><br>
-                                        <i class="far fa-user"></i>
-                                        <a href="{{ route('users.show', ['username' => $ticket->staff->username]) }}">
-                                            {{ $ticket->staff->username }}
-                                        </a>
-                                    </div>
-                                @endif
-                                <div class="col-md-4">
-                                    <label for=""><b>{{ __('ticket.category') }}</b></label><br>
-                                    {{ $ticket->category->name }}
-                                </div>
-                                <div class="col-md-2">
-                                    <label for=""><b>{{ __('ticket.priority') }}</b></label><br>
-                                    @if($ticket->priority->name === 'Low')
-                                        <i class="fas fa-circle text-yellow"></i>
-                                    @elseif ($ticket->priority->name === 'Medium')
-                                        <i class="fas fa-circle text-orange"></i>
-                                    @elseif ($ticket->priority->name === 'High')
-                                        <i class="fas fa-circle text-red"></i>
-                                    @endif
-                                    {{ $ticket->priority->name }}
-                                </div>
-                                <div class="col-md-3">
-                                    <label for=""><b>{{ __('ticket.subject') }}</b></label><br>
-                                    {{ $ticket->subject }}
-                                </div>
-                            </div>
-                            <hr style="margin: 8px">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for=""><b>{{ __('ticket.description') }}</b></label><br>
-                                    {{ $ticket->body }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading"><i class="fas fa-file-pdf"></i> {{ __('ticket.attachments') }}</div>
-                        <div class="panel-body">
-                            @livewire('attachment-upload', ['id' => $ticket->id])
-                            @if(count($ticket->attachments))
-                                <div class="table-responsive">
-                                    <table class="table" style="margin-bottom:0">
-                                        <tbody>
-                                        @foreach($ticket->attachments as $attachment)
-                                            <tr>
-                                                <td style="width:100px">
-                                                    <form action="{{ route('tickets.attachment.download', $attachment) }}"
-                                                          method="POST">
-                                                        @csrf
-                                                        <button class="btn btn-success btn-sm">{{ __('ticket.download') }}</button>
-                                                    </form>
-                                                </td>
-                                                <td>{{ $attachment->file_name }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @else
-                                {{ __('ticket.no-attach') }}
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-12 col-sm-12">
-                    <div class="panel panel-chat shoutbox">
-                        <div class="panel-heading">
-                            <h4>
-                                <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ __('common.comments') }}
-                            </h4>
-                        </div>
-                        <div class="panel-body no-padding">
-                            <ul class="media-list comments-list">
-                                @if (count($ticket->comments) == 0)
-                                    <div class="text-center">
-                                        <h4 class="text-bold text-danger">
-                                            <i class="{{ config('other.font-awesome') }} fa-frown"></i> {{ __('common.no-comments') }}
-                                            !
-                                        </h4>
-                                    </div>
-                                @else
-                                    @foreach ($ticket->comments as $comment)
-                                        <li class="media" style="border-left: 5px solid rgb(1,188,140);">
-                                            <div class="media-body">
-                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                   class="pull-left" style="padding-right: 10px;">
-                                                    @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                                @else
-                                                    <img src="{{ url('img/profile.png') }}"
-                                                         alt="{{ $comment->user->username }}"
-                                                         class="img-avatar-48"></a>
-                                                @endif
-                                                <strong>
-                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }};">
-                                                        <span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>
-                                                    </a>
-                                                </strong>
-                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                <div class="pt-5">
-                                                    @joypixels($comment->getContentHtml())
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <form role="form" method="POST" action="{{ route('comment_ticket', ['id' => $ticket->id]) }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="content">{{ __('common.your-comment') }}:</label>
-                            <textarea id="editor" name="content" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">{{ __('common.submit') }}</button>
-                    </form>
-                </div>
-            </div>
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $ticket->subject }}</h2>
+        <div class="panel__body">
+            {{ $ticket->body }}
         </div>
-    </div>
+    </section>
+    <livewire:comments :model="$ticket"/>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <dt>ID</dt>
+            <dd>{{ $ticket->id }}</dd>
+            <dt>{{ __('common.created_at') }}</dt>
+            <dd>{{ $ticket->created_at->format('Y-m-d') }}</dd>
+            <dt>{{ __('ticket.opened-by') }}</dt>
+            <dd>
+                <x-user_tag :user="$ticket->user" :anon="false" />
+            </dd>
+            <dt>{{ __('ticket.category') }}</dt>
+            <dd>{{ $ticket->category->name }}</dd>
+            <dt>{{ __('ticket.priority') }}</dt>
+            <dd>
+                @switch($ticket->priority->name)
+                    @case ('Low')
+                        <i class="fas fa-circle text-yellow"></i>
+                        @break
+                    @case ('Medium')
+                        <i class="fas fa-circle text-orange"></i>
+                        @break
+                    @case ('High')
+                        <i class="fas fa-circle text-red"></i>
+                        @break
+                @endswitch
+                {{ $ticket->priority->name }}
+            </dd>
+            @if (!empty($ticket->closed_at))
+                <dt>{{ __('ticket.closed') }}</dt>
+                <dd>{{ $ticket->closed_at->format('m/d/Y') }}</dd>
+            @endif
+        </dl>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.actions') }}</h2>
+        <div class="panel__body">
+            @if($user->group->is_modo)
+                <form
+                    class="form form--horizontal"
+                    action="{{ route('tickets.assign', ['id' => $ticket->id]) }}"
+                    method="POST"
+                    x-data
+                >
+                    @csrf
+                    <p class="form__group">
+                        <select name="user_id" class="form__select" x-on:change="$root.submit()">
+                            <option hidden disabled selected value=""></option>
+                            @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
+                                <option value="{{ $user->id }}" @selected($user->id = $ticket->staff_id)>
+                                    {{ $user->username }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label class="form__label form__label--floating">{{ __('ticket.assign') }}</label>
+                    </p>
+                </form>
+                @if(! empty($ticket->staff_id))
+                    <form
+                        action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}"
+                        method="POST"
+                    >
+                        @csrf
+                        <p class="form__group form__group--horizontal">
+                            <button class="form__button form__button--filled form__button--centered">
+                                {{ __('ticket.unassign') }}
+                            </button>
+                        </p>
+                    </form>
+                @endif
+                <form
+                    action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}"
+                    method="POST"
+                >
+                    @csrf
+                    @method('DELETE')
+                    <p class="form__group form__group--horizontal">
+                        <button class="form__button form__button--filled form__button--centered">
+                            {{ __('ticket.delete') }}
+                        </button>
+                    </p>
+                </form>
+            @endif
+            @if(empty($ticket->closed_at))
+                <form
+                    action="{{ route('tickets.close', ['id' => $ticket->id]) }}"
+                    method="POST"
+                >
+                    <p class="form__group form__group--horizontal">
+                        @csrf
+                        <button class="form__button form__button--filled form__button--centered">
+                            {{ __('ticket.close') }}
+                        </button>
+                    </p>
+                </form>
+            @endif
+        </div>
+    </section>
+    @livewire('attachment-upload', ['id' => $ticket->id])
 @endsection

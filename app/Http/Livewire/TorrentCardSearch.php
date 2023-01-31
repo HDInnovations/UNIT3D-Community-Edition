@@ -13,7 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -177,7 +176,7 @@ class TorrentCardSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return \cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

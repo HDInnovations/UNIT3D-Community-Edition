@@ -30,6 +30,13 @@ class Note extends Model
     protected $table = 'user_notes';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function noteduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 12px;
+    background-color: inherit;
+    max-width: 100%;
+}
+
+.form--horizontal {
+    flex-direction: row;
+    padding-top: 0;
+}

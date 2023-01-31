@@ -5,10 +5,10 @@
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg" /></a> 
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-9-f4645f.svg" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
 <br>
-<a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?style=flat&branch=master" alt="StyleCI"></a>
+<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
 <br>
@@ -77,7 +77,7 @@ UNIT3D currently offers the following features:
   -   php-zip -> This is required for the Backup Manager.
 - Crontab access
 - A Redis server
-- MySQL 5.7 + or MariaDB 10.2 +
+- MySQL 8.0 + or MariaDB 10.2 +
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
 - A decent dedicated server. Dont try running this on some basic server if you plann to run a large tracker!
 <pre>
@@ -104,22 +104,12 @@ config/secure-headers.php   <-- Content Security Policy must be disabled
 **A UNIT3D Installer has been released by Poppabear.**
 
 **Officially Supported OS's**
-- Ubuntu 20.04 LTS (Recommended)
-- Ubuntu 18.04 LTS
-- Ubuntu 16.04 LTS
+- Ubuntu 20.04 LTS
 
 **For Ubuntu 20.04 LTS:**
 ```
 git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
 cd installer
-sudo ./install.sh
-```
-
-**For Ubuntu 16.04 LTS or Ubuntu 18.04 LTS:**
-```
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
-cd installer
-git checkout Ubuntu-16.04-18.04
 sudo ./install.sh
 ```
 

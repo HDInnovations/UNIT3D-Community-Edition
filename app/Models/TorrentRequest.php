@@ -105,15 +105,12 @@ class TorrentRequest extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
+        return $this->belongsTo(Torrent::class);
     }
 
-    /**
-     * Has Many Comments.
-     */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
-        return $this->hasMany(Comment::class, 'requests_id', 'id');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
@@ -127,7 +124,7 @@ class TorrentRequest extends Model
     /**
      * Set The Requests Description After Its Been Purified.
      */
-    public function setDescriptionAttribute(string $value): void
+    public function setDescriptionAttribute(?string $value): void
     {
         $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }

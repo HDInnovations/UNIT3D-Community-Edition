@@ -85,6 +85,7 @@
                     cols="30"
                     rows="5"
                     send="true"
+                    style="width: 100%"
                 ></textarea>
             </div>
         </div>
@@ -149,7 +150,7 @@ export default {
             }
         },
         sendMessage() {
-            let msg = this.editor.bbcode().trim();
+            let msg = this.input.val().trim();
 
             if (msg !== null && msg !== '') {
                 this.$emit('message-sent', {
@@ -160,7 +161,7 @@ export default {
                     bot_id: this.bot_id,
                 });
 
-                this.input.html('');
+                this.input.val('');
             }
         },
     },
@@ -168,8 +169,8 @@ export default {
         this.user = this.$parent.auth;
     },
     mounted() {
-        this.editor = $('#chat-message').wysibb();
-        this.input = $('.wysibb-body');
+        this.editor = $('#chat-message').val();
+        this.input = $('#chat-message');
         this.input.keyup(this.keyup);
         this.input.keydown(this.keydown);
     },

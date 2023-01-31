@@ -60,7 +60,6 @@
                         @csrf
                         <input id="type" name="type" type="hidden" value="Torrent">
                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                        <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
                         <label for="file_name" class="col-sm-2 control-label">{{ __('torrent.torrent') }}</label>
                         <div class="col-sm-10">
                             <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
@@ -233,7 +232,7 @@
 @endif
 
 <div class="modal fade" id="postpone-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-    <form method="POST" action="{{ route('staff.moderation.postpone') }}">
+    <form method="POST" action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}">
         @csrf
         <div class="modal-dialog{{ modal_style() }}">
             <div class="modal-content">
@@ -248,12 +247,13 @@
                     <div class="form-group">
                         <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                        <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
+                        <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                        <input type="hidden" name="status" value="3">
                         <label for="postpone_reason" class="col-sm-2 control-label">{{ __('common.reason') }}</label>
                         <div class="col-sm-10">
                             <label for="message"></label>
                             <textarea title="{{ __('common.reason') }}" class="form-control" rows="5" name="message"
-                                      cols="50" id="message"></textarea>
+                                      cols="50" id="message">{{ old('message') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -271,7 +271,7 @@
 </div>
 
 <div class="modal fade" id="reject-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-    <form method="POST" action="{{ route('staff.moderation.reject') }}">
+    <form method="POST" action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}">
         @csrf
         <div class="modal-dialog{{ modal_style() }}">
             <div class="modal-content">
@@ -286,7 +286,8 @@
                     <div class="form-group">
                         <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}">
                         <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">
-                        <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
+                        <input type="hidden" name="old_status" value="{{ $torrent->status }}">
+                        <input type="hidden" name="status" value="2">
                         <label for="file_name" class="col-sm-2 control-label">{{ __('torrent.torrent') }}</label>
                         <div class="col-sm-10">
                             <label id="title" name="title" type="hidden">{{ $torrent->name }}</label>
@@ -297,7 +298,7 @@
                         <div class="col-sm-10">
                             <label for="message"></label>
                             <textarea title="{{ __('common.reason') }}" class="form-control" rows="5" name="message"
-                                      cols="50" id="message"></textarea>
+                                      cols="50" id="message">{{ old('message') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">

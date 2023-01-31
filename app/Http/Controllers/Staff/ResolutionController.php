@@ -14,9 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreResolutionRequest;
+use App\Http\Requests\Staff\UpdateResolutionRequest;
 use App\Models\Resolution;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ResolutionController extends Controller
 {
@@ -41,25 +41,9 @@ class ResolutionController extends Controller
     /**
      * Store A New Resolution.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreResolutionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $resolution = new Resolution();
-        $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
-        $resolution->position = $request->input('position');
-
-        $v = \validator($resolution->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.resolutions.index')
-                ->withErrors($v->errors());
-        }
-
-        $resolution->save();
+        Resolution::create($request->validated());
 
         return \to_route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Added');
@@ -78,25 +62,9 @@ class ResolutionController extends Controller
     /**
      * Edit A Resolution.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateResolutionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $resolution = Resolution::findOrFail($id);
-        $resolution->name = $request->input('name');
-        $resolution->slug = Str::slug($resolution->name);
-        $resolution->position = $request->input('position');
-
-        $v = \validator($resolution->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.resolutions.index')
-                ->withErrors($v->errors());
-        }
-
-        $resolution->save();
+        Resolution::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Modified');

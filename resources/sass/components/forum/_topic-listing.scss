@@ -1,0 +1,138 @@
+.topic-listings {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.topic-listings__item {
+    &:nth-child(odd) {
+        background-color: var(--subforum-listing-odd-bg);
+    }
+
+    &:nth-child(even) {
+        background-color: var(--subforum-listing-even-bg);
+    }
+}
+
+.topic-listing {
+    display: grid;
+    grid-template-areas: 'figure header posts views latest';
+    grid-template-columns: 54px 1fr 72px 72px 180px;
+    align-items: center;
+    gap: 0 9px;
+    padding: 9px;
+    color: var(--panel-fg);
+}
+
+.topic-listing__header {
+    grid-area: header;
+}
+
+.topic-listing__heading {
+    display: inline;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.topic-listing__author {
+    font-size: 12px;
+    margin: 0;
+}
+
+.topic-listing__figure {
+    grid-area: figure;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topic-listing__forum {
+    font-size: 10px;
+    text-align: center;
+}
+
+.topic-listing__icon {
+    max-width: 36px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 1ch;
+}
+
+.topic-listing__icon abbr {
+    border-bottom: none;
+    cursor: pointer;
+}
+
+.topic-listing__post-stats,
+.topic-listing__view-stats {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.topic-listing__post-stats dt,
+.topic-listing__view-stats dt {
+    font-weight: normal;
+}
+
+.topic-listing__post-stats {
+    grid-area: posts;
+}
+
+.topic-listing__view-stats {
+    grid-area: views;
+}
+
+.topic-listing__latest-post {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.topic-listing__latest-datetime {
+    grid-area: datetime;
+    font-size: 12px;
+}
+
+.topic-listing__latest-author {
+    grid-area: author;
+    margin: 0 0 0 0.5ch;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 767px) {
+    .topic-listing {
+        grid-template-areas:
+            'figure header header'
+            'figure posts latest';
+        grid-template-columns: 54px auto 1fr;
+    }
+
+    .topic-listing__view-stats {
+        display: none;
+    }
+
+    .topic-listing__post-stats {
+        flex-direction: row;
+    }
+
+    .topic-listing__post-stats dt:after {
+        content: ':';
+        margin-right: 0.5ch;
+    }
+
+    .topic-listing__latest-post {
+        align-items: start;
+    }
+
+    .topic-listing__latest-author {
+        display: none;
+    }
+
+    .topic-listing__latest-datetime::before {
+        content: '\00B7';
+    }
+}

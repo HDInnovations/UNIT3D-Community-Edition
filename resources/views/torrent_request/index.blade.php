@@ -11,7 +11,5 @@
 @endsection
 
 @section('content')
-    <div>
-        @livewire('torrent-request-search')
-    </div>
+    @livewire('torrent-request-search')
 @endsection

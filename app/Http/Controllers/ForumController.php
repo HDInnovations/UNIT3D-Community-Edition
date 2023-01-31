@@ -16,8 +16,6 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
-use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -25,13 +23,6 @@ use Illuminate\Http\Request;
  */
 class ForumController extends Controller
 {
-    /**
-     * ForumController Constructor.
-     */
-    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Search For Topics.
      */
@@ -139,14 +130,12 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
+        } elseif ($request->has('sorting') && $request->input('sorting') != null) {
+            $sorting = \sprintf('topics.%s', $request->input('sorting'));
+            $direction = $request->input('direction');
         } else {
-            if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = \sprintf('topics.%s', $request->input('sorting'));
-                $direction = $request->input('direction');
-            } else {
-                $sorting = 'topics.last_reply_at';
-                $direction = 'desc';
-            }
+            $sorting = 'topics.last_reply_at';
+            $direction = 'desc';
         }
         $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
 
@@ -194,7 +183,7 @@ class ForumController extends Controller
             $forumNeos = [];
         }
 
-        $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereIntegerNotInRaw('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
+        $builder = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereIntegerNotInRaw('topics.forum_id', $pests)->where(function ($query) use ($topicNeos, $forumNeos) {
             $query->whereIntegerInRaw('topics.id', $topicNeos)->orWhereIntegerInRaw('forums.id', $forumNeos);
         })->groupBy('forums.id');
 
@@ -328,7 +317,7 @@ class ForumController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
-        if ($category->getPermission()->show_forum != true) {
+        if (! $category->getPermission()->show_forum) {
             return \to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }

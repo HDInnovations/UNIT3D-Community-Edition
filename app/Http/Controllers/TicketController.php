@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use App\Models\TicketCategory;
@@ -144,9 +143,9 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        \abort_unless($user->group->is_modo, 403);
 
-        Comment::where('ticket_id', '=', $id)->delete();
+        $ticket->comments()->delete();
         TicketAttachment::where('ticket_id', '=', $id)->delete();
         $ticket->delete();
 
