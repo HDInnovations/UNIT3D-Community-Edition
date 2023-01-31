@@ -557,8 +557,16 @@
                                     </td>
                                     <td><span class="badge-extra text-bold">{{ $client->ip }}</span></td>
                                     <td><span class="badge-extra text-bold">{{ $client->port }}</span></td>
-                                    <td>{{ $client->created_at ? $client->created_at->diffForHumans() : 'N/A' }}</td>
-                                    <td>{{ $client->updated_at ? $client->updated_at->diffForHumans() : 'N/A' }}</td>
+                                    <td>
+                                        <time datetime="{{ $client->created_at }}" title="{{ $client->created_at }}">
+                                            {{ $client->created_at?->diffForHumans() ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td>
+                                        <time datetime="{{ $client->updated_at }}" title="{{ $client->updated_at }}">
+                                            {{ $client->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        </time>
+                                    </td>
                                     <td>
                                         <a href="{{ route('users.peers.index', ['user' => $user, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
                                             itemprop="url" class="l-breadcrumb-item-link">
