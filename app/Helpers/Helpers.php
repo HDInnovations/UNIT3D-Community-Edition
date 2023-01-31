@@ -132,7 +132,7 @@ if (! function_exists('language_flag')) {
         $flag = match ($language) {
             'English', 'English (US)'                                                 	                                              => 'us',
             'English (GB)'                                                                                                            => 'gb',
-						'English (CA)'                                                                                                            => 'can',
+            'English (CA)'                                                                                                            => 'can',
             'Arabic', 'Arabic (001)'                                                                                                  => 'ae',
             'Belarusian'                                                                                                              => 'by',
             'Bengali'                                                                                                                 => 'bd',
