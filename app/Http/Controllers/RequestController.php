@@ -361,7 +361,7 @@ class RequestController extends Controller
 
         $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = $user->id;
-        $torrentRequest->torrent_id = $request->input('torrent_id');
+        $torrentRequest->torrent_id = \basename($request->input('torrent_id'));
         $torrentRequest->filled_when = Carbon::now();
         $torrentRequest->filled_anon = $request->input('filled_anon');
 
