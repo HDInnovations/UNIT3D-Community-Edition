@@ -295,7 +295,7 @@
                                 @if ($torrent->sd == 1)
                                     <span class='badge-extra'>
 										<i class='{{ config('other.font-awesome') }} fa-ticket text-orange'
-                                           title='{{ __('torrent.sd') }}'></i>
+                                           title='{{ __('torrent.sd-content') }}'></i>
 									</span>
                                 @endif
                             </td>
