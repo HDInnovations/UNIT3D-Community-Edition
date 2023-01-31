@@ -130,8 +130,9 @@ if (! function_exists('language_flag')) {
     function language_flag($language)
     {
         $flag = match ($language) {
-            'English', 'English (US)', 'English (CA)'                                                  	                              => 'us',
+            'English', 'English (US)'                                                 	                                              => 'us',
             'English (GB)'                                                                                                            => 'gb',
+						'English (CA)'                                                                                                            => 'can',
             'Arabic', 'Arabic (001)'                                                                                                  => 'ae',
             'Belarusian'                                                                                                              => 'by',
             'Bengali'                                                                                                                 => 'bd',
@@ -146,7 +147,7 @@ if (! function_exists('language_flag')) {
             'Estonian', 'Estonian (EE)'                                                                                               => 'ee',
             'Finnish', 'Finnish (FI)'                                                                                                 => 'fi',
             'French', 'French (FR)'                                                                                                   => 'fr',
-            'French (CA)'                                                                                                             => 'can',
+            'French (CA)'                                                                                                             => 'can-qc',
             'Georgian'                                                                                                                => 'ge',
             'German', 'German (DE)'                                                                                                   => 'de',
             'Greek', 'Greek (GR)'                                                                                                     => 'gr',
