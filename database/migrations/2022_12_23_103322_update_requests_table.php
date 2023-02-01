@@ -13,7 +13,7 @@ return new class() extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('requests', function (Blueprint $table) {
             $table->unsignedInteger('torrent_id')->nullable()->after('filled_hash');

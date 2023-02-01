@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
 use App\Helpers\Linkify;
@@ -298,7 +299,7 @@ class TorrentController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
         $v = \validator($request->all(), [
             'id' => 'required|exists:torrents',
