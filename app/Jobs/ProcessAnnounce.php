@@ -103,7 +103,11 @@ class ProcessAnnounce implements ShouldQueue
             $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
         }
 
-        $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
+        if ($history->updated_at->timestamp > \now()->subHours(2)->timestamp && $history->seeder && $this->queries['left'] == 0) {
+            $oldUpdate = $history->updated_at->timestamp;
+        } else {
+            $oldUpdate = \now()->timestamp;
+        }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
         $personalFreeleech = \cache()->get('personal_freeleech:'.$this->user->id) ??
