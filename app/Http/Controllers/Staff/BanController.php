@@ -52,13 +52,13 @@ class BanController extends Controller
         // \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->update([
-            'group_id'     => $bannedGroup[0],
-            'can_upload'   => 0,
+            'group_id' => $bannedGroup[0],
+            'can_upload' => 0,
             'can_download' => 0,
-            'can_comment'  => 0,
-            'can_invite'   => 0,
-            'can_request'  => 0,
-            'can_chat'     => 0,
+            'can_comment' => 0,
+            'can_invite' => 0,
+            'can_request' => 0,
+            'can_chat' => 0,
         ]);
 
         $ban = Ban::create([
@@ -87,13 +87,13 @@ class BanController extends Controller
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->update([
-            'group_id'     => $request->group_id,
-            'can_upload'   => 1,
+            'group_id' => $request->group_id,
+            'can_upload' => 1,
             'can_download' => 1,
-            'can_comment'  => 1,
-            'can_invite'   => 1,
-            'can_request'  => 1,
-            'can_chat'     => 1,
+            'can_comment' => 1,
+            'can_invite' => 1,
+            'can_request' => 1,
+            'can_chat' => 1,
         ]);
 
         Ban::create([

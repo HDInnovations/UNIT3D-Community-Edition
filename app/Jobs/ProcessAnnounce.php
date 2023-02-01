@@ -192,8 +192,8 @@ class ProcessAnnounce implements ShouldQueue
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                        'uploaded' => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
                 }
                 // End User Update
@@ -223,8 +223,8 @@ class ProcessAnnounce implements ShouldQueue
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                        'uploaded' => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
                 }
                 // End User Update
@@ -250,8 +250,8 @@ class ProcessAnnounce implements ShouldQueue
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '. (int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '. (int) $modDownloaded),
+                        'uploaded' => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
                 }
                 // End User Update

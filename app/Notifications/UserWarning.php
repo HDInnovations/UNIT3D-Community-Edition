@@ -30,7 +30,7 @@ class UserWarning extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
         $profileUrl = \href_profile($this->user);
 
@@ -48,8 +48,8 @@ class UserWarning extends Notification
     {
         return [
             'title' => $this->torrent->name.' Warning Recieved',
-            'body'  => 'You have received an automated WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'body' => 'You have received an automated WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
+            'url' => \sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

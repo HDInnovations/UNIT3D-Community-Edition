@@ -24,7 +24,7 @@ class CategoryControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -104,11 +104,11 @@ class CategoryControllerTest extends TestCase
         $meta = ['movie', 'tv', 'game', 'music', 'no'];
 
         $response = $this->actingAs($user)->post(route('staff.categories.store'), [
-            'name'       => $category->name,
-            'position'   => $category->position,
-            'image'      => $category->image,
-            'icon'       => $category->icon,
-            'meta'       => $meta[\array_rand($meta)],
+            'name' => $category->name,
+            'position' => $category->position,
+            'image' => $category->image,
+            'icon' => $category->icon,
+            'meta' => $meta[\array_rand($meta)],
         ]);
 
         $response->assertRedirect(route('staff.categories.index'));
@@ -126,11 +126,11 @@ class CategoryControllerTest extends TestCase
         $meta = ['movie', 'tv', 'game', 'music', 'no'];
 
         $response = $this->actingAs($user)->patch(route('staff.categories.update', ['id' => $category->id]), [
-            'name'       => $category->name,
-            'position'   => $category->position,
-            'image'      => $category->image,
-            'icon'       => $category->icon,
-            'meta'       => $meta[\array_rand($meta)],
+            'name' => $category->name,
+            'position' => $category->position,
+            'image' => $category->image,
+            'icon' => $category->icon,
+            'meta' => $meta[\array_rand($meta)],
         ]);
 
         $response->assertRedirect(route('staff.categories.index'));

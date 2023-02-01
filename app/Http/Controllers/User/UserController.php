@@ -85,32 +85,32 @@ class UserController extends Controller
             ->get();
 
         return \view('user.profile.show', [
-            'route'        => 'profile',
-            'user'         => $user,
-            'groups'       => $groups,
-            'followers'    => $followers,
-            'history'      => $history,
-            'warnings'     => $warnings,
-            'hitrun'       => $hitrun,
+            'route' => 'profile',
+            'user' => $user,
+            'groups' => $groups,
+            'followers' => $followers,
+            'history' => $history,
+            'warnings' => $warnings,
+            'hitrun' => $hitrun,
 
             //'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
             'def_download' => $defDown,
-            'his_down'     => $hisDown,
-            'free_down'    => $freeDownload,
+            'his_down' => $hisDown,
+            'free_down' => $freeDownload,
 
-            'realupload'   => $realupload,
-            'def_upload'   => $defUpl,
-            'his_upl'      => $hisUpl,
+            'realupload' => $realupload,
+            'def_upload' => $defUpl,
+            'his_upl' => $hisUpl,
             'multi_upload' => $multiUpload,
-            'bonupload'    => $bonupload,
-            'man_upload'   => $manUpload,
+            'bonupload' => $bonupload,
+            'man_upload' => $manUpload,
 
-            'requested'     => $requested,
-            'filled'        => $filled,
-            'invitedBy'     => $invitedBy,
-            'clients'       => $clients,
-            'achievements'  => $achievements,
+            'requested' => $requested,
+            'filled' => $filled,
+            'invitedBy' => $invitedBy,
+            'clients' => $clients,
+            'achievements' => $achievements,
         ]);
     }
 
@@ -223,8 +223,8 @@ class UserController extends Controller
         \abort_unless($request->user()->id == $user->id, 403);
 
         $v = \validator($request->all(), [
-            'current_password'          => 'required',
-            'new_password'              => 'required|min:6|confirmed',
+            'current_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
         ]);
         if ($v->passes()) {

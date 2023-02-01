@@ -38,7 +38,7 @@ class PeerController extends Controller
             ->first();
 
         return \view('user.peer.index', [
-            'user'    => $user,
+            'user' => $user,
             'history' => $history,
         ]);
     }

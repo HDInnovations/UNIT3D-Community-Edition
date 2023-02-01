@@ -21,13 +21,13 @@ class MediaInfo
      * @var string[]
      */
     private const REPLACE = [
-        ' '        => '',
+        ' ' => '',
         'channels' => 'ch',
-        'channel'  => 'ch',
-        '1ch'      => '1.0ch',
-        '7ch'      => '6.1ch',
-        '6ch'      => '5.1ch',
-        '2ch'      => '2.0ch',
+        'channel' => 'ch',
+        '1ch' => '1.0ch',
+        '7ch' => '6.1ch',
+        '6ch' => '5.1ch',
+        '2ch' => '2.0ch',
     ];
 
     /**

@@ -33,7 +33,7 @@ class FollowController extends Controller
 
         return \view('user.follower.index', [
             'followers' => $followers,
-            'user'      => $user,
+            'user' => $user,
         ]);
     }
 

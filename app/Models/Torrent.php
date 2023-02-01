@@ -42,7 +42,7 @@ class Torrent extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -109,7 +109,7 @@ class Torrent extends Model
     {
         return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 

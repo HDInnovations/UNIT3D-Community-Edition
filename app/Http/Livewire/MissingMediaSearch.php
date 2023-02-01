@@ -20,11 +20,11 @@ class MissingMediaSearch extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'categories'      => ['except' => []],
-        'sortField'       => ['except' => 'created_at'],
-        'sortDirection'   => ['except' => 'desc'],
-        'page'            => ['except' => 1],
-        'perPage'         => ['except' => ''],
+        'categories' => ['except' => []],
+        'sortField' => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'page' => ['except' => 1],
+        'perPage' => ['except' => ''],
     ];
 
     final public function paginationView(): string

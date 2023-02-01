@@ -6,7 +6,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -16,14 +17,14 @@ return new class () extends Migration {
     {
         History::withoutGlobalScopes()
             ->update([
-                'agent'             => DB::raw("COALESCE(agent, '')"),
-                'uploaded'          => DB::raw('COALESCE(uploaded, 0)'),
-                'actual_uploaded'   => DB::raw('COALESCE(actual_uploaded, 0)'),
-                'client_uploaded'   => DB::raw('COALESCE(client_uploaded, 0)'),
-                'downloaded'        => DB::raw('COALESCE(downloaded, 0)'),
+                'agent' => DB::raw("COALESCE(agent, '')"),
+                'uploaded' => DB::raw('COALESCE(uploaded, 0)'),
+                'actual_uploaded' => DB::raw('COALESCE(actual_uploaded, 0)'),
+                'client_uploaded' => DB::raw('COALESCE(client_uploaded, 0)'),
+                'downloaded' => DB::raw('COALESCE(downloaded, 0)'),
                 'actual_downloaded' => DB::raw('COALESCE(actual_downloaded, 0)'),
                 'client_downloaded' => DB::raw('COALESCE(client_downloaded, 0)'),
-                'updated_at'        => DB::raw('updated_at'),
+                'updated_at' => DB::raw('updated_at'),
             ]);
 
         Schema::table('history', function (Blueprint $table) {

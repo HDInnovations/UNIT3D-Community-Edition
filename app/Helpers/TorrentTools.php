@@ -34,21 +34,21 @@ class TorrentTools
 
         // Whitelisted keys
         $result = \array_intersect_key($result, [
-            'announce'   => '',
-            'comment'    => '',
+            'announce' => '',
+            'comment' => '',
             'created by' => '',
-            'encoding'   => '',
-            'info'       => '',
+            'encoding' => '',
+            'info' => '',
 
         ]);
         $result['info'] = \array_intersect_key($result['info'], [
-            'files'        => '',
-            'length'       => '',
-            'name'         => '',
+            'files' => '',
+            'length' => '',
+            'name' => '',
             'piece length' => '',
-            'pieces'       => '',
-            'private'      => '',
-            'source'       => '',
+            'pieces' => '',
+            'private' => '',
+            'source' => '',
         ]);
 
         // The PID will be set if an user downloads the torrent, but for

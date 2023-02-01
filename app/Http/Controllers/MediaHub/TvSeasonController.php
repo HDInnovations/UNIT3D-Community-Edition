@@ -29,7 +29,7 @@ class TvSeasonController extends Controller
 
         return \view('mediahub.tv.season.show', [
             'season' => $season,
-            'show'   => $show,
+            'show' => $show,
         ]);
     }
 }

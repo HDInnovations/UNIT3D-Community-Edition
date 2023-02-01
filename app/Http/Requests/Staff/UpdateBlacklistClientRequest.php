@@ -31,7 +31,7 @@ class UpdateBlacklistClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'reason' => 'required|string|max:65536',
         ];
     }

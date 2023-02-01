@@ -28,25 +28,25 @@ class AnnounceControllerTest extends TestCase
 
         Torrent::factory()->create([
             'info_hash' => \bin2hex($info_hash),
-            'status'    => 1, // Approved
+            'status' => 1, // Approved
         ]);
 
         $headers = [
             'accept-language' => null,
-            'referer'         => null,
-            'accept-charset'  => null,
-            'want-digest'     => null,
+            'referer' => null,
+            'accept-charset' => null,
+            'want-digest' => null,
         ];
 
         $response = $this->withHeaders($headers)->get(route('announce', [
-            'passkey'    => $user->passkey,
-            'info_hash'  => $info_hash,
-            'peer_id'    => $peer_id,
-            'port'       => 7022,
-            'left'       => 0,
-            'uploaded'   => 1,
+            'passkey' => $user->passkey,
+            'info_hash' => $info_hash,
+            'peer_id' => $peer_id,
+            'port' => 7022,
+            'left' => 0,
+            'uploaded' => 1,
             'downloaded' => 1,
-            'compact'    => 1,
+            'compact' => 1,
         ]))
             ->assertOk();
 

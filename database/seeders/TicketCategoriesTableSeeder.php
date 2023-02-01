@@ -44,47 +44,47 @@ class TicketCategoriesTableSeeder extends Seeder
     {
         return [
             [
-                'name'     => 'Accounts',
+                'name' => 'Accounts',
                 'position' => 0,
             ],
             [
-                'name'     => 'Appeals',
+                'name' => 'Appeals',
                 'position' => 1,
             ],
             [
-                'name'     => 'Forums',
+                'name' => 'Forums',
                 'position' => 2,
             ],
             [
-                'name'     => 'Requests',
+                'name' => 'Requests',
                 'position' => 3,
             ],
             [
-                'name'     => 'Subtitles',
+                'name' => 'Subtitles',
                 'position' => 4,
             ],
             [
-                'name'     => 'Torrents',
+                'name' => 'Torrents',
                 'position' => 5,
             ],
             [
-                'name'     => 'MediaHub',
+                'name' => 'MediaHub',
                 'position' => 6,
             ],
             [
-                'name'     => 'Technical',
+                'name' => 'Technical',
                 'position' => 7,
             ],
             [
-                'name'     => 'Playlists',
+                'name' => 'Playlists',
                 'position' => 8,
             ],
             [
-                'name'     => 'Bugs',
+                'name' => 'Bugs',
                 'position' => 9,
             ],
             [
-                'name'     => 'Other',
+                'name' => 'Other',
                 'position' => 10,
             ],
         ];

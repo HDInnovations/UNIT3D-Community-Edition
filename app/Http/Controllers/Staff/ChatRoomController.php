@@ -40,7 +40,7 @@ class ChatRoomController extends Controller
         $chatrooms = $this->chatRepository->rooms();
 
         return \view('Staff.chat.room.index', [
-            'chatrooms'    => $chatrooms,
+            'chatrooms' => $chatrooms,
         ]);
     }
 

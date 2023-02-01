@@ -31,9 +31,9 @@ class StoreGiftRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username'  => 'required|exists:users,username|max:180',
+            'username' => 'required|exists:users,username|max:180',
             'seedbonus' => 'required|integer|min:0',
-            'invites'   => 'required|integer|min:0',
+            'invites' => 'required|integer|min:0',
             'fl_tokens' => 'required|integer|min:0',
         ];
     }

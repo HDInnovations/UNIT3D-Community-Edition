@@ -22,13 +22,13 @@ return [
     |
     */
 
-    'enabled'      => false,
-    'hostname'     => 'example.com',
-    'server'       => 'irc.example.com',
-    'port'         => '6667',
-    'username'     => 'UNIT3D',
-    'password'     => 'UNIT3D',
-    'channel'      => '#announce',
+    'enabled' => false,
+    'hostname' => 'example.com',
+    'server' => 'irc.example.com',
+    'port' => '6667',
+    'username' => 'UNIT3D',
+    'password' => 'UNIT3D',
+    'channel' => '#announce',
     'nickservpass' => false,
-    'joinchannel'  => false,
+    'joinchannel' => false,
 ];

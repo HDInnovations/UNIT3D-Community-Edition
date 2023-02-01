@@ -130,11 +130,11 @@ class PrivateMessageController extends Controller
         $privateMessage->read = 0;
 
         $v = \validator($privateMessage->toArray(), [
-            'sender_id'   => 'required',
+            'sender_id' => 'required',
             'receiver_id' => 'required',
-            'subject'     => 'required',
-            'message'     => 'required',
-            'read'        => 'required',
+            'subject' => 'required',
+            'message' => 'required',
+            'read' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -175,12 +175,12 @@ class PrivateMessageController extends Controller
         $privateMessage->read = 0;
 
         $v = \validator($privateMessage->toArray(), [
-            'sender_id'   => 'required',
+            'sender_id' => 'required',
             'receiver_id' => 'required',
-            'subject'     => 'required',
-            'message'     => 'required',
-            'related_to'  => 'required',
-            'read'        => 'required',
+            'subject' => 'required',
+            'message' => 'required',
+            'related_to' => 'required',
+            'read' => 'required',
         ]);
 
         if ($v->fails()) {

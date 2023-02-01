@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'created_by'        => 'Edited by UNIT3D',
+    'created_by' => 'Edited by UNIT3D',
     'created_by_append' => true,
 
     /*

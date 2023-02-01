@@ -37,9 +37,9 @@ class NoteController extends Controller
     public function store(StoreNoteRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
         Note::create([
-            'user_id'  => User::where('username', '=', $username)->firstOrFail()->id,
+            'user_id' => User::where('username', '=', $username)->firstOrFail()->id,
             'staff_id' => $request->user()->id,
-            'message'  => $request->message,
+            'message' => $request->message,
         ]);
 
         return \to_route('users.show', ['username' => $username])

@@ -150,14 +150,14 @@ class ForumController extends Controller
 
         return \view($logger, [
             'categories' => $categories,
-            'results'    => $results,
-            'user'       => $user,
-            'name'       => $request->input('name'),
-            'body'       => $request->input('body'),
-            'num_posts'  => $numPosts,
+            'results' => $results,
+            'user' => $user,
+            'name' => $request->input('name'),
+            'body' => $request->input('body'),
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
-            'params'     => $params,
+            'params' => $params,
         ]);
     }
 
@@ -200,14 +200,14 @@ class ForumController extends Controller
         $params = $request->all();
 
         return \view('forum.subscriptions', [
-            'results'    => $results,
-            'user'       => $user,
-            'name'       => $request->input('name'),
-            'body'       => $request->input('body'),
-            'num_posts'  => $numPosts,
+            'results' => $results,
+            'user' => $user,
+            'name' => $request->input('name'),
+            'body' => $request->input('body'),
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
-            'params'     => $params,
+            'params' => $params,
             'forum_neos' => $forumNeos,
             'topic_neos' => $topicNeos,
         ]);
@@ -235,9 +235,9 @@ class ForumController extends Controller
         $numTopics = Topic::count();
 
         return \view('forum.latest_topics', [
-            'results'    => $results,
-            'user'       => $user,
-            'num_posts'  => $numPosts,
+            'results' => $results,
+            'user' => $user,
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
         ]);
@@ -265,9 +265,9 @@ class ForumController extends Controller
         $numTopics = Topic::count();
 
         return \view('forum.latest_posts', [
-            'results'    => $results,
-            'user'       => $user,
-            'num_posts'  => $numPosts,
+            'results' => $results,
+            'user' => $user,
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
         ]);
@@ -289,7 +289,7 @@ class ForumController extends Controller
 
         return \view('forum.index', [
             'categories' => $categories,
-            'num_posts'  => $numPosts,
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
         ]);
@@ -326,10 +326,10 @@ class ForumController extends Controller
         $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return \view('forum.display', [
-            'forum'      => $forum,
-            'topics'     => $topics,
-            'category'   => $category,
-            'num_posts'  => $numPosts,
+            'forum' => $forum,
+            'topics' => $topics,
+            'category' => $category,
+            'num_posts' => $numPosts,
             'num_forums' => $numForums,
             'num_topics' => $numTopics,
         ]);

@@ -58,11 +58,11 @@ class ForumController extends Controller
             ['slug' => Str::slug($request->title)]
             + $request->safe()->only(
                 [
-                'title',
-                'position',
-                'description',
-                'parent_id'
-            ]
+                    'title',
+                    'position',
+                    'description',
+                    'parent_id',
+                ]
             )
         );
 
@@ -105,8 +105,8 @@ class ForumController extends Controller
 
         return \view('Staff.forum.edit', [
             'categories' => $categories,
-            'groups'     => $groups,
-            'forum'      => $forum,
+            'groups' => $groups,
+            'forum' => $forum,
         ]);
     }
 

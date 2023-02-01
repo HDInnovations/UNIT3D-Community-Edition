@@ -55,11 +55,11 @@ class CategoryController extends Controller
         }
 
         Category::create([
-            'image'      => $filename ?? null,
-            'no_meta'    => $request->meta === 'no',
+            'image' => $filename ?? null,
+            'no_meta' => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
-            'game_meta'  => $request->meta === 'game',
-            'tv_meta'    => $request->meta === 'tv',
+            'game_meta' => $request->meta === 'game',
+            'tv_meta' => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 
@@ -90,11 +90,11 @@ class CategoryController extends Controller
         }
 
         Category::where('id', '=', $id)->update([
-            'image'      => $filename ?? null,
-            'no_meta'    => $request->meta === 'no',
+            'image' => $filename ?? null,
+            'no_meta' => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
-            'game_meta'  => $request->meta === 'game',
-            'tv_meta'    => $request->meta === 'tv',
+            'game_meta' => $request->meta === 'game',
+            'tv_meta' => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 

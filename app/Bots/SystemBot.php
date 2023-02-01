@@ -83,10 +83,10 @@ class SystemBot
     public function putGift($receiver = '', $amount = 0, $note = ''): string
     {
         $output = \implode(' ', $note);
-        $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
-            'receiver'   => 'required|string|exists:users,username',
-            'amount'     => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
-            'note'       => 'required|string',
+        $v = \validator(['receiver' => $receiver, 'amount' => $amount, 'note' => $output], [
+            'receiver' => 'required|string|exists:users,username',
+            'amount' => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
+            'note' => 'required|string',
         ]);
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();

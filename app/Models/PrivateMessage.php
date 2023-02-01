@@ -39,7 +39,7 @@ class PrivateMessage extends Model
     {
         return $this->belongsTo(User::class, 'sender_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -50,7 +50,7 @@ class PrivateMessage extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 

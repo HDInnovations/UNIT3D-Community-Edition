@@ -30,10 +30,10 @@ class AchievementsController extends Controller
         $pending = $user->inProgressAchievements();
 
         return \view('user.achievement.index', [
-            'route'        => 'achievement',
-            'user'         => $user,
+            'route' => 'achievement',
+            'user' => $user,
             'achievements' => $achievements,
-            'pending'      => $pending,
+            'pending' => $pending,
         ]);
     }
 }

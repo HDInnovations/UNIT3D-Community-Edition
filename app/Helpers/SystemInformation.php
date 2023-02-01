@@ -39,8 +39,8 @@ class SystemInformation
             $loads = \explode(' ', \file_get_contents('/proc/loadavg'));
 
             return [
-                '1-minute'  => $loads[0],
-                '5-minute'  => $loads[1],
+                '1-minute' => $loads[0],
+                '5-minute' => $loads[1],
                 '15-minute' => $loads[2],
             ];
         }
@@ -56,16 +56,16 @@ class SystemInformation
             $available = $matches[1] * 1_024;
 
             return [
-                'total'      => $this->formatBytes($total),
-                'available'  => $this->formatBytes($available),
-                'used'       => $this->formatBytes($total - $available),
+                'total' => $this->formatBytes($total),
+                'available' => $this->formatBytes($available),
+                'used' => $this->formatBytes($total - $available),
             ];
         }
 
         return [
-            'total'      => 0,
-            'available'  => 0,
-            'used'       => 0,
+            'total' => 0,
+            'available' => 0,
+            'used' => 0,
         ];
     }
 
@@ -88,8 +88,8 @@ class SystemInformation
 
         return [
             'total' => $this->formatBytes($total),
-            'free'  => $this->formatBytes($free),
-            'used'  => $this->formatBytes($total - $free),
+            'free' => $this->formatBytes($free),
+            'used' => $this->formatBytes($total - $free),
         ];
     }
 
@@ -108,10 +108,10 @@ class SystemInformation
     public function basic(): array
     {
         return [
-            'os'       => PHP_OS,
-            'php'      => PHP_VERSION,
+            'os' => PHP_OS,
+            'php' => PHP_VERSION,
             'database' => $this->getDatabase(),
-            'laravel'  => \app()->version(),
+            'laravel' => \app()->version(),
         ];
     }
 
@@ -133,23 +133,23 @@ class SystemInformation
     {
         return [
             [
-                'directory'   => \base_path('bootstrap/cache'),
-                'permission'  => $this->getDirectoryPermission('bootstrap/cache'),
+                'directory' => \base_path('bootstrap/cache'),
+                'permission' => $this->getDirectoryPermission('bootstrap/cache'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => \base_path('public'),
-                'permission'  => $this->getDirectoryPermission('public'),
+                'directory' => \base_path('public'),
+                'permission' => $this->getDirectoryPermission('public'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => \base_path('storage'),
-                'permission'  => $this->getDirectoryPermission('storage'),
+                'directory' => \base_path('storage'),
+                'permission' => $this->getDirectoryPermission('storage'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => \base_path('vendor'),
-                'permission'  => $this->getDirectoryPermission('vendor'),
+                'directory' => \base_path('vendor'),
+                'permission' => $this->getDirectoryPermission('vendor'),
                 'recommended' => '0775',
             ],
         ];

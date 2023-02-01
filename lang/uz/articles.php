@@ -12,8 +12,8 @@
  */
 
 return [
-    'articles'      => 'Maqolalar',
+    'articles' => 'Maqolalar',
     'meta-articles' => 'Kuzatuvchi va jamoada maqolalar va yangiliklar',
-    'published-at'  => 'Nashr etildi',
-    'read-more'     => 'Ko proq o qing',
+    'published-at' => 'Nashr etildi',
+    'read-more' => 'Ko proq o qing',
 ];

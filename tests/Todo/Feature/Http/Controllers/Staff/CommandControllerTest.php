@@ -5,9 +5,8 @@ namespace Tests\Todo\Feature\Http\Controllers\Staff;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
-
 use function route;
+use Tests\TestCase;
 
 /**
  * @see \App\Http\Controllers\Staff\CommandController
@@ -25,7 +24,7 @@ class CommandControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }

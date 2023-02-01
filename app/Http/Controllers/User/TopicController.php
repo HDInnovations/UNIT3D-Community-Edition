@@ -27,7 +27,7 @@ class TopicController extends Controller
 
         return \view('user.topic.index', [
             'topics' => $topics,
-            'user'   => $user,
+            'user' => $user,
         ]);
     }
 }

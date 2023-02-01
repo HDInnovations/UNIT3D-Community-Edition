@@ -27,7 +27,7 @@ class PostController extends Controller
 
         return \view('user.post.index', [
             'posts' => $posts,
-            'user'  => $user,
+            'user' => $user,
         ]);
     }
 }

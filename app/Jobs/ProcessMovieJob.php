@@ -59,11 +59,11 @@ class ProcessMovieJob implements ShouldQueue
 
             if (isset($productionCompany['name'])) {
                 $productionCompanyArray = [
-                    'description'    => $productionCompany['description'] ?? null,
-                    'headquarters'   => $productionCompany['headquarters'] ?? null,
-                    'homepage'       => $productionCompany['homepage'] ?? null,
-                    'logo'           => $tmdb->image('logo', $productionCompany),
-                    'name'           => $productionCompany['name'] ?? null,
+                    'description' => $productionCompany['description'] ?? null,
+                    'headquarters' => $productionCompany['headquarters'] ?? null,
+                    'homepage' => $productionCompany['homepage'] ?? null,
+                    'logo' => $tmdb->image('logo', $productionCompany),
+                    'name' => $productionCompany['name'] ?? null,
                     'origin_country' => $productionCompany['origin_country'],
                 ];
                 Company::updateOrCreate(['id' => $productionCompany['id']], $productionCompanyArray)->movie()->syncWithoutDetaching([$this->movie['id']]);
@@ -77,12 +77,12 @@ class ProcessMovieJob implements ShouldQueue
                 $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
 
                 $belongsToCollectionArray = [
-                    'name'      => $belongsToCollection['name'] ?? null,
+                    'name' => $belongsToCollection['name'] ?? null,
                     'name_sort' => $titleSort,
-                    'parts'     => is_countable($belongsToCollection['parts']) ? \count($belongsToCollection['parts']) : 0,
-                    'overview'  => $belongsToCollection['overview'] ?? null,
-                    'poster'    => $tmdb->image('poster', $belongsToCollection),
-                    'backdrop'  => $tmdb->image('backdrop', $belongsToCollection),
+                    'parts' => is_countable($belongsToCollection['parts']) ? \count($belongsToCollection['parts']) : 0,
+                    'overview' => $belongsToCollection['overview'] ?? null,
+                    'poster' => $tmdb->image('poster', $belongsToCollection),
+                    'backdrop' => $tmdb->image('backdrop', $belongsToCollection),
                 ];
                 Collection::updateOrCreate(['id' => $belongsToCollection['id']], $belongsToCollectionArray)->movie()->syncWithoutDetaching([$this->movie['id']]);
             }
@@ -101,7 +101,7 @@ class ProcessMovieJob implements ShouldQueue
                     ->movie()
                     ->syncWithoutDetaching([$this->movie['id'] => [
                         'department' => $crew['department'] ?? null,
-                        'job'        => $crew['job'] ?? null,
+                        'job' => $crew['job'] ?? null,
                     ]]);
             }
         }

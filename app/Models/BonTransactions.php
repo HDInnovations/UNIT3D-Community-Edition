@@ -42,7 +42,7 @@ class BonTransactions extends Model
     {
         return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -54,7 +54,7 @@ class BonTransactions extends Model
     {
         return $this->belongsTo(User::class, 'receiver', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -65,7 +65,7 @@ class BonTransactions extends Model
     {
         return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
             'value' => 0,
-            'cost'  => 0,
+            'cost' => 0,
         ]);
     }
 }

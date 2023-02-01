@@ -41,11 +41,11 @@ class WarningController extends Controller
         $softDeletedWarningCount = Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
 
         return \view('user.warning.index', [
-            'warnings'                => $warnings,
-            'warningcount'            => $warningcount,
-            'softDeletedWarnings'     => $softDeletedWarnings,
+            'warnings' => $warnings,
+            'warningcount' => $warningcount,
+            'softDeletedWarnings' => $softDeletedWarnings,
             'softDeletedWarningCount' => $softDeletedWarningCount,
-            'user'                    => $user,
+            'user' => $user,
         ]);
     }
 

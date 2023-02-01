@@ -85,10 +85,10 @@ class PlaylistController extends Controller
         $playlist->is_private = $request->input('is_private');
 
         $v = \validator($playlist->toArray(), [
-            'user_id'     => 'required',
-            'name'        => 'required',
+            'user_id' => 'required',
+            'name' => 'required',
             'description' => 'required',
-            'is_private'  => 'required',
+            'is_private' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -195,9 +195,9 @@ class PlaylistController extends Controller
         $playlist->is_private = $request->input('is_private');
 
         $v = \validator($playlist->toArray(), [
-            'name'        => 'required',
+            'name' => 'required',
             'description' => 'required',
-            'is_private'  => 'required',
+            'is_private' => 'required',
         ]);
 
         if ($v->fails()) {

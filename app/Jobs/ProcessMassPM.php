@@ -26,6 +26,7 @@ class ProcessMassPM implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+
     /**
      * @var mixed
      */

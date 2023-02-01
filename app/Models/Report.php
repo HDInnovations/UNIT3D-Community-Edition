@@ -52,7 +52,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -63,7 +63,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -74,7 +74,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

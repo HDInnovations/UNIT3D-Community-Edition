@@ -24,8 +24,8 @@ return [
     */
 
     'password' => 'As senhas devem ter pelo menos seis caracteres e coincidir com a confirmação.',
-    'reset'    => 'A sua senha foi redefinida!',
-    'sent'     => 'Enviamos por e-mail o link para redefinir a sua senha!',
-    'token'    => 'Este código de redefinição de senha é inválido.',
-    'user'     => 'Não existe nenhum usuário com o endereço de e-mail indicado.',
+    'reset' => 'A sua senha foi redefinida!',
+    'sent' => 'Enviamos por e-mail o link para redefinir a sua senha!',
+    'token' => 'Este código de redefinição de senha é inválido.',
+    'user' => 'Não existe nenhum usuário com o endereço de e-mail indicado.',
 ];

@@ -15,8 +15,8 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'   => $this->faker->word(),
-            'image'   => $this->faker->word(),
+            'title' => $this->faker->word(),
+            'image' => $this->faker->word(),
             'content' => $this->faker->text(),
             'user_id' => fn () => User::factory()->create()->id,
         ];

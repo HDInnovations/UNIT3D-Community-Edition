@@ -32,7 +32,7 @@ class UpdateBanRequest extends FormRequest
     {
         return [
             'unban_reason' => 'required|string|max:65536',
-            'group_id'     => 'required|integer|exists:groups,id'
+            'group_id' => 'required|integer|exists:groups,id',
         ];
     }
 }

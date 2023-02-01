@@ -50,10 +50,10 @@ class TransactionController extends Controller
         $items = BonExchange::all();
 
         return \view('user.transaction.create', [
-            'user'              => $user,
-            'userbon'           => $userbon,
-            'activefl'          => $activefl,
-            'items'             => $items,
+            'user' => $user,
+            'userbon' => $userbon,
+            'activefl' => $activefl,
+            'items' => $items,
         ]);
     }
 

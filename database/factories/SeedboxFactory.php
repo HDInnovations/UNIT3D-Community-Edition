@@ -16,8 +16,8 @@ class SeedboxFactory extends Factory
     {
         return [
             'user_id' => fn () => User::factory()->create()->id,
-            'name'    => $this->faker->name(),
-            'ip'      => $this->faker->word(),
+            'name' => $this->faker->name(),
+            'ip' => $this->faker->word(),
         ];
     }
 }

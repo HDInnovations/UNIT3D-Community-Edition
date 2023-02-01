@@ -12,7 +12,7 @@ class Ticket extends Model
     use Auditable;
 
     protected $casts = [
-        'closed_at'   => 'datetime',
+        'closed_at' => 'datetime',
         'reminded_at' => 'datetime',
     ];
 
@@ -59,7 +59,7 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 

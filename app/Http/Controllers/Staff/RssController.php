@@ -36,7 +36,7 @@ class RssController extends Controller
         $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
 
         return \view('Staff.rss.index', [
-            'hash'       => $hash,
+            'hash' => $hash,
             'public_rss' => $publicRss,
         ]);
     }
@@ -49,11 +49,11 @@ class RssController extends Controller
         $user = $request->user();
 
         return \view('Staff.rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'categories' => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types' => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
             'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
+            'genres' => Genre::all()->sortBy('name'),
+            'user' => $user,
         ]);
     }
 
@@ -86,12 +86,12 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         return \view('Staff.rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'categories' => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
+            'types' => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
             'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
-            'rss'         => $rss,
+            'genres' => Genre::all()->sortBy('name'),
+            'user' => $user,
+            'rss' => $rss,
         ]);
     }
 
@@ -104,8 +104,8 @@ class RssController extends Controller
 
         $rss->update([
             'json_torrent' => \array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
-            'name'         => $request->name,
-            'position'     => $request->position,
+            'name' => $request->name,
+            'position' => $request->position,
         ]);
 
         return \to_route('staff.rss.index')

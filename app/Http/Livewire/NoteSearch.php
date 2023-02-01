@@ -15,8 +15,8 @@ class NoteSearch extends Component
     public string $search = '';
 
     protected $queryString = [
-        'search'  => ['except' => ''],
-        'page'    => ['except' => 1],
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
         'perPage' => ['except' => ''],
     ];
 

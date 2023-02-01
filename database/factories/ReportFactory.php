@@ -17,16 +17,16 @@ class ReportFactory extends Factory
     public function definition(): array
     {
         return [
-            'type'          => $this->faker->word(),
-            'reporter_id'   => fn () => User::factory()->create()->id,
-            'staff_id'      => fn () => User::factory()->create()->id,
-            'title'         => $this->faker->word(),
-            'message'       => $this->faker->text(),
-            'solved'        => $this->faker->randomNumber(),
-            'verdict'       => $this->faker->text(),
+            'type' => $this->faker->word(),
+            'reporter_id' => fn () => User::factory()->create()->id,
+            'staff_id' => fn () => User::factory()->create()->id,
+            'title' => $this->faker->word(),
+            'message' => $this->faker->text(),
+            'solved' => $this->faker->randomNumber(),
+            'verdict' => $this->faker->text(),
             'reported_user' => fn () => User::factory()->create()->id,
-            'torrent_id'    => fn () => Torrent::factory()->create()->id,
-            'request_id'    => fn () => TorrentRequest::factory()->create()->id,
+            'torrent_id' => fn () => Torrent::factory()->create()->id,
+            'request_id' => fn () => TorrentRequest::factory()->create()->id,
         ];
     }
 }

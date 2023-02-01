@@ -24,5 +24,5 @@ return [
     */
 
     'previous' => '&laquo; ಹಿಂದಿನ',
-    'next'     => 'ಮುಂದಿನ &raquo;',
+    'next' => 'ಮುಂದಿನ &raquo;',
 ];

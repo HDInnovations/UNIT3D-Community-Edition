@@ -118,7 +118,7 @@ class InviteController extends Controller
             ]);
         } else {
             $v = \validator($invite->toArray(), [
-                'email'  => 'required|string|email|max:70|unique:users',
+                'email' => 'required|string|email|max:70|unique:users',
                 'custom' => 'required',
             ]);
         }

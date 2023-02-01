@@ -29,15 +29,15 @@ class GeneralSettingController extends Controller
         \abort_unless($request->user()->id == $user->id, 403);
 
         $request->validate([
-            'censor'         => 'required|boolean',
-            'chat_hidden'    => 'required|boolean',
-            'locale'         => ['required', Rule::in(\array_keys(Language::allowed()))],
-            'style'          => 'required|numeric',
-            'custom_css'     => 'nullable|url',
+            'censor' => 'required|boolean',
+            'chat_hidden' => 'required|boolean',
+            'locale' => ['required', Rule::in(\array_keys(Language::allowed()))],
+            'style' => 'required|numeric',
+            'custom_css' => 'nullable|url',
             'standalone_css' => 'nullable|url',
             'torrent_layout' => ['required', Rule::in([0])],
-            'show_poster'    => 'required|boolean',
-            'ratings'        => ['required', Rule::in([0, 1])],
+            'show_poster' => 'required|boolean',
+            'ratings' => ['required', Rule::in([0, 1])],
         ]);
 
         // General Settings

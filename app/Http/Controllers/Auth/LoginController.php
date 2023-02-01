@@ -54,14 +54,14 @@ class LoginController extends Controller
     {
         if (\config('captcha.enabled')) {
             $this->validate($request, [
-                $this->username()      => 'required|string',
-                'password'             => 'required|string',
-                'captcha'              => 'hiddencaptcha',
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+                'captcha' => 'hiddencaptcha',
             ]);
         } else {
             $this->validate($request, [
                 $this->username() => 'required|string',
-                'password'        => 'required|string',
+                'password' => 'required|string',
             ]);
         }
     }

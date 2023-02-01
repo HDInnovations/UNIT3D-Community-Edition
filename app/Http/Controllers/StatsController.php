@@ -123,25 +123,25 @@ class StatsController extends Controller
         $creditedUpDown = $creditedUpload + $creditedDownload;
 
         return \view('stats.index', [
-            'all_user'          => $allUser,
-            'active_user'       => $activeUser,
-            'disabled_user'     => $disabledUser,
-            'pruned_user'       => $prunedUser,
-            'banned_user'       => $bannedUser,
-            'num_torrent'       => $numTorrent,
-            'categories'        => $categories,
-            'num_hd'            => $numHd,
-            'num_sd'            => $numSd,
-            'torrent_size'      => $torrentSize,
-            'num_seeders'       => $numSeeders,
-            'num_leechers'      => $numLeechers,
-            'num_peers'         => $numPeers,
-            'actual_upload'     => $actualUpload,
-            'actual_download'   => $actualDownload,
-            'actual_up_down'    => $actualUpDown,
-            'credited_upload'   => $creditedUpload,
+            'all_user' => $allUser,
+            'active_user' => $activeUser,
+            'disabled_user' => $disabledUser,
+            'pruned_user' => $prunedUser,
+            'banned_user' => $bannedUser,
+            'num_torrent' => $numTorrent,
+            'categories' => $categories,
+            'num_hd' => $numHd,
+            'num_sd' => $numSd,
+            'torrent_size' => $torrentSize,
+            'num_seeders' => $numSeeders,
+            'num_leechers' => $numLeechers,
+            'num_peers' => $numPeers,
+            'actual_upload' => $actualUpload,
+            'actual_download' => $actualDownload,
+            'actual_up_down' => $actualUpDown,
+            'credited_upload' => $creditedUpload,
             'credited_download' => $creditedDownload,
-            'credited_up_down'  => $creditedUpDown,
+            'credited_up_down' => $creditedUpDown,
         ]);
     }
 
@@ -377,11 +377,9 @@ class StatsController extends Controller
         $customThemes = User::where('custom_css', '!=', '')->select(DB::raw('custom_css, count(*) as value'))->groupBy('custom_css')->latest('value')->get();
         $standaloneThemes = User::whereNotNull('standalone_css')->select(DB::raw('standalone_css, count(*) as value'))->groupBy('standalone_css')->latest('value')->get();
 
-
-
         return \view('stats.themes.index', [
-            'siteThemes'       => $siteThemes,
-            'customThemes'     => $customThemes,
+            'siteThemes' => $siteThemes,
+            'customThemes' => $customThemes,
             'standaloneThemes' => $standaloneThemes,
         ]);
     }

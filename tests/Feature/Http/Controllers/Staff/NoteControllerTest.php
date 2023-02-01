@@ -26,7 +26,7 @@ class NoteControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -74,9 +74,9 @@ class NoteControllerTest extends TestCase
         $note = Note::factory()->make();
 
         $response = $this->actingAs($staff)->post(route('staff.notes.store', ['username' => $user->username]), [
-            'user_id'  => $user->id,
+            'user_id' => $user->id,
             'staff_id' => $staff->id,
-            'message'  => $note->message,
+            'message' => $note->message,
         ]);
 
         $response->assertRedirect(route('users.show', ['username' => $user->username]));

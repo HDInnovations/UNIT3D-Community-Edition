@@ -103,7 +103,7 @@ class PollController extends Controller
     {
         $poll = Poll::findOrFail($id);
         $map = [
-            'poll'        => $poll,
+            'poll' => $poll,
             'total_votes' => $poll->totalVotes(),
         ];
 

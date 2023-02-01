@@ -87,13 +87,13 @@ class SubtitleController extends Controller
         $subtitle->moderated_by = 1;
 
         $v = \validator($subtitle->toArray(), [
-            'title'       => 'required',
-            'file_name'   => 'required',
-            'file_size'   => 'required',
-            'extension'   => 'required|in:.srt,.ass,.sup,.zip',
+            'title' => 'required',
+            'file_name' => 'required',
+            'file_size' => 'required',
+            'extension' => 'required|in:.srt,.ass,.sup,.zip',
             'language_id' => 'required',
-            'user_id'     => 'required',
-            'torrent_id'  => 'required',
+            'user_id' => 'required',
+            'torrent_id' => 'required',
         ]);
 
         if ($v->fails()) {

@@ -44,8 +44,8 @@ class NewPostTag extends Notification implements ShouldQueue
     {
         return [
             'title' => $this->post->user->username.' Has Tagged You In A Post',
-            'body'  => $this->post->user->username.' has tagged you in a Post in Topic '.$this->post->topic->name,
-            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'body' => $this->post->user->username.' has tagged you in a Post in Topic '.$this->post->topic->name,
+            'url' => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

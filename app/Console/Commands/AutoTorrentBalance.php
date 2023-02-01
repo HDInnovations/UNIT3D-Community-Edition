@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use App\Models\History;
+use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

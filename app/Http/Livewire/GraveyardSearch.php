@@ -61,24 +61,24 @@ class GraveyardSearch extends Component
     public bool $showFilters = false;
 
     protected $queryString = [
-        'name'          => ['except' => ''],
-        'categories'    => ['except' => []],
-        'types'         => ['except' => []],
-        'resolutions'   => ['except' => []],
-        'tmdbId'        => ['except' => ''],
-        'imdbId'        => ['except' => ''],
-        'tvdbId'        => ['except' => ''],
-        'malId'         => ['except' => ''],
-        'free'          => ['except' => []],
-        'doubleup'      => ['except' => false],
-        'featured'      => ['except' => false],
-        'stream'        => ['except' => false],
-        'sd'            => ['except' => false],
-        'highspeed'     => ['except' => false],
-        'internal'      => ['except' => false],
-        'sortField'     => ['except' => 'created_at'],
+        'name' => ['except' => ''],
+        'categories' => ['except' => []],
+        'types' => ['except' => []],
+        'resolutions' => ['except' => []],
+        'tmdbId' => ['except' => ''],
+        'imdbId' => ['except' => ''],
+        'tvdbId' => ['except' => ''],
+        'malId' => ['except' => ''],
+        'free' => ['except' => []],
+        'doubleup' => ['except' => false],
+        'featured' => ['except' => false],
+        'stream' => ['except' => false],
+        'sd' => ['except' => false],
+        'highspeed' => ['except' => false],
+        'internal' => ['except' => false],
+        'sortField' => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
-        'page'          => ['except' => 1],
+        'page' => ['except' => 1],
     ];
 
     final public function paginationView(): string
@@ -148,8 +148,8 @@ class GraveyardSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.graveyard-search', [
-            'user'         => \auth()->user(),
-            'torrents'     => $this->torrents,
+            'user' => \auth()->user(),
+            'torrents' => $this->torrents,
             'torrentsStat' => $this->torrentsStat,
         ]);
     }

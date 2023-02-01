@@ -43,7 +43,7 @@ class Note extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -54,7 +54,7 @@ class Note extends Model
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

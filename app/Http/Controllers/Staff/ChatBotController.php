@@ -44,8 +44,8 @@ class ChatBotController extends Controller
         $bot = Bot::findOrFail($id);
 
         return \view('Staff.chat.bot.edit', [
-            'user'           => $user,
-            'bot'            => $bot,
+            'user' => $user,
+            'bot' => $bot,
         ]);
     }
 
@@ -57,7 +57,7 @@ class ChatBotController extends Controller
         Bot::where('id', '=', $id)->update($request->validated());
 
         return \to_route('staff.bots.edit', ['id' => $id])
-            ->withSuccess("The Bot Has Been Updated");
+            ->withSuccess('The Bot Has Been Updated');
     }
 
     /**

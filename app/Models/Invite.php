@@ -29,7 +29,7 @@ class Invite extends Model
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 
@@ -40,7 +40,7 @@ class Invite extends Model
     {
         return $this->belongsTo(User::class, 'accepted_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id' => '1',
         ]);
     }
 }

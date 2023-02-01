@@ -32,9 +32,9 @@ class StoreBonExchangeRequest extends FormRequest
     {
         return [
             'description' => 'required|string',
-            'value'       => 'required|numeric',
-            'cost'        => 'required|numeric',
-            'type'        => 'required|string|in:upload,download,personal_freeleech,invite|exclude',
+            'value' => 'required|numeric',
+            'cost' => 'required|numeric',
+            'type' => 'required|string|in:upload,download,personal_freeleech,invite|exclude',
         ];
     }
 }

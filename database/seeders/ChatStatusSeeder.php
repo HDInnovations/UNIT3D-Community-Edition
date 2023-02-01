@@ -39,24 +39,24 @@ class ChatStatusSeeder extends Seeder
     {
         return [
             [
-                'name'  => 'Online',
+                'name' => 'Online',
                 'color' => '#2ECC40',
-                'icon'  => config('other.font-awesome').' fa-comment-smile',
+                'icon' => config('other.font-awesome').' fa-comment-smile',
             ],
             [
-                'name'  => 'Away',
+                'name' => 'Away',
                 'color' => '#FFDC00',
-                'icon'  => config('other.font-awesome').' fa-comment-minus',
+                'icon' => config('other.font-awesome').' fa-comment-minus',
             ],
             [
-                'name'  => 'Busy',
+                'name' => 'Busy',
                 'color' => '#FF4136',
-                'icon'  => config('other.font-awesome').' fa-comment-exclamation',
+                'icon' => config('other.font-awesome').' fa-comment-exclamation',
             ],
             [
-                'name'  => 'Offline',
+                'name' => 'Offline',
                 'color' => '#AAAAAA',
-                'icon'  => config('other.font-awesome').' fa-comment-slash',
+                'icon' => config('other.font-awesome').' fa-comment-slash',
             ],
         ];
     }

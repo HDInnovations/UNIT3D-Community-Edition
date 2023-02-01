@@ -43,33 +43,33 @@ class PagesTableSeeder extends Seeder
     {
         return [
             [
-                'id'      => 1,
-                'name'    => 'Rules',
+                'id' => 1,
+                'name' => 'Rules',
                 'content' => 'RULES GOES HERE',
             ],
             [
-                'id'      => 2,
-                'name'    => 'FAQ',
+                'id' => 2,
+                'name' => 'FAQ',
                 'content' => 'FAQ GOES HERE',
             ],
             [
-                'id'      => 3,
-                'name'    => 'Suggested Clients',
+                'id' => 3,
+                'name' => 'Suggested Clients',
                 'content' => 'We suggest the following BitTorrent clients.',
             ],
             [
-                'id'      => 4,
-                'name'    => 'Upload Guide',
+                'id' => 4,
+                'name' => 'Upload Guide',
                 'content' => 'UPLOAD GUIDE HERE',
             ],
             [
-                'id'      => 5,
-                'name'    => 'Tracker Codes',
+                'id' => 5,
+                'name' => 'Tracker Codes',
                 'content' => 'Our Tracker Codes/Responses',
             ],
             [
-                'id'      => 6,
-                'name'    => 'Terms Of Use',
+                'id' => 6,
+                'name' => 'Terms Of Use',
                 'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
 
 Welcome to our website located at '.config('app.url').' (this "Site")! This Site allows you to:

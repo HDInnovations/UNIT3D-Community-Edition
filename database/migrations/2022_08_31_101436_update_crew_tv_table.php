@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -25,7 +26,7 @@ return new class () extends Migration {
                 foreach ($data['credits']['crew'] as $crewMember) {
                     $tv->crew()->updateExistingPivot($crewMember['id'], [
                         'department' => $crewMember['department'],
-                        'job'        => $crewMember['job'],
+                        'job' => $crewMember['job'],
                     ]);
                 }
             }

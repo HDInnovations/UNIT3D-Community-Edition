@@ -54,11 +54,11 @@ class ProcessTvJob implements ShouldQueue
         foreach ($this->tv['production_companies'] as $productionCompany) {
             if (isset($productionCompany['name'])) {
                 $productionCompanyArray = [
-                    'description'    => $tmdb->ifExists('description', $productionCompany),
-                    'name'           => $productionCompany['name'],
-                    'headquarters'   => $tmdb->ifExists('headquarters', $productionCompany),
-                    'homepage'       => $tmdb->ifExists('homepage', $productionCompany),
-                    'logo'           => $tmdb->image('logo', $productionCompany),
+                    'description' => $tmdb->ifExists('description', $productionCompany),
+                    'name' => $productionCompany['name'],
+                    'headquarters' => $tmdb->ifExists('headquarters', $productionCompany),
+                    'homepage' => $tmdb->ifExists('homepage', $productionCompany),
+                    'logo' => $tmdb->image('logo', $productionCompany),
                     'origin_country' => $tmdb->ifExists('origin_country', $productionCompany),
                 ];
                 Company::updateOrCreate(['id' => $productionCompany['id']], $productionCompanyArray)->tv()->syncWithoutDetaching([$this->tv['id']]);
@@ -82,10 +82,10 @@ class ProcessTvJob implements ShouldQueue
                 }
 
                 $networkArray = [
-                    'headquarters'   => $tmdb->ifExists('headquarters', $network),
-                    'homepage'       => $tmdb->ifExists('homepage', $network),
-                    'logo'           => $logo,
-                    'name'           => $network['name'],
+                    'headquarters' => $tmdb->ifExists('headquarters', $network),
+                    'homepage' => $tmdb->ifExists('homepage', $network),
+                    'logo' => $logo,
+                    'name' => $network['name'],
                     'origin_country' => $network['origin_country'],
                 ];
                 Network::updateOrCreate(['id' => $network['id']], $networkArray)->tv()->syncWithoutDetaching([$this->id]);
@@ -111,7 +111,7 @@ class ProcessTvJob implements ShouldQueue
                     ->tv()
                     ->syncWithoutDetaching([$this->tv['id'] => [
                         'department' => $crew['department'] ?? null,
-                        'job'        => $crew['job'] ?? null,
+                        'job' => $crew['job'] ?? null,
                     ]]);
             }
         }
@@ -121,12 +121,12 @@ class ProcessTvJob implements ShouldQueue
             $season = $client->getData();
             if (isset($season['season_number'])) {
                 $seasonArray = [
-                    'air_date'      => $tmdb->ifExists('air_date', $season),
-                    'poster'        => $tmdb->image('poster', $season),
-                    'name'          => $tmdb->ifExists('name', $season),
-                    'overview'      => $tmdb->ifExists('overview', $season),
+                    'air_date' => $tmdb->ifExists('air_date', $season),
+                    'poster' => $tmdb->image('poster', $season),
+                    'name' => $tmdb->ifExists('name', $season),
+                    'overview' => $tmdb->ifExists('overview', $season),
                     'season_number' => \sprintf('%02d', $season['season_number']),
-                    'tv_id'         => $this->id,
+                    'tv_id' => $this->id,
                 ];
 
                 Season::updateOrCreate(['id' => $season['id']], $seasonArray)->tv();
@@ -136,17 +136,17 @@ class ProcessTvJob implements ShouldQueue
                     $episode = $client->getData();
                     if (isset($episode['episode_number'])) {
                         $episodeArray = [
-                            'tv_id'           => $this->id,
-                            'air_date'        => $tmdb->ifExists('air_date', $episode),
-                            'name'            => Str::limit($tmdb->ifExists('name', $episode), 200),
-                            'episode_number'  => \sprintf('%02d', $episode['episode_number']),
-                            'overview'        => $tmdb->ifExists('overview', $episode),
-                            'still'           => $tmdb->image('still', $episode),
+                            'tv_id' => $this->id,
+                            'air_date' => $tmdb->ifExists('air_date', $episode),
+                            'name' => Str::limit($tmdb->ifExists('name', $episode), 200),
+                            'episode_number' => \sprintf('%02d', $episode['episode_number']),
+                            'overview' => $tmdb->ifExists('overview', $episode),
+                            'still' => $tmdb->image('still', $episode),
                             'production_code' => $episode['production_code'],
-                            'season_number'   => \sprintf('%02d', $episode['season_number']),
-                            'vote_average'    => $episode['vote_average'],
-                            'vote_count'      => $episode['vote_count'],
-                            'season_id'       => $season['id'],
+                            'season_number' => \sprintf('%02d', $episode['season_number']),
+                            'vote_average' => $episode['vote_average'],
+                            'vote_count' => $episode['vote_count'],
+                            'season_id' => $season['id'],
                         ];
 
                         Episode::updateOrCreate(['id' => $episode['id']], $episodeArray)->season();
@@ -177,7 +177,7 @@ class ProcessTvJob implements ShouldQueue
                             ->season()
                             ->syncWithoutDetaching([$season['id'] => [
                                 'department' => $season['department'] ?? null,
-                                'job'        => $season['job'] ?? null,
+                                'job' => $season['job'] ?? null,
                             ]]);
                         Person::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
                     }

@@ -45,12 +45,12 @@ class BackupPanel extends Component
     {
         $this->backupStatuses = Cache::remember('backup-statuses', now()->addSeconds(4), fn () => BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
             ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
-                'name'      => $backupDestinationStatus->backupDestination()->backupName(),
-                'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
+                'name' => $backupDestinationStatus->backupDestination()->backupName(),
+                'disk' => $backupDestinationStatus->backupDestination()->diskName(),
                 'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
-                'healthy'   => $backupDestinationStatus->isHealthy(),
-                'amount'    => $backupDestinationStatus->backupDestination()->backups()->count(),
-                'newest'    => $backupDestinationStatus->backupDestination()->newestBackup() !== null
+                'healthy' => $backupDestinationStatus->isHealthy(),
+                'amount' => $backupDestinationStatus->backupDestination()->backups()->count(),
+                'newest' => $backupDestinationStatus->backupDestination()->newestBackup() !== null
                     ? $backupDestinationStatus->backupDestination()->newestBackup()->date()->diffForHumans()
                     : 'No backups present',
                 'usedStorage' => Format::humanReadableSize($backupDestinationStatus->backupDestination()->usedStorage()),
@@ -154,11 +154,11 @@ class BackupPanel extends Component
         $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
         $downloadHeaders = [
-            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-Type'        => 'application/zip',
-            'Content-Length'      => $size,
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-Type' => 'application/zip',
+            'Content-Length' => $size,
             'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
-            'Pragma'              => 'public',
+            'Pragma' => 'public',
         ];
 
         return response()->stream(function () use ($backup) {

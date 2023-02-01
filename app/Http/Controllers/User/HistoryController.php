@@ -37,7 +37,7 @@ class HistoryController extends Controller
             ->first();
 
         return \view('user.history.index', [
-            'user'    => $user,
+            'user' => $user,
             'history' => $history,
         ]);
     }

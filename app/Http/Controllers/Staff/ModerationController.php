@@ -44,10 +44,10 @@ class ModerationController extends Controller
         $rejected = Torrent::with(['user', 'category', 'type'])->rejected()->get();
 
         return \view('Staff.moderation.index', [
-            'current'   => $current,
-            'pending'   => $pending,
+            'current' => $current,
+            'pending' => $pending,
             'postponed' => $postponed,
-            'rejected'  => $rejected,
+            'rejected' => $rejected,
         ]);
     }
 
@@ -69,10 +69,10 @@ class ModerationController extends Controller
                 ->withInput()
                 ->withErrors(
                     match ($torrent->status) {
-                        0       => 'Torrent already pending.',
-                        1       => 'Torrent already approved.',
-                        2       => 'Torrent already rejected.',
-                        3       => 'Torrent already postponed.',
+                        0 => 'Torrent already pending.',
+                        1 => 'Torrent already approved.',
+                        2 => 'Torrent already rejected.',
+                        3 => 'Torrent already postponed.',
                         default => 'Invalid moderation status.'
                     }
                 );
@@ -104,10 +104,10 @@ class ModerationController extends Controller
                 $torrent->markRejected();
 
                 PrivateMessage::create([
-                    'sender_id'   => $staff->id,
+                    'sender_id' => $staff->id,
                     'receiver_id' => $torrent->user_id,
-                    'subject'     => 'Your upload, '.$torrent->name.' ,has been rejected by '.$staff->username,
-                    'message'     => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
+                    'subject' => 'Your upload, '.$torrent->name.' ,has been rejected by '.$staff->username,
+                    'message' => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
 
                 return \to_route('staff.moderation.index')
@@ -117,10 +117,10 @@ class ModerationController extends Controller
                 $torrent->markPostponed();
 
                 PrivateMessage::create([
-                    'sender_id'   => $staff->id,
+                    'sender_id' => $staff->id,
                     'receiver_id' => $torrent->user_id,
-                    'subject'     => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username,
-                    'message'     => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
+                    'subject' => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username,
+                    'message' => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
 
                 return \to_route('staff.moderation.index')

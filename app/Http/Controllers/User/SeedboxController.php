@@ -53,12 +53,12 @@ class SeedboxController extends Controller
         $v = \validator(
             $request->input(),
             [
-                'name'  => [
+                'name' => [
                     'required',
                     'alpha_num',
                     Rule::notIn($seedboxNames),
                 ],
-                'ip'    => [
+                'ip' => [
                     'bail',
                     'required',
                     'ip',
@@ -67,7 +67,7 @@ class SeedboxController extends Controller
             ],
             [
                 'name.not_in' => 'You have already used this seedbox name.',
-                'ip.not_in'   => 'You have already registered this seedbox IP.',
+                'ip.not_in' => 'You have already registered this seedbox IP.',
             ]
         );
 

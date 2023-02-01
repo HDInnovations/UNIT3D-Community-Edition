@@ -32,9 +32,9 @@ class UserSearch extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'search'  => ['except' => ''],
-        'show'    => ['except' => false],
-        'page'    => ['except' => 1],
+        'search' => ['except' => ''],
+        'show' => ['except' => false],
+        'page' => ['except' => 1],
         'perPage' => ['except' => ''],
     ];
 

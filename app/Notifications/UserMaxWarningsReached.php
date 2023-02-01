@@ -47,8 +47,8 @@ class UserMaxWarningsReached extends Notification
     {
         return [
             'title' => 'Max Hit and Run Warnings Reached!',
-            'body'  => 'You have hit the limit on active Hit and Run Warnings! Your download privilliges have been revoked!',
-            'url'   => \sprintf('/users/%s', $this->user->username),
+            'body' => 'You have hit the limit on active Hit and Run Warnings! Your download privilliges have been revoked!',
+            'url' => \sprintf('/users/%s', $this->user->username),
         ];
     }
 }

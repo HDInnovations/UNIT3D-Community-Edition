@@ -24,7 +24,7 @@ class ChatBotControllerTest extends TestCase
             'group_id' => fn () => Group::factory()->create([
                 'is_owner' => true,
                 'is_admin' => true,
-                'is_modo'  => true,
+                'is_modo' => true,
             ])->id,
         ]);
     }
@@ -117,27 +117,27 @@ class ChatBotControllerTest extends TestCase
         $bot = Bot::factory()->create();
 
         $response = $this->actingAs($user)->patch(route('staff.bots.update', ['id' => $bot->id]), [
-            'position'     => $bot->position,
-            'name'         => $bot->name,
-            'command'      => $bot->command,
-            'color'        => $bot->color,
-            'icon'         => $bot->icon,
-            'emoji'        => $bot->emoji,
-            'info'         => $bot->info,
-            'about'        => $bot->about,
-            'help'         => $bot->help,
-            'active'       => $bot->active,
+            'position' => $bot->position,
+            'name' => $bot->name,
+            'command' => $bot->command,
+            'color' => $bot->color,
+            'icon' => $bot->icon,
+            'emoji' => $bot->emoji,
+            'info' => $bot->info,
+            'about' => $bot->about,
+            'help' => $bot->help,
+            'active' => $bot->active,
             'is_protected' => $bot->is_protected,
             'is_triviabot' => $bot->is_triviabot,
-            'is_nerdbot'   => $bot->is_nerdbot,
+            'is_nerdbot' => $bot->is_nerdbot,
             'is_systembot' => $bot->is_systembot,
             'is_casinobot' => $bot->is_casinobot,
-            'is_betbot'    => $bot->is_betbot,
-            'uploaded'     => $bot->uploaded,
-            'downloaded'   => $bot->downloaded,
-            'fl_tokens'    => $bot->fl_tokens,
-            'seedbonus'    => $bot->seedbonus,
-            'invites'      => $bot->invites,
+            'is_betbot' => $bot->is_betbot,
+            'uploaded' => $bot->uploaded,
+            'downloaded' => $bot->downloaded,
+            'fl_tokens' => $bot->fl_tokens,
+            'seedbonus' => $bot->seedbonus,
+            'invites' => $bot->invites,
         ]);
 
         $response->assertRedirect(route('staff.bots.edit', ['id' => $bot->id]));

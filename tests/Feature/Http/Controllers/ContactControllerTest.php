@@ -35,9 +35,9 @@ class ContactControllerTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('contact.store'), [
-            'email'        => 'foo@bar.com',
+            'email' => 'foo@bar.com',
             'contact-name' => 'Foo Bar',
-            'message'      => 'Hello, world!',
+            'message' => 'Hello, world!',
         ]);
 
         $response->assertRedirect(route('home.index'))

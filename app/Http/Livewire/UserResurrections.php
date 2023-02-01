@@ -35,11 +35,11 @@ class UserResurrections extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'rewarded'          => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
+        'perPage' => ['except' => ''],
+        'name' => ['except' => ''],
+        'rewarded' => ['except' => 'any'],
+        'sortField' => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
     ];
 
     final public function mount($userId): void

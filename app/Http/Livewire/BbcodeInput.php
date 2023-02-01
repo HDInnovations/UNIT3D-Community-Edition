@@ -49,7 +49,7 @@ class BbcodeInput extends Component
     {
         return \view('livewire.bbcode-input', [
             'contentHtml' => $this->contentHtml,
-            'label'       => $this->label,
+            'label' => $this->label,
         ]);
     }
 }

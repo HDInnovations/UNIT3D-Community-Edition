@@ -62,10 +62,10 @@ class ReportController extends Controller
 
         // Send Private Message
         PrivateMessage::create([
-            'sender_id'   => $staff->id,
+            'sender_id' => $staff->id,
             'receiver_id' => $report->reporter_id,
-            'subject'     => 'Your Report Has A New Verdict',
-            'message'     => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,
+            'subject' => 'Your Report Has A New Verdict',
+            'message' => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,
         ]);
 
         return \to_route('staff.reports.index')

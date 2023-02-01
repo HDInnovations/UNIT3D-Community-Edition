@@ -86,7 +86,7 @@ class RegisterController extends Controller
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => [
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -99,7 +99,7 @@ class RegisterController extends Controller
                 $v = \validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
-                    'email'    => [
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -107,21 +107,21 @@ class RegisterController extends Controller
                         'unique:users',
                         new EmailBlacklist(),
                     ],
-                    'captcha'  => 'hiddencaptcha',
+                    'captcha' => 'hiddencaptcha',
                 ]);
             }
         } elseif (! \config('captcha.enabled')) {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:8,16',
-                'email'    => 'required|string|email|max:70|unique:users',
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         } else {
             $v = \validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:6,16',
-                'email'    => 'required|string|email|max:70|unique:users',
-                'captcha'  => 'hiddencaptcha',
+                'email' => 'required|string|email|max:70|unique:users',
+                'captcha' => 'hiddencaptcha',
             ]);
         }
 

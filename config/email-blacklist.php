@@ -43,9 +43,9 @@ return [
     |         Example: "example.com|example.net|foobar.com".
     |
     */
-    'enabled'     => true,
-    'source'      => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
-    'cache-key'   => 'email.domains.blacklist',
+    'enabled' => true,
+    'source' => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
+    'cache-key' => 'email.domains.blacklist',
     'auto-update' => true,
-    'append'      => null,
+    'append' => null,
 ];

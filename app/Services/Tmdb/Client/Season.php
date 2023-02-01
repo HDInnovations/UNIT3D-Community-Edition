@@ -25,16 +25,16 @@ class Season
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
+                'base_uri' => self::API_BASE_URI,
+                'verify' => false,
                 'http_errors' => false,
-                'headers'     => [
+                'headers' => [
                     'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
+                    'Accept' => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.meta_locale'),
+                    'api_key' => \config('api-keys.tmdb'),
+                    'language' => \config('app.meta_locale'),
                     'append_to_response' => 'videos,images,credits,external_ids',
                 ],
             ]

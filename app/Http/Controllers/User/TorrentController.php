@@ -37,7 +37,7 @@ class TorrentController extends Controller
             ->first();
 
         return \view('user.torrent.index', [
-            'user'    => $user,
+            'user' => $user,
             'history' => $history,
         ]);
     }

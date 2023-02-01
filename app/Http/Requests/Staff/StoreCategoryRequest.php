@@ -31,11 +31,11 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => 'required|string',
-            'position'   => 'required|numeric',
-            'icon'       => 'required|string',
-            'meta'       => 'required|string|in:movie,tv,game,music,no|exclude',
-            'image'      => 'max:10240',
+            'name' => 'required|string',
+            'position' => 'required|numeric',
+            'icon' => 'required|string',
+            'meta' => 'required|string|in:movie,tv,game,music,no|exclude',
+            'image' => 'max:10240',
         ];
     }
 }

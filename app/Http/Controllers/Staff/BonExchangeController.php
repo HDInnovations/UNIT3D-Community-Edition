@@ -44,10 +44,10 @@ class BonExchangeController extends Controller
     public function store(StoreBonExchangeRequest $request): \Illuminate\Http\RedirectResponse
     {
         BonExchange::create([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
+            'upload' => $request->type === 'upload',
+            'download' => $request->type === 'download',
             'personal_freeleech' => $request->type === 'personal_freeleech',
-            'upload'             => $request->type === 'invite',
+            'upload' => $request->type === 'invite',
         ]
         + $request->validated());
 
@@ -71,10 +71,10 @@ class BonExchangeController extends Controller
     public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         BonExchange::where('id', '=', $id)->update([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
+            'upload' => $request->type === 'upload',
+            'download' => $request->type === 'download',
             'personal_freeleech' => $request->type === 'personal_freeleech',
-            'upload'             => $request->type === 'invite',
+            'upload' => $request->type === 'invite',
         ]
         + $request->validated());
 

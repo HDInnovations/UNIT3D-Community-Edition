@@ -28,7 +28,7 @@ class FollowControllerTest extends TestCase
             ->assertSessionHas('success', sprintf('You are no longer following %s', $userToFollow->username));
 
         $this->assertDatabaseMissing('follows', [
-            'user_id'   => $user->id,
+            'user_id' => $user->id,
             'target_id' => $userToFollow->id,
         ]);
     }

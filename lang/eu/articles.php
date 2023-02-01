@@ -12,8 +12,8 @@
  */
 
 return [
-    'articles'      => 'artikuluak',
+    'articles' => 'artikuluak',
     'meta-articles' => 'Aztarnariak eta komunitateari buruzko artikuluak eta berriak',
-    'published-at'  => 'Argitaratua On',
-    'read-more'     => 'Irakurri gehiago',
+    'published-at' => 'Argitaratua On',
+    'read-more' => 'Irakurri gehiago',
 ];

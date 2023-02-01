@@ -5,7 +5,8 @@ use App\Models\Group;
 use App\Models\UserPrivacy;
 use Illuminate\Database\Migrations\Migration;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -43,7 +44,7 @@ return new class () extends Migration {
 
         $migrate = fn ($groups) => array_keys(array_filter(
             $groups,
-            fn ($groupId, $isAllowed) => !$isAllowed && \in_array($groupId, $allowedGroups),
+            fn ($groupId, $isAllowed) => ! $isAllowed && \in_array($groupId, $allowedGroups),
             ARRAY_FILTER_USE_BOTH
         ));
 

@@ -15,11 +15,11 @@ class BanFactory extends Factory
     public function definition(): array
     {
         return [
-            'owned_by'     => fn () => User::factory()->create()->id,
-            'created_by'   => fn () => User::factory()->create()->id,
-            'ban_reason'   => $this->faker->text(),
+            'owned_by' => fn () => User::factory()->create()->id,
+            'created_by' => fn () => User::factory()->create()->id,
+            'ban_reason' => $this->faker->text(),
             'unban_reason' => $this->faker->text(),
-            'removed_at'   => $this->faker->dateTime(),
+            'removed_at' => $this->faker->dateTime(),
         ];
     }
 }

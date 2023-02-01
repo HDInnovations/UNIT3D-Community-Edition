@@ -46,15 +46,15 @@ class NewCommentTag extends Notification implements ShouldQueue
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                    'url'   => '/torrents/'.$this->comment->commentable->id,
+                    'body' => $this->comment->user->username.' has tagged you in an comment on Torrent '.$this->comment->commentable->name,
+                    'url' => '/torrents/'.$this->comment->commentable->id,
                 ];
             }
 
             return [
                 'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->commentable->id,
+                'body' => 'Anonymous has tagged you in an comment on Torrent '.$this->comment->commentable->name,
+                'url' => '/torrents/'.$this->comment->commentable->id,
             ];
         }
 
