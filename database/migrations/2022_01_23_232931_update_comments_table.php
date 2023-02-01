@@ -23,37 +23,37 @@ return new class() extends Migration
         foreach ($comments as $comment) {
             if ($comment->torrent_id !== null) {
                 $comment->commentable_id = $comment->torrent_id;
-                $comment->commentable_type = 'App\Models\Torrent';
+                $comment->commentable_type = \App\Models\Torrent::class;
                 $comment->save();
             }
 
             if ($comment->article_id !== null) {
                 $comment->commentable_id = $comment->article_id;
-                $comment->commentable_type = 'App\Models\Article';
+                $comment->commentable_type = \App\Models\Article::class;
                 $comment->save();
             }
 
             if ($comment->requests_id !== null) {
                 $comment->commentable_id = $comment->requests_id;
-                $comment->commentable_type = 'App\Models\TorrentRequest';
+                $comment->commentable_type = \App\Models\TorrentRequest::class;
                 $comment->save();
             }
 
             if ($comment->collection_id !== null) {
                 $comment->commentable_id = $comment->collection_id;
-                $comment->commentable_type = 'App\Models\Collection';
+                $comment->commentable_type = \App\Models\Collection::class;
                 $comment->save();
             }
 
             if ($comment->playlist_id !== null) {
                 $comment->commentable_id = $comment->playlist_id;
-                $comment->commentable_type = 'App\Models\Playlist';
+                $comment->commentable_type = \App\Models\Playlist::class;
                 $comment->save();
             }
 
             if ($comment->ticket_id !== null) {
                 $comment->commentable_id = $comment->ticket_id;
-                $comment->commentable_type = 'App\Models\Ticket';
+                $comment->commentable_type = \App\Models\Ticket::class;
                 $comment->save();
             }
         }
