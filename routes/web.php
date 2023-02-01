@@ -36,7 +36,7 @@ Route::middleware('language')->group(function () {
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('guest')->group(['before' => 'auth',], function () {
+    Route::middleware('guest')->group(['before' => 'auth'], function () {
         // Activation
         Route::get('/activate/{token}', [App\Http\Controllers\Auth\ActivationController::class, 'activate'])->name('activate');
 

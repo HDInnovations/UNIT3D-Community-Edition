@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+
 /**
  * NOTICE OF LICENSE.
  *
