@@ -93,9 +93,10 @@ class LaravelLogViewer extends Component
             }
         }
 
-        $currentEntries = $entries->forPage($this->page, $this->perPage);
+        $groupedEntries = $entries->groupBy(fn ($entry) => $entry['message'].'-'.$entry['exception'].'-'.$entry['in'].'-'.$entry['line']);
+        $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
 
-        return new LengthAwarePaginator($currentEntries, $entries->count(), $this->perPage, $this->page);
+        return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
