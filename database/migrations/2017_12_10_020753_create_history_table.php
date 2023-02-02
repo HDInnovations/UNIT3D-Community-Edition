@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('history', function (Blueprint $table) {
+        Schema::create('history', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->index('history_user_id_foreign');
             $table->string('agent')->nullable();

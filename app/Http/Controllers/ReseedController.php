@@ -45,17 +45,17 @@ class ReseedController extends Controller
                 User::find($r->user_id)->notify(new NewReseedRequest($torrent));
             }
 
-            $torrentUrl = \href_torrent($torrent);
+            $torrentUrl = href_torrent($torrent);
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
+                sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
             );
 
-            return \to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
 
-        return \to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrent', ['id' => $torrent->id])
             ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
 }

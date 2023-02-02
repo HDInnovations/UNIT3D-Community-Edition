@@ -28,7 +28,7 @@ class Bencode
 
         $result = '';
         while ($pos < $len && $s[$pos] != 'e') {
-            if (\is_numeric($s[$pos]) || $s[$pos] = '-') {
+            if (is_numeric($s[$pos]) || $s[$pos] = '-') {
                 $result .= $s[$pos];
             } else {
                 // We have an invalid character in the string.
@@ -56,7 +56,7 @@ class Bencode
         $lengthStr = '';
 
         while ($pos < $len && $s[$pos] != ':') {
-            if (\is_numeric($s[$pos])) {
+            if (is_numeric($s[$pos])) {
                 $lengthStr .= $s[$pos];
             } else {
                 // Non-numeric character, we return null in this case.
@@ -72,7 +72,7 @@ class Bencode
         }
 
         $pos++;
-        if (! safe_int($lengthStr)) {
+        if ( ! safe_int($lengthStr)) {
             return;
         }
 
@@ -104,7 +104,7 @@ class Bencode
             return self::parse_integer($s, $pos);
         }
 
-        if (\is_numeric($c)) {
+        if (is_numeric($c)) {
             return self::parse_string($s, $pos);
         }
 
@@ -114,7 +114,7 @@ class Bencode
             while ($pos < $len && $s[$pos] != 'e') {
                 $key = self::bdecode($s, $pos);
                 $value = self::bdecode($s, $pos);
-                if (\is_null($key) || \is_null($value)) {
+                if (null === $key || null === $value) {
                     return;
                 }
 
@@ -136,7 +136,7 @@ class Bencode
             $pos++;
             while ($pos < $len && $s[$pos] != 'e') {
                 $next = self::bdecode($s, $pos);
-                if (! \is_null($next)) {
+                if (null !== $next) {
                     $list[] = $next;
                 } else {
                     return;
@@ -159,9 +159,9 @@ class Bencode
         if (\is_array($d)) {
             $ret = 'l';
             $isDict = false;
-            if (! isset($d['isDct'])) {
-                foreach (\array_keys($d) as $key) {
-                    if (! \is_int($key)) {
+            if ( ! isset($d['isDct'])) {
+                foreach (array_keys($d) as $key) {
+                    if ( ! \is_int($key)) {
                         $isDict = true;
 
                         break;
@@ -175,7 +175,7 @@ class Bencode
             if ($isDict) {
                 $ret = 'd';
                 // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
-                \ksort($d, SORT_STRING);
+                ksort($d, SORT_STRING);
             }
 
             foreach ($d as $key => $value) {
@@ -184,7 +184,7 @@ class Bencode
                 }
 
                 if (\is_int($value) || \is_float($value)) {
-                    $ret .= \sprintf('i%de', $value);
+                    $ret .= sprintf('i%de', $value);
                 } elseif (\is_string($value)) {
                     $ret .= \strlen($value).':'.$value;
                 } else {
@@ -200,20 +200,20 @@ class Bencode
         }
 
         if (\is_int($d) || \is_float($d)) {
-            return \sprintf('i%de', $d);
+            return sprintf('i%de', $d);
         }
     }
 
     public static function bdecode_file($filename)
     {
-        $f = \file_get_contents($filename, FILE_BINARY);
+        $f = file_get_contents($filename, FILE_BINARY);
 
         return self::bdecode($f);
     }
 
     public static function get_infohash($t): string
     {
-        return \sha1(self::bencode($t['info']));
+        return sha1(self::bencode($t['info']));
     }
 
     public static function get_meta($t): array

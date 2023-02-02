@@ -28,7 +28,7 @@ class NoteController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.note.index');
+        return view('Staff.note.index');
     }
 
     /**
@@ -42,7 +42,7 @@ class NoteController extends Controller
             'message'  => $request->message,
         ]);
 
-        return \to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('Note Has Successfully Posted');
     }
 
@@ -57,7 +57,7 @@ class NoteController extends Controller
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

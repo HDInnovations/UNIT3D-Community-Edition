@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->integer('distributor_id')->nullable()->index()->after('resolution_id');
             $table->integer('region_id')->nullable()->index()->after('distributor_id');
         });

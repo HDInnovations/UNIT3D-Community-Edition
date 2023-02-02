@@ -34,7 +34,7 @@ class UserObserver
     public function saved(User $user): void
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
-        \cache()->forget('cachedUser.'.$user->id);
+        cache()->forget('cachedUser.'.$user->id);
     }
 
     /**

@@ -25,7 +25,7 @@ class VersionController extends Controller
 
     public function __construct()
     {
-        $this->versionController = \config('unit3d.version');
+        $this->versionController = config('unit3d.version');
     }
 
     /**
@@ -37,11 +37,11 @@ class VersionController extends Controller
     public function checkVersion(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $client = new Client();
-        $response = \json_decode((string) $client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode((string) $client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), true, 512, JSON_THROW_ON_ERROR);
         $lastestVersion = $response[0]['tag_name'];
 
-        return \response([
-            'updated'       => ! \version_compare($this->versionController, $lastestVersion, '<'),
+        return response([
+            'updated'       => ! version_compare($this->versionController, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

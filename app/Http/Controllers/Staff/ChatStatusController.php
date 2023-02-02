@@ -38,7 +38,7 @@ class ChatStatusController extends Controller
     {
         $chatstatuses = $this->chatRepository->statuses();
 
-        return \view('Staff.chat.status.index', [
+        return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
         ]);
     }
@@ -48,7 +48,7 @@ class ChatStatusController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.chat.status.create');
+        return view('Staff.chat.status.create');
     }
 
     /**
@@ -58,7 +58,7 @@ class ChatStatusController extends Controller
     {
         ChatStatus::create($request->validated());
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
     }
 
@@ -69,7 +69,7 @@ class ChatStatusController extends Controller
     {
         $chatstatus = ChatStatus::findOrFail($id);
 
-        return \view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
+        return view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
     }
 
     /**
@@ -79,7 +79,7 @@ class ChatStatusController extends Controller
     {
         ChatStatus::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
     }
 
@@ -93,7 +93,7 @@ class ChatStatusController extends Controller
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

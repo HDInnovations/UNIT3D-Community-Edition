@@ -27,7 +27,7 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(6);
 
-        return \view('article.index', ['articles' => $articles]);
+        return view('article.index', ['articles' => $articles]);
     }
 
     /**
@@ -37,6 +37,6 @@ class ArticleController extends Controller
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return \view('article.show', ['article' => $article]);
+        return view('article.show', ['article' => $article]);
     }
 }

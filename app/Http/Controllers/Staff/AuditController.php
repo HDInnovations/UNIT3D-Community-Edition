@@ -32,7 +32,7 @@ class AuditController extends Controller
             $audit->values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR);
         }
 
-        return \view('Staff.audit.index', ['audits' => $audits]);
+        return view('Staff.audit.index', ['audits' => $audits]);
     }
 
     /**
@@ -44,7 +44,7 @@ class AuditController extends Controller
     {
         Audit::findOrFail($id)->delete();
 
-        return \to_route('staff.audits.index')
+        return to_route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

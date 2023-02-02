@@ -46,7 +46,7 @@ class AutoWarning extends Command
      */
     public function handle(): void
     {
-        if (\config('hitrun.enabled') === true) {
+        if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
@@ -54,12 +54,12 @@ class AutoWarning extends Command
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<', \config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
+                ->where('seedtime', '<', config('hitrun.seedtime'))
+                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
                 ->get();
 
             foreach ($hitrun as $hr) {
-                if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (\config('hitrun.buffer') / 100))) {
+                if ( ! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
                         ->where('user_id', '=', $hr->user->id)
@@ -70,8 +70,8 @@ class AutoWarning extends Command
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = '1';
                         $warning->torrent = $hr->torrent->id;
-                        $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
-                        $warning->expires_on = $carbon->copy()->addDays(\config('hitrun.expire'));
+                        $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
+                        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
                         $warning->active = '1';
                         $warning->save();
 
@@ -89,14 +89,14 @@ class AutoWarning extends Command
             }
 
             // Calculate User Warning Count and Disable DL Priv If Required.
-            $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
+            $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
             foreach ($warnings as $warning) {
                 if ($warning->warneduser->can_download === 1) {
                     $warning->warneduser->can_download = 0;
                     $warning->warneduser->save();
 
-                    \cache()->forget('user:'.$warning->warneduser->passkey);
+                    cache()->forget('user:'.$warning->warneduser->passkey);
                 }
             }
         }

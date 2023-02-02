@@ -28,7 +28,7 @@ class SeedboxController extends Controller
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
-        return \view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
+        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
     }
 
     /**
@@ -40,7 +40,7 @@ class SeedboxController extends Controller
     {
         Seedbox::findOrFail($id)->delete();
 
-        return \to_route('staff.seedboxes.index')
+        return to_route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

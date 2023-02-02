@@ -10,9 +10,9 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->dateTime('fl_until')->after('bumped_at')->nullable();
             $table->dateTime('du_until')->after('fl_until')->nullable();
             $table->index(['fl_until', 'du_until']);

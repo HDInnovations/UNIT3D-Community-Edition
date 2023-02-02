@@ -32,12 +32,12 @@ class UpdateGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'             => 'required|string',
-            'position'         => 'required|integer',
-            'level'            => 'required|integer',
-            'download_slots'   => 'integer',
-            'color'            => 'required',
-            'icon'             => 'required',
+            'name'           => 'required|string',
+            'position'       => 'required|integer',
+            'level'          => 'required|integer',
+            'download_slots' => 'integer',
+            'color'          => 'required',
+            'icon'           => 'required',
             'effect',
             'is_internal'      => 'required|boolean',
             'is_modo'          => 'required|boolean',

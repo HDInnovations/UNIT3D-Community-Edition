@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rss extends Model
 {
+    use Auditable;
     use HasFactory;
     use SoftDeletes;
-    use Auditable;
 
     /**
      * The Database Table Used By The Model.
@@ -85,7 +85,7 @@ class Rss extends Model
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
 
-            return (object) \array_merge($expected, $this->json_torrent);
+            return (object) array_merge($expected, $this->json_torrent);
         }
 
         return false;

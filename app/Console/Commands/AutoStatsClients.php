@@ -52,8 +52,8 @@ class AutoStatsClients extends Command
             ->mapWithKeys(fn ($item, $key) => [$item['agent'] => $item['count']])
             ->toArray();
 
-        if (! empty($clients)) {
-            \cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
+        if ( ! empty($clients)) {
+            cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 
         $this->comment('Automated Client Stats Completed.');

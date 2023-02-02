@@ -30,7 +30,7 @@ class ChatBotController extends Controller
     {
         $bots = Bot::oldest('position')->get();
 
-        return \view('Staff.chat.bot.index', [
+        return view('Staff.chat.bot.index', [
             'bots' => $bots,
         ]);
     }
@@ -43,9 +43,9 @@ class ChatBotController extends Controller
         $user = $request->user();
         $bot = Bot::findOrFail($id);
 
-        return \view('Staff.chat.bot.edit', [
-            'user'           => $user,
-            'bot'            => $bot,
+        return view('Staff.chat.bot.edit', [
+            'user' => $user,
+            'bot'  => $bot,
         ]);
     }
 
@@ -56,7 +56,7 @@ class ChatBotController extends Controller
     {
         Bot::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.bots.edit', ['id' => $id])
+        return to_route('staff.bots.edit', ['id' => $id])
             ->withSuccess("The Bot Has Been Updated");
     }
 
@@ -70,7 +70,7 @@ class ChatBotController extends Controller
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
 
-        return \to_route('staff.bots.index')
+        return to_route('staff.bots.index')
             ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
@@ -83,7 +83,7 @@ class ChatBotController extends Controller
         $bot->active = 0;
         $bot->save();
 
-        return \to_route('staff.bots.index')
+        return to_route('staff.bots.index')
             ->withSuccess('The Bot Has Been Disabled');
     }
 
@@ -96,7 +96,7 @@ class ChatBotController extends Controller
         $bot->active = 1;
         $bot->save();
 
-        return \to_route('staff.bots.index')
+        return to_route('staff.bots.index')
             ->withSuccess('The Bot Has Been Enabled');
     }
 }

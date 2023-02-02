@@ -31,7 +31,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all()->sortBy('position');
 
-        return \view('Staff.category.index', ['categories' => $categories]);
+        return view('Staff.category.index', ['categories' => $categories]);
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.category.create');
+        return view('Staff.category.create');
     }
 
     /**
@@ -49,8 +49,8 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'category-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
@@ -63,7 +63,7 @@ class CategoryController extends Controller
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 
-        return \to_route('staff.categories.index')
+        return to_route('staff.categories.index')
             ->withSuccess('Category Successfully Added');
     }
 
@@ -74,7 +74,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return \view('Staff.category.edit', ['category' => $category]);
+        return view('Staff.category.edit', ['category' => $category]);
     }
 
     /**
@@ -84,8 +84,8 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'category-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
@@ -98,7 +98,7 @@ class CategoryController extends Controller
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 
-        return \to_route('staff.categories.index')
+        return to_route('staff.categories.index')
             ->withSuccess('Category Successfully Modified');
     }
 
@@ -112,7 +112,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return \to_route('staff.categories.index')
+        return to_route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');
     }
 }

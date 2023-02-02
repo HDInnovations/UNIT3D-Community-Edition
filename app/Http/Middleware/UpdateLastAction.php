@@ -22,11 +22,11 @@ class UpdateLastAction
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
-        if (! $user = $request->user()) {
+        if ( ! $user = $request->user()) {
             return $next($request);
         }
 
-        $user->last_action = \now();
+        $user->last_action = now();
         $user->save();
 
         return $next($request);

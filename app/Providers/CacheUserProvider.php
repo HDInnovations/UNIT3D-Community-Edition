@@ -34,8 +34,8 @@ class CacheUserProvider extends EloquentUserProvider
     {
         $model = CacheUser::user($identifier);
 
-        if (! $model) {
-            return null;
+        if ( ! $model) {
+            return;
         }
 
         $rememberToken = $model->getRememberToken();

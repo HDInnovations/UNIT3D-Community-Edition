@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+    use Auditable;
     use HasFactory;
     use Moderatable;
-    use Auditable;
 
     /**
      * Belongs To A User.

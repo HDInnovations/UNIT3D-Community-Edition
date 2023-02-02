@@ -42,6 +42,6 @@ class TorrentPeerController extends Controller
                 return $peer;
             });
 
-        return \view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
+        return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
 }

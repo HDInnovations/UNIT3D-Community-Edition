@@ -95,8 +95,8 @@ class UserTorrents extends Component
             ->join(
                 'torrents',
                 fn ($join) => $join
-                ->on('history.torrent_id', '=', 'torrents.id')
-                ->where('history.user_id', '=', $this->user->id)
+                    ->on('history.torrent_id', '=', 'torrents.id')
+                    ->where('history.user_id', '=', $this->user->id)
             )
             ->select(
                 'history.torrent_id',
@@ -130,25 +130,25 @@ class UserTorrents extends Component
             ->when(
                 $this->name,
                 fn ($query) => $query
-                ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
+                    ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
-                ->when(
-                    $this->unsatisfied === 'exclude',
-                    fn ($query) => $query
+            ->when(
+                $this->unsatisfied === 'exclude',
+                fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                        ->where('seedtime', '>', \config('hitrun.seedtime'))
-                        ->orWhere('immune', '=', 1)
-                        ->orWhereRaw('actual_downloaded < (torrents.size * ? / 100)', [\config('hitrun.buffer')])
+                            ->where('seedtime', '>', config('hitrun.seedtime'))
+                            ->orWhere('immune', '=', 1)
+                            ->orWhereRaw('actual_downloaded < (torrents.size * ? / 100)', [config('hitrun.buffer')])
                     )
-                )
-                ->when(
-                    $this->unsatisfied === 'include',
-                    fn ($query) => $query
-                    ->where('seedtime', '<', \config('hitrun.seedtime'))
+            )
+            ->when(
+                $this->unsatisfied === 'include',
+                fn ($query) => $query
+                    ->where('seedtime', '<', config('hitrun.seedtime'))
                     ->where('immune', '=', 0)
-                    ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [\config('hitrun.buffer')])
-                )
+                    ->whereRaw('actual_downloaded > (torrents.size * ? / 100)', [config('hitrun.buffer')])
+            )
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
             ->when($this->active === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('active', '=', 0)->orWhereNull('active')))
             ->when($this->completed === 'include', fn ($query) => $query->where('seeder', '=', 1))
@@ -163,14 +163,14 @@ class UserTorrents extends Component
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
             ->when($this->downloaded === 'include', fn ($query) => $query->where('history.actual_downloaded', '>', 0))
             ->when($this->downloaded === 'exclude', fn ($query) => $query->where('history.actual_downloaded', '=', 0))
-            ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
+            ->when( ! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-torrents', [
+        return view('livewire.user-torrents', [
             'histories' => $this->history,
         ]);
     }

@@ -20,10 +20,10 @@ trait UsersOnlineTrait
      */
     public function isOnline(): bool
     {
-        if (! $this->last_action) {
+        if ( ! $this->last_action) {
             return false;
         }
 
-        return $this->last_action->gt(\now()->subMinutes(5));
+        return $this->last_action->gt(now()->subMinutes(5));
     }
 }

@@ -11,7 +11,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $allowedGroups = Group::query()
             ->where('is_modo', '=', '0')
@@ -43,7 +43,7 @@ return new class () extends Migration {
 
         $migrate = fn ($groups) => array_keys(array_filter(
             $groups,
-            fn ($groupId, $isAllowed) => !$isAllowed && \in_array($groupId, $allowedGroups),
+            fn ($groupId, $isAllowed) => ! $isAllowed && \in_array($groupId, $allowedGroups),
             ARRAY_FILTER_USE_BOTH
         ));
 

@@ -31,7 +31,7 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(25);
 
-        return \view('Staff.article.index', ['articles' => $articles]);
+        return view('Staff.article.index', ['articles' => $articles]);
     }
 
     /**
@@ -39,7 +39,7 @@ class ArticleController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.article.create');
+        return view('Staff.article.create');
     }
 
     /**
@@ -49,14 +49,14 @@ class ArticleController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
         Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
 
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
 
@@ -67,7 +67,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return \view('Staff.article.edit', ['article' => $article]);
+        return view('Staff.article.edit', ['article' => $article]);
     }
 
     /**
@@ -77,14 +77,14 @@ class ArticleController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
         Article::where('id', '=', $id)->update(['image' => $filename ?? null,] + $request->validated());
 
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }
 
@@ -101,7 +101,7 @@ class ArticleController extends Controller
         }
         $article->delete();
 
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }

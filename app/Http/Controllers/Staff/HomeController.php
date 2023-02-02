@@ -33,18 +33,18 @@ class HomeController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // User Info
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $users = \cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $users = cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
             return DB::table('users')
                 ->selectRaw('count(*) as total')
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
                 ->first();
         });
 
         // Torrent Info
-        $torrents = \cache()->remember('dashboard_torrents', 300, function () {
+        $torrents = cache()->remember('dashboard_torrents', 300, function () {
             return DB::table('torrents')
                 ->selectRaw('count(*) as total')
                 ->selectRaw('count(case when status = 0 then 1 end) as pending')
@@ -54,7 +54,7 @@ class HomeController extends Controller
         });
 
         // Peers Info
-        $peers = \cache()->remember('dashboard_peers', 300, function () {
+        $peers = cache()->remember('dashboard_peers', 300, function () {
             return DB::table('peers')
                 ->selectRaw('count(*) as total')
                 ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
@@ -74,7 +74,7 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = $request->secure() ? SslCertificate::createForHostName(\config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
         } catch (\Exception) {
             $certificate = '';
         }
@@ -90,19 +90,19 @@ class HomeController extends Controller
         // Directory Permissions
         $filePermissions = $systemInformation->directoryPermissions();
 
-        return \view('Staff.dashboard.index', [
-            'users'              => $users,
-            'torrents'           => $torrents,
-            'peers'              => $peers,
-            'reports'            => $reports,
-            'apps'               => $apps,
-            'certificate'        => $certificate,
-            'uptime'             => $uptime,
-            'ram'                => $ram,
-            'disk'               => $disk,
-            'avg'                => $avg,
-            'basic'              => $basic,
-            'file_permissions'   => $filePermissions,
+        return view('Staff.dashboard.index', [
+            'users'            => $users,
+            'torrents'         => $torrents,
+            'peers'            => $peers,
+            'reports'          => $reports,
+            'apps'             => $apps,
+            'certificate'      => $certificate,
+            'uptime'           => $uptime,
+            'ram'              => $ram,
+            'disk'             => $disk,
+            'avg'              => $avg,
+            'basic'            => $basic,
+            'file_permissions' => $filePermissions,
         ]);
     }
 }

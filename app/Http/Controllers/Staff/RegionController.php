@@ -29,7 +29,7 @@ class RegionController extends Controller
     {
         $regions = Region::all()->sortBy('position');
 
-        return \view('Staff.region.index', ['regions' => $regions]);
+        return view('Staff.region.index', ['regions' => $regions]);
     }
 
     /**
@@ -37,7 +37,7 @@ class RegionController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.region.create');
+        return view('Staff.region.create');
     }
 
     /**
@@ -47,8 +47,8 @@ class RegionController extends Controller
     {
         Region::create($request->validated());
 
-        return \to_route('staff.regions.index')
-                ->withSuccess('Region Successfully Added');
+        return to_route('staff.regions.index')
+            ->withSuccess('Region Successfully Added');
     }
 
     /**
@@ -58,7 +58,7 @@ class RegionController extends Controller
     {
         $region = Region::findOrFail($id);
 
-        return \view('Staff.region.edit', ['region' => $region]);
+        return view('Staff.region.edit', ['region' => $region]);
     }
 
     /**
@@ -68,8 +68,8 @@ class RegionController extends Controller
     {
         Region::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.regions.index')
-                ->withSuccess('Region Successfully Modified');
+        return to_route('staff.regions.index')
+            ->withSuccess('Region Successfully Modified');
     }
 
     /**
@@ -91,7 +91,7 @@ class RegionController extends Controller
         $region->torrents()->update($validated);
         $region->delete();
 
-        return \to_route('staff.regions.index')
+        return to_route('staff.regions.index')
             ->withSuccess('Region Successfully Deleted');
     }
 }

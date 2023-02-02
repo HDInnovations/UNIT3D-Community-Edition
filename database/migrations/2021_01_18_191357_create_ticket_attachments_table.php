@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('ticket_attachments', function (Blueprint $table) {
+        Schema::create('ticket_attachments', function (Blueprint $table): void {
             $table->id();
             $table->integer('user_id')->index();
             $table->integer('ticket_id')->index();

@@ -33,18 +33,18 @@ class BackupPassword
      */
     public function __construct(string $path)
     {
-        $this->password = \config('backup.security.password');
+        $this->password = config('backup.security.password');
 
         // If no password is set, just return the backup-path
-        if (! $this->password) {
+        if ( ! $this->password) {
             return $this->path = $path;
         }
 
-        \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
+        consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
 
         $this->makeZip($path);
 
-        \consoleOutput()->info('Successfully applied password and encryption to zip.');
+        consoleOutput()->info('Successfully applied password and encryption to zip.');
     }
 
     /**
@@ -52,7 +52,7 @@ class BackupPassword
      */
     protected function makeZip(string $path): void
     {
-        $encryption = \config('backup.security.encryption');
+        $encryption = config('backup.security.encryption');
 
         $zipArchive = new ZipArchive();
 

@@ -30,7 +30,7 @@ class TypeController extends Controller
     {
         $types = Type::all()->sortBy('position');
 
-        return \view('Staff.type.index', ['types' => $types]);
+        return view('Staff.type.index', ['types' => $types]);
     }
 
     /**
@@ -38,7 +38,7 @@ class TypeController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.type.create');
+        return view('Staff.type.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class TypeController extends Controller
     {
         Type::create($request->validated());
 
-        return \to_route('staff.types.index')
+        return to_route('staff.types.index')
             ->withSuccess('Type Successfully Added');
     }
 
@@ -59,7 +59,7 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
 
-        return \view('Staff.type.edit', ['type' => $type]);
+        return view('Staff.type.edit', ['type' => $type]);
     }
 
     /**
@@ -69,7 +69,7 @@ class TypeController extends Controller
     {
         Type::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.types.index')
+        return to_route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
     }
 
@@ -83,7 +83,7 @@ class TypeController extends Controller
         $type = Type::findOrFail($id);
         $type->delete();
 
-        return \to_route('staff.types.index')
+        return to_route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');
     }
 }

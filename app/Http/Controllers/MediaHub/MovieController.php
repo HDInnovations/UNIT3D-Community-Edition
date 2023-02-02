@@ -24,7 +24,7 @@ class MovieController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('mediahub.movie.index');
+        return view('mediahub.movie.index');
     }
 
     /**
@@ -33,10 +33,10 @@ class MovieController extends Controller
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $personalFreeleech = \cache()->get('personal_freeleech:'.$user->id);
+        $personalFreeleech = cache()->get('personal_freeleech:'.$user->id);
         $movie = Movie::with(['cast', 'collection', 'genres', 'companies'])->findOrFail($id);
 
-        return \view('mediahub.movie.show', [
+        return view('mediahub.movie.show', [
             'movie'              => $movie,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,

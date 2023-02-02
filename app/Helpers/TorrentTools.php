@@ -33,7 +33,7 @@ class TorrentTools
         $result = Bencode::bdecode_file($torrentFile);
 
         // Whitelisted keys
-        $result = \array_intersect_key($result, [
+        $result = array_intersect_key($result, [
             'announce'   => '',
             'comment'    => '',
             'created by' => '',
@@ -41,7 +41,7 @@ class TorrentTools
             'info'       => '',
 
         ]);
-        $result['info'] = \array_intersect_key($result['info'], [
+        $result['info'] = array_intersect_key($result['info'], [
             'files'        => '',
             'length'       => '',
             'name'         => '',
@@ -54,17 +54,17 @@ class TorrentTools
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
-        $result['announce'] = \config('app.url').'/announce/PID';
-        $result['info']['source'] = \config('torrent.source');
+        $result['announce'] = config('app.url').'/announce/PID';
+        $result['info']['source'] = config('torrent.source');
         $result['info']['private'] = 1;
 
-        if (\config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
-            $result['created by'] = \trim($result['created by'], '. ').'. '.\config('torrent.created_by', '');
+        if (config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
+            $result['created by'] = trim($result['created by'], '. ').'. '.config('torrent.created_by', '');
         } else {
-            $result['created by'] = \config('torrent.created_by', '');
+            $result['created by'] = config('torrent.created_by', '');
         }
 
-        $comment = \config('torrent.comment', null);
+        $comment = config('torrent.comment', null);
         if ($comment !== null) {
             $result['comment'] = $comment;
         }
@@ -78,8 +78,8 @@ class TorrentTools
     public static function getFileCount($decodedTorrent): int
     {
         // Multiple file torrent ?
-        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
+        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -91,11 +91,11 @@ class TorrentTools
     public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
-        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $size += $file['length'];
-                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
+                $count = is_countable($file['path']) ? \count($file['path']) : 0;
             }
         } else {
             $size = $decodedTorrent['info']['length'];
@@ -111,10 +111,10 @@ class TorrentTools
     public static function getTorrentFiles($decodedTorrent): array
     {
         $files = [];
-        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
+                $count = is_countable($file['path']) ? \count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
                     if ($i + 1 === $count) {
                         $fname = $dir.$file['path'][$i];
@@ -142,11 +142,11 @@ class TorrentTools
     {
         $filenames = [];
 
-        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
-                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
+                $count = is_countable($file['path']) ? \count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
-                    if (! \in_array($file['path'][$i], $filenames)) {
+                    if ( ! \in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
                     }
                 }
@@ -163,7 +163,7 @@ class TorrentTools
      */
     public static function getTorrentHash($decodedTorrent): string
     {
-        return \sha1(Bencode::bencode($decodedTorrent['info']));
+        return sha1(Bencode::bencode($decodedTorrent['info']));
     }
 
     /**
@@ -172,7 +172,7 @@ class TorrentTools
     public static function getTorrentFileCount($decodedTorrent): int
     {
         if (\array_key_exists('files', $decodedTorrent['info'])) {
-            return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
+            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -183,11 +183,11 @@ class TorrentTools
      */
     public static function getNfo($inputFile): bool|string|null
     {
-        $fileName = \uniqid('', true).'.nfo';
-        $inputFile->move(\getcwd().'/files/tmp/', $fileName);
-        if (\file_exists(\getcwd().'/files/tmp/'.$fileName)) {
-            $fileContent = \file_get_contents(\getcwd().'/files/tmp/'.$fileName);
-            \unlink(\getcwd().'/files/tmp/'.$fileName);
+        $fileName = uniqid('', true).'.nfo';
+        $inputFile->move(getcwd().'/files/tmp/', $fileName);
+        if (file_exists(getcwd().'/files/tmp/'.$fileName)) {
+            $fileContent = file_get_contents(getcwd().'/files/tmp/'.$fileName);
+            unlink(getcwd().'/files/tmp/'.$fileName);
         } else {
             $fileContent = null;
         }
@@ -202,9 +202,9 @@ class TorrentTools
     {
         $result = true;
         if (\strlen((string) $filename) > 255 ||
-            \preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
-            \preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
-            \preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', (string) $filename)) {
+            preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
+            preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
+            preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', (string) $filename)) {
             $result = false;
         }
 
@@ -220,16 +220,16 @@ class TorrentTools
             return null;
         }
 
-        $completeNameI = \strpos($mediainfo, 'Complete name');
+        $completeNameI = strpos($mediainfo, 'Complete name');
         if ($completeNameI !== false) {
-            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            $pathI = strpos($mediainfo, ': ', $completeNameI);
             if ($pathI !== false) {
                 $pathI += 2;
-                $endI = \strpos($mediainfo, "\n", $pathI);
-                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $endI = strpos($mediainfo, "\n", $pathI);
+                $path = substr($mediainfo, $pathI, $endI - $pathI);
                 $newPath = MediaInfo::stripPath($path);
 
-                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
+                return substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
             }
         }
 
@@ -241,6 +241,6 @@ class TorrentTools
      */
     public static function parseKeywords($text): array
     {
-        return \array_filter(\array_unique(\array_map('trim', explode(',', $text))));
+        return array_filter(array_unique(array_map('trim', explode(',', $text))));
     }
 }

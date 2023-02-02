@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('peers', function ($table) {
+        Schema::table('peers', function ($table): void {
             $table->renameColumn('hash', 'info_hash');
         });
     }

@@ -58,8 +58,8 @@ class Peer extends Model
      */
     public function updateConnectableStateIfNeeded(): void
     {
-        if (\config('announce.connectable_check')) {
-            $tmp_ip = \inet_ntop(\pack('A'.\strlen($this->ip), $this->ip));
+        if (config('announce.connectable_check')) {
+            $tmp_ip = inet_ntop(pack('A'.\strlen($this->ip), $this->ip));
             // IPv6 Check
             if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $tmp_ip = '['.$tmp_ip.']';
@@ -75,9 +75,9 @@ class Peer extends Model
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
                 $this->connectable = (int) \is_resource($con);
                 Redis::connection('cache')->set($key, serialize($this->connectable));
-                Redis::connection('cache')->expire($key, \config('announce.connectable_check_interval') + 3600);
+                Redis::connection('cache')->expire($key, config('announce.connectable_check_interval') + 3600);
                 if (\is_resource($con)) {
-                    \fclose($con);
+                    fclose($con);
                 }
             }
         }

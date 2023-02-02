@@ -10,53 +10,53 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('bots', function (Blueprint $table) {
+        Schema::table('bots', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('distributors', function (Blueprint $table) {
+        Schema::table('distributors', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('forums', function (Blueprint $table) {
+        Schema::table('forums', function (Blueprint $table): void {
             $table->dropColumn('last_topic_slug');
         });
 
-        Schema::table('pages', function (Blueprint $table) {
+        Schema::table('pages', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('polls', function (Blueprint $table) {
+        Schema::table('polls', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('regions', function (Blueprint $table) {
+        Schema::table('regions', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('resolutions', function (Blueprint $table) {
+        Schema::table('resolutions', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('topics', function (Blueprint $table) {
+        Schema::table('topics', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
 
-        Schema::table('types', function (Blueprint $table) {
+        Schema::table('types', function (Blueprint $table): void {
             $table->dropColumn('slug');
         });
     }

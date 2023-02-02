@@ -28,7 +28,7 @@ class GiftController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.gift.index');
+        return view('Staff.gift.index');
     }
 
     /**
@@ -48,11 +48,11 @@ class GiftController extends Controller
             'sender_id'   => 1,
             'receiver_id' => $recipient->id,
             'subject'     => 'You Have Received A System Generated Gift',
-            'message'     => \sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
+            'message'     => sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $request->seedbonus, $request->invites, $request->fl_tokens)
         ]);
 
-        return \to_route('staff.gifts.index')
+        return to_route('staff.gifts.index')
             ->withSuccess('Gift Sent');
     }
 }

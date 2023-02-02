@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_privacy', function (Blueprint $table) {
+        Schema::create('user_privacy', function (Blueprint $table): void {
             $table->integer('id', true)->signed();
             $table->integer('user_id')->signed()->unique();
             $table->boolean('show_achievement')->index()->default(1);

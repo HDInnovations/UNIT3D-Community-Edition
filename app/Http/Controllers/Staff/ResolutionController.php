@@ -27,7 +27,7 @@ class ResolutionController extends Controller
     {
         $resolutions = Resolution::all()->sortBy('position');
 
-        return \view('Staff.resolution.index', ['resolutions' => $resolutions]);
+        return view('Staff.resolution.index', ['resolutions' => $resolutions]);
     }
 
     /**
@@ -35,7 +35,7 @@ class ResolutionController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.resolution.create');
+        return view('Staff.resolution.create');
     }
 
     /**
@@ -45,8 +45,8 @@ class ResolutionController extends Controller
     {
         Resolution::create($request->validated());
 
-        return \to_route('staff.resolutions.index')
-                ->withSuccess('Resolution Successfully Added');
+        return to_route('staff.resolutions.index')
+            ->withSuccess('Resolution Successfully Added');
     }
 
     /**
@@ -56,7 +56,7 @@ class ResolutionController extends Controller
     {
         $resolution = Resolution::findOrFail($id);
 
-        return \view('Staff.resolution.edit', ['resolution' => $resolution]);
+        return view('Staff.resolution.edit', ['resolution' => $resolution]);
     }
 
     /**
@@ -66,8 +66,8 @@ class ResolutionController extends Controller
     {
         Resolution::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.resolutions.index')
-                ->withSuccess('Resolution Successfully Modified');
+        return to_route('staff.resolutions.index')
+            ->withSuccess('Resolution Successfully Modified');
     }
 
     /**
@@ -80,7 +80,7 @@ class ResolutionController extends Controller
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();
 
-        return \to_route('staff.resolutions.index')
+        return to_route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Deleted');
     }
 }

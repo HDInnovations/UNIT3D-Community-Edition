@@ -4,15 +4,16 @@ jobs:
   phplint:
     runs-on: ubuntu-latest
     steps:
+      - name: Code Checkout
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - name: "laravel-pint"
-        uses: aglipanci/laravel-pint-action@0.1.0
-        with:
-          preset: psr12
+      - name: Composer Install
+        run: composer install
+      - name: Run Laravel Pint With Custom Config
+        run: ./vendor/bin/pint -v
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: PSR12 Linting
+          commit_message: PINT Linting
           skip_fetch: true

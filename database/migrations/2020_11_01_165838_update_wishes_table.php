@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('wishes', function (Blueprint $table) {
+        Schema::table('wishes', function (Blueprint $table): void {
             $table->renameColumn('imdb', 'tmdb');
         });
     }

@@ -35,7 +35,7 @@ class BanController extends Controller
     {
         $bans = Ban::latest()->paginate(25);
 
-        return \view('Staff.ban.index', ['bans' => $bans]);
+        return view('Staff.ban.index', ['bans' => $bans]);
     }
 
     /**
@@ -47,7 +47,7 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         // \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
@@ -62,17 +62,17 @@ class BanController extends Controller
         ]);
 
         $ban = Ban::create([
-            'owned_by' => $user->id,
+            'owned_by'   => $user->id,
             'created_by' => $staff->id,
             'ban_reason' => $request->ban_reason,
         ]);
 
-        \cache()->forget('user:'.$user->passkey);
+        cache()->forget('user:'.$user->passkey);
 
         // Send Notifications
         $user->notify(new UserBan($ban));
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -84,7 +84,7 @@ class BanController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->update([
             'group_id'     => $request->group_id,
@@ -97,18 +97,18 @@ class BanController extends Controller
         ]);
 
         Ban::create([
-            'owned_by' => $user->id,
-            'created_by' => $staff->id,
+            'owned_by'     => $user->id,
+            'created_by'   => $staff->id,
             'unban_reason' => $request->unban_reason,
-            'removed_at' => Carbon::now(),
+            'removed_at'   => Carbon::now(),
         ]);
 
-        \cache()->forget('user:'.$user->passkey);
+        cache()->forget('user:'.$user->passkey);
 
         // Send Notifications
         $user->notify(new UserBanExpire());
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

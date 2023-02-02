@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->boolean('connectable')->default(0);
         });
     }

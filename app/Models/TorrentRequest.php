@@ -23,8 +23,8 @@ use voku\helper\AntiXSS;
 
 class TorrentRequest extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Attributes That Should Be Mutated To Dates.
@@ -126,7 +126,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -145,7 +145,7 @@ class TorrentRequest extends Model
     public function notifyRequester($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(\auth()->user(), $user, 'request', 'show_request_comment')) {
+        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
             $user->notify(new NewComment('request', $payload));
 
             return true;

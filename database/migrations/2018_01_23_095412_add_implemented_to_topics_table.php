@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('topics', function (Blueprint $table) {
+        Schema::table('topics', function (Blueprint $table): void {
             $table->boolean('implemented')->default(0)->after('suggestion');
         });
     }

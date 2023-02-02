@@ -31,21 +31,21 @@ class TorrentZipController extends Controller
     public function show(Request $request, User $user): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
-        \set_time_limit(1200);
+        set_time_limit(1200);
 
         // Authorized User
-        \abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->id === $user->id, 403);
 
         // Define Dir For Zip
-        $zipPath = \getcwd().'/files/tmp_zip/';
+        $zipPath = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($zipPath)) {
+        if ( ! File::isDirectory($zipPath)) {
             File::makeDirectory($zipPath, 0755, true, true);
         }
 
         // Zip File Name
-        $zipFileName = \sprintf('%s.zip', $user->username);
+        $zipFileName = sprintf('%s.zip', $user->username);
 
         // Create ZipArchive Obj
         $zipArchive = new ZipArchive();
@@ -67,38 +67,38 @@ class TorrentZipController extends Controller
                     ->first();
 
                 // Define The Torrent Filename
-                $tmpFileName = \sprintf('%s.torrent', Str::slug($torrent->name));
+                $tmpFileName = sprintf('%s.torrent', Str::slug($torrent->name));
 
                 // The Torrent File Exist?
-                if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$torrent->info_hash.'"
+                if ( ! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$torrent->info_hash.'"
 ';
                     $failCount++;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
-                    if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {
-                        \unlink(\getcwd().'/files/tmp/'.$tmpFileName);
+                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
                     }
 
                     // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
+                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
                     // Set the announce key and add the user passkey
-                    $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
+                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
                     // Remove Other announce url
                     unset($dict['announce-list']);
 
                     $fileToDownload = Bencode::bencode($dict);
-                    \file_put_contents(\getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
+                    file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
 
                     // Add Files To ZipArchive
-                    $zipArchive->addFile(\getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+                    $zipArchive->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
 
             if ($failCount > 0) {
-                $CSVtmpName = \sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
-                \file_put_contents(\getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-                $zipArchive->addFile(\getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
+                $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
+                file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
+                $zipArchive->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
 
             // Close ZipArchive
@@ -107,10 +107,10 @@ class TorrentZipController extends Controller
 
         $zipFile = $zipPath.'/'.$zipFileName;
 
-        if (\file_exists($zipFile)) {
-            return \response()->download($zipFile)->deleteFileAfterSend(true);
+        if (file_exists($zipFile)) {
+            return response()->download($zipFile)->deleteFileAfterSend(true);
         }
 
-        return \redirect()->back()->withErrors('Something Went Wrong!');
+        return redirect()->back()->withErrors('Something Went Wrong!');
     }
 }

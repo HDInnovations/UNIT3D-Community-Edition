@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('collection', function (Blueprint $table) {
+        Schema::create('collection', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name')->index();
             $table->string('name_sort');

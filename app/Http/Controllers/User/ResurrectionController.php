@@ -24,8 +24,8 @@ class ResurrectionController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
-        return \view('user.resurrection.index', ['user' => $user]);
+        return view('user.resurrection.index', ['user' => $user]);
     }
 }
