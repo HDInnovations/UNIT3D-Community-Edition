@@ -607,12 +607,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->privacy?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
         }
 
         return true;
