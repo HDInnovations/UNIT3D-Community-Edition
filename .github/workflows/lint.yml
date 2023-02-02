@@ -4,7 +4,6 @@ jobs:
   phplint:
     runs-on: ubuntu-20.04
     steps:
-      - name: Code Checkout
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
