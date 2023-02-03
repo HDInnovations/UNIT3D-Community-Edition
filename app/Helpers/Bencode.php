@@ -72,7 +72,7 @@ class Bencode
         }
 
         $pos++;
-        if ( ! safe_int($lengthStr)) {
+        if (! safe_int($lengthStr)) {
             return;
         }
 
@@ -159,9 +159,9 @@ class Bencode
         if (\is_array($d)) {
             $ret = 'l';
             $isDict = false;
-            if ( ! isset($d['isDct'])) {
+            if (! isset($d['isDct'])) {
                 foreach (array_keys($d) as $key) {
-                    if ( ! \is_int($key)) {
+                    if (! \is_int($key)) {
                         $isDict = true;
 
                         break;

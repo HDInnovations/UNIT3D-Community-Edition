@@ -543,7 +543,7 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $type && ( ! $target->notification->$type)) {
+        if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
 
@@ -573,7 +573,7 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && ( ! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 
@@ -603,7 +603,7 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && ( ! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 

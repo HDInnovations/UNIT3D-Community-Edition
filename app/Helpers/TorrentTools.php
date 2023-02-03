@@ -146,7 +146,7 @@ class TorrentTools
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
-                    if ( ! \in_array($file['path'][$i], $filenames)) {
+                    if (! \in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
                     }
                 }

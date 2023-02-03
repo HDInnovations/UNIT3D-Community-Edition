@@ -64,7 +64,7 @@ class AutoPreWarning extends Command
                     continue;
                 }
 
-                if ( ! $pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+                if (! $pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $pre->torrent->id)
                         ->where('user_id', '=', $pre->user->id)

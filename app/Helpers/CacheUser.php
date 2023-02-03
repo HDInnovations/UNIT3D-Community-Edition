@@ -19,7 +19,7 @@ class CacheUser
 {
     public static function user($id)
     {
-        if ( ! $id || $id <= 0 || ! is_numeric($id)) {
+        if (! $id || $id <= 0 || ! is_numeric($id)) {
             return;
         }
 

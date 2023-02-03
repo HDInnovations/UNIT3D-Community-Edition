@@ -70,7 +70,7 @@ class TopicController extends Controller
         $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
 
         // The user can post a topic here ?
-        if ( ! $category->getPermission()->read_topic) {
+        if (! $category->getPermission()->read_topic) {
             // Redirect him to the forum index
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
@@ -98,7 +98,7 @@ class TopicController extends Controller
         $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
-        if ( ! $category->getPermission()->start_topic) {
+        if (! $category->getPermission()->start_topic) {
             return to_route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
@@ -120,7 +120,7 @@ class TopicController extends Controller
         $category = Forum::findOrFail($id);
 
         // The user has the right to create a topic here?
-        if ( ! $category->getPermission()->start_topic) {
+        if (! $category->getPermission()->start_topic) {
             return to_route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }

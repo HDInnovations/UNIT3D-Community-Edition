@@ -92,7 +92,7 @@ class TwoStepController extends Controller
      */
     public function showVerification(): \Illuminate\Contracts\View\View
     {
-        abort_if( ! config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         $twoStepAuth = $this->twoStepAuth;
         $authStatus = $this->authStatus;
@@ -118,12 +118,12 @@ class TwoStepController extends Controller
         $carbon = new Carbon();
         $sentTimestamp = $twoStepAuth->requestDate;
 
-        if ( ! $twoStepAuth->authCode) {
+        if (! $twoStepAuth->authCode) {
             $twoStepAuth->authCode = $this->generateCode();
             $twoStepAuth->save();
         }
 
-        if ( ! $sentTimestamp) {
+        if (! $sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
         } else {
             $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
@@ -145,7 +145,7 @@ class TwoStepController extends Controller
      */
     public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
-        abort_if( ! config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         if ($request->ajax()) {
             $validator = validator($request->all(), [
@@ -188,7 +188,7 @@ class TwoStepController extends Controller
      */
     public function resend(): \Illuminate\Http\JsonResponse
     {
-        abort_if( ! config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         $twoStepAuth = $this->twoStepAuth;
         $this->sendVerificationCodeNotification($twoStepAuth);

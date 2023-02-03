@@ -49,7 +49,7 @@ class NotificationController extends Controller
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
-        if ( ! $notification) {
+        if (! $notification) {
             return to_route('notifications.index')
                 ->withErrors(trans('notification.not-existent'));
         }

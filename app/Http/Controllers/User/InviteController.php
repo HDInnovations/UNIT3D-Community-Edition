@@ -49,7 +49,7 @@ class InviteController extends Controller
     {
         $user = $request->user();
 
-        if ( ! config('other.invite-only')) {
+        if (! config('other.invite-only')) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled'));
         }

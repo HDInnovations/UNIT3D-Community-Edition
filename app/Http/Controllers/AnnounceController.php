@@ -148,7 +148,7 @@ class AnnounceController extends Controller
         throw_if($request->query->count() < 6, new TrackerException(129));
 
         // Miss Header User-Agent is not allowed.
-        throw_if( ! $request->header('User-Agent'), new TrackerException(120));
+        throw_if(! $request->header('User-Agent'), new TrackerException(120));
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
         throw_if($request->header('accept-language') || $request->header('referer')
@@ -274,7 +274,7 @@ class AnnounceController extends Controller
             new TrackerException(137, [':event' => strtolower($queries['event'])])
         );
 
-        throw_if( ! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
+        throw_if(! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
             || \in_array(
                 $queries['port'],
                 self::BLACK_PORTS,

@@ -34,17 +34,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if ( ! \is_array($pests)) {
+        if (! \is_array($pests)) {
             $pests = [];
         }
 
         $topicNeos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
-        if ( ! \is_array($topicNeos)) {
+        if (! \is_array($topicNeos)) {
             $topicNeos = [];
         }
 
         $forumNeos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
-        if ( ! \is_array($forumNeos)) {
+        if (! \is_array($forumNeos)) {
             $forumNeos = [];
         }
 
@@ -53,7 +53,7 @@ class ForumController extends Controller
             $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereIntegerNotInRaw('topics.forum_id', $pests);
         }
 
-        if ( ! isset($logger)) {
+        if (! isset($logger)) {
             $logger = 'forum.results_topics';
             $result = Topic::whereIntegerNotInRaw('topics.forum_id', $pests);
         }
@@ -169,17 +169,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if ( ! \is_array($pests)) {
+        if (! \is_array($pests)) {
             $pests = [];
         }
 
         $topicNeos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-        if ( ! \is_array($topicNeos)) {
+        if (! \is_array($topicNeos)) {
             $topicNeos = [];
         }
 
         $forumNeos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
-        if ( ! \is_array($forumNeos)) {
+        if (! \is_array($forumNeos)) {
             $forumNeos = [];
         }
 
@@ -221,7 +221,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if ( ! \is_array($pests)) {
+        if (! \is_array($pests)) {
             $pests = [];
         }
 
@@ -251,7 +251,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if ( ! \is_array($pests)) {
+        if (! \is_array($pests)) {
             $pests = [];
         }
 
@@ -317,7 +317,7 @@ class ForumController extends Controller
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
-        if ( ! $category->getPermission()->show_forum) {
+        if (! $category->getPermission()->show_forum) {
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }

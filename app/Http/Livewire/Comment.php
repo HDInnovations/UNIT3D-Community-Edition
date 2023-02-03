@@ -74,7 +74,7 @@ class Comment extends Component
 
     final public function updatedIsEditing($isEditing): void
     {
-        if ( ! $isEditing) {
+        if (! $isEditing) {
             return;
         }
 
@@ -111,7 +111,7 @@ class Comment extends Component
             return;
         }
 
-        if ( ! $this->comment->isParent()) {
+        if (! $this->comment->isParent()) {
             return;
         }
 

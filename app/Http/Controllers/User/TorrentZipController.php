@@ -40,7 +40,7 @@ class TorrentZipController extends Controller
         $zipPath = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if ( ! File::isDirectory($zipPath)) {
+        if (! File::isDirectory($zipPath)) {
             File::makeDirectory($zipPath, 0755, true, true);
         }
 
@@ -70,7 +70,7 @@ class TorrentZipController extends Controller
                 $tmpFileName = sprintf('%s.torrent', Str::slug($torrent->name));
 
                 // The Torrent File Exist?
-                if ( ! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$torrent->info_hash.'"
 ';
                     $failCount++;

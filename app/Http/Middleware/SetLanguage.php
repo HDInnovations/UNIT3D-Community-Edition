@@ -26,7 +26,7 @@ class SetLanguage
     private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
-        if ( ! Language::allowed($locale)) {
+        if (! Language::allowed($locale)) {
             $locale = config('app.locale');
         }
 

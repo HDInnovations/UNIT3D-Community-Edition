@@ -127,12 +127,12 @@ class SimilarTorrent extends Component
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if ( ! \in_array($pm->user_id, $users)) {
+                if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
             }
 
-            if ( ! \in_array($torrent->tmdb, $titleids)) {
+            if (! \in_array($torrent->tmdb, $titleids)) {
                 $titleids[] = $torrent->tmdb;
                 $title = null;
                 $cat = $torrent->category;

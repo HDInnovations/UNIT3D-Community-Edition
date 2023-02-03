@@ -76,7 +76,7 @@ class UserController extends Controller
         $staff = $request->user();
         $group = Group::findOrFail($request->group_id);
 
-        abort_if( ! $staff->group->is_owner && ($staff->group->level < $user->group->level || $staff->group->level < $group->level), 403);
+        abort_if(! $staff->group->is_owner && ($staff->group->level < $user->group->level || $staff->group->level < $group->level), 403);
 
         $user->update($request->validated());
 

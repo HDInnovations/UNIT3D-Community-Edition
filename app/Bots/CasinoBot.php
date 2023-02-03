@@ -123,7 +123,7 @@ class CasinoBot
     public function getDonations(string $duration = 'default'): string
     {
         $donations = cache()->get('casinobot-donations');
-        if ( ! $donations) {
+        if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
@@ -215,7 +215,7 @@ class CasinoBot
         if ($type == 'message' || $type == 'private') {
             $receiverDirty = 0;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
-            if ( ! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
+            if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
@@ -226,7 +226,7 @@ class CasinoBot
                 }
             }
 
-            if ( ! $receiverListening) {
+            if (! $receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
@@ -243,7 +243,7 @@ class CasinoBot
 
             $receiverDirty = 0;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
-            if ( ! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
+            if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
@@ -254,7 +254,7 @@ class CasinoBot
                 }
             }
 
-            if ( ! $receiverListening) {
+            if (! $receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;

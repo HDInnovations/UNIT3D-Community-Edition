@@ -252,7 +252,7 @@ class PlaylistController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if ( ! File::isDirectory($path)) {
+        if (! File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 
@@ -277,7 +277,7 @@ class PlaylistController extends Controller
                 $tmpFileName = sprintf('%s.torrent', Str::slug($torrent->title));
 
                 // The Torrent File Exist?
-                if ( ! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'"
 ';
                     $failCount++;

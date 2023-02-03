@@ -26,7 +26,7 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('cache:clear');
 
         // For LARAVEL_START used in sub-footer
-        if ( ! \defined('LARAVEL_START')) {
+        if (! \defined('LARAVEL_START')) {
             \define('LARAVEL_START', microtime(true));
         }
     }
@@ -38,7 +38,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function refreshTestDatabase(): void
     {
-        if ( ! RefreshDatabaseState::$migrated) {
+        if (! RefreshDatabaseState::$migrated) {
             if (config('database.pristine-db-file')) {
                 // If a flat file is defined, load it.
 

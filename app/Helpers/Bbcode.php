@@ -333,7 +333,7 @@ class Bbcode
             $index++;
         }
 
-        while ( ! empty($openedElements)) {
+        while (! empty($openedElements)) {
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 

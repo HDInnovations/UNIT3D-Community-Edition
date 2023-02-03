@@ -38,7 +38,7 @@ class ForgotUsernameController extends Controller
     {
         $email = $request->get('email');
 
-        if ( ! config('captcha.enabled')) {
+        if (! config('captcha.enabled')) {
             $v = validator($request->all(), [
                 'email' => 'required',
             ]);

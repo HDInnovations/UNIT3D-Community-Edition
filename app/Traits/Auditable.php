@@ -52,7 +52,7 @@ trait Auditable
             }
 
             // Check global discards
-            if ( ! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
+            if (! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
                 unset($data[$key]);
             }
         }

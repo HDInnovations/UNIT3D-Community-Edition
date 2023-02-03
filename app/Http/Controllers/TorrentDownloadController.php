@@ -38,7 +38,7 @@ class TorrentDownloadController extends Controller
     public function store(Request $request, int $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $user = $request->user();
-        if ( ! $user && $rsskey) {
+        if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -65,7 +65,7 @@ class TorrentDownloadController extends Controller
         $tmpFileName = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']['.$user->id.']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
-        if ( ! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
             return to_route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
