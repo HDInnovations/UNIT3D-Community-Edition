@@ -62,14 +62,13 @@ class RssController extends Controller
      */
     public function store(StoreRssRequest $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $staff = $request->user();
+        $user = $request->user();
 
         $rss = new Rss();
         $rss->name = $request->name;
-        $rss->user_id = $staff->id;
+        $rss->user_id = $user->id;
         $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
         $rss->is_private = 0;
-        $rss->staff_id = $staff->id;
         $rss->position = $request->position;
         $rss->save();
 
