@@ -288,6 +288,7 @@
                             type="text"
                             value="{{ old('mal') ?? $torrent->mal }}"
                             x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') ?? $torrent->mal }}' : '0'"
+                            x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                         >
                         <label class="form__label form__label--floating" for="mal">
                             MAL ID <b>({{ __('request.required') }} For Anime)</b>
