@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\GraveyardControllerTest
@@ -75,7 +76,7 @@ class GraveyardController extends Controller
      * Cancel A Ressurection.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

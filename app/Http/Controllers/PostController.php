@@ -33,6 +33,7 @@ use App\Notifications\NewPostTag;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PostControllerTest
@@ -175,7 +176,7 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function postDelete(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {

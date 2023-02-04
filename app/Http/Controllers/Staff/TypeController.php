@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreTypeRequest;
 use App\Http\Requests\Staff\UpdateTypeRequest;
 use App\Models\Type;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\TypeControllerTest
@@ -76,7 +77,7 @@ class TypeController extends Controller
     /**
      * Delete A Type.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

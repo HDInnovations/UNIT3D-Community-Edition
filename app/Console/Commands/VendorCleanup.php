@@ -75,9 +75,9 @@ class VendorCleanup extends Command
      */
     protected array $excluded =
         [
-            /**List of  Folders*/
+            /*List of  Folders*/
             'src',
-            /**List of  Files*/
+            /*List of  Files*/
             '*.php',
             '*.stub',
             '*.js',

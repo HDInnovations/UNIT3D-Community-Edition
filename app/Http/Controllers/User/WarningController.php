@@ -19,6 +19,7 @@ use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
@@ -104,7 +105,7 @@ class WarningController extends Controller
      * Delete A Warning.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteWarning(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

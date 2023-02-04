@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -284,7 +285,7 @@ class UserController extends Controller
     /**
      * Change User PID.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function changePID(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {

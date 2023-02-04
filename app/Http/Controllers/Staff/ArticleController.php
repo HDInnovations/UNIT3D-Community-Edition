@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreArticleRequest;
 use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
 use Intervention\Image\Facades\Image;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ArticleControllerTest
@@ -91,7 +92,7 @@ class ArticleController extends Controller
     /**
      * Delete A Article.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

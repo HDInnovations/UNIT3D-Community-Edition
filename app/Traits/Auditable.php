@@ -15,6 +15,9 @@ namespace App\Traits;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use ArgumentCountError;
+use InvalidArgumentException;
+use JsonException;
 
 trait Auditable
 {
@@ -64,7 +67,7 @@ trait Auditable
     /**
      * Generates the data to store.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected static function generate($action, array $old = [], array $new = []): false|string
     {
@@ -72,7 +75,7 @@ trait Auditable
         switch ($action) {
             case 'create':
                 // Expect new data to be filled
-                throw_if(empty($new), new \ArgumentCountError('Action `create` expects new data.'));
+                throw_if(empty($new), new ArgumentCountError('Action `create` expects new data.'));
 
                 // Process
                 foreach ($new as $key => $value) {
@@ -99,7 +102,7 @@ trait Auditable
                 break;
             case 'delete':
                 // Expect new data to be filled
-                throw_if(empty($old), new \ArgumentCountError('Action `delete` expects new data.'));
+                throw_if(empty($old), new ArgumentCountError('Action `delete` expects new data.'));
 
                 // Process
                 foreach ($old as $key => $value) {
@@ -111,7 +114,7 @@ trait Auditable
 
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
+                throw new InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
         }
 
         $clean = array_filter($data);
@@ -134,7 +137,7 @@ trait Auditable
     /**
      * Logs a record creation.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected static function registerCreate($model): void
     {
@@ -162,7 +165,7 @@ trait Auditable
     /**
      * Logs a record update.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected static function registerUpdate($model): void
     {
@@ -190,7 +193,7 @@ trait Auditable
     /**
      * Logs a record deletion.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected static function registerDelete($model): void
     {

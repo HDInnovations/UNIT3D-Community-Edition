@@ -48,6 +48,9 @@ use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
+use Exception;
+use ReflectionException;
+use JsonException;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -72,9 +75,9 @@ class TorrentController extends Controller
     /**
      * Display The Torrent reasource.
      *
-     * @throws \JsonException
+     * @throws JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -296,7 +299,7 @@ class TorrentController extends Controller
     /**
      * Delete A Torrent.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request)
     {

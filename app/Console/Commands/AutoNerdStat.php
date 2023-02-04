@@ -21,6 +21,7 @@ use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest
@@ -52,7 +53,7 @@ class AutoNerdStat extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

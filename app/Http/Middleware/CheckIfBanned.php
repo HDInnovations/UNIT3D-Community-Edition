@@ -15,13 +15,14 @@ namespace App\Http\Middleware;
 
 use App\Models\Group;
 use Closure;
+use Exception;
 
 class CheckIfBanned
 {
     /**
      * Handle an incoming request.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null): mixed
     {

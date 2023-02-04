@@ -16,6 +16,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
+use Exception;
 
 class Peer extends Model
 {
@@ -52,7 +53,7 @@ class Peer extends Model
      * Updates Connectable State If Needed.
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     * @throws \Exception
+     * @throws Exception
      *
      * @var resource
      */

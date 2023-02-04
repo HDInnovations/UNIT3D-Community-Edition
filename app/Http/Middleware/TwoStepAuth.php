@@ -16,6 +16,7 @@ namespace App\Http\Middleware;
 use App\Traits\TwoStep;
 use Closure;
 use Illuminate\Http\Request;
+use Exception;
 
 class TwoStepAuth
 {
@@ -24,7 +25,7 @@ class TwoStepAuth
     /**
      * Handle an incoming request.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(Request $request, Closure $next): mixed
     {

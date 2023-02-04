@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreBonExchangeRequest;
 use App\Http\Requests\Staff\UpdateBonExchangeRequest;
 use App\Models\BonExchange;
+use Exception;
 
 class BonExchangeController extends Controller
 {
@@ -85,7 +86,7 @@ class BonExchangeController extends Controller
     /**
      * Destroy A Bon Exchange.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

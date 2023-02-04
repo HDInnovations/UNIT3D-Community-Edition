@@ -16,6 +16,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\NotificationControllerTest
@@ -68,7 +69,7 @@ class NotificationController extends Controller
     /**
      * Mass Update All Notification's To Read.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {

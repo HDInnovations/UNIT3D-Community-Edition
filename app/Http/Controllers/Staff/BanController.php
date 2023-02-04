@@ -22,6 +22,7 @@ use App\Models\User;
 use App\Notifications\UserBan;
 use App\Notifications\UserBanExpire;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -41,7 +42,7 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(StoreBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {

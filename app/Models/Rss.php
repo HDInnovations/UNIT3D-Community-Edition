@@ -17,6 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use stdClass;
 
 class Rss extends Model
 {
@@ -79,7 +80,7 @@ class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      */
-    public function getObjectTorrentAttribute(): \stdClass|bool
+    public function getObjectTorrentAttribute(): stdClass|bool
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {

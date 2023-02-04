@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreWatchedUserRequest;
 use App\Models\User;
 use App\Models\Watchlist;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WatchlistControllerTest
@@ -47,7 +48,7 @@ class WatchlistController extends Controller
     /**
      * Delete A Watched User.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

@@ -23,6 +23,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\StatsControllerTest
@@ -42,7 +43,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Index.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -148,7 +149,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function uploaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -166,7 +167,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function downloaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -217,7 +218,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function bankers(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {

@@ -22,6 +22,7 @@ use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -143,7 +144,7 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
@@ -301,7 +302,7 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {

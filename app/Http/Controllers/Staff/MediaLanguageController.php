@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreMediaLanguageRequest;
 use App\Http\Requests\Staff\UpdateMediaLanguageRequest;
 use App\Models\MediaLanguage;
+use Exception;
 
 class MediaLanguageController extends Controller
 {
@@ -73,7 +74,7 @@ class MediaLanguageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

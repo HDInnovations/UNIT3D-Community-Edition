@@ -23,6 +23,7 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
+use Exception;
 
 class CasinoBot
 {
@@ -78,7 +79,7 @@ class CasinoBot
      * Send Bot Donation.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function putDonate(int $amount = 0, string $note = ''): string
     {
@@ -118,7 +119,7 @@ class CasinoBot
      * Get Bot Donations.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDonations(string $duration = 'default'): string
     {
@@ -149,7 +150,7 @@ class CasinoBot
     /**
      * Process Message.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {

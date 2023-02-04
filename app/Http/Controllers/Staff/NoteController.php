@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreNoteRequest;
 use App\Models\Note;
 use App\Models\User;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
@@ -49,7 +50,7 @@ class NoteController extends Controller
     /**
      * Delete A User Note.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

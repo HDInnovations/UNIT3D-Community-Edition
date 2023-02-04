@@ -21,6 +21,7 @@ use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest
@@ -44,7 +45,7 @@ class AutoBanDisposableUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

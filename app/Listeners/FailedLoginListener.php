@@ -16,13 +16,14 @@ namespace App\Listeners;
 use App\Models\FailedLoginAttempt;
 use App\Models\Group;
 use App\Notifications\FailedLogin;
+use Exception;
 
 class FailedLoginListener
 {
     /**
      * Handle the event.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle($event): void
     {

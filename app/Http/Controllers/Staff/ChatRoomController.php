@@ -19,6 +19,7 @@ use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatRoomControllerTest
@@ -87,7 +88,7 @@ class ChatRoomController extends Controller
     /**
      * Delete A Chatroom.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

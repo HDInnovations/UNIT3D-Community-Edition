@@ -19,6 +19,7 @@ use App\Notifications\UserWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoWarningTest
@@ -42,7 +43,7 @@ class AutoWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

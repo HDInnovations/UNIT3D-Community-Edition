@@ -18,6 +18,7 @@ use App\Models\Warning;
 use App\Notifications\UserPreWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoPreWarningTest
@@ -41,7 +42,7 @@ class AutoPreWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

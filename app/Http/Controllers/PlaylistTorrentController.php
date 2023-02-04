@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistTorrentControllerTest
@@ -55,7 +56,7 @@ class PlaylistTorrentController extends Controller
     /**
      * Detach A Torrent From A Playlist.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

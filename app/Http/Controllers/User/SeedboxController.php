@@ -18,6 +18,7 @@ use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
@@ -91,7 +92,7 @@ class SeedboxController extends Controller
     /**
      * Delete A Seedbox.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

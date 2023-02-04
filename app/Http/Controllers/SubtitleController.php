@@ -32,6 +32,7 @@ use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class SubtitleController extends Controller
 {
@@ -168,7 +169,7 @@ class SubtitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

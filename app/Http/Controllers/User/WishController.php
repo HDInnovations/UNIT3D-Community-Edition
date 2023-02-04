@@ -18,6 +18,7 @@ use App\Interfaces\WishInterface;
 use App\Models\User;
 use App\Services\Tmdb\Client\Movie;
 use Illuminate\Http\Request;
+use JsonException;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WishControllerTest
@@ -52,7 +53,7 @@ class WishController extends Controller
     /**
      * Add New Wish.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

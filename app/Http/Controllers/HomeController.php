@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -36,7 +37,7 @@ class HomeController extends Controller
     /**
      * Display Home Page.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {

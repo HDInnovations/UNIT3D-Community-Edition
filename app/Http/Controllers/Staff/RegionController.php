@@ -19,6 +19,7 @@ use App\Http\Requests\Staff\UpdateRegionRequest;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Exception;
 
 class RegionController extends Controller
 {
@@ -75,7 +76,7 @@ class RegionController extends Controller
     /**
      * Delete A Region.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

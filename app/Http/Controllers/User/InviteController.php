@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
@@ -70,7 +71,7 @@ class InviteController extends Controller
     /**
      * Send Invite.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {

@@ -67,7 +67,7 @@ class Warning extends Model
     }
 
     /**
-     * Active Warnings
+     * Active Warnings.
      */
     public function scopeActive($query): Builder
     {

@@ -14,8 +14,9 @@
 namespace App\Exceptions;
 
 use Throwable;
+use Exception;
 
-class TrackerException extends \Exception
+class TrackerException extends Exception
 {
     protected const ERROR_MSG = [
         // Error message of base Tracker system

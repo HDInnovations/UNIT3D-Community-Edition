@@ -20,6 +20,7 @@ use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
 use Illuminate\Support\Str;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -156,7 +157,7 @@ class ForumController extends Controller
     /**
      * Delete A Forum.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

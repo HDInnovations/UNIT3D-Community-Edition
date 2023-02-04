@@ -27,6 +27,7 @@ use App\Models\UserEcho;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
+use Exception;
 
 class NerdBot
 {
@@ -325,7 +326,7 @@ class NerdBot
     /**
      * Send Bot Donation.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function putDonate($amount = 0, $note = '')
     {

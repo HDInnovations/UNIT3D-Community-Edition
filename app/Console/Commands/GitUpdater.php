@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use RuntimeException;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\GitUpdaterTest
@@ -342,7 +343,7 @@ class GitUpdater extends Command
     {
         if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! is_file(base_path($path))) {
             if (! mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && ! is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
@@ -350,7 +351,7 @@ class GitUpdater extends Command
                 'gitupdate/%s',
                 $path
             )), 0775, true) && ! is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
     }

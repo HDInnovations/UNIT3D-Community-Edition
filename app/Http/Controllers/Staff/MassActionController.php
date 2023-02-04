@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreMassActionRequest;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
 use App\Models\User;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\MassActionControllerTest
@@ -40,7 +41,7 @@ class MassActionController extends Controller
     /**
      * Send The Mass PM.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(StoreMassActionRequest $request): \Illuminate\Http\RedirectResponse
     {
@@ -61,7 +62,7 @@ class MassActionController extends Controller
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function update(): \Illuminate\Http\RedirectResponse
     {

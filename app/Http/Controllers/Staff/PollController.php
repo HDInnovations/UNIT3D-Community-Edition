@@ -18,6 +18,7 @@ use App\Http\Requests\StorePoll;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
@@ -94,7 +95,7 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function update(StorePoll $storePoll, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -147,7 +148,7 @@ class PollController extends Controller
     /**
      * Delete A Poll.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

@@ -18,6 +18,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
@@ -41,7 +42,7 @@ class AutoDisableInactiveUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

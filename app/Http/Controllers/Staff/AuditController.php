@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Audit;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\AuditControllerTest
@@ -38,7 +39,7 @@ class AuditController extends Controller
     /**
      * Delete A Audit.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

@@ -31,6 +31,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
@@ -54,7 +55,7 @@ class AutoSoftDeleteDisabledUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

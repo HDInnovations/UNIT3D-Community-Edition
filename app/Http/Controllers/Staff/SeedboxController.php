@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
@@ -34,7 +35,7 @@ class SeedboxController extends Controller
     /**
      * Delete A Registered Seedbox.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

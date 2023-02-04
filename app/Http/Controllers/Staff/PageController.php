@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StorePageRequest;
 use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -76,7 +77,7 @@ class PageController extends Controller
     /**
      * Delete A Page.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

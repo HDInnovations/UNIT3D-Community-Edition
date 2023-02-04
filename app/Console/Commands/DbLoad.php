@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use RuntimeException;
+use Exception;
 
 class DbLoad extends Command
 {
@@ -23,7 +25,7 @@ class DbLoad extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
@@ -49,6 +51,6 @@ class DbLoad extends Command
 
         exec($cmd, $output, $return);
 
-        throw_if($return !== 0, new \RuntimeException(sprintf('Could not load database from file %s', $input)));
+        throw_if($return !== 0, new RuntimeException(sprintf('Could not load database from file %s', $input)));
     }
 }

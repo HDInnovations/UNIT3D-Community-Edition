@@ -22,6 +22,7 @@ use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -114,7 +115,7 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {

@@ -13,6 +13,8 @@
 
 namespace App\Helpers;
 
+use RuntimeException;
+
 class BBCodeConverter
 {
     /**
@@ -105,7 +107,7 @@ class BBCodeConverter
                 $buffer = '';
 
                 $list = preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
-                throw_if(null === $list, new \RuntimeException('Text has malformed BBCode lists'));
+                throw_if(null === $list, new RuntimeException('Text has malformed BBCode lists'));
 
                 $items = preg_split('#\[\*\]#u', $list);
 
@@ -200,7 +202,7 @@ class BBCodeConverter
                     return '['.$matches[2].']('.$matches[1].')';
                 }
 
-                throw new \RuntimeException('Text has malformed BBCode urls');
+                throw new RuntimeException('Text has malformed BBCode urls');
             },
             $this->text
         );
@@ -290,7 +292,7 @@ class BBCodeConverter
                     return PHP_EOL.'```'.$language.PHP_EOL.trim($matches['snippet']).PHP_EOL.'```'.PHP_EOL;
                 }
 
-                throw new \RuntimeException('Text has malformed BBCode snippet.');
+                throw new RuntimeException('Text has malformed BBCode snippet.');
             },
             $this->text
         );

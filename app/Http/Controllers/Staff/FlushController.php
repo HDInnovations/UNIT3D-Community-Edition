@@ -20,6 +20,7 @@ use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
@@ -36,7 +37,7 @@ class FlushController extends Controller
     /**
      * Flsuh All Old Peers From Database.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function peers(): \Illuminate\Http\RedirectResponse
     {
@@ -60,7 +61,7 @@ class FlushController extends Controller
     /**
      * Flush All Chat Messages.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function chat(): \Illuminate\Http\RedirectResponse
     {

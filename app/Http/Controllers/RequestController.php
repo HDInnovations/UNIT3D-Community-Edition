@@ -39,6 +39,7 @@ use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use MarcReichel\IGDBLaravel\Models\Game;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -501,7 +502,7 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -556,7 +557,7 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function unclaimRequest(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

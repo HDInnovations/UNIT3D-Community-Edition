@@ -18,6 +18,7 @@ use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
@@ -49,7 +50,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {

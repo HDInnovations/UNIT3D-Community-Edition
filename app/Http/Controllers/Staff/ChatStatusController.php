@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreChatStatusRequest;
 use App\Http\Requests\Staff\UpdateChatStatusRequest;
 use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatStatusControllerTest
@@ -86,7 +87,7 @@ class ChatStatusController extends Controller
     /**
      * Delete A Chat Status.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

@@ -51,7 +51,7 @@ class Subscription extends Model
     }
 
     /**
-     * Only include subscriptions of a forum
+     * Only include subscriptions of a forum.
      */
     public function scopeOfForum($query, $forum_id): Builder
     {
@@ -59,7 +59,7 @@ class Subscription extends Model
     }
 
     /**
-     * Only include subscriptions of a topic
+     * Only include subscriptions of a topic.
      */
     public function scopeOfTopic($query, $topic_id): Builder
     {

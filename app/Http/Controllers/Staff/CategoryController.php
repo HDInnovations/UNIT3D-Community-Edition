@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreCategoryRequest;
 use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
 use Intervention\Image\Facades\Image;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\CategoryControllerTest
@@ -105,7 +106,7 @@ class CategoryController extends Controller
     /**
      * Destroy A Category.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

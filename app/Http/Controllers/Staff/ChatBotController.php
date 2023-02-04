@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateChatBotRequest;
 use App\Models\Bot;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatBotControllerTest
@@ -63,7 +64,7 @@ class ChatBotController extends Controller
     /**
      * Remove the specified Bot resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

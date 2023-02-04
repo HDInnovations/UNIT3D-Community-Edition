@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
@@ -55,7 +56,7 @@ class ApplicationController extends Controller
     /**
      * Approve A Application.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function approve(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

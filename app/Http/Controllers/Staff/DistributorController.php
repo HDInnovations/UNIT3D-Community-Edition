@@ -19,6 +19,7 @@ use App\Http\Requests\Staff\UpdateDistributorRequest;
 use App\Models\Distributor;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Exception;
 
 class DistributorController extends Controller
 {
@@ -86,7 +87,7 @@ class DistributorController extends Controller
     /**
      * Destroy A Distributor.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

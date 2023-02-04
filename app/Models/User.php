@@ -145,7 +145,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs to many followers
+     * Belongs to many followers.
      */
     public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -155,7 +155,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs to many followees
+     * Belongs to many followees.
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -165,7 +165,6 @@ class User extends Authenticatable
     }
 
     /**
-     *
      * Has Many Messages.
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -19,6 +19,7 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -28,7 +29,7 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {

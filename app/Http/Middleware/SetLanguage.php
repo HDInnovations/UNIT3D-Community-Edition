@@ -17,6 +17,7 @@ use App\Models\Language;
 use Closure;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use Date;
 
 class SetLanguage
 {
@@ -50,7 +51,7 @@ class SetLanguage
                 $locale = explode('-', (string) $locale)[0];
             }
 
-            \Date::setLocale($locale);
+            Date::setLocale($locale);
         }
     }
 

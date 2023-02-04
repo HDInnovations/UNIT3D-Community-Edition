@@ -16,13 +16,15 @@ namespace App\Traits;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Illuminate\Support\Carbon;
+use DateTimeInterface;
+use Exception;
 
 trait TwoStep
 {
     /**
      * Check if the user is authorized.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function twoStepVerification(): bool
     {
@@ -42,7 +44,7 @@ trait TwoStep
     /**
      * Check time since user was last verified and take apprpriate action.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkTimeSinceVerified($twoStepAuth): bool
     {
@@ -63,7 +65,7 @@ trait TwoStep
     /**
      * Reset TwoStepAuth collection item and code.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function resetAuthStatus($twoStepAuth): mixed
     {
@@ -81,7 +83,7 @@ trait TwoStep
     /**
      * Generate Authorization Code.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
@@ -96,7 +98,7 @@ trait TwoStep
      * Create/retreive 2step verification object.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkTwoStepAuthStatus(int $userId): TwoStepAuth|\Illuminate\Database\Eloquent\Model
     {
@@ -123,7 +125,7 @@ trait TwoStep
     /**
      * Format verification exceeded timings with Carbon.
      */
-    protected function exceededTimeParser(\DateTimeInterface $time): \Illuminate\Support\Collection
+    protected function exceededTimeParser(DateTimeInterface $time): \Illuminate\Support\Collection
     {
         $tomorrow = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
@@ -139,7 +141,7 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      */
-    protected function checkExceededTime(\DateTimeInterface $time): bool
+    protected function checkExceededTime(DateTimeInterface $time): bool
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
@@ -150,7 +152,7 @@ trait TwoStep
     /**
      * Method to reset code and count.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function resetExceededTime($twoStepEntry): mixed
     {
@@ -164,7 +166,7 @@ trait TwoStep
     /**
      * Successful activation actions.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function resetActivationCountdown($twoStepAuth): void
     {

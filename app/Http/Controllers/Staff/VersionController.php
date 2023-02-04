@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use JsonException;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\VersionControllerTest
@@ -32,7 +33,7 @@ class VersionController extends Controller
      * Check the latest release of UNIT3D and compare them to the local version.
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function checkVersion(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {

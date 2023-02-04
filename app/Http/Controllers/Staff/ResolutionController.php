@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreResolutionRequest;
 use App\Http\Requests\Staff\UpdateResolutionRequest;
 use App\Models\Resolution;
+use Exception;
 
 class ResolutionController extends Controller
 {
@@ -73,7 +74,7 @@ class ResolutionController extends Controller
     /**
      * Delete A Resolution.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

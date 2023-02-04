@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use ZipArchive;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -215,7 +216,7 @@ class PlaylistController extends Controller
     /**
      * Delete A Playlist.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

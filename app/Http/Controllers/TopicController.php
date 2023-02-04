@@ -31,6 +31,7 @@ use App\Models\Topic;
 use App\Repositories\ChatRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TopicControllerTest
@@ -277,7 +278,7 @@ class TopicController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
