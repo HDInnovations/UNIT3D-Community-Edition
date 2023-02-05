@@ -68,7 +68,7 @@ class TorrentDownloadController extends Controller
         }
 
         if (! $request->user() && !($rsskey && $user)) {
-            return ro_route('login');
+            return to_route('login');
         }
 
         $torrentDownload = new TorrentDownload();
