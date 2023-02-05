@@ -12,9 +12,9 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('crew_season', function (Blueprint $table) {
+        Schema::table('crew_season', function (Blueprint $table): void {
             $table->string('department')->nullable();
             $table->string('job')->nullable();
         });
@@ -23,7 +23,7 @@ return new class () extends Migration {
             $data = (new \App\Services\Tmdb\Client\TV($tv->id))->getData();
 
             foreach ($data['seasons'] as $season) {
-                $season = (new \App\Services\Tmdb\Client\Season($tv->id, \sprintf('%02d', $season['season_number'])))->getData();
+                $season = (new \App\Services\Tmdb\Client\Season($tv->id, sprintf('%02d', $season['season_number'])))->getData();
                 $seasonModel = Season::find($season['id']);
 
                 if (isset($season['credits']['crew'])) {

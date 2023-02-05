@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('personal_freeleech', function (Blueprint $table) {
+        Schema::create('personal_freeleech', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->timestamps();

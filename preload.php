@@ -16,12 +16,12 @@ class Preloader
     {
         $this->paths = $paths;
         $classMap = require __DIR__.'/vendor/composer/autoload_classmap.php';
-        $this->fileMap = \array_flip($classMap);
+        $this->fileMap = array_flip($classMap);
     }
 
     public function paths(string ...$paths): self
     {
-        $this->paths = \array_merge(
+        $this->paths = array_merge(
             $this->paths,
             $paths
         );
@@ -31,7 +31,7 @@ class Preloader
 
     public function ignore(string ...$names): self
     {
-        $this->ignores = \array_merge(
+        $this->ignores = array_merge(
             $this->ignores,
             $names
         );
@@ -42,7 +42,7 @@ class Preloader
     public function load(): void
     {
         foreach ($this->paths as $path) {
-            $this->loadPath(\rtrim($path, '/'));
+            $this->loadPath(rtrim($path, '/'));
         }
 
         $count = self::$count;
@@ -52,7 +52,7 @@ class Preloader
 
     private function loadPath(string $path): void
     {
-        if (\is_dir($path)) {
+        if (is_dir($path)) {
             $this->loadDir($path);
 
             return;
@@ -63,9 +63,9 @@ class Preloader
 
     private function loadDir(string $path): void
     {
-        $handle = \opendir($path);
+        $handle = opendir($path);
 
-        while ($file = \readdir($handle)) {
+        while ($file = readdir($handle)) {
             if (\in_array($file, ['.', '..'])) {
                 continue;
             }
@@ -73,7 +73,7 @@ class Preloader
             $this->loadPath("{$path}/{$file}");
         }
 
-        \closedir($handle);
+        closedir($handle);
     }
 
     private function loadFile(string $path): void
@@ -84,7 +84,7 @@ class Preloader
             return;
         }
 
-        \opcache_compile_file($path);
+        opcache_compile_file($path);
 
         self::$count++;
 
@@ -98,7 +98,7 @@ class Preloader
         }
 
         foreach ($this->ignores as $ignore) {
-            if (\str_starts_with($name, $ignore)) {
+            if (str_starts_with($name, $ignore)) {
                 return true;
             }
         }

@@ -39,12 +39,12 @@ class UserUploads extends Component
     public $showMorePrecision = false;
 
     protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'personalRelease'   => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'status'            => ['except' => []],
+        'perPage'         => ['except' => ''],
+        'name'            => ['except' => ''],
+        'personalRelease' => ['except' => 'any'],
+        'sortField'       => ['except' => 'created_at'],
+        'sortDirection'   => ['except' => 'desc'],
+        'status'          => ['except' => []],
     ];
 
     final public function mount($userId): void
@@ -78,7 +78,7 @@ class UserUploads extends Component
             ->when(
                 $this->name,
                 fn ($query) => $query
-                ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
+                    ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', 1))
@@ -89,7 +89,7 @@ class UserUploads extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-uploads', [
+        return view('livewire.user-uploads', [
             'uploads' => $this->uploads,
         ]);
     }

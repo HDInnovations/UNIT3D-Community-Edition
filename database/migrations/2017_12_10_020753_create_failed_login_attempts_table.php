@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('failed_login_attempts', function (Blueprint $table) {
+        Schema::create('failed_login_attempts', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('username');

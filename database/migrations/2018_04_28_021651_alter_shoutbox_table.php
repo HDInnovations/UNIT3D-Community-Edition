@@ -23,7 +23,7 @@ return new class () extends Migration {
     {
         Schema::dropIfExists('shoutbox');
 
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('chatroom_id')->unsigned();

@@ -30,15 +30,15 @@ class UserPreWarning extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
-        $profileUrl = \href_profile($this->user);
+        $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
             ->greeting('Hit and Run Pre Warning!')
             ->line('You have revieved a hit and run pre warning on one or more torrents!')
             ->action('View Unsatfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserPreWarning extends Notification
         return [
             'title' => $this->torrent->name.' Pre Warning Recieved',
             'body'  => 'You have received an automated PRE WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

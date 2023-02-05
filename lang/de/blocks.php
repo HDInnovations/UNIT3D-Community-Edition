@@ -13,9 +13,9 @@
 
 return [
     // Chat
-    'chatbox'                 => 'Chat Box',
-    'click'                   => 'Klick',
-    'to-enable-editor'        => 'Editor aktivieren',
+    'chatbox'          => 'Chat Box',
+    'click'            => 'Klick',
+    'to-enable-editor' => 'Editor aktivieren',
 
     // Featured Torrents
     'featured-by'             => 'Vorgestellt durch',
@@ -24,22 +24,22 @@ return [
     'featured-until'          => 'Vorgestellt bis',
 
     // Latest Torrents
-    'top-torrents'            => 'Top Torrents',
+    'top-torrents' => 'Top Torrents',
 
     // Latest Posts
-    'latest-posts'            => 'Neueste Beiträge',
+    'latest-posts' => 'Neueste Beiträge',
 
     // Latest Topics
-    'latest-topics'           => 'Neueste Themen',
+    'latest-topics' => 'Neueste Themen',
 
     // Users Online
-    'active-in-last'          => 'Zuletzt aktiv',
-    'users-online'            => 'Nutzer online',
+    'active-in-last' => 'Zuletzt aktiv',
+    'users-online'   => 'Nutzer online',
 
     // News/Articles
-    'check-news'              => 'Neuste News',
-    'new-news'                => 'Neue Nachrichten',
+    'check-news' => 'Neuste News',
+    'new-news'   => 'Neue Nachrichten',
 
     // Top Torrents
-    'new-torrents'            => 'Neue Torrents',
+    'new-torrents' => 'Neue Torrents',
 ];

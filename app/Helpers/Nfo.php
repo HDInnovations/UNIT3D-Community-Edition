@@ -33,17 +33,17 @@ class Nfo
             }
         }
 
-        $s = \str_replace(  // Code windows to dos
+        $s = str_replace(  // Code windows to dos
             ["\345", "\344", "\366", "\311", "\351"],   // ['å','ä','ö','É','é']
             ["\206", "\204", "\224", "\220", "\202"],   // ['','','','','']
             $s);
 
-        $s = \preg_replace(
+        $s = preg_replace(
             ["/([ -~])\305([ -~])/", "/([ -~])\304([ -~])/", "/([ -~])\326([ -~])/"],
             ["\\1\217\\2", "\\1\216\\2", "\\1\231\\2"],
             $s
         );
 
-        return \mb_convert_encoding($s, 'UTF-8', 'ASCII');
+        return mb_convert_encoding($s, 'UTF-8', 'ASCII');
     }
 }

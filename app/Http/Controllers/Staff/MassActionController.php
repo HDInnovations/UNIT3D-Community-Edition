@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreMassActionRequest;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
 use App\Models\User;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\MassActionControllerTest
@@ -34,39 +35,39 @@ class MassActionController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.masspm.index');
+        return view('Staff.masspm.index');
     }
 
     /**
      * Send The Mass PM.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(StoreMassActionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
         $users = User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
 
         foreach ($users as $userId) {
             ProcessMassPM::dispatch(self::SENDER_ID, $userId, $request->subject, $request->message);
         }
 
-        return \to_route('staff.mass-pm.create')
+        return to_route('staff.mass-pm.create')
             ->withSuccess('MassPM Sent');
     }
 
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function update(): \Illuminate\Http\RedirectResponse
     {
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $memberGroup = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
         foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
             $user->group_id = $memberGroup[0];
             $user->active = 1;
@@ -78,7 +79,7 @@ class MassActionController extends Controller
             $user->save();
         }
 
-        return \to_route('staff.dashboard.index')
+        return to_route('staff.dashboard.index')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

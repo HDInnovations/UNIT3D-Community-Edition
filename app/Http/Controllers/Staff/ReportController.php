@@ -30,7 +30,7 @@ class ReportController extends Controller
     {
         $reports = Report::orderBy('solved')->latest()->paginate(25);
 
-        return \view('Staff.report.index', ['reports' => $reports]);
+        return view('Staff.report.index', ['reports' => $reports]);
     }
 
     /**
@@ -40,9 +40,9 @@ class ReportController extends Controller
     {
         $report = Report::findOrFail($id);
 
-        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
 
-        return \view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
+        return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }
 
     /**
@@ -50,11 +50,11 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $staff = \auth()->user();
+        $staff = auth()->user();
         $report = Report::findOrFail($id);
 
         if ($report->solved == 1) {
-            return \to_route('staff.reports.index')
+            return to_route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
@@ -68,7 +68,7 @@ class ReportController extends Controller
             'message'     => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,
         ]);
 
-        return \to_route('staff.reports.index')
+        return to_route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');
     }
 }

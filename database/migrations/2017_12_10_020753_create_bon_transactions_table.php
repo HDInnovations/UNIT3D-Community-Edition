@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('bon_transactions', function (Blueprint $table) {
+        Schema::create('bon_transactions', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('itemID')->unsigned()->default(0);
             $table->string('name')->default('');

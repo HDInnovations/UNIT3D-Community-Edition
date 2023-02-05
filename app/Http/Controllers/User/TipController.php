@@ -35,15 +35,15 @@ class TipController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        \abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
 
         $userbon = $user->getSeedbonus();
         $bontransactions = BonTransactions::query()
             ->with(['senderObj', 'receiverObj'])
             ->where(
                 fn ($query) => $query
-                ->where('sender', '=', $user->id)
-                ->orwhere('receiver', '=', $user->id)
+                    ->where('sender', '=', $user->id)
+                    ->orwhere('receiver', '=', $user->id)
             )
             ->where('name', '=', 'tip')
             ->latest('date_actioned')
@@ -59,12 +59,12 @@ class TipController extends Controller
             ->where('name', '=', 'tip')
             ->sum('cost');
 
-        return \view('user.tip.index', [
-            'user'              => $user,
-            'bontransactions'   => $bontransactions,
-            'userbon'           => $userbon,
-            'tips_sent'         => $tipsSent,
-            'tips_received'     => $tipsReceived,
+        return view('user.tip.index', [
+            'user'            => $user,
+            'bontransactions' => $bontransactions,
+            'userbon'         => $userbon,
+            'tips_sent'       => $tipsSent,
+            'tips_received'   => $tipsReceived,
         ]);
     }
 
@@ -75,7 +75,7 @@ class TipController extends Controller
     {
         $sender = User::where('username', '=', $username)->sole();
 
-        \abort_unless($request->user()->id === $sender->id, 403);
+        abort_unless($request->user()->id === $sender->id, 403);
 
         $request = $request->safe()->collect();
         $tipable = match (true) {
@@ -107,6 +107,6 @@ class TipController extends Controller
             $recipient->notify(new NewPostTip('forum', $sender->username, $tipAmount, $tipable));
         }
 
-        return \redirect()->back()->withSuccess(\trans('bon.success-tip'));
+        return redirect()->back()->withSuccess(trans('bon.success-tip'));
     }
 }

@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->text('content', 65535);
             $table->smallInteger('anon')->default(0);

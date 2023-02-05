@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('forums', function (Blueprint $table) {
+        Schema::create('forums', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('position')->nullable();
             $table->integer('num_topic')->nullable();

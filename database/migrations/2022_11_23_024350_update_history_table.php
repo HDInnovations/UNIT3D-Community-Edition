@@ -12,7 +12,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $duplicates = DB::table('history')
             ->select(
@@ -44,7 +44,7 @@ return new class () extends Migration {
             }
         }
 
-        Schema::table('history', function (Blueprint $table) {
+        Schema::table('history', function (Blueprint $table): void {
             $table->unique(['user_id', 'torrent_id']);
         });
     }

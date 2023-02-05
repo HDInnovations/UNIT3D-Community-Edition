@@ -28,7 +28,7 @@ class NotificationSettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->id === $user->id, 403);
 
         $notification = $user->notification;
 
@@ -109,20 +109,20 @@ class NotificationSettingController extends Controller
         $notification->show_mention_article_comment = $request->show_mention_article_comment;
         $notification->show_mention_forum_post = $request->show_mention_forum_post;
         $notification->show_forum_topic = $request->show_forum_topic;
-        $notification->json_account_groups = \array_map('intval', $request->json_account_groups ?? []);
-        $notification->json_bon_groups = \array_map('intval', $request->json_bon_groups ?? []);
-        $notification->json_following_groups = \array_map('intval', $request->json_following_groups ?? []);
-        $notification->json_forum_groups = \array_map('intval', $request->json_forum_groups ?? []);
-        $notification->json_request_groups = \array_map('intval', $request->json_request_groups ?? []);
-        $notification->json_subscription_groups = \array_map('intval', $request->json_subscription_groups ?? []);
-        $notification->json_torrent_groups = \array_map('intval', $request->json_torrent_groups ?? []);
-        $notification->json_mention_groups = \array_map('intval', $request->json_mention_groups ?? []);
+        $notification->json_account_groups = array_map('intval', $request->json_account_groups ?? []);
+        $notification->json_bon_groups = array_map('intval', $request->json_bon_groups ?? []);
+        $notification->json_following_groups = array_map('intval', $request->json_following_groups ?? []);
+        $notification->json_forum_groups = array_map('intval', $request->json_forum_groups ?? []);
+        $notification->json_request_groups = array_map('intval', $request->json_request_groups ?? []);
+        $notification->json_subscription_groups = array_map('intval', $request->json_subscription_groups ?? []);
+        $notification->json_torrent_groups = array_map('intval', $request->json_torrent_groups ?? []);
+        $notification->json_mention_groups = array_map('intval', $request->json_mention_groups ?? []);
         $notification->save();
 
         $user->block_notifications = $request->block_notifications;
         $user->save();
 
-        return \to_route('users.notification_settings.edit', ['user' => $user])
+        return to_route('users.notification_settings.edit', ['user' => $user])
             ->withSuccess('Your notification settings have been successfully saved.');
     }
 
@@ -131,7 +131,7 @@ class NotificationSettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
         $groups = Group::query()
             ->where('is_modo', '=', '0')
@@ -143,6 +143,6 @@ class NotificationSettingController extends Controller
             ->latest('level')
             ->get();
 
-        return \view('user.notification_setting.edit', ['user' => $user, 'groups'=> $groups]);
+        return view('user.notification_setting.edit', ['user' => $user, 'groups' => $groups]);
     }
 }

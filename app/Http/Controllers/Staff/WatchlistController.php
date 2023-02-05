@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreWatchedUserRequest;
 use App\Models\User;
 use App\Models\Watchlist;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WatchlistControllerTest
@@ -28,7 +29,7 @@ class WatchlistController extends Controller
      */
     final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.watchlist.index');
+        return view('Staff.watchlist.index');
     }
 
     /**
@@ -40,21 +41,21 @@ class WatchlistController extends Controller
 
         Watchlist::create(['user_id' => $user->id, 'staff_id' => $request->user()->id] + $request->validated());
 
-        return \to_route('staff.watchlist.index')
+        return to_route('staff.watchlist.index')
             ->withSuccess('User Successfully Being Watched');
     }
 
     /**
      * Delete A Watched User.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $watchedUser = Watchlist::findOrFail($id);
         $watchedUser->delete();
 
-        return \to_route('staff.watchlist.index')
+        return to_route('staff.watchlist.index')
             ->withSuccess('Successfully Stopped Watching User');
     }
 }

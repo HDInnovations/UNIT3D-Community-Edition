@@ -43,9 +43,9 @@ class UserTicketCreated extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->subject('Your ticket was created (Ticket # '.$this->ticket->id.')')
-                    ->line('Your ticket was created.')
-                    ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
+            ->subject('Your ticket was created (Ticket # '.$this->ticket->id.')')
+            ->line('Your ticket was created.')
+            ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**
