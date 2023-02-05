@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Peer;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
@@ -24,7 +25,7 @@ class AutoInsertPeers extends Command
 {
     /**
      * MySql can handle a max of 65k placeholders per query,
-     * and there are 13 fields on each peer that are updated
+     * and there are 13 fields on each peer that are updated.
      */
     public const PEERS_PER_CYCLE = 65_000 / 13;
 
@@ -45,17 +46,17 @@ class AutoInsertPeers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
-        $key = \config('cache.prefix').':peers:batch';
+        $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('peer')->command('LRANGE', [$key, '0', '-1']);
-        $cycles = \ceil($peerCount / self::PEERS_PER_CYCLE);
+        $cycles = ceil($peerCount / self::PEERS_PER_CYCLE);
 
         for ($i = 0; $i < $cycles; $i++) {
             $peers = Redis::connection('peer')->command('LPOP', [$key, self::PEERS_PER_CYCLE]);
-            $peers = \array_map('unserialize', $peers);
+            $peers = array_map('unserialize', $peers);
 
             Peer::upsert(
                 $peers,
