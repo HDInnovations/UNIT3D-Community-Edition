@@ -17,7 +17,7 @@
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
                 <div class="form__group form__group--horizontal" x-data="{ open: false }">
-                    <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="open = true; $refs.dialog.showModal();">
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
@@ -59,7 +59,7 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-edit"></i>
                         {{ __('playlist.edit-playlist') }}
@@ -73,7 +73,7 @@
                     @csrf
                     @method('DELETE')
                         <p class="form__group form__group--horizontal">
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete this playlist: {{ $playlist->name }}?',
@@ -85,7 +85,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             {{ __('common.delete') }}
@@ -100,7 +100,7 @@
                 <p class="form__group form__group--horizontal">
                     <button
                         href="{{ route('playlists.download', ['id' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class='{{ config('other.font-awesome') }} fa-download'></i>
                         {{ __('playlist.download-all') }}
@@ -109,7 +109,7 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         href="{{ route('torrents', ['playlistId' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i>
                         Playlist Torrents List

@@ -306,7 +306,7 @@
                         {{ __('common.direction') }}
                     </label>
                 </p>
-                <p class="form__group--horizontal">
+                <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.search') }}
                     </button>

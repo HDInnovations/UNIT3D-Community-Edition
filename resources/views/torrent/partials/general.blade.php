@@ -23,21 +23,24 @@
                                 {{ $torrent->type->name }}
                             </span>
                             @if (isset($torrent->region_id))
-                                <span class="torrent-region badge-extra text-info text-bold" data-toggle="tooltip"
-                                      style="line-height: 14px" title="{{ $torrent->region->name }}"
+                                <span class="torrent-region badge-extra text-info text-bold"
+                                      style="line-height: 14px"
+                                      title="{{ $torrent->region->name }}"
                                 >
                                     {{ $torrent->region->name }}
                                 </span>
                             @endif
                             @if (isset($torrent->distributor_id))
-                                <span class="torrent-distributor badge-extra text-info text-bold" data-toggle="tooltip"
-                                      style="line-height: 14px" title="{{ $torrent->distributor->name }}"
+                                <span class="torrent-distributor badge-extra text-info text-bold"
+                                      style="line-height: 14px"
+                                      title="{{ $torrent->distributor->name }}"
                                 >
                                     {{ $torrent->distributor->name }}
                                 </span>
                             @endif
-                            <span class="torrent-size badge-extra text-info text-bold" data-toggle="tooltip"
-                                  style="line-height: 14px" title="{{ __('torrent.estimated-ratio') }}: {{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}"
+                            <span class="torrent-size badge-extra text-info text-bold"
+                                  style="line-height: 14px"
+                                  title="{{ __('torrent.estimated-ratio') }}: {{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}"
                             >
                                 {{ $torrent->getSize() }}
                             </span>
@@ -46,7 +49,7 @@
                             @if ($torrent->featured == '0')
                                 @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || $torrent->free > '1' || config('other.freeleech') == '1' || $torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
                                     @if ($freeleech_token || $user->group->is_freeleech == '1' || $personal_freeleech || config('other.freeleech') == '1')
-                                        <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
+                                        <span class="badge-extra" data-html="true" title="
                                                 @if ($freeleech_token)
                                                     <p>{{ __('common.fl_token') }}</p>
                                                 @endif
@@ -67,7 +70,7 @@
                                         </span>
                                     @elseif ($torrent->free > '1')
                                         @if ($torrent->free >= '90')
-                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
+                                            <span class="badge-extra text-bold" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                                 @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
@@ -88,7 +91,7 @@
                                                     color: #FFB800;
                                                 }
                                             </style>
-                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
+                                            <span class="badge-extra text-bold" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="star50 {{ config('other.font-awesome') }} fa-star"></i>
                                                 @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
@@ -109,7 +112,7 @@
                                                     color: #FFB800;
                                                 }
                                             </style>
-                                            <span class="badge-extra text-bold" data-toggle="tooltip" data-html="true"
+                                            <span class="badge-extra text-bold" data-html="true"
                                                   title="<p>{{ $torrent->free }}% {{ __('common.free') }}</p>">
                                                 <i class="star30 {{ config('other.font-awesome') }} fa-star"></i>
                                                 @if ($torrent->fl_until !== null) <span>{{ Illuminate\Support\Carbon::now()->diffForHumans($torrent->fl_until) }} Freeleech expires.</span> @endif
@@ -118,7 +121,7 @@
                                     @endif
 
                                     @if ($torrent->doubleup == '1' || $user->group->is_double_upload == '1' || config('other.doubleup') == '1')
-                                        <span class="badge-extra" data-toggle="tooltip" data-html="true" title="
+                                        <span class="badge-extra" data-html="true" title="
                                                 @if ($torrent->doubleup == '1')
                                                     <p>{{ __('torrent.double-upload') }}</p>
                                                 @endif
@@ -136,56 +139,55 @@
                                         </span>
                                     @endif
                                 @else
-                                    <span class="text-danger badge-extra" data-toggle="tooltip"
-                                          title="{{ __('torrent.no-discounts') }}">
+                                    <span class="text-danger badge-extra" title="{{ __('torrent.no-discounts') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-frown"></i>
                                     </span>
                                 @endif
                             @else
-                                <span class="badge-extra" data-toggle="tooltip" data-html="true"
+                                <span class="badge-extra" data-html="true"
                                       title='{{ __("torrent.featured-until") }} {{ $featured->created_at->addDay(7)->toFormattedDateString() }} ({{ $featured->created_at->addDay(7)->diffForHumans() }}!) {!! __("torrent.featured-desc") !!}'>
                                     <i class="{{ config('other.font-awesome') }} fa-certificate text-orange"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->internal == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.internal-release') }}">
+                                <span class="badge-extra" title="{{ __('torrent.internal-release') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->personal_release == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.personal-release') }}">
+                                <span class="badge-extra" title="{{ __('torrent.personal-release') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-user-plus text-green" style="color: #865be9"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->stream == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.stream-optimized') }}">
+                                <span class="badge-extra" title="{{ __('torrent.stream-optimized') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-play text-red"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->leechers >= 5)
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('common.hot') }}">
+                                <span class="badge-extra" title="{{ __('common.hot') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-fire text-orange"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->sticky == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.sticky') }}">
+                                <span class="badge-extra" title="{{ __('torrent.sticky') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbtack text-black"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->highspeed == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('common.high-speeds') }}">
+                                <span class="badge-extra" title="{{ __('common.high-speeds') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-tachometer text-red"></i>
                                 </span>
                             @endif
 
                             @if ($torrent->sd == '1')
-                                <span class="badge-extra" data-toggle="tooltip" title="{{ __('torrent.sd-content') }}">
+                                <span class="badge-extra" title="{{ __('torrent.sd-content') }}">
                                     <i class="{{ config('other.font-awesome') }} fa-ticket text-orange"></i>
                                 </span>
                             @endif
@@ -203,8 +205,8 @@
                             @else
                                 <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                     <span class="badge-user text-bold" style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
-                                        <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
-                                           data-original-title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
+                                        <i class="{{ $torrent->user->group->icon }}"
+                                           title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
                                     </span>
                                 </a>
                             @endif
@@ -240,7 +242,7 @@
                                 @endif
                             @endif
 
-                            <span class="torrent-uploaded-time" data-toggle="tooltip" title="{{ $torrent->created_at }}">
+                            <span class="torrent-uploaded-time" title="{{ $torrent->created_at }}">
                                 {{ $torrent->created_at->diffForHumans() }}
                             </span>
                         </div>
@@ -250,7 +252,6 @@
                         <a
                                 href="{{ route('peers', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-green"
-                                data-toggle="tooltip"
                                 title="{{ $torrent->seeders }} {{ strtolower(__('torrent.seeders')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}
@@ -258,7 +259,6 @@
                         <a
                                 href="{{ route('peers', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-red"
-                                data-toggle="tooltip"
                                 title="{{ $torrent->leechers }} {{ strtolower(__('torrent.leechers')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}
@@ -266,7 +266,6 @@
                         <a
                                 href="{{ route('history', ['id' => $torrent->id]) }}"
                                 class="badge-extra text-info"
-                                data-toggle="tooltip"
                                 title="{{ $torrent->times_completed }} {{ strtolower(__('common.times')) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i> {{ $torrent->times_completed }}
@@ -439,8 +438,8 @@
                     @else
                         <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                             <span class="badge-user text-bold" style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
-                                <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
-                                   data-original-title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
+                                <i class="{{ $torrent->user->group->icon }}"
+                                   title="{{ $torrent->user->group->name }}"></i> {{ $torrent->user->username }}
                             </span>
                         </a>
                     @endif
@@ -496,8 +495,7 @@
             <tr class="torrent-category">
                 <td class="col-sm-2"><strong>{{ __('torrent.category') }}</strong></td>
                 <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
-                       data-toggle="tooltip"
-                       data-original-title="{{ $torrent->category->name }} {{ __('torrent.torrent') }}"></i>
+                       title="{{ $torrent->category->name }} {{ __('torrent.torrent') }}"></i>
                     {{ $torrent->category->name }}
                 </td>
             </tr>
