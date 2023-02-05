@@ -65,6 +65,13 @@ class UserResurrections extends Component
     final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Graveyard::query()
+            ->select([
+                'graveyard.id',
+                'graveyard.created_at',
+                'graveyard.seedtime',
+                'graveyard.rewarded',
+                'graveyard.torrent_id'
+            ])
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id')
             ->where('graveyard.user_id', '=', $this->user->id)
