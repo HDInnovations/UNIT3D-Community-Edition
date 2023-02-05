@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreBlacklistClientRequest;
 use App\Http\Requests\Staff\UpdateBlacklistClientRequest;
 use App\Models\BlacklistClient;
+use App\Services\Unit3dAnnounce;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -48,7 +49,13 @@ class BlacklistClientController extends Controller
      */
     public function update(UpdateBlacklistClientRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        BlacklistClient::where('id', '=', $id)->update($request->validated());
+        $client = BlacklistClient::findOrFail($id);
+
+        Unit3dAnnounce::removeBlacklistedAgent($client);
+
+        $client->update($request->validated());
+
+        Unit3dAnnounce::addBlacklistedAgent($client);
 
         cache()->forget('client_blacklist');
 
@@ -69,7 +76,9 @@ class BlacklistClientController extends Controller
      */
     public function store(StoreBlacklistClientRequest $request): \Illuminate\Http\RedirectResponse
     {
-        BlacklistClient::create($request->validated());
+        $client = BlacklistClient::create($request->validated());
+
+        Unit3dAnnounce::addBlacklistedAgent($client);
 
         cache()->forget('client_blacklist');
 
@@ -82,7 +91,10 @@ class BlacklistClientController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        BlacklistClient::findOrFail($id)->delete();
+        $client = BlacklistClient::findOrFail($id);
+
+        Unit3dAnnounce::removeBlacklistedAgent($client);
+        $client->delete();
 
         cache()->forget('client_blacklist');
 

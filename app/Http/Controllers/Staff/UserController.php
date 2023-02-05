@@ -32,6 +32,7 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -81,6 +82,7 @@ class UserController extends Controller
         $user->update($request->validated());
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
@@ -101,6 +103,7 @@ class UserController extends Controller
         $user->save();
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
@@ -228,6 +231,7 @@ class UserController extends Controller
         }
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::removeUser($user);
 
         return to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');

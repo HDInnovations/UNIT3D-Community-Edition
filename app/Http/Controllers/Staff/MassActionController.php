@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreMassActionRequest;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Exception;
 
 /**
@@ -77,6 +78,8 @@ class MassActionController extends Controller
             $user->can_comment = 1;
             $user->can_invite = 1;
             $user->save();
+
+            Unit3dAnnounce::addUser($user);
         }
 
         return to_route('staff.dashboard.index')

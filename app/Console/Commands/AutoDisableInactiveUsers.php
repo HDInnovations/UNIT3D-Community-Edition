@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -70,6 +71,7 @@ class AutoDisableInactiveUsers extends Command
                     $user->save();
 
                     cache()->forget('user:'.$user->passkey);
+                    Unit3dAnnounce::addUser($user);
 
                     // Send Email
                     dispatch(new SendDisableUserMail($user));

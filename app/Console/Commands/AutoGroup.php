@@ -18,6 +18,7 @@ use App\Helpers\ByteUnits;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -114,6 +115,7 @@ class AutoGroup extends Command
             }
 
             cache()->forget('user:'.$user->passkey);
+            Unit3dAnnounce::addUser($user);
         }
 
         $this->comment('Automated User Group Command Complete');

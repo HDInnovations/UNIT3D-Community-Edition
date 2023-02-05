@@ -21,6 +21,7 @@ use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -81,6 +82,7 @@ class TransactionController extends Controller
                 $personalFreeleech->user_id = $user->id;
                 $personalFreeleech->save();
                 cache()->put('personal_freeleech:'.$user->id, true);
+                Unit3dAnnounce::addPersonalFreeleech($user->id);
 
                 // Send Private Message
                 $privateMessage = new PrivateMessage();

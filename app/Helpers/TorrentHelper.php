@@ -30,6 +30,7 @@ use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
 class TorrentHelper
@@ -105,5 +106,7 @@ class TorrentHelper
             }
             $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
+
+        Unit3dAnnounce::addTorrent($torrent);
     }
 }

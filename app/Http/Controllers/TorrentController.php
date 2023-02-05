@@ -41,6 +41,7 @@ use App\Models\Type;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use App\Services\Unit3dAnnounce;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -372,6 +373,8 @@ class TorrentController extends Controller
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
+
+                Unit3dAnnounce::removeTorrent($torrent);
 
                 $torrent->delete();
 

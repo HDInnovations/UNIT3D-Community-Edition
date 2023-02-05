@@ -22,6 +22,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Models\Warning;
 use App\Rules\EmailBlacklist;
+use App\Services\Unit3dAnnounce;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -297,6 +298,8 @@ class UserController extends Controller
         $user->save();
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::removeUser($user);
+        Unit3dAnnounce::addUser($user);
 
         return to_route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');

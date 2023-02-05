@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -58,6 +59,7 @@ class AutoRemovePersonalFreeleech extends Command
             $pfl->delete();
 
             cache()->forget('personal_freeleech:'.$pfl->user_id);
+            Unit3dAnnounce::removePersonalFreeleech($pfl->user_id);
         }
 
         $this->comment('Automated Removal User Personal Freeleech Command Complete');
