@@ -48,7 +48,7 @@ class CompanySearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.company-search', [
+        return view('livewire.company-search', [
             'companies' => $this->companies,
         ]);
     }

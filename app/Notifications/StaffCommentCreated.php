@@ -43,9 +43,9 @@ class StaffCommentCreated extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->subject('A comment was added (Staff)')
-                    ->line('A comment was added')
-                    ->action('View Ticket', \route('tickets.show', ['id' => $this->comment->ticket->id]));
+            ->subject('A comment was added (Staff)')
+            ->line('A comment was added')
+            ->action('View Ticket', route('tickets.show', ['id' => $this->comment->ticket->id]));
     }
 
     /**

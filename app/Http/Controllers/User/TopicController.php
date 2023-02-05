@@ -25,7 +25,7 @@ class TopicController extends Controller
     {
         $topics = $user->topics()->latest()->paginate(25);
 
-        return \view('user.topic.index', [
+        return view('user.topic.index', [
             'topics' => $topics,
             'user'   => $user,
         ]);

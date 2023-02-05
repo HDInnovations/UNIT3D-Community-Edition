@@ -40,12 +40,12 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrentRequest->user;
 
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return \to_route('request', ['id' => $id])
+            return to_route('request', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -60,8 +60,8 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \to_route('request', ['id' => $id])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('request', ['id' => $id])
+            ->withSuccess(trans('user.report-sent'));
     }
 
     /**
@@ -73,12 +73,12 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrent->user;
 
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return \to_route('torrent', ['id' => $id])
+            return to_route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -93,8 +93,8 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \to_route('torrent', ['id' => $id])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('torrent', ['id' => $id])
+            ->withSuccess(trans('user.report-sent'));
     }
 
     /**
@@ -105,12 +105,12 @@ class ReportController extends Controller
         $reportedUser = User::where('username', '=', $username)->firstOrFail();
         $reportedBy = $request->user();
 
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return \to_route('users.show', ['username' => $username])
+            return to_route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         }
 
@@ -125,7 +125,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return \to_route('users.show', ['username' => $username])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('users.show', ['username' => $username])
+            ->withSuccess(trans('user.report-sent'));
     }
 }

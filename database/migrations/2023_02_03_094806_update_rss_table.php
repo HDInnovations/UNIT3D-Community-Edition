@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('rss', function (Blueprint $table) {
+        Schema::table('rss', function (Blueprint $table): void {
             $table->dropForeign(['staff_id']);
             $table->dropColumn('staff_id');
         });

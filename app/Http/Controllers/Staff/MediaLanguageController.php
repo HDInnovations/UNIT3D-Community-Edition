@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreMediaLanguageRequest;
 use App\Http\Requests\Staff\UpdateMediaLanguageRequest;
 use App\Models\MediaLanguage;
+use Exception;
 
 class MediaLanguageController extends Controller
 {
@@ -27,7 +28,7 @@ class MediaLanguageController extends Controller
     {
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
 
-        return \view('Staff.media_language.index', ['media_languages' => $mediaLanguages]);
+        return view('Staff.media_language.index', ['media_languages' => $mediaLanguages]);
     }
 
     /**
@@ -35,7 +36,7 @@ class MediaLanguageController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.media_language.create');
+        return view('Staff.media_language.create');
     }
 
     /**
@@ -45,7 +46,7 @@ class MediaLanguageController extends Controller
     {
         MediaLanguage::create($request->validated());
 
-        return \to_route('staff.media_languages.index')
+        return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Added');
     }
 
@@ -56,7 +57,7 @@ class MediaLanguageController extends Controller
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
 
-        return \view('Staff.media_language.edit', ['media_language' => $mediaLanguage]);
+        return view('Staff.media_language.edit', ['media_language' => $mediaLanguage]);
     }
 
     /**
@@ -66,21 +67,21 @@ class MediaLanguageController extends Controller
     {
         MediaLanguage::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.media_languages.index')
+        return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->delete();
 
-        return \to_route('staff.media_languages.index')
+        return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');
     }
 }

@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('chat_statuses', function (Blueprint $table) {
+        Schema::create('chat_statuses', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('color')->unique();

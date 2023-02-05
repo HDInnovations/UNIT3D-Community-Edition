@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatStatus extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The attributes that aren't mass assignable.

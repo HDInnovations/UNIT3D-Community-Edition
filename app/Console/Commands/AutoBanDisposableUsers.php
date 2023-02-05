@@ -21,6 +21,7 @@ use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest
@@ -44,15 +45,15 @@ class AutoBanDisposableUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup) {
+        User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup): void {
             foreach ($users as $user) {
-                $v = \validator([
+                $v = validator([
                     'email' => $user->email,
                 ], [
                     'email' => [
@@ -76,7 +77,7 @@ class AutoBanDisposableUsers extends Command
                     $user->save();
 
                     // Log The Ban To Ban Log
-                    $domain = \substr(\strrchr($user->email, '@'), 1);
+                    $domain = substr(strrchr($user->email, '@'), 1);
                     $logban = new Ban();
                     $logban->owned_by = $user->id;
                     $logban->created_by = 1;
@@ -88,7 +89,7 @@ class AutoBanDisposableUsers extends Command
                     Mail::to($user->email)->send(new BanUser($user->email, $logban));
                 }
 
-                \cache()->forget('user:'.$user->passkey);
+                cache()->forget('user:'.$user->passkey);
             }
         });
         $this->comment('Automated User Banning Command Complete');

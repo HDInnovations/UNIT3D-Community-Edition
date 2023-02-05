@@ -66,7 +66,7 @@ class SimilarTorrent extends Component
 
     final public function isChecked($torrentId): bool
     {
-        return in_array($torrentId, $this->checked);
+        return \in_array($torrentId, $this->checked);
     }
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
@@ -77,13 +77,13 @@ class SimilarTorrent extends Component
         $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments']);
         if ($category->movie_meta) {
-            $query = $query->whereHas('category', function ($q) {
+            $query = $query->whereHas('category', function ($q): void {
                 $q->where('movie_meta', '=', true);
             });
         }
 
         if ($category->tv_meta) {
-            $query = $query->whereHas('category', function ($q) {
+            $query = $query->whereHas('category', function ($q): void {
                 $q->where('tv_meta', '=', true);
             });
         }
@@ -112,8 +112,8 @@ class SimilarTorrent extends Component
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
             'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!'.\nl2br("\n")
-                        .\nl2br(\implode("\n", $names)),
+            'body'    => 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+                        .nl2br(implode("\n", $names)),
         ]);
     }
 
@@ -127,12 +127,12 @@ class SimilarTorrent extends Component
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if (! in_array($pm->user_id, $users)) {
+                if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
             }
 
-            if (! in_array($torrent->tmdb, $titleids)) {
+            if (! \in_array($torrent->tmdb, $titleids)) {
                 $titleids[] = $torrent->tmdb;
                 $title = null;
                 $cat = $torrent->category;
@@ -168,7 +168,7 @@ class SimilarTorrent extends Component
             ]);
 
             //Remove Torrent related info
-            \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
+            cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
             Peer::where('torrent_id', '=', $torrent->id)->delete();
             History::where('torrent_id', '=', $torrent->id)->delete();
             Warning::where('torrent', '=', $torrent->id)->delete();
@@ -187,10 +187,10 @@ class SimilarTorrent extends Component
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = 1;
             $pmuser->receiver_id = $user;
-            $pmuser->subject = 'Bulk Torrents Deleted - '.\implode(', ', $titles).'! ';
+            $pmuser->subject = 'Bulk Torrents Deleted - '.implode(', ', $titles).'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
-                [*]'.\implode(' [*]', $names).'
+                [*]'.implode(' [*]', $names).'
             [/list]
             Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
                                     [b]Removal Reason: [/b] '.$this->reason.'
@@ -224,13 +224,13 @@ class SimilarTorrent extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return \cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.similar-torrent', [
-            'user'              => \auth()->user(),
+        return view('livewire.similar-torrent', [
+            'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
         ]);

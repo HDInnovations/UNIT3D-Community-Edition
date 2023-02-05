@@ -44,46 +44,46 @@ class RegisterController extends Controller
     public function registrationForm($code = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
-        if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups')) {
-            return \to_route('application.create')
-                ->withInfo(\trans('auth.allow-invite-appl'));
+        if ($code === 'null' && config('other.invite-only') == 1 && config('other.application_signups')) {
+            return to_route('application.create')
+                ->withInfo(trans('auth.allow-invite-appl'));
         }
 
         // Make sure open reg is off and invite code is not present
-        if ($code === 'null' && \config('other.invite-only') == 1) {
-            return \to_route('login')
-                ->withWarning(\trans('auth.allow-invite'));
+        if ($code === 'null' && config('other.invite-only') == 1) {
+            return to_route('login')
+                ->withWarning(trans('auth.allow-invite'));
         }
 
-        return \view('auth.register', ['code' => $code]);
+        return view('auth.register', ['code' => $code]);
     }
 
     public function register(Request $request, $code = null): \Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (\config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return \to_route('registrationForm', ['code' => $code])
-                ->withErrors(\trans('auth.invalid-key'));
+        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
+            return to_route('registrationForm', ['code' => $code])
+                ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        $user->passkey = \md5(\random_bytes(60).$user->password);
-        $user->rsskey = \md5(\random_bytes(60).$user->password);
-        $user->uploaded = \config('other.default_upload');
-        $user->downloaded = \config('other.default_download');
-        $user->style = \config('other.default_style', 0);
-        $user->locale = \config('app.locale');
+        $user->passkey = md5(random_bytes(60).$user->password);
+        $user->rsskey = md5(random_bytes(60).$user->password);
+        $user->uploaded = config('other.default_upload');
+        $user->downloaded = config('other.default_download');
+        $user->style = config('other.default_style', 0);
+        $user->locale = config('app.locale');
         $user->group_id = $validatingGroup[0];
 
-        if (\config('email-blacklist.enabled')) {
-            if (! \config('captcha.enabled')) {
-                $v = \validator($request->all(), [
+        if (config('email-blacklist.enabled')) {
+            if (! config('captcha.enabled')) {
+                $v = validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
                     'email'    => [
@@ -96,7 +96,7 @@ class RegisterController extends Controller
                     ],
                 ]);
             } else {
-                $v = \validator($request->all(), [
+                $v = validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => 'required|string|between:8,16',
                     'email'    => [
@@ -107,17 +107,17 @@ class RegisterController extends Controller
                         'unique:users',
                         new EmailBlacklist(),
                     ],
-                    'captcha'  => 'hiddencaptcha',
+                    'captcha' => 'hiddencaptcha',
                 ]);
             }
-        } elseif (! \config('captcha.enabled')) {
-            $v = \validator($request->all(), [
+        } elseif (! config('captcha.enabled')) {
+            $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:8,16',
                 'email'    => 'required|string|email|max:70|unique:users',
             ]);
         } else {
-            $v = \validator($request->all(), [
+            $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => 'required|string|between:6,16',
                 'email'    => 'required|string|email|max:70|unique:users',
@@ -126,7 +126,7 @@ class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return \to_route('registrationForm', ['code' => $code])
+            return to_route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         }
 
@@ -147,22 +147,22 @@ class RegisterController extends Controller
         }
 
         // Handle The Activation System
-        $token = \hash_hmac('sha256', $user->username.$user->email.Str::random(16), \config('app.key'));
+        $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
         $userActivation = new UserActivation();
         $userActivation->user_id = $user->id;
         $userActivation->token = $token;
         $userActivation->save();
         $this->dispatch(new SendActivationMail($user, $token));
         // Select A Random Welcome Message
-        $profileUrl = \href_profile($user);
+        $profileUrl = href_profile($user);
         $welcomeArray = [
-            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).\config('other.title').'! Hope you enjoy the community :rocket:',
-            \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profileUrl, $user->username),
-            \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profileUrl, $user->username),
-            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
+            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
+            sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profileUrl, $user->username),
+            sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profileUrl, $user->username),
+            sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
+            sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
+            sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
+            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
         ];
         $selected = random_int(0, \count($welcomeArray) - 1);
         $this->chatRepository->systemMessage(
@@ -172,11 +172,11 @@ class RegisterController extends Controller
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = 1;
         $privateMessage->receiver_id = $user->id;
-        $privateMessage->subject = \config('welcomepm.subject');
-        $privateMessage->message = \config('welcomepm.message');
+        $privateMessage->subject = config('welcomepm.subject');
+        $privateMessage->message = config('welcomepm.message');
         $privateMessage->save();
 
-        return \to_route('login')
-            ->withSuccess(\trans('auth.register-thanks'));
+        return to_route('login')
+            ->withSuccess(trans('auth.register-thanks'));
     }
 }

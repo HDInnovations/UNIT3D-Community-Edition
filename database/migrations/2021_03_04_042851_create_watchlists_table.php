@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('watchlists', function (Blueprint $table) {
+        Schema::create('watchlists', function (Blueprint $table): void {
             $table->id();
             $table->integer('user_id')->unique()->index();
             $table->integer('staff_id')->index();

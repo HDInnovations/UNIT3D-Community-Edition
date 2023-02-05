@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_echoes', function (Blueprint $table) {
+        Schema::create('user_echoes', function (Blueprint $table): void {
             $table->integer('id', true)->signed();
             $table->integer('user_id')->signed()->index();
             $table->boolean('room_id')->nullable()->index();

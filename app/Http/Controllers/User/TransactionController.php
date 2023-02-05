@@ -43,17 +43,17 @@ class TransactionController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        \abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->id === $user->id, 403);
 
         $userbon = $user->getSeedbonus();
         $activefl = $user->personalFreeleeches()->exists();
         $items = BonExchange::all();
 
-        return \view('user.transaction.create', [
-            'user'              => $user,
-            'userbon'           => $userbon,
-            'activefl'          => $activefl,
-            'items'             => $items,
+        return view('user.transaction.create', [
+            'user'     => $user,
+            'userbon'  => $userbon,
+            'activefl' => $activefl,
+            'items'    => $items,
         ]);
     }
 
@@ -64,7 +64,7 @@ class TransactionController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        \abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->id === $user->id, 403);
 
         $request = (object) $request->validated();
         $item = BonExchange::findOrFail($request->exchange);
@@ -80,15 +80,15 @@ class TransactionController extends Controller
                 $personalFreeleech = new PersonalFreeleech();
                 $personalFreeleech->user_id = $user->id;
                 $personalFreeleech->save();
-                \cache()->put('personal_freeleech:'.$user->id, true);
+                cache()->put('personal_freeleech:'.$user->id, true);
 
                 // Send Private Message
                 $privateMessage = new PrivateMessage();
                 $privateMessage->sender_id = 1;
                 $privateMessage->receiver_id = $user->id;
-                $privateMessage->subject = \trans('bon.pm-subject');
-                $privateMessage->message = \sprintf(\trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).\config('app.timezone').'[/b]! 
-                [color=red][b]'.\trans('common.system-message').'[/b][/color]';
+                $privateMessage->subject = trans('bon.pm-subject');
+                $privateMessage->message = sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                [color=red][b]'.trans('common.system-message').'[/b][/color]';
                 $privateMessage->save();
                 break;
             case $item->invite:
@@ -107,7 +107,7 @@ class TransactionController extends Controller
 
         $user->decrement('seedbonus', $item->cost);
 
-        return \to_route('transactions.create', ['username' => $user->username])
-            ->withSuccess(\trans('bon.success'));
+        return to_route('transactions.create', ['username' => $user->username])
+            ->withSuccess(trans('bon.success'));
     }
 }

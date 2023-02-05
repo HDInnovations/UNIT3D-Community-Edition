@@ -30,7 +30,7 @@ class BbcodeInput extends Component
 
     public string $contentHtml = '';
 
-    final public function mount($name, $label, $required = false, $content = null)
+    final public function mount($name, $label, $required = false, $content = null): void
     {
         $this->name = $name;
         $this->label = $label;
@@ -47,7 +47,7 @@ class BbcodeInput extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.bbcode-input', [
+        return view('livewire.bbcode-input', [
             'contentHtml' => $this->contentHtml,
             'label'       => $this->label,
         ]);

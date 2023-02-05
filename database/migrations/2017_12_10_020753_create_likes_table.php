@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('post_id');

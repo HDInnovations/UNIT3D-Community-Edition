@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreBonExchangeRequest;
 use App\Http\Requests\Staff\UpdateBonExchangeRequest;
 use App\Models\BonExchange;
+use Exception;
 
 class BonExchangeController extends Controller
 {
@@ -27,7 +28,7 @@ class BonExchangeController extends Controller
     {
         $bonExchanges = BonExchange::all()->sortBy('position');
 
-        return \view('Staff.bon_exchange.index', ['bonExchanges' => $bonExchanges]);
+        return view('Staff.bon_exchange.index', ['bonExchanges' => $bonExchanges]);
     }
 
     /**
@@ -35,7 +36,7 @@ class BonExchangeController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.bon_exchange.create');
+        return view('Staff.bon_exchange.create');
     }
 
     /**
@@ -51,7 +52,7 @@ class BonExchangeController extends Controller
         ]
         + $request->validated());
 
-        return \to_route('staff.bon_exchanges.index')
+        return to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Added');
     }
 
@@ -62,7 +63,7 @@ class BonExchangeController extends Controller
     {
         $bonExchange = BonExchange::findOrFail($id);
 
-        return \view('Staff.bon_exchange.edit', ['bonExchange' => $bonExchange]);
+        return view('Staff.bon_exchange.edit', ['bonExchange' => $bonExchange]);
     }
 
     /**
@@ -78,21 +79,21 @@ class BonExchangeController extends Controller
         ]
         + $request->validated());
 
-        return \to_route('staff.bon_exchanges.index')
+        return to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Modified');
     }
 
     /**
      * Destroy A Bon Exchange.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $bonExchange = BonExchange::findOrFail($id);
         $bonExchange->delete();
 
-        return \to_route('staff.bon_exchanges.index')
+        return to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Deleted');
     }
 }

@@ -222,57 +222,57 @@ class Bbcode
     public function parse($source): string
     {
         // Replace all void elements since they don't have closing tags
-        $source = \str_replace('[*]', '<li>', $source);
-        $source = \preg_replace_callback(
+        $source = str_replace('[*]', '<li>', $source);
+        $source = preg_replace_callback(
             '/\[url\](.*?)\[\/url\]/i',
-            fn ($matches) => '<a href="'.\htmlspecialchars($matches[1]).'">'.\htmlspecialchars($matches[1]).'</a>',
+            fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
             $source
         );
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[img\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.\htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[img width=(\d+)\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.\htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
         // Youtube elements need to be replaced like this because the content inside the two tags
         // has to be moved into an html attribute
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[youtube\](.*?)\[\/youtube\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[video\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[video="youtube"\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.\htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
         // Common comparison syntax used in other torrent management systems is quite specific
         // so it must be done here instead
-        $source = \preg_replace_callback(
+        $source = preg_replace_callback(
             '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
             function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
-                $urls = \preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-                $validatedUrls = \collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
+                $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
+                $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
                 $chunkedUrls = $validatedUrls->chunk(\count($comparates));
-                $html = \view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
-                $html = \preg_replace('/\s+/', ' ', $html);
+                $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
+                $html = preg_replace('/\s+/', ' ', $html);
 
                 return $html;
             },
@@ -288,7 +288,7 @@ class Bbcode
         // Don't loop more than the length of the source
         while ($index < \strlen($source)) {
             // Get the next occurrence of `[`
-            $index = \strpos($source, '[', $index);
+            $index = strpos($source, '[', $index);
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {
@@ -302,27 +302,27 @@ class Bbcode
 
             // Is the potential tag opening or closing?
             if ($source[$index + 1] === '/' && ! empty($openedElements)) {
-                $name = \array_pop($openedElements);
+                $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
-                $tag = \substr($source, $index, \strlen($el['closeBbcode']));
+                $tag = substr($source, $index, \strlen($el['closeBbcode']));
 
                 // Replace bbcode tag with html tag if found tag matches expected tag,
                 // otherwise return the expected element's to the stack
-                if (\strcasecmp($tag, $el['closeBbcode']) === 0) {
-                    $source = \substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
+                if (strcasecmp($tag, $el['closeBbcode']) === 0) {
+                    $source = substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
                 } else {
                     $openedElements[] = $name;
                 }
             } else {
-                $remainingText = \substr($source, $index);
+                $remainingText = substr($source, $index);
 
                 // Find match between found bbcode tag and valid elements
                 foreach ($this->parsers as $name => $el) {
                     // The opening bbcode tag uses the regex `^` character to make
                     // sure only the beginning of $remainingText is matched
-                    if (\preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
-                        $replacement = \preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
-                        $source = \substr_replace($source, $replacement, $index, \strlen($matches[0]));
+                    if (preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
+                        $replacement = preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
+                        $source = substr_replace($source, $replacement, $index, \strlen($matches[0]));
                         $openedElements[] = $name;
 
                         break;
@@ -334,11 +334,11 @@ class Bbcode
         }
 
         while (! empty($openedElements)) {
-            $source .= $this->parsers[\array_pop($openedElements)]['closeHtml'];
+            $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
         // Replace line breaks
-        $source = \str_replace(["\r\n", "\n"], '<br>', $source);
+        $source = str_replace(["\r\n", "\n"], '<br>', $source);
 
         return $source;
     }

@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('log_activities', function (Blueprint $table) {
+        Schema::create('log_activities', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('subject');
             $table->string('url');

@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StorePageRequest;
 use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -30,7 +31,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return \view('Staff.page.index', ['pages' => $pages]);
+        return view('Staff.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -38,7 +39,7 @@ class PageController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.page.create');
+        return view('Staff.page.create');
     }
 
     /**
@@ -48,7 +49,7 @@ class PageController extends Controller
     {
         Page::create($request->validated());
 
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
 
@@ -59,7 +60,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return \view('Staff.page.edit', ['page' => $page]);
+        return view('Staff.page.edit', ['page' => $page]);
     }
 
     /**
@@ -69,20 +70,20 @@ class PageController extends Controller
     {
         Page::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }
 
     /**
      * Delete A Page.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         Page::findOrFail($id)->delete();
 
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }

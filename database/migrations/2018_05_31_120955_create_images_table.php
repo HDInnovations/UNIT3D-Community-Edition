@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('album_id')->unsigned();

@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -41,13 +42,13 @@ class UserController extends Controller
         $user = User::with(['privacy', 'history'])
             ->withCount('torrents')
             ->where('username', '=', $username)
-            ->when(\auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
+            ->when(auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
             ->firstOrFail();
 
         $groups = Group::all();
         $followers = $user->followers()->latest()->limit(25)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
+        $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(config('hitrun.max_warnings'))->get();
         $hitrun = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->latest()->paginate(10);
 
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
@@ -58,13 +59,13 @@ class UserController extends Controller
         //  Without Multipliers
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
 
-        $defUpl = \config('other.default_upload');
+        $defUpl = config('other.default_upload');
         $multiUpload = $hisUplCre - $hisUpl;
         $manUpload = $user->uploaded - $hisUplCre - $defUpl - $bonupload;
         $realupload = $user->getUploaded();
 
         $hisDown = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $defDown = \config('other.default_download');
+        $defDown = config('other.default_download');
         $freeDownload = $hisDown + $defDown - $user->downloaded;
         $realdownload = $user->getDownloaded();
 
@@ -84,14 +85,14 @@ class UserController extends Controller
             ->whereNotNull('unlocked_at')
             ->get();
 
-        return \view('user.profile.show', [
-            'route'        => 'profile',
-            'user'         => $user,
-            'groups'       => $groups,
-            'followers'    => $followers,
-            'history'      => $history,
-            'warnings'     => $warnings,
-            'hitrun'       => $hitrun,
+        return view('user.profile.show', [
+            'route'     => 'profile',
+            'user'      => $user,
+            'groups'    => $groups,
+            'followers' => $followers,
+            'history'   => $history,
+            'warnings'  => $warnings,
+            'hitrun'    => $hitrun,
 
             //'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
@@ -106,11 +107,11 @@ class UserController extends Controller
             'bonupload'    => $bonupload,
             'man_upload'   => $manUpload,
 
-            'requested'     => $requested,
-            'filled'        => $filled,
-            'invitedBy'     => $invitedBy,
-            'clients'       => $clients,
-            'achievements'  => $achievements,
+            'requested'    => $requested,
+            'filled'       => $filled,
+            'invitedBy'    => $invitedBy,
+            'clients'      => $clients,
+            'achievements' => $achievements,
         ]);
     }
 
@@ -121,9 +122,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        return \view('user.profile.edit', ['user' => $user, 'route' => 'edit']);
+        return view('user.profile.edit', ['user' => $user, 'route' => 'edit']);
     }
 
     /**
@@ -133,33 +134,33 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
         // Avatar
-        $maxUpload = \config('image.max_upload_size');
+        $maxUpload = config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
-            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && \preg_match('#image/*#', (string) $image->getMimeType())) {
+            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', (string) $image->getMimeType())) {
                 if ($maxUpload >= $image->getSize()) {
                     $filename = $user->username.'.'.$image->getClientOriginalExtension();
-                    $path = \public_path('/files/img/'.$filename);
+                    $path = public_path('/files/img/'.$filename);
                     if ($image->getClientOriginalExtension() !== 'gif') {
                         Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
                     } else {
-                        $v = \validator($request->all(), [
+                        $v = validator($request->all(), [
                             'image' => 'dimensions:ratio=1/1',
                         ]);
                         if ($v->passes()) {
-                            $image->move(\public_path('/files/img/'), $filename);
+                            $image->move(public_path('/files/img/'), $filename);
                         } else {
-                            return \to_route('users.show', ['username' => $user->username])
+                            return to_route('users.show', ['username' => $user->username])
                                 ->withErrors('Because you are uploading a GIF, your avatar must be square!');
                         }
                     }
 
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
-                    return \to_route('users.show', ['username' => $user->username])
+                    return to_route('users.show', ['username' => $user->username])
                         ->withErrors('Your avatar is too large, max file size: '.($maxUpload / 1_000_000).' MB');
                 }
             }
@@ -167,8 +168,8 @@ class UserController extends Controller
 
         // Prevent User from abusing BBCODE Font Size (max. 99)
         $aboutTemp = $request->input('about');
-        if (\str_contains((string) $aboutTemp, '[size=') && \preg_match('/\[size=[0-9]{3,}\]/', (string) $aboutTemp)) {
-            return \to_route('users.show', ['username' => $user->username])
+        if (str_contains((string) $aboutTemp, '[size=') && preg_match('/\[size=[0-9]{3,}\]/', (string) $aboutTemp)) {
+            return to_route('users.show', ['username' => $user->username])
                 ->withErrors('Font size is too big!');
         }
 
@@ -178,7 +179,7 @@ class UserController extends Controller
         $user->signature = $request->input('signature');
         $user->save();
 
-        return \to_route('user_edit_profile_form', ['username' => $user->username])
+        return to_route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -189,9 +190,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        return \view('user.settings.security.index', ['user' => $user]);
+        return view('user.settings.security.index', ['user' => $user]);
     }
 
     /**
@@ -200,16 +201,16 @@ class UserController extends Controller
     protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->getMethod() == 'GET') {
-            return \to_route('user_security', ['username' => $request->user()->username]);
+            return to_route('user_security', ['username' => $request->user()->username]);
         }
 
-        $user = \auth()->user();
+        $user = auth()->user();
 
-        \abort_unless(\config('auth.TwoStepEnabled') == true, 403);
+        abort_unless(config('auth.TwoStepEnabled') == true, 403);
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
@@ -220,9 +221,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'current_password'          => 'required',
             'new_password'              => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
@@ -232,15 +233,15 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                return \to_route('home.index')->withSuccess('Your Password Has Been Reset');
+                return to_route('home.index')->withSuccess('Your Password Has Been Reset');
             }
 
-            return \to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
+            return to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
         }
 
-        return \to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your New Password Is To Weak!');
+        return to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
+            ->withErrors('Your New Password Is To Weak!');
     }
 
     /**
@@ -250,10 +251,10 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        if (\config('email-blacklist.enabled')) {
-            $v = \validator($request->all(), [
+        if (config('email-blacklist.enabled')) {
+            $v = validator($request->all(), [
                 'email' => [
                     'required',
                     'string',
@@ -264,40 +265,40 @@ class UserController extends Controller
                 ],
             ]);
         } else {
-            $v = \validator($request->all(), [
+            $v = validator($request->all(), [
                 'email' => 'required|string|email|max:70|unique:users',
             ]);
         }
 
         if ($v->fails()) {
-            return \to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
+            return to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
         }
 
         $user->email = $request->input('email');
         $user->save();
 
-        return \to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
+        return to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
             ->withSuccess('Your Email Was Updated Successfully!');
     }
 
     /**
      * Change User PID.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function changePID(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        $user->passkey = \md5(\random_bytes(60).$user->password);
+        $user->passkey = md5(random_bytes(60).$user->password);
         $user->save();
 
-        \cache()->forget('user:'.$user->passkey);
+        cache()->forget('user:'.$user->passkey);
 
-        return \to_route('user_security', ['username' => $user->username, 'hash' => '#pid'])
+        return to_route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
     }
 
@@ -308,12 +309,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
-        $user->rsskey = \md5(\random_bytes(60).$user->password);
+        $user->rsskey = md5(random_bytes(60).$user->password);
         $user->save();
 
-        return \to_route('user_security', ['username' => $user->username, 'hash' => '#rid'])
+        return to_route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
     }
 
@@ -324,12 +325,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
         $user->api_token = Str::random(100);
         $user->save();
 
-        return \to_route('user_security', ['username' => $user->username, 'hash' => '#api'])
+        return to_route('user_security', ['username' => $user->username, 'hash' => '#api'])
             ->withSuccess('Your API Token Was Changed Successfully!');
     }
 

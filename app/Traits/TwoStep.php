@@ -16,17 +16,19 @@ namespace App\Traits;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Illuminate\Support\Carbon;
+use DateTimeInterface;
+use Exception;
 
 trait TwoStep
 {
     /**
      * Check if the user is authorized.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function twoStepVerification(): bool
     {
-        $user = \auth()->user();
+        $user = auth()->user();
         if ($user !== null) {
             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
             if ($twoStepAuthStatus->authStatus !== true) {
@@ -42,11 +44,11 @@ trait TwoStep
     /**
      * Check time since user was last verified and take apprpriate action.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkTimeSinceVerified($twoStepAuth): bool
     {
-        $expireMinutes = \config('auth.TwoStepVerifiedLifetimeMinutes');
+        $expireMinutes = config('auth.TwoStepVerifiedLifetimeMinutes');
         $now = Carbon::now();
         $expire = Carbon::parse($twoStepAuth->authDate)->addMinutes($expireMinutes);
         $expired = $now->gt($expire);
@@ -63,7 +65,7 @@ trait TwoStep
     /**
      * Reset TwoStepAuth collection item and code.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function resetAuthStatus($twoStepAuth): mixed
     {
@@ -81,12 +83,12 @@ trait TwoStep
     /**
      * Generate Authorization Code.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
         for ($i = 0; $i < $length; $i++) {
-            $prefix .= \random_int(0, 1) !== 0 ? \chr(\random_int(65, 90)) : \random_int(0, 9);
+            $prefix .= random_int(0, 1) !== 0 ? \chr(random_int(65, 90)) : random_int(0, 9);
         }
 
         return $prefix.$suffix;
@@ -96,7 +98,7 @@ trait TwoStep
      * Create/retreive 2step verification object.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkTwoStepAuthStatus(int $userId): TwoStepAuth|\Illuminate\Database\Eloquent\Model
     {
@@ -123,26 +125,26 @@ trait TwoStep
     /**
      * Format verification exceeded timings with Carbon.
      */
-    protected function exceededTimeParser(\DateTimeInterface $time): \Illuminate\Support\Collection
+    protected function exceededTimeParser(DateTimeInterface $time): \Illuminate\Support\Collection
     {
-        $tomorrow = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
-        $remaining = $time->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
+        $tomorrow = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
+        $remaining = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
 
         $data = [
             'tomorrow'  => $tomorrow,
             'remaining' => $remaining,
         ];
 
-        return \collect($data);
+        return collect($data);
     }
 
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      */
-    protected function checkExceededTime(\DateTimeInterface $time): bool
+    protected function checkExceededTime(DateTimeInterface $time): bool
     {
         $now = Carbon::now();
-        $expire = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'));
+        $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
 
         return $now->gt($expire);
     }
@@ -150,7 +152,7 @@ trait TwoStep
     /**
      * Method to reset code and count.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function resetExceededTime($twoStepEntry): mixed
     {
@@ -164,7 +166,7 @@ trait TwoStep
     /**
      * Successful activation actions.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function resetActivationCountdown($twoStepAuth): void
     {
@@ -182,7 +184,7 @@ trait TwoStep
      */
     protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null): void
     {
-        $user = \auth()->user();
+        $user = auth()->user();
         if ($deliveryMethod === null) {
             $user->notify(new TwoStepAuthCode($user, $twoStepAuth->authCode));
         }

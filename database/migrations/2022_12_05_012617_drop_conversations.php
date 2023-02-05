@@ -9,7 +9,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('conversation_messages');
         Schema::dropIfExists('conversation_user');
