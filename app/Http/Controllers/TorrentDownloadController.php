@@ -78,25 +78,25 @@ class TorrentDownloadController extends Controller
         $torrentDownload->save();
 
         return response()->streamDownload(
-            function () use ($id, $user, $torrent) {
-                $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
+            function () use ($id, $user, $torrent): void {
+                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
 
                 // Set the announce key and add the user passkey
-                $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
+                $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
 
                 // Remove multi-tracker announce url possibly still stored by legacy upload system
                 unset($dict['announce-list']);
 
                 // Set link to torrent as the comment
                 if (config('torrent.comment')) {
-                    $dict['comment'] = \config('torrent.comment').'. '.\route('torrent', ['id' => $id]);
+                    $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $id]);
                 } else {
-                    $dict['comment'] = \route('torrent', ['id' => $id]);
+                    $dict['comment'] = route('torrent', ['id' => $id]);
                 }
 
                 echo Bencode::bencode($dict);
             },
-            \str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.\config('torrent.source').']'.$torrent->name.'.torrent'),
+            str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent'),
             ['Content-Type' => 'application/x-bittorrent']
         );
     }
