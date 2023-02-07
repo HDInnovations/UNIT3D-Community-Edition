@@ -12,9 +12,9 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('torrent_mediainfos', function (Blueprint $table) {
+        Schema::create('torrent_mediainfos', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->index();
             $table->text('mediainfo');
         });
@@ -31,7 +31,7 @@ return new class () extends Migration {
             $torrentMediainfo->save();
         }
 
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->dropColumn('mediainfo');
         });
     }

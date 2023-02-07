@@ -570,31 +570,31 @@ class TorrentController extends Controller
 
         // Torrent MediaInfo
         if ($request->has('mediainfo')) {
-            $validator = \validator($request->input('mediainfo'), [
+            $validator = validator($request->input('mediainfo'), [
                 'mediainfo' => \is_array($request->input('mediainfo')) ? 'array' : 'string',
             ]);
 
             if ($validator->fails()) {
-                return \to_route('upload_form', ['category_id' => $category->id])
+                return to_route('upload_form', ['category_id' => $category->id])
                     ->withErrors($validator->errors())->withInput();
             }
 
-            $mediaInfo = \collect(TorrentTools::anonymizeMediainfo($validator->validated()))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
+            $mediaInfo = collect(TorrentTools::anonymizeMediainfo($validator->validated()))->map(fn ($value) => new TorrentMediainfo(['mediainfo' => $value]));
             $torrent->mediainfo()->saveMany($mediaInfo);
         }
 
         // Torrent BDInfo
         if ($request->has('bdinfo')) {
-            $validator = \validator($request->input('bdinfo'), [
+            $validator = validator($request->input('bdinfo'), [
                 'bdinfo' => \is_array($request->input('bdinfo')) ? 'array' : 'string',
             ]);
 
             if ($validator->fails()) {
-                return \to_route('upload_form', ['category_id' => $category->id])
+                return to_route('upload_form', ['category_id' => $category->id])
                     ->withErrors($validator->errors())->withInput();
             }
 
-            $bdInfo = \collect($validator->validated())->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
+            $bdInfo = collect($validator->validated())->map(fn ($value) => new TorrentBdinfo(['bdinfo' => $value]));
             $torrent->bdinfo()->saveMany($bdInfo);
         }
 
