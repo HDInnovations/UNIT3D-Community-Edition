@@ -20,8 +20,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Forum extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Has Many Topic.
@@ -57,11 +64,11 @@ class Forum extends Model
      */
     public function subscription_topics(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\HasMany
     {
-        if (\auth()->user() !== null) {
+        if (auth()->user() !== null) {
             $id = $this->id;
-            $subscriptions = \auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
+            $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 
-            return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions) {
+            return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions): void {
                 $query->whereIntegerInRaw('topics.id', [$id])->orWhereIntegerInRaw('topics.id', $subscriptions);
             });
         }
@@ -173,7 +180,7 @@ class Forum extends Model
      */
     public function getPermission(): object
     {
-        $group = \auth()->check() ? \auth()->user()->group : Group::where('slug', 'guest')->first();
+        $group = auth()->check() ? auth()->user()->group : Group::where('slug', 'guest')->first();
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

@@ -18,6 +18,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
@@ -41,19 +42,19 @@ class AutoDisableInactiveUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning')) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        if (config('pruning.user_pruning')) {
+            $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 
-            $matches = User::whereIntegerInRaw('group_id', \config('pruning.group_ids'))->get();
+            $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
 
-            $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())
-                ->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())
+            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
+                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
                 ->all();
 
             foreach ($users as $user) {
@@ -68,8 +69,10 @@ class AutoDisableInactiveUsers extends Command
                     $user->disabled_at = Carbon::now();
                     $user->save();
 
+                    cache()->forget('user:'.$user->passkey);
+
                     // Send Email
-                    \dispatch(new SendDisableUserMail($user));
+                    dispatch(new SendDisableUserMail($user));
                 }
             }
         }

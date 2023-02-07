@@ -24,11 +24,9 @@ class PeerController extends Controller
     /**
      * Show user peers.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $history = DB::table('history')
             ->where('user_id', '=', $user->id)
@@ -39,7 +37,7 @@ class PeerController extends Controller
             ->selectRaw('sum(downloaded) as credited_download')
             ->first();
 
-        return \view('user.peer.index', [
+        return view('user.peer.index', [
             'user'    => $user,
             'history' => $history,
         ]);
@@ -48,40 +46,28 @@ class PeerController extends Controller
     /**
      * Delete user peers.
      */
-    public function massDestroy(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function massDestroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        // Authorized User
-        $user = User::where('username', '=', $username)->sole();
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
         // Check if User can flush
         if ($request->user()->own_flushes == 0) {
-            return \redirect()->back()->withErrors('You can only flush twice a day!');
+            return redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
-        $carbon = new Carbon();
+        // Only peers older than 70 minutes are allowed to be flushed otherwise users could use this to exploit leech slots
+        $cutoff = (new Carbon())->copy()->subMinutes(70)->toDateTimeString();
 
-        // Get Peer List from User
-        $peers = $user->peers()
-            ->select(['id', 'torrent_id', 'user_id', 'updated_at'])
-            ->where('updated_at', '<', $carbon->copy()->subMinutes(70)->toDateTimeString())
-            ->get();
+        $user->peers()
+            ->where('updated_at', '<', $cutoff)
+            ->delete();
 
-        // Return with Error if no Peer exists
-        if ($peers->isEmpty()) {
-            return \redirect()->back()->withErrors('No Peers found! Please wait at least 70 Minutes after the last announce from the client!');
-        }
+        $user->history()
+            ->where('updated_at', '<', $cutoff)
+            ->update(['active' => false]);
 
         $user->own_flushes--;
 
-        $peers->join(
-            'history',
-            fn ($join) => $join
-            ->on('peers.user_id', '=', 'history.user_id')
-            ->on('peers.torrent_id', '=', 'history.torrent_id')
-        )->update(['active' => false]);
-        $peers->delete();
-
-        return \redirect()->back()->withSuccess('Peers were flushed successfully!');
+        return redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }
 }

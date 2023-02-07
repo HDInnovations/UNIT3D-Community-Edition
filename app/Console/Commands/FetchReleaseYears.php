@@ -42,7 +42,7 @@ class FetchReleaseYears extends Command
      */
     public function handle(): void
     {
-        $appurl = \config('app.url');
+        $appurl = config('app.url');
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])
@@ -58,30 +58,30 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->count();
 
-        $this->alert(\sprintf('%s Torrents Already Have A Release Year Value!', $withyear));
-        $this->alert(\sprintf('%s Torrents Are Missing A Release Year Value!', $withoutyear));
+        $this->alert(sprintf('%s Torrents Already Have A Release Year Value!', $withyear));
+        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value!', $withoutyear));
 
         foreach ($torrents as $torrent) {
             $meta = null;
             if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Tv::where('id', '=', $torrent->tmdb)->first();
-                if (isset($meta->first_air_date) && \substr($meta->first_air_date, 0, 4) > '1900') {
-                    $torrent->release_year = \substr($meta->first_air_date, 0, 4);
+                if (isset($meta->first_air_date) && substr($meta->first_air_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr($meta->first_air_date, 0, 4);
                     $torrent->save();
-                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
             if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Movie::where('id', '=', $torrent->tmdb)->first();
-                if (isset($meta->release_date) && \substr($meta->release_date, 0, 4) > '1900') {
-                    $torrent->release_year = \substr($meta->release_date, 0, 4);
+                if (isset($meta->release_date) && substr($meta->release_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr($meta->release_date, 0, 4);
                     $torrent->save();
-                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
         }

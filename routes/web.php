@@ -30,13 +30,13 @@ if (config('unit3d.proxy_scheme')) {
 if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
-Route::group(['middleware' => 'language'], function () {
+Route::group(['middleware' => 'language'], function (): void {
     /*
     |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
+    Route::group(['before' => 'auth', 'middleware' => 'guest'], function (): void {
         // Activation
         Route::get('/activate/{token}', [App\Http\Controllers\Auth\ActivationController::class, 'activate'])->name('activate');
 
@@ -68,22 +68,22 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function (): void {
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
         // Articles System
-        Route::group(['prefix' => 'articles'], function () {
-            Route::name('articles.')->group(function () {
+        Route::group(['prefix' => 'articles'], function (): void {
+            Route::name('articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
             });
         });
 
         // RSS System
-        Route::group(['prefix' => 'rss'], function () {
-            Route::name('rss.')->group(function () {
+        Route::group(['prefix' => 'rss'], function (): void {
+            Route::name('rss.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\RssController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\RssController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\RssController::class, 'store'])->name('store');
@@ -94,29 +94,29 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
+        Route::group(['prefix' => 'twostep'], function (): void {
             Route::get('/needed', [App\Http\Controllers\Auth\TwoStepController::class, 'showVerification'])->name('verificationNeeded');
             Route::post('/verify', [App\Http\Controllers\Auth\TwoStepController::class, 'verify'])->name('verify');
             Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
         });
 
         // Reports System
-        Route::group(['prefix' => 'reports'], function () {
+        Route::group(['prefix' => 'reports'], function (): void {
             Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent');
             Route::post('/request/{id}', [App\Http\Controllers\ReportController::class, 'request'])->name('report_request');
             Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
         });
 
         // Contact Us System
-        Route::group(['prefix' => 'contact'], function () {
-            Route::name('contact.')->group(function () {
+        Route::group(['prefix' => 'contact'], function (): void {
+            Route::name('contact.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\ContactController::class, 'index'])->name('index');
                 Route::post('/store', [App\Http\Controllers\ContactController::class, 'store'])->name('store');
             });
         });
 
         // Pages System
-        Route::group(['prefix' => 'pages'], function () {
+        Route::group(['prefix' => 'pages'], function (): void {
             Route::get('/', [App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
             Route::get('/staff', [App\Http\Controllers\PageController::class, 'staff'])->name('staff');
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
@@ -126,7 +126,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Extra-Stats System
-        Route::group(['prefix' => 'stats'], function () {
+        Route::group(['prefix' => 'stats'], function (): void {
             Route::get('/', [App\Http\Controllers\StatsController::class, 'index'])->name('stats');
             Route::get('/user/clients', [App\Http\Controllers\StatsController::class, 'clients'])->name('clients');
             Route::get('/user/uploaded', [App\Http\Controllers\StatsController::class, 'uploaded'])->name('uploaded');
@@ -150,13 +150,13 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Requests System
-        Route::group(['prefix' => 'requests'], function () {
-            Route::name('requests.')->group(function () {
+        Route::group(['prefix' => 'requests'], function (): void {
+            Route::name('requests.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
             });
         });
 
-        Route::group(['prefix' => 'requests'], function () {
+        Route::group(['prefix' => 'requests'], function (): void {
             Route::get('/add/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\RequestController::class, 'addRequestForm'])->name('add_request_form');
             Route::post('/add', [App\Http\Controllers\RequestController::class, 'addRequest'])->name('add_request');
             Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequestForm'])->name('edit_request_form');
@@ -173,20 +173,20 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Top 10 System
-        Route::group(['prefix' => 'top10'], function () {
-            Route::name('top10.')->group(function () {
+        Route::group(['prefix' => 'top10'], function (): void {
+            Route::name('top10.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Top10Controller::class, 'index'])->name('index');
             });
         });
 
         // Torrents System
-        Route::group(['prefix' => 'upload'], function () {
+        Route::group(['prefix' => 'upload'], function (): void {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('upload');
             Route::post('/preview', [App\Http\Controllers\TorrentController::class, 'preview']);
         });
 
-        Route::group(['prefix' => 'torrents'], function () {
+        Route::group(['prefix' => 'torrents'], function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('torrents');
             Route::get('/cards', [App\Http\Controllers\TorrentCardController::class, 'index'])->name('cards');
             Route::get('/grouped', [App\Http\Controllers\TorrentGroupController::class, 'index'])->name('grouped');
@@ -202,7 +202,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
         });
 
-        Route::group(['prefix' => 'torrent'], function () {
+        Route::group(['prefix' => 'torrent'], function (): void {
             Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl');
             Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup');
             Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent');
@@ -214,7 +214,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Poll System
-        Route::group(['prefix' => 'polls'], function () {
+        Route::group(['prefix' => 'polls'], function (): void {
             Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('polls');
             Route::post('/vote', [App\Http\Controllers\PollController::class, 'vote']);
             Route::get('/{id}', [App\Http\Controllers\PollController::class, 'show'])->where('id', '[0-9]+')->name('poll');
@@ -222,8 +222,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Graveyard System
-        Route::group(['prefix' => 'graveyard'], function () {
-            Route::name('graveyard.')->group(function () {
+        Route::group(['prefix' => 'graveyard'], function (): void {
+            Route::name('graveyard.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\GraveyardController::class, 'index'])->name('index');
                 Route::post('/{id}/store', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
@@ -231,8 +231,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Playlist System
-        Route::group(['prefix' => 'playlists'], function () {
-            Route::name('playlists.')->group(function () {
+        Route::group(['prefix' => 'playlists'], function (): void {
+            Route::name('playlists.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\PlaylistController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\PlaylistController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\PlaylistController::class, 'store'])->name('store');
@@ -247,8 +247,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Subtitles System
-        Route::group(['prefix' => 'subtitles'], function () {
-            Route::name('subtitles.')->group(function () {
+        Route::group(['prefix' => 'subtitles'], function (): void {
+            Route::name('subtitles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\SubtitleController::class, 'index'])->name('index');
                 Route::get('/create/{torrent_id}', [App\Http\Controllers\SubtitleController::class, 'create'])->where('id', '[0-9]+')->name('create');
                 Route::post('/store', [App\Http\Controllers\SubtitleController::class, 'store'])->name('store');
@@ -259,8 +259,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Tickets System
-        Route::group(['prefix' => 'tickets'], function () {
-            Route::name('tickets.')->group(function () {
+        Route::group(['prefix' => 'tickets'], function (): void {
+            Route::name('tickets.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\TicketController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\TicketController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\TicketController::class, 'store'])->name('store');
@@ -276,8 +276,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Missing System
-        Route::group(['prefix' => 'missing'], function () {
-            Route::name('missing.')->group(function () {
+        Route::group(['prefix' => 'missing'], function (): void {
+            Route::name('missing.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\MissingController::class, 'index'])->name('index');
             });
         });
@@ -288,7 +288,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned']], function (): void {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -343,22 +343,22 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function (): void {
         // Forum System
-        Route::name('forums.')->group(function () {
+        Route::name('forums.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
             Route::get('/{id}', [App\Http\Controllers\ForumController::class, 'show'])->where('id', '[0-9]+')->name('show');
         });
 
         // Forum Category System
-        Route::group(['prefix' => 'categories'], function () {
-            Route::name('forums.categories.')->group(function () {
+        Route::group(['prefix' => 'categories'], function (): void {
+            Route::name('forums.categories.')->group(function (): void {
                 Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
             });
         });
 
         // Posts System
-        Route::group(['prefix' => 'posts'], function () {
+        Route::group(['prefix' => 'posts'], function (): void {
             Route::post('/topic/{id}/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('forum_reply');
             Route::get('/posts/{id}/post-{postId}/edit', [App\Http\Controllers\PostController::class, 'postEditForm'])->name('forum_post_edit_form');
             Route::post('/posts/{postId}/edit', [App\Http\Controllers\PostController::class, 'postEdit'])->name('forum_post_edit');
@@ -371,7 +371,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/latest/posts', [App\Http\Controllers\ForumController::class, 'latestPosts'])->name('forum_latest_posts');
         Route::get('/search', [App\Http\Controllers\ForumController::class, 'search'])->name('forum_search_form');
 
-        Route::group(['prefix' => 'topics'], function () {
+        Route::group(['prefix' => 'topics'], function (): void {
             Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
@@ -385,8 +385,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function () {
-            Route::name('topics.')->group(function () {
+        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function (): void {
+            Route::name('topics.')->group(function (): void {
                 Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
                 Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
                 Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
@@ -409,83 +409,99 @@ Route::group(['middleware' => 'language'], function () {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'users/{username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'users/{user:username}', 'as' => 'users.', 'middleware' => ['auth', 'twostep', 'banned']], function (): void {
         // Achievements
-        Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function () {
+        Route::group(['prefix' => 'achievements', 'as' => 'achievements.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
 
         // Bans
-        Route::group(['prefix' => 'bans', 'as' => 'bans.'], function () {
+        Route::group(['prefix' => 'bans', 'as' => 'bans.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
         });
 
-        Route::group(['prefix' => 'torrents', 'as' => 'history.'], function () {
+        // History
+        Route::group(['prefix' => 'torrents', 'as' => 'history.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
         });
 
+        // Followers
+        Route::group(['prefix' => 'followers', 'as' => 'followers.'], function (): void {
+            Route::get('/', [App\Http\Controllers\User\FollowController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
+            Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
+        });
+
+        // General settings
+        Route::group(['prefix' => 'general-settings', 'as' => 'general_settings.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\GeneralSettingController::class, 'update'])->name('update');
+        });
+
+        // Privacy settings
+        Route::group(['prefix' => 'privacy-settings', 'as' => 'privacy_settings.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\PrivacySettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PrivacySettingController::class, 'update'])->name('update');
+        });
+
+        // Notification settings
+        Route::group(['prefix' => 'notification-settings', 'as' => 'notification_settings.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\NotificationSettingController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\NotificationSettingController::class, 'update'])->name('update');
+        });
+
         // Peers
-        Route::group(['prefix' => 'active', 'as' => 'peers.'], function () {
+        Route::group(['prefix' => 'active', 'as' => 'peers.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\PeerController::class, 'index'])->name('index');
             Route::delete('/', [App\Http\Controllers\User\PeerController::class, 'massDestroy'])->name('mass_destroy');
         });
 
         // Posts
-        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
+        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\PostController::class, 'index'])->name('index');
         });
 
         // Resurrections
-        Route::group(['prefix' => 'resurrections', 'as' => 'resurrections.'], function () {
+        Route::group(['prefix' => 'resurrections', 'as' => 'resurrections.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
         });
 
         // Topics
-        Route::group(['prefix' => 'topics', 'as' => 'topics.'], function () {
+        Route::group(['prefix' => 'topics', 'as' => 'topics.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
         });
 
         // Torrent Zip
-        Route::group(['prefix' => 'torrent-zip', 'as' => 'torrent_zip.'], function () {
+        Route::group(['prefix' => 'torrent-zip', 'as' => 'torrent_zip.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TorrentZipController::class, 'show'])->name('show');
         });
 
         // Torrents
-        Route::group(['prefix' => 'uploads', 'as' => 'torrents.'], function () {
+        Route::group(['prefix' => 'uploads', 'as' => 'torrents.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TorrentController::class, 'index'])->name('index');
         });
     });
 
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function (): void {
         // Earnings
-        Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function () {
+        Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
         });
 
         // Filters
-        Route::group(['prefix' => 'users'], function () {
+        Route::group(['prefix' => 'users'], function (): void {
             Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
         });
 
-        // Followers
-        Route::group(['prefix' => 'follow', 'as' => 'follow.'], function () {
-            Route::post('/{username}', [App\Http\Controllers\User\FollowController::class, 'store'])->name('store');
-            Route::delete('/{username}', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
-        });
-
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/followers', [App\Http\Controllers\User\UserController::class, 'followers'])->name('user_followers');
-        });
-
         // Gifts
-        Route::group(['prefix' => 'users/{username}/gifts', 'as' => 'gifts.'], function () {
+        Route::group(['prefix' => 'users/{username}/gifts', 'as' => 'gifts.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
         });
 
         // Invites
-        Route::group(['prefix' => 'invites', 'as' => 'invites.'], function () {
+        Route::group(['prefix' => 'invites', 'as' => 'invites.'], function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
             Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
@@ -493,7 +509,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Notifications
-        Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
+        Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function (): void {
             Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
             Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
             Route::post('/{id}/update', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
@@ -504,7 +520,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Private Messages
-        Route::group(['prefix' => 'mail'], function () {
+        Route::group(['prefix' => 'mail'], function (): void {
             Route::post('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
             Route::post('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
             Route::get('/inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessages'])->name('inbox');
@@ -519,75 +535,50 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Profile
-        Route::group(['prefix' => 'users'], function () {
+        Route::group(['prefix' => 'users'], function (): void {
             Route::get('/{username}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
             Route::get('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
             Route::post('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('user_edit_profile');
         });
 
         // Rules
-        Route::group(['prefix' => 'users'], function () {
+        Route::group(['prefix' => 'users'], function (): void {
             Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
         });
 
         // Seedboxes
-        Route::group(['prefix' => 'users'], function () {
+        Route::group(['prefix' => 'users'], function (): void {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
         });
 
         // Settings
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('/{username}/settings', [App\Http\Controllers\User\UserController::class, 'settings'])->name('user_settings');
-            Route::get('/{username}/settings/privacy{hash?}', [App\Http\Controllers\User\UserController::class, 'privacy'])->name('user_privacy');
+        Route::group(['prefix' => 'users'], function (): void {
             Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
-            Route::get('/{username}/settings/notification{hash?}', [App\Http\Controllers\User\UserController::class, 'notification'])->name('user_notification');
             Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
-            Route::post('/{username}/settings/change_settings', [App\Http\Controllers\User\UserController::class, 'changeSettings'])->name('change_settings');
             Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
             Route::post('/{username}/settings/change_email', [App\Http\Controllers\User\UserController::class, 'changeEmail'])->name('change_email');
             Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
             Route::post('/{username}/settings/change_rid', [App\Http\Controllers\User\UserController::class, 'changeRID'])->name('change_rid');
             Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\User\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::post('/{username}/settings/notification/disable', [App\Http\Controllers\User\UserController::class, 'disableNotifications'])->name('notification_disable');
-            Route::post('/{username}/settings/notification/enable', [App\Http\Controllers\User\UserController::class, 'enableNotifications'])->name('notification_enable');
-            Route::post('/{username}/settings/notification/account', [App\Http\Controllers\User\UserController::class, 'changeAccountNotification'])->name('notification_account');
-            Route::post('/{username}/settings/notification/following', [App\Http\Controllers\User\UserController::class, 'changeFollowingNotification'])->name('notification_following');
-            Route::post('/{username}/settings/notification/forum', [App\Http\Controllers\User\UserController::class, 'changeForumNotification'])->name('notification_forum');
-            Route::post('/{username}/settings/notification/subscription', [App\Http\Controllers\User\UserController::class, 'changeSubscriptionNotification'])->name('notification_subscription');
-            Route::post('/{username}/settings/notification/mention', [App\Http\Controllers\User\UserController::class, 'changeMentionNotification'])->name('notification_mention');
-            Route::post('/{username}/settings/notification/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrentNotification'])->name('notification_torrent');
-            Route::post('/{username}/settings/notification/bon', [App\Http\Controllers\User\UserController::class, 'changeBonNotification'])->name('notification_bon');
-            Route::post('/{username}/settings/notification/request', [App\Http\Controllers\User\UserController::class, 'changeRequestNotification'])->name('notification_request');
-            Route::post('/{username}/settings/privacy/profile', [App\Http\Controllers\User\UserController::class, 'changeProfile'])->name('privacy_profile');
-            Route::post('/{username}/settings/privacy/forum', [App\Http\Controllers\User\UserController::class, 'changeForum'])->name('privacy_forum');
-            Route::post('/{username}/settings/privacy/torrent', [App\Http\Controllers\User\UserController::class, 'changeTorrent'])->name('privacy_torrent');
-            Route::post('/{username}/settings/privacy/follower', [App\Http\Controllers\User\UserController::class, 'changeFollower'])->name('privacy_follower');
-            Route::post('/{username}/settings/privacy/achievement', [App\Http\Controllers\User\UserController::class, 'changeAchievement'])->name('privacy_achievement');
-            Route::post('/{username}/settings/privacy/request', [App\Http\Controllers\User\UserController::class, 'changeRequest'])->name('privacy_request');
-            Route::post('/{username}/settings/privacy/other', [App\Http\Controllers\User\UserController::class, 'changeOther'])->name('privacy_other');
             Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep'])->name('change_twostep');
-            Route::post('/{username}/settings/hidden', [App\Http\Controllers\User\UserController::class, 'makeHidden'])->name('user_hidden');
-            Route::post('/{username}/settings/visible', [App\Http\Controllers\User\UserController::class, 'makeVisible'])->name('user_visible');
-            Route::post('/{username}/settings/private', [App\Http\Controllers\User\UserController::class, 'makePrivate'])->name('user_private');
-            Route::post('/{username}/settings/public', [App\Http\Controllers\User\UserController::class, 'makePublic'])->name('user_public');
         });
 
         // Tips
-        Route::group(['prefix' => 'users/{username}/tips', 'as' => 'tips.'], function () {
+        Route::group(['prefix' => 'users/{username}/tips', 'as' => 'tips.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
         });
 
         // Transactions
-        Route::group(['prefix' => 'users/{username}/transactions', 'as' => 'transactions.'], function () {
+        Route::group(['prefix' => 'users/{username}/transactions', 'as' => 'transactions.'], function (): void {
             Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
         });
 
         // Warnings
-        Route::group(['prefix' => 'warnings'], function () {
+        Route::group(['prefix' => 'warnings'], function (): void {
             Route::post('/{id}/deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivate'])->name('deactivateWarning');
             Route::post('/{username}/mass-deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
             Route::delete('/{id}', [App\Http\Controllers\User\WarningController::class, 'deleteWarning'])->name('deleteWarning');
@@ -597,7 +588,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Wishlist
-        Route::group(['prefix' => 'wishes', 'as' => 'wishes.'], function () {
+        Route::group(['prefix' => 'wishes', 'as' => 'wishes.'], function (): void {
             Route::get('/{username}', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
             Route::post('/store', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
             Route::delete('/{id}/destroy', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
@@ -609,15 +600,15 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned']], function (): void {
         // Staff Dashboard
-        Route::name('staff.dashboard.')->group(function () {
+        Route::name('staff.dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
         });
 
         // Articles System
-        Route::group(['prefix' => 'articles'], function () {
-            Route::name('staff.articles.')->group(function () {
+        Route::group(['prefix' => 'articles'], function (): void {
+            Route::name('staff.articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
@@ -628,8 +619,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Applications System
-        Route::group(['prefix' => 'applications'], function () {
-            Route::name('staff.applications.')->group(function () {
+        Route::group(['prefix' => 'applications'], function (): void {
+            Route::name('staff.applications.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ApplicationController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\Staff\ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/approve', [App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve');
@@ -638,30 +629,30 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Audit Log
-        Route::group(['prefix' => 'audits'], function () {
-            Route::name('staff.audits.')->group(function () {
+        Route::group(['prefix' => 'audits'], function (): void {
+            Route::name('staff.audits.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AuditController::class, 'index'])->name('index');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Authentications Log
-        Route::group(['prefix' => 'authentications'], function () {
-            Route::name('staff.authentications.')->group(function () {
+        Route::group(['prefix' => 'authentications'], function (): void {
+            Route::name('staff.authentications.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AuthenticationController::class, 'index'])->name('index');
             });
         });
 
         // Backup System
-        Route::group(['prefix' => 'backups'], function () {
-            Route::name('staff.backups.')->group(function () {
+        Route::group(['prefix' => 'backups', 'middleware' => ['owner']], function (): void {
+            Route::name('staff.backups.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
         });
 
         // Ban System
-        Route::group(['prefix' => 'bans'], function () {
-            Route::name('staff.bans.')->group(function () {
+        Route::group(['prefix' => 'bans'], function (): void {
+            Route::name('staff.bans.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
                 Route::post('/{username}/store', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
                 Route::post('/{username}/update', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
@@ -669,8 +660,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Blacklist System
-        Route::group(['prefix' => 'blacklists'], function () {
-            Route::name('staff.blacklists.clients.')->group(function () {
+        Route::group(['prefix' => 'blacklists'], function (): void {
+            Route::name('staff.blacklists.clients.')->group(function (): void {
                 Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
                 Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
                 Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
@@ -681,8 +672,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Bon Exchanges
-        Route::group(['prefix' => 'bon-exchanges'], function () {
-            Route::name('staff.bon_exchanges.')->group(function () {
+        Route::group(['prefix' => 'bon-exchanges'], function (): void {
+            Route::name('staff.bon_exchanges.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\BonExchangeController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'store'])->name('store');
@@ -693,8 +684,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Categories System
-        Route::group(['prefix' => 'categories'], function () {
-            Route::name('staff.categories.')->group(function () {
+        Route::group(['prefix' => 'categories'], function (): void {
+            Route::name('staff.categories.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\CategoryController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
@@ -705,8 +696,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Bots System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.bots.')->group(function () {
+        Route::group(['prefix' => 'chat'], function (): void {
+            Route::name('staff.bots.')->group(function (): void {
                 Route::get('/bots', [App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
                 Route::get('/bots/{id}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
                 Route::patch('/bots/{id}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
@@ -717,8 +708,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Rooms System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.rooms.')->group(function () {
+        Route::group(['prefix' => 'chat'], function (): void {
+            Route::name('staff.rooms.')->group(function (): void {
                 Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
                 Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
                 Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
@@ -729,8 +720,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Statuses System
-        Route::group(['prefix' => 'chat'], function () {
-            Route::name('staff.statuses.')->group(function () {
+        Route::group(['prefix' => 'chat'], function (): void {
+            Route::name('staff.statuses.')->group(function (): void {
                 Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
                 Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
                 Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
@@ -741,8 +732,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Cheated Torrents
-        Route::group(['prefix' => 'cheated-torrents'], function () {
-            Route::name('staff.cheated_torrents.')->group(function () {
+        Route::group(['prefix' => 'cheated-torrents'], function (): void {
+            Route::name('staff.cheated_torrents.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'index'])->name('index');
                 Route::delete('/{id}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
                 Route::delete('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'massDestroy'])->name('massDestroy');
@@ -750,19 +741,19 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Cheaters
-        Route::group(['prefix' => 'cheaters'], function () {
-            Route::name('staff.cheaters.')->group(function () {
+        Route::group(['prefix' => 'cheaters'], function (): void {
+            Route::name('staff.cheaters.')->group(function (): void {
                 Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
         });
 
         // Codebase Version Check
-        Route::group(['prefix' => 'UNIT3D'], function () {
+        Route::group(['prefix' => 'UNIT3D'], function (): void {
             Route::get('/', [App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
         });
 
         // Commands
-        Route::group(['prefix' => 'commands'], function () {
+        Route::group(['prefix' => 'commands', 'middleware' => ['owner']], function (): void {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
             Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
             Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
@@ -776,8 +767,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Distributors
-        Route::group(['prefix' => 'distributors'], function () {
-            Route::name('staff.distributors.')->group(function () {
+        Route::group(['prefix' => 'distributors'], function (): void {
+            Route::name('staff.distributors.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
@@ -789,16 +780,16 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Flush System
-        Route::group(['prefix' => 'flush'], function () {
-            Route::name('staff.flush.')->group(function () {
+        Route::group(['prefix' => 'flush'], function (): void {
+            Route::name('staff.flush.')->group(function (): void {
                 Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
                 Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
         });
 
         // Forums System
-        Route::group(['prefix' => 'forums'], function () {
-            Route::name('staff.forums.')->group(function () {
+        Route::group(['prefix' => 'forums', 'middleware' => ['admin']], function (): void {
+            Route::name('staff.forums.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
@@ -809,8 +800,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Groups System
-        Route::group(['prefix' => 'groups'], function () {
-            Route::name('staff.groups.')->group(function () {
+        Route::group(['prefix' => 'groups', 'middleware' => ['admin']], function (): void {
+            Route::name('staff.groups.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
@@ -820,8 +811,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Invites Log
-        Route::group(['prefix' => 'invites'], function () {
-            Route::name('staff.invites.')->group(function () {
+        Route::group(['prefix' => 'invites'], function (): void {
+            Route::name('staff.invites.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
             });
         });
@@ -830,15 +821,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
 
         // Mass Actions
-        Route::group(['prefix' => 'mass-actions'], function () {
+        Route::group(['prefix' => 'mass-actions'], function (): void {
             Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('staff.mass-actions.validate');
             Route::get('/mass-pm', [App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('staff.mass-pm.create');
             Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('staff.mass-pm.store');
         });
 
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
-        Route::group(['prefix' => 'media-languages'], function () {
-            Route::name('staff.media_languages.')->group(function () {
+        Route::group(['prefix' => 'media-languages'], function (): void {
+            Route::name('staff.media_languages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\MediaLanguageController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
@@ -849,16 +840,16 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Moderation System
-        Route::group(['prefix' => 'moderation'], function () {
-            Route::name('staff.moderation.')->group(function () {
+        Route::group(['prefix' => 'moderation'], function (): void {
+            Route::name('staff.moderation.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update');
             });
         });
 
         //Pages System
-        Route::group(['prefix' => 'pages'], function () {
-            Route::name('staff.pages.')->group(function () {
+        Route::group(['prefix' => 'pages'], function (): void {
+            Route::name('staff.pages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\PageController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
@@ -869,8 +860,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Polls System
-        Route::group(['prefix' => 'polls'], function () {
-            Route::name('staff.polls.')->group(function () {
+        Route::group(['prefix' => 'polls'], function (): void {
+            Route::name('staff.polls.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PollController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\Staff\PollController::class, 'show'])->where('id', '[0-9]+')->name('show');
                 Route::get('/create', [App\Http\Controllers\Staff\PollController::class, 'create'])->name('create');
@@ -882,8 +873,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Regions
-        Route::group(['prefix' => 'regions'], function () {
-            Route::name('staff.regions.')->group(function () {
+        Route::group(['prefix' => 'regions'], function (): void {
+            Route::name('staff.regions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
@@ -894,16 +885,16 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Registered Seedboxes
-        Route::group(['prefix' => 'seedboxes'], function () {
-            Route::name('staff.seedboxes.')->group(function () {
+        Route::group(['prefix' => 'seedboxes'], function (): void {
+            Route::name('staff.seedboxes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Reports
-        Route::group(['prefix' => 'reports'], function () {
-            Route::name('staff.reports.')->group(function () {
+        Route::group(['prefix' => 'reports'], function (): void {
+            Route::name('staff.reports.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/solve', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
@@ -911,8 +902,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Resolutions
-        Route::group(['prefix' => 'resolutions'], function () {
-            Route::name('staff.resolutions.')->group(function () {
+        Route::group(['prefix' => 'resolutions'], function (): void {
+            Route::name('staff.resolutions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ResolutionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ResolutionController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
@@ -923,8 +914,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // RSS System
-        Route::group(['prefix' => 'rss'], function () {
-            Route::name('staff.rss.')->group(function () {
+        Route::group(['prefix' => 'rss'], function (): void {
+            Route::name('staff.rss.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RssController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RssController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
@@ -935,8 +926,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Types
-        Route::group(['prefix' => 'types'], function () {
-            Route::name('staff.types.')->group(function () {
+        Route::group(['prefix' => 'types'], function (): void {
+            Route::name('staff.types.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\TypeController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\TypeController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
@@ -947,16 +938,16 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function () {
-            Route::name('staff.gifts.')->group(function () {
+        Route::group(['prefix' => 'gifts'], function (): void {
+            Route::name('staff.gifts.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
                 Route::post('/store', [App\Http\Controllers\Staff\GiftController::class, 'store'])->name('store');
             });
         });
 
         // User Staff Notes
-        Route::group(['prefix' => 'notes'], function () {
-            Route::name('staff.notes.')->group(function () {
+        Route::group(['prefix' => 'notes'], function (): void {
+            Route::name('staff.notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
                 Route::post('/{username}/store', [App\Http\Controllers\Staff\NoteController::class, 'store'])->name('store');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
@@ -964,7 +955,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // User Tools TODO: Leaving since we will be refactoring users and roles
-        Route::group(['prefix' => 'users'], function () {
+        Route::group(['prefix' => 'users'], function (): void {
             Route::get('/', [App\Http\Controllers\Staff\UserController::class, 'index'])->name('user_search');
             Route::post('/{username}/edit', [App\Http\Controllers\Staff\UserController::class, 'edit'])->name('user_edit');
             Route::get('/{username}/settings', [App\Http\Controllers\Staff\UserController::class, 'settings'])->name('user_setting');
@@ -975,15 +966,15 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Warnings Log
-        Route::group(['prefix' => 'warnings'], function () {
-            Route::name('staff.warnings.')->group(function () {
+        Route::group(['prefix' => 'warnings'], function (): void {
+            Route::name('staff.warnings.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WarningController::class, 'index'])->name('index');
             });
         });
 
         // Internals System
-        Route::group(['prefix' => 'internals'], function () {
-            Route::name('staff.internals.')->group(function () {
+        Route::group(['prefix' => 'internals'], function (): void {
+            Route::name('staff.internals.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
                 Route::get('/{id}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
@@ -994,8 +985,8 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Watchlist
-        Route::group(['prefix' => 'watchlist'], function () {
-            Route::name('staff.watchlist.')->group(function () {
+        Route::group(['prefix' => 'watchlist'], function (): void {
+            Route::name('staff.watchlist.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
                 Route::post('/{id}/store', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');

@@ -60,8 +60,8 @@ class AppServiceProvider extends ServiceProvider
         // Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
-        \view()->composer('*', function (View $view) {
-            $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+        view()->composer('*', function (View $view): void {
+            $footerPages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get());
 
             $view->with(['footer_pages' => $footerPages]);
         });
@@ -70,13 +70,13 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Pagination\Paginator::useBootstrap();
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
-                $minLimit = (isset($parameters[0]) && \is_numeric($parameters[0])) ? $parameters[0] : 0;
-                $maxLimit = (isset($parameters[1]) && \is_numeric($parameters[1])) ? $parameters[1] : 1_200;
+                $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
+                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
                 if (! HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
                     $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
 

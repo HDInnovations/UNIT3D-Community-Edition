@@ -23,11 +23,9 @@ class TorrentController extends Controller
     /**
      * Show user uploads.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $history = DB::table('history')
             ->where('user_id', '=', $user->id)
@@ -38,7 +36,7 @@ class TorrentController extends Controller
             ->selectRaw('sum(downloaded) as credited_download')
             ->first();
 
-        return \view('user.torrent.index', [
+        return view('user.torrent.index', [
             'user'    => $user,
             'history' => $history,
         ]);

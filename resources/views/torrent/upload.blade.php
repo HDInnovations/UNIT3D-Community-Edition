@@ -304,6 +304,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') }}' : '0'"
+                                x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                                 class="form__text"
                                 placeholder=""
                             >

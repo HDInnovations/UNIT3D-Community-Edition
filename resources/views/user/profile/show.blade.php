@@ -1,4 +1,4 @@
-@extends('layout.default')
+ @extends('layout.default')
 
 @section('title')
     <title>{{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}</title>
@@ -51,12 +51,10 @@
                                 <h2>{{ $user->username }}
                                     @if ($user->isOnline())
                                         <i class="{{ config('other.font-awesome') }} fa-circle text-green"
-                                           data-toggle="tooltip" title=""
-                                           data-original-title="{{ __('user.online') }}"></i>
+                                           title="{{ __('user.online') }}"></i>
                                     @else
                                         <i class="{{ config('other.font-awesome') }} fa-circle text-red"
-                                           data-toggle="tooltip" title=""
-                                           data-original-title="{{ __('user.offline') }}"></i>
+                                           title="{{ __('user.offline') }}"></i>
                                     @endif
                                     <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
                                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
@@ -67,31 +65,28 @@
                                     @if ($user->warnings()->active()->exists())
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                            aria-hidden="true"
-                                           data-toggle="tooltip" title=""
-                                           data-original-title="{{ __('user.active-warning') }}">
+                                           title="{{ __('user.active-warning') }}">
                                         </i>
                                     @endif
                                     @if ($user->notes->count() > 0 && auth()->user()->group->is_modo)
                                         <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                            class="edit">
                                             <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger"
-                                               aria-hidden="true" data-toggle="tooltip"
-                                               title="" data-original-title="{{ __('user.staff-noted') }}">
+                                               title="{{ __('user.staff-noted') }}">
                                             </i>
                                         </a>
                                     @endif
                                     @php $watched = App\Models\Watchlist::whereUserId($user->id)->first(); @endphp
                                     @if ($watched && auth()->user()->group->is_modo)
                                         <i class="{{ config('other.font-awesome') }} fa-eye fa-beat text-danger"
-                                           aria-hidden="true" data-toggle="tooltip"
-                                           title="" data-original-title="Watched reason: {{ $watched->message }}">
+                                           title="Watched reason: {{ $watched->message }}">
                                         </i>
                                     @endif
                                 </h2>
                                 <h4>{{ __('common.group') }}: <span class="badge-user text-bold"
                                                                  style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i
-                                                class="{{ $user->group->icon }}" data-toggle="tooltip" title=""
-                                                data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span>
+                                                class="{{ $user->group->icon }}"
+                                                title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span>
                                 </h4>
                                 <h4>{{ __('user.registration-date') }} {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
                                 @if (auth()->user()->id != $user->id)
@@ -213,47 +208,35 @@
                             <tr>
                                 <td class="col-md-2">{{ __('user.download-recorded') }}</td>
                                 <td>
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="{{ __('user.download-recorded') }}">{{ $realdownload }}</span> =
-                                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                                          data-original-title="Default Starter Download">{{ App\Helpers\StringHelper::formatBytes($def_download , 2) }}</span>
+                    <span class="badge-extra text-blue" title="{{ __('user.download-recorded') }}">{{ $realdownload }}</span> =
+                                    <span class="badge-extra text-info" title="Default Starter Download">{{ App\Helpers\StringHelper::formatBytes($def_download , 2) }}</span>
                                     +
-                                    <span class="badge-extra text-red" data-toggle="tooltip" title=""
-                                          data-original-title="{{ __('user.download-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_down , 2) }}</span>
+                                    <span class="badge-extra text-red" title="{{ __('user.download-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_down , 2) }}</span>
                                     −
-                                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                                          data-original-title="Freeleech Downloads">{{ App\Helpers\StringHelper::formatBytes($free_down , 2) }}</span>
+                                    <span class="badge-extra text-green" title="Freeleech Downloads">{{ App\Helpers\StringHelper::formatBytes($free_down , 2) }}</span>
                                     -
-                                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                                          data-original-title="@lang('user.download-refunded')">{{ App\Helpers\StringHelper::formatBytes($refunded_download , 2) }}</span>
+                                    <span class="badge-extra text-orange" title="{{ __('user.download-refunded') }}">{{ App\Helpers\StringHelper::formatBytes($refunded_download , 2) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('user.upload-recorded') }}</td>
                                 <td>
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="{{ __('user.upload-recorded') }}">{{ $user->getUploaded() }}</span> =
-                                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                                          data-original-title="Default Starter Upload">{{ App\Helpers\StringHelper::formatBytes($def_upload , 2) }}</span>
+                    <span class="badge-extra text-blue" title="{{ __('user.upload-recorded') }}">{{ $user->getUploaded() }}</span> =
+                                    <span class="badge-extra text-info" title="Default Starter Upload">{{ App\Helpers\StringHelper::formatBytes($def_upload , 2) }}</span>
                                     +
-                                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                                          data-original-title="{{ __('user.upload-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span>
+                                    <span class="badge-extra text-green" title="{{ __('user.upload-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span>
                                     +
-                                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
-                                          data-original-title="Upload from Multipliers">{{ App\Helpers\StringHelper::formatBytes($multi_upload , 2) }}</span>
+                                    <span class="badge-extra text-info" title="Upload from Multipliers">{{ App\Helpers\StringHelper::formatBytes($multi_upload , 2) }}</span>
                                     +
-                                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                                          data-original-title="{{ __('user.upload-bon') }}">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span>
+                                    <span class="badge-extra text-orange" title="{{ __('user.upload-bon') }}">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span>
                                     +
-                                    <span class="badge-extra text-pink" data-toggle="tooltip" title=""
-                                          data-original-title="Manually Added or Misc">{{ App\Helpers\StringHelper::formatBytes($man_upload , 2) }}</span>
+                                    <span class="badge-extra text-pink" title="Manually Added or Misc">{{ App\Helpers\StringHelper::formatBytes($man_upload , 2) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('user.upload-true') }}</td>
                                 <td>
-                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                          data-original-title="{{ __('user.upload-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span>
+                    <span class="badge-extra text-green" title="{{ __('user.upload-true') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -460,7 +443,7 @@
                                         @if (auth()->user()->group->is_modo)
                                             <a href="{{ route('warnings.show', ['username' => $user->username]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.warning-log') }}</strong></span></a>
-                                            <a href="{{ route('users.bans.index', ['username' => $user->username]) }}"><span
+                                            <a href="{{ route('users.bans.index', ['user' => $user]) }}"><span
                                                         class="badge-user text-bold"><strong>{{ __('user.ban-log') }}</strong></span></a>
                                         @endif
                                     </div>
@@ -481,20 +464,17 @@
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
                             @if ($user->seedingTorrents()->count() >= '150')
                                 <span class="badge-user" style="background-color:#3fb618; color:rgb(255,255,255);"
-                                      data-toggle="tooltip"
-                                      title="" data-original-title="{{ __('user.certified-seeder-desc') }}"><i
+                                      title="{{ __('user.certified-seeder-desc') }}"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> {{ __('user.certified-seeder') }}!</span>
                             @endif
                             @if ($history->where('actual_downloaded', '>', 0)->count() >= '100')
                                 <span class="badge-user" style="background-color:#ff0039; color:rgb(255,255,255);"
-                                      data-toggle="tooltip"
-                                      title="" data-original-title="{{ __('user.certified-downloader-desc') }}"><i
+                                      title="{{ __('user.certified-downloader-desc') }}"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> {{ __('user.certified-downloader') }}!</span>
                             @endif
                             @if ($user->seedbonus >= 50_000)
                                 <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);"
-                                      data-toggle="tooltip"
-                                      title="" data-original-title="{{ __('user.certified-banker-desc') }}"><i
+                                      title="{{ __('user.certified-banker-desc') }}"><i
                                             class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('user.certified-banker') }}!</span>
                             @endif
                         @endif
@@ -515,8 +495,8 @@
                                 @php
                                     if($x > 25) { continue; }
                                 @endphp
-                                <img src="/img/badges/{{ $achievement->details->name }}.png" data-toggle="tooltip" title=""
-                                     height="50px" data-original-title="{{ $achievement->details->name }}"
+                                <img src="/img/badges/{{ $achievement->details->name }}.png"
+                                     height="50px" title="{{ $achievement->details->name }}"
                                      alt="{{ $achievement->details->name }}">
                                 @php
                                     $x++;
@@ -533,20 +513,18 @@
                         <i class="{{ config('other.font-awesome') }} fa-users text-success"></i>
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_follower'))
-                            @foreach ($followers as $f)
-                                @if ($f->user->image != null)
-                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                        <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
-                                             title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}"
-                                             alt="{{ $f->user->username }}">
+                            @foreach ($followers as $follower)
+                                @if ($follower->image != null)
+                                    <a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                                        <img src="{{ url('files/img/' . $follower->image) }}"
+                                             title="{{ $follower->username }}" height="50px"
+                                             alt="{{ $follower->username }}">
                                     </a>
                                 @else
-                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                        <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
-                                             title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}"
-                                             alt="{{ $f->user->username }}">
+                                    <a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                                        <img src="{{ url('img/profile.png') }}"
+                                             title="{{ $follower->username }}" height="50px"
+                                             alt="{{ $follower->username }}">
                                     </a>
                                 @endif
                             @endforeach
@@ -581,10 +559,18 @@
                                     </td>
                                     <td><span class="badge-extra text-bold">{{ $client->ip }}</span></td>
                                     <td><span class="badge-extra text-bold">{{ $client->port }}</span></td>
-                                    <td>{{ $client->created_at ? $client->created_at->diffForHumans() : 'N/A' }}</td>
-                                    <td>{{ $client->updated_at ? $client->updated_at->diffForHumans() : 'N/A' }}</td>
                                     <td>
-                                        <a href="{{ route('users.peers.index', ['username' => $user->username, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
+                                        <time datetime="{{ $client->created_at }}" title="{{ $client->created_at }}">
+                                            {{ $client->created_at?->diffForHumans() ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td>
+                                        <time datetime="{{ $client->updated_at }}" title="{{ $client->updated_at }}">
+                                            {{ $client->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('users.peers.index', ['user' => $user, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
                                             itemprop="url" class="l-breadcrumb-item-link">
                                             <span itemprop="title"
                                                     class="l-breadcrumb-item-link-title">{{ $client->num_peers }}</span>

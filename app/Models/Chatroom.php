@@ -20,9 +20,9 @@ use Illuminate\Notifications\Notifiable;
 
 class Chatroom extends Model
 {
+    use Auditable;
     use HasFactory;
     use Notifiable;
-    use Auditable;
 
     /**
      * The Attributes That Are Mass Assignable.

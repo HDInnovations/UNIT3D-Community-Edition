@@ -186,8 +186,7 @@
                                 <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
                                    style="color:{{ $torrent->moderated->group->color }};">
                                     <i class="{{ $torrent->moderated->group->icon }}"
-                                       data-toggle="tooltip"
-                                       data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                                       title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
                                 </a>]
                             </span>
                         </div>

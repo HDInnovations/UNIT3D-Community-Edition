@@ -184,12 +184,14 @@
             <dd>{{ number_format($total * 24 * 365, 2) }}</dd>
         </dl>
         <div class="panel__body">
-            <a
-                href="{{ route('users.history.index', ['username' => $user->username, 'completed' => 'include', 'active' => 'include']) }}"
-                class="form__button form__button--filled"
-            >
-                {{ __('bon.review-seeds') }}
-            </a>
+            <p class="form__group form__group--horizontal">
+                <a
+                    href="{{ route('users.history.index', ['user' => $user, 'completed' => 'include', 'active' => 'include']) }}"
+                    class="form__button form__button--filled form__button--centered"
+                >
+                    {{ __('bon.review-seeds') }}
+                </a>
+            </p>
         </div>
     </section>
 @endsection

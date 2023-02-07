@@ -18,6 +18,7 @@ use App\Models\TorrentFile;
 use App\Models\Warning;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -26,7 +27,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $torrentIds = Torrent::withoutGlobalScopes()->pluck('id');
 
@@ -111,106 +112,106 @@ return new class () extends Migration {
             ->delete();
 
         // Remove constraint
-        Schema::table('warnings', function (Blueprint $table) {
+        Schema::table('warnings', function (Blueprint $table): void {
             $table->dropForeign(['torrent']);
         });
 
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->dropForeign('fk_peers_torrents1');
         });
 
         // Alter column type, remove indexes, and add foreign key constraint
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->increments('id')->change();
         });
 
-        Schema::table('bon_transactions', function (Blueprint $table) {
+        Schema::table('bon_transactions', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->nullable()->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('bookmarks', function (Blueprint $table) {
+        Schema::table('bookmarks', function (Blueprint $table): void {
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('featured_torrents', function (Blueprint $table) {
+        Schema::table('featured_torrents', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('files', function (Blueprint $table) {
+        Schema::table('files', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex('fk_files_torrents1_idx');
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('freeleech_tokens', function (Blueprint $table) {
+        Schema::table('freeleech_tokens', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('genre_torrent', function (Blueprint $table) {
+        Schema::table('genre_torrent', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('graveyard', function (Blueprint $table) {
+        Schema::table('graveyard', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('history', function (Blueprint $table) {
+        Schema::table('history', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('keywords', function (Blueprint $table) {
+        Schema::table('keywords', function (Blueprint $table): void {
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->nullable()->change();
             $table->dropIndex('fk_peers_torrents1_idx');
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('playlist_torrents', function (Blueprint $table) {
+        Schema::table('playlist_torrents', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->default('0')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('reports', function (Blueprint $table) {
+        Schema::table('reports', function (Blueprint $table): void {
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('subtitles', function (Blueprint $table) {
+        Schema::table('subtitles', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('thanks', function (Blueprint $table) {
+        Schema::table('thanks', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('torrent_downloads', function (Blueprint $table) {
+        Schema::table('torrent_downloads', function (Blueprint $table): void {
             $table->unsignedInteger('torrent_id')->change();
             $table->dropIndex(['torrent_id']);
             $table->foreign('torrent_id')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('warnings', function (Blueprint $table) {
+        Schema::table('warnings', function (Blueprint $table): void {
             $table->unsignedInteger('torrent')->nullable()->change();
             $table->foreign('torrent')->references('id')->on('torrents')->cascadeOnUpdate()->cascadeOnDelete();
         });

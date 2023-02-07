@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_activations', function (Blueprint $table) {
+        Schema::create('user_activations', function (Blueprint $table): void {
             $table->bigInteger('id', true)->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->string('token');

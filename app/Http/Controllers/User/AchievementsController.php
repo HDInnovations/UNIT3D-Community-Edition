@@ -24,14 +24,12 @@ class AchievementsController extends Controller
     /**
      * Display User Achievements.
      */
-    public function index(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
         $achievements = $user->unlockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return \view('user.achievement.index', [
+        return view('user.achievement.index', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,

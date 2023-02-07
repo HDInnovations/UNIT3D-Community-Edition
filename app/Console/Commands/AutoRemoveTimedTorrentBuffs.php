@@ -50,7 +50,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
      */
     public function handle(): void
     {
-        $appurl = \config('app.url');
+        $appurl = config('app.url');
 
         $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now()->toDateTimeString())->get();
 
@@ -62,7 +62,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
                 // Announce To Chat
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
                 );
             }
         }
@@ -77,7 +77,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
                 // Announce To Chat
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
                 );
             }
         }

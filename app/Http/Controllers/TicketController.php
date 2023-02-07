@@ -26,7 +26,7 @@ class TicketController extends Controller
      */
     final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return \view('ticket.index');
+        return view('ticket.index');
     }
 
     /**
@@ -37,7 +37,7 @@ class TicketController extends Controller
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
 
-        return \view('ticket.create', [
+        return view('ticket.create', [
             'categories' => $categories,
             'priorities' => $priorities,
         ]);
@@ -57,7 +57,7 @@ class TicketController extends Controller
         $ticket->subject = $request->input('subject');
         $ticket->body = $request->input('body');
 
-        $v = \validator($ticket->toArray(), [
+        $v = validator($ticket->toArray(), [
             'user_id'     => 'required|exists:users,id',
             'category_id' => 'required|exists:ticket_categories,id',
             'priority_id' => 'required|exists:ticket_priorities,id',
@@ -66,15 +66,15 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('tickets.create')
+            return to_route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \to_route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess(\trans('ticket.created-success'));
+        return to_route('tickets.show', ['id' => $ticket->id])
+            ->withSuccess(trans('ticket.created-success'));
     }
 
     /**
@@ -84,7 +84,7 @@ class TicketController extends Controller
     {
         $user = $request->user();
         $ticket = Ticket::with(['comments'])->findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
 
         if ($user->id == $ticket->user_id) {
             $ticket->user_read = 1;
@@ -96,7 +96,7 @@ class TicketController extends Controller
             $ticket->save();
         }
 
-        return \view('ticket.show', [
+        return view('ticket.show', [
             'user'   => $user,
             'ticket' => $ticket,
         ]);
@@ -109,14 +109,14 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
 
         $ticket->category_id = $request->input('category');
         $ticket->priority_id = $request->input('priority');
         $ticket->subject = $request->input('subject');
         $ticket->body = $request->input('body');
 
-        $v = \validator($ticket->toArray(), [
+        $v = validator($ticket->toArray(), [
             'user_id'     => 'required|exists:users,id',
             'category_id' => 'required|exists:ticket_categories,id',
             'priority_id' => 'required|exists:ticket_priorities,id',
@@ -125,15 +125,15 @@ class TicketController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('tickets.create')
+            return to_route('tickets.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \to_route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess(\trans('ticket.updated-success'));
+        return to_route('tickets.show', ['id' => $ticket->id])
+            ->withSuccess(trans('ticket.updated-success'));
     }
 
     /**
@@ -143,63 +143,63 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        abort_unless($user->group->is_modo, 403);
 
         $ticket->comments()->delete();
         TicketAttachment::where('ticket_id', '=', $id)->delete();
         $ticket->delete();
 
-        return \to_route('tickets.index')
-            ->withSuccess(\trans('ticket.deleted-success'));
+        return to_route('tickets.index')
+            ->withSuccess(trans('ticket.deleted-success'));
     }
 
     final public function assign(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        abort_unless($user->group->is_modo, 403);
 
         $ticket->staff_id = $request->input('user_id');
         $ticket->staff_read = 0;
 
-        $v = \validator($ticket->toArray(), [
+        $v = validator($ticket->toArray(), [
             'user_id' => 'required|exists:users,id',
         ]);
 
         if ($v->fails()) {
-            return \to_route('tickets.show', ['id' => $ticket->id])
+            return to_route('tickets.show', ['id' => $ticket->id])
                 ->withErrors($v->errors());
         }
 
         $ticket->save();
 
-        return \to_route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess(\trans('ticket.assigned-success'));
+        return to_route('tickets.show', ['id' => $ticket->id])
+            ->withSuccess(trans('ticket.assigned-success'));
     }
 
     final public function unassign(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        abort_unless($user->group->is_modo, 403);
 
         $ticket->staff_id = null;
         $ticket->save();
 
-        return \to_route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess(\trans('ticket.unassigned-success'));
+        return to_route('tickets.show', ['id' => $ticket->id])
+            ->withSuccess(trans('ticket.unassigned-success'));
     }
 
     final public function close(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id == $ticket->user_id, 403);
 
-        $ticket->closed_at = \now();
+        $ticket->closed_at = now();
         $ticket->save();
 
-        return \to_route('tickets.show', ['id' => $ticket->id])
-            ->withSuccess(\trans('ticket.closed-success'));
+        return to_route('tickets.show', ['id' => $ticket->id])
+            ->withSuccess(trans('ticket.closed-success'));
     }
 }

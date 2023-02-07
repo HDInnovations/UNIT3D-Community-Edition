@@ -23,7 +23,7 @@ class CollectionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('mediahub.collection.index');
+        return view('mediahub.collection.index');
     }
 
     /**
@@ -33,7 +33,7 @@ class CollectionController extends Controller
     {
         $collection = Collection::with(['movie', 'comments'])->findOrFail($id);
 
-        return \view('mediahub.collection.show', [
+        return view('mediahub.collection.show', [
             'collection' => $collection,
         ]);
     }

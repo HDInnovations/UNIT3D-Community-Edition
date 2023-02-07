@@ -3,6 +3,7 @@
 use App\Models\Peer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -11,31 +12,14 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Peer::query()
-            ->update([
-                'ip' => DB::raw('INET6_ATON(`ip`)'),
-                'peer_id' => DB::raw('UNHEX(`peer_id`)'),
-            ]);
-
-        Peer::query()
-            ->whereNull('peer_id')
-            ->orWhereNull('ip')
-            ->orWhereNull('port')
-            ->orWhereNull('agent')
-            ->orWhereNull('uploaded')
-            ->orWhereNull('downloaded')
-            ->orWhereNull('left')
-            ->orWhereNull('seeder')
-            ->orWhereNull('torrent_id')
-            ->orWhereNull('user_id')
-            ->delete();
+        Peer::truncate();
 
         Schema::disableForeignKeyConstraints();
 
-        Schema::table('peers', function (Blueprint $table) {
-            $table->dropColumn(['md5_peer_id', 'info_hash', 'connectable']);
+        Schema::table('peers', function (Blueprint $table): void {
+            $table->dropColumn(['md5_peer_id', 'info_hash']);
             $table->unsignedSmallInteger('port')->nullable(false)->change();
             $table->string('agent', 64)->nullable(false)->change();
             $table->unsignedBigInteger('uploaded')->nullable(false)->change();

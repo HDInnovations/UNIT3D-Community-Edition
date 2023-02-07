@@ -110,7 +110,7 @@
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]{{ \htmlspecialchars($post->content) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -195,7 +195,7 @@
         </dl>
         <dl class="post__author-topics">
             <dt>
-                <a href="{{ route('users.topics.index', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
                 {{ __('forum.topics') }}
                 </a>
             </dt>
@@ -203,7 +203,7 @@
         </dl>
         <dl class="post__author-posts">
             <dt>
-                <a href="{{ route('users.posts.index', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.posts.index', ['user' => $post->user]) }}">
                     {{ __('forum.posts') }}
                 </a>
             </dt>

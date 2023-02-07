@@ -30,7 +30,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return \view('page.index', ['pages' => $pages]);
+        return view('page.index', ['pages' => $pages]);
     }
 
     /**
@@ -40,7 +40,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return \view('page.page', ['page' => $page]);
+        return view('page.page', ['page' => $page]);
     }
 
     /**
@@ -55,7 +55,7 @@ class PageController extends Controller
             ->get()
             ->sortByDesc('position');
 
-        return \view('page.staff', ['staff' => $staff]);
+        return view('page.staff', ['staff' => $staff]);
     }
 
     /**
@@ -68,7 +68,7 @@ class PageController extends Controller
             ->get()
             ->sortBy('name');
 
-        return \view('page.internal', ['internals' => $internals]);
+        return view('page.internal', ['internals' => $internals]);
     }
 
     /**
@@ -78,7 +78,7 @@ class PageController extends Controller
     {
         $clients = BlacklistClient::all();
 
-        return \view('page.blacklist.client', ['clients' => $clients]);
+        return view('page.blacklist.client', ['clients' => $clients]);
     }
 
     /**
@@ -86,6 +86,6 @@ class PageController extends Controller
      */
     public function about(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('page.aboutus');
+        return view('page.aboutus');
     }
 }

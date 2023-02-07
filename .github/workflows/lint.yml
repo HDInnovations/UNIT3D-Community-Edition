@@ -2,17 +2,21 @@ name: PHP Linting (Pint)
 on: [push, pull_request]
 jobs:
   phplint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Code Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - name: "laravel-pint"
+      - name: Run Pint
         uses: aglipanci/laravel-pint-action@0.1.0
         with:
           preset: psr12
-      - name: Commit changes
+          verboseMode: true
+      - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: PSR12 Linting
-          skip_fetch: true
+          commit_message: PHP Style Change (Laravel Pint CI)
+          commit_user_name: HDVinne
+          commit_user_email: hdinnovations@protonmail.com
+          commit_author: HDVinnie <hdinnovations@protonmail.com>

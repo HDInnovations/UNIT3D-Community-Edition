@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table): void {
             $table->integer('collection_id')->nullable()->index()->after('requests_id');
         });
     }

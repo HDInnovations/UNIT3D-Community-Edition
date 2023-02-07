@@ -21,12 +21,11 @@ class PostController extends Controller
     /**
      * Show user posts.
      */
-    public function index(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
         $posts = $user->posts()->with(['topic', 'user'])->latest()->paginate(25);
 
-        return \view('user.post.index', [
+        return view('user.post.index', [
             'posts' => $posts,
             'user'  => $user,
         ]);

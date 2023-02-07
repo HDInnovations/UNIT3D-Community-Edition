@@ -19,96 +19,89 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
-    <div class="container-fluid">
-        <div class="block">
-            <div class="some-padding">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>{{ __('user.sender') }}</th>
-                                    <th>{{ __('common.email') }}</th>
-                                    <th>{{ __('user.code') }}</th>
-                                    <th>{{ __('user.created-on') }}</th>
-                                    <th>{{ __('user.expires-on') }}</th>
-                                    <th>{{ __('user.accepted-by') }}</th>
-                                    <th>{{ __('user.accepted-at') }}</th>
-                                    <th>{{ __('common.resend') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (count($invites) == 0)
-                                    <p>{{ __('user.no-logs') }}</p>
-                                @else
-                                    @foreach ($invites as $invite)
-                                        <tr>
-                                            <td>
-                                                <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
-                                                        <span class="text-bold"
-                                                              style="color:{{ $invite->sender->group->color }}; ">
-                                                            <i class="{{ $invite->sender->group->icon }}"></i>
-                                                            {{ $invite->sender->username }}
-                                                        </span>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                {{ $invite->email }}
-                                            </td>
-                                            <td>
-                                                {{ $invite->code }}
-                                            </td>
-                                            <td>
-                                                {{ $invite->created_at }}
-                                            </td>
-                                            <td>
-                                                {{ $invite->expires_on }}
-                                            </td>
-                                            <td>
-                                                @if ($invite->accepted_by != null && $invite->accepted_by != 1)
-                                                    <a
-                                                            href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
-                                                            <span class="text-bold"
-                                                                  style="color:{{ $invite->receiver->group->color }}; ">
-                                                                <i class="{{ $invite->receiver->group->icon }}"></i>
-                                                                {{ $invite->receiver->username }}
-                                                            </span>
-                                                    </a>
-                                                @else
-                                                    N/A
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($invite->accepted_at != null)
-                                                    {{ $invite->accepted_at }}
-                                                @else
-                                                    N/A
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('invites.send', ['id' => $invite->id]) }}"
-                                                      method="POST">
-                                                    @csrf
-                                                    <button type="submit" @if ($invite->accepted_at !== null) class="btn btn-xs
-                                                            btn-danger disabled" @endif class="btn btn-xs btn-success">
-                                                        <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                                </tbody>
-                            </table>
-                            <div class="text-center">
-                                {{ $invites->links() }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('user.invites') }}</h2>
+            <div class="panel__actions">
+                <form class="panel__action" action="{{ route('invites.create') }}">
+                    <button class="form__button form__button--text">
+                        {{ __('user.send-invite') }}
+                    </button>
+                </form>
             </div>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('user.sender') }}</th>
+                        <th>{{ __('common.email') }}</th>
+                        <th>{{ __('user.code') }}</th>
+                        <th>{{ __('user.created-on') }}</th>
+                        <th>{{ __('user.expires-on') }}</th>
+                        <th>{{ __('user.accepted-by') }}</th>
+                        <th>{{ __('user.accepted-at') }}</th>
+                        <th>{{ __('common.actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($invites as $invite)
+                        <tr>
+                            <td>
+                                <x-user_tag :user="$invite->sender" :anon="false" />
+                            </td>
+                            <td>{{ $invite->email }}</td>
+                            <td>{{ $invite->code }}</td>
+                            <td>{{ $invite->created_at }}</td>
+                            <td>{{ $invite->expires_on }}</td>
+                            <td>
+                                @if ($invite->accepted_by !== null && $invite->accepted_by !== 1)
+                                    <x-user_tag :user="$invite->receiver" :anon="false" />
+                                @else
+                                    N/A
+                                @endif
+                            </td>
+                            <td>{{ $invite->accepted_at ?? 'N/A' }}</td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('invites.send', ['id' => $invite->id]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            <button 
+                                                x-on:click.prevent="Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Are you sure you want to resend the email to: {{ $invite->email }}?',
+                                                    icon: 'warning',
+                                                    showConfirmButton: true,
+                                                    showCancelButton: true,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $root.submit();
+                                                    }
+                                                })"
+                                                class="form__button form__button--text"
+                                                @disabled($invite->accepted_at !== null)
+                                            >
+                                                {{ __('common.resend') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8">No Invitees</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    </div>
+        {{ $invites->links('partials.pagination') }}
+    </section>
 @endsection

@@ -222,8 +222,7 @@
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
 										<span class="badge-user text-bold"
                                               style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
-											<i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip"
-                                               data-original-title="{{ $torrent->user->group->name }}"></i>
+											<i class="{{ $torrent->user->group->icon }}" title="{{ $torrent->user->group->name }}"></i>
 											{{ $torrent->user->username }}
 										</span>
                                     </a>
@@ -253,52 +252,4 @@
         </div>
     </section>
 </div>
-
-<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-  document.addEventListener('livewire:load', function () {
-    let myOptions = [
-            @foreach($regions as $region)
-      {
-        label: "{{ $region->name }}", value: "{{ $region->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#regions',
-      options: myOptions,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Regions')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let regions = document.querySelector('#regions')
-    regions.addEventListener('change', () => {
-      let data = regions.value
-    @this.set('regions', data)
-    })
-
-    let myOptions2 = [
-            @foreach($distributors as $distributor)
-      {
-        label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#distributors',
-      options: myOptions2,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Distributor')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let distributors = document.querySelector('#distributors')
-    distributors.addEventListener('change', () => {
-      let data = distributors.value
-    @this.set('distributors', data)
-    })
-  })
-</script>
 

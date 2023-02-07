@@ -45,7 +45,7 @@ class NewBon extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Gifted You '.$this->bonTransactions->cost.' BON',
             'body'  => $this->sender.' has gifted you '.$this->bonTransactions->cost.' BON with the following note: '.$this->bonTransactions->comment,
-            'url'   => \sprintf('/users/%s', $this->bonTransactions->senderObj->username),
+            'url'   => sprintf('/users/%s', $this->bonTransactions->senderObj->username),
         ];
     }
 }

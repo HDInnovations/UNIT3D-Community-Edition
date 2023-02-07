@@ -28,8 +28,8 @@ trait TorrentFilter
     {
         return $query->when(
             $isRegex,
-            fn ($query) => $query->where('name', 'REGEXP', \substr($name, 1, -1)),
-            fn ($query) => $query->where('name', 'LIKE', '%'.\str_replace(' ', '%', $name).'%')
+            fn ($query) => $query->where('name', 'REGEXP', substr($name, 1, -1)),
+            fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $name).'%')
         );
     }
 
@@ -37,7 +37,7 @@ trait TorrentFilter
     {
         return $query->when(
             $isRegex,
-            fn ($query) => $query->where('description', 'REGEXP', \substr($description, 1, -1)),
+            fn ($query) => $query->where('description', 'REGEXP', substr($description, 1, -1)),
             fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
         );
     }
@@ -46,7 +46,7 @@ trait TorrentFilter
     {
         return $query->when(
             $isRegex,
-            fn ($query) => $query->where('mediainfo', 'REGEXP', \substr($mediainfo, 1, -1)),
+            fn ($query) => $query->where('mediainfo', 'REGEXP', substr($mediainfo, 1, -1)),
             fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
         );
     }
@@ -93,16 +93,16 @@ trait TorrentFilter
         return $query
             ->where(
                 fn ($query) => $query
-                ->where(
-                    fn ($query) => $query
-                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                    ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
-                )
-                ->orWhere(
-                    fn ($query) => $query
-                    ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
-                    ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
-                )
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
+                    )
             );
     }
 
@@ -148,9 +148,9 @@ trait TorrentFilter
             ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $collectionId));
     }
 
-    public function scopeOfFreeleech(Builder $query, array $free): Builder
+    public function scopeOfFreeleech(Builder $query, string|array $free): Builder
     {
-        return $query->whereIntegerInRaw('free', $free);
+        return $query->whereIntegerInRaw('free', (array) $free);
     }
 
     public function scopeDoubleup(Builder $query): Builder
@@ -221,7 +221,7 @@ trait TorrentFilter
             ->whereDoesntHave(
                 'history',
                 fn ($query) => $query
-                ->where('user_id', '=', $user->id)
+                    ->where('user_id', '=', $user->id)
             );
     }
 
@@ -231,7 +231,7 @@ trait TorrentFilter
             ->whereHas(
                 'history',
                 fn (Builder $query) => $query
-                ->where('user_id', '=', $user->id)
+                    ->where('user_id', '=', $user->id)
             );
     }
 
@@ -241,9 +241,9 @@ trait TorrentFilter
             ->whereHas(
                 'history',
                 fn ($query) => $query
-                ->where('user_id', '=', $user->id)
-                ->where('active', '=', 1)
-                ->where('seeder', '=', 1)
+                    ->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1)
             );
     }
 
@@ -253,9 +253,9 @@ trait TorrentFilter
             ->whereHas(
                 'history',
                 fn ($query) => $query
-                ->where('user_id', '=', $user->id)
-                ->where('active', '=', 1)
-                ->where('seeder', '=', 0)
+                    ->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0)
             );
     }
 
@@ -265,10 +265,10 @@ trait TorrentFilter
             ->whereHas(
                 'history',
                 fn ($query) => $query
-                ->where('user_id', '=', $user->id)
-                ->where('active', '=', 0)
-                ->where('seeder', '=', 0)
-                ->where('seedtime', '=', 0)
+                    ->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 0)
+                    ->where('seedtime', '=', 0)
             );
     }
 
@@ -278,7 +278,7 @@ trait TorrentFilter
             ->whereHas(
                 'files',
                 fn ($query) => $query
-                ->where('name', $filename)
+                    ->where('name', $filename)
             );
     }
 

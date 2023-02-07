@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\GraveyardControllerTest
@@ -27,7 +28,7 @@ class GraveyardController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('graveyard.index');
+        return view('graveyard.index');
     }
 
     /**
@@ -40,13 +41,13 @@ class GraveyardController extends Controller
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return \to_route('graveyard.index')
-                ->withErrors(\trans('graveyard.resurrect-failed-pending'));
+            return to_route('graveyard.index')
+                ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
         if ($user->id === $torrent->user_id) {
-            return \to_route('graveyard.index')
-                ->withErrors(\trans('graveyard.resurrect-failed-own'));
+            return to_route('graveyard.index')
+                ->withErrors(trans('graveyard.resurrect-failed-own'));
         }
 
         $graveyard = new Graveyard();
@@ -54,38 +55,38 @@ class GraveyardController extends Controller
         $graveyard->torrent_id = $torrent->id;
         $graveyard->seedtime = $request->input('seedtime');
 
-        $v = \validator($graveyard->toArray(), [
+        $v = validator($graveyard->toArray(), [
             'user_id'    => 'required',
             'torrent_id' => 'required',
             'seedtime'   => 'required',
         ]);
 
         if ($v->fails()) {
-            return \to_route('graveyard.index')
+            return to_route('graveyard.index')
                 ->withErrors($v->errors());
         }
 
         $graveyard->save();
 
-        return \to_route('graveyard.index')
-            ->withSuccess(\trans('graveyard.resurrect-complete'));
+        return to_route('graveyard.index')
+            ->withSuccess(trans('graveyard.resurrect-complete'));
     }
 
     /**
      * Cancel A Ressurection.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return \to_route('graveyard.index')
-            ->withSuccess(\trans('graveyard.resurrect-canceled'));
+        return to_route('graveyard.index')
+            ->withSuccess(trans('graveyard.resurrect-canceled'));
     }
 }

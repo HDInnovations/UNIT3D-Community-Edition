@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tv', function (Blueprint $table) {
+        Schema::create('tv', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('tmdb_id')->nullable();
             $table->string('imdb_id')->nullable();

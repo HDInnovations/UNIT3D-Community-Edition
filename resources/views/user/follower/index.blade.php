@@ -20,61 +20,47 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        @if (!auth()->user()->isAllowed($user,'follower','show_follower'))
-            <div class="container pl-0 text-center">
-                <div class="jumbotron shadowed">
-                    <div class="container">
-                        <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ __('user.private-profile') }}
-                        </h1>
-                        <div class="separator"></div>
-                        <p class="text-center">{{ __('user.not-authorized') }}</p>
-                    </div>
-                </div>
-            </div>
-        @else
-            <div class="block">
-                <div class="forum-categories">
-                    <table class="table table-bordered table-hover">
-                        <thead>
+    @if (auth()->user()->isAllowed($user,'follower','show_follower'))
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('user.followers') }}</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
                         <tr>
                             <th>{{ __('user.avatar') }}</th>
                             <th>{{ __('user.user') }}</th>
                             <th>{{ __('common.created_at') }}</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($results as $f)
+                    </thead>
+                    <tbody>
+                        @forelse ($followers as $follower)
                             <tr>
-                                @if ($f->user->image != null)
-                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
-                                                 data-toggle="tooltip"
-                                                 title="{{ $f->user->username }}" height="50px"
-                                                 data-original-title="{{ $f->user->username }}">
-                                        </a></td>
-                                @else
-                                    <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
-                                                 title="{{ $f->user->username }}" height="50px"
-                                                 data-original-title="{{ $f->user->username }}">
-                                        </a></td>
-                                @endif
-                                <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                            <span class="badge-user text-bold"
-                                                  style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
-                                    </a></td>
-                                <td>{{ $f->created_at }}</td>
+                                <td>
+                                    <img
+                                        src="{{ url($follower->image === null ? 'img/profile.png' : 'files/img/' . $follower->image) }}"
+                                        alt="{{ $follower->username }}"
+                                        class="user-search__avatar"
+                                    >
+                                </td>
+                                <td>
+                                    <x-user_tag :anon="false" :user="$follower" />
+                                </td>
+                                <td>{{ $follower->follow->created_at }}</td>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center col-md-12">
-                    {{ $results->links() }}
-                </div>
+                        @empty
+                            <tr>
+                                <td colspan="3">No Followers</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-        @endif
-    </div>
+            {{ $followers->links('partials.pagination') }}
+        </section>
+    @else
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('user.private-profile') }}</h2>
+            <div class="panel__body">{{ __('user.not-authorized') }}</div>
+        </section>
+    @endif
 @endsection

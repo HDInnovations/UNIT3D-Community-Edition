@@ -25,7 +25,7 @@ class DislikeButton extends Component
 
     final public function mount($post): void
     {
-        $this->user = \auth()->user();
+        $this->user = auth()->user();
         $this->post = Post::findOrFail($post);
     }
 
@@ -55,6 +55,6 @@ class DislikeButton extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.dislike-button');
+        return view('livewire.dislike-button');
     }
 }

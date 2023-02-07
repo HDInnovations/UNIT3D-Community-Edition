@@ -35,11 +35,11 @@ class UserResurrections extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'rewarded'          => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
+        'perPage'       => ['except' => ''],
+        'name'          => ['except' => ''],
+        'rewarded'      => ['except' => 'any'],
+        'sortField'     => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
     ];
 
     final public function mount($userId): void
@@ -65,12 +65,19 @@ class UserResurrections extends Component
     final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Graveyard::query()
+            ->select([
+                'graveyard.id',
+                'graveyard.created_at',
+                'graveyard.seedtime',
+                'graveyard.rewarded',
+                'graveyard.torrent_id'
+            ])
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id')
             ->where('graveyard.user_id', '=', $this->user->id)
             ->when($this->rewarded === 'include', fn ($query) => $query->where('rewarded', '=', 1))
             ->when($this->rewarded === 'exclude', fn ($query) => $query->where('rewarded', '=', 0))
-            ->when($this->name, fn ($query) => $query->where('name', 'like', '%'.\str_replace(' ', '%', $this->name).'%'))
+            ->when($this->name, fn ($query) => $query->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%'))
             ->when(
                 \in_array($this->sortField, ['created_at', 'seedtime', 'rewarded']),
                 fn ($query) => $query->orderBy('graveyard.'.$this->sortField, $this->sortDirection),
@@ -81,7 +88,7 @@ class UserResurrections extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-resurrections', [
+        return view('livewire.user-resurrections', [
             'resurrections' => $this->resurrections,
         ]);
     }

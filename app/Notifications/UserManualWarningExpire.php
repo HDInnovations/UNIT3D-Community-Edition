@@ -30,15 +30,15 @@ class UserManualWarningExpire extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
-        $profileUrl = \href_profile($this->user);
+        $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
             ->greeting('Manual Warning Expired!')
             ->line('Your Warning has expired!')
             ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserManualWarningExpire extends Notification
         return [
             'title' => 'Manual Warning Expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => \sprintf('/users/%s', $this->user->usernamme),
+            'url'   => sprintf('/users/%s', $this->user->usernamme),
         ];
     }
 }

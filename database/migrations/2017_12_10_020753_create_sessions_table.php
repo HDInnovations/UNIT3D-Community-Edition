@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('sessions', function (Blueprint $table): void {
             $table->string('id')->unique();
             $table->integer('user_id')->nullable();
             $table->string('ip_address')->nullable();

@@ -23,7 +23,7 @@ class NetworkController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('mediahub.network.index');
+        return view('mediahub.network.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class NetworkController extends Controller
         $network = Network::withCount('tv')->findOrFail($id);
         $shows = $network->tv()->oldest('name')->paginate(25);
 
-        return \view('mediahub.network.show', [
+        return view('mediahub.network.show', [
             'network' => $network,
             'shows'   => $shows,
         ]);

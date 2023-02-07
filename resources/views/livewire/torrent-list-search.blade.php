@@ -388,42 +388,43 @@
                                        title='{{ __('torrent.recent-bumped') }}'></i>
                                 </span>
                             @endif
-
+                            
                             @if ($torrent->refundable || $user->group->is_refundable)
                                 <span class="badge-extra text-bold torrent-listings-refundable">
                                     <i class="{{ config('other.font-awesome') }} fa-percentage text-pink"
                                        title='{{ __('torrent.refundable') }}'></i>
                                 </span>
                             @endif
-                        </td>
-                        <td class="torrent-listings-download" style="vertical-align: middle;">
-                            @if (config('torrent.download_check_page') == 1)
-                                <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
-                                    <button class="btn btn-primary btn-circle" type="button"
-                                            title="{{ __('common.download') }}">
-                                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                                    </button>
-                                </a>
-                            @else
-                                <a href="{{ route('download', ['id' => $torrent->id]) }}">
-                                    <button class="btn btn-primary btn-circle" type="button"
-                                            title="{{ __('common.download') }}">
-                                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                                    </button>
-                                </a>
-                            @endif
-                            @if (config('torrent.magnet') == 1)
-                                <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
-                                    <button class="btn btn-primary btn-circle" type="button"
-                                            title="{{ __('common.magnet') }}">
-                                        <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
-                                    </button>
-                                </a>
-                            @endif
-                        </td>
-                        <td class="torrent-listings-tmdb" style="vertical-align: middle;">
-                            @if ($torrent->category->game_meta)
-                                <span class='badge-extra'>
+                            </td>
+                            <td class="torrent-listings-download" style="vertical-align: middle;">
+                                @livewire('small-bookmark-button', ['torrent' => $torrent->id], key('torrent-'.$torrent->id))
+                                @if (config('torrent.download_check_page') == 1)
+                                    <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
+                                        <button class="btn btn-primary btn-circle" type="button"
+                                                title="{{ __('common.download') }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                                        </button>
+                                    </a>
+                                @else
+                                    <a href="{{ route('download', ['id' => $torrent->id]) }}">
+                                        <button class="btn btn-primary btn-circle" type="button"
+                                                title="{{ __('common.download') }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                                        </button>
+                                    </a>
+                                @endif
+                                @if (config('torrent.magnet') == 1)
+                                    <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
+                                        <button class="btn btn-primary btn-circle" type="button"
+                                                title="{{ __('common.magnet') }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
+                                        </button>
+                                    </a>
+                                @endif
+                            </td>
+                            <td class="torrent-listings-tmdb" style="vertical-align: middle;">
+                                @if ($torrent->category->game_meta)
+                                    <span class='badge-extra'>
                                     <img src="{{ url('img/igdb.png') }}" alt="igdb_id" style="margin-left: -5px;"
                                          width="24px" height="24px" loading="lazy"> {{ $torrent->igdb }}
                                     <br>
@@ -492,51 +493,3 @@
         </div>
     </section>
 </div>
-
-<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-  document.addEventListener('livewire:load', function () {
-    let myOptions = [
-            @foreach($regions as $region)
-      {
-        label: "{{ $region->name }}", value: "{{ $region->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#regions',
-      options: myOptions,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Regions')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let regions = document.querySelector('#regions')
-    regions.addEventListener('change', () => {
-      let data = regions.value
-    @this.set('regions', data)
-    })
-
-    let myOptions2 = [
-            @foreach($distributors as $distributor)
-      {
-        label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
-      },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#distributors',
-      options: myOptions2,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Distributor')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let distributors = document.querySelector('#distributors')
-    distributors.addEventListener('change', () => {
-      let data = distributors.value
-    @this.set('distributors', data)
-    })
-  })
-</script>

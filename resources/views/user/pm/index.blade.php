@@ -110,14 +110,14 @@
             <form action="{{ route('mark-all-read') }}" method="POST">
                 <p class="form__group form__group--horizontal">
                     @csrf
-                    <button class="form__button form__button--filled">
+                    <button class="form__button form__button--filled form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         {{ __('pm.mark-all-read') }}
                     </button>
                 </p>
             </form>
             <p class="form__group form__group--horizontal">
-                <a href="{{ route('inbox') }}" class="form__button form__button--filled">
+                <a href="{{ route('inbox') }}" class="form__button form__button--filled form__button--centered">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
                     {{ __('pm.refresh') }}
                 </a>
@@ -138,7 +138,7 @@
                                 $root.submit();
                             }
                         })"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                         {{ __('pm.empty-inbox') }}

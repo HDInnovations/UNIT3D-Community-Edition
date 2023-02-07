@@ -21,12 +21,11 @@ class TopicController extends Controller
     /**
      * Show user topics.
      */
-    public function index(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
         $topics = $user->topics()->latest()->paginate(25);
 
-        return \view('user.topic.index', [
+        return view('user.topic.index', [
             'topics' => $topics,
             'user'   => $user,
         ]);

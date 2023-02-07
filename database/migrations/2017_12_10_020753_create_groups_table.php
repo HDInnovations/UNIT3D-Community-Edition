@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->string('name');
             $table->string('slug');

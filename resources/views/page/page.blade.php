@@ -30,16 +30,17 @@
             <dd>{{ $page->created_at }}</dd>
             <dt>{{ __('torrent.updated_at') }}</dt>
             <dd>{{ $page->updated_at }}</dd>
+        </dl>
     </section>
 @endsection
 
 @section('javascripts')
-    @if(request()->url() === config('other.rules_url') && auth()->user()->read_rules == 0)
+    @if(parse_url(request()->url(), PHP_URL_PATH) === parse_url(config('other.rules_url'), PHP_URL_PATH) && auth()->user()->read_rules == 0)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-          window.onscroll = function () {
+          confirmRules = function () {
             let scrollHeight, totalHeight
             scrollHeight = document.body.scrollHeight
-            totalHeight = window.scrollY + window.innerHeight
+            totalHeight = Math.ceil(window.scrollY + window.innerHeight)
 
             if (totalHeight >= scrollHeight) {
               Swal.fire({
@@ -47,44 +48,38 @@
                 text: 'Do You Fully Understand Our Rules?',
                 icon: 'question',
                 confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
-              }).then(function () {
-                $.ajax({
-                  url: '/users/accept-rules',
-                  type: 'post',
-                  data: {
-                    _token: '{{ csrf_token() }}'
-                  },
-                  success: function (response) {
-                    const Toast = Swal.mixin({
-                      toast: true,
-                      position: 'top-end',
-                      showConfirmButton: false,
-                      timer: 3000
-                    })
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  axios.post('/users/accept-rules')
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
 
-                    Toast.fire({
-                      icon: 'success',
-                      title: 'Thanks For Accepting Our Rules!'
-                    })
-                  },
-                  failure: function (response) {
-                    const Toast = Swal.mixin({
-                      toast: true,
-                      position: 'top-end',
-                      showConfirmButton: false,
-                      timer: 3000
-                    })
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Thanks For Accepting Our Rules!'
+                  })
+                } else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
 
-                    Toast.fire({
-                      icon: 'error',
-                      title: 'Something Went Wrong!'
-                    })
-                  }
-                })
+                  Toast.fire({
+                    icon: 'error',
+                    title: 'Something Went Wrong!'
+                  })
+                }
               })
             }
           }
-
+          window.onscroll = confirmRules
+          window.onload = confirmRules
         </script>
     @endif
 @endsection
