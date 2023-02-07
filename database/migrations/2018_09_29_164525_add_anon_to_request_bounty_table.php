@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('request_bounty', function (Blueprint $table) {
+        Schema::table('request_bounty', function (Blueprint $table): void {
             $table->boolean('anon')->default(0)->after('requests_id');
         });
     }

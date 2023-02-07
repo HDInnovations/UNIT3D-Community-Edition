@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tag_torrent', function (Blueprint $table) {
+        Schema::create('tag_torrent', function (Blueprint $table): void {
             $table->bigInteger('torrent_id')->unsigned();
             $table->integer('tag_id')->index('fk_torrents_tags_tags_1');
             $table->primary(['torrent_id', 'tag_id']);

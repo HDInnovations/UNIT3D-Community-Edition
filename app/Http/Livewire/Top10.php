@@ -67,8 +67,8 @@ class Top10 extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.top10', [
-            'user'          => \auth()->user(),
+        return view('livewire.top10', [
+            'user'          => auth()->user(),
             'torrentsDay'   => $this->torrentsDay,
             'torrentsWeek'  => $this->torrentsWeek,
             'torrentsMonth' => $this->torrentsMonth,

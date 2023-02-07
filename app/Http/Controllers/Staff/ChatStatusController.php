@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreChatStatusRequest;
 use App\Http\Requests\Staff\UpdateChatStatusRequest;
 use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatStatusControllerTest
@@ -38,7 +39,7 @@ class ChatStatusController extends Controller
     {
         $chatstatuses = $this->chatRepository->statuses();
 
-        return \view('Staff.chat.status.index', [
+        return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
         ]);
     }
@@ -48,7 +49,7 @@ class ChatStatusController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.chat.status.create');
+        return view('Staff.chat.status.create');
     }
 
     /**
@@ -58,7 +59,7 @@ class ChatStatusController extends Controller
     {
         ChatStatus::create($request->validated());
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
     }
 
@@ -69,7 +70,7 @@ class ChatStatusController extends Controller
     {
         $chatstatus = ChatStatus::findOrFail($id);
 
-        return \view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
+        return view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
     }
 
     /**
@@ -79,21 +80,21 @@ class ChatStatusController extends Controller
     {
         ChatStatus::where('id', '=', $id)->update($request->validated());
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
     }
 
     /**
      * Delete A Chat Status.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return \to_route('staff.statuses.index')
+        return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

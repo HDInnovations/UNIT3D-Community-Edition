@@ -20,6 +20,7 @@ use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
 use Illuminate\Support\Str;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -33,7 +34,7 @@ class ForumController extends Controller
     {
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
-        return \view('Staff.forum.index', ['categories' => $categories]);
+        return view('Staff.forum.index', ['categories' => $categories]);
     }
 
     /**
@@ -44,7 +45,7 @@ class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return \view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
 
     /**
@@ -58,11 +59,11 @@ class ForumController extends Controller
             ['slug' => Str::slug($request->title)]
             + $request->safe()->only(
                 [
-                'title',
-                'position',
-                'description',
-                'parent_id'
-            ]
+                    'title',
+                    'position',
+                    'description',
+                    'parent_id'
+                ]
             )
         );
 
@@ -90,7 +91,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return \to_route('staff.forums.index')
+        return to_route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -103,7 +104,7 @@ class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return \view('Staff.forum.edit', [
+        return view('Staff.forum.edit', [
             'categories' => $categories,
             'groups'     => $groups,
             'forum'      => $forum,
@@ -119,7 +120,7 @@ class ForumController extends Controller
 
         Forum::where('id', '=', $id)->update(
             [
-                'slug' => Str::slug($request->title),
+                'slug'      => Str::slug($request->title),
                 'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
             ]
             + $request->safe()->only(['title', 'position', 'description'])
@@ -149,14 +150,14 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return \to_route('staff.forums.index')
+        return to_route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
     /**
      * Delete A Forum.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
@@ -211,7 +212,7 @@ class ForumController extends Controller
             $forum->delete();
         }
 
-        return \to_route('staff.forums.index')
+        return to_route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

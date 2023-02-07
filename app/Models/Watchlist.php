@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Watchlist extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The attributes that aren't mass assignable.

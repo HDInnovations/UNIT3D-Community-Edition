@@ -48,6 +48,9 @@ use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
+use Exception;
+use ReflectionException;
+use JsonException;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -66,15 +69,15 @@ class TorrentController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('torrent.torrents');
+        return view('torrent.torrents');
     }
 
     /**
      * Display The Torrent reasource.
      *
-     * @throws \JsonException
+     * @throws JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -82,8 +85,8 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
-        $freeleechToken = \cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
-        $personalFreeleech = \cache()->get('personal_freeleech:'.$user->id);
+        $freeleechToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
+        $personalFreeleech = cache()->get('personal_freeleech:'.$user->id);
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost');
         $lastSeedActivity = History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -126,7 +129,7 @@ class TorrentController extends Controller
 
         $playlists = $user->playlists;
 
-        return \view('torrent.torrent', [
+        return view('torrent.torrent', [
             'torrent'            => $torrent,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
@@ -158,18 +161,18 @@ class TorrentController extends Controller
                     'name' => $cat['name'],
                     'type' => match (1) {
                         $cat->movie_meta => 'movie',
-                        $cat->tv_meta => 'tv',
-                        $cat->game_meta => 'game',
+                        $cat->tv_meta    => 'tv',
+                        $cat->game_meta  => 'game',
                         $cat->music_meta => 'music',
-                        $cat->no_meta => 'no'
+                        $cat->no_meta    => 'no'
                     },
                 ]
             ]);
         $types = Type::all()->sortBy('position')->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]);
 
-        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
-        return \view('torrent.edit_torrent', [
+        return view('torrent.edit_torrent', [
             'categories'   => $categories,
             'types'        => $types,
             'resolutions'  => Resolution::all()->sortBy('position'),
@@ -189,7 +192,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
         $torrent->name = $request->input('name');
         $torrent->description = $request->input('description');
         $torrent->category_id = $request->input('category_id');
@@ -229,7 +232,7 @@ class TorrentController extends Controller
             $seasonRule = 'required|numeric';
         }
 
-        $v = \validator($torrent->toArray(), [
+        $v = validator($torrent->toArray(), [
             'name'           => 'required',
             'description'    => 'required',
             'category_id'    => 'required|exists:categories,id',
@@ -250,7 +253,7 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return \to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         }
 
@@ -260,7 +263,7 @@ class TorrentController extends Controller
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = \public_path('/files/img/'.$filename_cover);
+            $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -268,7 +271,7 @@ class TorrentController extends Controller
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = \public_path('/files/img/'.$filename_cover);
+            $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -289,18 +292,18 @@ class TorrentController extends Controller
             $tmdbScraper->movie($torrent->tmdb);
         }
 
-        return \to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Successfully Edited!');
     }
 
     /**
      * Delete A Torrent.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Request $request)
     {
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'id'      => 'required|exists:torrents',
             'message' => 'required|alpha_dash|min:1',
         ]);
@@ -315,8 +318,8 @@ class TorrentController extends Controller
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
-                    $pmuser->subject = \sprintf('Torrent Deleted! - %s', $torrent->name);
-                    $pmuser->message = \sprintf('[b]Attention:[/b] Torrent %s has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                    $pmuser->subject = sprintf('Torrent Deleted! - %s', $torrent->name);
+                    $pmuser->message = sprintf('[b]Attention:[/b] Torrent %s has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
                                         [b]Removal Reason:[/b] %s
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $torrent->name, $request->message);
                     $pmuser->save();
@@ -332,7 +335,7 @@ class TorrentController extends Controller
                 ]);
 
                 //Remove Torrent related info
-                \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
+                cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
                 $torrent->comments()->delete();
                 Peer::where('torrent_id', '=', $id)->delete();
                 History::where('torrent_id', '=', $id)->delete();
@@ -345,7 +348,7 @@ class TorrentController extends Controller
                 $freeleechTokens = $torrent->freeleechTokens();
 
                 foreach ($freeleechTokens as $freeleechToken) {
-                    \cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+                    cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
                 }
 
                 $freeleechTokens->delete();
@@ -356,7 +359,7 @@ class TorrentController extends Controller
 
                 $torrent->delete();
 
-                return \to_route('torrents')
+                return to_route('torrents')
                     ->withSuccess('Torrent Has Been Deleted!');
             }
         } else {
@@ -365,9 +368,9 @@ class TorrentController extends Controller
                 $errors .= $error."\n";
             }
 
-            Log::notice(\sprintf('Deletion of torrent failed due to: %s', $errors));
+            Log::notice(sprintf('Deletion of torrent failed due to: %s', $errors));
 
-            return \to_route('home.index')
+            return to_route('home.index')
                 ->withErrors('Unable to delete Torrent');
         }
     }
@@ -394,7 +397,7 @@ class TorrentController extends Controller
             $categories[(int) $cat->id] = $temp;
         }
 
-        return \view('torrent.upload', [
+        return view('torrent.upload', [
             'categories'   => $categories,
             'types'        => Type::all()->sortBy('position'),
             'resolutions'  => Resolution::all()->sortBy('position'),
@@ -403,7 +406,7 @@ class TorrentController extends Controller
             'user'         => $user,
             'category_id'  => $categoryId,
             'title'        => $title,
-            'imdb'         => \str_replace('tt', '', $imdb),
+            'imdb'         => str_replace('tt', '', $imdb),
             'tmdb'         => $tmdb,
         ]);
     }
@@ -414,7 +417,7 @@ class TorrentController extends Controller
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
         // Preview The Upload
-        $joyPixel = \app()->make(LaravelJoyPixels::class);
+        $joyPixel = app()->make(LaravelJoyPixels::class);
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
@@ -424,7 +427,7 @@ class TorrentController extends Controller
             )
         );
 
-        return \response()->json($previewContent);
+        return response()->json($previewContent);
     }
 
     /**
@@ -439,12 +442,12 @@ class TorrentController extends Controller
 
         $requestFile = $request->file('torrent');
         if (! $request->hasFile('torrent')) {
-            return \to_route('upload_form', ['category_id' => $category->id])
+            return to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
 
         if ($requestFile->getError() != 0 || $requestFile->getClientOriginalExtension() != 'torrent') {
-            return \to_route('upload_form', ['category_id' => $category->id])
+            return to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('Supplied Torrent File Is Corrupt!')->withInput();
         }
 
@@ -454,26 +457,26 @@ class TorrentController extends Controller
 
         $v2 = Bencode::is_v2_or_hybrid($decodedTorrent);
         if ($v2) {
-            return \to_route('upload_form', ['category_id' => $category->id])
+            return to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('BitTorrent v2 (BEP 52) is not supported!')->withInput();
         }
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
         } catch (\Exception) {
-            return \to_route('upload_form', ['category_id' => $category->id])
+            return to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
 
         foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
             if (! TorrentTools::isValidFilename($name)) {
-                return \to_route('upload_form', ['category_id' => $category->id])
+                return to_route('upload_form', ['category_id' => $category->id])
                     ->withErrors('Invalid Filenames In Torrent Files!')->withInput();
             }
         }
 
-        $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
-        \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        $fileName = uniqid('', true).'.torrent'; // Generate a unique name
+        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         // Create the torrent (DB)
         $torrent = new Torrent();
@@ -525,7 +528,7 @@ class TorrentController extends Controller
         }
 
         // Validation
-        $v = \validator($torrent->toArray(), [
+        $v = validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
             'description'    => 'required',
             'info_hash'      => 'required|unique:torrents',
@@ -553,11 +556,11 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            if (\file_exists(\getcwd().'/files/torrents/'.$fileName)) {
-                \unlink(\getcwd().'/files/torrents/'.$fileName);
+            if (file_exists(getcwd().'/files/torrents/'.$fileName)) {
+                unlink(getcwd().'/files/torrents/'.$fileName);
             }
 
-            return \to_route('upload_form', ['category_id' => $category->id])
+            return to_route('upload_form', ['category_id' => $category->id])
                 ->withErrors($v->errors())->withInput();
         }
 
@@ -597,7 +600,7 @@ class TorrentController extends Controller
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = \public_path('/files/img/'.$filename_cover);
+            $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -605,13 +608,13 @@ class TorrentController extends Controller
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = \public_path('/files/img/'.$filename_cover);
+            $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // check for trusted user and update torrent
         if ($user->group->is_trusted && ! $request->mod_queue_opt_in) {
-            $appurl = \config('app.url');
+            $appurl = config('app.url');
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
@@ -619,24 +622,24 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );
             }
 
             if ($torrent->free >= 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can! :fire:'
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
             TorrentHelper::approveHelper($torrent->id);
         }
 
-        return \to_route('download_check', ['id' => $torrent->id])
+        return to_route('download_check', ['id' => $torrent->id])
             ->withSuccess('Your torrent file is ready to be downloaded and seeded!');
     }
 }

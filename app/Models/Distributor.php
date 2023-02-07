@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Distributor extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Indicates If The Model Should Be Timestamped.

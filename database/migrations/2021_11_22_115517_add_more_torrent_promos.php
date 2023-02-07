@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->smallInteger('free')->default(0)->change();
         });
 
@@ -29,7 +29,7 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->boolean('free')->default(0)->change();
         });
 

@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table): void {
             $table->string('image')->nullable()->after('slug');
             $table->boolean('movie_meta')->default(0)->after('meta');
             $table->boolean('tv_meta')->default(0)->after('meta');

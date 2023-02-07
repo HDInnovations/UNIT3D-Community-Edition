@@ -12,7 +12,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         History::withoutGlobalScopes()
             ->update([
@@ -26,7 +26,7 @@ return new class () extends Migration {
                 'updated_at'        => DB::raw('updated_at'),
             ]);
 
-        Schema::table('history', function (Blueprint $table) {
+        Schema::table('history', function (Blueprint $table): void {
             $table->dropForeign(['info_hash']);
             $table->dropIndex('info_hash');
             $table->dropColumn('info_hash');

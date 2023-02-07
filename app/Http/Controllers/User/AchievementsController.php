@@ -29,7 +29,7 @@ class AchievementsController extends Controller
         $achievements = $user->unlockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return \view('user.achievement.index', [
+        return view('user.achievement.index', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,

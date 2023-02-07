@@ -69,7 +69,15 @@ class UserSearch extends Component
     {
         return User::query()
             ->with('group')
-            ->when($this->search, fn ($query) => $query->where('username', 'LIKE', '%'.$this->search.'%')->orWhere('email', 'LIKE', '%'.$this->search.'%'))
+            ->when(
+                $this->search,
+                fn ($query) => $query
+                    ->where('username', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('email', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('rsskey', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('api_token', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('passkey', 'LIKE', '%'.$this->search.'%')
+            )
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -88,7 +96,7 @@ class UserSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-search', [
+        return view('livewire.user-search', [
             'users' => $this->users,
         ]);
     }

@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('request_claims', function (Blueprint $table) {
+        Schema::create('request_claims', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('request_id')->index('request_id');
             $table->string('username')->nullable()->index('user_id');

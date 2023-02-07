@@ -31,7 +31,7 @@ class FollowController extends Controller
     {
         $followers = $user->followers()->orderByPivot('created_at', 'desc')->paginate(25);
 
-        return \view('user.follower.index', [
+        return view('user.follower.index', [
             'followers' => $followers,
             'user'      => $user,
         ]);
@@ -43,8 +43,8 @@ class FollowController extends Controller
     public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
         if ($request->user()->id === $user->id) {
-            return \to_route('users.show', ['username' => $user->username])
-                ->withErrors(\trans('user.follow-yourself'));
+            return to_route('users.show', ['username' => $user->username])
+                ->withErrors(trans('user.follow-yourself'));
         }
 
         $user->followers()->attach($request->user()->id);
@@ -53,8 +53,8 @@ class FollowController extends Controller
             $user->notify(new NewFollow('user', $request->user()));
         }
 
-        return \to_route('users.show', ['username' => $user->username])
-            ->withSuccess(\sprintf(\trans('user.follow-user'), $user->username));
+        return to_route('users.show', ['username' => $user->username])
+            ->withSuccess(sprintf(trans('user.follow-user'), $user->username));
     }
 
     /**
@@ -68,7 +68,7 @@ class FollowController extends Controller
             $user->notify(new NewUnfollow('user', $request->user()));
         }
 
-        return \to_route('users.show', ['username' => $user->username])
-            ->withSuccess(\sprintf(\trans('user.follow-revoked'), $user->username));
+        return to_route('users.show', ['username' => $user->username])
+            ->withSuccess(sprintf(trans('user.follow-revoked'), $user->username));
     }
 }

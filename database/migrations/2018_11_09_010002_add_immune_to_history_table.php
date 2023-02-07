@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('history', function (Blueprint $table) {
+        Schema::table('history', function (Blueprint $table): void {
             $table->boolean('immune')->default(0)->index()->after('seedtime');
             $table->boolean('hitrun')->default(0)->index()->after('immune');
             $table->boolean('prewarn')->default(0)->index()->after('hitrun');

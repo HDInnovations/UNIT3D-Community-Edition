@@ -39,20 +39,20 @@ class ForumCategoryController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
-            return \to_route('forums.show', ['id' => $forum->id]);
+            return to_route('forums.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->id);
         if (! $category->getPermission()->show_forum) {
-            return \to_route('forums.index')
+            return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Category!');
         }
 
         // Fetch topics->posts in descending order
         $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
-        return \view('forum.category', [
+        return view('forum.category', [
             'forum'      => $forum,
             'topics'     => $topics,
             'category'   => $category,

@@ -12,13 +12,13 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Peer::truncate();
 
         Schema::disableForeignKeyConstraints();
 
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->dropColumn(['md5_peer_id', 'info_hash']);
             $table->unsignedSmallInteger('port')->nullable(false)->change();
             $table->string('agent', 64)->nullable(false)->change();

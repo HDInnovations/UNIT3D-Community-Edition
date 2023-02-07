@@ -1,8 +1,10 @@
 name: PHP Linting (Pint)
 on: [push, pull_request]
+permissions:
+  contents: write
 jobs:
   phplint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -11,8 +13,9 @@ jobs:
         uses: aglipanci/laravel-pint-action@0.1.0
         with:
           preset: psr12
+          verboseMode: true
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: PSR12 Linting
+          commit_message: PHP Style Change (Laravel Pint in CI)
           skip_fetch: true

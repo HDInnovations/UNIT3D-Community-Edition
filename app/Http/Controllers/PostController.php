@@ -33,6 +33,7 @@ use App\Notifications\NewPostTag;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PostControllerTest
@@ -58,8 +59,8 @@ class PostController extends Controller
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
-            return \to_route('forums.index')
-                ->withErrors(\trans('forum.reply-topic-error'));
+            return to_route('forums.index')
+                ->withErrors(trans('forum.reply-topic-error'));
         }
 
         $post = new Post();
@@ -67,14 +68,14 @@ class PostController extends Controller
         $post->user_id = $user->id;
         $post->topic_id = $topic->id;
 
-        $v = \validator($post->toArray(), [
+        $v = validator($post->toArray(), [
             'content'  => 'required|min:1',
             'user_id'  => 'required',
             'topic_id' => 'required',
         ]);
 
         if ($v->fails()) {
-            return \to_route('forum_topic', ['id' => $topic->id])
+            return to_route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         }
 
@@ -95,15 +96,15 @@ class PostController extends Controller
         $forum->save();
 
         // Post To Chatbox and Notify Subscribers
-        $appurl = \config('app.url');
-        $postUrl = \sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
-        $realUrl = \sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
-        $profileUrl = \sprintf('%s/users/%s', $appurl, $user->username);
+        $appurl = config('app.url');
+        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
+        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
-        if (\config('other.staff-forum-notify') && ($forum->id == \config('other.staff-forum-id') || $forum->parent_id == \config('other.staff-forum-id'))) {
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
-            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
@@ -114,7 +115,7 @@ class PostController extends Controller
 
         // User Tagged Notification
         if ($user->id !== $post->user_id) {
-            \preg_match_all('/@([\w\-]+)/', $post->content, $matches);
+            preg_match_all('/@([\w\-]+)/', $post->content, $matches);
             $users = User::whereIn('username', $matches[1])->get();
             Notification::send($users, new NewPostTag($post));
         }
@@ -133,8 +134,8 @@ class PostController extends Controller
         $user->addProgress(new UserMade800Posts(), 1);
         $user->addProgress(new UserMade900Posts(), 1);
 
-        return \redirect()->to($realUrl)
-            ->withSuccess(\trans('forum.reply-topic-success'));
+        return redirect()->to($realUrl)
+            ->withSuccess(trans('forum.reply-topic-success'));
     }
 
     /**
@@ -147,7 +148,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
 
-        return \view('forum.post_edit', [
+        return view('forum.post_edit', [
             'topic'    => $topic,
             'forum'    => $forum,
             'post'     => $post,
@@ -162,30 +163,30 @@ class PostController extends Controller
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
-        $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
         $post->save();
 
-        return \redirect()->to($postUrl)
-            ->withSuccess(\trans('forum.edit-post-success'));
+        return redirect()->to($postUrl)
+            ->withSuccess(trans('forum.edit-post-success'));
     }
 
     /**
      * Delete A Post.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function postDelete(Request $request, int $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return \to_route('forum_topic', ['id' => $post->topic->id])
-            ->withSuccess(\trans('forum.delete-post-success'));
+        return to_route('forum_topic', ['id' => $post->topic->id])
+            ->withSuccess(trans('forum.delete-post-success'));
     }
 }
