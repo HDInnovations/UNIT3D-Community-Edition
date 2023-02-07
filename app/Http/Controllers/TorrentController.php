@@ -554,7 +554,7 @@ class TorrentController extends Controller
             'stream'         => 'required',
             'sd'             => 'required',
             'free'           => 'sometimes|between:0,100',
-            'refundable'      => 'sometimes|bool',
+            'refundable'     => 'sometimes|bool',
         ]);
 
         if ($v->fails()) {

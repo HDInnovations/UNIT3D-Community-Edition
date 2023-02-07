@@ -271,7 +271,7 @@ class TorrentBuffController extends Controller
     public function setRefundable(Request $request, $id)
     {
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent_url = href_torrent($torrent);
@@ -292,7 +292,7 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
-        return \to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
     }
 }
