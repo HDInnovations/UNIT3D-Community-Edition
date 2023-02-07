@@ -1,21 +1,26 @@
 name: PHP Linting (Pint)
+
 on: [push, pull_request]
+
 permissions:
   contents: write
+
 jobs:
   phplint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Code Checkout
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 2
-      - name: "laravel-pint"
-        uses: aglipanci/laravel-pint-action@0.1.0
-        with:
-          preset: psr12
-          verboseMode: true
-      - name: Commit changes
+          ref: ${{ github.head_ref }}
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction--no-scripts --no-progress --prefer-dist
+
+      - name: Run Pint
+        run: ./vendor/bin/pint
+
+      - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: PHP Style Change (Laravel Pint in CI)
-          skip_fetch: true
