@@ -51,7 +51,7 @@
                 >
                     {{ __('request.vote') }}
                 </button>
-                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
+                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>

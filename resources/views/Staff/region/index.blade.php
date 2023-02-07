@@ -97,7 +97,7 @@
                                                 <button class="form__button form__button--filled">
                                                     {{ __('common.delete') }}
                                                 </button>
-                                                <button class="form__button form__button--outlined" x-on:click.prevent="$refs.dialog.close()">
+                                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                                     {{ __('common.cancel') }}
                                                 </button>
                                             </p>
