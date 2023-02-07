@@ -1,9 +1,6 @@
 name: PHP Linting (Pint)
 
-on: [push, pull_request]
-
-permissions:
-  contents: write
+on: [pull_request]
 
 jobs:
   phplint:
@@ -12,7 +9,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
